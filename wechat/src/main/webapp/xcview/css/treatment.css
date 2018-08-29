@@ -139,6 +139,11 @@ header {
 	width: 100%;
 	height: .9rem;
 }
+.subject_float{
+    width: 5rem;
+    height: .9rem;
+    float: left;
+}
 .head_portrait{
 	width: .9rem;
 	height: .9rem;

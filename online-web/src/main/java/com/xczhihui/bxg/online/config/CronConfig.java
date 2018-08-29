@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import com.xczhihui.common.support.service.CacheService;
+import com.xczhihui.common.util.enums.AppointmentStatus;
 import com.xczhihui.common.util.enums.LiveStatusEvent;
 import com.xczhihui.common.util.vhallyun.RoomService;
 import com.xczhihui.course.model.Course;
@@ -60,7 +61,8 @@ public class CronConfig {
     private void updateTreatmentStatus() {
         List<Treatment> treatments = remoteTreatmentService.selectUpcomingExpire();
         for (Treatment treatment : treatments) {
-            if (remoteTreatmentService.updateExpired(treatment)) {
+            if (treatment.getStatus() != AppointmentStatus.STARTED.getVal() && treatment.getStatus() != AppointmentStatus.FINISHED.getVal()
+                    && remoteTreatmentService.updateExpired(treatment)) {
                 Integer courseId = treatment.getCourseId();
                 if (courseId != null) {
                     remoteTreatmentService.updateCourseStatus(courseId, 0);

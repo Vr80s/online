@@ -110,7 +110,7 @@
             });
         	
         }else{
-            jqtoast("这个弹框出现了说下");
+            // jqtoast("这个弹框出现了说下");
             jqtoast(data.errorMessage);
         }
     });
@@ -118,7 +118,7 @@
 
 //刷新
 // 初始化页码
-var page = 1;
+/*var page = 1;
 
 // miniRefresh 对象
 var miniRefresh = new MiniRefresh({
@@ -137,7 +137,7 @@ var miniRefresh = new MiniRefresh({
             doctorStatus(page,'up');
         }
     }
-});
+});*/
 
     
 

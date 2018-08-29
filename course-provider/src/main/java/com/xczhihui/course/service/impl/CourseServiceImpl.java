@@ -28,6 +28,7 @@ import com.xczhihui.course.mapper.CriticizeMapper;
 import com.xczhihui.course.mapper.FocusMapper;
 import com.xczhihui.course.model.Course;
 import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.vo.CollectionCoursesVo;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.ShareInfoVo;
 
@@ -44,14 +45,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public static final String START_EVENT = "start";
     public static final String STOP_EVENT = "stop";
 
-    
-
-	private static final String WEB_TREATMENT_MESSAGE_TIPS = 
-			"【熊猫中医】您已成功预约{0}医师{1}的远程诊疗，请做好诊前准备并及时登录熊猫中医平台以便{2}老师进行远程协助诊疗。";
-	
-	private static final String APP_TREATMENT_MESSAGE_TIPS = 
-			"【熊猫中医】您已成功预约{0}医师{1}的远程诊疗，请做好诊前准备。";
-    
     
     @Autowired
     private CourseMapper iCourseMapper;
@@ -149,8 +142,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public List<CourseLecturVo> selectCoursesByCollectionId(Integer collectionId) {
-        List<CourseLecturVo> courses = iCourseMapper.selectCoursesByCollectionId(collectionId);
+    public List<CollectionCoursesVo> selectCoursesByCollectionId(Integer collectionId) {
+        List<CollectionCoursesVo> courses = iCourseMapper.selectCoursesByCollectionId(collectionId);
+        for (CollectionCoursesVo courseLecturVo : courses) {
+        	Double d = Double.valueOf(courseLecturVo.getCourseLength()) * 60;
+        	courseLecturVo.setCourseLength(
+        			com.xczhihui.common.support.cc.util.DateUtil.
+        			turnSecondsToTimestring(d.intValue()));
+		}
         return courses;
     }
 
@@ -607,6 +606,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 		//***医师的远程诊疗直播 yyyy/mm/dd 如有重复则加上编号（01,02,03….）。
 		
 		String gradeName = createTherapyGradeName(cv.getUserLecturerId(),cv.getDoctorName(),cv.getStartTime());
+		
+		//默认即学即用
+		course.setMenuId(210);
+		
 		course.setGradeName(gradeName);
         course.setAppointmentInfoId(lockId);
         //默认图
@@ -711,7 +714,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 	 */ 
 	private String createTherapyGradeName(String userLecturerId,String doctorName, Date startTime) {
 		//***医师的远程诊疗直播 yyyy/mm/dd 如有重复则加上编号（01,02,03….）。  
-		String strGradeName = doctorName+"医师的远程诊疗直播"+DateUtil.formatDate(startTime,DateUtil.FORMAT_DAY);
+		String strGradeName = doctorName+"医师的远程诊疗直播"+DateUtil.formatDate(startTime,"yyyyMMdd");
 		try {
 			//编号
 			List<String>  numberList   = iCourseMapper.selectDoctorCurrentDayTherapyNumber(startTime,userLecturerId);

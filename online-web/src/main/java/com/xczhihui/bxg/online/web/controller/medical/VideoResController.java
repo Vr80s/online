@@ -13,6 +13,7 @@ import com.xczhihui.common.support.config.OnlineConfig;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import org.apache.commons.fileupload.disk.DiskFileItem;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,6 +130,10 @@ public class VideoResController extends AbstractController {
             treeMap.put("categoryid", categoryid);
             treeMap.put("notify_url", ccUploadCallbackUrl);
             treeMap.put("format", "json");
+            
+            logger.warn("ccUploadCallbackUrl:"+ccUploadCallbackUrl);
+            logger.warn("treeMap:"+treeMap.toString());
+            
             String qs = APIServiceFunction.createQueryString(treeMap);
             //生成时间片
             long time = new Date().getTime() / 1000;
@@ -246,11 +251,20 @@ public class VideoResController extends AbstractController {
      */
     @RequestMapping(value = "updateCourseApplyResource", method = RequestMethod.GET)
     public void updateCourseApplyResource(HttpServletResponse res, String videoid) throws IOException {
-        courseApplyService.updateCourseApplyResource(videoid);
-        res.setCharacterEncoding("UTF-8");
-        res.setContentType("text/xml; charset=utf-8");
-        res.getWriter().write("<?xml version=\"1.0\" encoding=\"UTF-8\"?><video>OK</video>");
 
+    	logger.warn("updateCourseApplyResource  + videoId:"+ videoid);
+    	
+    	if(StringUtils.isNotBlank(videoid)) {
+    		courseApplyService.updateCourseApplyResource(videoid);
+            res.setCharacterEncoding("UTF-8");
+            res.setContentType("text/xml; charset=utf-8");
+            res.getWriter().write("<?xml version=\"1.0\" encoding=\"UTF-8\"?><video>OK</video>");
+    	}else {
+    		 res.setCharacterEncoding("UTF-8");
+             res.setContentType("text/xml; charset=utf-8");
+             res.getWriter().write("<?xml version=\"1.0\" encoding=\"UTF-8\"?><video>参数错误</video>");
+    	}
+		
     }
 
 
