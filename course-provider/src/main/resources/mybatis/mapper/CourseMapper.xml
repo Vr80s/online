@@ -120,6 +120,7 @@
         oc.live_status as liveStatus,
         oc.inav_id as inavId,
         oc.is_teaching teaching,
+          oc.appointment_info_id as appointmentInfoId
         FROM
         oe_course as oc
         inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id

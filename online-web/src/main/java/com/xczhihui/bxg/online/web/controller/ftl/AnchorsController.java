@@ -206,12 +206,14 @@ public class AnchorsController extends AbstractFtlController {
         view.addObject("lecturerInfo", lecturerInfo);
 
         MedicalHospital mha = new MedicalHospital();
+        
         //1.医师2.医馆
         if (AnchorType.DOCTOR.getCode() == (Integer.parseInt(lecturerInfo.get("type").toString()))) {
             mha = medicalHospitalApplyService.getMedicalHospitalByMiddleUserId(userId);
         } else if (AnchorType.HOSPITAL.getCode() == (Integer.parseInt(lecturerInfo.get("type").toString()))) {
             mha = medicalHospitalApplyService.getMedicalHospitalByUserId(userId);
         }
+        
         //认证的主播 还是 医馆
         view.addObject("hospital", mha);
 

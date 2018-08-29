@@ -137,7 +137,9 @@
                             <#if hospital.name??>
                                 <p>医馆名称：${hospital.name?default("")}</p>
                             </#if>
-                            <p>预约电话：${hospital.tel?default("")}</p>
+							<#if hospital.tel??>
+								<p>预约电话：${hospital.tel?default("")}</p>
+							</#if>
                             <#if lecturerInfo.type == 1 && lecturerInfo.workTime??>
                                 <p>坐诊时间：${lecturerInfo.workTime?default("")}</p>
                             </#if>
