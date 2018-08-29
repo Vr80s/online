@@ -396,6 +396,10 @@ function baseInfrese1(headPortrait, name, medicalHospitalPictures, fields,
     	data.city=city;
     }
     $(".doc_address").iProvincesSelect("init",data);
+    $("#hospital-inf-write .warning").addClass("hide");
+	$("#hospital-inf-write input").removeClass("border_hide_null");
+	$('.doc_address .detailWarn').siblings("textarea").removeClass('border_hide_null');
+		    
     //头像
     if (headPortrait != null) {
         var headPic = '<img src=' + headPortrait + '>';

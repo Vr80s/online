@@ -69,7 +69,18 @@ $(function () {
             	$('.WeChat_warn').siblings("input").addClass("border_hide_null");
             	return false;
 			}
+		},
+//		详细地址
+		detailed_address : function(){
+				$('.doc_address .detailWarn').addClass('hide');
+            	$('.doc_address .detailWarn').siblings("textarea").removeClass('border_hide_null');
+		    if ($('.doc_address .detailed_address').val() == '') {
+            	$('.doc_address .detailWarn').removeClass('hide');
+            	$('.doc_address .detailWarn').siblings("textarea").addClass('border_hide_null');
+            	return false;
+        	}
 		}
+
 	}
 	$(".doc_shanchang").blur(function(){
 		hospitalInfCheck.doc_shanchang()
@@ -82,6 +93,9 @@ $(function () {
 	})
 	$(".hos_weixin").blur(function(){
 		hospitalInfCheck.hos_weixin()
+	})
+	$(".detailed_address").blur(function(){
+		hospitalInfCheck.detailed_address()
 	})
 	
 	
@@ -102,6 +116,7 @@ $(function () {
 
 		$("#hospital-inf-write .warning").addClass("hide");
 		$("#hospital-inf-write input").removeClass("border_hide_null");
+		$('.doc_address .detailWarn').siblings("textarea").removeClass('border_hide_null');
         //医馆头像判断
         if ($('.hos_base_inf   .touxiang_pic:has(img)').length < 1) {
             $('.hos_base_inf .touxiang_picUpdata .warning ').removeClass('hide');
@@ -179,7 +194,6 @@ $(function () {
         if (WeChat != '' && !WeChatPatt.test(WeChat)) {
             $('.hos_base_inf .WeChat_warn').removeClass('hide');
              $('.WeChat_warn').siblings("input").addClass("border_hide_null");
-            
             return false;
         }
 
@@ -194,11 +208,10 @@ $(function () {
 
 
         //详细地址判断
-        if ($('#hos_Administration .hos_base_inf .doc_address textarea').val() == '') {
+        if ($.trim($('#hos_Administration .hos_base_inf .doc_address textarea').val()) == '') {
             $('#hos_Administration .hos_base_inf .doc_address .detailWarn').removeClass('hide');
+            $('.doc_address .detailWarn').siblings("textarea").addClass('border_hide_null');
             return false;
-        } else {
-            $('#hos_Administration .hos_base_inf .doc_address .detailWarn').addClass('hide');
         }
 
 
