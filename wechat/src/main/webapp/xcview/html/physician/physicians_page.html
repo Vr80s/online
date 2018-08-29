@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>熊猫中医</title>
- 
+
 <!-- <meta http-equiv="pragma" content="no-cache">  
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">  
 <META http-equiv="expires" content="0">   -->
@@ -14,10 +14,10 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 
-<link rel="stylesheet" type="text/css" href="/xcview/css/physician/physicians_page.css?v=wechat_1.1.1&version=e173995ae8&version=3aef4edb9d&version=864be6c6c7"/>
+<link rel="stylesheet" type="text/css" href="/xcview/css/physician/physicians_page.css?v=wechat_1.1.1&version=e173995ae8&version=3aef4edb9d&version=49333aa0e8"/>
 <link rel="stylesheet" href="/xcview/css/physician/swiper-4.2.6.min.css" />
 <link rel="stylesheet" href="/xcview/html/physician/css/demo.css?version=d265f83c60&version=d265f83c60&version=d265f83c60" />
-<!-- <link rel="stylesheet" href="/xcview/html/physician/css/demos.css?version=c4433ce522&version=7414fb6524&version=a2ae6abdea" /> -->
+<link rel="stylesheet" href="/xcview/html/physician/css/demos.css?version=c4433ce522&version=7414fb6524&version=a2ae6abdea" />
 	<!--手机嵌入模板-->
 <script type="text/javascript" src="/xcview/js/common/layout.js?version=e2b9d5cdbd&version=e2b9d5cdbd&version=e2b9d5cdbd"></script>
 
@@ -32,12 +32,7 @@
 
 <!--公用弹框 -->
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css?version=f6e45d2a7e&version=f6e45d2a7e&version=f6e45d2a7e">
-<!-- <script type="text/javascript" src="/xcview/js/common/alertPopShow.js?version=3a4f24e3df&version=3a4f24e3df&version=3a4f24e3df"></script> -->
-
-<!-- 新公用弹框 -->
-<script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
-<link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
-
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js?version=3a4f24e3df&version=3a4f24e3df&version=3a4f24e3df"></script>
 <!--刷新 -->
 <link rel="stylesheet" href="/xcview/css/minirefresh/minirefresh.css?version=71e5ea2f95&version=71e5ea2f95&version=71e5ea2f95">
 <script type="text/javascript" src="/xcview/js/minirefresh/minirefresh.js?version=db3081c0a1&version=db3081c0a1&version=db3081c0a1"></script>
@@ -435,24 +430,6 @@
 	.pic_img_one{
 		max-width: 0.45rem !important;
 	}
-
-	.course_nav_span{
-		margin-bottom: 0.1rem !important;
-	}
-
-	.disciple_applications{
-		width: 6.98rem;
-	    height: 0.72rem;
-	    line-height: 0.72rem;
-	    margin: 0 auto;
-	    margin-bottom: 0.3rem;
-	    font-size: 0.3rem;
-	    color: #FFFFFF;
-	    text-align: center;
-	    background: #00BC12;
-	    border-radius: 100px;
-	    margin-bottom: 0;
-	}
 </style>
 
 </head>
@@ -679,15 +656,14 @@
 				{{else if item.type == 5}}
 				<!-- 课程-->
 				<div class="course_hide" data-id="{{item.courseId}}" data-status="{{item.courseStatus}}" data-teaching="{{item.teaching}}" style="padding-bottom: 0;margin-top: 0;">
-					<div class="course_nav_span comment_hide show-text" style="font-size: 0.3rem;color: #333333;">
+					<div class="course_nav_span comment_hide" style="font-size: 0.3rem;color: #333333;">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
 						{{item.content}}
 
-						
+						<div class="both"></div>
 					</div>
-					<div class="both"></div>
 					<div class="both"></div>
 					<div class="course_nav_cen comment_hide">
 						<img src="{{item.smallImgPath}}?imageMogr2/thumbnail/!249x140r|imageMogr2/gravity/Center/crop/249x140" alt="" />
@@ -1095,7 +1071,7 @@
 			<div class="therapy_title">
 				<span class="border"></span>
 				<span style="font-size: 0.28rem;float: left;">远程诊疗</span>
-				<span class="master_course_span">诊疗过程将以直播形式开展，仅弟子可预约</span>
+				<span class="master_course_span">一个时段仅可一名弟子预约</span>
 				<div class="both"></div>
 			</div>
 			<div class="subscribe_id">
@@ -1241,7 +1217,7 @@
 	            <div class="disciple_main_id">
 	            	<script type="text/html" id="disciple_main_id">
 					{{each items as item i}} 
-						<img src="{{item}}?imageMogr2/thumbnail/!80x80r|imageMogr2/gravity/Center/crop/80x80" alt="" class="disciple_main_apprentices" />
+						<img src="{{item}}" alt="" class="disciple_main_apprentices" />
 					{{/each}}
 		            </script>
 	            </div>
@@ -1290,7 +1266,7 @@
 			</div>
 			<div class="message_referral_center clinic">坐诊医馆：{{items.name}}</div>
 			<div class="message_referral_center tel">预约电话：<a href="tel:{{items.tel}}">{{items.tel}}</a></div>
-			<div class="message_referral_center house_address">医馆地址：{{items.city}}{{items.province}}{{items.detailedAddress}}</div>
+			<div class="message_referral_center house_address">医馆地址：{{items.detailedAddress}}</div>
 			<div class="both"></div>
 
 			<table border="1" align="center" bgcolor="" border="0" cellpadding="0" cellspacing="0" class="table">
@@ -1467,9 +1443,9 @@
 	<script type="text/html" id="disciple_application_state_id">
 		{{if items.onlineApprenticeStatus == 1 || items.onlineApprenticeStatus == 3}}
 		<div class="disciple_application_states">
-			<div class="disciple_application">在线弟子申请加入</div></div>
+			<div class="disciple_application" onclick="location.href ='/xcview/html/physician/apply_for.html?doctor='+doctorId">在线弟子申请加入</div></div>
 		{{else if items.onlineApprenticeStatus == 2}}
-			<div class="disciple_application_states"><div class="disciple_applications" onclick="location.href ='/xcview/html/physician/application_approved.html?doctor='+doctorId">申请已提交，查看信息</div></div>
+			<div class="disciple_application_states"><div class="disciple_application" onclick="location.href ='/xcview/html/physician/application_approved.html?doctor='+doctorId">申请已提交，查看信息</div></div>
 		{{else if items.onlineApprenticeStatus == 4}}
 			<!--<div class="disciple_application_states"><div class="disciple_application" styles="display: none;">申请已提交</div></div>-->
 		{{/if}}
@@ -1483,13 +1459,13 @@
 <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script src="/xcview/weihoujs/jquery.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
-<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1&version=dfc1cfb838&version=b007cb5668&version=b13cf511df"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1&version=dfc1cfb838&version=b007cb5668&version=4311e5d524"></script>
 <script type="text/javascript" src="/xcview/js/common/template.js?version=dd622e58c9&version=dd622e58c9&version=dd622e58c9"></script>    <!--数据模板引入-->
 
 <!-- 直播课跳转 -->
 <script type="text/javascript" src="/xcview/js/common/commonJumpPlay.js?version=8bcdb81554&version=5517f2545d&version=5517f2545d"></script>
 
-<script type="text/javascript" src="/xcview/js/physician/physician_dynamics.js?version=216ff49d88&version=974b2b1865&version=4cf57c872a"></script>    <!--全部动态引入-->
+<script type="text/javascript" src="/xcview/js/physician/physician_dynamics.js?version=216ff49d88&version=974b2b1865&version=4ebe233e06"></script>    <!--全部动态引入-->
 
 <script type="text/javascript" src="/xcview/html/physician/js/jquery.dotdotdot.js?version=34985f15dd&version=34985f15dd"></script>    <!--全部动态引入-->
 
@@ -1511,14 +1487,6 @@ $(window).bind("scroll", function() {
 <script type="text/javascript">
 	// 导航  固定和点击切换事件
 	window.onload = function(){
-
-		/*function ceshi(){
-			if($('.filtrate_sinatv1').is('.active')){
-	            alert(11111);
-	      	}
-		}
-		ceshi();
-*/
 		// $(".transform_a_img img").addClass("transform_img");
 		// $(".transform_a_img img").addClass("transform_img");
 	    // 点击全部动态
@@ -1704,18 +1672,13 @@ $(window).bind("scroll", function() {
         	 $(aBtn[parseInt(li_data)]).click();
         }else{
         	 $(aBtn[0]).click();
-        	 // $(".span_hide").show();
         }
+        
 
         // 点击动态筛选里面的内容  
         // 点击全部动态
         $(".filtrate_all").click(function(){
         	$(".span_hide").show();   //显示--动态文字
-
-        	$(".li_data .span .span").show();
-        	$(".filtrate_all span").show();
-        	// $(".ceshi").append("<span class='three'>我是子元素append</span>");
-        	// $(".span_hide").css("display","block");
             //$(".rests_nav").removeClass("hide");  //其他1
             $(".consilia_nav").removeClass("hide");  // 医案  
             $(".essay_pack_up").removeClass("hide");  //其他2 
@@ -1723,12 +1686,10 @@ $(window).bind("scroll", function() {
             $(".rests_nav").removeClass("hide");  //其他3  
             $(".course_nav").removeClass("hide");  //课程 
             $(".sinatv_nav").removeClass("hide");  //直播
-	    });
-
+	    });	
         //点击直播
 	    $(".filtrate_sinatv").click(function(){
 	    	$(".span_hide").hide();   //隐藏--动态文字
-	    	$(".span_hide").css("display","none");
             //$(".rests_nav").addClass("hide");  //其他1
             $(".consilia_nav").addClass("hide");  // 医案  
             $(".essay_pack_up").addClass("hide");  //其他2 
@@ -1747,15 +1708,10 @@ $(window).bind("scroll", function() {
             $(".paper_nav").addClass("hide");  //其他3
             $(".course_nav").addClass("hide");  //课程
             $(".sinatv_nav").removeClass("hide");  //直播
-
-
         });
 	    //点击课程 
 	    $(".filtrate_course").click(function(){
 	    	$(".span_hide").show();   //显示--动态文字
-
-	    	$(".filtrate_course span").show();
-	    	$(".li_data .span .span").show();
             //$(".rests_nav").addClass("hide");  //其他1
             $(".consilia_nav").addClass("hide");  // 医案  
             $(".essay_pack_up").addClass("hide");  //其他2 
@@ -1767,9 +1723,6 @@ $(window).bind("scroll", function() {
 	    //点击医案
 	    $(".filtrate_consilia").click(function(){
 	    	$(".span_hide").show();   //显示--动态文字
-
-	    	$(".filtrate_consilia span").show();
-	    	$(".li_data .span .span").show();
             //$(".rests_nav").addClass("hide");  //其他1
             $(".consilia_nav").removeClass("hide");  // 医案  
             $(".essay_pack_up").addClass("hide");  //其他2 
@@ -1781,9 +1734,6 @@ $(window).bind("scroll", function() {
 	    //点击文章 
 	    $(".filtrate_essay").click(function(){
 	    	$(".span_hide").show();   //显示--动态文字
-
-	    	$(".filtrate_essay span").show();
-	    	$(".li_data .span .span").show();
             //$(".rests_nav").addClass("hide");  //其他1
             $(".consilia_nav").addClass("hide");  // 医案  
             $(".essay_pack_up").addClass("hide");  //其他2 
@@ -1795,9 +1745,6 @@ $(window).bind("scroll", function() {
 	    //点击其他
 	    $(".filtrate_rests").click(function(){
 	    	$(".span_hide").show();   //显示--动态文字
-
-	    	$(".filtrate_rests span").show();
-	    	$(".li_data .span .span").show();
             $(".rests_nav").removeClass("hide");  //其他1
             $(".consilia_nav").addClass("hide");  // 医案  
             $(".essay_pack_up").removeClass("hide");  //其他2 
