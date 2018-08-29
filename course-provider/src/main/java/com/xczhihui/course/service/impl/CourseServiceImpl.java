@@ -28,6 +28,7 @@ import com.xczhihui.course.mapper.CriticizeMapper;
 import com.xczhihui.course.mapper.FocusMapper;
 import com.xczhihui.course.model.Course;
 import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.ICourseSolrService;
 import com.xczhihui.course.vo.CollectionCoursesVo;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.ShareInfoVo;
@@ -61,6 +62,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Autowired
     private CacheService cacheService;
 
+    @Autowired
+    private ICourseSolrService courseSolrService;
+    
     @Override
     public Page<CourseLecturVo> selectCoursePage(Page<CourseLecturVo> page) {
         List<CourseLecturVo> records = iCourseMapper.selectCoursePage(page);
@@ -683,6 +687,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 						RedisCacheKey.TREATMENT_MINUTE_TYPE +
 									RedisCacheKey.REDIS_SPLIT_CHAR + 
 						course.getId(), mtv);
+        
+        
+        courseSolrService.initCourseSolrDataById(course.getId());
         
         return course.getId();
 	}
