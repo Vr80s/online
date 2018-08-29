@@ -46,14 +46,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public static final String STOP_EVENT = "stop";
 
     
-
-	private static final String WEB_TREATMENT_MESSAGE_TIPS = 
-			"【熊猫中医】您已成功预约{0}医师{1}的远程诊疗，请做好诊前准备并及时登录熊猫中医平台以便{2}老师进行远程协助诊疗。";
-	
-	private static final String APP_TREATMENT_MESSAGE_TIPS = 
-			"【熊猫中医】您已成功预约{0}医师{1}的远程诊疗，请做好诊前准备。";
-    
-    
     @Autowired
     private CourseMapper iCourseMapper;
 
