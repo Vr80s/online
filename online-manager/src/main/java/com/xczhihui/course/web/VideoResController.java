@@ -6,8 +6,13 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,10 +22,12 @@ import com.xczhihui.bxg.online.common.domain.Chapter;
 import com.xczhihui.bxg.online.common.domain.Video;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.course.service.ManagerCourseApplyService;
 import com.xczhihui.course.service.VideoResService;
 import com.xczhihui.course.vo.LibraryVo;
 import com.xczhihui.course.vo.TreeNode;
 import com.xczhihui.course.vo.VideoResVo;
+import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.utils.Group;
 import com.xczhihui.utils.Groups;
@@ -38,7 +45,12 @@ import com.xczhihui.utils.Tools;
 public class VideoResController {
     @Autowired
     private VideoResService videoResService;
-
+    
+    @Autowired
+    private ICourseApplyService courseApplyService;
+    
+    private static Logger logger = LoggerFactory.getLogger(VideoResController.class);
+    
     /**
      * 获取视屏资源列表信息，根据课程ID号查找
      *
@@ -417,4 +429,25 @@ public class VideoResController {
         return responseObj;
     }
 
+    /**
+     * 视频处理完成的回调
+     *
+     * @param videoid
+     */
+    @RequestMapping(value = "updateCourseApplyResource", method = RequestMethod.GET)
+    public void updateCourseApplyResource(HttpServletResponse res, String videoid) throws IOException {
+
+    	logger.warn("updateCourseApplyResource  + videoId:"+ videoid);
+    	
+    	if(StringUtils.isNotBlank(videoid)) {
+    		courseApplyService.updateCourseApplyResource(videoid);
+            res.setCharacterEncoding("UTF-8");
+            res.setContentType("text/xml; charset=utf-8");
+            res.getWriter().write("<?xml version=\"1.0\" encoding=\"UTF-8\"?><video>OK</video>");
+    	}else {
+    		 res.setCharacterEncoding("UTF-8");
+             res.setContentType("text/xml; charset=utf-8");
+             res.getWriter().write("<?xml version=\"1.0\" encoding=\"UTF-8\"?><video>参数错误</video>");
+    	}
+    }
 }

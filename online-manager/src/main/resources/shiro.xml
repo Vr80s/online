@@ -43,6 +43,7 @@
                 /test = anon
                 /publiccloudclass/course/changeCallback* = anon
                 /publiccloudclass/course/vhallYunLiveCallback* = anon
+                /cloudclass/videores/updateCourseApplyResource* = anon
                 /** = authc
             </value>
         </property>

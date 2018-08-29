@@ -4,7 +4,7 @@ import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
 import com.xczhihui.bxg.online.common.domain.CourseApplyResource;
 import com.xczhihui.common.util.bean.Page;
 
-public interface CourseApplyService {
+public interface ManagerCourseApplyService {
 
     /**
      * 根据条件分页获取课程信息。
@@ -44,4 +44,5 @@ public interface CourseApplyService {
      * @Date: 2018/3/17 15:06
      **/
     public void updateRecommendSort(Integer id, Integer recommendSort);
+
 }

@@ -175,4 +175,9 @@
     <!-- 医师招生 -->
     <dubbo:reference id="enrolServiceImpl" interface="com.xczhihui.medical.enrol.service.EnrolService"
                      timeout="${dubbo.consumer.timeout}"/>
+                     
+     <!--医馆主播课程-->
+    <dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseApplyService" id="courseApplyServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>                 
+                     
 </beans>
