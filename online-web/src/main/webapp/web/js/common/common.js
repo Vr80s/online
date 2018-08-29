@@ -220,11 +220,11 @@ function regHospital(){
             } else if (isDoctorOrHospital == 7) {
                 //登录了并且都没有注册过
                 window.location.href = "/clinics/my";
-            } else if (isDoctorOrHospital == 3 || isDoctorOrHospital == 4 || isDoctorOrHospital == 5 || isDoctorOrHospital == 6) {
+            } else if (isDoctorOrHospital == 4 || isDoctorOrHospital == 5 || isDoctorOrHospital == 6) {
                 //登录了 并且注册了没有通过的
                 window.location.href = "/clinics/my";
             } else if (isDoctorOrHospital == 3) {
-                //登录并且入驻了医馆了
+                //登录并且医师认证中
                 $('#tip').text('您已提交医师认证，暂时不能进行医馆认证！');
                 $('#tip').toggle();
                 setTimeout(function () {

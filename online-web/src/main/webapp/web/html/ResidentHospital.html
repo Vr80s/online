@@ -140,13 +140,13 @@
 												<p>支持JPG/PNG等格式图片</p>
 											</span>
 											<input type="file" name="pic" id="touxiang_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png" />
-											<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
+											<p class="warning hide" style="margin-left:110px;padding-left: 20px;">请上传真实头像</p>
 										</div>
 
 										<div>
 											<span><em>*</em>医馆名称</span>
 											<input type="text" placeholder="请输入医馆名称" maxlength="20" class="doc_zhicheng doc_zhichengs" />
-											<span class="hosName_warn warning hide" style="margin-left: 0px;">医馆名称不能为空</span>
+											<p class="hosName_warn warning hide" style="margin-left: 20px;">医馆名称不能为空</p>
 										</div>
 
 										<div class="zhicheng_picUpdata clearfix">
@@ -167,7 +167,7 @@
 										</span>
 
 										<input type="file" name="pic" id="zhicheng_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png"/>
-										<p class="warning hide" id="picHospitalAll" style="margin-left:110px;padding-left: 0px;clear: both;">请上传 医馆图片</p>
+										<p class="warning hide" id="picHospitalAll" style="margin-left:110px;padding-left: 20px;clear: both;">请上传 医馆图片</p>
 									</div>
 
 									<div class="keshi">
@@ -175,7 +175,7 @@
 										<ul id="areaList">
 											<!--TODO-->
 										</ul>
-										<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请选择医疗领域</p>
+										<p class="warning hide" style="margin-left:110px;padding-left: 20px;">请选择医疗领域</p>
 									</div>
 
 									<div class="personIntroduct">
@@ -184,7 +184,7 @@
 										<div style="display: inline-block;vertical-align: top;"><script id="editor2" type="text/plain" style="width:540px;height:160px;"></script></div>
 
 
-										<p class="warning hide" style="padding-left: 0px;">医馆介绍不能为空</p>
+										<p class="warning hide" style="padding-left: 20px;">医馆介绍不能为空</p>
 									</div>
 
 									<div>
@@ -362,8 +362,8 @@
 
 									<div>
 										<span><em>*</em> 医师姓名</span>
-										<input type="text" placeholder="真实姓名，需与身份证一致" maxlength="20" class="doc_name" />
-										<span class="name_warn warning hide" style="margin-left: 0px;"> 医师姓名不能为空</span>
+										<input type="text" placeholder="真实姓名，需与身份证一致" maxlength="20" class="commen-input-style doc_name_manage" />
+										<p class="name_warn warning hide" style="margin-left: 120px;"> 医师姓名不能为空</p>
 									</div>
 
 									<div class="touxiang_picUpdata">
@@ -379,13 +379,13 @@
 										<p>支持JPG/PNG等格式图片</p>
 									</span>
 										<input type="file" name="pic" id="touxiang_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png"/>
-										<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
+										<p class="warning hide" style="margin-left:120px;">请上传真实头像</p>
 									</div>
 
 									<div class="zhicheng_name">
 										<span><em>*</em> 医师职称</span>
-										<input type="text" placeholder="请输入您的职称" maxlength="15" class="doc_zhicheng" />
-										<span class="warning hide" style="margin-left: 0px;"> 医师职称不能为空</span>
+										<input type="text" placeholder="请输入您的职称" maxlength="15" class="doc_zhicheng doc_zhicheng_manage" />
+										<p class="warning zhicheng_name_error hide" style="margin-left: 120px;"> 医师职称不能为空</p>
 									</div>
 
 									<div class="zhicheng_picUpdata">
@@ -400,7 +400,7 @@
 										<p>支持JPG/PNG等格式图片</p>
 									</span>
 										<input type="file" name="pic" id="zhicheng_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png" />
-										<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传职称证明</p>
+										<p class="warning hide" style="margin-left:120px;">请上传职称证明</p>
 									</div>
 
 									<div class="keshi">
@@ -423,14 +423,14 @@
 									<div class="shanchang_name">
 										<span><em>*</em> 擅长</span>
 										<input type="text" placeholder="请输入您的擅长领域" maxlength="50" class="doc_shanchangIpt" />
-										<span class="warning hide" style="margin-left: 0px;"> 擅长领域不能为空</span>
+										<p class="warning doc_shanchangIpt_error hide" style="margin-left: 120px;"> 擅长领域不能为空</p>
 									</div>
 
 									<div class="personIntroduct">
 										<span><em>*</em>  医师介绍</span>
 										<!--<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医师介绍" style="resize: none;" class="doc_introduct"></textarea>-->
 										<div style="display: inline-block;vertical-align: top;"><script id="editor" type="text/plain" style="width:540px;height:160px;"></script></div>
-										<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请输入医师介绍</p>
+										<p class="warning hide" style="margin-left:120px;">请输入医师介绍</p>
 									</div>
 
 									<div class="baocun new-doctorbtn">
@@ -563,7 +563,7 @@
 									<div class="recruit-newjob-inf">
 										<span><em>*</em> 招聘职位</span>
 										<input type="text" placeholder="请填写招聘职位，例如：针推医生助理" maxlength="30" class="recruit-write recruit-isdata" onkeyup="value=value.replace(/[^A-Za-z\u4e00-\u9fa5]/g,'') " />
-										<span class="warning hide warning-isdata" style="margin-left: 0px;">招聘职位不能为空</span>
+										<p class="warning hide warning-isdata" style="margin-left: 120px;">招聘职位不能为空</p>
 									</div>
 									<div class="recruit-newjob-experience">
 										<span>工作经验</span>
@@ -572,7 +572,7 @@
 										<span style="float: left;"><em>*</em>岗位职责</span>
 										<div class="recruit-textarea-duty">
 											<textarea class="recruit-textarea recruit-textarea-isdata" maxlength="500" name="" rows="" cols="" placeholder="请填写岗位职责 (500字以内)"></textarea>
-											<span class="warning hide warning-textarea-isdata" style="margin-left: 0px;">岗位职责不能为空</span>
+											<p class="warning hide warning-textarea-isdata" style="margin-left:0px;">岗位职责不能为空</p>
 										</div>
 									</div>
 
@@ -580,7 +580,7 @@
 										<span style="float: left;"><em>*</em>职位要求</span>
 										<div class="recruit-textarea-duty">
 											<textarea class="recruit-textarea recruit-textarea-duty-isdata" maxlength="500" name="" rows="" cols="" placeholder="请填写职位要求 (500字以内)"></textarea>
-											<span class="warning hide warningtextarea-duty-isdata" style="margin-left: 0px;">职位要求不能为空</span>
+											<p class="warning hide warningtextarea-duty-isdata" style="margin-left: 0px;">职位要求不能为空</p>
 										</div>
 										<div class="recruit-save-up">
 												<button class="recruit-save-btn recruit-save-btn-menuone recruit-save-up-toggle" data-id="true">保存并发布</button>
@@ -605,7 +605,7 @@
 									<div class="neirong">
 										<span><em>*</em> 公告内容</span>
 										<textarea name="" id="notice-text" onkeydown="checkMaxInput(this,100)" onkeyup="checkMaxInput(this,100)" onfocus="checkMaxInput(this,100)"  cols="30" rows="10" style="resize: none;" placeholder="请输入您要发布的信息，最多100字"></textarea>
-										<p class="warning warning-notice" style="display: none;padding-left: 0;">公告内容不能为空</p>
+										<p class="warning warning-notice hide" style="padding-left: 20;">公告内容不能为空</p>
 										<p class="word-number">剩余100字</p>
 									</div>
 

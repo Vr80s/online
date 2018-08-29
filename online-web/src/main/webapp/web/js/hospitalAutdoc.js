@@ -199,6 +199,7 @@ $('#deleteTip .confirm-sure').click(function(){
 
 	//医师编辑功能
 	$('#doc_Administration_bottom2').on('click','.edit',function() {
+		reset();
 		changeDocId = $(this).attr('data-id');
 			$('#doc_Administration_bottom2').addClass('hide');
 			$('#doc_Administration_bottom').removeClass('hide');
@@ -225,7 +226,7 @@ $('#deleteTip .confirm-sure').click(function(){
 	//编辑的时候数据回显
 	function ediotrInf(name,headPortrait,title,titleProve,departments,fieldText,description){
 		//姓名
-		$('#doc_Administration_bottom .doc_name').val(name);
+		$('#doc_Administration_bottom .doc_name_manage').val(name);
 		//医师头像
 		var headPic = '<img src='+headPortrait+'?imageMogr2/thumbnail/!120x120r|imageMogr2/gravity/Center/crop/120x120>';
 		$('#doc_Administration_bottom .touxiang_pic').html(headPic);
@@ -311,26 +312,27 @@ $('#deleteTip .confirm-sure').click(function(){
 	$('#doctor-save').click(function() {
 
 		//获取数据
-		var name = $.trim($('#doc_Administration_bottom .doc_name').val());
-		var name_pass = /^[\u4E00-\u9FA5]{1,6}$/;;
+		var name = $.trim($('#doc_Administration_bottom .doc_name_manage').val());
+		var name_pass = /^[a-zA-Z\u4e00-\u9fa5]+$/;
 		var doc_zhicheng = $.trim($('#doc_Administration_bottom .doc_zhicheng').val());
 		var doc_Idnum_pass = /(^\d{15}$)|(^\d{17}([0-9]|X)$)/;
 //		var description = $('#doc_Administration_bottom .doc_introduct').val();
 		var field = $('#doc_Administration_bottom .doc_shanchangIpt').val();
 		var description = UE.getEditor('editor').getContent();
-		
+		$("#doc_Administration_bottom .warning").addClass("hide");
+        $("#doc_Administration_bottom input").removeClass("border_hide_null");
 		//姓名验证
-		if(name == '') {
-			$('#doc_Administration_bottom .doc_name').siblings('.name_warn').removeClass('hide');
-			$('#doc_Administration_bottom .doc_name').siblings('.name_warn').text('姓名不能为空');
-			return false;
-		} else if(!name_pass.test(name)) {
-			$('#doc_Administration_bottom .doc_name').siblings('.name_warn').removeClass('hide');
-			$('#doc_Administration_bottom .doc_name').siblings('.name_warn').text('姓名格式不正确');
-			return false;
-		} else {
-			$('#doc_Administration_bottom .doc_name').siblings('.name_warn').addClass('hide');
-		}
+		 if (name == '') {
+            	$('#doc_Administration_bottom .name_warn').removeClass('hide');
+            	$('#doc_Administration_bottom .name_warn').text('姓名不能为空');
+            	$('#doc_Administration_bottom .name_warn').siblings('input').addClass("border_hide_null");
+            return false;
+        } else if (!name_pass.test(name)) {
+             	$('#doc_Administration_bottom .name_warn').removeClass('hide');
+	            $('#doc_Administration_bottom .name_warn').text('请填写真实姓名');
+	            $('#doc_Administration_bottom .name_warn').siblings('input').addClass("border_hide_null");
+            return false;
+        }
 
 		//医师真实头像是否上传
 		if($('#doc_Administration_bottom  .touxiang_pic:has(img)').length < 1) {
@@ -341,12 +343,11 @@ $('#deleteTip .confirm-sure').click(function(){
 		}
 
 		//职称验证
-		if(doc_zhicheng == '') {
-			$('#doc_Administration_bottom .zhicheng_name .warning').removeClass('hide');
-			return false;
-		} else {
-			$('#doc_Administration_bottom .zhicheng_name .warning').addClass('hide');
-		}
+		if (doc_zhicheng == '') {
+            $('#doc_Administration_bottom .zhicheng_name_error').removeClass('hide');
+           	$('#doc_Administration_bottom .zhicheng_name_error').siblings('input').addClass("border_hide_null");			
+           return false;
+        }
 
 		//职称证明是否上传
 		if($('#doc_Administration_bottom  .zhicheng_pic:has(img)').length < 1) {
@@ -381,7 +382,7 @@ $('#deleteTip .confirm-sure').click(function(){
 		}
 
 		//通过了以上的所有验证之后重新获取所有的数据上传
-		var name = $.trim($('#doc_Administration_bottom .doc_name').val());
+		var name = $.trim($('#doc_Administration_bottom .doc_name_manage').val());
 		var headPortrait = $('#doc_Administration_bottom  .touxiang_pic img').attr('src').split("?")[0];
 		var title = $.trim($('#doc_Administration_bottom .doc_zhicheng').val());
 		var medicalDoctorAuthenticationInformation = $('#doc_Administration_bottom .zhicheng_pic img').attr('src').split("?")[0];

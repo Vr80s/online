@@ -28,8 +28,11 @@ RequestService("/medical/common/isDoctorOrHospital", "GET", null, function (data
                 //拒绝的情况
                 RequestService("/doctor/apply/getLastOne", "get", null, function (data) {
                     if (isDoctorOrHospital && data.resultObject.status == 0) {
-                        $('#hos_Administration .hos_renzheng_inf .bottomContent').addClass('hide');
-                        $('#hos_Administration .hos_renzheng_inf .bottomContent2').removeClass('hide');
+//                      $('#hos_Administration .hos_renzheng_inf .bottomContent').addClass('hide');
+//                      $('#hos_Administration .hos_renzheng_inf .bottomContent2').removeClass('hide');
+			 			$('#hos_Administration .hos_renzheng_inf .bottomContent2').addClass('hide');
+                        $('#hos_Administration .hos_renzheng_inf .bottomContent').removeClass('hide');
+                        
                     }
                 })
                 $('#hos_Administration .hos_renzheng_inf .bottomContent').removeClass('hide');
@@ -398,7 +401,6 @@ function baseInfrese1(headPortrait, name, medicalHospitalPictures, fields,
     $(".doc_address").iProvincesSelect("init",data);
     $("#hospital-inf-write .warning").addClass("hide");
 	$("#hospital-inf-write input").removeClass("border_hide_null");
-	$('.doc_address .detailWarn').siblings("textarea").removeClass('border_hide_null');
 		    
     //头像
     if (headPortrait != null) {
@@ -707,24 +709,26 @@ $("#collect_Administration_tabBtn").click(function () {
 
 //医馆管理发布并保存
 function verifyRecruit(data) {
+	
+	$(".recruit-box-newjob .warning").addClass("hide");
+	$(".recruit-box-newjob input").removeClass("border_hide_null");
+	$(".recruit-box-newjob textarea").removeClass("border_hide_null");
+	
     if (data.position == "") {
         $(".warning-isdata").removeClass("hide");
+        $(".warning-isdata").siblings("input").addClass("border_hide_null");
         return false;
-    } else {
-        $(".warning-isdata").addClass("hide");
-    }
+    } 
     if (data.postDuties == "") {
         $(".warning-textarea-isdata").removeClass("hide");
+        $(".warning-textarea-isdata").siblings("textarea").addClass("border_hide_null");
         return false;
-    } else {
-        $(".warning-textarea-isdata").addClass("hide");
-    }
+    } 
     if (data.jobRequirements == "") {
         $(".warningtextarea-duty-isdata").removeClass("hide");
+        $(".warningtextarea-duty-isdata").siblings("textarea").addClass("border_hide_null");
         return false;
-    } else {
-        $(".warningtextarea-duty-isdata").addClass("hide");
-    }
+    } 
     return true;
 }
 
@@ -908,28 +912,71 @@ function resetRecruitForm(index) {
     $(".recruit-edit-save-up-wrap").addClass("hide");
     $(".recruit-save-up").removeClass("hide");
 //	新职位的保存-发布按钮显现end
+	$(".recruit-box-newjob input").removeClass("border_hide_null");
+	$(".recruit-box-newjob textarea").removeClass("border_hide_null");
+	$(".recruit-box-newjob .warning").addClass("hide");
 }
-
+//招聘编辑失焦验证
+function clearErrorInf(dom){
+	$("."+dom).addClass("hide");
+    $("."+dom).siblings("textarea").removeClass("border_hide_null");
+}
+	var recruitCheckInf = {
+		recruit_isdata : function(){
+			var recruitName=$.trim($(".recruit-isdata").val());
+			$(".warning-isdata").addClass("hide");
+			$(".warning-isdata").siblings("input").removeClass("border_hide_null");
+			if (recruitName == "") {
+				$(".warning-isdata").removeClass("hide");
+        		$(".warning-isdata").siblings("input").addClass("border_hide_null");
+			}
+		},
+		recruit_textarea_isdata : function(){
+			var textarea_isdata=$.trim($(".recruit-textarea-isdata").val());
+			clearErrorInf("warning-textarea-isdata")
+			if (textarea_isdata == "") {
+				$(".warning-textarea-isdata").removeClass("hide");
+        		$(".warning-textarea-isdata").siblings("textarea").addClass("border_hide_null");
+			}
+		},
+		recruit_textarea_duty_isdata : function(){
+			var duty_isdata=$.trim($(".recruit-textarea-duty-isdata").val());
+			clearErrorInf("warningtextarea-duty-isdata")
+			if (duty_isdata == "") {
+				$(".warningtextarea-duty-isdata").removeClass("hide");
+        		$(".warningtextarea-duty-isdata").siblings("textarea").addClass("border_hide_null");
+			}
+		}
+	}
+	$(".recruit-isdata").blur(function(){
+		recruitCheckInf.recruit_isdata();
+	})
+	$(".recruit-textarea-isdata").blur(function(){
+		recruitCheckInf.recruit_textarea_isdata();
+	})
+	$(".recruit-textarea-duty-isdata").blur(function(){
+		recruitCheckInf.recruit_textarea_duty_isdata();
+	})
 //编辑过后的内容保存
 function verifyRecruit(data) {
+	$(".recruit-box-newjob .warning").addClass("hide");
+	$(".recruit-box-newjob input").removeClass("border_hide_null");
+	$(".recruit-box-newjob textarea").removeClass("border_hide_null");
     if (data.position == "") {
         $(".warning-isdata").removeClass("hide");
+        $(".warning-isdata").siblings("input").addClass("border_hide_null");
         return false;
-    } else {
-        $(".warning-isdata").addClass("hide");
     }
     if (data.postDuties == "") {
         $(".warning-textarea-isdata").removeClass("hide");
+        $(".warning-textarea-isdata").siblings("textarea").addClass("border_hide_null");
         return false;
-    } else {
-        $(".warning-textarea-isdata").addClass("hide");
-    }
+    } 
     if (data.jobRequirements == "") {
         $(".warningtextarea-duty-isdata").removeClass("hide");
+        $(".warningtextarea-duty-isdata").siblings("textarea").addClass("border_hide_null");
         return false;
-    } else {
-        $(".warningtextarea-duty-isdata").addClass("hide");
-    }
+    } 
     return true;
 }
 
@@ -997,7 +1044,8 @@ $("#notice-release-btn").click(function () {
     $(this).attr("disabled", "disabled")
     if ($notice_text == '') {
         $("#notice-release-btn").removeAttr("disabled", "disabled");
-        $(".warning-notice").show();
+        $(".warning-notice").removeClass("hide");
+        $(".warning-notice").siblings("textarea").addClass("border_hide_null");
     } else {
         RequestService("/hospital/announcement", "POST", {
             "content": $notice_text
@@ -1005,7 +1053,8 @@ $("#notice-release-btn").click(function () {
             if (data.success == true) {
                 showTip("发布成功");
                 $("#notice-text").val("")
-                $(".warning-notice").hide();
+                $(".warning-notice").addClass("hide");
+                $(".warning-notice").siblings("textarea").removeClass("border_hide_null");
                 $(".word-number").text('剩余' + 100 + '字');
                 setTimeout(function () {
                     $("#news_Administration_tabBtn").click();
@@ -1020,7 +1069,14 @@ $("#notice-release-btn").click(function () {
     }
 
 })
-
+$("#notice-text").blur(function(){
+	$(".warning-notice").addClass("hide");
+		$(".warning-notice").siblings("textarea").removeClass("border_hide_null");
+	if($.trim($("#notice-text").val())==""){
+		$(".warning-notice").removeClass("hide");
+		$(".warning-notice").siblings("textarea").addClass("border_hide_null");
+	}
+})
 //公告部分，多行文本输入框剩余字数计算
 function checkMaxInput(obj, maxLen) {
     if (obj.value.length > maxLen) { //如果输入的字数超过了限制
@@ -1145,6 +1201,7 @@ $('#doc_Administration .add_newTeacher').click(function () {
 function reset() {
     //姓名
     $('#doc_Administration_bottom .doc_name').val('');
+    $('#doc_Administration_bottom .doc_name_manage').val('');
     //职称
     $('#doc_Administration_bottom .doc_zhicheng').val('');
     //擅长
@@ -1160,6 +1217,8 @@ function reset() {
     $('#doc_Administration_bottom .zhicheng_pic').html(zhicheng_pic);
     //富文本框
     UE.getEditor('editor').setContent("")
+     $('#doc_Administration_bottom .warning').addClass("hide");
+    $('#doc_Administration_bottom input').removeClass("border_hide_null");
 }
 
 //内部医疗领域选择功能
