@@ -129,11 +129,20 @@ requestService("/xczh/course/liveDetails",{
 		{courseId:memory_data,recordType:2},function(data) {
 			
 		})	
-		if (resultObject.lecturerDescription.appointmentInfoId !=null) {
+		/*if (resultObject.lecturerDescription.appointmentInfoId !=null) {
             window.location.href="salon.html?courseId="+course_id;
         }else{
             window.location.href="details.html?courseId="+course_id;
-        };
+        };*/
+        requestService("/xczh/manager/home",null,function(data) {
+            if (data.resultObject.appointmentInfoId !=null) {
+                window.location.href="salon.html?courseId="+course_id;
+            }else{
+                window.location.href="details.html?courseId="+course_id;
+            };
+        })  
+
+
 		// window.location.href="details.html?courseId="+course_id;
 	})
 

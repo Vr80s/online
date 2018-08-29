@@ -1,10 +1,21 @@
 package com.xczh.consumer.market.controller.medical;
 
 
+import static com.xczhihui.common.util.enums.CommunicationMessageType.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.body.treatment.TreatmentAppointmentInfoBody;
 import com.xczh.consumer.market.interceptor.HeaderInterceptor;
-import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.AppointmentStatus;
 import com.xczhihui.common.util.enums.MessageTypeEnum;
@@ -23,17 +34,6 @@ import com.xczhihui.medical.doctor.service.IRemoteTreatmentService;
 import com.xczhihui.medical.enrol.service.EnrolService;
 import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.user.center.service.UserCenterService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static com.xczhihui.common.util.enums.CommunicationMessageType.*;
 
 /**
  * 远程诊疗
@@ -144,9 +144,18 @@ public class RemoteTreatmentAppointmentInfoController {
         }
         params.put("type", type);
 
-        if (type == DOCTOR_TREATMENT_START.getVal() || type == DOCTOR_TREATMENT_STOP.getVal()) {
-            remoteTreatmentService.updateTreatmentStartStatus(infoId, type == DOCTOR_TREATMENT_START.getVal() ? AppointmentStatus.STARTED.getVal() : AppointmentStatus.FINISHED.getVal());
-            courseService.updateCourseLiveStatus(type == DOCTOR_TREATMENT_START.getVal() ? "start" : "stop", courseService.selectById(courseId).getDirectId(), String.valueOf(HeaderInterceptor.getClientTypeCode()));
+        if (type == DOCTOR_TREATMENT_STOP.getVal()) {
+            remoteTreatmentService.updateTreatmentStartStatus(infoId, AppointmentStatus.FINISHED.getVal());
+            courseService.updateCourseLiveStatus("stop", courseService.selectById(courseId).getDirectId(), String.valueOf(HeaderInterceptor.getClientTypeCode()));
+        }
+        if (type == DOCTOR_TREATMENT_START.getVal()) {
+            Integer treatmentStatus = treatment.getStatus();
+            if (treatmentStatus == AppointmentStatus.EXPIRED.getVal()) {
+                throw new MedicalException("该诊疗直播已过期");
+            }
+            if (treatmentStatus == AppointmentStatus.FINISHED.getVal()) {
+                throw new MedicalException("该诊疗直播已结束");
+            }
         }
         commonMessageService.pushAppMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal()).buildAppPushWithParams(null, params).build(targetUserId, RouteTypeEnum.NONE, null));
         return ResponseObject.newSuccessResponseObject(null);
@@ -175,5 +184,17 @@ public class RemoteTreatmentAppointmentInfoController {
     public ResponseObject inavUserList(@RequestParam String inavId) throws Exception {
         List<String> inavUserList = InteractionService.getInavUserList(inavId);
         return ResponseObject.newSuccessResponseObject(userCenterService.findByIds(inavUserList));
+    }
+
+    @RequestMapping(value = "start", method = RequestMethod.POST)
+    public ResponseObject startTreatment(@RequestParam int infoId) {
+        TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentService.selectById(infoId);
+        if (treatmentAppointmentInfo == null || treatmentAppointmentInfo.getTreatmentId() == null) {
+            throw new MedicalException("参数错误");
+        }
+        Treatment treatment = remoteTreatmentService.selectTreatmentById(treatmentAppointmentInfo.getTreatmentId());
+        remoteTreatmentService.updateTreatmentStartStatus(infoId, AppointmentStatus.STARTED.getVal());
+        courseService.updateCourseLiveStatus("start", courseService.selectById(treatment.getCourseId()).getDirectId(), String.valueOf(HeaderInterceptor.getClientTypeCode()));
+        return ResponseObject.newSuccessResponseObject(null);
     }
 }

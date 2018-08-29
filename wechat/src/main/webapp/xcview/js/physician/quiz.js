@@ -51,7 +51,8 @@ $(function(){
 	});
 	var doctorId = getQueryString("doctor");
 	$(".prosperity_popout_hide").click(function(){
-		history.back();   //可以就是没有刷新数据
+		//history.back();   //可以就是没有刷新数据
+		location.replace(document.referrer);
 		// window.location.reload("/xcview/html/physician/physicians_page.html?doctor="+doctorId);
 		// window.location.reload(1);
 		// window.history.go(-1)
