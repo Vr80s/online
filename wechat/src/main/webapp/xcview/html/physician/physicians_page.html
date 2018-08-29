@@ -32,7 +32,11 @@
 
 <!--公用弹框 -->
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css?version=f6e45d2a7e&version=f6e45d2a7e&version=f6e45d2a7e">
-<script type="text/javascript" src="/xcview/js/common/alertPopShow.js?version=3a4f24e3df&version=3a4f24e3df&version=3a4f24e3df"></script>
+<!-- <script type="text/javascript" src="/xcview/js/common/alertPopShow.js?version=3a4f24e3df&version=3a4f24e3df&version=3a4f24e3df"></script> -->
+
+<!-- 新公用弹框 -->
+<script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
+<link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
 <!--刷新 -->
 <link rel="stylesheet" href="/xcview/css/minirefresh/minirefresh.css?version=71e5ea2f95&version=71e5ea2f95&version=71e5ea2f95">
 <script type="text/javascript" src="/xcview/js/minirefresh/minirefresh.js?version=db3081c0a1&version=db3081c0a1&version=db3081c0a1"></script>
@@ -46,11 +50,45 @@
 	body{
 		/*background: red !important;*/
 	}
+	.middle-img {
+		position: absolute;
+		left: 259px;
+		top: 0px;
+		width: 40px;
+	}
+
+	.up-img {
+		position: absolute;
+		top: -40px;
+		left: 261px;
+		width: 40px;
+	}
+
+	.down-img {
+		position: absolute;
+		top: 40px;
+		left: 257px;
+		width: 40px;
+	}
+
+	.left-img {
+		position: absolute;
+		left: 218px;
+		width: 40px;
+	}
+
+	.right-img {
+		position: absolute;
+		left: 300px;
+		width: 40px;
+	}
+	@media screen and (max-width:450px) {
 		.middle-img {
 			position: absolute;
 			left: 259px;
 			top: 0px;
 			width: 40px;
+			display: none;
 		}
 
 		.up-img {
@@ -58,6 +96,7 @@
 			top: -40px;
 			left: 261px;
 			width: 40px;
+			display: none;
 		}
 
 		.down-img {
@@ -65,129 +104,92 @@
 			top: 40px;
 			left: 257px;
 			width: 40px;
+			display: none;
 		}
 
 		.left-img {
 			position: absolute;
 			left: 218px;
 			width: 40px;
+			display: none;
 		}
 
 		.right-img {
 			position: absolute;
 			left: 300px;
 			width: 40px;
-		}
-		@media screen and (max-width:450px) {
-			.middle-img {
-				position: absolute;
-				left: 259px;
-				top: 0px;
-				width: 40px;
-				display: none;
-			}
-
-			.up-img {
-				position: absolute;
-				top: -40px;
-				left: 261px;
-				width: 40px;
-				display: none;
-			}
-
-			.down-img {
-				position: absolute;
-				top: 40px;
-				left: 257px;
-				width: 40px;
-				display: none;
-			}
-
-			.left-img {
-				position: absolute;
-				left: 218px;
-				width: 40px;
-				display: none;
-			}
-
-			.right-img {
-				position: absolute;
-				left: 300px;
-				width: 40px;
-				display: none;
-			}
-
-			.rotate_jia{
-				display: none;
-			}.rotate_div{
-				 display: none;
-			 }.rotate_jian{
-				  display: none;
-			  }
+			display: none;
 		}
 
-		.am-pureview-bar-active .am-pureview-actions, .am-pureview-bar-active .am-pureview-bar{
-			opacity: 0;
-		}
-		.minirefresh-theme-default .status-nomore .upwrap-tips{
-			padding: 0 !important;
-		}
-		.am-pureview{
-			z-index: 999999;
-		}
-		.ccH5playerBox video{
-			z-index: 1;
-		}
-		.the_dynamic{
-			overflow: hidden;
-		    width: 100%;
-		    height: 100%;
-		    /*background: red;*/
-		    /* position: fixed;
-		    top: 5.4rem; */
-		    /*top: 5.7rem;*/
-		}
+		.rotate_jia{
+			display: none;
+		}.rotate_div{
+			 display: none;
+		 }.rotate_jian{
+			  display: none;
+		  }
+	}
 
-		.rests_nav{
-			/* position: fixed;
-					    top: 5.4rem; */
-		}
+	.am-pureview-bar-active .am-pureview-actions, .am-pureview-bar-active .am-pureview-bar{
+		opacity: 0;
+	}
+	.minirefresh-theme-default .status-nomore .upwrap-tips{
+		padding: 0 !important;
+	}
+	.am-pureview{
+		z-index: 999999;
+	}
+	.ccH5playerBox video{
+		z-index: 1;
+	}
+	.the_dynamic{
+		overflow: hidden;
+	    width: 100%;
+	    height: 100%;
+	    /*background: red;*/
+	    /* position: fixed;
+	    top: 5.4rem; */
+	    /*top: 5.7rem;*/
+	}
 
-		.minirefresh-wrap{
-			/*position: static !important;*/
-		}
-		
-		/*处理刷新*/
-		.minirefresh-wrap{
-			/*top: 5.3rem;*/
-		}
-		.minirefresh-theme-default .minirefresh-downwrap{
-			height: 1rem;
-			line-height: 1rem;
-		}
-		.minirefresh-theme-default .downwrap-content{
-			padding: 0;
-		}
-		.minirefresh-theme-default .minirefresh-upwrap{
-			height: 1rem;
-			max-height: 0.5rem;
-			line-height: 0.6rem;
-			padding: 0;
-			/*margin-top: -0.5rem;*/
-		}
-		.minirefresh-scroll{
-			background: none;
-		}
+	.rests_nav{
+		/* position: fixed;
+				    top: 5.4rem; */
+	}
 
-		video::-webkit-media-controls-fullscreen-button {
-            display: none;
-        }
-        .disciple_application_state{
-        	display: none;
-        }
-	</style>
+	.minirefresh-wrap{
+		/*position: static !important;*/
+	}
+	
+	/*处理刷新*/
+	.minirefresh-wrap{
+		/*top: 5.3rem;*/
+	}
+	.minirefresh-theme-default .minirefresh-downwrap{
+		height: 1rem;
+		line-height: 1rem;
+	}
+	.minirefresh-theme-default .downwrap-content{
+		padding: 0;
+	}
+	.minirefresh-theme-default .minirefresh-upwrap{
+		height: 1rem;
+		max-height: 0.5rem;
+		line-height: 0.6rem;
+		padding: 0;
+		/*margin-top: -0.5rem;*/
+	}
+	.minirefresh-scroll{
+		background: none;
+	}
 
-
+	video::-webkit-media-controls-fullscreen-button {
+        display: none;
+    }
+    .disciple_application_state{
+    	display: none;
+    }
+</style>
 
 <style>
 	.physicians_page_mains {
@@ -301,7 +303,7 @@
 	.paper_nav_span{
 		width: 6.98rem;
 		height: 100%;
-		text-indent: 0.26rem;
+		/*text-indent: 0.26rem;*/
 	}
 
 	/*动态图片*/
@@ -428,8 +430,14 @@
 		/*transform: scale(1.2,1.3);*/
 	}
 	.pic_img_one{
+		/*max-width: 0.45rem !important;*/
+		max-width: 3.6rem !important;
+		margin-left: 0 !important;
+	}
+	.pic_img_oness{
 		max-width: 0.45rem !important;
 	}
+
 </style>
 
 </head>
@@ -568,7 +576,7 @@
 				
 				{{else if item.type == 2}}
 				<!-- 动态图片-->
-				<div class="trends_hide">
+				<div class="trends_hide itransform_{{item.id}}" data-itransform="{{item.id}}">
 					<div class="paper_nav_span comment_hide show-text">{{if item.stick}}<span class="stick_img_stick" style="text-align: left;text-indent: 0;"><img src="/xcview/images/stick.png" alt="" />置顶</span>{{/if}}{{item.content}}<div class="both"></div>
 					</div>
 					{{if item.imgStr !=null && item.imgStr.length==1}}
@@ -576,7 +584,7 @@
 						<div class="paper_nav_cen comment_hide">
 							<ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-4 am-gallery-overlay" data-am-gallery="{ pureview: true }" >
 								{{each item.imgStr as pic }}
-								<li  class="itransform_{{item.id}} itransforms itransforms_li" style="margin-left: 0.28rem;">
+								<li  class="itransform_{{item.id}} itransforms itransforms_li" data-itransform="{{item.id}}" style="margin-left: 0.28rem;">
 									<div class="am-gallery-item" data-itransform="{{item.id}}">
 										<a href="{{pic.imgUrl}}?imageView2/2/h/226" class="transform_a_img">
 											<!--<img src="{{pic.imgUrl}}?imageMogr2/thumbnail/!226x226r|imageMogr2/gravity/Center/crop/226x226" />-->
@@ -584,7 +592,7 @@
 											<!--<img src="{{pic.imgUrl}}?imageMogr2/thumbnail/!300x300r|imageMogr2/gravity/Center/crop/426x426" class="pic_img pic_img_one" />-->
 
 
-												<img src="{{pic.imgUrl}}" class="pic_img pic_img_one" />
+												<img src="{{pic.imgUrl}}" class="pic_img pic_img_one pic_img_one_{{item.id}}" data-itransform="{{item.id}}" id="pic_img_one_{{item.id}}" />
 											
 										</a>
 									</div>
@@ -656,7 +664,7 @@
 				{{else if item.type == 5}}
 				<!-- 课程-->
 				<div class="course_hide" data-id="{{item.courseId}}" data-status="{{item.courseStatus}}" data-teaching="{{item.teaching}}" style="padding-bottom: 0;margin-top: 0;">
-					<div class="course_nav_span comment_hide" style="font-size: 0.3rem;color: #333333;">
+					<div class="course_nav_span comment_hide show-text" style="font-size: 0.3rem;color: #333333;">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
@@ -1491,6 +1499,7 @@ $(window).bind("scroll", function() {
 		// $(".transform_a_img img").addClass("transform_img");
 	    // 点击全部动态
 		$(".li_data").click(function(){
+
 			// $(".baseImagenumbers").show();
 			$(".anchor_navigation .border").css("left","1.04rem");
 			$(".li_data").addClass("li_color");
@@ -1666,7 +1675,7 @@ $(window).bind("scroll", function() {
             $(".li_data").click();
             // debugger;
         }
-        
+
         var li_data = sessionStorage.getItem("li_data");
         if(isNotBlank(li_data)){
         	 $(aBtn[parseInt(li_data)]).click();
@@ -1678,6 +1687,8 @@ $(window).bind("scroll", function() {
         // 点击动态筛选里面的内容  
         // 点击全部动态
         $(".filtrate_all").click(function(){
+        	$(".li_data .span").show();
+        	$(".filtrate_all span").show();
         	$(".span_hide").show();   //显示--动态文字
             //$(".rests_nav").removeClass("hide");  //其他1
             $(".consilia_nav").removeClass("hide");  // 医案  
@@ -1711,6 +1722,8 @@ $(window).bind("scroll", function() {
         });
 	    //点击课程 
 	    $(".filtrate_course").click(function(){
+	    	$(".li_data .span").show();
+	    	$(".filtrate_course span").show();
 	    	$(".span_hide").show();   //显示--动态文字
             //$(".rests_nav").addClass("hide");  //其他1
             $(".consilia_nav").addClass("hide");  // 医案  
@@ -1722,6 +1735,8 @@ $(window).bind("scroll", function() {
 	    });	
 	    //点击医案
 	    $(".filtrate_consilia").click(function(){
+	    	$(".li_data .span").show();
+	    	$(".filtrate_consilia span").show();
 	    	$(".span_hide").show();   //显示--动态文字
             //$(".rests_nav").addClass("hide");  //其他1
             $(".consilia_nav").removeClass("hide");  // 医案  
@@ -1733,6 +1748,8 @@ $(window).bind("scroll", function() {
 	    });	
 	    //点击文章 
 	    $(".filtrate_essay").click(function(){
+	    	$(".li_data .span").show();
+	    	$(".filtrate_essay span").show();
 	    	$(".span_hide").show();   //显示--动态文字
             //$(".rests_nav").addClass("hide");  //其他1
             $(".consilia_nav").addClass("hide");  // 医案  
@@ -1744,6 +1761,8 @@ $(window).bind("scroll", function() {
 	    });	
 	    //点击其他
 	    $(".filtrate_rests").click(function(){
+	    	$(".li_data .span").show();
+	    	$(".filtrate_rests span").show();
 	    	$(".span_hide").show();   //显示--动态文字
             $(".rests_nav").removeClass("hide");  //其他1
             $(".consilia_nav").addClass("hide");  // 医案  
@@ -1843,6 +1862,49 @@ function header_click(){
     // 处理整体body区域高度，不让内容有滚动条
     var body=$(window).height();
     $("body").height(body);
+
+
+    // 获取图片高度  pic_img_one
+
+    // var img = document.getElementsByClassName("pic_img_one");
+
+   	// var img = $(".pic_img_one").height();
+
+    // alert(img);
+
+    var _w = parseInt($(window).height());//获取浏览器的宽度
+    // alert(_w);
+    var height = $(".pic_img_one").height;
+    // alert(height);
+
+    if(height>=_w){
+		// alert(111);
+		$(".pic_img_one").css("height","auto");
+	}else{//如果小于浏览器的宽度按照原尺寸显示
+		// alert(222);	
+		$(".pic_img_one").addClass("ddd");
+	}
+
+    /*var aBtn=$('.pic_img_one');
+    for(i=0;i<aBtn.length;i++){
+        
+        $(aBtn[i]).click(function(){
+
+          for(i=0;i<aBtn.length;i++){
+
+          	if () {
+
+          	};
+
+            $(aBtn[i]).removeClass('active4 li4');
+
+          }
+          
+          $(this).addClass('active4 li4');
+         
+        })
+    }*/
+
 
 </script>
 <script type="text/javascript" src="/xcview/html/physician/js/amazeui.js?version=5bdfd7fbfe&version=5bdfd7fbfe"></script>

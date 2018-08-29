@@ -39,7 +39,11 @@ $(function () {
                         $(".my_bookings").show();
                         $(".baseimagenumber").show();
                         $("body").css("background","#fff");
+                        $(".downwrap-content").hide();  /*隐藏刷新提示*/
+                        $(".minirefresh-upwrap").hide(); //隐藏刷新提示
                     }else{
+                        $(".downwrap-content").show();    //显示刷新提示
+                        $(".minirefresh-upwrap").show();  //显示刷新提示
                         $(".baseimagenumber").hide();
                     }
                     // 预约列表

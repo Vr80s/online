@@ -1,5 +1,7 @@
 // 师承内容出现--1、动态-发布动态课程。2、直播间（4）-师承--跟师直播课程列表。3、直播间--最近直播------4个地方出现判断是否是弟子
 
+// =====注意=====该页面加载了2次，没有找到原因
+
 var doctorId = getQueryString("doctor");
 var loginUserId="";
 var loginUserName="";
@@ -30,13 +32,12 @@ $(function(){
         }
     });
 
-
 });
 $(".li_data").click(function () {
-        if(isShow){
-            $(".baseImagenumbers").show();
-        }
-    })
+    if(isShow){
+        $(".baseImagenumbers").show();
+    }
+})
 //轮播图
 function sowingMap() {
     requestGetService("/xczh/host/doctor/v2",{
@@ -72,9 +73,6 @@ function sowingMap() {
                     $(".attention").find('.pay_attention').html("加关注");
                     $(".attention").css("background","#00bc12");
                     $(".fans").find('#fansCount').html(parseInt(p)-1);
-                    /*if(parseInt(p)-1 <= 0){
-                        $(".fans").hide();
-                    }*/
                 }
             });
 
@@ -242,6 +240,19 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
                 postsLike(this,postsId);
             }
         });
+
+        // 因为加载了2次代码，故加了个定时器===一张图片时判断图片高度
+        setTimeout(function(){
+            var aBtn=$('.trends_hide').each(function(i){
+                var imgHerght = $(this).find("img").height();
+                // var src = $(this).find("img").attr("src");
+                // console.info(i+"i:"+imgHerght+"src:="+src);
+                if (imgHerght >464) {
+                    $(this).find("img").addClass("pic_img_oness");
+                };
+            });
+        },1000);
+
         //评论
         $(".evaluate_img").off("click");
         $(".evaluate_img").click(function(){
@@ -963,25 +974,6 @@ function apprenticeInfo() {
                 // 预约
                 $('.subscribe_id').html(template('subscribe_id', {items: data.resultObject.treatments}));
                 
-
-
-                // ceshi();
-                // alert(data.resultObject.treatments.indexDateText);
-                /*var aaa = $(".subscribe_time").html();
-                for (var j = 0; j < aaa.length; j++) {
-                    alert(aaa);
-                };*/
-
-                /*var aBtn=$('.subscribe');
-                    for(i=0;i<aBtn.length;i++){
-                    
-                    $(aBtn[i]).click(function(){
-                        for(i=0;i<aBtn.length;i++){
-                            alert(aBtn[i].html());
-                        }
-                    })
-                }*/
-
             }
 
             // $('.subscribe_id').html(template('subscribe_id', {items: data.resultObject.treatments}));
@@ -1191,11 +1183,6 @@ function order(id){
     });
 };
 
-
-
-
-
-
 // 点击我的预约
 function orders(id){
     
@@ -1207,7 +1194,6 @@ function orders(id){
         }
     });
 };
-
 
 // 申请预约--
 $(".QA_quiz").click(function(){
@@ -1267,9 +1253,6 @@ function checkAuth(doctorId) {
         $(".learn_tips_audit").hide();
     });
 
-
-
-
 /*var text = $('.QA_doubt_main_reply').html();
 text=text.replace(/[\n\r]/g,'<br>')
 $('.QA_doubt_main_reply').html(text);*/
@@ -1284,33 +1267,6 @@ $('.QA_doubt_main_reply').html(txtt);*/
 txttt=txt.replace(/\r?\n/g,"<br />");
 $('.QA_doubt_main_replys').html(txttt);*/
 
-
-// 动态图
-/*var id=$(".itransforms").find("am-gallery-item").attr("data-itransform");
-
-if ($(".itransform_"+id).size() > 1) {
-    alert(1);
-    $(".itransform_"+id).find("img").addClass("transform_img");
-}else{
-    alert(2);
-    $(".itransform_"+id).find("img").removeClass("ccc");
-};
-*/
-
-
-// apprenticeInfo();
-
-/*function myrefresh(){
-    
-    return;
-}*/
-// window.location.reload();
-// myrefresh();
-// location.assign(location);
-// history.go(0)
-// location.reload()
-// location.replace(location)
-
 function body_onload(){
     if(0 == getcookie('param_cookie')){
         setcookie("param_cookie",1,10);
@@ -1320,11 +1276,6 @@ function body_onload(){
 
 $(".li_prose_origin").click(function(){
     apprenticeInfo();
-    // alert(88888)
-    // location.reload();
 });
-
-//alert(111);
-
 
 
