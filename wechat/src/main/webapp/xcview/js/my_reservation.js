@@ -1,14 +1,13 @@
 
 $(function () {
 
-    appointmentList(1,'down');
+    appointmentList(1,'down');  /*定义一个方法*/
 
 })
     // 点击头像区域跳转到查看详情
     function orders(id){
         requestGetService("/doctor/treatment/user/appointment",{id:id},function (data) {
             if (data.success == true) {
-               
                 location.href ='/xcview/html/physician/my_bookings.html?id='+id;
             }
         });
@@ -34,7 +33,7 @@ $(function () {
                 var obj = data.resultObject;
                 //downOrUp为down时为下拉刷新等于up时为上拉操作
                 if(downOrUp=='down'){
-                    //判断全部动态默认图
+                    
                     if(obj.length==0){
                         $(".my_bookings").show();
                         $(".baseimagenumber").show();
