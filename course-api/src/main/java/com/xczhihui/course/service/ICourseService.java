@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.course.model.Course;
+import com.xczhihui.course.vo.CollectionCoursesVo;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.ShareInfoVo;
 
@@ -51,7 +52,7 @@ public interface ICourseService {
                                                      String userId);
 
 
-    List<CourseLecturVo> selectCoursesByCollectionId(Integer collectionId);
+    List<CollectionCoursesVo> selectCoursesByCollectionId(Integer collectionId);
 
     /**
      * Description：查找此主播最近一次的课程

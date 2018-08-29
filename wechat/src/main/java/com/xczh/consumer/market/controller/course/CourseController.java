@@ -168,8 +168,7 @@ public class CourseController {
      **/
     @RequestMapping("getCoursesByCollectionId")
     public ResponseObject getCoursesByCollectionId(@RequestParam(value = "collectionId") Integer collectionId) {
-        List<CourseLecturVo> courses = courseServiceImpl.selectCoursesByCollectionId(collectionId);
-        return ResponseObject.newSuccessResponseObject(courses);
+        return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectCoursesByCollectionId(collectionId));
     }
 
     /**

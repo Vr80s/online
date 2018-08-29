@@ -28,6 +28,7 @@ import com.xczhihui.course.mapper.CriticizeMapper;
 import com.xczhihui.course.mapper.FocusMapper;
 import com.xczhihui.course.model.Course;
 import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.vo.CollectionCoursesVo;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.ShareInfoVo;
 
@@ -149,8 +150,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public List<CourseLecturVo> selectCoursesByCollectionId(Integer collectionId) {
-        List<CourseLecturVo> courses = iCourseMapper.selectCoursesByCollectionId(collectionId);
+    public List<CollectionCoursesVo> selectCoursesByCollectionId(Integer collectionId) {
+        List<CollectionCoursesVo> courses = iCourseMapper.selectCoursesByCollectionId(collectionId);
+        for (CollectionCoursesVo courseLecturVo : courses) {
+        	Double d = Double.valueOf(courseLecturVo.getCourseLength()) * 60;
+        	courseLecturVo.setDuration(
+        			com.xczhihui.common.support.cc.util.DateUtil.
+        			turnSecondsToTimestring(d.intValue()));
+		}
         return courses;
     }
 

@@ -259,8 +259,7 @@ public class CourseController extends AbstractController {
     @ResponseBody
     public ResponseObject newGetCoursesByCollectionId(HttpServletRequest request, @RequestParam("collectionId") Integer collectionId) {
         try {
-            List<CourseLecturVo> courses = courseServiceImpl.selectCoursesByCollectionId(collectionId);
-            return ResponseObject.newSuccessResponseObject(courses);
+            return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectCoursesByCollectionId(collectionId));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseObject.newErrorResponseObject("获取合辑列表有误");

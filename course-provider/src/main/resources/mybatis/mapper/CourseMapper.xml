@@ -325,7 +325,7 @@
         order by argc.create_time desc
     </select>
 
-    <select id="selectCoursesByCollectionId" resultType="com.xczhihui.course.vo.CourseLecturVo">
+    <select id="selectCoursesByCollectionId" resultType="com.xczhihui.course.vo.CollectionCoursesVo">
         SELECT
         oc.id,
         oc.subtitle as subtitle,
