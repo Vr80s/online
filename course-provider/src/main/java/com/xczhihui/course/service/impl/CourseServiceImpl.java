@@ -28,6 +28,7 @@ import com.xczhihui.course.mapper.CriticizeMapper;
 import com.xczhihui.course.mapper.FocusMapper;
 import com.xczhihui.course.model.Course;
 import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.ICourseSolrService;
 import com.xczhihui.course.vo.CollectionCoursesVo;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.ShareInfoVo;
@@ -46,14 +47,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public static final String STOP_EVENT = "stop";
 
     
-
-	private static final String WEB_TREATMENT_MESSAGE_TIPS = 
-			"【熊猫中医】您已成功预约{0}医师{1}的远程诊疗，请做好诊前准备并及时登录熊猫中医平台以便{2}老师进行远程协助诊疗。";
-	
-	private static final String APP_TREATMENT_MESSAGE_TIPS = 
-			"【熊猫中医】您已成功预约{0}医师{1}的远程诊疗，请做好诊前准备。";
-    
-    
     @Autowired
     private CourseMapper iCourseMapper;
 
@@ -69,6 +62,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Autowired
     private CacheService cacheService;
 
+    @Autowired
+    private ICourseSolrService courseSolrService;
+    
     @Override
     public Page<CourseLecturVo> selectCoursePage(Page<CourseLecturVo> page) {
         List<CourseLecturVo> records = iCourseMapper.selectCoursePage(page);
@@ -614,6 +610,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 		//***医师的远程诊疗直播 yyyy/mm/dd 如有重复则加上编号（01,02,03….）。
 		
 		String gradeName = createTherapyGradeName(cv.getUserLecturerId(),cv.getDoctorName(),cv.getStartTime());
+		
+		//默认即学即用
+		course.setMenuId(210);
+		
 		course.setGradeName(gradeName);
         course.setAppointmentInfoId(lockId);
         //默认图
@@ -687,6 +687,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 						RedisCacheKey.TREATMENT_MINUTE_TYPE +
 									RedisCacheKey.REDIS_SPLIT_CHAR + 
 						course.getId(), mtv);
+        
+        
+        courseSolrService.initCourseSolrDataById(course.getId());
         
         return course.getId();
 	}

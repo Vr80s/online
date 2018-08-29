@@ -11,7 +11,7 @@ import com.xczhihui.common.util.enums.CourseDismissal;
 import com.xczhihui.common.util.enums.CourseForm;
 import com.xczhihui.common.util.enums.Multimedia;
 import com.xczhihui.common.web.controller.AbstractController;
-import com.xczhihui.course.service.CourseApplyService;
+import com.xczhihui.course.service.ManagerCourseApplyService;
 import com.xczhihui.course.service.CourseService;
 import com.xczhihui.course.vo.LecturerVo;
 import com.xczhihui.support.shiro.ManagerUserUtil;
@@ -46,7 +46,7 @@ public class CourseApplyInfoController extends AbstractController {
     @Autowired
     private CourseService courseService;
     @Autowired
-    private CourseApplyService courseApplyService;
+    private ManagerCourseApplyService courseApplyService;
     @Value("${web.url}")
     private String weburl;
 

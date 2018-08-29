@@ -10,7 +10,7 @@ import com.xczhihui.common.util.Md5Encrypt;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.web.controller.AbstractController;
-import com.xczhihui.course.service.CourseApplyService;
+import com.xczhihui.course.service.ManagerCourseApplyService;
 import com.xczhihui.course.service.CourseService;
 import com.xczhihui.user.service.OnlineUserService;
 import com.xczhihui.utils.Group;
@@ -48,7 +48,8 @@ public class CourseAnchorController extends AbstractController {
     private AnchorService anchorService;
 
     @Autowired
-    private CourseApplyService courseApplyService;
+    
+    private ManagerCourseApplyService courseApplyService;
     @Autowired
     private CourseService courseService;
     @Autowired

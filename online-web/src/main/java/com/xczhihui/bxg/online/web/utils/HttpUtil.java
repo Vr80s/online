@@ -225,4 +225,17 @@ public class HttpUtil {
         response.setDateHeader("Expires", -1);
         response.setHeader("Cache-Control", "No-store");
     }
+    
+    public static void main(String[] args) {
+		
+    	Map<String, String> paramMap = new HashMap<String, String>();
+    	paramMap.put("videoid","D730E6AE6D2A90A79C33DC5901307461");
+    	//http://dev-www.xczhihui.com/videoRes/updateCourseApplyResource
+    	//http://cs.xczhihui.com/videoRes/updateCourseApplyResource
+    	String str  = sendGet("http://cs.xczhihui.com/videoRes/updateCourseApplyResource",paramMap);
+    	
+    	System.out.println(str);
+    	
+	}
+    
 }

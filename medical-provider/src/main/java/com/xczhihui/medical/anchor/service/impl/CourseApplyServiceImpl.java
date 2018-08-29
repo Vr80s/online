@@ -327,14 +327,19 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         /**
          * 更改这个课程的时长
          */
+        
+        //课程表
         List<Integer> list = courseApplyResourceMapper.selectCourseListByVideoRecourse(ccId);
         if (list.size() > 0) {
             courseApplyResourceMapper.updateBatchCourseLength(duration, list);
         }
-        /**
-         * 通过这个视频Id查找这个对应的课程
-         */
+        
+        //视频资源表
         courseApplyResourceMapper.updateCourseLengthByResource(duration,ccId);
+        
+        //课程信息审核表
+        courseApplyResourceMapper.updateCourseApplyInfoLengthByResource(duration,ccId);
+        
     }
 
     @Override
@@ -629,11 +634,11 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         if (courseApplyInfo.getPrice() < 0) {
             throw new AnchorWorkException("课程单价不可小于0");
         }
-        if (courseApplyInfo.getPrice() > 6) {
-            throw new AnchorWorkException("课程单价不可大于1000000");
+        if (courseApplyInfo.getPrice() > 999999) {
+            throw new AnchorWorkException("课程单价不可大于999999");
         }
-        if (courseApplyInfo.getOriginalCost() > 6) {
-            throw new AnchorWorkException("课程原价不可大于1000000");
+        if (courseApplyInfo.getOriginalCost() != null &&courseApplyInfo.getOriginalCost() > 999999) {
+            throw new AnchorWorkException("课程原价不可大于999999");
         }
         if (courseApplyInfo.getPrice() != courseApplyInfo.getPrice().intValue()) {
             throw new AnchorWorkException("课程单价必须为整数");

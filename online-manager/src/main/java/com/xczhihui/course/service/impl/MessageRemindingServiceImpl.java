@@ -276,7 +276,6 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
 	@Override
 	public synchronized void minuteTaskMessage() {
 		
-		System.out.println("执行每分钟提醒方法：");
 		
 		List<MinuteTaskMessageVo> listMinuteTaskMessageVo =   getCommonMinuteRemindingList(RedisCacheKey.COMMON_MINUTE_REMIND_KEY);
 		

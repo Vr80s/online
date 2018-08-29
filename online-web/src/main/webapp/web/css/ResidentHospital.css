@@ -1746,3 +1746,12 @@ padding: 18px 0;
     line-height: 50px;
     font-size: 16px;
 }
+.commen-input-style{
+	    width: 280px;
+    height: 36px;
+    border: 1px solid #f0f0f0;
+    outline: none;
+    text-indent: 1em;
+    margin-right: 10px;
+    font-size: 14px;
+}

@@ -180,7 +180,7 @@ public interface CourseMapper extends BaseMapper<Course> {
     /**
      * 查询课程的简单信息
      *
-     * @param id id
+     * @param id id 
      * @return
      */
     @Select({"select id, grade_name as gradeName, status from oe_course where id = #{id}"})

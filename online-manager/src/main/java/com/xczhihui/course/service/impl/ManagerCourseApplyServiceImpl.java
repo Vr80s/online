@@ -39,7 +39,7 @@ import com.xczhihui.common.util.vhallyun.RoomService;
 import com.xczhihui.course.dao.CourseApplyDao;
 import com.xczhihui.course.dao.CourseDao;
 import com.xczhihui.course.params.BaseMessage;
-import com.xczhihui.course.service.CourseApplyService;
+import com.xczhihui.course.service.ManagerCourseApplyService;
 import com.xczhihui.course.service.CourseService;
 import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.MessageRemindingService;
@@ -56,8 +56,8 @@ import com.xczhihui.vhall.bean.Webinar;
  * @author Rongcai Kang
  */
 @Service
-public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
-        CourseApplyService {
+public class ManagerCourseApplyServiceImpl extends OnlineBaseServiceImpl implements
+        ManagerCourseApplyService {
     /**
      * 直播课程审核通过文案
      */
@@ -127,6 +127,9 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
     private EnrolService enrolService;
     @Value("${vhall.user.id}")
     private String liveVhallUserId;
+    
+    @Autowired
+    private CCUtils CCUtils;
     
     @Override
     public Page<CourseApplyInfo> findCoursePage(
@@ -631,4 +634,6 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
         	messageRemindingService.saveCourseMessageReminding(course, RedisCacheKey.OFFLINE_COURSE_REMIND_KEY);
         }
     }
+
+	
 }
