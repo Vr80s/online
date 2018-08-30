@@ -656,6 +656,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         course.setLearndCount(0);
         course.setCurrentPrice(0d);
         course.setCreateTime(new Date());
+        course.setReleaseTime(new Date()); //上架时间也的有啊
         course.setDelete(false);
         course.setFree(true); //免费
         

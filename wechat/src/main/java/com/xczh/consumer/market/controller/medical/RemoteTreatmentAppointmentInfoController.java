@@ -197,4 +197,27 @@ public class RemoteTreatmentAppointmentInfoController {
         courseService.updateCourseLiveStatus("start", courseService.selectById(treatment.getCourseId()).getDirectId(), String.valueOf(HeaderInterceptor.getClientTypeCode()));
         return ResponseObject.newSuccessResponseObject(null);
     }
+
+    @RequestMapping(value = "checkInav", method = RequestMethod.GET)
+    public ResponseObject checkInavStatus(@RequestParam int infoId) {
+        TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentService.selectById(infoId);
+        if (treatmentAppointmentInfo == null || treatmentAppointmentInfo.getTreatmentId() == null) {
+            throw new MedicalException("参数错误, treatmentAppointment为空");
+        }
+        Treatment treatment = remoteTreatmentService.selectTreatmentById(treatmentAppointmentInfo.getTreatmentId());
+        if (treatment == null) {
+            throw new MedicalException("参数错误, treatment为空");
+        }
+        if (treatment.getCourseId() == null) {
+            throw new MedicalException("该诊疗未关联课程");
+        }
+        Course course = courseService.selectById(treatment.getCourseId());
+        if (course == null) {
+            throw new MedicalException("课程为空");
+        }
+        if (course.getInavId() == null) {
+            throw new MedicalException("课程未关联互动房间id");
+        }
+        return ResponseObject.newSuccessResponseObject(InteractionService.getStatus(course.getInavId()));
+    }
 }

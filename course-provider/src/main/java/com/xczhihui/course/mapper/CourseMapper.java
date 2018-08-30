@@ -4,11 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -19,13 +15,11 @@ import com.xczhihui.course.vo.CourseSolrVO;
 import com.xczhihui.course.vo.ShareInfoVo;
 
 /**
- * 
-* @ClassName: CourseMapper
-* @Description: 课程dao类
-* @author yangxuan
-* @email yangxuan@ixincheng.com
-* @date 2018年8月20日
-*
+ * @author yangxuan
+ * @ClassName: CourseMapper
+ * @Description: 课程dao类
+ * @email yangxuan@ixincheng.com
+ * @date 2018年8月20日
  */
 public interface CourseMapper extends BaseMapper<Course> {
 
@@ -180,7 +174,7 @@ public interface CourseMapper extends BaseMapper<Course> {
     /**
      * 查询课程的简单信息
      *
-     * @param id id 
+     * @param id id
      * @return
      */
     @Select({"select id, grade_name as gradeName, status from oe_course where id = #{id}"})
@@ -201,21 +195,22 @@ public interface CourseMapper extends BaseMapper<Course> {
     @Select("SELECT COUNT(*) FROM `course_teaching` ct WHERE ct.`course_id`=#{courseId} AND ct.`user_id`=#{accountId}")
     int selectQualification4TeachingCourse(@Param("accountId") String accountId, @Param("courseId") Integer courseId);
 
-    CourseLecturVo selectDoctorLiveRoomRecentCourse(@Param("userId")String userId, @Param("onlyFree") boolean onlyFreee);
-
+    CourseLecturVo selectDoctorLiveRoomRecentCourse(@Param("userId") String userId, @Param("onlyFree") boolean onlyFreee);
 
 
     /**
      * 回放状态
+     *
      * @param documentId 回放id
      * @param status     回放状态
      */
     @Update({" update oe_course set play_back_type = #{status} where record_id = #{recordId} "})
     void updatePlayBackStatusByRecordId(@Param("recordId") String recordId, @Param("status") Integer status);
-    
-    
+
+
     /**
      * 通过回放id查找渠道id
+     *
      * @param documentId 回放id
      * @param status     回放状态
      */
@@ -231,6 +226,7 @@ public interface CourseMapper extends BaseMapper<Course> {
 
     /**
      * 获取
+     *
      * @param directId
      * @return
      */
@@ -239,69 +235,74 @@ public interface CourseMapper extends BaseMapper<Course> {
 
     /**
      * 正在直播中的课程
+     *
      * @return
      */
     @Select({"select id, direct_id as directId from oe_course where live_status = 1 and is_delete is false and status = 1 and type = 1"})
     List<Course> selectLivingCourse();
 
-    
+
     /**
-     * 
-     * <p>Title: selectTheirCollection</p>  
-     * <p>Description: 如果是付费的音频或者视频判断其是否包含在某个付费的专辑中</p>  
+     * <p>Title: selectTheirCollection</p>
+     * <p>Description: 如果是付费的音频或者视频判断其是否包含在某个付费的专辑中</p>
+     *
      * @param courseId
      * @return
      */
-    @Select({" select oc.grade_name as gradeName,oc.id,oc.smallimg_path as smallImgPath  from  collection_course  cc inner join  oe_course oc on cc.collection_id= oc.id " + 
-    		"   where cc.course_id = ${courseId} and oc.is_free = 0 order by cc.create_time limit 0,1 "})
-	Map<String,Object> selectTheirCollection(@Param("courseId")Integer courseId);
+    @Select({" select oc.grade_name as gradeName,oc.id,oc.smallimg_path as smallImgPath  from  collection_course  cc inner join  oe_course oc on cc.collection_id= oc.id " +
+            "   where cc.course_id = ${courseId} and oc.is_free = 0 order by cc.create_time limit 0,1 "})
+    Map<String, Object> selectTheirCollection(@Param("courseId") Integer courseId);
 
-	/**  
-	 * <p>Title: selectTherapyLiveInfo</p>  
-	 * <p>Description: </p>  
-	 * @param id   CONCAT(date," ",start_time) as startTime,CONCAT(date," ",end_time) as endTime 
-	 */ 
+    /**
+     * <p>Title: selectTherapyLiveInfo</p>
+     * <p>Description: </p>
+     *
+     * @param id CONCAT(date," ",start_time) as startTime,CONCAT(date," ",end_time) as endTime
+     */
     @Select({"select CONCAT(mt.date,' ',mt.start_time) as startTime,CONCAT(mt.date,' ',mt.end_time) as endTime,"
-    		+ " mt.doctor_id as doctorId,mt.create_person as userLecturerId,"
-    		+ " mtai.question as description,mtai.user_id as userId,"
-    		+ " ca.detail as lecturerDescription,"
-    		+ " ca.name as heir,md.name as doctorName from medical_treatment mt " + 
-    		"    inner join medical_treatment_appointment_info mtai on mt.info_id = mtai.id " + 
-    		"	 inner join course_anchor ca on mt.create_person = ca.user_id  " + 
-    		"	 inner join medical_doctor md on mt.doctor_id = md.id  " + 
-    		"	 where mt.info_id =  #{infoId} "})
-    CourseLecturVo selectTherapyLiveInfo(@Param("infoId")Integer infoId);
+            + " mt.doctor_id as doctorId,mt.create_person as userLecturerId,"
+            + " mtai.question as description,mtai.user_id as userId,"
+            + " ca.detail as lecturerDescription,"
+            + " ca.name as heir,md.name as doctorName from medical_treatment mt " +
+            "    inner join medical_treatment_appointment_info mtai on mt.info_id = mtai.id " +
+            "	 inner join course_anchor ca on mt.create_person = ca.user_id  " +
+            "	 inner join medical_doctor md on mt.doctor_id = md.id  " +
+            "	 where mt.info_id =  #{infoId} "})
+    CourseLecturVo selectTherapyLiveInfo(@Param("infoId") Integer infoId);
 
-	/**  
-	 * <p>Title: selectDoctorCurrentDayTherapyNumber</p>  
-	 * <p>Description: </p>  
-	 * @return  
-	 */ 
+    /**
+     * <p>Title: selectDoctorCurrentDayTherapyNumber</p>
+     * <p>Description: </p>
+     *
+     * @return
+     */
     @Select({" select grade_name  from oe_course "
-    		+ " where appointment_info_Id 	is not null and to_days(start_time) = to_days(#{startTime}) "
-    		+ " and user_lecturer_id  = #{userLecturerId}   order by grade_name desc "})
-    List<String> selectDoctorCurrentDayTherapyNumber(@Param("startTime")Date startTime,@Param("userLecturerId")String userLecturerId);
+            + " where appointment_info_Id 	is not null and to_days(start_time) = to_days(#{startTime}) "
+            + " and user_lecturer_id  = #{userLecturerId}   order by grade_name desc "})
+    List<String> selectDoctorCurrentDayTherapyNumber(@Param("startTime") Date startTime, @Param("userLecturerId") String userLecturerId);
 
-	/**  
-	 * <p>Title: updateAppointmentInfoStatus</p>  
-	 * <p>Description: </p>  
-	 * @param id  
-	 */ 
+    /**
+     * <p>Title: updateAppointmentInfoStatus</p>
+     * <p>Description: </p>
+     *
+     * @param id
+     */
     @Update({" update medical_treatment_appointment_info set status = #{status}  where id = #{id} "})
-	Integer updateAppointmentInfoPass(@Param("id")Integer id,@Param("status")Integer status);
+    Integer updateAppointmentInfoPass(@Param("id") Integer id, @Param("status") Integer status);
 
-    
-	/**  
-	 * <p>Title: insertCouserApplyInfo</p>  
-	 * <p>Description: </p>  
-	 * @param course  
-	 */ 
+
+    /**
+     * <p>Title: insertCouserApplyInfo</p>
+     * <p>Description: </p>
+     *
+     * @param course
+     */
     @Insert({" insert into course_apply_info (title,subtitle,user_id, img_path, lecturer, lecturer_description,"
-    		+ " course_form,course_menu,start_time, price, course_description,course_detail,"
-    		+ " multimedia_type,sale,status,create_time,update_time,client_type) "
-    		+ " values(#{course.gradeName}, #{course.gradeName},#{course.userLecturerId}, #{course.smallImgPath}, #{course.lecturer}, #{course.lecturerDescription},"
-    		+ "	#{course.type},'', #{course.startTime}, #{course.currentPrice}, #{course.courseDetail}, #{course.courseDetail},"
-    		+ "	1, 1,1, now(), now(),#{course.clientType}) "})
-    @Options(useGeneratedKeys=true, keyProperty="course.examineId", keyColumn="id")
-    void insertCouserApplyInfo(@Param("course")Course course);
+            + " course_form,course_menu,start_time, price, course_description,course_detail,"
+            + " multimedia_type,sale,status,create_time,update_time,client_type) "
+            + " values(#{course.gradeName}, #{course.gradeName},#{course.userLecturerId}, #{course.smallImgPath}, #{course.lecturer}, #{course.lecturerDescription},"
+            + "	#{course.type},'', #{course.startTime}, #{course.currentPrice}, #{course.courseDetail}, #{course.courseDetail},"
+            + "	1, 1,1, now(), now(),#{course.clientType}) "})
+    @Options(useGeneratedKeys = true, keyProperty = "course.examineId", keyColumn = "id")
+    void insertCouserApplyInfo(@Param("course") Course course);
 }
