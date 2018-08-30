@@ -265,15 +265,15 @@
                                    target="_blank">
                                     <div class="play-img z">
                                         <div class="circle">
-                                            <div class="percent left percentleftId" data-courseId="${collectionItem.id}"
-                                                 data-timeLength="${collectionItem.courseLength}"></div>
+                                            <div class="percent left percentleftId" data-courseId="${collectionItem.id}" 
+                                                 data-timeLength="${collectionItem.duration}"></div>
                                             <div class="percent right wth0"></div>
                                         </div>
                                         <img src="../../web/images/icon-play.png"/>
                                     </div>
                                     <div class="play-album z" data-courseId="${collectionItem.id}">
                                         <p>${collectionItem.gradeName}</p>
-                                        <p class="course-length"><img src="/web/images/class_search_time.png"/>${collectionItem.courseLength}分钟<span></span></p>
+                                        <p class="course-length"><img src="/web/images/class_search_time.png"/>${collectionItem.courseLength}<span></span></p>
                                     </div>
                                 </a>
                             </li>

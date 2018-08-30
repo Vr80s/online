@@ -178,7 +178,7 @@ RequestService("/course/newGetCoursesByCollectionId",
 			lalal += (li+"<div>" +
 				"<span class='playbtn'></span>" +
 				"<span class='teacher_name'>"+obj.name+"</span>" +
-				"<span class='album_time'>"+obj.courseLength+"分钟</span>" +
+				"<span class='album_time'>"+obj.courseLength+"</span>" +
 				"<span class='album_title'>"+obj.gradeName+"</span> " +
 				"</div></li>");
 		}
