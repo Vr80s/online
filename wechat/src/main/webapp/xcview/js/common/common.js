@@ -296,20 +296,28 @@ function common_share_backs() {
     var shareBack = getQueryString("shareBack");
     if(isNotBlank(back) && back.indexOf("home_page.html") != -1){
         sessionStorage.setItem("inherited_backFalg","home");
+
     }else if(isNotBlank(back) && back.indexOf("physician_list.html") != -1){
-        sessionStorage.setItem("inherited_backFalg","physicians_page");
+        sessionStorage.setItem("inherited_backFalg","physician_list");
+
     }else if(isNotBlank(back) && back.indexOf("live_audio.html") != -1){
-        sessionStorage.setItem("inherited_backFalg","physicians_page");
+        sessionStorage.setItem("inherited_backFalg","live_audio");
+
     }else if(isNotBlank(back) && back.indexOf("live_play.html") != -1){
-        sessionStorage.setItem("inherited_backFalg","physicians_page");
+        sessionStorage.setItem("inherited_backFalg","live_play");
+
     }else if(isNotBlank(back) && back.indexOf("school_audio.html") != -1){
-        sessionStorage.setItem("inherited_backFalg","physicians_page");
+        sessionStorage.setItem("inherited_backFalg","school_audio");
+
     }else if(isNotBlank(back) && back.indexOf("school_play.html") != -1){
-        sessionStorage.setItem("inherited_backFalg","physicians_page");
+        sessionStorage.setItem("inherited_backFalg","school_play");
+
     }else if(isNotBlank(back) && back.indexOf("school_class.html") != -1){
-        sessionStorage.setItem("inherited_backFalg","physicians_page");
+        sessionStorage.setItem("inherited_backFalg","school_class");
+
     }else if(isNotBlank(back) && back.indexOf("index.html") != -1){
         sessionStorage.setItem("inherited_backFalg","index");
+        
     }else{
         //window.location.href = "/xcview/html/physician/index.html";
         window.history.back();
