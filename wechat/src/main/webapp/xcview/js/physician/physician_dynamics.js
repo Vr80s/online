@@ -244,11 +244,11 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
         // 因为加载了2次代码，故加了个定时器===一张图片时判断图片高度
         setTimeout(function(){
             var aBtn=$('.trends_hide').each(function(i){
-                var imgHerght = $(this).find("img").height();
+                var imgHerght = $(this).find(".pic_img_one").height();
                 // var src = $(this).find("img").attr("src");
                 // console.info(i+"i:"+imgHerght+"src:="+src);
                 if (imgHerght >464) {
-                    $(this).find("img").addClass("pic_img_oness");
+                    $(this).find(".pic_img_one").addClass("pic_img_oness");
                 };
             });
         },1000);
