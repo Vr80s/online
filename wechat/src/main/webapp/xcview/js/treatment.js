@@ -174,8 +174,3 @@ var miniRefresh = new MiniRefresh({
     
 
 // });
-
-
-
-
-

@@ -79,7 +79,6 @@
 
             // 点击拒绝显示弹框
 			$(".handler_btn").click(function(){
-				alert(1111);
 				// tooltip
 				$(".tooltip").show();
 			});
