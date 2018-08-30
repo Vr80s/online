@@ -15,12 +15,10 @@
                 location.href ='/xcview/html/treatment_details.html?infoId='+infoId;
             }
         });
-
     };
 
-
-    // 列表
     function appointmentList(pageNumber, downOrUp){
+            // 列表
         requestGetService("/doctor/treatment/list",{
             page:pageNumber,
             size:10
@@ -29,6 +27,7 @@
                 var obj = data.resultObject;
                 //downOrUp为down时为下拉刷新等于up时为上拉操作
                 if (downOrUp=='down') {
+
                     if (obj.length==0) {
                         $(".my_bookings").show();
                         $(".baseimagenumber").show();
@@ -39,17 +38,19 @@
                         $(".downwrap-content").show();    //显示刷新提示
                         $(".minirefresh-upwrap").show();  //显示刷新提示
                         $(".baseimagenumber").hide();
-                    };
-                    // 预约列表
-                    $('.my_bookings').html(template('my_bookings', {items: obj}));
-                     miniRefresh.endDownLoading(true);// 结束下拉刷新
+                    }
+                    // 预约列表---显示列表
+                    $('.my_bookings_main').html(template('my_bookings', {items: obj}));
+                    miniRefresh.endDownLoading(true);// 结束下拉刷新
                 }else if (obj.length==0) {
                     miniRefresh.endUpLoading(true);// 结束上拉加载
                 }else{
-                    $('.my_bookings').html(template('my_bookings', {items: obj}));
-                     miniRefresh.endDownLoading(false);
+                    // 追加  append
+                    $('.my_bookings_main').append(template('my_bookings', {items: obj}));
+                    miniRefresh.endUpLoading(false);
                 };
 
+            
                  // 点击取消预约按钮
                 $(".delete_btn").off("click");
                 $(".delete_btn").click(function(){
@@ -63,6 +64,7 @@
 
                             deletes.parent().parent().parent().parent(".main").remove();
                             
+
                             jqtoast("取消成功");
                         }else{
                             jqtoast(data.errorMessage);
@@ -97,6 +99,7 @@
                     $(".tooltip").show();
                 });
                 // 点击取消
+                $(".call_off").off("click");
                 $(".call_off").click(function(){
                     $(".tooltip").hide();
                 });
@@ -104,7 +107,7 @@
                 // 点击去下载
                 $(".determine").off("click");
                 $(".determine").click(function(){
-            //          安卓路径 
+                    //安卓路径 
                     var androidURL ="http://sj.qq.com/myapp/detail.htm?apkName=com.bj.healthlive";  
                     var browser = {  
                    versions: function() {  
@@ -139,7 +142,8 @@
                 jqtoast(data.errorMessage);
             }
         });
-    }
+    };
+
     
 
 

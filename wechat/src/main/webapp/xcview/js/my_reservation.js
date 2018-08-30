@@ -33,7 +33,6 @@ $(function () {
                 var obj = data.resultObject;
                 //downOrUp为down时为下拉刷新等于up时为上拉操作
                 if(downOrUp=='down'){
-                    
                     if(obj.length==0){
                         $(".my_bookings").show();
                         $(".baseimagenumber").show();
