@@ -306,6 +306,63 @@ header {
 }
 /*中间内容结束*/
 
+/*点击取消预约提示框*/
+.cancel{
+	width: 100%;
+    height: 100%;
+    display: none;
+}
+.cancel_bg{
+	width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.3;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9;
+}
+.cancel_main {
+    width: 5.4rem;
+    height: 2.57rem;
+    background: #FFFFFF;
+    border-radius: 16px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -1.286rem;
+    margin-left: -2.7rem;
+    z-index: 9;
+}
+.cancel_main_title{
+	font-size: .32rem;
+    color: #333333;
+    text-align: center;
+    margin-top: 0.6rem;
+    margin-bottom: 0.65rem;
+}
+.cancel_bottom{
+	width: 100%;
+    height: .86rem;
+    line-height: .86rem;
+    border-top: 1px solid #f0f0f0;
+}
+.cancel_yes{
+	width: 48%;
+    text-align: center;
+    font-size: .3rem;
+    color: #00BC12;
+    float: left;
+    border-right: 1px solid #f0f0f0;
+}
+.cancel_no{
+	width: 48%;
+    font-size: .3rem;
+    color: #333;
+    text-align: center;
+    float: left;
+
+}
 
 
 

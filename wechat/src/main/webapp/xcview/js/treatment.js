@@ -51,21 +51,61 @@
                 };
 
             
-                 // 点击取消预约按钮
+                 // 点击取消预约按钮 
                 $(".delete_btn").off("click");
                 $(".delete_btn").click(function(){
-                    // alert(12312);
                     var id=$(this).attr("data-id");
+                    $(".cancel_yes").attr("title",id);
 
+                    // $(".cancel_yes").addClass("cancel_yes_"+id);
+
+                    $(".cancel").show();
+                });
+
+                /*function cancelOff(off){
+                    var id = $(".cancel_yes").attr("title");
                     requestService("/doctor/treatment/cancel/appointment",{id:id},function (data) {
                         if (data.success == true) {
 
-                            var deletes=$(".delete_"+id);
+                            // var deletes=$(".delete_"+id);
 
                             deletes.parent().parent().parent().parent(".main").remove();
                             
 
                             jqtoast("取消成功");
+                        }else{
+                            jqtoast(data.errorMessage);
+                        }
+                    });
+                };*/
+
+                // 点击否
+                $(".cancel_no").off("click");
+                $(".cancel_no").click(function(){
+                    $(".cancel").hide();
+                });
+
+                // 点击“是”取消预约
+                $(".cancel_yes").off("click");
+                /*var id = $(".cancel_yes").attr("title");*/
+                $(".cancel_yes").click(function(){
+                    
+                    var id=$(this).attr("title");
+                    
+                    requestService("/doctor/treatment/cancel/appointment",{id:id},function (data) {
+                        if (data.success == true) {
+                            $(".cancel").hide();
+
+                            var deletes=$(".delete_"+id);
+                            deletes.parent().parent().parent().parent(".main").remove();
+                            
+                            jqtoast("取消成功");
+                            
+                            $(".downwrap-content").hide();
+                            $(".minirefresh-upwrap").hide();
+                            $(".baseimagenumber").show();
+                            $("body").css("background","#fff");
+
                         }else{
                             jqtoast(data.errorMessage);
                         }
