@@ -4,8 +4,8 @@
  *   全部/直播间/师承/介绍
  *   li_datal/li_course/li_evaluate//li_prose_origin
  */
-sessionStorage.setItem("physiciansPage","")
-sessionStorage.setItem("li_data","");
+/*sessionStorage.setItem("physiciansPage","")
+sessionStorage.setItem("li_data","");*/
 
 
 var gradeName ="";
@@ -135,7 +135,8 @@ function share_back(){
     if(isNotBlank(wv)){
         location.href='/xcview/html/apprentice/apprentice.html'
     }else{
-        common_share_back();
+        // common_share_back();  该页面没有返回学堂，返回到中医师的页面了，换个方法
+        common_share_backs();
     }
 }
 

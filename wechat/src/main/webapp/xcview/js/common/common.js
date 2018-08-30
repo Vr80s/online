@@ -268,12 +268,13 @@ function isLoginJump() {
 }
 
 function common_share_back() {
-	
+    
     var back = document.referrer;
     if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
           window.history.back();
     } else {
-          window.location.href = "/xcview/html/physician/index.html";
+          // window.location.href = "/xcview/html/physician/index.html";
+          window.history.back();
     }
 //    var shareBack = getQueryString("shareBack");
 //    if(isNotBlank(shareBack)){
@@ -313,17 +314,26 @@ function common_share_backs() {
         sessionStorage.setItem("inherited_backFalg","school_play");
 
     }else if(isNotBlank(back) && back.indexOf("school_class.html") != -1){
-        sessionStorage.setItem("inherited_backFalg","school_class");
+        sessionStorage.setItem("inherited_backFalg","school_class");  
+
+    }else if(isNotBlank(back) && back.indexOf("physicians_page.html") != -1){
+        sessionStorage.setItem("inherited_backFalg","physicians_page");  
+
+    }else if(isNotBlank(back) && back.indexOf("inherited_introduction.html") != -1){
+        sessionStorage.setItem("inherited_backFalg","inherited_introduction");  //招生简章
+
+    }else if(isNotBlank(back) && back.indexOf("apply.html") != -1){
+        sessionStorage.setItem("inherited_backFalg","apply");  //报名信息
 
     }else if(isNotBlank(back) && back.indexOf("index.html") != -1){
         sessionStorage.setItem("inherited_backFalg","index");
-        
+
     }else{
         //window.location.href = "/xcview/html/physician/index.html";
         window.history.back();
         // return;
     }
-
+    //  
     /*var backFalg = sessionStorage.getItem("inherited_backFalg");
                         //alert(backFalg);
     if(backFalg == "index"){
@@ -790,3 +800,5 @@ function nofinds(){
 } 
 
 // onerror="nofinds();"
+
+
