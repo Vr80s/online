@@ -144,8 +144,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     public Page<CourseLecturVo> selectMyPurchasedCourseList(Page<CourseLecturVo> page, String id) {
         List<CourseLecturVo> records = iCourseMapper.selectMyPurchasedCourseList(page, id);
-
-        
         
         return page.setRecords(records);
     }

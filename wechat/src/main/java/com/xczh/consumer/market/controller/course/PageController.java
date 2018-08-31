@@ -219,7 +219,7 @@ public class PageController {
                     RecordType.LOOK.getId(), null);
             
             if(cv.getAppointmentInfoId()!=null) {
-            	coursePage = WechatShareLinkType.LIVE.getLink();
+            	coursePage = WechatShareLinkType.LIVE_REMOTE.getLink();
             }else {
             	coursePage = WechatShareLinkType.LIVE.getLink();
             }
