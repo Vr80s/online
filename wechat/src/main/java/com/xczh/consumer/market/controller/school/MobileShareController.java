@@ -457,8 +457,17 @@ public class MobileShareController {
                         coursePage = WechatShareLinkType.LIVE_AUDIO.getLink();
                     }
                 } else if (cv.getType().equals(3)) {
-                    //播放页面
-                    coursePage = WechatShareLinkType.LIVE_PLAY.getLink();
+                    
+                   if(cv.getAppointmentInfoId()!=null) {
+                    	
+                   	 coursePage = WechatShareLinkType.LIVE.getLink();
+                   }else {
+                   	
+                   	coursePage = WechatShareLinkType.LIVE.getLink();
+                   }
+                    
+                    
+                    
                 } else {
                     //线下课页面
                     coursePage = WechatShareLinkType.LIVE_CLASS.getLink();

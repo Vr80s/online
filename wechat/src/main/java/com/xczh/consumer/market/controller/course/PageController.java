@@ -202,7 +202,10 @@ public class PageController {
         String coursePage = WechatShareLinkType.INDEX_PAGE.getLink();
         //付费的
         if(cv.getWatchState().equals(0)) {
-            coursePage = WechatShareLinkType.SCHOOL_PLAY.getLink();    
+            
+        	coursePage = WechatShareLinkType.SCHOOL_PLAY.getLink();
+            
+            
         //免费 且  直播    
         }else if(cv.getWatchState().equals(1) 
                 && cv.getLineState().equals(1)) {
@@ -215,8 +218,11 @@ public class PageController {
             watchHistoryService.addLookHistory(cv.getId(), ou.getId(),
                     RecordType.LOOK.getId(), null);
             
-            
-            coursePage = WechatShareLinkType.LIVE.getLink();
+            if(cv.getAppointmentInfoId()!=null) {
+            	coursePage = WechatShareLinkType.LIVE.getLink();
+            }else {
+            	coursePage = WechatShareLinkType.LIVE.getLink();
+            }
             
         }else if(cv.getWatchState().equals(1) 
                 && !cv.getLineState().equals(1)) {

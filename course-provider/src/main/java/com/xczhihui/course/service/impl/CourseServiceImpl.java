@@ -1,7 +1,9 @@
 package com.xczhihui.course.service.impl;
 
+import java.io.IOException;
 import java.util.*;
 
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,7 @@ import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.ICourseSolrService;
 import com.xczhihui.course.vo.CollectionCoursesVo;
 import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.course.vo.CourseSolrVO;
 import com.xczhihui.course.vo.ShareInfoVo;
 
 /**
@@ -142,6 +145,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public Page<CourseLecturVo> selectMyPurchasedCourseList(Page<CourseLecturVo> page, String id) {
         List<CourseLecturVo> records = iCourseMapper.selectMyPurchasedCourseList(page, id);
 
+        
+        
         return page.setRecords(records);
     }
 
@@ -545,6 +550,16 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             iCourseMapper.updateById(course);
             // 发送直播开始通知广播
             liveStatusUpdateNotice(course.getChannelId(), type);
+            
+            //同步到solr
+            try {
+				courseSolrService.initCourseSolrDataById(course.getId());
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (SolrServerException e) {
+				e.printStackTrace();
+			}
+            
             return course.getId();
         }
         return null;
@@ -689,6 +704,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 									RedisCacheKey.REDIS_SPLIT_CHAR + 
 						course.getId(), mtv);
         
+        List<CourseSolrVO> courseSolrVOS = iCourseMapper.selectCourses4Solr(course.getId());
+        
         
         courseSolrService.initCourseSolrDataById(course.getId());
         
@@ -740,30 +757,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 				strGradeName +="01";
 			}
 			
-//			if(numberStr!=null && XzStringUtils.isNumeric(numberStr)) {
-//				int number = Integer.parseInt(numberStr);
-//				if(number < 9) {
-//					numberStr = "0"+(number+1);
-//				}else if(number == 9) {
-//					numberStr = "10";
-//				}
-//				strGradeName +=numberStr;
-//			}else if(numberStr!=null  && !XzStringUtils.isNumeric(numberStr)) {
-//				strGradeName +="01";
-//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return strGradeName;
 	}
 	
-	public static void main(String[] args) {
-		
-		String numberStr = "123";
-		
-		System.out.println(numberStr.substring(numberStr.length()-2, numberStr.length()));
-		
-	}
-	
-
 }

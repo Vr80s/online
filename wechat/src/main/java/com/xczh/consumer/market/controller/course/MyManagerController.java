@@ -84,7 +84,8 @@ public class MyManagerController {
     private CacheService cacheService;
     @Value("${rate}")
     private int rate;
-
+    
+    
     /**
      * Description：进入我的页面显示几个初始化数据
      *
@@ -159,7 +160,7 @@ public class MyManagerController {
      *
      * @param req
      * @return ResponseObject
-     * @throws Exception
+     * @throws Exception 
      * @author name：yangxuan <br>
      * email: 15936216273@163.com
      */
@@ -393,16 +394,19 @@ public class MyManagerController {
         page.setSize(pageSize);
 
         page = courseService.selectAppCourseApplyPage(page, accountId, courseFrom, multimediaType);
-        for (CourseLecturVo cv : page.getRecords()) {
-            if (ApplyStatus.PASS.getCode() == cv.getApplyStatus() && cv.getCollection()) {
-                //已更新多少集，等于总集数
-                if(cv.getCourseNumber()!=null && cv.getDirtyNumber()!=null && cv.getCourseNumber().equals(cv.getDirtyNumber())) {
-                    cv.setDirtyDate(XzStringUtils.COLLECTION_UPDATE_FINISH);
-                }else {
-                    cv.setDirtyDate(courseApplyService.getHostCollectionUpdateDateText(cv.getId()));
-                }
-            }
-		}
+//        for (CourseLecturVo cv : page.getRecords()) {
+//            if (ApplyStatus.PASS.getCode() == cv.getApplyStatus() && cv.getCollection()) {
+//                //已更新多少集，等于总集数
+//                if(cv.getCourseNumber()!=null && cv.getDirtyNumber()!=null && cv.getCourseNumber().equals(cv.getDirtyNumber())) {
+//                    cv.setDirtyDate(XzStringUtils.COLLECTION_UPDATE_FINISH);
+//                }else {
+//                    cv.setDirtyDate(courseApplyService.getHostCollectionUpdateDateText(cv.getId()));
+//                }
+//            }
+//		}
+        
+        page.setRecords(addCollectionInfo(page.getRecords()));
+        
         return ResponseObject.newSuccessResponseObject(page);
     }
 
@@ -555,4 +559,29 @@ public class MyManagerController {
             return ResponseObject.newErrorResponseObject("动态码错误");
         }
     }
+    
+    
+    /**
+     * 
+     * <p>Title: addCollectionInfo</p>  
+     * <p>Description: 增加课程所包含的专辑信息</p>  
+     * @param list
+     * @return
+     */
+    public List<CourseLecturVo>  addCollectionInfo(List<CourseLecturVo> list){
+    	for (CourseLecturVo cv : list) {
+	    	 if (cv.getCollection()) {
+	             //已更新多少集，等于总集数
+	             if(cv.getCourseNumber()!=null && cv.getDirtyNumber()!=null && cv.getCourseNumber().equals(cv.getDirtyNumber())) {
+	                 cv.setDirtyDate(XzStringUtils.COLLECTION_UPDATE_FINISH);
+	             }else {
+	                 cv.setDirtyDate(courseApplyService.getHostCollectionUpdateDateText(cv.getId()));
+	             }
+	         }
+    	} 
+    	return list;
+    }
+	
+    
+    
 }
