@@ -19,6 +19,7 @@ $(function () {
     var transOverTimer;
     window.doc = null;
     var liveStatus = $('#J_liveStatus').val();
+    var curLiving = false;
 
     window.Vhall.config({
         appId: appId,//应用 ID ,必填
@@ -225,6 +226,7 @@ $(function () {
                     success: function () {
                         $('.play-time').text("00:00");
                         var n = 0;
+                        curLiving = true;
                         timer = setInterval(function () {
                             n++;
                             var m = parseInt(n / 60);
@@ -244,7 +246,7 @@ $(function () {
                     }
                 });
             } else {
-                showTip("其他设备正在直播，请关闭后继续使用被设备进行直播");
+                showTip("其他设备正在直播，请关闭后继续使用该设备进行直播");
             }
         } else {
             confirmBox.open("提示", "确认结束当前直播吗?", function() {
@@ -254,6 +256,7 @@ $(function () {
                         initStatus();
                         clearInterval(timer);
                         updateLiveStatus("stop");
+                        curLiving = false;
                     }
                 });
                 confirmBox.close();
@@ -628,6 +631,12 @@ $(function () {
     $('#J_message_text').keypress(function (event) {
         if (event.keyCode == 13 && liveStatus != 3) {
             sendMessage();
+        }
+    });
+
+    window.addEventListener('offline', function(){
+        if (curLiving) {
+            showTip("检测到您的网络已断开，请重新连接网络后，刷新当前页面");
         }
     });
 
