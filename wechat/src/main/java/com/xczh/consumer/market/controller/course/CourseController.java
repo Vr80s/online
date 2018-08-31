@@ -39,7 +39,9 @@ import com.xczhihui.medical.anchor.service.ICourseApplyService;
 @RestController
 @RequestMapping("/xczh/course")
 public class CourseController {
+	
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CourseController.class);
+    
     @Autowired
     public IWatchHistoryService watchHistoryServiceImpl;
     @Autowired
@@ -277,15 +279,8 @@ public class CourseController {
     @RequestMapping(value = "updateLiveStatus", method = RequestMethod.POST)
     public ResponseObject updateLiveStatus(HttpServletRequest request, String event, String directId) throws IOException, SolrServerException {
 
-        Integer courseId = courseServiceImpl.updateCourseLiveStatus(event, directId, APPUtil.getMobileSource(request));
+        courseServiceImpl.updateCourseLiveStatus(event, directId, APPUtil.getMobileSource(request));
 
-        if (courseId != null) {
-            try {
-                courseSolrService.initCourseSolrDataById(courseId);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
         return ResponseObject.newSuccessResponseObject(null);
     }
 

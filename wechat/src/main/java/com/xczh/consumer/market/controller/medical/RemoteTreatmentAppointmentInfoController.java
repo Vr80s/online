@@ -148,6 +148,8 @@ public class RemoteTreatmentAppointmentInfoController {
         if (type == DOCTOR_TREATMENT_STOP.getVal()) {
             remoteTreatmentService.updateTreatmentStartStatus(infoId, AppointmentStatus.FINISHED.getVal());
             courseService.updateCourseLiveStatus("stop", courseService.selectById(courseId).getDirectId(), String.valueOf(HeaderInterceptor.getClientTypeCode()));
+        
+            
         }
         if (type == DOCTOR_TREATMENT_START.getVal()) {
             Integer treatmentStatus = treatment.getStatus();
