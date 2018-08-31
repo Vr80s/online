@@ -3,6 +3,7 @@ package com.xczh.consumer.market.controller.medical;
 
 import static com.xczhihui.common.util.enums.CommunicationMessageType.*;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -183,7 +184,7 @@ public class RemoteTreatmentAppointmentInfoController {
     @RequestMapping(value = "inavUserList", method = RequestMethod.GET)
     public ResponseObject inavUserList(@RequestParam String inavId) throws Exception {
         List<String> inavUserList = InteractionService.getInavUserList(inavId);
-        return ResponseObject.newSuccessResponseObject(userCenterService.findByIds(inavUserList));
+        return ResponseObject.newSuccessResponseObject(inavUserList.isEmpty() ? Collections.emptyList() : userCenterService.findByIds(inavUserList));
     }
 
     @RequestMapping(value = "start", method = RequestMethod.POST)
