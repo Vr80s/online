@@ -224,11 +224,11 @@
                 <#list hospitalList.records as clinic>
                     <li class="hospitalTpl">
                         <a href="${webUrl}/clinics/${clinic.id}" id="${clinic.id}" target="_blank"></a>
-                        <#if clinic.medicalHospitalPictures[0]??>
-                            <img src="${clinic.medicalHospitalPictures[0].picture}?imageMogr2/thumbnail/!258x147r|imageMogr2/gravity/Center/crop/258x147" style="width: 100%;height: 147px;"
+                        <#if clinic.frontImg??>
+                            <img src="${clinic.frontImg}?imageMogr2/thumbnail/!258x147r|imageMogr2/gravity/Center/crop/258x147" style="width: 100%;height: 147px;"
                                  alt="${clinic.name}">
-                        <#else >
-                            <img src="/web/images/hospitalDefault.png?imageMogr2/thumbnail/!258x147r|imageMogr2/gravity/Center/crop/258x147" style="width: 100%;height: 147px;"
+                        <#else>
+                            <img src="/web/images/hospitalDefault.png" style="width: 100%;height: 147px;"
                                  alt="${clinic.name}">
                         </#if>
 

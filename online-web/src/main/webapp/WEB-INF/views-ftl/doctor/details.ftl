@@ -84,18 +84,26 @@
                          alt="${doctor.medicalHospital.name}">
                 </div>
                 <div class="hospital_inf">
-                    <p>${doctor.medicalHospital.name}</p>
-                    <p>预约电话：<span>${doctor.medicalHospital.tel?default('')}</span></p>
+                   
+                    <#if doctor.medicalHospital.name??>
+                    	<p>${doctor.medicalHospital.name}</p>
+                    </#if>
+                    <#if doctor.medicalHospital.tel??>
+                    	<p>预约电话：<span>${doctor.medicalHospital.tel?default('')}</span></p>
+                    </#if>
+                    
                     <#if doctor.workTime?? && doctor.workTime!='暂无' >
 	                    <p>坐诊时间：<span  style="vertical-align: text-top;display: inline-block;width: 455px;">
 							${doctor.workTime?default('')}</span>
 	                    </p>
                     </#if>
-                    <p>地 &nbsp;&nbsp;&nbsp;&nbsp; 址：
+					<#if doctor.medicalHospital??>
+					 <p>地 &nbsp;&nbsp;&nbsp;&nbsp; 址：
                         <span style="vertical-align: text-top;display: inline-block;width: 455px;">
-                                    <span>${doctor.medicalHospital.detailedAddress?default('')}</span>
-                                </span>
+                           <span>${doctor.medicalHospital.province?default("")}${doctor.medicalHospital.city?default("")}${doctor.medicalHospital.detailedAddress?default('')}</span>
+                        </span>
                     </p>
+					</#if>
                 </div>
             </div>
         </div>

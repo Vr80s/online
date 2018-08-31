@@ -42,11 +42,6 @@
 
         <div class="anchor-status z">
             <h2>${lecturerInfo.name?default('')}</h2>
-        <#--
-            <#if lecturerInfo.type == 1 && hospital?? && hospital.name??>
-                <h4>${hospital.name}</h4>
-            </#if>
-        -->
             <ul class="follow-box cl">
                 <li>关注<span id="focusCount">${focusCount}</span></li>
                 <li>|</li>
@@ -105,14 +100,6 @@
                 ${lecturerInfo.detail}
                 <#else>
                     <p>暂无主讲人介绍</p>
-                <#--
-                                                                   无数据时显示背景图
-                   <div class="all-null course-null">
-                       <div class="null-img">
-                           <img src="/web/images/icon-nodata.png"/>
-                       </div>
-                       <p>暂无主讲人介绍</p>
-                    -->
                 </#if>
 
                     </p>
