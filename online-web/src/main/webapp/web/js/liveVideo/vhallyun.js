@@ -93,6 +93,15 @@ function initVideo(){
        videoNode:'myVideo',
        complete:function(){
           VhallPlayer.play();
+       },
+       //播放器错误事件监听
+       error:function(reasn){
+            console.error('player error');
+            
+    		$(".playback").attr("type",21);
+    		$(".playback div").hide();
+        	$(".media-error").show();
+        	$(".playback").show();
        }
      });   
     }

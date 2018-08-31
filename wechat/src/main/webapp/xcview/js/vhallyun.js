@@ -71,7 +71,19 @@ function elsBind() {
 				videoNode: 'myVideo',
 				complete: function() {
 					// VhallPlayer.play();
-				}
+				}, //播放器错误事件监听
+		        error:function(reasn){
+		            console.error('player error');
+		        
+		            $(".video_end_top0").hide();
+					$(".video_end_top2").hide();
+					$(".video_end_top1").hide();
+					$(".video_end_top").hide();
+					
+
+					
+					$(".video_end_top4").show();
+		        }
 			});
 	}
 
@@ -156,9 +168,6 @@ function initChat() {
 					}else{
 						$(".video_end_top2").show();
 					};
-
-					// $(".video_end_top2").show();
-					
 
 				} else if (msg.type == 14) { // 退出直播间，但是没有结束直播
 
