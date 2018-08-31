@@ -172,6 +172,8 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
         }
 //  判断是下拉刷新还是上拉加载
         if(downOrUp=='down'){
+            alert(11111);
+            timer();
             //判断全部动态默认图
             if(data.resultObject.records.length==0){
                 var minirefreshs=$(window).height()-$(".top_show_heights").height();
@@ -186,8 +188,12 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
             miniRefresh.endDownLoading(true);// 结束下拉刷新
             idotototo();
         } else if(obj.length==0){
+            alert(222);
+            timer();
             miniRefresh.endUpLoading(true);// 结束上拉加载
         } else {
+            alert(333);
+            timer();
             $(".rests_nav").append(template('wrap_doctor_dynamics',{items:obj}));
             miniRefresh.endUpLoading(false);
             idotototo();
@@ -638,7 +644,7 @@ function createRecentlyLive(recentlyLive){
     // 直播状态
     //直播课程状态：lineState  1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
     $('#living_broadcastroom').html(template('living_broadcastroom_id', {items: recentlyLive}));
-        
+       
     var obj =  recentlyLive;
     var startStr =  recentlyLive.startTime;
     if(obj!=null && startStr!=null){       
@@ -671,20 +677,21 @@ function createRecentlyLive(recentlyLive){
                     s="0"+s;
                 }
                 var str = "直播倒计时 " + h + "：" + m + "：" + s;
-                $("#box1").html(str);
+                $(".box1").html(str);
+                console.log(str);
             }
         }
         // lineState   直播课程状态 1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
         if(obj!=null && obj.isLive == 1){
             $("#box2").hide();
-            $("#box1").show();
+            $(".box1").show();
             setInterval(timer, 1000);
             $(".count_down_title_span").hide();
-            $("#box1").css("margin-top","-1.9rem");
+            $(".box1").css("margin-top","-1.9rem");
             $(".count_down_title").css("margin-top","1rem");
         }else if(obj!=null && (obj.lineState ==2 || obj.lineState == 4  || obj.lineState ==5)){
             var str ="开播时间   " + startStr.replace(/\-/g, ".").slice(0,16);
-            $("#box1").hide();
+            $(".box1").hide();
             $("#box2").show();
             $("#box2").html(str);
         };
@@ -1279,3 +1286,4 @@ $(".li_prose_origin").click(function(){
 });
 
 
+// alert(444);

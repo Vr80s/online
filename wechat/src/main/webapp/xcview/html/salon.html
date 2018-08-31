@@ -70,25 +70,6 @@ $(function(){
     margin-left: -1.5em !important;
     /*display: none !important;*/
 }
-.vjs-big-play-buttons{
-    /*display: block !important;*/
-}
-
-/*  .cover{
-    display: none !important;
-} 
-.coze_bottom{
-    display: none !important;
-} 
-.coze_center{
-    background: indianred;
-}
-.mCustomScrollBox{
-    background: mediumvioletred;
-} */
- /* .details_cen1{
-    display: none;
- }  */
  .chatmsg-box{
     overflow: scroll;
     width: 7.5rem;
@@ -919,9 +900,10 @@ $(function(){
 
 
 <!-- 部分点击事件 -->
-<script type="text/javascript" src="/xcview/js/salon_change.js"></script>
-<script type="text/javascript" src="/xcview/js/salon.js"></script>
-<script type="text/javascript" src="/xcview/js/vhallyun_salon.js"></script>
+<!-- <script type="text/javascript" src="/xcview/js/salon_change.js"></script> -->
+<script type="text/javascript" src="/xcview/js/details_change.js"></script>
+<script type="text/javascript" src="/xcview/js/details.js"></script>
+<script type="text/javascript" src="/xcview/js/vhallyun.js"></script>
 <script type="text/javascript" src="/xcview/js/share/share.js"></script>
 
 
@@ -931,13 +913,8 @@ $(function(){
         
         $("body").scrollTop($("body").scrollHeight);
         $(".chatmsg-box").scrollTop($(".chatmsg-box")[0].scrollHeight);
-        /* $(".mCSB_dragger").scrollTop($(".mCSB_dragger")[0].scrollHeight); */
         $(".coze").scrollTop($(".coze")[0].scrollHeight);
         $(".coze_center").scrollTop($(".coze_center")[0].scrollHeight);
-        /* $(".mCSB_container").scrollTop($(".mCSB_container")[0].scrollHeight); */
-        /*$(".mCSB_container").css("top","0");
-        $(".mCSB_container").css("bottom","0");*/
-        /* $(".mCSB_dragger_bar").scrollTop($(".mCSB_dragger_bar")[0].scrollHeight); */
 
 
         $(".chatmsg-box").scroll(function(){  
@@ -1004,7 +981,6 @@ $(function(){
             $("#ch_ce0cee3a-iframe-div").dblclick();
 
             $(".document_ceneter").addClass("document_ceneters");
-            // $(".document_ceneter").css("transform","scale(1, 1) translate(-7.10543e-15px, 3.90799e-14px)");
 
             $(".document_ceneter").addClass("document_ceneter_width");
 
@@ -1014,13 +990,6 @@ $(function(){
             // 课件获取高度  img_doc
             $("#doc").removeClass("img_doc");
         });
-
-        /*var Document = $(".document_ceneter").html();
-        if (Document == !null) {
-            alert(1111);
-        }else{
-            alert(2222);
-        };*/
     };
 </script>
 <script>

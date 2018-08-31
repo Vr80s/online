@@ -806,7 +806,7 @@
 						<div class="count_down">
 							<div class="count_down_title" style="margin-top: 0rem;margin-bottom:0.4rem;"><span class="count_down_title_span">即将直播：</span>{{items.gradeName}}</div>
 							<div id="box2" style="font-size: 0.3rem;color: #FFFFFF;text-align: center;"></div>
-							<div id="box1"></div>
+							<div class="box1"></div>
 						</div>
 					{{else if items.lineState == 3}}
 						<div class="opacity_click" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})"></div>
@@ -826,10 +826,10 @@
 			</div>
 
 			<!-- 直播倒计时提示 -->
-			<div class="count_down" style="display: none;display1: block;">
+			<!-- <div class="count_down" style="display: none;display1: block;">
 				<div id="box1"></div>
 				<div class="count_down_title">标幽赋的前世今生</div>
-			</div>
+			</div> -->
 
 			<!-- 暂无直播 -->
 			<div class="no_live" style="display: none;">
