@@ -129,7 +129,8 @@ var orderId = getQueryString('orderId');
         var wechatNo = $(".age input").val();
         var sex = $(".sex_show").html();*/
         // var submitted ="";
-        requestGetService("/xczh/apply/applyInfo",{'courseId':courseId},function(data){
+        requestGetService("/xczh/apply/applyInfo",{'courseId':orderId},function(data){
+        // requestGetService("/xczh/apply/applyInfo",null,function(data){
             if(data.success){
                 // 调接口成功
                 var result = data.resultObject.applyInfo;

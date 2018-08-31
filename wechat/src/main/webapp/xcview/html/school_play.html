@@ -358,7 +358,7 @@
 					{{/if}}
 					</p>
 				</a>
-				<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()"  data-ysh="{{doctorId}}" data-zj="{{1}}">
+				<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-ysh="{{doctorId}}" data-zj="{{1}}">
 					进入学习
 				</a>
 				{{else if watchState==2 || watchState==3}}
@@ -376,7 +376,7 @@
 						{{/if}}
 						</p>
 					</a>
-					<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-zj="{{0}} data-ysh="{{doctorId}}"">
+					<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-zj="{{0}}" data-ysh="{{doctorId}}">
 						购买
 					</a>
 				{{/if}}
@@ -509,13 +509,14 @@
 	<!--分享结束-->	
 
 	<!-- 师承课程提示开始 -->
-	<div class="learn_tips" style="displays: block !important;">
+	<div class="learn_tips">
 		<div class="learn_tips_bg"></div>
 		<div class="learn_tips_main">
 			<div class="learn_tips_close">×</div>
 			<div class="learn_tips_title">温馨提示</div>
 			<div class="learn_tips_cen">该课程为师承课程，成为弟子才能开启观看权限哦~</div>
-			<div class="learn_tips_submit" onclick="location.href ='/xcview/html/physician/apply_for.html?doctor='+doctorId">在线弟子 申请加入</div>
+			<!-- <div class="learn_tips_submit" onclick="location.href ='/xcview/html/physician/apply_for.html?doctor='+doctorId">在线弟子 申请加入</div> -->
+			<div class="learn_tips_submit">在线弟子 申请加入</div>
 		</div>
 	</div>
 
@@ -563,7 +564,7 @@
 			    $(".wrap").removeAttr("style");
 			    $(".zhezhao").show();
 			    $(".btn img").attr("src","../images/bot0.png") 
-			  },function(){
+			 },function(){
 			  	$(".zhezhao").hide();
 
 			    $(".btn img").attr("src","../images/top.png")
@@ -571,7 +572,7 @@
 			    $(".btn a").html('点击收起');
 			     $(".wrap").removeClass("pp");
 //			     $(".wrap").attr("style");
-			 })
+			})
 //			主讲人内容
 		  $('.btn1').prepend('<a href="#">点击收起</a>');
 			  $(".btn1").toggle(function(){
@@ -589,7 +590,24 @@
 			     $(".wrap1").removeClass("pp1");
 //			     $(".wrap1").attr("style");
 			 })
-		 })
+
+
+	// 点击申请弟子X
+	$(".learn_tips_close").click(function(){
+		$(".learn_tips").hide();
+	});
+
+	// 弟子审核中X
+	$(".learn_tips_audit_close").click(function(){
+		$(".learn_tips_audit").hide();
+	});
+
+	// 只有部分弟子可学习该课程
+	$(".learn_tips_part_submit").click(function(){
+		$(".learn_tips_part").hide();
+	});
+
+})
 	</script>
 
 
