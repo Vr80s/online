@@ -318,13 +318,13 @@ function btn_allComment() {
 var courseId = getQueryString('course_id');
 
 function btn_zj_mianfei() {
-    alert(1111);
+    // alert(1111);
     requestService("/xczh/course/details", {
         courseId: courseId
     }, function (data) {
         // 是不是师承课  true -> 是 false ->不是
+        var doctorIds = $(".right_priceBtn").attr("data-ysh");
         if (data.resultObject.teaching == true) {
-            var doctorIds = $(".right_priceBtn").attr("data-ysh")
             // 是不是徒弟
             requestGetService("/xczh/enrol/checkAuth",{
                 doctorId:doctorIds,
@@ -332,7 +332,31 @@ function btn_zj_mianfei() {
             },function (data) {
                 if (data.success) {
                     // 是否是徒弟
-                    if (!data.resultObject.auth) {
+                    if (data.resultObject.auth == true) {
+                        checkAuth(courseId, 1);
+                        var data_zj = $(".right_priceBtn").attr("data-zj");
+                        // var courseId = getQueryString('course_id');
+                        if (data_zj == 0) {
+                            requestService("/xczh/order/save", {
+                                courseId: courseId,
+                                orderFrom: 2
+                            }, function (data) {
+                                window.location.href = "purchase.html?orderId=" + data.resultObject.orderId + "";
+                                // window.location.href = "line_class.html?orderId=" + courseId + "";
+                            });
+                        } else if (data_zj == 1) {
+                            requestService("/xczh/history/add", {
+                                courseId: courseId,
+                                recordType: 1
+                            }, function (data) {
+
+                            })
+                            window.location.href = "live_play.html?my_study=" + course_id + "";
+                        } else if (data_zj == 2) {
+                            window.location.href = "live_play.html?my_study=" + course_id + "";
+                        }
+                        // alert(222);
+                    }else{ 
                         if (data.resultObject.type == 0) {
                             $(".learn_tips").show();  //在线弟子 申请加入
                         }else if(data.resultObject.type == 1) {
@@ -340,50 +364,59 @@ function btn_zj_mianfei() {
                         }else if(data.resultObject.type == 2) {
                             $(".learn_tips_part").show();  //部分弟子有权限
                         };
-                    }else{                                
-                        liveJump(courseId);
                     }
                 }
+            });
+            $(".learn_tips_submit").click(function(){
+                location.href ='/xcview/html/physician/apply_for.html?doctor='+doctorIds
+                // alert(2222);
             });
 
 
 
         }else{
 
-            // 点击购买跳转==不是师承课
-            checkAuth(courseId, 1);
-            var data_zj = $(".right_priceBtn").attr("data-zj")
-            if (data_zj == 0) {
-                requestService("/xczh/order/save", {
-                    courseId: courseId,
-                    orderFrom: 2
-                }, function (data) {
-                    // window.location.href = "purchase.html?orderId=" + data.resultObject.orderId + "";
-                    window.location.href = "line_class.html?orderId=" + data.resultObject.orderId + "";
-                });
-            } else if (data_zj == 1) {
-                requestService("/xczh/history/add", {
-                    courseId: courseId,
-                    recordType: 1
-                }, function (data) {
+            
 
-                })
-                window.location.href = "live_play.html?my_study=" + course_id + "";
-            } else if (data_zj == 2) {
-                window.location.href = "live_play.html?my_study=" + course_id + "";
-            }
+
         };
     });
 
-
-
     
+
+
+    // 执行购买
+    function purchase(){
+        // 点击购买跳转==不是师承课
+        /*checkAuth(courseId, 1);
+        var data_zj = $(".right_priceBtn").attr("data-zj");
+        var courseId = getQueryString('course_id');
+        if (data_zj == 0) {
+            requestService("/xczh/order/save", {
+                courseId: courseId,
+                orderFrom: 2
+            }, function (data) {
+                // window.location.href = "purchase.html?orderId=" + data.resultObject.orderId + "";
+                window.location.href = "line_class.html?orderId=" + data.resultObject.courseId + "";
+            });
+        } else if (data_zj == 1) {
+            requestService("/xczh/history/add", {
+                courseId: courseId,
+                recordType: 1
+            }, function (data) {
+
+            })
+            window.location.href = "live_play.html?my_study=" + course_id + "";
+        } else if (data_zj == 2) {
+            window.location.href = "live_play.html?my_study=" + course_id + "";
+        }*/
+    }
 
 
 
 }
 
-var courseId = getQueryString('course_id');
+
 
 
 //点击免费购买后的
