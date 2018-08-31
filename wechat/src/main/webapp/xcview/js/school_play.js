@@ -318,31 +318,67 @@ function btn_allComment() {
 var courseId = getQueryString('course_id');
 
 function btn_zj_mianfei() {
+    alert(1111);
+    requestService("/xczh/course/details", {
+        courseId: courseId
+    }, function (data) {
+        // 是不是师承课  true -> 是 false ->不是
+        if (data.resultObject.teaching == true) {
+            var doctorIds = $(".right_priceBtn").attr("data-ysh")
+            // 是不是徒弟
+            requestGetService("/xczh/enrol/checkAuth",{
+                doctorId:doctorIds,
+                courseId:courseId
+            },function (data) {
+                if (data.success) {
+                    // 是否是徒弟
+                    if (!data.resultObject.auth) {
+                        if (data.resultObject.type == 0) {
+                            $(".learn_tips").show();  //在线弟子 申请加入
+                        }else if(data.resultObject.type == 1) {
+                            $(".learn_tips_audit").show();  //弟子审核中
+                        }else if(data.resultObject.type == 2) {
+                            $(".learn_tips_part").show();  //部分弟子有权限
+                        };
+                    }else{                                
+                        liveJump(courseId);
+                    }
+                }
+            });
+
+
+
+        }else{
+
+            // 点击购买跳转==不是师承课
+            checkAuth(courseId, 1);
+            var data_zj = $(".right_priceBtn").attr("data-zj")
+            if (data_zj == 0) {
+                requestService("/xczh/order/save", {
+                    courseId: courseId,
+                    orderFrom: 2
+                }, function (data) {
+                    // window.location.href = "purchase.html?orderId=" + data.resultObject.orderId + "";
+                    window.location.href = "line_class.html?orderId=" + data.resultObject.orderId + "";
+                });
+            } else if (data_zj == 1) {
+                requestService("/xczh/history/add", {
+                    courseId: courseId,
+                    recordType: 1
+                }, function (data) {
+
+                })
+                window.location.href = "live_play.html?my_study=" + course_id + "";
+            } else if (data_zj == 2) {
+                window.location.href = "live_play.html?my_study=" + course_id + "";
+            }
+        };
+    });
+
+
 
     
 
-    // 点击购买跳转
-    checkAuth(courseId, 1);
-    var data_zj = $(".right_priceBtn").attr("data-zj")
-    if (data_zj == 0) {
-        requestService("/xczh/order/save", {
-            courseId: courseId,
-            orderFrom: 2
-        }, function (data) {
-            window.location.href = "purchase.html?orderId=" + data.resultObject.orderId + "";
-            // window.location.href = "line_class.html?orderId=" + data.resultObject.orderId + "";
-        });
-    } else if (data_zj == 1) {
-        requestService("/xczh/history/add", {
-            courseId: courseId,
-            recordType: 1
-        }, function (data) {
-
-        })
-        window.location.href = "live_play.html?my_study=" + course_id + "";
-    } else if (data_zj == 2) {
-        window.location.href = "live_play.html?my_study=" + course_id + "";
-    }
 
 
 }

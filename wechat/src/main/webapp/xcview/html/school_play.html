@@ -336,7 +336,7 @@
 					{{/if}}
 					</p>
 				</a>
-				<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-zj="{{0}}">
+				<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-zj="{{0}}" data-ysh="{{doctorId}}">
 					购买
 				</a>
 				{{else if watchState== 0 && lineState==3 && record==false}}
@@ -347,7 +347,7 @@
 					{{/if}}
 					</p>
 				</a>
-				<a class="right_priceBtn y" href="javascript:;" data-zj="{{0}}" style="background: #ccc;">
+				<a class="right_priceBtn y" href="javascript:;" data-zj="{{0}}"  data-ysh="{{doctorId}}" style="background: #ccc;">
 					已结束
 				</a>
 				{{else if watchState==1}}
@@ -358,14 +358,14 @@
 					{{/if}}
 					</p>
 				</a>
-				<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-zj="{{1}}">
+				<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()"  data-ysh="{{doctorId}}" data-zj="{{1}}">
 					进入学习
 				</a>
 				{{else if watchState==2 || watchState==3}}
 					<a class="left_price z" href="javascript:;">
 						<p><span>{{currentPrice}}</span>熊猫币</p>
 					</a>
-					<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-zj="{{2}}">
+					<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-zj="{{2}}" data-ysh="{{doctorId}}">
 					进入学习
 					</a>
 				{{else  if watchState==0 && lineState== 1}}
@@ -376,7 +376,7 @@
 						{{/if}}
 						</p>
 					</a>
-					<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-zj="{{0}}">
+					<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-zj="{{0}} data-ysh="{{doctorId}}"">
 						购买
 					</a>
 				{{/if}}
@@ -507,6 +507,41 @@
 		<div class="weixin_img"><img src="/xcview/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
 	</div>
 	<!--分享结束-->	
+
+	<!-- 师承课程提示开始 -->
+	<div class="learn_tips" style="displays: block !important;">
+		<div class="learn_tips_bg"></div>
+		<div class="learn_tips_main">
+			<div class="learn_tips_close">×</div>
+			<div class="learn_tips_title">温馨提示</div>
+			<div class="learn_tips_cen">该课程为师承课程，成为弟子才能开启观看权限哦~</div>
+			<div class="learn_tips_submit" onclick="location.href ='/xcview/html/physician/apply_for.html?doctor='+doctorId">在线弟子 申请加入</div>
+		</div>
+	</div>
+
+	<!-- 审核中 -->
+	<div class="learn_tips_audit">
+		<div class="learn_tips_audit_bg"></div>
+		<div class="learn_tips_audit_main">
+			<div class="learn_tips_audit_close">×</div>
+			<div class="learn_tips_audit_title">温馨提示</div>
+			<div class="learn_tips_audit_cen">该课程为师承课程，成为弟子才能开启观看权限哦~~</div>
+			<div class="learn_tips_audit_submit">弟子审核中</div>
+		</div>
+	</div>
+
+	<!-- 部分 -->
+	<div class="learn_tips_part">
+		<div class="learn_tips_part_bg"></div>
+		<div class="learn_tips_part_main">
+			<!-- <div class="learn_tips_part_close">×</div> -->
+			<div class="learn_tips_part_title">温馨提示</div>
+			<div class="learn_tips_part_cen">只有部分弟子可学习该课程~</div>
+			<div class="learn_tips_part_submit">我知道了</div>
+		</div>
+	</div>
+
+	<!-- 师承课程提示结束 -->
 
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-1.8.3.min.js"></script>
