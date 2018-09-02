@@ -881,7 +881,7 @@ color: #888888;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     overflow: hidden;
-    background: azure;
+    /*background: azure;*/
 }
 .all_list_ul_li{
 	color: #F97B49;
