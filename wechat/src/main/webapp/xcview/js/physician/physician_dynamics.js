@@ -172,8 +172,7 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
         }
 //  判断是下拉刷新还是上拉加载
         if(downOrUp=='down'){
-            alert(11111);
-            timer();
+            // alert(11111);
             //判断全部动态默认图
             if(data.resultObject.records.length==0){
                 var minirefreshs=$(window).height()-$(".top_show_heights").height();
@@ -183,17 +182,16 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
             }else{
                 isShow = false;
                 $(".baseImagenumbers").hide();
+                // alert(555);
             }
             $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
             miniRefresh.endDownLoading(true);// 结束下拉刷新
             idotototo();
         } else if(obj.length==0){
-            alert(222);
-            timer();
+            // alert(222);
             miniRefresh.endUpLoading(true);// 结束上拉加载
         } else {
-            alert(333);
-            timer();
+            // alert(333);
             $(".rests_nav").append(template('wrap_doctor_dynamics',{items:obj}));
             miniRefresh.endUpLoading(false);
             idotototo();
@@ -578,18 +576,29 @@ var miniRefresh = new MiniRefresh({
                 page = 1;
                 sowingMap();
                 doctorPostsList(page,'down',doctorPostsType);
+                // alert(009)
             } else if (option_id == "li-2") {
                 sowingMap();
                 doctorStatus();
                 miniRefresh.endDownLoading(true);// 结束下拉刷新
+                
+                // createRecentlyLive(recentlyLive);
+                createRecentlyLive(recentlyLive);
+                // alert(77777)
+                // clearTimeout(timer);
+                 // window.location.reload();
+                 // $(".broadcastroom_video").remove();
+                 $('#living_broadcastroom').html(template('living_broadcastroom_id', {items: recentlyLive}));
             } else if (option_id == "li-3") {
                 sowingMap();
                 apprenticeInfo();
                 miniRefresh.endDownLoading(true);// 结束下拉刷新
+                // alert(007)
             } else if (option_id == "li-4") {
                 sowingMap();
                 doctorIntroduction();
                 miniRefresh.endDownLoading(true);// 结束下拉刷新
+                // alert(006)
             }
 
         }
@@ -600,7 +609,9 @@ var miniRefresh = new MiniRefresh({
             if (option_id == "li-1"){
                 page++;
                 doctorPostsList(page,'up',doctorPostsType);
+                // alert(004)
             } else {
+                // alert(005)
                 miniRefresh.endUpLoading(true);// 结束上拉加载
             }
         }
@@ -650,13 +661,39 @@ function createRecentlyLive(recentlyLive){
     if(obj!=null && startStr!=null){       
         //兼容ios和安卓了
         var startTime = startStr.replace(/\-/g, "/");
+        
+        
+        // setTimeout(timer,3000);
+        /*setTimeout(function(){
+            x = setInterval("timer()",1000);
+            function timers(){
+                
+                clearTimeout(x);
+            }
+            timers();
+            clearTimeout(x);
+            setInterval(timer,1000);          
+        },1000);*/
+
+        
+        /*timers();
+        timer();*/
+        // clearInterval(timer);
+        setInterval(timer, 1000);
         function timer() {
+            /*clearInterval(timer);
+            clearInterval(startStr);*/
             //设置结束的时间
             var endtime = new Date(startTime);
             //设置当前时间
             var now = new Date();
             //得到结束与当前时间差 ： 毫秒
             var t = endtime.getTime() - now.getTime();
+
+            /*if (t <= 0){
+                $(".box1").html("");
+                clearTimeout(timer);
+            }*/
             
             if (t > 0) {
                 //得到剩余天数
@@ -678,14 +715,20 @@ function createRecentlyLive(recentlyLive){
                 }
                 var str = "直播倒计时 " + h + "：" + m + "：" + s;
                 $(".box1").html(str);
-                console.log(str);
-            }
+
+                // console.log(str);
+            }/*else{
+                clearInterval(timer); //这里可以添加倒计时结束后需要执行的事件 
+                $("#box1").html("元旦已经结束");
+            }*/
         }
         // lineState   直播课程状态 1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
         if(obj!=null && obj.isLive == 1){
+            // $(".box1").html(str);
             $("#box2").hide();
+            
             $(".box1").show();
-            setInterval(timer, 1000);
+            
             $(".count_down_title_span").hide();
             $(".box1").css("margin-top","-1.9rem");
             $(".count_down_title").css("margin-top","1rem");
@@ -1286,4 +1329,4 @@ $(".li_prose_origin").click(function(){
 });
 
 
-// alert(444);
+// alert(1111111);
