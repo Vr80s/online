@@ -17,6 +17,15 @@
         });
     };
 
+    function foreshow(id){
+        requestGetService("/doctor/treatment/user/appointment",{id:id},function (data) {
+            if (data.success == true) {
+               
+                location.href ='/xcview/html/live_play.html?my_study='+id;
+            }
+        });
+    };
+
     function appointmentList(pageNumber, downOrUp){
             // 列表
         requestGetService("/doctor/treatment/list",{
