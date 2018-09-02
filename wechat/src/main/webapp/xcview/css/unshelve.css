@@ -67,9 +67,10 @@ header {
 
 /*列表内容开始*/
 .course_list{
-	width: 100%;
+	width: 7.5rem;
 	height: 100%;
 	background: #fff;
+    margin: 0 auto;
 }
 .course_list_main{
 	width: 7rem;
