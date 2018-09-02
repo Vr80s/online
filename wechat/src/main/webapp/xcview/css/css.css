@@ -3071,14 +3071,15 @@ footer{
 }	
 .person_cen_right p{
 	font-size: 0.26rem;
-	color: #666;
-	float: left;
-	overflow: hidden;
+    color: #666;
+    float: left;
+    overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     width: 5rem;
     text-align: right;
-    /*background: #007AFF;*/
+    /* background: #007AFF; */
+    margin-right: 0.6rem;
 }
 .person_cen_right img{
 	width: 0.5rem;
