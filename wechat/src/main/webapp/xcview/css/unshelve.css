@@ -20,14 +20,15 @@ body{
 }
 
 header {
-    width: 100%;
+    width: 7.5rem;
     height: 0.88rem;
     line-height: 0.88rem;
     background: #fff;
     position: fixed;
     top: 0;
-    left: 0;
+    left: 50%;
     z-index: 9;
+    margin-left: -3.75rem;
 }
 .header{
 	width: 100%;

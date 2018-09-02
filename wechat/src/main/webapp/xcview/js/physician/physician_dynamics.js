@@ -580,10 +580,27 @@ var miniRefresh = new MiniRefresh({
             } else if (option_id == "li-2") {
                 sowingMap();
                 doctorStatus();
+
+                createRecentlyLive(recentlyLive);  //直播倒计时方法==没有作用只是测试用下而已
+
                 miniRefresh.endDownLoading(true);// 结束下拉刷新
                 
                 // createRecentlyLive(recentlyLive);
-                createRecentlyLive(recentlyLive);
+                /*window.ftpurl = window.setInterval(function(){
+                    timer();
+                },1000);*/
+
+                // window.clearInterval(window.ftpurl);
+                // window.clearInterval(ftpurl);
+
+
+
+                // var idShow=setInterval(timer,1000);
+                /*var idShow=setInterval(function(){
+                    timer();
+                },1000);
+                clearInterval(idShow);*/
+                // setTimeout(idShow);
                 // alert(77777)
                 // clearTimeout(timer);
                  // window.location.reload();
@@ -679,7 +696,13 @@ function createRecentlyLive(recentlyLive){
         /*timers();
         timer();*/
         // clearInterval(timer);
-        setInterval(timer, 1000);
+        // setInterval(timer, 1000);
+
+        /*function show(){
+            setInterval(timer, 1000);
+        }
+        show();*/
+        setInterval(timer,1000);
         function timer() {
             /*clearInterval(timer);
             clearInterval(startStr);*/
@@ -1322,6 +1345,7 @@ function body_onload(){
         setcookie("param_cookie",1,10);
         window.location.reload(true); 
     }
+    // setInterval(timer, 1000);
 }
 
 $(".li_prose_origin").click(function(){
