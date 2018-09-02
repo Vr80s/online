@@ -876,11 +876,12 @@ color: #888888;
 }
 .all_list ul li p{
 	width: 2.67rem;
-	height: 1.11rem;
+	/*height: 1.11rem;*/
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     overflow: hidden;
+    background: azure;
 }
 .all_list_ul_li{
 	color: #F97B49;
