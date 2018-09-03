@@ -21,7 +21,7 @@ import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
  *
  * @author yuxin
  * @since 2017-12-09
- */
+ */ 
 public interface MedicalHospitalMapper extends BaseMapper<MedicalHospital> {
 
     List<String> selectHospitalIdList(@Param("page") Page<MedicalHospitalVo> page, @Param("name") String name, @Param("field") String field);

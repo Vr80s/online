@@ -221,7 +221,7 @@ dev-2.5
         测试环境: https://cs.xczhihui.com/doctor/treatment/reset/startTime
         正式环境: http://www.ipandatcm.com/doctor/treatment/reset/startTime 
     
-     替换掉医馆图片信息中的图片后缀    
-    update 	medical_hospital_picture	set  picture =  left(picture,LOCATE("?",picture)-1) where picture is not null     
+     替换掉医馆图片信息中的图片后缀      
+    update 	medical_hospital_picture	set  picture = left(picture, if(LOCATE("?",picture) >0,LOCATE("?",picture)-1,length(picture))) where picture is not null
         
         

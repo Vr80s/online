@@ -488,9 +488,9 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         }
         String week = XzStringUtils.getWeekOfDate();
         if(updateTime!=null && updateTime.indexOf(week)!=-1) {
-        	updateTime = "今日需更新";
+        	return XzStringUtils.HOST_COLLECTION_UPDATE_ALL;
         }else if(updateTime!=null){
-        	updateTime = "每周"+updateTime+"更新";
+        	updateTime = String.format(XzStringUtils.WEEKLY_UPDATE, updateTime);
         }    
         return updateTime;
     }
