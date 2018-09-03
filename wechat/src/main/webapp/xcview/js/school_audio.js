@@ -102,6 +102,10 @@ requestService("/xczh/course/details", {
     $(".play_video").append(school_img);
     //  获取讲师id
     LecturerId = data.resultObject.userLecturerId;
+
+    // 点击查看专辑开始
+    $(".check").html(template('check', data.resultObject.collectionHint));
+
     //	课程名称/等级/评论
     $("#speak_people").html(template('data_people', data.resultObject));
     //	直播时间/主播名字

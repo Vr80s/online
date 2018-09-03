@@ -795,3 +795,54 @@ color: #666666;
 .little_comment{
 	padding-bottom: 0.2rem;
 }
+
+
+/*点击查看专辑开始*/
+.check{
+	width: 100%;
+    height: 1.3rem;
+    background: #ffffff;
+    border: 1px solid #f0f0f0;
+}
+.check_main{
+	width: 6.98rem;
+    height: 0.9rem;
+    /*background: #fff;*/
+    margin: 0 auto;
+    padding-top: 0.2rem;
+}
+.check_main img{
+	width: 1.6rem;
+	height: 0.9rem;
+	margin-right: 0.15rem;
+	border-radius: 4px;
+	float: left;
+}
+.check_title{
+	width: 3.53rem;
+	font-size: .24rem;
+	color: #333333;
+	margin-right: .3rem;
+	float: left;
+	display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    margin-top: 0.15rem;
+}
+.check_click{
+	width: 1.2rem;
+    height: 0.56rem;
+    line-height: 0.56rem;
+    font-size: .24rem;
+    color: #00BC12;
+    border: 1px solid #00BC12;
+    border-radius: 100px;
+    float: right;
+    text-align: center;
+    margin-top: 0.15rem;
+}
+
+
+
+/*点击查看专辑结束*/
