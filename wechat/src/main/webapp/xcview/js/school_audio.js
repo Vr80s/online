@@ -103,9 +103,17 @@ requestService("/xczh/course/details", {
     //  获取讲师id
     LecturerId = data.resultObject.userLecturerId;
 
-    // 点击查看专辑开始
-    $(".check").html(template('check', data.resultObject.collectionHint));
-
+    if (data.resultObject.collectionHint == null) {
+        $(".check").hide();
+    }else{
+        // 点击查看专辑开始
+        $(".check").html(template('check', data.resultObject.collectionHint));
+        var courseId =$(".check_click").attr("data-id");
+        $(".check_click").click(function(){
+            location.href = "/xcview/html/school_audio.html?course_id="+courseId;
+        });
+    };
+    
     //	课程名称/等级/评论
     $("#speak_people").html(template('data_people', data.resultObject));
     //	直播时间/主播名字
@@ -323,7 +331,13 @@ function btn_zj_mianfei() {
             courseId: courseId,
             orderFrom: 2
         }, function (data) {
-            window.location.href = "purchase.html?orderId=" + data.resultObject.orderId + "";
+            if (data.success == true) {
+               
+                window.location.href = "purchase.html?orderId=" + data.resultObject.orderId + "";
+            }else{
+                jqtoast(data.errorMessage);
+            }
+            
         });
     } else if (data_zj == 1) {
         requestService("/xczh/history/add", {
