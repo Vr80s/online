@@ -13,6 +13,8 @@
 <link rel="stylesheet" href="/xcview/css/share/share.css" />
 <!--手机嵌入模板-->
 <script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+<script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
+<link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
 <script>
 	// 判断横屏展示时的状态
 	window.onorientationchange=function(){
@@ -53,7 +55,7 @@
 		<div class="check_main">
 			<img src="{{smallImgPath}}" alt="" />
 			<div class="check_title">该课程属于专辑《{{gradeName}}》</div>
-			<div class="check_click">查看专辑</div>
+			<div class="check_click" data-id="{{id}}">查看专辑</div>
 		</div>
 		<div class="both"></div>
 		</script>
