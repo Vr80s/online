@@ -30,8 +30,20 @@
 <body style="background:#F8F8F8;">
 <div class="wp">
 	<div class="wrap-header">
-		<div class="header">		
-			<p>课程</p>
+		<div class="header">
+			<!-- 课程类型 1：视频 2：音频 3：直播 4：线下培训班 -->
+			<div id="header">
+				<script type="text/html" id="headers">
+					{{if type == 1}}
+						<p>视频课程</p>
+					{{else if type == 2}}
+						<p>音频课程</p>
+					{{else}}
+						<p>课程</p>
+					{{/if}}
+					
+				</script>
+			</div>
 			<div class="arror_return z" onclick="common_share_back()"> 
 			<!-- <div class="arror_return z" onclick="javascript:window.history.back();return false;">-->					
 				<img src="../images/back icon.png" />
