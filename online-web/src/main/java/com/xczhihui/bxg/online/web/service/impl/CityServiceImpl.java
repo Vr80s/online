@@ -2,16 +2,25 @@ package com.xczhihui.bxg.online.web.service.impl;
 
 
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.common.support.service.CacheService;
+import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.online.api.service.CityService;
 import com.xczhihui.online.api.vo.UserAddressManagerVo;
 
@@ -19,6 +28,9 @@ import com.xczhihui.online.api.vo.UserAddressManagerVo;
 public class CityServiceImpl extends OnlineBaseServiceImpl implements CityService {
 
 
+    @Autowired
+    private CacheService cacheService;
+	
     @Override
     public List<Map<String, Object>> getAllProvinceCity() throws SQLException {
          /*
@@ -45,49 +57,58 @@ public class CityServiceImpl extends OnlineBaseServiceImpl implements CityServic
 
 
     @Override
-    public List<Map<String, Object>> getAllProvinceCityCounty()
+    public Object getAllProvinceCityCounty()
             throws SQLException {
-		 /*
-		  * sql 一下字查完。然后在进行拼接，得到中国下的省份。
-		  */
-        String sql1 = "select code_p as pid,name as pname from place_province";
-        List<Map<String, Object>> listProven = dao.getNamedParameterJdbcTemplate().queryForList(sql1, new HashMap<>());
+		
+    	
+ 	    String pcc =  cacheService.get(RedisCacheKey.PROVINCE_CITY_COUNTY);
+    	
+    	if(pcc==null || "".equals(pcc)) {
+    		
+    	   /*
+	   		 * sql 一下字查完。然后在进行拼接，得到中国下的省份。
+	   		 */
+           String sql1 = "select code_p as pid,name as pname from place_province";
+           List<Map<String, Object>> listProven = dao.getNamedParameterJdbcTemplate().queryForList(sql1, new HashMap<>());
 
-        String sql2 = "select code_c as cid,name as cname,code_p as pid from place_city";
-        List<Map<String, Object>> listCity = dao.getNamedParameterJdbcTemplate().queryForList(sql2, new HashMap<>());
+           String sql2 = "select code_c as cid,name as cname,code_p as pid from place_city";
+           List<Map<String, Object>> listCity = dao.getNamedParameterJdbcTemplate().queryForList(sql2, new HashMap<>());
 
-        String sql3 = "select code_a as did,name as dname,code_c as  cid from place_area";
-        List<Map<String, Object>> listDistrict = dao.getNamedParameterJdbcTemplate().queryForList(sql3, new HashMap<>());
-        /**
-         * 先循环小的，在循环大的
-         */
-        for (Map<String, Object> mapCity : listCity) {
-            List<Map<String, Object>> listCityC = new ArrayList<Map<String, Object>>();
-            String objPcid = mapCity.get("cid").toString();
-            for (Map<String, Object> mapDistrict : listDistrict) {
-                String objPclin = mapDistrict.get("cid").toString();
-                if (objPcid.equals(objPclin)) {
-                    listCityC.add(mapDistrict);
-                }
-            }
-            mapCity.put("disList", listCityC);
-        }
-        /**
-         * 在循环大的
-         */
-        for (Map<String, Object> mapProven : listProven) {
-            List<Map<String, Object>> listCityC = new ArrayList<Map<String, Object>>();
-            String objPcid = mapProven.get("pid").toString();
-            for (Map<String, Object> mapCity : listCity) {
-                String objPclin = mapCity.get("pid").toString();
-                if (objPcid.equals(objPclin)) {
-                    listCityC.add(mapCity);
-                }
-            }
-            mapProven.put("cityList", listCityC);
-        }
+           String sql3 = "select code_a as did,name as dname,code_c as  cid from place_area";
+           List<Map<String, Object>> listDistrict = dao.getNamedParameterJdbcTemplate().queryForList(sql3, new HashMap<>());
+           /**
+            * 先循环小的，在循环大的
+            */
+           for (Map<String, Object> mapCity : listCity) {
+               List<Map<String, Object>> listCityC = new ArrayList<Map<String, Object>>();
+               String objPcid = mapCity.get("cid").toString();
+               for (Map<String, Object> mapDistrict : listDistrict) {
+                   String objPclin = mapDistrict.get("cid").toString();
+                   if (objPcid.equals(objPclin)) {
+                       listCityC.add(mapDistrict);
+                   }
+               }
+               mapCity.put("disList", listCityC);
+           }
+           /**
+            * 在循环大的
+            */
+           for (Map<String, Object> mapProven : listProven) {
+               List<Map<String, Object>> listCityC = new ArrayList<Map<String, Object>>();
+               String objPcid = mapProven.get("pid").toString();
+               for (Map<String, Object> mapCity : listCity) {
+                   String objPclin = mapCity.get("pid").toString();
+                   if (objPcid.equals(objPclin)) {
+                       listCityC.add(mapCity);
+                   }
+               }
+               mapProven.put("cityList", listCityC);
+           }
 
-        return listProven;
+           return listProven;
+    	}else {
+    	   return JSON.parseArray(pcc);
+    	}
     }
 
 
