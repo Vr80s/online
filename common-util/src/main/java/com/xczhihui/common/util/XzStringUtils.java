@@ -23,6 +23,10 @@ public class XzStringUtils {
     
     public static  String HOST_COLLECTION_UPDATE_ALL = "今天需更新";
 
+    
+    public static  String WEEKLY_UPDATE = "每周%s更新";
+    
+
    private static  Map<String, String > mapWeek = new HashMap<String, String>(){{
            put("1","周一");    
            put("2","周二");    
@@ -418,7 +422,7 @@ public class XzStringUtils {
     public static String updateTimeConverter(String updateTime) {
     	String week = getWeekOfDate();
         if(updateTime!=null && updateTime.indexOf(week)!=-1) {
-            return "今日需更新";
+            return "今天需要更新";
         }else if(updateTime!=null){
         	return "每周"+updateTime+"更新";
         }    
@@ -444,8 +448,4 @@ public class XzStringUtils {
 	         return true;
 	  }
 	
-    public static void main(String[] args) {
-    	
-    	getWeekOfDate();
-	}
 }
