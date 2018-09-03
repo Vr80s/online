@@ -23,9 +23,7 @@ public class TestProvinces extends BaseJunit4Test {
     @Test
     public void aaaa() throws SQLException, IOException {
 
-        List<Map<String, Object>> list = cityService.getAllProvinceCityCounty();
-
-        JSONArray json = JSONArray.fromObject(list);
+        JSONArray json = JSONArray.fromObject(cityService.getAllProvinceCityCounty());
 
         String path = "D:\\city_zdy.json";
         File file = new File(path);
