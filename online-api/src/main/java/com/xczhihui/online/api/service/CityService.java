@@ -32,7 +32,7 @@ public interface CityService {
      * @throws SQLException
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
-    public List<Map<String, Object>> getAllProvinceCityCounty() throws SQLException;
+    public Object getAllProvinceCityCounty() throws SQLException;
 
     /**
      * Description：

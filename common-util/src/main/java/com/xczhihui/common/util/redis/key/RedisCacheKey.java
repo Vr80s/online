@@ -49,6 +49,8 @@ public class RedisCacheKey {
     public static final String USER_TREATMENT_STATUS_CNT_KEY = "user:treatment:cnt:";
 
     public static final String DOCTOR_TREATMENT_STATUS_CNT_KEY = "doctor:treatment:cnt:";
+    
+    public static final String PROVINCE_CITY_COUNTY  = "province:city:county";
 
     public static String getGiftCacheKey(String str) {
         return GIFT_CACHE__PREFIX + REDIS_SPLIT_CHAR + str;

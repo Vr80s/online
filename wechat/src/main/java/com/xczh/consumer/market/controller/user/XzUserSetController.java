@@ -1,15 +1,16 @@
 package com.xczh.consumer.market.controller.user;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.json.JSONObject;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,12 +23,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.alibaba.fastjson.JSON;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.common.util.WeihouInterfacesListUtil;
+import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.VCodeType;
 import com.xczhihui.common.util.vhallyun.MessageService;
@@ -68,6 +70,10 @@ public class XzUserSetController {
     private CommonApiService commonApiService;
     @Autowired
     private VerificationCodeService verificationCodeService;
+    
+    @Autowired
+    private CacheService cacheService;
+    
 
     /**
      * 修改密码
@@ -498,11 +504,7 @@ public class XzUserSetController {
     @ResponseBody
     public ResponseObject getAllProvinces(Map<String, String> params)
             throws Exception {
-        /**
-         * 获取所有的省份
-         */
-        List<Map<String, Object>> list = cityService.getAllProvinceCityCounty();
-        return ResponseObject.newSuccessResponseObject(list);
+        return ResponseObject.newSuccessResponseObject(cityService.getAllProvinceCityCounty());
     }
 
     /**
@@ -529,13 +531,35 @@ public class XzUserSetController {
     @ResponseBody
     public ResponseObject getAll(Map<String, String> params)
             throws Exception {
-        /**
-         * 获取所有的省份
-         */
-        List<Map<String, Object>> list = cityService.getAllProvinceCityCounty();
-        return ResponseObject.newSuccessResponseObject(list);
+    	
+       return ResponseObject.newSuccessResponseObject(cityService.getAllProvinceCityCounty());
     }
-
+    
+    
+    public static void main(String[] args) {
+    	
+    	List<Map<String, Object>>  list =   new ArrayList<Map<String, Object>>();
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	map.put("1", "一");
+    	
+    	Map<String, Object> map1 = new HashMap<String, Object>();
+    	map1.put("2", "二");
+    	
+    	list.add(map);
+    	list.add(map1);
+    	
+    	System.out.println(list.toString());
+    	
+    	 //转换json字符串
+    	String jsonObject1 = JSONObject.valueToString(JSONObject.wrap(list)); 
+        System.out.println(jsonObject1);
+    	
+        com.alibaba.fastjson.JSONArray jsonArray=JSON.parseArray(jsonObject1);
+        
+        System.out.println(jsonArray.toString());
+	}
+    
+    
     /**
      * 得到所有的国家
      */

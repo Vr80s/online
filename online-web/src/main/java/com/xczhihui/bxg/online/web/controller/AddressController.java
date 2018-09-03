@@ -135,11 +135,8 @@ public class AddressController extends AbstractController {
     @RequestMapping("getAllPCC")
     @ResponseBody
     public ResponseObject getAllPCC(HttpServletRequest req, HttpServletResponse res) throws Exception {
-        /**
-         * 获取所有的省份
-         */
-        List<Map<String, Object>> list = cityService.getAllProvinceCityCounty();
-        return ResponseObject.newSuccessResponseObject(list);
+       
+        return ResponseObject.newSuccessResponseObject(cityService.getAllProvinceCityCounty());
     }
 
     /**
