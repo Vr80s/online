@@ -396,6 +396,7 @@ public class MyManagerController {
         page.setSize(pageSize);
 
         page = courseService.selectAppCourseApplyPage(page, accountId, courseFrom, multimediaType);
+
 //        for (CourseLecturVo cv : page.getRecords()) {
 //            if (ApplyStatus.PASS.getCode() == cv.getApplyStatus() && cv.getCollection()) {
 //                //已更新多少集，等于总集数

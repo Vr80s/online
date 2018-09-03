@@ -245,43 +245,4 @@
         return this.click(toggle);
     };
 </script>
-<script>
-
-var back = document.referrer;
-if(isNotBlank(back) && back.indexOf("home_page.html") != -1){
-    sessionStorage.setItem("inherited_backFalg","home");
-}else if(isNotBlank(back) && back.indexOf("physicians_page.html") != -1){
-    sessionStorage.setItem("inherited_backFalg","physicians_page");
-}else if(isNotBlank(back) && back.indexOf("apprentice.html") != -1){ //
-    sessionStorage.setItem("inherited_backFalg","");
-} 
-
-    // 控制手机物理键--返回
-/*     window.onload = function () {
-        if (window.history && window.history.pushState) {
-            $(window).on('popstate', function () {
-                var hashLocation = location.hash;
-                var hashSplit = hashLocation.split("#!/");
-                var hashName = hashSplit[1];
-           
-                if (hashName !== '') {
-                    var hash = window.location.hash;
-                    if (hash === '') {
-                        var back = document.referrer;
-                        var backFalg = sessionStorage.getItem("inherited_backFalg");
-                        if(backFalg == "home"){
-                              window.location.href = "/xcview/html/home_page.html";
-                              return;
-                        }else if(backFalg == "physicians_page"){
-                              window.history.back();
-                              return;
-                        }
-                        location.href = '/xcview/html/apprentice/apprentice.html'
-                    }
-                }
-            });
-            window.history.pushState('forward', null, './inherited_introduction.html?merId=' + merId);
-        }
-    }; */
-</script>
 </html>
