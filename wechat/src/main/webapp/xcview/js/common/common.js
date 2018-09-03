@@ -268,81 +268,21 @@ function isLoginJump() {
 }
 
 function common_share_back() {
-    
     var back = document.referrer;
     if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
-            window.history.back();
-    } else {
-          // window.location.href = "/xcview/html/physician/index.html";
           window.history.back();
+    } else {
+          window.location.href = "/xcview/html/physician/index.html";
     }
-//    var shareBack = getQueryString("shareBack");
-//    if(isNotBlank(shareBack)){
-//      if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
-//          window.history.back();
-//      } else {
-//          window.location.href = "/xcview/html/physician/index.html";
-//      }
-//    }else{
-//      if (isNotBlank(back)) {
-//          window.history.back();
-//      } else {
-//          window.location.href = "/xcview/html/physician/index.html";
-//      }
-//    }
 }
 
 function common_share_backs() {
     var back = document.referrer;
-    var shareBack = getQueryString("shareBack");
-    if(isNotBlank(back) && back.indexOf("home_page.html") != -1){
-        sessionStorage.setItem("inherited_backFalg","home");
-
-    }else if(isNotBlank(back) && back.indexOf("physician_list.html") != -1){
-        sessionStorage.setItem("inherited_backFalg","physician_list");
-
-    }else if(isNotBlank(back) && back.indexOf("live_audio.html") != -1){
-        sessionStorage.setItem("inherited_backFalg","live_audio");
-
-    }else if(isNotBlank(back) && back.indexOf("live_play.html") != -1){
-        sessionStorage.setItem("inherited_backFalg","live_play");
-
-    }else if(isNotBlank(back) && back.indexOf("school_audio.html") != -1){
-        sessionStorage.setItem("inherited_backFalg","school_audio");
-
-    }else if(isNotBlank(back) && back.indexOf("school_play.html") != -1){
-        sessionStorage.setItem("inherited_backFalg","school_play");
-
-    }else if(isNotBlank(back) && back.indexOf("school_class.html") != -1){
-        sessionStorage.setItem("inherited_backFalg","school_class");  
-
-    }else if(isNotBlank(back) && back.indexOf("physicians_page.html") != -1){
-        sessionStorage.setItem("inherited_backFalg","physicians_page");  
-
-    }else if(isNotBlank(back) && back.indexOf("inherited_introduction.html") != -1){
-        sessionStorage.setItem("inherited_backFalg","inherited_introduction");  //招生简章
-
-    }else if(isNotBlank(back) && back.indexOf("apply.html") != -1){
-        sessionStorage.setItem("inherited_backFalg","apply");  //报名信息
-
-    }else if(isNotBlank(back) && back.indexOf("index.html") != -1){
-        sessionStorage.setItem("inherited_backFalg","index");
-
-    }else{
-        //window.location.href = "/xcview/html/physician/index.html";
-        window.history.back();
-        // return;
+    
+    var userId = localStorage.userId;
+    if (isNotBlank(userId) && userId == "c5f315df48c54110a8ae85ccb2e06c7b") {
+    	alert("back:"+back);
     }
-    //  
-    /*var backFalg = sessionStorage.getItem("inherited_backFalg");
-                        //alert(backFalg);
-    if(backFalg == "index"){
-          window.location.href = "/xcview/html/physician/index.html";
-          return;
-    }else if(backFalg == "application_approved"){
-          window.history.go(-1);
-          return;D
-    }*/
 
     if(isNotBlank(shareBack)){
         if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
@@ -354,34 +294,6 @@ function common_share_backs() {
         window.history.back();
     }
 }
-
-/*function isLoginJumps() {
-
-    var userId = localStorage.userId;
-    if (isNotBlank(userId)) {
-        var before_address = document.referrer;
-        if (before_address.indexOf("page/index") != -1 ||
-            before_address.indexOf("bought.html") != -1 ||   //购买
-            before_address.indexOf("home_page.html") != -1 ||   //学堂
-            before_address.indexOf("my_study.html") != -1 ||   //学习
-            before_address.indexOf("live_play.html") != -1 ||   //直播展示页后面播放页
-            before_address.indexOf("/xcview/html/physician/physicians_page.html") != -1 ||   //医师页面
-            before_address.indexOf("live_personal.html") != -1) {  //主播页
-
-            window.history.back();
-        } else {
-            location.href = "home_page.html";
-        }
-    } else {
-        //登录页面
-        location.href = "home_page.html";
-        
-    }
-}*/
-
-
-
-
 
 
 /**
@@ -694,7 +606,10 @@ var thirdPartyUCT = cookie.get("_third_ipandatcm_user_");
 
 if ((is_weixin()) &&  (!thirdPartyUCT  || firstEntry)) {//在微信里打开,没有授权时，先去微信授权
     
+	localStorage.setItem("userId","");
+	
     location.href = "/xczh/wxlogin/middle?url=" + getCurrentUrl();
+    
 }
 
 function locationToOriginPage() {

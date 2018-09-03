@@ -519,28 +519,106 @@ function verifyEnchashment(data) {
 	}
 	return true;
 }
+//新增银行卡失焦验证
+
+var newBankCard={
+//	用户名
+	content_add_name:function(){
+		var chinese=/^[\u4e00-\u9fa5]+$/;
+		var valName=$.trim($("#content_add_name").val());
+		$('.content_add_name_warn').addClass('hide');
+		$("#content_add_name").css("border","1px solid #f0f0f0");
+		if (valName=="") {
+			$('.content_add_name_warn').removeClass('hide').text("请输入用户名");
+        	$("#content_add_name").css("border","1px solid #FF4012");
+        	return false;
+		} else if(!chinese.test(valName)){
+			$('.content_add_name_warn').removeClass('hide').text("用户名格式不正确");
+			$("#content_add_name").css("border","1px solid #FF4012");
+		}
+	},
+//	银行卡号
+	content_add_card : function(){
+		var card=/^([1-9]{1})(\d{14}|\d{15}|\d{16}|\d{17}|\d{18})$/;   //银行卡号
+		var valCard=$.trim($("#content_add_card").val());
+		$('.content_add_card_warn').addClass('hide');
+		$("#content_add_card").css("border","1px solid #f0f0f0");
+		if (valCard=="") {
+			$('.content_add_card_warn').removeClass('hide').text("请输入银行卡号");
+	        $("#content_add_card").css("border","1px solid #FF4012");
+
+			return false;
+		}else if(!card.test(valCard)){
+			$('.content_add_card_warn').removeClass('hide').text("请输入有效的银行卡号");
+	        $("#content_add_card").css("border","1px solid #FF4012");
+			return false;
+		}
+	},
+//	身份证号
+	content_add_idCard : function(){
+		var valIdCard=$.trim($("#content_add_idCard").val());
+			$("#content_add_idCard").css("border","1px solid #F0F0F0");
+			$('.content_add_idCard_warn').addClass('hide');
+			$('.content_add_idCard_gs_warn').addClass('hide');
+		if(valIdCard=="") {
+			$('.content_add_idCard_warn').removeClass('hide');
+	        $("#content_add_idCard").css("border","1px solid #FF4012");
+			return false;
+		}else if(!isCardID(valIdCard)) {
+			$('.content_add_idCard_gs_warn').removeClass('hide');
+	        $("#content_add_idCard").css("border","1px solid #FF4012");
+
+		}
+	}
+	
+}
+
+$("#content_add_name").blur(function(){
+	newBankCard.content_add_name();
+})
+$("#content_add_card").blur(function(){
+	newBankCard.content_add_card();
+})
+
+$("#content_add_idCard").blur(function(){
+	newBankCard.content_add_idCard();
+})
 
 function verifyBankCard(data) {
-
+	var card=/^([1-9]{1})(\d{15}|\d{18})$/;   //银行卡号
+	var chinese=/^[\u4e00-\u9fa5]+$/;
+	var idCard=/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;  //身份证号
 	//验证
 	//户名
 	if(!isNv(data.acctName)) {
-		$('.content_add_name_warn').removeClass('hide');
+		$('.content_add_name_warn').removeClass('hide').text("请输入用户名");
         $("#content_add_name").css("border","1px solid #FF4012");
 		$("#content_add_name").focus();
 		return false;
-	} else {
+	}else if(!chinese.test(data.acctName)){
+		$('.content_add_name_warn').removeClass('hide').text("用户名格式不正确");
+		$("#content_add_name").css("border","1px solid #FF4012");
+		$("#content_add_name").focus();
+		return false;
+	}else {
         $("#content_add_name").css("border","1px solid #F0F0F0");
 		$('.content_add_name_warn').addClass('hide');
 	}
 
 	//卡号
 	if(!isNv(data.acctPan)) {
-		$('.content_add_card_warn').removeClass('hide');
+		$('.content_add_card_warn').removeClass('hide').text("请输入银行卡号");
         $("#content_add_card").css("border","1px solid #FF4012");
 		$("#content_add_card").focus();
 		return false;
-	} else {
+
+	}else if(!card.test(data.acctPan)){
+		$('.content_add_card_warn').removeClass('hide').text("请输入有效的银行卡号");
+        $("#content_add_card").css("border","1px solid #FF4012");
+		$("#content_add_card").focus();
+		return false;
+	}
+	else {
         $("#content_add_card").css("border","1px solid #F0F0F0");
 		$('.content_add_card_warn').addClass('hide');
 	}
