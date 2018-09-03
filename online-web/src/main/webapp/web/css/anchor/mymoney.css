@@ -450,7 +450,10 @@
 }
 .waring{
 	font-size: 14px;
-	color: #f40;
+    color: #FF4012;
+    text-indent: 20px;
+    background: url(../../images/icons/tanhao.png) no-repeat left center;
+    margin: 10px 0 0 90px;
 }
 #mymoney .content_add .addNewCard{
 	width: 92px;

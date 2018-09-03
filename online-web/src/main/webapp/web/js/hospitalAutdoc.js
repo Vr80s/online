@@ -435,13 +435,18 @@ $('#deleteTip .confirm-sure').click(function(){
 	
 //	统一社会信用代码失焦
 	$(".doc_Idnum").blur(function(){
+		var Number = /^[0-9A-Z]{18}$/;
+		$(".zhizhaoNum_warn").addClass("hide");
+		$(".doc_Idnum").removeClass("border_hide_null");
 		if($(".doc_Idnum").val() == ""){
-			$(".zhizhaoNum_warn").removeClass("hide");
+			$(".zhizhaoNum_warn").removeClass("hide").text("统一社会信用代码不能为空");
 			$(".doc_Idnum").addClass("border_hide_null");
-		}else{
-			$(".zhizhaoNum_warn").addClass("hide");
-			$(".doc_Idnum").removeClass("border_hide_null");
-		};
+			return false;
+		}else if(!Number.test($(".doc_Idnum").val())){
+			$(".zhizhaoNum_warn").removeClass("hide").text("统一社会信用代码格式错误");
+			$(".doc_Idnum").addClass("border_hide_null");
+			
+		}
 	});
 	
 //	药品经营许可证失焦
@@ -454,14 +459,18 @@ $('#deleteTip .confirm-sure').click(function(){
 //			$(".doc_zhichengs").removeClass("border_hide_null");
 //		};
 //	});
-	
+//	药品经营许可证失焦	
 	$(".doc_zhichengss").blur(function(){
+		$(".xukeNum_warn").addClass("hide");
+		$(".doc_zhichengss").removeClass("border_hide_null");
+		var xukeNumPass = /^[\u4E00-\u9FA5]{1}[A-Za-z]{2}[0-9]{7}$/;
 		if($(".doc_zhichengss").val() == ""){
-			$(".xukeNum_warn").removeClass("hide");
+			$(".xukeNum_warn").removeClass("hide").text("药品经营许可证不能为空");
 			$(".doc_zhichengss").addClass("border_hide_null");
-		}else{
-			$(".xukeNum_warn").addClass("hide");
-			$(".doc_zhichengss").removeClass("border_hide_null");
+			return false;
+		}else if(!xukeNumPass.test($(".doc_zhichengss").val())){
+			$(".xukeNum_warn").removeClass("hide").text("药品经营许可证格式错误");
+			$(".doc_zhichengss").addClass("border_hide_null");
 		};
 	});
 	
