@@ -169,11 +169,6 @@
             </div>
 
              
-            <#if courseInfo.status == 0 && courseInfo.currentPrice gt 0 &&  courseInfo.watchState != 2>
-                 <button type="button" class="immediately-buy" style="background:#DEDEDE;">课程下架</button>
-            <#elseif courseInfo.status == 0 && courseInfo.currentPrice lte 0 && courseInfo.learning != 1>
-                 <button type="button" class="immediately-buy" style="background:#DEDEDE;">课程下架</button>     
-            <#else>
                 <#if courseInfo.courseForm==1  && courseInfo.lineState == 3  && !courseInfo.record  >
                     <span class="live-null-tip">当前直播无回放，请随时关注讲师动态，避免错过下次直播</span>
                 <#else>
@@ -224,7 +219,6 @@
                         </#if>
                     </#if>
                 </#if>
-            </#if>
 
             <span class="remember-last hide">上次播放位置：<span>标幽赋的前世今生详解 </span></span>
         </div>

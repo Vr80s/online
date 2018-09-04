@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,6 +46,9 @@ import com.xczhihui.user.center.service.UserCenterService;
 @RestController
 public class RemoteTreatmentAppointmentInfoController {
 
+	
+	 private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(RemoteTreatmentAppointmentInfoController.class);
+	
     @Autowired
     private IRemoteTreatmentService remoteTreatmentService;
     @Autowired
@@ -120,6 +124,10 @@ public class RemoteTreatmentAppointmentInfoController {
 
     @RequestMapping(value = "send/message", method = RequestMethod.POST)
     public ResponseObject sendMessage(@Account String accountId, @RequestParam int infoId, @RequestParam int type) {
+    	
+    	LOGGER.warn("type:"+type);
+    	
+    	
         TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentService.selectById(infoId);
         if (treatmentAppointmentInfo == null || treatmentAppointmentInfo.getTreatmentId() == null) {
             throw new MedicalException("参数错误");
@@ -148,10 +156,11 @@ public class RemoteTreatmentAppointmentInfoController {
         if (type == DOCTOR_TREATMENT_STOP.getVal()) {
             remoteTreatmentService.updateTreatmentStartStatus(infoId, AppointmentStatus.FINISHED.getVal());
             courseService.updateCourseLiveStatus("stop", courseService.selectById(courseId).getDirectId(), String.valueOf(HeaderInterceptor.getClientTypeCode()));
-        
-            
         }
+        
+        
         if (type == DOCTOR_TREATMENT_START.getVal()) {
+        	
             Integer treatmentStatus = treatment.getStatus();
             if (treatmentStatus == AppointmentStatus.EXPIRED.getVal()) {
                 throw new MedicalException("该诊疗直播已过期");
@@ -159,6 +168,11 @@ public class RemoteTreatmentAppointmentInfoController {
             if (treatmentStatus == AppointmentStatus.FINISHED.getVal()) {
                 throw new MedicalException("该诊疗直播已结束");
             }
+            
+            remoteTreatmentService.updateTreatmentStartStatus(infoId, AppointmentStatus.STARTED.getVal());
+            courseService.updateCourseLiveStatus("start", courseService.selectById(treatment.getCourseId()).getDirectId(), 
+            		String.valueOf(HeaderInterceptor.getClientTypeCode()));
+            
         }
         commonMessageService.pushAppMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal()).buildAppPushWithParams(null, params).build(targetUserId, RouteTypeEnum.NONE, null));
         return ResponseObject.newSuccessResponseObject(null);

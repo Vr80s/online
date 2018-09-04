@@ -86,7 +86,6 @@ $(function () {
     $(".select_list .select-ud").bind('click', function (event) {
         event.stopPropagation();
         $(".select_list .littleBox").stop().slideToggle();
-
     })
 
     $(".setTop").click(function () {
@@ -275,7 +274,7 @@ $(function () {
         $(".btn-upload").css("color", "white");
         //	if($(".upload_pictures_bottom_upload").attr("data-id") && $(".upload_pictures_bottom_upload").attr("data-id") != '/webview/images/usershow/defaultHeadImg.jpg') {
         RequestService("/online/user/updateHeadPhoto", "post", {
-            image: $(".btn-upload").attr("data-img"),
+            image: $(".btn-upload").attr("data-img")
         }, function (data) {
             if (data.success == true) {
                 RequestService("/online/user/isAlive", "get", null, function (t) {
@@ -578,7 +577,7 @@ var activityType;
             async:false,
             cache: false,
             processData: false,
-            contentType: false,
+            contentType: false
         }).success(function (data) {
             $(".photo-wrap").removeClass("hide");
             var addPhoto='<li>'+
@@ -656,7 +655,7 @@ var activityType;
             data: form,
             cache: false,
             processData: false,
-            contentType: false,
+            contentType: false
         }).success(function (data) {
             var videoCoverReset='<img src="' + data.resultObject + '?imageMogr2/thumbnail/!280x157r|imageMogr2/gravity/Center/crop/280x157" >'+
                 '<p class="video-reset-tip">点击图片重新上传</p>'
@@ -1384,7 +1383,7 @@ function btnColorReply(){
              data: form,
              cache: false,
              processData: false,
-             contentType: false,
+             contentType: false
          }).success(function (data) {
              var videoCoverReset='<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" >'+
                  '<p class="banner-reset-tip">点击图片重新上传</p>'
@@ -1647,7 +1646,7 @@ function btnColorReply(){
             data: form,
             cache: false,
             processData: false,
-            contentType: false,
+            contentType: false
         }).success(function (data) {
             var columnCoverReset='<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">'+
                 '<p class="column-reset-tip">点击图片重新上传</p>'
@@ -1954,7 +1953,7 @@ function btnColorReply(){
             data: form,
             cache: false,
             processData: false,
-            contentType: false,
+            contentType: false
         }).success(function (data) {
             $('#zhuzuo .zhuzuo_bottom  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
         	$(".work-picter-warning").addClass("hide");
@@ -1990,6 +1989,7 @@ function btnColorReply(){
 
     //	著作部分,点击发布验证文本框
     function workValidate(workData) {
+    	var teacherName=/^[a-zA-Z\u4e00-\u9fa5,，\x20]+$/; //英文,中文,逗号
         var urlHttp = /^http:\/\//;
         var urlHttps = /^https:\/\//;
         $(".zhuzuo_bottom .warning").addClass("hide");
@@ -2002,6 +2002,10 @@ function btnColorReply(){
         if (workData.author == "") {
             $(".work-author-warning").removeClass("hide");
             $(".work-author-warning").siblings("input").addClass("active-border");
+            return false;
+        }else if(!teacherName.test(workData.author)){
+        	$(".work-author-warning-length").removeClass("hide");
+            $(".work-author-warning-length").siblings("input").addClass("active-border");
             return false;
         }
         if ($(".work-picter img").length == "0") {
@@ -2143,11 +2147,11 @@ function btnColorReply(){
     $(".only-save-work").click(function () {
         var workEditId = $("#workId").val(),
             editDataWork = {
-                "title": $(".work-title").val(),
-                "author": $(".work-author").val(),
+                "title": $.trim($(".work-title").val()),
+                "author": $.trim($(".work-author").val()),
                 "imgPath": $(".work-picter img").attr("src"),
                 "remark": UE.getEditor('work-suggest').getContent(),
-                "buyLink": $(".work-link").val(),
+                "buyLink": $.trim($(".work-link").val())
             }
         if (workValidate(editDataWork)) {
             $(".only-save-work").attr("disabled", "disabled");
@@ -2246,7 +2250,7 @@ function btnColorReply(){
             data: form,
             cache: false,
             processData: false,
-            contentType: false,
+            contentType: false
         }).success(function (data) {
             var mediaCoverReset='<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">'+
                 '<p class="media-reset-tip">点击图片重新上传</p>'
@@ -2284,6 +2288,7 @@ function btnColorReply(){
 
     //	媒体报道部分,点击发布验证文本框
     function mediaValidate(mediaData) {
+    	var chineseRuler=/^[a-zA-Z\u4e00-\u9fa5,，\x20]+$/;
     	var urlHttp = /^http:\/\//;
     	var urlHttps= /^https:\/\//;
     	$(".media_report_bottom .warning").addClass("hide");
@@ -2296,6 +2301,10 @@ function btnColorReply(){
         if (mediaData.author == "") {
             $(".media-author-warning").removeClass("hide");
             $(".media-author-warning").siblings("input").addClass("active-border");
+            return false;
+        }else if(!chineseRuler.test(mediaData.author)){
+        	$(".media-author-warning-length").removeClass("hide");
+            $(".media-author-warning-length").siblings("input").addClass("active-border");
             return false;
         }
         if ($(".media-picter img").length == "0") {
@@ -2445,7 +2454,7 @@ function btnColorReply(){
                     "author": $.trim($(".media-author").val()),
                     "imgPath": $(".media-picter img").attr("src").split("?")[0],
                     "content": UE.getEditor('media-context').getContent(),
-                    "url": $.trim($(".media-link").val()),
+                    "url": $.trim($(".media-link").val())
                 };
             if (mediaValidate(editDataMedia)) {
                 $(".media-only-save").attr("disabled", "disabled");
@@ -2558,9 +2567,9 @@ $('#id_select').change(function () {
     //详细地址
     $('#detail_address').val(hos.detailedAddress)
     //医馆封面
-    if (hos.medicalHospitalPictures != "") {
-        var pictureData = hos.medicalHospitalPictures[0];
-        $('#hospital .fengmian_pic').html('<img src=' + pictureData.picture + ' alt="">')
+    if (hos.frontImg != "") {
+        //var pictureData = hos.medicalHospitalPictures[0];
+        $('#hospital .fengmian_pic').html('<img src=' + hos.frontImg + ' alt="">')
     }
     //电话号码
     $('.hosContantTel .hosTel').val(hos.tel);
@@ -2601,7 +2610,7 @@ function picUpdown(form, imgname) {
         data: form,
         cache: false,
         processData: false,
-        contentType: false,
+        contentType: false
     }).success(function (data) {
         $('#hospital_bottom .' + imgname + '').html('<img src="' + data.resultObject + '" >');
     });

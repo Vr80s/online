@@ -314,6 +314,7 @@
 								<p data-name="menu4-6">收徒设置</p>
 							</div>
 						</li>
+												
 						<li class="setTop" id="nav-colume" data-name="doc_zhuanlan"><i class="icomoon-icon-zhuanlan left_range"></i><span>医案专栏</span></li>
 						<li class="setTop" id="nav-work" data-name="doc_book"><i class="icomoon-icon-zhuzuo left_range"></i><span>著作</span></li>
 						<li class="setTop" id="nav-media" data-name="doc_media"><i class="icomoon-icon-meiti left_range"></i><span>媒体报道</span></li>
@@ -1055,7 +1056,7 @@
 											<span class="see-inf-modal" data-index="{{i}}">查看</span>
 											{{else if item.status==4}}
 											<span class="see-inf-modal" data-index="{{i}}">查看</span>
-											<span><a href="/web/liveCoursePage/{{item.id}}" target="_blank">视频诊疗</a></span>
+											<span><a href="/web/liveCoursePage/{{item.courseId}}" target="_blank">视频诊疗</a></span>
 											{{else if item.status==5}}
 											<span class="appointment-delete" data-id="{{item.id}}" data-index="{{i}}">删除</span>
 											{{/if}}
@@ -2002,6 +2003,7 @@
 						</div>
 					</div>
 				</div>
+
 				<!--医案专栏-->
 				<div class="select_box" id="zhuanlan">
 					<div class="zhuanlan_top">
@@ -2177,6 +2179,7 @@
 							<span><em>*</em>作者</span>
 							<input type="text" placeholder="请填写作者" class="zhuzuo_name work-author">
 							<p class="warning hide work-author-warning">作者不能为空</p>
+							<p class="warning hide work-author-warning-length">作者格式错误</p>
 						</div>
 
 						<div class="fengmian">
@@ -2316,6 +2319,7 @@
 							<span><em>*</em>作者</span>
 							<input type="text" placeholder="请填写作者" class="media_report_name media-author">
 							<p class="warning hide media-author-warning">作者不能为空</p>
+							<p class="warning hide media-author-warning-length">作者格式错误</p>
 						</div>
 
 						<div class="fengmian">

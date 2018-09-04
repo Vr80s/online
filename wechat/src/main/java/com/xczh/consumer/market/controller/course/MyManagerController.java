@@ -23,6 +23,7 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.ApplyStatus;
+import com.xczhihui.common.util.enums.MyCourseType;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.common.util.enums.VCodeType;
 import com.xczhihui.common.util.redis.key.RedisCacheKey;
@@ -168,16 +169,11 @@ public class MyManagerController {
     @ResponseBody
     public ResponseObject freeCourseList(@RequestParam("pageNumber") Integer pageNumber,
                                          @RequestParam("pageSize") Integer pageSize, @Account String accountId) throws Exception {
-        /*
-         * 显示熊猫币、已购买的课程（不包含免费的）、是否是主播 获取用户信息
-		 */
-        Page<CourseLecturVo> page = new Page<>();
-        if (pageNumber == 0) {
-            pageNumber = 1;
-        }
+
+    	Page<CourseLecturVo> page = new Page<CourseLecturVo>();
         page.setCurrent(pageNumber);
         page.setSize(pageSize);
-        page = courseService.selectMyPurchasedCourseList(page, accountId);
+        page= courseService.myCourseType(page, accountId, MyCourseType.ALL_COURSE.getCode());
         page.setRecords(addCollectionInfo(page.getRecords()));
         return ResponseObject.newSuccessResponseObject(page);
     }

@@ -85,6 +85,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
          * 这里需要判断是否购买过了
          */
         if (userId != null) {
+        	
             // 是否关注
             Integer isFours = focusMapper.isFoursLecturer(userId, cv.getUserLecturerId());
             if (isFours != 0) {
@@ -102,6 +103,17 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                     cv.setLearning(1);
                 }
             }
+
+            /**
+             * 如果是诊疗直播，增加弟子信息
+             */
+            if(cv.getAppointmentInfoId()!=null) {
+            	CourseLecturVo discipleInfo =  iCourseMapper.selectTreatmentAppointmentInfo(cv.getAppointmentInfoId());
+            	cv.setDiscipleName(discipleInfo.getDiscipleName());
+            	cv.setDiscipleHeadPhoto(discipleInfo.getDiscipleHeadPhoto());
+            	cv.setUserId(discipleInfo.getUserId());
+            }
+            
         }
 
         return cv;

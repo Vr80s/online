@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -105,6 +106,8 @@ public class CityServiceImpl extends OnlineBaseServiceImpl implements CityServic
                mapProven.put("cityList", listCityC);
            }
 
+           cacheService.set(RedisCacheKey.PROVINCE_CITY_COUNTY,JSONObject.valueToString(JSONObject.wrap(listProven)));
+           
            return listProven;
     	}else {
     	   return JSON.parseArray(pcc);
@@ -176,7 +179,6 @@ public class CityServiceImpl extends OnlineBaseServiceImpl implements CityServic
 
     @Override
     public UserAddressManagerVo findAddressById(String id) throws SQLException {
-        // TODO Auto-generated method stub
         String sql = "select id,user_id as userId,provinces,city,county,street,consignee,phone,detailed_address as detailedAddress"
                 + ",is_acquiescence as isAcquiescence, postal_code as postalCode,create_time as createTime from "
                 + " user_address_manager where id = :id";
@@ -188,7 +190,6 @@ public class CityServiceImpl extends OnlineBaseServiceImpl implements CityServic
 
     @Override
     public UserAddressManagerVo findAddressByUserIdAndAcq(String userId) throws SQLException {
-        // TODO Auto-generated method stub
         String sql = "select id,provinces,city,county,street,consignee,phone,detailed_address as detailedAddress"
                 + ",is_acquiescence as isAcquiescence,postal_code as postalCode,user_id as userId from "
                 + " user_address_manager where user_id = :uid and is_acquiescence = 1";
@@ -201,7 +202,6 @@ public class CityServiceImpl extends OnlineBaseServiceImpl implements CityServic
 
     @Override
     public void updateAddress(UserAddressManagerVo udm) throws SQLException {
-        // TODO Auto-generated method stub
         UserAddressManagerVo orginUdm = findAddressById(udm.getId());
 
         StringBuilder sql = new StringBuilder();
@@ -306,7 +306,6 @@ public class CityServiceImpl extends OnlineBaseServiceImpl implements CityServic
 
     @Override
     public UserAddressManagerVo findAcquiescenceAddressById(String id) {
-        // TODO Auto-generated method stub
         String sql = "select id,user_id as userId,provinces,city,county,street,consignee,phone,detailed_address as detailedAddress"
                 + ",is_acquiescence as isAcquiescence, postal_code as postalCode,create_time as createTime from "
                 + " user_address_manager where user_id = '" + id + "' and is_acquiescence = 1 limit 1";
