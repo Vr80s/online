@@ -229,7 +229,7 @@
 	<div class="comment_area">
 		<div class="comment_area_top">
 			<div class="comment_area_problem">
-				<!-- 只看問題 -->
+				<!-- 只看问题 -->
 				<div class="comment_area_problem_left">
 					<div class="comment_area_problem_bg">
 						<label for="" class="problem_label_bg"></label>
@@ -308,6 +308,15 @@
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入--> 
 <!-- <script type="text/javascript" src="/xcview/js/physician/quiz.js"></script>  -->
 <script type="text/javascript" src="/xcview/js/physician/voice_broadcast.js"></script>
+<!-- 语音直播引用文件 -->
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/Mock.js/1.0.0/mock-min.js"></script>
+<script src="https://cdn.bootcss.com/hammer.js/2.0.8/hammer.min.js"></script>
+<script src="https://cdn.bootcss.com/lodash.js/4.17.10/lodash.min.js"></script>
+<script src="/xcview/html/physician/voice/js/template.js"></script>
+<script src="/xcview/html/physician/voice/js/main.js"></script>
+
+
 <script>
 	window.onload = function(){
 		var htmlstr = $(".booking_person").find('p').html();
@@ -348,12 +357,12 @@
 				$(".barrage_switch").css('background','url(/xcview/images/barrage_switch_bg.png) no-repeat');
 				$(".barrage_switch").css('background-size','100% 100%');
 				$(".show").hide();
-				$(".msgCont").show();   //彈幕隱藏
+				$(".msgCont").show();   //弹幕隐藏
 			} else {
 				$(".barrage_switch").css('background','url(/xcview/images/barrage_switch.png) no-repeat');
 				$(".barrage_switch").css('background-size','100% 100%');
 				$(".show").show();
-				$(".msgCont").hide();   //彈幕顯示
+				$(".msgCont").hide();   //弹幕显示
 			}
 		});
 
@@ -400,9 +409,9 @@
 
 		});*/
 
-		//init();  /*默認方法--可用于判斷是否回放*/
+		//init();  /*默认方法--可用于判断是否回放*/
 		// 弹幕开始
-		var data = ['你好世界','世界你好','啊啊啊哈哈哈哈'];  //定義最後3條
+		var data = ['你好世界','世界你好','啊啊啊哈哈哈哈'];  //定义最后3条
 		var SixHide = 0;
 
 		function init(){
@@ -413,14 +422,14 @@
 			setInterval(function(){
 				if(data == 0 ){
 					SixHide++
-					if(SixHide == 6){ //设置发弹幕--6秒后移除    //SixHide == 0.5(時間，錯誤操作，時間小於0.5一直顯示彈幕)
+					if(SixHide == 6){ //设置发弹幕--6秒后移除    //SixHide == 0.5(时间，错误操作，时间小于0.5一直显示弹幕)
 						$(".msgCont").html('')
 					}
 				}
 			},1000)
 		}
 
-		// 點擊發送
+		// 点击发送
 		function sendMsgBtn(){
 			if($("#chat_put").val()==''){
 				jqtoast("输入内容不能为空");
@@ -437,7 +446,7 @@
 			}
 		}
 
-		// 顯示發送內容
+		// 提示发送內容
 		function showList(text){
 			var _html = `<div class="msgItem">
 					<div class="text"><span class="ask">问</span>${text}</div>
@@ -448,7 +457,7 @@
 			$(".msgCont").append(_html)
 		}
 
-		// 發送內容后移除前面的內容
+		// 发送內容后移除前面的內容
 		function biubiubiu(){
 			if(data == ''){   			
 				return
@@ -464,7 +473,7 @@
 		}
 		// 弹幕结束
 
-		// 點擊全部評論的關閉按鈕
+		// 点击全部评论的开关按钮
 		$(".comment_area_close").click(function(){
 			$(".chat").removeClass("chats");  /*隱藏input长度*/
 			$(".chat_put").removeClass("chat_puts");
@@ -501,7 +510,7 @@
 			$(".chat_put").addClass("chat_puts");   /*增加input外div长度*/
 		});
 
-		// 點擊只看問題
+		// 点击只看問題
 		/*$('.comment_area_problem_left').toggle(function() {
 			alert(1111);
 		    $(".comment_area_problem_bg").addClass('comment_area_problem_bg_toggle');
@@ -513,7 +522,7 @@
 			alert(33333);
 		});*/
 
-		// 點擊只看問題
+		// 点击只看問題
 		$(".comment_area_problem_left").click(function(){
 			if($('.problem_label_put').is(':checked')) {
 				$(".problem_label_bg").addClass("problem_label_bgs");
@@ -524,7 +533,7 @@
 			}
 		});
 
-		// 點讚
+		// 点赞
 		$(".anchor_favour").click(function(){
 			$(".favour_img").addClass("favour_imgs");
 			$(".anchor_favour span").addClass("anchor_favour_span");
@@ -565,15 +574,6 @@
 	    }
 	});
 </script>
-
-
-<!-- 语音直播引用文件 -->
-<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/Mock.js/1.0.0/mock-min.js"></script>
-<script src="https://cdn.bootcss.com/hammer.js/2.0.8/hammer.min.js"></script>
-<script src="https://cdn.bootcss.com/lodash.js/4.17.10/lodash.min.js"></script>
-<script src="/xcview/html/physician/voice/js/template.js"></script>
-<script src="/xcview/html/physician/voice/js/main.js"></script>
 
 <script>
 	//聊天最大高度
