@@ -223,6 +223,8 @@
         oc.inav_id as inavId,
         oc.appointment_info_id as appointmentInfoId,
         mtai.name as  discipleName,
+        
+        
         oeu.small_head_photo as  discipleHeadPhoto,
         oeu1.small_head_photo as  doctorHeadPhoto
         

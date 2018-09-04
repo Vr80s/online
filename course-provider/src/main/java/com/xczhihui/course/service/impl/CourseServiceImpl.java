@@ -85,6 +85,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
          * 这里需要判断是否购买过了
          */
         if (userId != null) {
+        	
             // 是否关注
             Integer isFours = focusMapper.isFoursLecturer(userId, cv.getUserLecturerId());
             if (isFours != 0) {
@@ -102,6 +103,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                     cv.setLearning(1);
                 }
             }
+
+            //
+            
+        
         }
 
         return cv;
