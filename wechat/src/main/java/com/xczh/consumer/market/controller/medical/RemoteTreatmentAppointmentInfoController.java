@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,6 +46,9 @@ import com.xczhihui.user.center.service.UserCenterService;
 @RestController
 public class RemoteTreatmentAppointmentInfoController {
 
+	
+	 private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(RemoteTreatmentAppointmentInfoController.class);
+	
     @Autowired
     private IRemoteTreatmentService remoteTreatmentService;
     @Autowired
@@ -120,6 +124,10 @@ public class RemoteTreatmentAppointmentInfoController {
 
     @RequestMapping(value = "send/message", method = RequestMethod.POST)
     public ResponseObject sendMessage(@Account String accountId, @RequestParam int infoId, @RequestParam int type) {
+    	
+    	LOGGER.warn("type:"+type);
+    	
+    	
         TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentService.selectById(infoId);
         if (treatmentAppointmentInfo == null || treatmentAppointmentInfo.getTreatmentId() == null) {
             throw new MedicalException("参数错误");
@@ -149,6 +157,8 @@ public class RemoteTreatmentAppointmentInfoController {
             remoteTreatmentService.updateTreatmentStartStatus(infoId, AppointmentStatus.FINISHED.getVal());
             courseService.updateCourseLiveStatus("stop", courseService.selectById(courseId).getDirectId(), String.valueOf(HeaderInterceptor.getClientTypeCode()));
         }
+        
+        
         if (type == DOCTOR_TREATMENT_START.getVal()) {
         	
             Integer treatmentStatus = treatment.getStatus();
