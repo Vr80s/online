@@ -576,14 +576,17 @@
 <script src="/xcview/html/physician/voice/js/main.js"></script>
 
 <script>
-
 	//聊天最大高度
-	var main_height=$(window).height()-$(".main-height").height();
-	$(".container").height(main_height);
+	var container_height=$(window).height()-$(".main-height").height();
+	$(".container").height(container_height);
 
 	// 聊天区域高度
 	var main_height=$(window).height()-$(".main-height").height();
 	$(".main").height(main_height);
+
+	// 聊天区域高度
+	var home_height=$(window).height()-$(".main-height").height();
+	$(".container .home").height(home_height);
 
 	// alert(main_height);
 </script>
