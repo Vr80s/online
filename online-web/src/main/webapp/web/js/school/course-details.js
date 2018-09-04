@@ -143,6 +143,7 @@ $(function () {
         var cutoff;
         var status;
         var currentPrice;
+        var lineState;
         /**
          * 判断是否登录了
          */
@@ -160,6 +161,7 @@ $(function () {
 						cutoff=data.resultObject.cutoff;
 						status=data.resultObject.status;
 						currentPrice = data.resultObject.currentPrice;
+						lineState = data.resultObject.lineState;
 		         	}
 		         },false)
             	
@@ -169,10 +171,15 @@ $(function () {
             		return false;
             	}
             	
-//            	if(status==0 && currentPrice <= 0 && learning != 1){
-//            		showTip("该课程已下架")
-//            		return false;
-//            	}
+              	if(status==0 && currentPrice <= 0 && learning != 1){
+              		showTip("该课程已下架")
+              		return false;
+              	}
+              	
+              	if(status==0 && lineState==6){
+            		showTip("该课程已下架")
+            		return false;
+            	}
             	 
                 if (courseForm == 3) {      //线下课
                 	//已购买   或者 免费以学习   或者  报名截止的
