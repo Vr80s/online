@@ -106,8 +106,8 @@ header{
     width: 6.36rem;
     margin: 0 auto;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    /* text-overflow: ellipsis;
+    white-space: nowrap; */
     padding-top: 0.3rem;
     margin-bottom: 0.3rem;
 }
@@ -609,6 +609,10 @@ header{
     margin: 0 auto;
     padding-top: 0.3rem;
     margin-bottom: 0.2rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
 }
 .media_time{
     width: 6.98rem;
