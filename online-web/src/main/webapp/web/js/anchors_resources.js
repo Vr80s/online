@@ -86,7 +86,6 @@ $(function () {
     $(".select_list .select-ud").bind('click', function (event) {
         event.stopPropagation();
         $(".select_list .littleBox").stop().slideToggle();
-
     })
 
     $(".setTop").click(function () {
