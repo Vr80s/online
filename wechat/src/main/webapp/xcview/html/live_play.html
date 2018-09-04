@@ -145,7 +145,13 @@
 	<!--主讲人-->
 	<div class="speak_people" id="speak_people">
 		<script type="text/html" id="data_people">	
-			<p class="speak_title">{{gradeName}}</p>
+			<p class="speak_title">{{gradeName}}</p>			
+			{{if lineState == 2 || lineState == 4 || lineState == 5}}
+				{{if appointmentInfoId !=null}}
+					<p class="" style="color: #666;">诊疗弟子：{{discipleName}}</p>
+				{{/if}}
+			{{/if}}
+
 			<p class="speak-text">{{subtitle}}</p>
 			<div class="wrap_grade" onclick="btn_allComment()">
 				<ul class="grade_pic">
