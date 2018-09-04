@@ -120,7 +120,9 @@
         oc.live_status as liveStatus,
         oc.inav_id as inavId,
         oc.is_teaching teaching,
-          oc.appointment_info_id as appointmentInfoId
+        oc.appointment_info_id as appointmentInfoId,
+        if(oc.appointment_info_id!=null,(select name from medical_treatment_appointment_info mtai where mtai.id = oc.appointment_info_id),null) 
+         as discipleName
         FROM
         oe_course as oc
         inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
