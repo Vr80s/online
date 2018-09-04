@@ -148,10 +148,9 @@ public class RemoteTreatmentAppointmentInfoController {
         if (type == DOCTOR_TREATMENT_STOP.getVal()) {
             remoteTreatmentService.updateTreatmentStartStatus(infoId, AppointmentStatus.FINISHED.getVal());
             courseService.updateCourseLiveStatus("stop", courseService.selectById(courseId).getDirectId(), String.valueOf(HeaderInterceptor.getClientTypeCode()));
-        
-            
         }
         if (type == DOCTOR_TREATMENT_START.getVal()) {
+        	
             Integer treatmentStatus = treatment.getStatus();
             if (treatmentStatus == AppointmentStatus.EXPIRED.getVal()) {
                 throw new MedicalException("该诊疗直播已过期");
@@ -159,6 +158,11 @@ public class RemoteTreatmentAppointmentInfoController {
             if (treatmentStatus == AppointmentStatus.FINISHED.getVal()) {
                 throw new MedicalException("该诊疗直播已结束");
             }
+            
+            remoteTreatmentService.updateTreatmentStartStatus(infoId, AppointmentStatus.STARTED.getVal());
+            courseService.updateCourseLiveStatus("start", courseService.selectById(treatment.getCourseId()).getDirectId(), 
+            		String.valueOf(HeaderInterceptor.getClientTypeCode()));
+            
         }
         commonMessageService.pushAppMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal()).buildAppPushWithParams(null, params).build(targetUserId, RouteTypeEnum.NONE, null));
         return ResponseObject.newSuccessResponseObject(null);
