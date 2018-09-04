@@ -305,4 +305,20 @@ public interface CourseMapper extends BaseMapper<Course> {
             + "	1, 1,1, now(), now(),#{course.clientType}) "})
     @Options(useGeneratedKeys = true, keyProperty = "course.examineId", keyColumn = "id")
     void insertCouserApplyInfo(@Param("course") Course course);
+
+	/**  
+	 * <p>Title: selectTreatmentAppointmentInfo</p>  
+	 * <p>Description: </p>  
+	 * @param appointmentInfoId
+	 * @return  
+	 */ 
+    @Select({" select \r\n" + 
+    		"   mtai.user_id as userId,\r\n" + 
+    		"	 mtai.name as discipleName,\r\n" + 
+    		"	 ou.small_head_photo as discipleHeadPhoto \r\n" + 
+    		"from  \r\n" + 
+    		"   medical_treatment_appointment_info  mtai\r\n" + 
+    		"      inner join  oe_user as ou on mtai.user_id = ou.id\r\n" + 
+    		"	where mtai.id =  #{appointmentInfoId} "})
+	CourseLecturVo selectTreatmentAppointmentInfo(@Param("appointmentInfoId")Integer appointmentInfoId);
 }

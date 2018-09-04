@@ -104,9 +104,16 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                 }
             }
 
-            //
+            /**
+             * 如果是诊疗直播，增加弟子信息
+             */
+            if(cv.getAppointmentInfoId()!=null) {
+            	CourseLecturVo discipleInfo =  iCourseMapper.selectTreatmentAppointmentInfo(cv.getAppointmentInfoId());
+            	cv.setDiscipleName(discipleInfo.getDiscipleName());
+            	cv.setDiscipleHeadPhoto(discipleInfo.getDiscipleHeadPhoto());
+            	cv.setUserId(discipleInfo.getUserId());
+            }
             
-        
         }
 
         return cv;

@@ -221,19 +221,10 @@
         oc.live_case as liveCase,
         oc.is_teaching teaching,
         oc.inav_id as inavId,
-        oc.appointment_info_id as appointmentInfoId,
-        mtai.name as  discipleName,
-        
-        
-        oeu.small_head_photo as  discipleHeadPhoto,
-        oeu1.small_head_photo as  doctorHeadPhoto
-        
+        oc.appointment_info_id as appointmentInfoId
         FROM
         oe_course as oc
         inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
-        left join medical_treatment_appointment_info mtai on oc.appointment_info_id = mtai.id
-        left join oe_user oeu on mtai.user_id = oeu.id
-        left join oe_user oeu1 on oc.user_lecturer_id = oeu1.id
         where oc.id = #{courseId} and oc.is_delete=0
     </select>
 
@@ -596,10 +587,11 @@
         if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
         oc.user_lecturer_id as userLecturerId,
         oc.collection as collection,
-        if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or
-        (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
-        if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt;
-        oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
+        if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
+	        (DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time) or
+	        (DATE_ADD(now(),INTERVAL 1 HOUR)>=oc.start_time and now() &lt; oc.start_time),4,
+	        if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status)
+	    as lineState,
         if(oc.type =3,(if(date_add(now(),INTERVAL 1 DAY)>= oc.start_time,1,0)),null) as cutoff,
         oc.current_price*10 as currentPrice,
         oc.live_source_type as liveSourceType,
