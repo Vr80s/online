@@ -478,23 +478,56 @@ function saveEnchashment() {
 	}
 }
 
+var moneyChack={
+	amount : function(){
+		var moneyVal=$.trim($("#tpCashIpt").val());
+		var onlyNumber=/[^\d]/g;
+		$("#tpCashIpt").css({"border-color":"#f0f0f0"});
+		$('.warning_amount_null').addClass('hide');
+		$('.warning_amount_illegal').addClass('hide');
+		$('.warning_amount_beyond').addClass('hide');
+		if (moneyVal=="") {
+			$('.warning_amount_null').removeClass('hide');
+			$("#tpCashIpt").css({"border-color":"#FF4012"});
+			return false;
+		} else if(!numberCk(moneyVal) || moneyVal <= 0){
+			$('.warning_amount_illegal').removeClass('hide');
+			$("#tpCashIpt").css({"border-color":"#FF4012"});
+			return false;
+		}else if(parseInt(baseAssetInfo.rmb) < parseInt(moneyVal)){
+			$('.warning_amount_beyond').removeClass('hide');
+			$("#tpCashIpt").css({"border-color":"#FF4012"});
+			return false;
+		}
+	}
+}
+
+$("#tpCashIpt").blur(function(){
+	moneyChack.amount();
+})
+
 function verifyEnchashment(data) {
+	var onlyNumber=/[^\d]/g;
+	$("#tpCashIpt").css({"border-color":"#f0f0f0"});
 	//提现金额
 	$('.waring').addClass('hide');
 	if(!isNv(data.amount)) {
 		$('.warning_amount_null').removeClass('hide');
+		$("#tpCashIpt").css({"border-color":"#FF4012"});
 		return false;
-	} else {
+	}else {
 		$('.warning_amount_null').addClass('hide');
 	}
 	if(!numberCk(data.amount) || data.amount <= 0) {
 		$('.warning_amount_illegal').removeClass('hide');
+		$("#tpCashIpt").css({"border-color":"#FF4012"});
 		return false;
 	} else {
 		$('.warning_amount_illegal').addClass('hide');
 	}
 	if(parseInt(baseAssetInfo.rmb) < parseInt(data.amount)) {
 		$('.warning_amount_beyond').removeClass('hide');
+		$("#tpCashIpt").css({"border-color":"#FF4012"});
 		return false;
 	} else {
 		$('.warning_amount_beyond').addClass('hide');

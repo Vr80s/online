@@ -65,10 +65,17 @@ $(function () {
 		},
 //		主讲人
 		course_lecturer : function(){
+			var teacherName=/^[a-zA-Z\u4e00-\u9fa5,，\x20]+$/; //英文,中文,和逗号
 			clearDisciple("warning_course_lecturer");
+			$(".warning_course_lecturer_length").addClass("hide");
 			if($.trim($(".course_lecturer").val())==""){
 				$(".warning_course_lecturer").removeClass("hide");
 				$(".warning_course_lecturer").siblings("input").addClass("active-border");
+				return false;
+			}else if(!teacherName.test($.trim($(".course_lecturer").val()))){
+				$(".warning_course_lecturer_length").removeClass("hide");
+				$(".warning_course_lecturer_length").siblings("input").addClass("active-border");
+				return false;
 			}
 		},
 //		价格
@@ -135,10 +142,17 @@ $(function () {
 		},
 //		作者
 		work_author : function(){
+			var teacherName=/^[a-zA-Z\u4e00-\u9fa5,，\x20]+$/; //英文,中文,和逗号
 			clearDisciple("work-author-warning");
+			$(".work-author-warning-length").addClass("hide");
 			if($.trim($(".work-author").val())==""){
 				$(".work-author-warning").removeClass("hide");
 				$(".work-author-warning").siblings("input").addClass("active-border");
+				return false;
+			}else if(!teacherName.test($.trim($(".work-author").val()))){
+				$(".work-author-warning-length").removeClass("hide");
+				$(".work-author-warning-length").siblings("input").addClass("active-border");
+				return false;
 			}
 		},
 //		购买链接
@@ -166,10 +180,17 @@ $(function () {
 		},
 //		作者
 		media_author : function(){
+			var chineseRuler=/^[a-zA-Z\u4e00-\u9fa5,，\x20]+$/;
 			clearDisciple("media-author-warning");
+			$(".media-author-warning-length").addClass("hide");
 			if($.trim($(".media-author").val())==""){
 				$(".media-author-warning").removeClass("hide");
 				$(".media-author-warning").siblings("input").addClass("active-border");
+				return false;
+			}else if(!chineseRuler.test($.trim($(".media-author").val()))){
+				$(".media-author-warning-length").removeClass("hide");
+				$(".media-author-warning-length").siblings("input").addClass("active-border");
+				return false;
 			}
 		},
 //		购买链接
@@ -596,6 +617,7 @@ function addActiveBorder(dom){
 	$("."+dom).siblings("input").addClass("active-border")
 }
 function verifyCourse(course) {
+	var teacherName=/^[a-zA-Z\u4e00-\u9fa5,，\x20]+$/; //英文,中文,和逗号
     $(".warning").addClass('hide');
     $(".disciple-set-wrap input").removeClass("active-border")
     //课程标题
@@ -628,6 +650,10 @@ function verifyCourse(course) {
     //主播姓名
     if (course.lecturer == '') {
         $('.warning_course_lecturer').removeClass('hide');
+        addActiveBorder("warning_course_lecturer");
+        return false;
+    }else if(!teacherName.test(course.lecturer)){
+    	 $('.warning_course_lecturer_length').removeClass('hide');
         addActiveBorder("warning_course_lecturer");
         return false;
     }
