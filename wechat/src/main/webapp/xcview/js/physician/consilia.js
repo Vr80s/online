@@ -2,6 +2,10 @@
 $(function(){
 	// var id = 675;
 	var id = getQueryString("consiliaId");
+	var criticize_id = "";
+	var course_id ="";
+	var courseId = getQueryString('courseId');
+    course_id = courseId;
  	requestGetService("/xczh/article/view",{
  		// id:385
  		id:id
@@ -28,61 +32,61 @@ $(function(){
 	        pageSize: 20000
 	 	},function (data) {
 		    if (data.success == true) {
-			$('.wrap_all_returned').html(template('broadcastroom_id', {items: data.resultObject}));
-	    	
-	    	var a=$(".wrap_all_returned").html();
-		    if(a==null||a.length==0){
-		       $(".quie_pic").show();
-		       // alert(1111);
-		       $(".opacity_height").show();
-		    }else{
-				$(".quie_pic").hide();
-				// alert(222);
-		        $(".opacity_height").hide();
-		    };
+				$('.wrap_all_returned').html(template('broadcastroom_id', {items: data.resultObject}));
+		    	
+		    	var a=$(".wrap_all_returned").html();
+			    if(a==null||a.length==0){
+			       $(".quie_pic").show();
+			       // alert(1111);
+			       $(".opacity_height").show();
+			    }else{
+					$(".quie_pic").hide();
+					// alert(222);
+			        $(".opacity_height").hide();
+			    };
 
 
-		    //	回复弹窗
-	        $(".wrap_returned_btn .btn_littleReturn").click(function () {
-	        	// alert(55555);
-	            //评价id
-	            criticize_id = this.id;
-	            $(".bg_userModal").show();
-	            $(".wrapLittle_comment").show();
-	            $("#littlt_return").focus();
-	        });
+			    //	回复弹窗
+		        $(".wrap_returned_btn .btn_littleReturn").click(function () {
+		        	// alert(55555);
+		            //评价id
+		            criticize_id = this.id;
+		            $(".bg_userModal").show();
+		            $(".wrapLittle_comment").show();
+		            $("#littlt_return").focus();
+		        });
 
-		    // 点赞
-		    $(".btn_click_zan").click(function () {
-		        //评价id
-		        criticize_id = $(this).attr("data-id");
-		        criticize_id=$(this).attr("data-id");
-		        var p = $(this).find('span').html();
-		        var src = $(this).find('img').attr('src');
-		        if(src.indexOf("zan001")>-1){
-		            $(this).find('img').attr('src','/xcview/images/zan01.png');
-		            $(this).find('span').html(parseInt(p)-1);
-		            updatePraise(criticize_id,false);
-		        }else{
-		            $(this).find('img').attr('src','/xcview/images/zan001.png');
-		            $(this).find('span').html(parseInt(p)+1);
-		            updatePraise(criticize_id,true);
-		        }
-		    });
+			    // 点赞
+			    $(".btn_click_zan").click(function () {
+			        //评价id
+			        criticize_id=$(this).attr("data-id");
+			        var p = $(this).find('span').html();
+			        var src = $(this).find('img').attr('src');
+			        if(src.indexOf("zan001")>-1){
+			            $(this).find('img').attr('src','/xcview/images/zan01.png');
+			            $(this).find('span').html(parseInt(p)-1);
+			            updatePraise(criticize_id,false);
+			        }else{
+			            $(this).find('img').attr('src','/xcview/images/zan001.png');
+			            $(this).find('span').html(parseInt(p)+1);
+			            updatePraise(criticize_id,true);
+			        }
+
+			    });
+
+		   
+
 		    }
 		});
 
 	};
 
-	
-
-
 
 //点赞、取消点赞
-function updatePraise(id, praised) {
+function updatePraise(id, praise) {
     requestService("/xczh/article/appraise/praise", {
-        praised: praised,
-        articleId: id
+        praise: praise,
+        id: id
     }, function (data) {
         
     });

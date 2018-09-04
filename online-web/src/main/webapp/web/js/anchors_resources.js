@@ -1990,6 +1990,7 @@ function btnColorReply(){
 
     //	著作部分,点击发布验证文本框
     function workValidate(workData) {
+    	var teacherName=/^[a-zA-Z\u4e00-\u9fa5,，\x20]+$/; //英文,中文,逗号
         var urlHttp = /^http:\/\//;
         var urlHttps = /^https:\/\//;
         $(".zhuzuo_bottom .warning").addClass("hide");
@@ -2002,6 +2003,10 @@ function btnColorReply(){
         if (workData.author == "") {
             $(".work-author-warning").removeClass("hide");
             $(".work-author-warning").siblings("input").addClass("active-border");
+            return false;
+        }else if(!teacherName.test(workData.author)){
+        	$(".work-author-warning-length").removeClass("hide");
+            $(".work-author-warning-length").siblings("input").addClass("active-border");
             return false;
         }
         if ($(".work-picter img").length == "0") {
@@ -2143,11 +2148,11 @@ function btnColorReply(){
     $(".only-save-work").click(function () {
         var workEditId = $("#workId").val(),
             editDataWork = {
-                "title": $(".work-title").val(),
-                "author": $(".work-author").val(),
+                "title": $.trim($(".work-title").val()),
+                "author": $.trim($(".work-author").val()),
                 "imgPath": $(".work-picter img").attr("src"),
                 "remark": UE.getEditor('work-suggest').getContent(),
-                "buyLink": $(".work-link").val(),
+                "buyLink": $.trim($(".work-link").val()),
             }
         if (workValidate(editDataWork)) {
             $(".only-save-work").attr("disabled", "disabled");
@@ -2284,6 +2289,7 @@ function btnColorReply(){
 
     //	媒体报道部分,点击发布验证文本框
     function mediaValidate(mediaData) {
+    	var chineseRuler=/^[a-zA-Z\u4e00-\u9fa5,，\x20]+$/;
     	var urlHttp = /^http:\/\//;
     	var urlHttps= /^https:\/\//;
     	$(".media_report_bottom .warning").addClass("hide");
@@ -2296,6 +2302,10 @@ function btnColorReply(){
         if (mediaData.author == "") {
             $(".media-author-warning").removeClass("hide");
             $(".media-author-warning").siblings("input").addClass("active-border");
+            return false;
+        }else if(!chineseRuler.test(mediaData.author)){
+        	$(".media-author-warning-length").removeClass("hide");
+            $(".media-author-warning-length").siblings("input").addClass("active-border");
             return false;
         }
         if ($(".media-picter img").length == "0") {
