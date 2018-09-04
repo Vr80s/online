@@ -1,0 +1,310 @@
+@charset "utf-8";
+
+/* body,html{
+    width: 100vw;
+    font-size: calc(100vw / 7.5);
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    color: #3e3e3e;
+} */
+
+*{
+    margin: 0;
+    padding: 0;
+    /*box-sizing: border-box;*/
+}
+
+@font-face {
+  font-family: 'iconfont';  /* project id 798982 */
+  src: url('//at.alicdn.com/t/font_798982_k9egea4y3oq.eot');
+  src: url('//at.alicdn.com/t/font_798982_k9egea4y3oq.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_798982_k9egea4y3oq.woff') format('woff'),
+  url('//at.alicdn.com/t/font_798982_k9egea4y3oq.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_798982_k9egea4y3oq.svg#iconfont') format('svg');
+}
+
+.container{
+    font-size: .3rem;
+}
+
+  .iconfont{
+      font-family: 'iconfont';
+  }
+
+  .play_status{
+
+  }
+
+  .flex-box{
+      display: flex;
+  }
+  .content{
+      line-height: 1;
+      position: relative;
+  }
+
+  .soundbody{
+    position: relative;
+    display: block;
+    min-width: 2.5rem;
+    color: #ffffff;
+    padding: .15rem;
+    word-break: break-all;
+    font-weight: 400;
+    background: #89D03A;
+    border: 1px solid #DEDEDE;
+    border-radius: 8px;
+  }
+
+  .soundbody .play_status{
+    display: inline-block;
+    width: .5rem;
+    height: .5rem;
+    border-radius: 50%;
+    font-size: .28rem;
+    line-height: .46rem;
+    color: #fff;
+    text-align: center;
+    border: .02rem solid #fff;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    vertical-align: top;
+    text-align: center;
+
+  }
+.soundbody .flex-box{
+    align-items: center;
+}
+.soundbody .flex-box .second{
+  font-size: .26rem;
+}
+.soundbody .flex-box  .play_ui{
+  flex-grow: 4;
+  height: 2px;
+  background-color: #fff;
+  margin: 0 .15rem;
+  border-radius: 2px;
+  position: relative;
+  visibility: hidden;
+}
+.soundbody.playing_ .flex-box  .play_ui{
+  visibility: visible;
+}
+.soundbody .flex-box  .play_ui::before{
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #72B528;
+  left: 0;
+  top: 0;
+}
+.soundbody  .play_btn{
+  width: .14rem;
+  height: .14rem;
+  border-radius: 50%;
+  background-color: #fff;
+  position: absolute;
+  box-shadow: 0 0 0 .06rem rgba(255,255,255,.25);
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) translateX(-50%);
+}
+.like{
+    font-size: .24rem;
+    color: #898989;
+    margin-top: .1rem;
+    overflow: hidden;
+}
+.like p{
+  float: left;
+}
+.like p.islike{
+  color: #00bc12;
+}
+.like.active{
+    color: #edcb91;
+}
+.soundbody .play_status .paused{
+  display: none;
+}
+.soundbody.playing_ .play_status .playing{
+  display: none;
+}
+.soundbody.playing_ .play_status.paused_ .playing{
+  display: block;
+}
+.soundbody.playing_ .play_status.paused_ .paused{
+  display: none;
+}
+.soundbody.playing_ .play_status .paused{
+  display: block;
+}
+  .head-box{
+    display: block;
+    height: .6rem;
+    width: .6rem;
+    border-radius: 100%;
+    background-position: center center;
+    background-size: cover;
+  }
+  .drag{
+    position: absolute;
+    left: 0;
+    top: -1rem;
+    font-size: .28rem;
+    color: #fff;
+    transform: translateX(-50%);
+    pointer-events: none;
+    display: none;
+  }
+  .drag::before{
+    content: '';
+    position: absolute;
+    width:.01rem;
+    height: .8rem;
+    background-color: #ff9900;
+    left: 50%;
+    bottom: -.93rem;
+  }
+  .drag p{
+    background-color: #ff9900;
+    line-height: .5rem;
+    width: .8rem;
+    text-align: center;
+    border-radius: .5rem;
+    position: relative;
+  }
+  .drag p::before{
+    content: '';
+    position: absolute;
+    border-top: .08rem solid #ff9900;
+    border-left: .08rem solid transparent;
+    border-right: .08rem solid transparent;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%,98%);
+  }
+  .head{
+    display: block;
+    text-align: center;
+    padding: 0 .2rem;
+    padding-left: 0;
+  }
+  .message{
+    display: flex;
+    padding-right: 1rem;
+  }
+  .scroll-wrapper .item{
+    padding:  .2rem 0;
+  }
+  .scroll-box{
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+  .home{
+    height: calc(100vh - 1rem);
+  }
+  .nickname{
+    font-size: .24rem;
+    line-height: .5rem;
+    color: #333;
+  }
+
+  .label{
+      position: absolute;
+      right: 0;
+      top: 0;
+  }
+  .label .complete{
+      position: absolute;
+      line-height: .8rem;
+      font-size: .4rem;
+      left: 0.2rem;
+      pointer-events: none;
+      text-align: center;
+      opacity: .6;
+      display: none
+  }
+  .label .dot{
+      position: absolute;
+      width: .15rem;
+      height: .15rem;
+      border-radius: 50%;
+      background-color: #f94747;
+      pointer-events: none;
+      left: -.1rem;
+      top: -.05rem;
+  }
+
+  .soundbody.playing_ .label .dot,.soundbody.played .label .dot{
+      display: none;
+  }
+  .soundbody.played .label .complete{
+      display: block;
+  }
+  .play_line{
+    background-color: #fff;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+  }
+  .currentPosition{
+    position: fixed;
+    bottom: 1.2rem;
+    font-size: .24rem;
+    width: 2rem;
+    line-height: .6rem;
+    text-align: center;
+    border-radius: .6rem;
+    background-color: #fff;
+    box-shadow: 0 0 10px 0 rgba(55, 55, 55, .2);
+    z-index: 9;
+    color: #6ab969;
+    left: 50%;
+    margin-left: -1rem;
+    display: none;
+  }
+.content .text{
+    font-size: .24rem;
+    line-height: 1.6;
+    padding: .15rem;
+    /* background-color: #f5d170; */
+    /* border-radius: .06rem; */
+    background: #89D03A;
+    border: 1px solid #DEDEDE;
+    border-radius: 8px;
+    color: #fff;
+}
+  .scroll-wrapper{
+    position: relative;
+  }
+  .tips{
+    font-size: .16rem;
+    color: #fff;
+    text-align: center;
+    padding: .3rem 0;
+    display: none;
+  }
+  .tips span{
+    background-color: #505559;
+    line-height: .4rem;
+    display: inline-block;
+    padding: 0 .3rem;
+    border-radius: .4rem;
+    opacity: .5;
+  }
+  .loading{
+    height: .8rem;
+    background-image: url(../img/loading.gif);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: .3rem .3rem;
+  }

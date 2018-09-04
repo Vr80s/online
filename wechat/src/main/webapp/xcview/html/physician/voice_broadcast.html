@@ -15,6 +15,8 @@
 <script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
 <link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
 
+<link rel="stylesheet" href="/xcview/html/physician/voice/style/main.css">
+
 <script>
 	// 判断横屏展示时的状态
 	window.onorientationchange=function(){
@@ -25,6 +27,27 @@
 	    }
 	}	
 </script>
+<style>
+	/*添加语音后的加的宽度*/
+	.container{
+		width: 6.98rem;
+		overflow: hidden;
+	}
+	.main{
+		width: 6.98rem;
+	    height: 100%;
+	    margin: 0 auto;
+	    /*width: 6.24rem;*/
+	    height: 100%;
+	    margin: 0 auto;
+	    position: fixed;
+	    top: 5.3rem;
+	    left: 50%;
+	    margin-left: -3.49rem;
+	    z-index: -1;
+	    /*background: lightgrey;*/
+	}
+</style>
 </head>
 <body style="background: #F8F8F8;">
 	<!-- 头部开始 -->
@@ -66,20 +89,20 @@
 			</div>
 		</div>
 	</div>
-	<!-- 关注区域结束 -->
+	<!-- 关注区域结束
 	<div class="instructions">
 		<div class="instructions_title">操作指南</div>
 		<ul>
 			<li>听不到声音请往下翻，点击语音即可播放，并确认手机没有静音；</li>
 			<li>课程语音永久保留，可重复回听</li>
 		</ul>
-	</div>
+	</div> -->
 
 	<!-- 中间内容开始 -->
-	<div class="live_to">直播开始</div>
+	<!-- <div class="live_to">直播开始</div> -->
 	<div class="main">
-		<div class="main_time">10:02</div>
-		<div class="anchor">
+		
+		<!-- <div class="anchor">
 			<div class="anchor_img">
 				<img src="/xcview/images/touxiang.png" alt="" />
 			</div>
@@ -94,21 +117,18 @@
 			</div>
 			<div class="both"></div>
 		</div>
-		<!-- 主播回復 -->
+		主播回復
 		<div class="anchor">
 			<div class="anchor_img">
 				<img src="/xcview/images/touxiang.png" alt="" />
 			</div>
 			<div class="anchor_main">
 				<div class="anchor_name">我是一只快乐的小青蛙<span>主播</span></div>
-				<!-- <div class="anchor_center"></div> -->
-	
-				
-
+				<div class="anchor_center"></div>
 				<div class="anchor_center">@柠檬<span class="anchor_center_ask">问</span>风寒感冒和风热感冒的区别
 				
 				<div class="anchor_main_border"></div>
-
+		
 				首乌12克，枸杞子12克，菟丝子12克，桑螵蛸12克，赤石脂12克，狗脊12克，熟地24克，藿香6克，砂仁6克</div>
 				<div class="anchor_favour">
 					<div class="favour_img"></div>
@@ -117,7 +137,92 @@
 				</div>
 			</div>
 			<div class="both"></div>
-		</div>
+		</div> -->
+
+		<!-- 语音 -->
+		<div class="container">
+	        <img src="./voice/img/loading.gif" alt="" style="display:none;">
+	        <div class="home">
+	        	<!-- 这段注释也要放到刷新里面
+	        					<div class="instructions">
+	        						<div class="instructions_title">操作指南</div>
+	        						<ul>
+	        							<li>听不到声音请往下翻，点击语音即可播放，并确认手机没有静音；</li>
+	        							<li>课程语音永久保留，可重复回听</li>
+	        						</ul>
+	        					</div>
+	        					<div class="live_to">直播开始</div>
+	        					这段注释也要放到刷新里面 -->
+
+	            <div class="scroll-box">
+	            	<!-- 这段注释也要放到刷新里面 -->
+					<div class="instructions">
+						<div class="instructions_title">操作指南</div>
+						<ul>
+							<li>听不到声音请往下翻，点击语音即可播放，并确认手机没有静音；</li>
+							<li>课程语音永久保留，可重复回听</li>
+						</ul>
+					</div>
+					<div class="live_to">直播开始</div>
+					<!-- 这段注释也要放到刷新里面 -->
+	                <div class="scroll-wrapper">
+	                	
+						<div class="main_time">10:02</div>
+	                    <p class="tips"><span>上次看到这里了</span></p>
+	                    <script id="msg" type="text/html">
+	                        {{each list as value i}}
+	                            <div class="item"  data-message-id="{{value.id}}">
+	                                <div class="message" data-id-{{value.id}}>
+	                                    <div class="box-left">
+	                                        <div class="head">
+	                                            <div class="head-box" style="background-image:url({{value.img}})"></div>
+	                                        </div>
+	                                    </div>
+	                                    <div class="box-right">
+	                                        <div class="nickname">{{value.name}}</div>
+	                                        <div class="content">
+	                                            {{if value.type == 1}}
+	                                                <div class="soundbody" data-id="{{value.id}}">
+	                                                    <div class="flex-box">
+	                                                        <div class="play_status">
+	                                                            <p class="iconfont playing">&#xe61c;</p>
+	                                                            <p class="iconfont paused">&#xe616;</p>
+	                                                        </div>
+	                                                        <div class="play_ui">
+	                                                            <div class="play_line"></div>
+	                                                            <div class="play_btn"></div>
+	                                                            <div class="drag">
+	                                                                <p><span>0</span>″</p>
+	                                                            </div>
+	                                                        </div>
+	                                                        <div class="second">{{value.sound.second}}″</div>
+	                                                    </div>
+	                                                    <div class="label">
+	                                                        <div class="complete iconfont">&#xe6c1;</div>
+	                                                        <div class="dot"></div>
+	                                                    </div>
+	                                                </div>
+	                                            {{else}}
+	                                                <div class="text">
+	                                                    <p>{{value.text}}</p>
+	                                                </div>
+	                                            {{/if}}
+	                                        </div>
+	                                        <div class="like">
+	                                            <p><span class="iconfont">&#xe63e;</span> {{ value.likes }}</p>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        {{/each}}
+	                    </script>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="currentPosition">
+	            <p>回到播放位置</p>
+	        </div>
+	    </div>
 
 	</div>
 	<div class="main_height"></div>
@@ -195,6 +300,8 @@
 	</div>
 	<!-- 底部结束 -->
 	<div class="show"></div>
+
+	<div class="main-height" style="height:6.4rem;width:100%;display: none;"></div>
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
@@ -459,10 +566,27 @@
 	    }
 	});
 </script>
-<!-- 倒计时结束 -->
 
-<!-- 彈幕開始 -->
 
-<!-- 彈幕結束 -->
+<!-- 语音直播引用文件 -->
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/Mock.js/1.0.0/mock-min.js"></script>
+<script src="https://cdn.bootcss.com/hammer.js/2.0.8/hammer.min.js"></script>
+<script src="https://cdn.bootcss.com/lodash.js/4.17.10/lodash.min.js"></script>
+<script src="/xcview/html/physician/voice/js/template.js"></script>
+<script src="/xcview/html/physician/voice/js/main.js"></script>
+
+<script>
+
+	//聊天最大高度
+	var main_height=$(window).height()-$(".main-height").height();
+	$(".container").height(main_height);
+
+	// 聊天区域高度
+	var main_height=$(window).height()-$(".main-height").height();
+	$(".main").height(main_height);
+
+	// alert(main_height);
+</script>
 
 </html>
