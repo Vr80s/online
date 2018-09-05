@@ -739,7 +739,7 @@ function createRecentlyLive(recentlyLive){
                 var str = "直播倒计时 " + h + "：" + m + "：" + s;
                 $(".box1").html(str);
 
-                // console.log(str);
+                console.log(str);
             }/*else{
                 clearInterval(timer); //这里可以添加倒计时结束后需要执行的事件 
                 $("#box1").html("元旦已经结束");
@@ -747,6 +747,7 @@ function createRecentlyLive(recentlyLive){
         }
         // lineState   直播课程状态 1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
         if(obj!=null && obj.isLive == 1){
+            // clearInterval(timer);
             // $(".box1").html(str);
             $("#box2").hide();
             
