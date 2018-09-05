@@ -292,8 +292,9 @@ overflow: hidden;
 	overflow-x: auto;
 	overflow-y: 0;
 	padding-left: 0.26rem;
-
 	box-sizing: border-box;
+	width: 7.5rem;
+	margin: 0 auto;
 }
 .limit_height ul li{
 	overflow: hidden;
