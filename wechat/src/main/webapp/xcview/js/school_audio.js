@@ -104,7 +104,7 @@ requestService("/xczh/course/details", {
     LecturerId = data.resultObject.userLecturerId;
 
     // title类型判断
-    $("#header").html(template('headers', data.resultObject.collectionHint));
+    $("#header").html(template('headers', data.resultObject));
 
     // 当collectionHint返回null时，表示没有对应的专辑。
     if (data.resultObject.collectionHint == null) {
