@@ -131,7 +131,15 @@
 				</div>
 				<div class="bought_list_right">
 					<div class="bought_list_title">{{item.gradeName}}<br /><span class="span">{{item.name}}</span>
-					<div class="bought_list_size">共<span>{{item.courseNumber}}</span>集 已更新{{item.dirtyNumber}}集</div>
+					<div class="bought_list_size">共<span>{{item.courseNumber}}</span>集 已更新
+
+					{{if item.dirtyNumber == null}}
+						<span class="ji">0</span>
+						{{else}}
+						<span class="ji">{{item.dirtyNumber}}</span>
+					{{/if}}
+					
+					集</div>
 						
 					</div>
 
