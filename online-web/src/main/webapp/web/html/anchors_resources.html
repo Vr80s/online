@@ -482,7 +482,7 @@
 											{{each items as item i}}
 											<tr>
 												<td>
-													<img class="fengmian-select" src="{{item.imgPath}}" alt="封面图" />
+													<img class="fengmian-select" src="{{item.imgPath}}?imageMogr2/thumbnail/!106x60r|imageMogr2/gravity/Center/crop/106x60" alt="封面图" />
 												</td>
 												<td>{{item.title}}</td>
 												<td>
@@ -500,7 +500,65 @@
 							</div>
 							<!--商品区域-->
 							<div class="shopping-wrap hide">
-								1
+								<div class="shopping-edit-box">
+									<img class="close-shopping" src="/web/images/alter-close.png" alt="关闭医案" title="关闭医案">
+									<ul>
+										<li class="active">我的商品</li>
+										<li>所有商品</li>
+									</ul>
+								</div>
+								<div class="our-ratings">
+									 	<span class="left-explain">推荐指数</span>
+								        <img src="/web/images/star-dim.png"/>  
+								        <img src="/web/images/star-dim.png"/>  
+								        <img src="/web/images/star-dim.png"/> 
+								        <img src="/web/images/star-dim.png"/>  
+								        <img src="/web/images/star-dim.png"/> 
+								        <span></span>  						
+								</div>	
+								<div class="shopping-search-wrap">
+										<span class="left-shopping z">商品</span>
+										<div class="shopping-search-input z">
+											<img src="/web/images/search-btn.png" alt="搜索"/>
+								        	<input type="text" placeholder="搜索商品名称或称号" />
+								        </div>
+								</div>
+								<p class="search-ware-num">全部结果约<span>0</span>条</p>
+								<p class="comment-wrong select-ware-null hide">请至少选择一件商品！</p>
+								<div class="shopping-list-wrap">
+									<table border="0" cellspacing="0" cellpadding="0">
+										<tr>
+											<th>商品图片</th>
+											<th>名称</th>
+											<th>选择</th>
+										</tr>
+										<tr>
+											<td>
+												<img class="shopping-fengmian" src="/web/images/teacher_big_pic.png"/>
+											</td>
+											<td>请至少选择一件商品请至少选择一件商品</td>
+											<td>
+												<div class="select-ware-img">
+												
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<img class="shopping-fengmian" src="/web/images/teacher_big_pic.png"/>
+											</td>
+											<td>请至少选择一件商品请至少选择一件商品</td>
+											<td>
+												<div class="select-ware-img">
+												
+												</div>
+											</td>
+										</tr>
+									</table>
+								</div>
+								
+								
+								
 							</div>
 						</div>
 					</div>
@@ -533,7 +591,7 @@
 										<ul>
 											{{each item.imgStr as picture t}}
 											<li>
-												<img src="{{picture.imgUrl}}" alt="日常生活照" />
+												<img src="{{picture.imgUrl}}" alt="图片" />
 											</li>
 											{{/each}}
 										</ul>
@@ -550,6 +608,23 @@
 										
 									</div>
 								{{/if}}
+								<!--商品-->
+								<!--<div class="save-class-wrap">
+										<a href="javascript:;" style="width: 100%;">
+										<div class="class-img-shopping z">
+											<img src="/web/images/teacher_big_pic.png" alt="课程封面" />
+										</div>
+										<div class="class-right-text-shopping y">
+											
+											<h5>这里有防护卵巢早衰的秘诀 | 余大夫小偏方</h5>	
+											<p class="shopping-price"><span>&yen;99</span></p>
+											<p class="shopping-recommend">
+												<span>推荐指数：</span>
+												<img src="/web/images/icon-start1_0.png"/>
+											</p>
+										</div>
+									</a>
+								</div>-->
 								<!--医案/专栏/文章/著作-->
 								{{if item.type==4}}
 									{{if item.articleStatus==true}}

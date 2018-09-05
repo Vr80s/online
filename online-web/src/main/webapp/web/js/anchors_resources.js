@@ -604,7 +604,6 @@ var activityType;
 	    			$(".shopping-wrap").removeClass("hide");
 	    			activityTabClass()
 					closefn();
-					clearConsilia();  //清空文章
 					clearTextarea()   //清空发布状态
 				});
 	    	}else if($(".video-wrap").hasClass("hide")==false){
@@ -612,7 +611,6 @@ var activityType;
 	      			closeVideo();
 	      			$(".shopping-wrap").removeClass("hide");
 	      			activityTabClass()
-					clearConsilia();  //清空文章
 					closefn();
 					clearTextarea()   //清空发布状态
 				});
@@ -887,6 +885,49 @@ var activityType;
 }
 
 template.config("escape", false);
+
+
+//-------------------------------------------------商品推荐---------------------------------------------
+
+$(".shopping-edit-box li").click(function(){
+	$(".shopping-edit-box li").removeClass("active");
+	$(this).addClass("active");
+})
+//	五星好评
+
+	$('.our-ratings img').each(function(index){  
+        var star='/web/images/star-dim.png';    //普通灰色星星图片的存储路径  
+        var starRed='/web/images/star-light.png';     //红色星星图片存储路径  
+        var prompt=['1分','2分','3分','4分','5分'];   //评价提示语  
+        this.id=index;      //遍历img元素，设置单独的id  
+        $(this).on("mouseover click",function(){    //设置鼠标滑动和点击都会触发事件  
+            $('.our-ratings img').attr('src',star);//当“回滚”、“改变主意”时，先复位所有图片为木有打星的图片颜色  
+            $(this).attr('src',starRed);        //设置鼠标当前所在图片为打星颜色图  
+            $(this).prevAll().attr('src',starRed);  //设置鼠标当前的前面星星图片为打星颜色图  
+//          $(this).siblings('span').text(prompt[this.id]);     //根据id的索引值作为数组的索引值  
+        });
+    });  
+//	选择要推荐的商品
+//	function selectWareImg(){
+		$(".select-ware-img").click(function(){
+			if($(this).find("img").length!=0){
+				$(".select-ware-img").html("").css({"border-color":"#bbb9b9"});
+		
+			}else{
+				$(".select-ware-img").html("").css({"border-color":"#bbb9b9"});
+				$(this).append('<img src="/web/images/submit.png"/>').css({"border-color":"#35b658"});	
+			}
+			
+		})
+	
+//	}
+
+
+
+
+
+
+
 
 //	动态列表	
 var posts;
