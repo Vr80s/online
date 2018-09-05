@@ -2649,6 +2649,19 @@ margin-top: 0.015rem;
 	border-radius: 100px;
 	margin-bottom: 0;
 }
+.disciple_applications{
+	width: 6.98rem;
+	height: 0.72rem;
+	line-height: 0.72rem;
+	margin: 0 auto;
+	margin-bottom: 0.3rem;
+	font-size: 0.3rem;
+	color: #FFFFFF;
+	text-align: center;
+	background: #00BC12;
+	border-radius: 100px;
+	margin-bottom: 0;
+}
 /*在线弟子结束*/
 
 /*师承课程提示开始*/
