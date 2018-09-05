@@ -36,7 +36,7 @@
 <div class="header" id="doctor_detail_header">
     <div class="header_inf content">
         <div class="header_inf_left">
-            <img src="${doctor.headPortrait!defaultDoctorHeadImg}" alt="${doctor.name}">
+            <img src="${doctor.headPortrait!defaultDoctorHeadImg}?imageMogr2/thumbnail/!150x150r|imageMogr2/gravity/Center/crop/150x150" alt="${doctor.name}">
             <!--<img src=../images/doctor_detail/xunzhang.png alt="">-->
         </div>
         <div class="header_inf_right">
@@ -125,7 +125,7 @@
                     <div class="class_inf">
                         <a href="${webUrl}/courses/${course.id}/info" style="color: #0C0C0C" target="_blank">
                             <div class="class_inf_pic">
-                                <img src="${course.smallImgPath}" alt="">
+                                <img src="${course.smallImgPath}?imageMogr2/thumbnail/!260x145r|imageMogr2/gravity/Center/crop/260x145" alt="">
                             </div>
                             <div class="class_inf_bottom">
                                 <p class="class_title">${course.gradeName!''}</p>
@@ -254,7 +254,7 @@
                     <li>
                         <span class="about_doctor_pic">
                             <a href="/doctors/${doctor.id}" target="_blank">
-                             <img src="${doctor.headPortrait!defaultDoctorHeadImg}" alt="" style="border-radius: 60px">
+                             <img src="${doctor.headPortrait!defaultDoctorHeadImg}?imageMogr2/thumbnail/!60x60r|imageMogr2/gravity/Center/crop/60x60" alt="" style="border-radius: 60px">
                             </a>
                         </span>
                         <p><a href="/doctors/${doctor.id}" target="_blank" style="color: #0C0C0C">${doctor.name!''} </a></p>
