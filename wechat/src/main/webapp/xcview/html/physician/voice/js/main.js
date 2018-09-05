@@ -320,3 +320,224 @@ window.onload = function () {
     
     audioPlay()
 }
+
+
+// 语音直播点击事件
+var htmlstr = $(".booking_person").find('p').html();
+// $(".booking_person").click(function(){
+$('.attention_main').on('click','.booking_person',function(){
+    if (htmlstr == "已关注") {
+        $(".booking_person").find('img').attr('src','/xcview//images/weigz.png');
+        $(".booking_person").find('p').html("加关注");
+        $(".booking_person").removeClass("booking_person_bg_two");
+        $(".booking_person").addClass("booking_person_bg");
+    }else{
+        $(".booking_person").find('img').attr('src','/xcview//images/yigz.png');
+        $(".booking_person").find('p').html("已关注");
+        $(".booking_person").removeClass("booking_person_bg");
+        $(".booking_person").addClass("booking_person_bg_two");
+    };
+
+});
+
+// 点击提问获取
+$(".chat_radio").click(function(){
+    if($('.radio_put').is(':checked')) {
+        $(".radio_lable").addClass("radio_lables");
+        // alert(1111);
+        //$(".msgItem .text .ask").show();   //点击提问--显示问--提示
+    }else{
+        $(".radio_lable").removeClass("radio_lables");
+        // alert(21222);
+        //$(".msgItem .text .ask").hide();   //点击提问--隐藏问--提示
+    }
+});
+
+// 点击弹幕开关
+$(".barrage_switch").click(function(){
+    var a = $(".show").css("display");
+    if (a == "block") {
+        $(".facebox-mobile").hide();
+        $(".barrage_switch").css('background','url(/xcview/images/barrage_switch_bg.png) no-repeat');
+        $(".barrage_switch").css('background-size','100% 100%');
+        $(".show").hide();
+        $(".msgCont").show();   //弹幕隐藏
+    } else {
+        $(".barrage_switch").css('background','url(/xcview/images/barrage_switch.png) no-repeat');
+        $(".barrage_switch").css('background-size','100% 100%');
+        $(".show").show();
+        $(".msgCont").hide();   //弹幕显示
+    }
+});
+
+// 点击发送
+$("#chat_put").click(function(){
+    $(".barrage_switch").hide();  /*弹幕隐藏*/
+    $(".chat_all").hide();      /*查看更多评论隐藏*/
+    $(".chat").addClass("chats");  /*增加input长度*/
+    $(".chat_put").addClass("chat_puts");   /*增加input外div长度*/
+    $(".transmit").show();  /*发送按钮*/
+    $(".footer_bg").show();  /*整屏按钮*/
+});
+
+// 点击背景--还原输入区域
+$(".footer_bg").click(function(){
+    $(".barrage_switch").hide();  /*弹幕隐藏*/
+    $(".chat_all").hide();      /*查看更多评论隐藏*/
+    $(".chat").removeClass("chats");  /*隱藏input长度*/
+    $(".chat_put").removeClass("chat_puts");
+    $(".transmit").hide();   /*发送按钮*/
+    $(".footer_bg").hide();  /*整屏按钮*/
+    $(".barrage_switch").show();  /*弹幕*/
+    $(".chat_all").show();      /*查看更多评论*/
+});
+
+// 点击发送--还原输入区域
+/*$(".transmit").click(function(){
+    var commentArea = $(".comment_area").css("display");  /!*獲取全部評論顯示隱藏*!/
+    if (commentArea == "block") {
+        $(".footer_bg").hide();
+    }else{
+        sendMsgBtn();   //点击发送方法
+        // alert(22);
+        // 全部评论隱藏--點擊發送
+        $(".barrage_switch").hide();  /!*弹幕隐藏*!/
+        $(".chat_all").hide();      /!*查看更多评论隐藏*!/
+        $(".chat").removeClass("chats");  /!*增加input长度*!/
+        $(".chat_put").removeClass("chat_puts");
+        $(".transmit").hide();   /!*发送按钮*!/
+        $(".footer_bg").hide();  /!*整屏按钮*!/
+        $(".barrage_switch").show();  /!*弹幕*!/
+        $(".chat_all").show();      /!*查看更多评论*!/
+    };
+});*/
+
+//init();  /*默认方法--可用于判断是否回放*/
+// 弹幕开始
+var data = ['你好世界','世界你好','啊啊啊哈哈哈哈'];  //定义最后3条
+var SixHide = 0;
+
+function init(){
+    setInterval(function(){
+        // console.log(data)
+        biubiubiu()     
+    },1500)
+    setInterval(function(){
+        if(data == 0 ){
+            SixHide++
+            if(SixHide == 6){ //设置发弹幕--6秒后移除    //SixHide == 0.5(时间，错误操作，时间小于0.5一直显示弹幕)
+                $(".msgCont").html('')
+            }
+        }
+    },1000)
+}
+
+// 点击发送
+function sendMsgBtn(){
+    if($("#chat_put").val()==''){
+        jqtoast("输入内容不能为空");
+    }else{      
+        if(data == 0){
+            SixHide = 0
+        }
+        var tempText = $("#chat_put").val()
+        data.push(tempText) //入栈
+        // console.log(data)
+        $("#chat_put").val('')
+        biubiubiu()//点击发送立即发送当前
+        isSixNoMsg = true
+    }
+}
+
+// 提示发送內容
+function showList(text){
+    var _html = `<div class="msgItem">
+            <div class="text"><span class="ask">问</span>${text}</div>
+            <div class="avatar">            
+                <img src="/xcview/images/touxiang.png" />
+            </div>
+        </div>`
+    $(".msgCont").append(_html)
+}
+
+// 发送內容后移除前面的內容
+function biubiubiu(){
+    if(data == ''){             
+        return
+    }
+    if($(".msgCont .msgItem").length > 2){
+        $(".msgCont .msgItem").eq(0).remove()
+        var _tempText =  data.pop()  //出栈 最新的 后加入进来的弹幕
+        showList(_tempText)
+    }else{
+        var _tempText =  data.pop()
+        showList(_tempText) 
+    }       
+}
+// 弹幕结束
+
+// 点击全部评论的开关按钮
+$(".comment_area_close").click(function(){
+    $(".chat").removeClass("chats");  /*隱藏input长度*/
+    $(".chat_put").removeClass("chat_puts");
+    $(".transmit").hide();   /*发送按钮*/
+    $(".barrage_switch").show();  /*弹幕*/
+    $(".chat_all").show();      /*查看更多评论*/
+    $(".comment_area").hide();  /*隱藏全部評論*/
+});
+
+// 点击发送--还原输入区域  comment_area_close
+//$(".transmit").click(function(){
+    //$(".barrage_switch").hide();  /*弹幕隐藏*/
+    //$(".chat_all").hide();      /*查看更多评论隐藏*/
+    //$(".chat").removeClass("chats");  /*增加input长度*/
+    //$(".chat_put").removeClass("chat_puts");
+    //$(".transmit").hide();   /*发送按钮*/
+    //$(".footer_bg").hide();  /*整屏按钮*/
+    //$(".barrage_switch").show();  /*弹幕*/
+    //$(".chat_all").show();      /*查看更多评论*/
+//});
+
+// 获取只看问题高度
+var school_height=$(window).height()-$(".voice_broadcast_top").height()-$(".footer").height();
+$(".comment_area").height(school_height);
+
+// 点击查看更多聊天
+$(".chat_all").click(function(){
+    $(".chat_all").hide();
+    $(".transmit").show();
+    $(".comment_area").show();
+    $(".barrage_switch").hide();  /*弹幕隐藏*/
+    $(".chat").addClass("chats");  /*增加input长度*/
+    $(".chat_put").addClass("chat_puts");   /*增加input外div长度*/
+});
+
+// 点击只看問題
+/*$('.comment_area_problem_left').toggle(function() {
+    alert(1111);
+    $(".comment_area_problem_bg").addClass('comment_area_problem_bg_toggle');
+}, function() {
+    alert(222);
+    $(".comment_area_problem_bg").removeClass('comment_area_problem_bg_toggle');
+});*/
+/*$('.comment_area_problem_left').click(function(){
+    alert(33333);
+});*/
+
+// 点击只看问题
+$(".comment_area_problem_left").click(function(){
+    if($('.problem_label_put').is(':checked')) {
+        $(".problem_label_bg").addClass("problem_label_bgs");
+        // alert(1111);
+    }else{
+        $(".problem_label_bg").removeClass("problem_label_bgs");
+        // alert(21222);
+    }
+});
+
+// 点赞
+$(".anchor_favour").click(function(){
+    $(".favour_img").addClass("favour_imgs");
+    $(".anchor_favour span").addClass("anchor_favour_span");
+});
+
