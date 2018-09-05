@@ -64,7 +64,7 @@
          UNION ALL
         ( SELECT count(*)  FROM
             oe_course as oc inner join apply_r_grade_course argc on oc.`id`=argc.`course_id` AND argc.`validity`>NOW()
-        where argc.user_id=#{userId}  and oc.is_delete=0 and oc.is_free = 0 )
+        where argc.user_id=#{userId}  and oc.is_delete=0 )
     </select>
     
     

@@ -120,10 +120,9 @@ public class MyInfoController {
         if (myCourseType == null) {
             return ResponseObject.newErrorResponseObject("我的课程类型有误：" + MyCourseType.getAllToString());
         }
-        int num = (pageNumber - 1) * pageSize;
-        num = num < 0 ? 0 : num;
+        
         Page<CourseLecturVo> page = new Page<CourseLecturVo>();
-        page.setCurrent(num);
+        page.setCurrent(pageNumber);
         page.setSize(pageSize);
         Page<CourseLecturVo> pageList = courseServiceImpl.myCourseType(page, accountId, type);
         return ResponseObject.newSuccessResponseObject(pageList.getRecords());

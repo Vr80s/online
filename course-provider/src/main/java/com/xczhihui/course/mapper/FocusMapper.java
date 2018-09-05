@@ -3,6 +3,7 @@ package com.xczhihui.course.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.xczhihui.course.model.Focus;
@@ -35,4 +36,5 @@ public interface FocusMapper extends BaseMapper<Focus> {
     Integer selectFansCount(String userId);
 
     List<Integer> selectFocusAndFansCountAndCourseCount(@Param("userId")String userId);
+
 }

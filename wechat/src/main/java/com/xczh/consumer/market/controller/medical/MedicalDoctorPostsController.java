@@ -1,12 +1,7 @@
 package com.xczh.consumer.market.controller.medical;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.xczh.consumer.market.auth.Account;
-import com.xczh.consumer.market.interceptor.HeaderInterceptor;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.common.util.enums.ClientType;
-import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
+import java.util.Optional;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.xczh.consumer.market.auth.Account;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
 
 /**
  * Description：医师控制器
@@ -49,18 +46,18 @@ public class MedicalDoctorPostsController {
         page.setSize(pageSize);
         Page<MedicalDoctorPosts> list = medicalDoctorPostsService.selectMedicalDoctorPostsPage(page, type, doctorId, userId);
         //过滤ios师承直播
-        List<MedicalDoctorPosts> list1 = new ArrayList<MedicalDoctorPosts>();
-        list.getRecords().forEach(medicalDoctorPosts -> {
-            if(Integer.valueOf(HeaderInterceptor.CLIENT.get()) == ClientType.IOS.getCode()){
-                if(!medicalDoctorPosts.getTeaching()){
-                    list1.add(medicalDoctorPosts);
-                }
-            } else {
-                list1.add(medicalDoctorPosts);
-            }
-
-        });
-        list.setRecords(list1);
+//        List<MedicalDoctorPosts> list1 = new ArrayList<MedicalDoctorPosts>();
+//        list.getRecords().forEach(medicalDoctorPosts -> {
+//            if(Integer.valueOf(HeaderInterceptor.CLIENT.get()) == ClientType.IOS.getCode()){
+//                if(!medicalDoctorPosts.getTeaching()){
+//                    list1.add(medicalDoctorPosts);
+//                }
+//            } else {
+//                list1.add(medicalDoctorPosts);
+//            }
+//
+//        });
+//        list.setRecords(list1);
         return ResponseObject.newSuccessResponseObject(list);
     }
 
