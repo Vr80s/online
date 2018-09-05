@@ -146,6 +146,15 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
     background-color: #fff;
     display: none;
 }
+.contentWrap .shopping_box{
+	width: 960px;
+    display: block;
+    float: right;
+    vertical-align: top;
+    min-height: 520px;
+    background-color: #fff;
+    display: none;
+}
 .arrow_jt{
 	color: #d8d8d8;
 }
