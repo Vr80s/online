@@ -56,6 +56,9 @@ function stripHTML(str){
 			}
 			
 		})
+
+        
+        
 			//分享的信息展示
 		gradeName = data.resultObject.gradeName;
 		smallImgPath = data.resultObject.smallImgPath;
@@ -81,7 +84,8 @@ function stripHTML(str){
 	//	直播时间/主播名字
 		$("#wrap_playTime").html(template('data_name',data.resultObject));
 
-	
+	// title类型判断
+        $("#header").html(template('headers', data.resultObject));
 		
 
 
