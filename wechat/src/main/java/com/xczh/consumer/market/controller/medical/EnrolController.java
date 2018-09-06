@@ -12,9 +12,13 @@ import com.google.common.collect.ImmutableMap;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.ApprenticeCheckStatus;
+import com.xczhihui.course.model.Course;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.enrol.model.MedicalEntryInformation;
 import com.xczhihui.medical.enrol.service.EnrolService;
 import com.xczhihui.medical.enrol.vo.MedicalEntryInformationVO;
+import com.xczhihui.medical.exception.MedicalException;
 
 /**
  * Description: 师承模块<br>
@@ -31,6 +35,10 @@ public class EnrolController {
 
     @Autowired
     private EnrolService enrolService;
+    @Autowired
+    private ICourseService courseService;
+    @Autowired
+    private IMedicalDoctorBusinessService medicalDoctorBusinessService;
 
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
@@ -77,9 +85,24 @@ public class EnrolController {
     }
 
     @RequestMapping(value = "checkAuth", method = RequestMethod.GET)
-    public ResponseObject checkApprenticeAuth(@Account String accountId, @RequestParam String doctorId, @RequestParam(value = "courseId", required = false) Integer courseId) {
+    public ResponseObject checkApprenticeAuth(@Account String accountId, @RequestParam(required = false) String doctorId, @RequestParam(value = "courseId", required = false) Integer courseId) {
         boolean auth = false;
         int type = ApprenticeCheckStatus.DEFAULT.getVal();
+        if (doctorId == null && courseId == null) {
+            throw new MedicalException("医师id与课程id不能同时为空");
+        }
+        if (courseId != null && doctorId == null) {
+            Course course = courseService.selectById(courseId);
+            if (course == null) {
+                throw new MedicalException("该课程已被删除");
+            }
+            //不是跟师直播,返回有权限
+            if (course.getTeaching() == null || !course.getTeaching()) {
+                return ResponseObject.newSuccessResponseObject(ImmutableMap.of("auth", true, "type", type));
+            } else {
+                doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(course.getUserLecturerId());
+            }
+        }
         boolean apprentice = enrolService.isApprentice(doctorId, accountId);
         //师承直播的校验
         if (courseId != null) {
