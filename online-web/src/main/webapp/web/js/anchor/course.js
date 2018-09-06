@@ -1996,6 +1996,7 @@ function validateResource(){
  * @Date: 2018/2/2 0002 下午 9:09
  **/
 function initResource(multimediaType,nv){
+	debugger;
     RequestService("/anchor/course/getAllCourseResources?multimediaType="+multimediaType, "get", null, function(data) {
         var resources = data.resultObject;
         var str = "";
@@ -2019,17 +2020,6 @@ function initResource(multimediaType,nv){
 }
 
 
-$("#id_select").change(function(){
-
-	console.log("哈哈哈");
-	
-})
-
-function lala(){
-
-	
-	console.log("哈哈哈");
-}
 
 
 /**
