@@ -41,8 +41,8 @@
 .jedate .jedate-menu p:hover{background-color: #00A680;color:#FFFFFF;}
 .jedate .jedate-wrap{min-width:230px;background: #fff;overflow: hidden;}
 .jedate .jedate-pane{width: 230px;float: left;overflow: hidden;}
-.jedate .jedate-header{width:100%;height:36px;line-height: 36px;float: left;background-color: #f2f2f2;text-align: center;font-size: 14px;padding: 0 50px;position: relative;}
-.jedate .jedate-header em{width:25px;height:36px;line-height: 36px;position:absolute;color: #666;top:0;background-repeat: no-repeat;background-position: center center;cursor: pointer;}
+.jedate .jedate-header{width:100%;height:36px;line-height: 36px;color: #fff;float: left;background-color: #00a680;text-align: center;font-size: 14px;padding: 0 50px;position: relative;}
+.jedate .jedate-header em{width:25px;height:36px;line-height: 36px;position:absolute;color: #fff;top:0;background-repeat: no-repeat;background-position: center center;cursor: pointer;}
 .jedate .jedate-header .ymbtn{padding: 8px;border-radius: 4px;cursor:pointer;font-size: 14px;}
 /* .jedate .jedate-header em:hover,.jedate .jedate-header .ymbtn:hover{color: #00A680;} */
 .jedate .jedate-content{width:100%;height: 220px;float: left;padding: 5px;overflow: hidden;}
@@ -79,7 +79,7 @@
 
 .jedate .jedate-time{overflow: hidden;padding-bottom: 4px; background-color:#fff;position: absolute;top:0;right: 0;z-index: 150;}
 .jedate .jedate-time .timepane{width:230px;float:left;}
-.jedate .jedate-time .timeheader{width: 100%;float:left;height: 36px;line-height: 36px;background-color: #f2f2f2;text-align: center;font-size: 14px;position: relative;}
+.jedate .jedate-time .timeheader{width: 100%;float:left;height: 36px;color: #fff;line-height: 36px;background-color: #00a680;text-align: center;font-size: 14px;position: relative;}
 .jedate .jedate-time .timecontent{width: 100%;float:left;}
 .jedate .jedate-time .hmstitle{width: 211px;margin: 0 auto;overflow: hidden;padding-top: 4px;text-align: center;}
 .jedate .jedate-time .hmstitle p{width: 33.33%;float:left;height: 30px;line-height: 30px;font-size: 13px;}
