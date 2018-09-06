@@ -321,4 +321,13 @@ public interface CourseMapper extends BaseMapper<Course> {
     		"      inner join  oe_user as ou on mtai.user_id = ou.id\r\n" + 
     		"	where mtai.id =  #{appointmentInfoId} "})
 	CourseLecturVo selectTreatmentAppointmentInfo(@Param("appointmentInfoId")Integer appointmentInfoId);
+
+	/**  
+	 * <p>Title: listDatesByCollectionId</p>  
+	 * <p>Description: </p>  
+	 * @param collectionId
+	 * @return  
+	 */ 
+    @Select("select date from collection_course_apply_update_date where collection_id = #{collectionId}")
+	List<Integer> listDatesByCollectionId(Integer collectionId);
 }

@@ -367,5 +367,5 @@ public interface ICourseService {
      */
     List<Course> listLiving();
 
-
+    String getHostCollectionUpdateDateText(Integer collectionId);
 }
