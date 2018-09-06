@@ -15,7 +15,7 @@ import java.util.Map;
 public enum RecordType {
     
     STUDY(1, "学习记录"),
-    LOOK(5, "观看记录");
+    LOOK(2, "观看记录");
     
     private int id;
     private String name;

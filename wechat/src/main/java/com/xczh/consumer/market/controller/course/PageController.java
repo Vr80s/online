@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.Optional;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -46,6 +47,7 @@ public class PageController {
     @Autowired
     private EnrolService enrolService;
     
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(PageController.class);
     /**
      * 课程跳转重定向
      * @param id
@@ -63,7 +65,9 @@ public class PageController {
             if(accountIdOpt.isPresent()) {
                 ou =  onlineUserService.findUserById(accountIdOpt.get());
             }
+
             url = coursePage(id,ou);
+            
             if(url!=null) {
                 url = url.replaceAll("shareBack=1&", "");
             }
@@ -210,13 +214,8 @@ public class PageController {
         }else if(cv.getWatchState().equals(1) 
                 && cv.getLineState().equals(1)) {
             
-            //增加学习记录
-            watchHistoryService.addLookHistory(cv.getId(), ou.getId(),
-                    RecordType.STUDY.getId(), null);
-            
-            //观看记录
-            watchHistoryService.addLookHistory(cv.getId(), ou.getId(),
-                    RecordType.LOOK.getId(), null);
+        	//观看 / 学习记录
+        	addLearningLookRecord(cv.getId(), ou.getId(),0);
             
             if(cv.getAppointmentInfoId()!=null) {
             	coursePage = WechatShareLinkType.LIVE_REMOTE.getLink();
@@ -228,17 +227,16 @@ public class PageController {
                 && !cv.getLineState().equals(1)) {
             
             //增加学习记录
-            watchHistoryService.addLookHistory(cv.getId(), ou.getId(),
-                    RecordType.STUDY.getId(), null);
+        	addLearningLookRecord(cv.getId(), ou.getId(),
+                    RecordType.STUDY.getId());
             
             coursePage = WechatShareLinkType.LIVE_PLAY.getLink();
             
         }else if(cv.getWatchState().equals(2) 
                 && cv.getLineState().equals(1)) {
             
-            //增加学习记录
-            watchHistoryService.addLookHistory(cv.getId(), ou.getId(),
-                    RecordType.STUDY.getId(), null);
+        	//观看 / 学习记录
+        	addLearningLookRecord(cv.getId(), ou.getId(),0);
             
             coursePage = WechatShareLinkType.LIVE.getLink();
             
@@ -257,9 +255,7 @@ public class PageController {
         if(cv.getWatchState().equals(1)) {
             
             //增加学习记录
-            watchHistoryService.addLookHistory(cv.getId(), ou.getId(),
-                    RecordType.STUDY.getId(), null);
-            
+            addLearningLookRecord(cv.getId(), ou.getId(),RecordType.STUDY.getId());
             
             if (cv.getCollection()) {
                 //专辑视频音频播放页
@@ -273,4 +269,49 @@ public class PageController {
         }
         return coursePage;
     }
+    /**
+     * 
+     * <p>Title: addLearningLookRecord</p>  
+     * <p>Description: 增加学习记录或者观看记录</p>  
+     * @param courseId
+     * @param userId
+     * @param recordType
+     */
+    public void addLearningLookRecord(Integer courseId,String userId,int recordType) {
+    	
+    	try {
+    		 /*
+             * 创建一个线程。
+             *  执行观看记录和学习记录
+             */
+            Thread  thread = new Thread(new Runnable() {
+    			@Override
+    			public void run() {
+    				
+    				if(RecordType.LOOK.getId() == recordType) {
+    		    		//观看记录
+    		            watchHistoryService.addLookHistory(courseId, userId,
+    		                    RecordType.LOOK.getId(), null);
+    		    	}else if(RecordType.STUDY.getId() == recordType) {
+    		    		
+    		    		//增加学习记录
+    		            watchHistoryService.addLookHistory(courseId,userId,
+    		                    RecordType.STUDY.getId(), null);
+    		    	}else {
+    		            watchHistoryService.addLookHistory(courseId, userId,
+    		                    RecordType.LOOK.getId(), null);
+    		            watchHistoryService.addLookHistory(courseId,userId,
+    		                    RecordType.STUDY.getId(), null);
+    		    	}
+    				
+    			}
+    		});
+            thread.start();
+		}catch (Exception e) {
+			LOGGER.warn("增加观看或学习记录有误：courseId:"+courseId+",userid="+userId+",recordType:"+recordType);
+			e.printStackTrace();
+		}
+    }
+    
+    
 }
