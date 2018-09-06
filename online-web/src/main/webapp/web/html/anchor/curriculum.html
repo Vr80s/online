@@ -947,7 +947,7 @@
 	
 							<div class="offline vod special">
 								<span><em>*</em>时长</span>
-								<input type="text" placeholder="" onkeyup="value=value.replace(/[^\d]/g,'')" class="zhuanlan_title zhuanlan_title2 course_length" style="width: 120px;" />
+								<input type="text" placeholder="" onkeyup="value=value.replace(/[^\d.]/g,'')" class="zhuanlan_title zhuanlan_title2 course_length" style="width: 120px;" />
 								<span>分钟</span>
 								<p class="warning warning_course_length hide">请输入时长</p>
 								<p class="warning warning_course_length_Illegal hide">时长数值不符合规范</p>
@@ -2981,7 +2981,7 @@
 
 <script type="text/javascript">
     function numberCk(data) {
-        var reg = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
+        var reg = /^([1-9][\d]{0,7}|0)(\.[\d]{1,3})?$/;
         if (!reg.test(data)) {
             return false;
         }
