@@ -372,11 +372,30 @@ function btn_zj_mianfei() {
                 // alert(2222);
             });
 
-
-
         }else{
 
-            
+            checkAuth(courseId, 1);
+            var data_zj = $(".right_priceBtn").attr("data-zj");
+            // var courseId = getQueryString('course_id');
+            if (data_zj == 0) {
+                requestService("/xczh/order/save", {
+                    courseId: courseId,
+                    orderFrom: 2
+                }, function (data) {
+                    window.location.href = "purchase.html?orderId=" + data.resultObject.orderId + "";
+                    // window.location.href = "line_class.html?orderId=" + courseId + "";
+                });
+            } else if (data_zj == 1) {
+                requestService("/xczh/history/add", {
+                    courseId: courseId,
+                    recordType: 1
+                }, function (data) {
+
+                })
+                window.location.href = "live_play.html?my_study=" + course_id + "";
+            } else if (data_zj == 2) {
+                window.location.href = "live_play.html?my_study=" + course_id + "";
+            }
 
 
         };

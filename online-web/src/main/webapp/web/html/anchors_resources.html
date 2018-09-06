@@ -2612,7 +2612,7 @@
 			var year = data.getFullYear();
 	 		var month = data.getMonth() + 1;
 	 		var day = data.getDate();
-//	
+
 //			$("#start-time").jeDate({
 //		        format: "YYYY-MM-DD hh:mm"
 //		   });
@@ -2625,21 +2625,22 @@
 			});
 			 jeDate("#end-time",{
 			    format: "YYYY-MM-DD hh:mm",
-		        minDate:getNowFormatDate()
+		        minDate: ""+year+"-"+month+"-"+day+" 00:00"
 			});
 //			报名截止时间
 		   jeDate("#sign-up-time",{
 			    format: "YYYY-MM-DD hh:mm:ss",
-		        minDate:getNowFormatDate()
+		        minDate: ""+year+"-"+month+"-"+day+" 00:00"
 			});
 //		   学习时间
 		   jeDate("#study-start-time",{
 			    format: "YYYY-MM-DD hh:mm:ss",
-		        minDate:getNowFormatDate()
+		        minDate: ""+year+"-"+month+"-"+day+" 00:00"
+
 			});
 			 jeDate("#study-end-time",{
 			    format: "YYYY-MM-DD hh:mm:ss",
-		        minDate:getNowFormatDate()
+		        minDate: ""+year+"-"+month+"-"+day+" 00:00"
 			});
 		
 //		    只显示年远程诊疗

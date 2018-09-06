@@ -12,6 +12,10 @@
 	<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
 	<!--手机嵌入模板-->
 	<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+
+	<!-- 公用籍贯==3栏地址引入css -->
+	<link href="/xcview/css/address/mui.picker.css" rel="stylesheet" />
+	<link href="/xcview/css/address/mui.poppicker.css" rel="stylesheet" />
 </head>
 <body>
 	<!-- 报名头部开始 -->
@@ -51,10 +55,17 @@
 				<p class="sex_show"></p>  <!-- 男女传值 -->
 				<div class="both"></div>
 			</div>
-			<div class="birthplace">
+			<!-- <div class="birthplace">
 				籍贯
 				<input type="text" placeholder="请输入" />
 				<div class="both"></div>
+			</div> -->
+			<div class="birthplace">
+				籍贯
+				<div class="birthplace_hide">
+					<img src="/xcview/images/right_jian.png" alt="">
+				</div>
+				<div id='cityResult3' class="ui-alert birthplace_text"></div>
 			</div>
 			<div class="both"></div>
 			<div class="education">
@@ -153,4 +164,36 @@
 	  	}
 	};*/
 	</script>
+<!-- 公用籍贯==3栏地址引入开始 -->
+<script src="/xcview/js/common/address/mui.min.js"></script>
+<script src="/xcview/js/common/address/mui.picker.js"></script>
+<script src="/xcview/js/common/address/mui.poppicker.js"></script>
+<script src="/xcview/js/common/address/city.data.js"></script>
+<script src="/xcview/js/common/address/city.data-3.js"></script>
+<!-- 公用籍贯==3栏地址引入结束 -->
+
+
+<script>
+	//公用籍贯==3栏地址引入
+	// 选择地址
+	(function($, doc) {
+		$.init();
+		$.ready(function() {
+			var _getParam = function(obj, param) {
+				return obj[param] || '';
+			};
+			var cityPicker3 = new $.PopPicker({
+				layer: 3
+			});
+			cityPicker3.setData(cityData3);
+			var showCityPickerButton = doc.getElementById('cityResult3');
+			var cityResult3 = doc.getElementById('cityResult3');
+			showCityPickerButton.addEventListener('tap', function(event) {
+				cityPicker3.show(function(items) {
+					cityResult3.innerText =  _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
+				});
+			}, false);
+		});
+	})(mui, document);
+</script>
 </html>
