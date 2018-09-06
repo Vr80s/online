@@ -863,13 +863,15 @@ function doctorQuestion(){
     requestService("/xczh/question/doctorQuestion", {
         doctorId:doctorId,
         pageNumber:pageNumber,
-        pageSize:10
+        pageSize:5
     },function (data) {
         if (data.success) {
             if (isBlank(data.resultObject == null)) {
                 $(".QA_main").hide();
+                $(".doctorQuestion").hide();
             } else{
                 $(".QA_main").show();
+                $(".doctorQuestion").show();
                 // 医师问答列表
                 $('.QA_main').html(template('QA_main_id', {items: data.resultObject}));  
             }
