@@ -553,7 +553,7 @@ function getPostsLikeList(postsId,list) {
 function ccVideo(videoId, multimediaType,id) {
     var playerwidth = window.screen.width; //   屏幕分辨率的宽：window.screen.width
     var playerheight = 8.95 * 21.8; //  屏幕分辨率的高：window.screen.height
-    console.log(playerwidth);
+    // console.log(playerwidth);
     var dataParams = {
         playerwidth: playerwidth,
         playerheight: playerheight,
@@ -565,7 +565,7 @@ function ccVideo(videoId, multimediaType,id) {
             if (data.success) {
                 var playCodeStr = data.resultObject;
                 var playCodeObj = JSON.parse(playCodeStr);
-                console.log(playCodeObj.video.playcode);
+                // console.log(playCodeObj.video.playcode);
                 //$("#ccvideo").html(playCodeObj.video.playcode)
                 $("#ccvideo"+id).html(playCodeObj.video.playcode);
             } else {
@@ -759,7 +759,7 @@ function createRecentlyLive(recentlyLive){
                 var str = "直播倒计时 " + h + "：" + m + "：" + s;
                 $(".box1").html(str);
 
-                console.log(str);
+                // console.log(str);
             }/*else{
                 clearInterval(timer); //这里可以添加倒计时结束后需要执行的事件 
                 $("#box1").html("元旦已经结束");
