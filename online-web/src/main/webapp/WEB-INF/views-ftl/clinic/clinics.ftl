@@ -107,7 +107,7 @@
                     <div class="hospitals">
                         <a href="${webUrl}/clinics/${clinic.id}" id="${clinic.id}" target="_blank"></a>
                         <#if clinic.medicalHospitalPictures??>
-                            <img src="${clinic.medicalHospitalPictures[0]}" style="width: 100%;height: 147px;"
+                            <img src="${clinic.medicalHospitalPictures[0]}?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" style="width: 100%;height: 147px;"
                                  alt="${clinic.name}">
                         <#else >
                             <img src="/web/images/hospitalDefault.png" style="width: 100%;height: 147px;"

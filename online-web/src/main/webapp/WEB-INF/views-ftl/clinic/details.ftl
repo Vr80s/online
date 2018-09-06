@@ -110,7 +110,7 @@
                     <#list doctors.records as doctor>
                         <li>
                             <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
-                            <img src="${doctor.headPortrait!defaultDoctorHeadImg}" alt="${doctor.name}">
+                            <img src="${doctor.headPortrait!defaultDoctorHeadImg}?imageMogr2/thumbnail/!70x70r|imageMogr2/gravity/Center/crop/70x70" alt="${doctor.name}">
                             <h5>${doctor.name}</h5>
 							<#if doctor.workTime?? && doctor.workTime!='暂无' >
 			                    <p>${doctor.workTime?default('')}</p>
