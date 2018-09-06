@@ -1661,9 +1661,12 @@ p{
     padding: 0.3rem 0.26rem; 
     box-sizing: border-box;
     background: white;
-    overflow: hidden;
+    /*overflow: hidden;*/
     margin: 0 auto;
     margin-top: 0.2rem;
+}
+.wrap_vedio ul .li{
+	float: left;
 }
 .wrap_vedio .border {
     display: inline-block;
