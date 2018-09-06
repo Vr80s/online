@@ -35,7 +35,7 @@
 		<link rel="stylesheet" href="/web/css/componet.css" />
 		<link rel="stylesheet" href="/web/css/componet-pages.css" />
 		<!--分页部分end-->
-		<link rel="stylesheet" href="/web/css/anchor/jedate.css?v=ipandatcm_1.2.1">
+		<link rel="stylesheet" href="/web/jedata/skin/jedate.css?v=ipandatcm_1.2.1">
 		<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="/web/js/artTemplate.js"></script>
 		<script type="text/javascript" src="/web/js/jquery.SuperSlide.2.1.1.js"></script>
@@ -70,7 +70,7 @@
 		{{each records as course i}}
 		<tr>
 			<td>
-				<img src="{{course.imgPath}}" alt="" />
+				<img src="{{course.imgPath}}?imageMogr2/thumbnail/!106x60r|imageMogr2/gravity/Center/crop/106x60" alt="" />
 			</td>
 			<td>
 				{{course.title}}
@@ -2587,7 +2587,7 @@
 	<script src="/web/js/jquery.dotdotdot.js" type="text/javascript" charset="utf-8"></script>	
 	<script type="text/javascript" src="/web/layer-v2.1/layer/layer.js"></script>
 	<!--时间插件引入-->
-	<script src="/web/js/anchor/jquery.jedate.min.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="/web/jedata/src/jedate.js" type="text/javascript" charset="UTF-8"></script>
 	
 	<script type="text/javascript" src="/web/js/footer.js"></script>
 	<script src="/web/js/placeHolder.js"></script>
@@ -2613,43 +2613,49 @@
 	 		var month = data.getMonth() + 1;
 	 		var day = data.getDate();
 //	
-			$("#start-time").jeDate({
-		        format: "YYYY-MM-DD hh:mm"
-		   });
-		   $("#end-time").jeDate({
-		        format: "YYYY-MM-DD hh:mm",
+//			$("#start-time").jeDate({
+//		        format: "YYYY-MM-DD hh:mm"
+//		   });
+//		   $("#end-time").jeDate({
+//		        format: "YYYY-MM-DD hh:mm",
+//		        minDate:getNowFormatDate()
+//		   });
+		    jeDate("#start-time",{
+			     format: "YYYY-MM-DD hh:mm"
+			});
+			 jeDate("#end-time",{
+			    format: "YYYY-MM-DD hh:mm",
 		        minDate:getNowFormatDate()
-		   });
+			});
 //			报名截止时间
- 			$("#sign-up-time").jeDate({
-		        format: "YYYY-MM-DD hh:mm:ss",
+		   jeDate("#sign-up-time",{
+			    format: "YYYY-MM-DD hh:mm:ss",
 		        minDate:getNowFormatDate()
-		   });
+			});
 //		   学习时间
-			$("#study-start-time").jeDate({
-		        format: "YYYY-MM-DD hh:mm:ss",
+		   jeDate("#study-start-time",{
+			    format: "YYYY-MM-DD hh:mm:ss",
 		        minDate:getNowFormatDate()
-		   });
-		   $("#study-end-time").jeDate({
-		        format: "YYYY-MM-DD hh:mm:ss",
+			});
+			 jeDate("#study-end-time",{
+			    format: "YYYY-MM-DD hh:mm:ss",
 		        minDate:getNowFormatDate()
-		   });
+			});
 		
 //		    只显示年远程诊疗
-		     $("#range-year").jeDate({
-		        format: "YYYY-MM-DD",
-		        minDate:getTomorrowDate()
-		   	});
+			jeDate("#range-year",{
+			       format: "YYYY-MM-DD",
+		           minDate:getTomorrowDate(),
+		           isToday:false
+			    });
 //		  只显示时分秒（hh:mm:ss）格式
-			$(".start-establish-time").jeDate({
-		       format:"hh:mm:ss"
-
-		   	});
+			 jeDate(".start-establish-time",{
+			        format:"hh:mm"
+			    });
 //		    只显示时分秒（hh:mm:ss）格式
-			$(".end-establish-time").jeDate({
-		       format:"hh:mm:ss"
-
-		   	});
+			jeDate(".end-establish-time",{
+			        format:"hh:mm"
+			    });
 		});
 
 		function getTomorrowDate() {

@@ -541,8 +541,7 @@ function resetCourseForm(sp) {
     var year = data.getFullYear();
     var month = data.getMonth() + 1;
     var day = data.getDate();
-
-    $("#classOpenTiem").jeDate({
+	jeDate("#classOpenTiem",{
         format: "YYYY-MM-DD hh:mm",
         minDate: ""+year+"-"+month+"-"+day+" 00:00"
     });
