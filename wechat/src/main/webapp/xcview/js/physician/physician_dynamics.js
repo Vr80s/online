@@ -859,14 +859,15 @@ function createRecentlyLive(recentlyLive){
 // var doctorId = getQueryString("doctor");
 // var pageNumber=2;
 function doctorQuestion(){
-
+    var pageNumber=1;
     requestService("/xczh/question/doctorQuestion", {
         doctorId:doctorId,
         pageNumber:pageNumber,
         pageSize:5
     },function (data) {
         if (data.success) {
-            if (isBlank(data.resultObject == null)) {
+            if (isBlank(data.resultObject)) {
+            // if (data.resultObject == null) {
                 $(".QA_main").hide();
                 $(".doctorQuestion").hide();
             } else{
@@ -889,7 +890,7 @@ function doctorQuestioncliCk(){
         if (data.success) {
             if(data.resultObject.length == 0){
                 $('.doctorQuestion').removeAttr('onclick');
-                $(".doctorQuestion").html("没有内容了！");
+                $(".doctorQuestion").html("没有更多内容了！");
             }else {
                 pageNumber++;
                 $('.QA_main').append(template('QA_main_id', {items: data.resultObject}));
