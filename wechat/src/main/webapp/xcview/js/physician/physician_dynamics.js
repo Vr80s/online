@@ -857,13 +857,13 @@ function createRecentlyLive(recentlyLive){
 
 // 提问
 // var doctorId = getQueryString("doctor");
-var pageNumber=2;
+// var pageNumber=2;
 function doctorQuestion(){
 
     requestService("/xczh/question/doctorQuestion", {
         doctorId:doctorId,
         pageNumber:pageNumber,
-        pageSize:5
+        pageSize:10
     },function (data) {
         if (data.success) {
             if (isBlank(data.resultObject == null)) {
@@ -890,7 +890,7 @@ function doctorQuestioncliCk(){
                 $(".doctorQuestion").html("没有内容了！");
             }else {
                 pageNumber++;
-                $('.QA_center').append(template('QA_main_id', {items: data.resultObject}));
+                $('.QA_main').append(template('QA_main_id', {items: data.resultObject}));
             }
         }
     });
