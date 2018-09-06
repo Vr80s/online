@@ -5,9 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/createImg.css">
-    <title>熊猫中医</title>
-    <!--手机嵌入模板-->
-    <!-- <script type="text/javascript" src="/xcview/js/common/layout.js"></script> -->
+    <title>createImg</title>
+    <style>
+        .imgBoxWrapper{
+            top: 1.05rem;
+        }
+        .slectBox li{
+            width: 1.12rem;
+            height: 1.12rem;
+        }
+        .slectBox li img{
+            width: 1.12rem;
+            height: 1.12rem;
+        }
+    </style>
     <script>
     //loading and calc root font-size
             (function pageLoading () {
@@ -42,6 +53,7 @@
                 doc.addEventListener("DOMContentLoaded", fn, false);
             }(document, window));
         </script>
+
         <style>
             /* .imgBoxWrapper .avatar{
                 padding-top: 0.5rem;
@@ -53,12 +65,15 @@
             } */
             /*隱藏手紋路*/
             .mask{
-                display: none;
+                /*display: none;*/
+                z-index: 9999999;
             }
+            
+
+
+
+
         </style>
-        <script>
-            // alert(333);
-        </script>
 </head>
 <body>
     <div class="imgBox">
@@ -154,6 +169,7 @@
                 <p>或发送给朋友</p>
             </div>
     </div>
+    
     <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
     <script src="js/canvas2image.js"></script>
     <script src="js/html2canvas.js"></script>
@@ -162,26 +178,32 @@
             var iscreated = true;  
             var index;
             var activeHtmltemp;
-            // 处理底部滚动
             /*var scroll = new BScroll('.slectBox',{
                 scrollX: true,
                 click: true
-            });*/
+            })*/
             $(".content li").click(function(){
                 if(iscreated){
                     iscreated = false
                     index = $(this).index()
                     $('.imgBoxWrapper').eq(index + 1 ).addClass('active').siblings().removeClass("active")
+                    var activeHtmltemp =  $('.imgBoxWrapper').eq(index + 1 ).html()
                     //此处清自行添加此处也可以加一个loading  加个延迟 避免用户感觉到页面重绘 提升用户体验 
                     setTimeout(function(){
                         $(".imgBoxWrapperTop").html("")
-                        $(".imgBoxWrapperTop").html( $('.imgBoxWrapper').eq(index + 1 ).find('imgBoxWrapper'))
-                        
+                        $(".imgBoxWrapperTop").html(activeHtmltemp)
                     },0)
                     setTimeout(function(){
                         convert2canvas()    
                     },400)
                 }
+               
+            })
+            $(".mask").click(function(){
+                $(".mask").fadeOut()
+                var activeHtmltemp =  $('.imgBoxWrapper').eq(1).html()
+                $(".imgBoxWrapperTop").html(activeHtmltemp)
+                convert2canvas() //点击生成图片
             })
             function convert2canvas() {
                 var shareContent = document.getElementsByClassName("imgBoxWrapperTop")[0];//需要截图的包裹的（原生的）DOM 对象
@@ -196,7 +218,7 @@
                 var opts = {
                     scale:scale, // 添加的scale 参数
                     canvas:canvas, //自定义 canvas
-                    //logging: true, //日志开关
+                    logging: true, //日志开关
                     width:width, //dom 原始宽度
                     height:height //dom 原始高度
                 };
@@ -209,7 +231,7 @@
             }
         }
 
-        $(".content_one").click(function(){
+        /*$(".content_one").click(function(){
             $(".content_one").css("border","2px solid #CD533E");
             $(".content_two").css("border","2px solid #fff");
             $(".content_three").css("border","2px solid #fff");
@@ -235,7 +257,7 @@
             $(".content_two").css("border","2px solid #fff");
             $(".content_three").css("border","2px solid #fff");
             $(".content_one").css("border","2px solid #fff");
-        });
+        });*/
 
         // $(".content_one").click();
         // $(".content_two").click();

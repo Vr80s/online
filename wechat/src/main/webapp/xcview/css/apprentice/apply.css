@@ -15,7 +15,6 @@ ul{
 }
 li{
 	list-style: none;
-	background: blue;
 }
 body{
     width: 100%;
@@ -473,5 +472,31 @@ color:#bbb;
 	color: #333;
 }
 /*点击性别出现弹窗结束*/
+/*修改籍贯引用*/
+#cityResult3{
+    /*background: lightgreen;*/
+    width: 5.8rem;
+    height: 0.98rem;
+    line-height: 0.98rem;
+    float: right;
+    /* margin-right: 0.5rem; */
+    color: #666;
+    text-align: right;
+}
+.birthplace_hide{
+    float: right;
+    text-align: right;
+    margin-right: 0.26rem;
+    margin-top: 0.03rem;
+    width: 0.25rem;
+}
+.birthplace_hide img{
+    width: 0.15rem;
+    margin-top: 0.3rem;
+}
+.mui-poppicker-header .mui-btn{
+    background: none !important;
+    color: #00bc12;
+}
 
 /*中间内容结束*/
