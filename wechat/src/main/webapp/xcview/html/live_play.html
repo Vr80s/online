@@ -77,7 +77,12 @@
 							<p>直播预告</p>
 						{{/if}}
 					{{else if lineState == 3}}
-						<p>直播回放</p>
+						{{if appointmentInfoId !=null}}
+							<p>远程诊疗直播回放</p>
+							{{else}}
+							<p>直播回放</p>
+						{{/if}}
+						
 					{{/if}}
 
 				</script>
@@ -146,7 +151,7 @@
 	<div class="speak_people" id="speak_people">
 		<script type="text/html" id="data_people">	
 			<p class="speak_title">{{gradeName}}</p>			
-			{{if lineState == 2 || lineState == 4 || lineState == 5}}
+			{{if lineState == 2 || lineState == 3 || lineState == 4 || lineState == 5}}
 				{{if appointmentInfoId !=null}}
 					<p class="" style="color: #666;">诊疗弟子：{{discipleName}}</p>
 				{{/if}}

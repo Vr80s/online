@@ -609,6 +609,7 @@ function saveCourse(){
         }
     }
 }
+//TODO
 function addCourse(course){
     $.ajax({
         type: "post",
@@ -818,7 +819,7 @@ function getCourseData(){
     course.courseDetail = getCDContent();
     course.courseLength = $.trim($('.course_length').val());
 
-    if(course.courseForm==1){
+    if(course.courseForm==1){ 
         course.startTime = $.trim($('.course_start_time').val());
         course.multimediaType = 1
     }else if(course.courseForm==2){
@@ -1987,7 +1988,6 @@ function validateResource(){
     }
     return true;
 }
-
 /**
  * Description：初始化资源下拉框
  * creed: Talk is cheap,show me the code
@@ -2032,6 +2032,7 @@ function resourcesSelect(){
 			}
 		}
 	}
+
 
 /**
  * Description：初始化菜单
