@@ -545,7 +545,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                     type = VhallCustomMessageType.LIVE_END.getCode();
                     Date startTime = course.getStartTime();
                     Date currentTime = new Date();
-                    if (course.getChannelId() != null) {
+                    if (course.getChannelId() != null && course.getRecord()) {
                         try {
                             String recordId = VideoService.createRecord(course.getDirectId(), null, null);
                             course.setRecordId(recordId);

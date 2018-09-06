@@ -46,6 +46,9 @@ if (lineState == 1 || (lineState == 3 && playBackType == 1) || lineState == 4) {
 }
 
 var initVideoFalg =  0;
+
+var liveEndFalg = 0;
+
 function elsBind() {
 
 	window.doc = {};
@@ -75,14 +78,21 @@ function elsBind() {
 		        error:function(reasn){
 		            console.error('player error');
 		        
-		            $(".video_end_top0").hide();
-					$(".video_end_top2").hide();
-					$(".video_end_top1").hide();
-					$(".video_end_top").hide();
-					
-
-					
-					$(".video_end_top4").show();
+					if(liveEndFalg = 13){
+						if (record == false) {
+							$("#record_none").text("当前直播无回放");
+						}else{
+							$("#record_none").text("直播结束，正在生成回放…");
+						}
+						$(".video_end_top2").show();
+					}else{
+						
+						$(".video_end_top0").hide();
+						$(".video_end_top2").hide();
+						$(".video_end_top1").hide();
+						$(".video_end_top").hide();
+						$(".video_end_top4").show();					
+					}
 		        }
 			});
 	}
@@ -163,12 +173,14 @@ function initChat() {
 
 				} else if (msg.type == 13) { // 结束直播  --》  生成点播
 					
+					liveEndFalg = 13;
+					
 					if (record == false) {
-						$(".video_end_top").show();
+						$("#record_none").text("当前直播无回放");
 					}else{
-						$(".video_end_top2").show();
-					};
-
+						$("#record_none").text("直播结束，正在生成回放…");
+					}
+					$(".video_end_top2").show();
 				} else if (msg.type == 14) { // 退出直播间，但是没有结束直播
 
 					$(".video_end_top3").show();

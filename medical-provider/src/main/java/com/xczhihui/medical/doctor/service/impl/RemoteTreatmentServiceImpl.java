@@ -295,18 +295,18 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             nowTime.add(Calendar.MINUTE, 10);//10分钟后的时间
             Date newDate = nowTime.getTime();
             
-//            if (startDate.getTime() <= newDate.getTime() && treatmentVO.getStatus() == 2) {
-//                treatmentVO.setStart(true);
-//            } else {
-//                treatmentVO.setStart(false);
-//            }
+            if (startDate.getTime() <= newDate.getTime() && treatmentVO.getStatus() == 2) {
+                treatmentVO.setStart(true);
+            } else {
+                treatmentVO.setStart(false);
+            }
             
             
-          if (treatmentVO.getStatus() == 2) {
-	          treatmentVO.setStart(true);
-	      } else {
-	          treatmentVO.setStart(false);
-	      }
+//        if (treatmentVO.getStatus() == 2) {
+//	          treatmentVO.setStart(true);
+//	      } else {
+//	          treatmentVO.setStart(false);
+//	      }
             
             
         } catch (ParseException e) {
