@@ -11,7 +11,9 @@
 <link rel="stylesheet" type="text/css" href="/xcview/css/physician/voice_broadcast.css"/>
 
 <script type="text/javascript" src="/xcview/js/common/layout.js"></script><!--手机嵌入模板-->
-
+<!--微吼弹幕引入js-->
+<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js"></script>
+<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js"></script>
 <script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
 <link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
 
@@ -233,7 +235,7 @@
 				<div class="comment_area_problem_left">
 					<div class="comment_area_problem_bg">
 						<label for="" class="problem_label_bg"></label>
-						<input type="checkbox" class="problem_label_put" />
+						<input type="checkbox" class="problem_label_put" onclick="getcontentList(1,'down')"/>
 						<!-- <input type="chebox"> -->
 					</div>
 					<span>只看问题</span>
@@ -243,20 +245,29 @@
 			<div class="comment_area_height"></div>
 			<!-- 评论区 -->
 			<div class="comment_area_main">
+				<script type="text/html" id="comment_area_list">
+					{{each items as item i}}
 				<div class="comment_area_cen">
 					<div class="criticism">
-						<img src="/xcview/images/touxiang.png" alt="" class="criticism_img" />
-						<span class="name">我是一只快乐的小跳蛙</span>
+						<img src="{{item.imgUrl}}" alt="" class="criticism_img" />
+						<span class="name">{{item.name}}</span>
+						{{if item.anchor == true}}
 						<span class="criticism_hint">主播</span>
+						{{/if}}
+
 					</div>
-					<div class="host_response">我是一只快乐的小跳蛙我是一只快乐的小跳蛙我是一只快乐的小跳蛙我是一只快乐的小跳蛙我是一只快乐的小跳蛙</div>
+					<div class="host_response">{{item.content}}</div>
+					{{if item.courseLiveAudioDiscussionVO != null}}
 					<div class="respond_questions">
 						<span class="name">辣椒小姐：<span class="ask">问</span>风寒感冒和风热感冒的区别是什么？应该风寒感冒和风热感冒的区别是什么？应该</span>
 					</div>
-					<div class="time">2017.12.25</div>
+					{{/if}}
+					<div class="time">{{item.createTime}}</div>
 				</div>
+					{{/each}}
+				</script>
 			</div>
-			<div class="comment_area_main">
+			<!--<div class="comment_area_main">
 				<div class="comment_area_cen">
 					<div class="criticism">
 						<img src="/xcview/images/touxiang.png" alt="" class="criticism_img" />
@@ -269,7 +280,7 @@
 					</div>
 					<div class="time">2017.12.25</div>
 				</div>
-			</div>
+			</div>-->
 			
 		</div>
 	</div>
@@ -295,7 +306,7 @@
 		<!-- 弹幕开关 -->
 		<div class="barrage_switch"></div>
 		<div class="chat_all"></div>
-		<div class="transmit" onclick="sendContent()">发送</div>
+		<div class="transmit" onclick="sendDiscussion()">发送</div>
 	</div>
 	<!-- 底部结束 -->
 	<div class="show"></div>

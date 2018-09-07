@@ -1,16 +1,15 @@
 package com.xczhihui.course.mapper;
 
-import java.util.List;
-
+import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.course.model.CourseLiveAudioDiscussion;
+import com.xczhihui.course.vo.CourseLiveAudioDiscussionVO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.course.model.CourseLiveAudioDiscussion;
-import com.xczhihui.course.vo.CourseLiveAudioDiscussionVO;
+import java.util.List;
 
 /**
  * <p>
@@ -29,9 +28,15 @@ public interface CourseLiveAudioDiscussionMapper extends BaseMapper<CourseLiveAu
             "FROM `oe_course_live_audio_discussion` clad JOIN `oe_user` ou ON clad.`user_id`=ou.id WHERE clad.id=#{discussionId}"})
     CourseLiveAudioDiscussionVO selectCourseLiveAudioDiscussionById(@Param("discussionId") Integer discussionId);
 
-    @Select({"SELECT ou.`small_head_photo` imgUrl,ou.`name`,clad.id,clad.is_anchor anchor,clad.`is_question` question,clad.`content_type` contentType,clad.`content`,clad.`likes`,clad.`create_time` createTime " +
-            "FROM `oe_course_live_audio_discussion` clad JOIN `oe_user` ou ON clad.`user_id`=ou.id WHERE clad.course_id=#{courseId} AND clad.`create_time` <= #{endTime} order by clad.`create_time` desc"})
-    List<CourseLiveAudioDiscussionVO> selectCourseLiveAudioDiscussionByCourseId(@Param("page") Page page, @Param("endTime") String endTime, @Param("courseId") Integer courseId);
+    @Select({"<script> " +
+            " SELECT ou.`small_head_photo` imgUrl,ou.`name`,clad.id,clad.is_anchor anchor,clad.`is_question` question,clad.`content_type` contentType,clad.`content`,clad.`likes`,clad.`create_time` createTime " +
+            " FROM `oe_course_live_audio_discussion` clad JOIN `oe_user` ou ON clad.`user_id`=ou.id WHERE clad.course_id=#{courseId} " +
+            "<if test='question != null'>" +
+            " AND clad.is_question = true " +
+            "</if>" +
+            " AND clad.`create_time` &lt;= #{endTime} order by clad.`create_time` desc " +
+            " </script>"})
+    List<CourseLiveAudioDiscussionVO> selectCourseLiveAudioDiscussionByCourseId(@Param("page") Page page, @Param("endTime") String endTime, @Param("courseId") Integer courseId,@Param("question") Boolean question);
 
     @Update("UPDATE `oe_course_live_audio_discussion`  clad SET clad.`likes`=clad.`likes`+1 WHERE clad.id=#{discussionId}")
     int updateLikeById(@Param("discussionId") Integer discussionId);
