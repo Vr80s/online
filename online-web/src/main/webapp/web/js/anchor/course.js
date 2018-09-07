@@ -1142,7 +1142,10 @@ function initAlbumNoExitCourse(id,collectionId,multimediaType){
         collectionCourseListQuickly = courses;
         
         for(var i=0;courses.length>i;i++){
+        	
             str += "<option value='"+courses[i].id+"'>"+courses[i].title+"</option>";
+            
+            
         }
         $("#select-add").html(str);
         
@@ -2003,7 +2006,7 @@ function initResource(multimediaType,nv){
             str="<option value=''>选择一个视频</option>";
         }
         for(var i=0;resources.length>i;i++){
-        	if (resources[i].length== null || resources[i].length== -1) {
+        	if (resources[i].length== null || resources[i].length== ""  || resources[i].length== -1) {
         		 str += "<option disabled='disabled' style='background:#ececec;' value='"+resources[i].id+"' data-length='"+resources[i].length+"'>"+resources[i].title+" 转码中</option>";
        
         	}else{
