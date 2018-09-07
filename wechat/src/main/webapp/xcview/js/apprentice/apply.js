@@ -4,7 +4,8 @@ function getApply(){
     apply.name=$('.name input').val();
     apply.tel=$('.tel input').val();
     apply.age=$('.age input').val();
-    apply.nativePlace=$('.birthplace input').val();
+    // apply.nativePlace=$('.birthplace input').val();
+    apply.nativePlace=$('.birthplace .birthplace_text').html();
     apply.educationExperience=$('.learning_experience .copyreader').val();
     apply.medicalExperience=$('.practice_medicine .copyreader').val();
     apply.goal=$('.study .copyreader').val();
@@ -65,9 +66,13 @@ $(function(){
         verifyParams();
     });
     // 籍贯
-    $('.birthplace input').keyup(function(){
+    /*$('.birthplace input').keyup(function(){
+        verifyParams();
+    });*/
+    $('.birthplace .birthplace_text').keyup(function(){
         verifyParams();
     });
+
     // 学习经历
     $('.learning_experience .copyreader').keyup(function(){
         verifyParams();

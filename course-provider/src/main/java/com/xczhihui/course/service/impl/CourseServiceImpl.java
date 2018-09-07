@@ -2,6 +2,7 @@ package com.xczhihui.course.service.impl;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -135,7 +136,18 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             if ("已结束课程".equals(courseLecturVo.getNote())) {
                 listNw.add(courseLecturVo);
             }
-        }
+            
+   	    	 if (courseLecturVo.getCollection()) {
+   	             //已更新多少集，等于总集数
+   	             if(courseLecturVo.getCourseNumber()!=null && courseLecturVo.getDirtyNumber()!=null 
+   	            		 && courseLecturVo.getCourseNumber().equals(courseLecturVo.getDirtyNumber())) {
+   	            	courseLecturVo.setDirtyDate(XzStringUtils.COLLECTION_UPDATE_FINISH);
+   	             }else {
+   	            	courseLecturVo.setDirtyDate(this.getHostCollectionUpdateDateText(courseLecturVo.getId()));
+   	             }
+   	    	 }    
+       	} 
+            
         mapTj.put("title", "我的课程");
         mapTj.put("courseList", listTj);
 
@@ -148,7 +160,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         return mapCourseList;
     }
 
-    @Override
+	@Override
     public Integer selectMyFreeCourseListCount(String id) {
         return iCourseMapper.selectMyFreeCourseListCount(id);
     }
@@ -363,7 +375,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public Page<Map<String, Object>> selectOfflineCourseByAnchorId(String anchorId) {
-        //TODO 当前需求列出所有线下课
         Page<Map<String, Object>> page = new Page<>(1, 1000);
         List<Map<String, Object>> results = iCourseMapper.selectOfflineCourseByAnchorId(page, anchorId);
         return page.setRecords(results);
@@ -545,7 +556,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                     type = VhallCustomMessageType.LIVE_END.getCode();
                     Date startTime = course.getStartTime();
                     Date currentTime = new Date();
-                    if (course.getChannelId() != null) {
+                    if (course.getChannelId() != null && course.getRecord()) {
                         try {
                             String recordId = VideoService.createRecord(course.getDirectId(), null, null);
                             course.setRecordId(recordId);
@@ -772,6 +783,25 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 			e.printStackTrace();
 		}
 		return strGradeName;
+	}
+	
+	
+	@Override
+	public String getHostCollectionUpdateDateText(Integer collectionId) {
+		String updateTime ="";
+        List<Integer> list = iCourseMapper.listDatesByCollectionId(collectionId);
+        if(list.size()  >= 7) {
+            return XzStringUtils.HOST_COLLECTION_UPDATE_ALL;
+        }else {
+        	updateTime = list.stream().map(DateUtil::getDayOfWeek).collect(Collectors.joining(""));
+        }
+        String week = XzStringUtils.getWeekOfDate();
+        if(updateTime!=null && updateTime.indexOf(week)!=-1) {
+        	return XzStringUtils.HOST_COLLECTION_UPDATE_ALL;
+        }else if(updateTime!=null){
+        	updateTime = String.format(XzStringUtils.WEEKLY_UPDATE, updateTime);
+        }    
+        return updateTime;
 	}
 	
 }

@@ -163,8 +163,8 @@ public class CCUtils {
         String duration = obj.get("duration").toString();
         try {
         	 double minutes = Double.parseDouble(duration) / 60; 
-             BigDecimal   b   =   new   BigDecimal(minutes);  
-             return  b.setScale(3,   BigDecimal.ROUND_HALF_UP).toString();
+             BigDecimal  b  =  new  BigDecimal(minutes);  
+             return  b.setScale(2,   BigDecimal.ROUND_HALF_UP).toString();
 		} catch (Exception e) {
 			 return String.valueOf(Double.valueOf(duration).intValue() / 60);
 		}

@@ -104,50 +104,71 @@ $(function () {
         $(".wrap-header").html(template('wrap-header', data.resultObject));
 //<!--主播名字/粉丝数量-->
         // $("#wrap_wrapPersonal").html(template('data_number',data.resultObject));
+
+// 跳转完善信息页
+function getFlagStatus() {
+    var falg = USER_NORMAL;
+    var user_cookie = cookie.get("_ipandatcm_user_");
+    var third_party_cookie = cookie.get("_third_ipandatcm_user_");
+    if (isBlank(user_cookie)) {
+        falg = USER_UN_LOGIN;
+        if (isNotBlank(third_party_cookie)) {
+            falg = USER_UN_BIND;
+        }
+    }
+    return falg;
+}
+
 // 打开页面判断是否已关注
     $(".add_follow").click(function(){
-        //评价id
-        lecturerId = $(this).attr("data-lecturerId");
-        var p = $(".right_personal").find('span').html();
-
-        var src = $(this).find('img').attr('src');
-        if(src.indexOf("append1_icon")>-1){
-        	
-        	my_follow(lecturerId,1);
-        	
-            $(".add_follow").find('img').attr('src','../images/append2_icon.png');
-            $(".add_follow").find('p').html("已关注");
-            $(".add_follow").find('p').css("color","#bbb");
-			// $(".add_follow").css("border","1px solid #bbb");
-            $(".right_personal").find('span').html(parseInt(p)+1);
-            
-            //判断是不是自己关注自己了
-            var userId = localStorage.getItem("userId");
-            if(userLecturerId == userId){
-            	 var $span = $(".left_personal").find('span');
-            	 var left_p = $span.html();
-            	 $span.html(parseInt(left_p)+1);
-            }
-            
-            
-            
+        var flag = getFlagStatus();
+        if (flag === USER_UN_BIND) {
+            location.href = "/xcview/html/evpi.html";
         }else{
-        	my_follow(lecturerId,2);
-        	
-            $(".add_follow").find('img').attr('src','../images/append1_icon.png');
-            $(".add_follow").find('p').html("加关注");
-            $(".add_follow").find('p').css("color","#00bc12");
-            // $(".add_follow").css("border","1px solid #00bc12");
-            $(".right_personal").find('span').html(parseInt(p)-1);
-           
-            //判断是不是自己关注自己了
-            var userId = localStorage.getItem("userId");
-            if(userLecturerId == userId){
-            	 var $span = $(".left_personal").find('span');
-            	 var left_p = $span.html();
-            	 $span.html(parseInt(left_p)-1);
+            //评价id
+            lecturerId = $(this).attr("data-lecturerId");
+            var p = $(".right_personal").find('span').html();
+
+            var src = $(this).find('img').attr('src');
+            if(src.indexOf("append1_icon")>-1){
+                
+                my_follow(lecturerId,1);
+                
+                $(".add_follow").find('img').attr('src','../images/append2_icon.png');
+                $(".add_follow").find('p').html("已关注");
+                $(".add_follow").find('p').css("color","#bbb");
+                // $(".add_follow").css("border","1px solid #bbb");
+                $(".right_personal").find('span').html(parseInt(p)+1);
+                
+                //判断是不是自己关注自己了
+                var userId = localStorage.getItem("userId");
+                if(userLecturerId == userId){
+                     var $span = $(".left_personal").find('span');
+                     var left_p = $span.html();
+                     $span.html(parseInt(left_p)+1);
+                }
+                
+            }else{
+                my_follow(lecturerId,2);
+                
+                $(".add_follow").find('img').attr('src','../images/append1_icon.png');
+                $(".add_follow").find('p').html("加关注");
+                $(".add_follow").find('p').css("color","#00bc12");
+                // $(".add_follow").css("border","1px solid #00bc12");
+                $(".right_personal").find('span').html(parseInt(p)-1);
+               
+                //判断是不是自己关注自己了
+                var userId = localStorage.getItem("userId");
+                if(userLecturerId == userId){
+                     var $span = $(".left_personal").find('span');
+                     var left_p = $span.html();
+                     $span.html(parseInt(left_p)-1);
+                }
             }
         }
+
+
+        
     });		
 //直播时间截取
 

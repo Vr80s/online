@@ -272,8 +272,9 @@ p{
     height: 0.088rem;
     position: absolute;
     top: 0.38rem;
-    left: 1.95rem;
+    /* left: 1.95rem; */
     display: block !important;
+    right: -.25rem;
 }
 .li_evaluate{
 	margin-right: 0 !important;
@@ -1660,9 +1661,12 @@ p{
     padding: 0.3rem 0.26rem; 
     box-sizing: border-box;
     background: white;
-    overflow: hidden;
+    /*overflow: hidden;*/
     margin: 0 auto;
     margin-top: 0.2rem;
+}
+.wrap_vedio ul .li{
+	float: left;
 }
 .wrap_vedio .border {
     display: inline-block;
@@ -2637,6 +2641,19 @@ margin-top: 0.015rem;
 	color: #666;
 }
 .disciple_application{
+	width: 6.98rem;
+	height: 0.72rem;
+	line-height: 0.72rem;
+	margin: 0 auto;
+	margin-bottom: 0.3rem;
+	font-size: 0.3rem;
+	color: #FFFFFF;
+	text-align: center;
+	background: #00BC12;
+	border-radius: 100px;
+	margin-bottom: 0;
+}
+.disciple_applications{
 	width: 6.98rem;
 	height: 0.72rem;
 	line-height: 0.72rem;

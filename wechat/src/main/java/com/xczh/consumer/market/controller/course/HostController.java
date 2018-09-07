@@ -191,7 +191,7 @@ public class HostController {
         regulations.forEach(regulation -> regulation.put("url", MultiUrlHelper.getUrl(RouteTypeEnum.APPRENTICE_DETAIL.name(), APPUtil.getMobileSource(request),
                 MultiUrlHelper.handleParam(returnOpenidUri, MapUtils.getString(regulation, "id"), RouteTypeEnum.APPRENTICE_DETAIL.name()))));
         apprenticeData.put("regulations", regulations);
-        apprenticeData.put("questions", medicalDoctorQuestionService.selectQuestionByDoctorId(new Page<>(1, 100), doctorId).getRecords());
+        apprenticeData.put("questions", medicalDoctorQuestionService.selectQuestionByDoctorId(new Page<>(1, 5), doctorId).getRecords());
         apprenticeData.put("apprentices", enrolService.findApprenticesByDoctorId(doctorId).stream().map(SimpleUserVO::getSmallHeadPhoto).collect(Collectors.toList()));
         MedicalDoctorAccount doctorAccount = medicalDoctorBusinessService.getByDoctorId(doctorId);
         String userId = accountIdOpt.orElse(null);

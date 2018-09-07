@@ -269,11 +269,25 @@ function isLoginJump() {
 
 function common_share_back() {
     var back = document.referrer;
-    if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
+    /*if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
           window.history.back();
+          alert(1111);
     } else {
           window.location.href = "/xcview/html/physician/index.html";
+          alert(2222);
+    }*/
+
+    if(isNotBlank(shareBack)){
+        if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
+            window.history.back();
+        } else {
+            window.location.href = "/xcview/html/physician/index.html";
+        }
+    }else{
+        window.history.back();
     }
+
+    
 }
 
 function common_share_backs() {

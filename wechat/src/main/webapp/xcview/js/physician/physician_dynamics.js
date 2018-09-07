@@ -54,26 +54,46 @@ function sowingMap() {
                 }
             })
 
+            // 跳转完善信息页
+            function getFlagStatus() {
+                var falg = USER_NORMAL;
+                var user_cookie = cookie.get("_ipandatcm_user_");
+                var third_party_cookie = cookie.get("_third_ipandatcm_user_");
+                if (isBlank(user_cookie)) {
+                    falg = USER_UN_LOGIN;
+                    if (isNotBlank(third_party_cookie)) {
+                        falg = USER_UN_BIND;
+                    }
+                }
+                return falg;
+            }
+
             //关注
             $(".attention").click(function(){
-                $(".fans").show();
-                var lecturerId = $(this).attr("data-userId");
-                var src = $(this).find('img').attr('src');
-                var p = $(".fans").find('#fansCount').html();
-                if(src.indexOf("weigz")>-1){
-                    my_follow(lecturerId,1);
-                    $(".attention").find('img').attr('src','/xcview/images/yigz.png');
-                    $(".attention").find('.pay_attention').html("已关注");
-                    $(".attention").css("background","#bbb");
-                    $(".fans").find('#fansCount').html(parseInt(p)+1);
+                var flag = getFlagStatus();
+                if (flag === USER_UN_BIND) {
+                    location.href = "/xcview/html/evpi.html";
+                }else{
                     $(".fans").show();
-                } else {
-                    my_follow(lecturerId,2);
-                    $(".attention").find('img').attr('src','/xcview/images/weigz.png');
-                    $(".attention").find('.pay_attention').html("加关注");
-                    $(".attention").css("background","#00bc12");
-                    $(".fans").find('#fansCount').html(parseInt(p)-1);
+                    var lecturerId = $(this).attr("data-userId");
+                    var src = $(this).find('img').attr('src');
+                    var p = $(".fans").find('#fansCount').html();
+                    if(src.indexOf("weigz")>-1){
+                        my_follow(lecturerId,1);
+                        $(".attention").find('img').attr('src','/xcview/images/yigz.png');
+                        $(".attention").find('.pay_attention').html("已关注");
+                        $(".attention").css("background","#bbb");
+                        $(".fans").find('#fansCount').html(parseInt(p)+1);
+                        $(".fans").show();
+                    } else {
+                        my_follow(lecturerId,2);
+                        $(".attention").find('img').attr('src','/xcview/images/weigz.png');
+                        $(".attention").find('.pay_attention').html("加关注");
+                        $(".attention").css("background","#00bc12");
+                        $(".fans").find('#fansCount').html(parseInt(p)-1);
+                    }
                 }
+
             });
 
         }
@@ -533,7 +553,7 @@ function getPostsLikeList(postsId,list) {
 function ccVideo(videoId, multimediaType,id) {
     var playerwidth = window.screen.width; //   屏幕分辨率的宽：window.screen.width
     var playerheight = 8.95 * 21.8; //  屏幕分辨率的高：window.screen.height
-    console.log(playerwidth);
+    // console.log(playerwidth);
     var dataParams = {
         playerwidth: playerwidth,
         playerheight: playerheight,
@@ -545,7 +565,7 @@ function ccVideo(videoId, multimediaType,id) {
             if (data.success) {
                 var playCodeStr = data.resultObject;
                 var playCodeObj = JSON.parse(playCodeStr);
-                console.log(playCodeObj.video.playcode);
+                // console.log(playCodeObj.video.playcode);
                 //$("#ccvideo").html(playCodeObj.video.playcode)
                 $("#ccvideo"+id).html(playCodeObj.video.playcode);
             } else {
@@ -747,6 +767,7 @@ function createRecentlyLive(recentlyLive){
         }
         // lineState   直播课程状态 1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
         if(obj!=null && obj.isLive == 1){
+            // clearInterval(timer);
             // $(".box1").html(str);
             $("#box2").hide();
             
@@ -822,9 +843,63 @@ function createRecentlyLive(recentlyLive){
         }
     });
 
-
-
 }
+
+
+/*if (isBlank(data.resultObject.questions)) {
+    $(".QA_main").hide();
+} else{
+    $(".QA_main").show();
+    // 医师问答列表
+    $('.QA_main').html(template('QA_main_id', {items: data.resultObject.questions}));  
+}*/
+
+
+// 提问
+// var doctorId = getQueryString("doctor");
+// var pageNumber=2;
+function doctorQuestion(){
+    var pageNumber=1;
+    requestService("/xczh/question/doctorQuestion", {
+        doctorId:doctorId,
+        pageNumber:pageNumber,
+        pageSize:5
+    },function (data) {
+        if (data.success) {
+            if (isBlank(data.resultObject)) {
+            // if (data.resultObject == null) {
+                $(".QA_main").hide();
+                $(".doctorQuestion").hide();
+            } else{
+                $(".QA_main").show();
+                $(".doctorQuestion").show();
+                // 医师问答列表
+                $('.QA_main').html(template('QA_main_id', {items: data.resultObject}));  
+            }
+        }
+    });
+};
+
+function doctorQuestioncliCk(){
+
+    requestService("/xczh/question/doctorQuestion", {
+        doctorId:doctorId,
+        pageNumber:pageNumber,
+        pageSize:5
+    },function (data) {
+        if (data.success) {
+            if(data.resultObject.length == 0){
+                $('.doctorQuestion').removeAttr('onclick');
+                $(".doctorQuestion").html("没有更多内容了！");
+            }else {
+                pageNumber++;
+                $('.QA_main').append(template('QA_main_id', {items: data.resultObject}));
+            }
+        }
+    });
+};
+
+
 var doctorCourseUserId="";
 // 直播课程列表
 function createDoctorCourse(userId){
@@ -835,7 +910,6 @@ function createDoctorCourse(userId){
             if (data.resultObject[1].courseList.length == 0) {
                 $("#live_lesson").hide();
             }else{
-
                 $('#live_streaming').html(template('live_streaming_id', {items: data.resultObject[1].courseList}));
                 $(".more_live_lesson").html("查看更多直播课");            
             };
@@ -873,7 +947,7 @@ function doctorCourses(data){
                     //最近的直播
                     recentlyLive(userId);                        
                     // 直播课程列表
-                    createDoctorCourse(userId);                        
+                    createDoctorCourse(userId);                 
                 }else{
                     $(".no_live").css("display","block");     /*默认背景图*/
                     $("#recommended").css("display","block"); /*显示为您推荐*/
@@ -983,32 +1057,17 @@ function apprenticeInfo() {
             });  //    '/xcview/html/physician/physician_list.html?queryKey='+search_val+'&curriculum_blck=2';
             // 获取判断是否提交申请弟子信息  
             $('.disciple_application_state').html(template('disciple_application_state_id', {items: data.resultObject}));
+            
+            doctorQuestion();
+
             // 判断--老师解惑--时隐藏
-            if (isBlank(data.resultObject.questions)) {
+            /*if (isBlank(data.resultObject.questions)) {
                 $(".QA_main").hide();
             } else{
                 $(".QA_main").show();
                 // 医师问答列表
-                $('.QA_main').html(template('QA_main_id', {items: data.resultObject.questions}));
-                // setcookie('param_cookie',0,10);
-
-                /*var aBtn=$('.QA_doubt_main_reply');
-                for(i=0;i<aBtn.length;i++){
-                
-                    $(aBtn[i]).click(function(){
-                        for(i=0;i<aBtn.length;i++){
-                            var quesTion = data.resultObject.questions.question;
-                            alert(quesTion);
-                            $(aBtn[i]).html(quesTion);
-                        }
-                    })
-                }*/
-
-                /*var txt=$('.QA_doubt_main_reply'+id).html();
-                // txts=txt.replace('\n','<br>')
-                txts=txt.replace(/[\n\r]/g,'<br>')
-                $('.QA_doubt_main_reply'+id).html(txts);*/     
-            }
+                $('.QA_main').html(template('QA_main_id', {items: data.resultObject.questions}));  
+            }*/
 
             function getFlagStatus() {
                 var falg = USER_NORMAL;

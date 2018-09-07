@@ -133,7 +133,7 @@
 	                <#list doctorTypeItem.doctors as doctor>
 	                    <li>
 	                        <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
-	                        <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
+	                        <img src="${doctor.headPortrait!''}?imageMogr2/thumbnail/!70x70r|imageMogr2/gravity/Center/crop/70x70" alt="${doctor.name}">
 	                        <h5>${doctor.name}&nbsp;<span>${doctor.title!''}</span></h5>
 	                        <@workTime text=doctor.workTime!'' />
 	                        <p>${doctor.province!''}&nbsp;${doctor.city!''}&nbsp; </p>
@@ -207,7 +207,7 @@
                     <#list recentlyWritings as recentlyWriting>
                         <li>
                             <a href="/headline/details/${recentlyWriting.id}" style="color: #0C0C0C;display: inline;">
-                                <img src="${recentlyWriting.imgPath}" alt="">
+                                <img src="${recentlyWriting.imgPath}?imageMogr2/thumbnail/!80x100r|imageMogr2/gravity/Center/crop/80x100" alt="">
                             </a>
                             <div>
                                 <a href="/headline/details/${recentlyWriting.id}" style="color: #0C0C0C">

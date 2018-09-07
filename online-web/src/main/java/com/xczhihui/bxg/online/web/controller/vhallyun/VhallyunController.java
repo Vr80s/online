@@ -137,6 +137,8 @@ public class VhallyunController extends AbstractController {
             String recordId = vhallCallbackBody.getRecordId();
             Integer status = vhallCallbackBody.getStatus();
 
+            LOGGER.warn("recordId:"+recordId+",status:"+status);
+            
             //更改回放状态
             courseService.updatePlayBackStatusAndSendVahllYunMessageByRecordId(recordId, status);
         }
