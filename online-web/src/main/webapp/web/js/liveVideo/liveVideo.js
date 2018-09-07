@@ -11,6 +11,7 @@ var playBackType =1;
 var vhallObj = {
 	appId: appid
 };
+var userInfo ={};
 
 var roomid = room_id;
 var planId = plan_id;
@@ -30,6 +31,9 @@ RequestService("/online/live/getOpenCourseById", "GET", {
 }, function(data) {
 
 	var obj = data.resultObject;
+	
+	
+	userInfo = obj.userInfo;
 
 	//分享使用
 	courseName = obj.courseName;
