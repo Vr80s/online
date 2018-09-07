@@ -2029,6 +2029,8 @@ function resourcesSelect(){
 		for(var i=0;resources.length>i;i++){
 			if (resources[i].id== resourcesValue) {
 				$(".course_length").val(resources[i].length);
+			}else{
+				$(".course_length").val("");
 			}
 		}
 	}
