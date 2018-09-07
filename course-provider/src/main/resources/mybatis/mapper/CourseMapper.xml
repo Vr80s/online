@@ -264,12 +264,11 @@
         oc.is_teaching teaching,
  		oc.appointment_info_id as appointmentInfoId,  
  		
-        IF(oc.collection = 1,
+   IF(oc.collection = 1,
         ( SELECT count(*) FROM `oe_course` soc JOIN `collection_course` cc
         ON soc.id = cc.`course_id` WHERE cc.`collection_id` = oc.id )
         ,0
-        ) as dirtyNumber,
-    </sql>
+        ) as dirtyNumber,    </sql>
 
 
     <!-- 查找用户的 学习中心      直播中，直播预告、课程 是我的课程，已结束课程是：直播结束和线下排序班 -->
@@ -321,12 +320,8 @@
     <select id="selectMyPurchasedCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
         SELECT
         <include refid="relLearningCourseListByUserId"/>
-        DATE_FORMAT(oc.start_time,'%Y-%m-%d %H:%i') as startDateStr,
-            IF(oc.collection = 1,
-        ( SELECT count(*) FROM `oe_course` soc JOIN `collection_course` cc
-        ON soc.id = cc.`course_id` WHERE cc.`collection_id` = oc.id )
-        ,0
-        ) as dirtyNumber
+        DATE_FORMAT(oc.start_time,'%Y-%m-%d %H:%i') as startDateStr
+          
         FROM
         oe_course as oc
         inner join apply_r_grade_course argc on oc.`id`=argc.`course_id` AND argc.`validity`>NOW()
@@ -678,13 +673,7 @@
         if(oc.live_status=2,if(oc.start_time &lt;= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
         '%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
         DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
-        DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,
-        
-        IF(oc.collection = 1,
-        ( SELECT count(*) FROM `oe_course` soc JOIN `collection_course` cc
-        ON soc.id = cc.`course_id` WHERE cc.`collection_id` = oc.id )
-        ,0
-        ) as dirtyNumber
+        DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr
         
         FROM
         oe_course as oc
