@@ -2024,6 +2024,7 @@ function initResource(multimediaType,nv){
         $('.selectpicker').selectpicker({
             'selectedText': 'cat',size:10
         });
+        resourcesSelect()
     },false);
 }
 
@@ -2032,6 +2033,9 @@ function resourcesSelect(){
 		for(var i=0;resources.length>i;i++){
 			if (resources[i].id== resourcesValue) {
 				$(".course_length").val(resources[i].length);
+				return false
+			}else{
+				$(".course_length").val("");
 			}
 		}
 	}

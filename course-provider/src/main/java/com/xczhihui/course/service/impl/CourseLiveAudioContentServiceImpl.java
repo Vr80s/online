@@ -1,22 +1,5 @@
 package com.xczhihui.course.service.impl;
 
-import static com.xczhihui.common.util.enums.RouteTypeEnum.COMMON_LEARNING_LIVE_AUDIO_COURSE_DETAIL_PAGE;
-import static com.xczhihui.common.util.redis.key.CourseRedisCacheKey.COURSE_LIVE_TOKEN_SECONDS;
-
-import java.text.MessageFormat;
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.enums.CourseLiveAudioMessageType;
@@ -36,6 +19,22 @@ import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.ICourseLiveAudioContentService;
 import com.xczhihui.course.util.TextStyleUtil;
 import com.xczhihui.course.vo.*;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.text.MessageFormat;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static com.xczhihui.common.util.enums.RouteTypeEnum.COMMON_LEARNING_LIVE_AUDIO_COURSE_DETAIL_PAGE;
+import static com.xczhihui.common.util.redis.key.CourseRedisCacheKey.COURSE_LIVE_TOKEN_SECONDS;
 
 /**
  * <p>
@@ -208,17 +207,20 @@ public class CourseLiveAudioContentServiceImpl implements ICourseLiveAudioConten
     }
 
     @Override
-    public Page<CourseLiveAudioDiscussionVO> selectCourseLiveAudioDiscussionByCourseId(Page page, String endTime, Integer courseId){
+    public Page<CourseLiveAudioDiscussionVO> selectCourseLiveAudioDiscussionByCourseId(Page page, String endTime, Integer courseId,Boolean question){
         if(endTime==null){
             endTime = LocalDateTime.now().toString();
         }
-        List<CourseLiveAudioDiscussionVO> courseLiveAudioDiscussionVOList = courseLiveAudioDiscussionMapper.selectCourseLiveAudioDiscussionByCourseId(page,endTime,courseId);
-        courseLiveAudioDiscussionVOList.forEach(courseLiveAudioDiscussionVO -> {
-            if(courseLiveAudioDiscussionVO.getDiscussionId()!=null){
-                CourseLiveAudioDiscussionVO cld = courseLiveAudioDiscussionMapper.selectCourseLiveAudioDiscussionById(courseLiveAudioDiscussionVO.getDiscussionId());
-                courseLiveAudioDiscussionVO.setCourseLiveAudioDiscussionVO(cld);
-            }
-        });
+        List<CourseLiveAudioDiscussionVO> courseLiveAudioDiscussionVOList = courseLiveAudioDiscussionMapper.selectCourseLiveAudioDiscussionByCourseId(page,endTime,courseId,question);
+        if(question == null) {
+            courseLiveAudioDiscussionVOList.forEach(courseLiveAudioDiscussionVO -> {
+                if(courseLiveAudioDiscussionVO.getDiscussionId()!=null){
+                    CourseLiveAudioDiscussionVO cld = courseLiveAudioDiscussionMapper.selectCourseLiveAudioDiscussionById(courseLiveAudioDiscussionVO.getDiscussionId());
+                    courseLiveAudioDiscussionVO.setCourseLiveAudioDiscussionVO(cld);
+                }
+            });
+        }
+
         page.setRecords(courseLiveAudioDiscussionVOList);
         return page;
     }
@@ -304,18 +306,22 @@ public class CourseLiveAudioContentServiceImpl implements ICourseLiveAudioConten
     }
 
     @Override
-    public String getCourseLiveAudioAccessToken(Integer courseId, String accountId) throws Exception {
+    public Map<String, Object> getCourseLiveAudioAccessToken(Integer courseId, String accountId) throws Exception {
+        Map<String, Object> m = new HashMap<String, Object>();
         String accessToken = cacheService.get(CourseRedisCacheKey.getLiveAudioTokenCacheKey(courseId,accountId));
-        if(StringUtils.isNotBlank(accessToken)){
-            return accessToken;
-        }
         String channelId = courseLiveAudioContentMapper.selectChannelIdByCourseId(courseId);
+        m.put("accessToken",accessToken);
+        m.put("channelId",channelId);
+        if(StringUtils.isNotBlank(accessToken)){
+            return m;
+        }
         if(StringUtils.isBlank(channelId)){
             throw new RuntimeException("课程信息有误");
         }
         accessToken = BaseService.createAccessToken4Live(accountId, null, channelId);
         cacheService.set(CourseRedisCacheKey.getLiveAudioTokenCacheKey(courseId,accountId),accessToken,COURSE_LIVE_TOKEN_SECONDS);
-        return accessToken;
+        m.put("accessToken",accessToken);
+        return m;
     }
 
     @Override
