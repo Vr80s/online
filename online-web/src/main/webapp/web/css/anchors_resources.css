@@ -169,7 +169,7 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 	font-size: 16px;
 }
 .screening-conditions-wrap{
-	padding: 20px 0;
+	padding: 20px 0 0;
 }
 .screening-conditions-wrap .shopping-code {
 	margin: 0 0 20px;
@@ -196,6 +196,67 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
     outline: none;
 
 }
+.screening-conditions-wrap .shopping-code .wrap-price{
+	display: inline-block;
+	width: 90px;
+	border: 1px solid #f0f0f0;
+	height: 36px;
+}
+.screening-conditions-wrap .shopping-code .sales-prise{
+	width: 65px;
+    height: 32px;
+    border: 0;
+	padding-left: 5px;
+    outline: none;
+	
+}
+.screening-conditions-wrap .shopping-code .wrap-price span{
+	background: #F0F0F0;
+    display: inline-block;
+    width: 20px;
+    height: 100%;
+    text-align: center;
+    padding-top: 8px;
+    float: left;
+    color: #333;
+}   
+.screening-conditions-wrap .shopping-code .screen-commodity{
+	background: #00BC12;
+	border-radius: 4px;
+	width: 92px;
+	height: 36px;
+	color: white;
+	border: 0;
+	outline: none;
+}
+
+
+.screening-conditions-wrap .shopping-code .clear-screen{
+	font-size: 14px;
+	color: #00BC12;
+	text-align: center;
+	margin-left: 30px;
+	cursor: pointer;
+}
+.shopping_box .all-shopping-list{
+	padding: 0 20px 20px;
+}
+.shopping_box .shopping-list-top{
+	background: #F0F0F0;
+	height: 40px;
+}
+.shopping_box .shopping-list-top ul li{
+	float: left;
+}
+.shopping_box .shopping-list-top ul li:nth-child(1){
+	width: 118px;
+	background: pink;
+	color: #666666;
+	line-height: 40px;
+	text-align: center;
+}
+
+
 
 
 
