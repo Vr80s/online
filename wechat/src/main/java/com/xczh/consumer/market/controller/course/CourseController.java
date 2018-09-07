@@ -129,6 +129,7 @@ public class CourseController {
                                       HttpServletRequest request) throws Exception {
 
         CourseLecturVo cv = courseServiceImpl.selectCourseDetailsById(accountId, courseId);
+        
         if (cv == null) {
             return ResponseObject.newErrorResponseObject("获取课程有误");
         }

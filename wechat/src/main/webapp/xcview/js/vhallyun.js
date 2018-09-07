@@ -29,7 +29,7 @@ $(".video_end_top1 .div img").click(function() {
 	}, 2000)
 });
 
-
+	var userIdArray = [];
 
 
 // 直播状态1.直播中，2预告，3直播结束 4 即将直播
@@ -58,6 +58,7 @@ function elsBind() {
 			window.doc = new VhallDocPassive({
 				channelId: vhallObj.channelId,// 频道Id
 				docNode: 'my-doc-area', // 文档显示节点div id
+				showLastPage:true,
 				width:320,
 	        	height:180
 			});
@@ -78,7 +79,7 @@ function elsBind() {
 		        error:function(reasn){
 		            console.error('player error');
 		        
-					if(liveEndFalg = 13){
+					if(liveEndFalg == 13){
 						if (record == false) {
 							$("#record_none").text("当前直播无回放");
 						}else{
@@ -212,15 +213,15 @@ function initChat() {
 				$(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo", "bottom");
 			})
 
-			var userIdArray = [];
+		
 			window.chat.join(function(msg) {
-				if(!isInArray(userIdArray,msg.third_party_user_id)){ //没有包含用户id
+				if(!isInArray(userIdArray,msg.third_party_user_id) && lineState == 1){ //没有包含用户id
 					userIdArray.push(msg.third_party_user_id);
 					viewJoinleaveRoomInfo(msg, "join");
 				}
 			})
 			window.chat.leave(function(msg) {
-				if(isInArray(userIdArray,msg.third_party_user_id)){ //包含有
+				if(isInArray(userIdArray,msg.third_party_user_id) && lineState == 1){ //包含有
 					userIdArray.remove(msg.third_party_user_id);
 					viewJoinleaveRoomInfo(msg, "leave");
 				}
@@ -309,6 +310,18 @@ function msgList(pos, limit) {
 				$("#chatmsg").html(e);
 			}
 		}
+		
+		
+	    /*
+         * 	当前用户进入直播间
+         */
+        if(!isInArray(userIdArray,vhallObj.accountId)  && lineState == 1){ //没有包含用户id
+			
+			userIdArray.push(vhallObj.accountId);
+			var msg = {nick_name:localStorage.name};
+   			viewJoinleaveRoomInfo(msg,"join");
+	    }
+		
 	});
 }
 
