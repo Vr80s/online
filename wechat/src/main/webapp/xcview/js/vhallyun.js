@@ -84,7 +84,15 @@ function elsBind() {
 						}else{
 							$("#record_none").text("直播结束，正在生成回放…");
 						}
-						$(".video_end_top2").show();
+						if (lineState == 3) {
+			                // 获取视频是否全屏
+			                if (VhallPlayer.isFyllscreen == true) {
+			                    location.reload();
+			                }else{
+			                    $(".video_end_top2").show();
+			                };
+			            };
+						
 					}else{
 						
 						$(".video_end_top0").hide();

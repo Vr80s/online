@@ -890,7 +890,7 @@ function doctorQuestioncliCk(){
         if (data.success) {
             if(data.resultObject.length == 0){
                 $('.doctorQuestion').removeAttr('onclick');
-                $(".doctorQuestion").html("没有更多内容了！");
+                $(".doctorQuestion").html("已全部加载完成");
             }else {
                 pageNumber++;
                 $('.QA_main').append(template('QA_main_id', {items: data.resultObject}));
