@@ -1,11 +1,12 @@
 var courseId = getQueryString("courseId");
-courseId = 814;
+courseId = 905;
 var barrageData = [];
 var SixHide = 0;
 var cuurentDate = getNowFormatDate();
 var pageNumber = 1;
+var isQuestion = "";
 $(function(){
-
+    getAccessToken();
     //getcontentList(pageNumber);
 
 });
@@ -23,9 +24,54 @@ function getcontentList(pageNumber) {
     });
 
 }
+//获取课程accessToken
+function getAccessToken() {
+    requestGetService("/xczh/course/live/audio/courseLiveAudioAccessToken/"+courseId,null,function (data) {
+        if (data.success == true) {
+            var result = data.resultObject;
+            appId = result.appId;
+            accountId = result.accountId;
+            token = result.accessToken;
+            //配置初始化
+            Vhall.config({
+                appId : result.appId,//应用 ID ,必填
+                accountId : result.accountId,//第三方用户唯一标识,必填
+                token : result.accessToken,   //token必填
+                channelId: result.channelId
+            });
+            window.chat = new VhallChat({
+                channelId: result.channelId //频道Id
+            });
+            window.chat.onCustomMsg(function (msg) {
+                msg = JSON.parse(msg);
+                renderMsg(msg)
+            });
+
+        }
+    },false);
+
+}
+
+//获取讨论内容列表
+function getcontentList(pageNumber,downOrUp) {
+    if($(".problem_label_put").is(':checked')) {
+        isQuestion = true;
+    }
+    requestGetService("/xczh/course/live/audio/courseLiveAudioDiscussion/"+courseId,{
+        courseId:courseId,
+        question:isQuestion,
+        pageNumber:pageNumber
+    },function (data) {
+        if (data.success == true) {
+            var obj = data.resultObject.records;
+            $(".comment_area_main").html(template('comment_area_list',{items:obj}));
+        }
+    });
+
+}
 
 //发送讨论内容
-function sendContent() {
+function sendDiscussion() {
     var question = false;
     if($(".radio_put").is(':checked')) {
         question = true;
@@ -33,13 +79,13 @@ function sendContent() {
     var content = $("#chat_put").val();
     var courseLiveAudioContent = {
         "courseId": courseId,
-        "courseLiveAudioDiscussionVO": {question:question},
+        "question": question,
         "contentType": 1,
         "content": content
     };
     $.ajax({
         type: "post",
-        url: "/xczh/course/live/audio/courseLiveAudioContent",
+        url: "/xczh/course/live/audio/courseLiveAudioDiscussion",
         data:JSON.stringify(courseLiveAudioContent),
         contentType:"application/json",
         async:false,
@@ -106,12 +152,12 @@ function biubiubiu(){
 
 // 顯示發送內容
 function showList(text){
-    var _html = `<div class="msgItem">
-					<div class="text"><span class="ask">问</span>${text.content}</div>
-					<div class="avatar">			
-						<img src="/xcview/images/touxiang.png" />
-					</div>
-				</div>`
+    var _html = '<div class="msgItem">'+
+					'<div class="text"><span class="ask">问</span>${text.content}</div>'+
+                    '<div class="avatar">'+
+                    '<img src="/xcview/images/touxiang.png" />'+
+                    '</div>'+
+                    '</div>'
     $(".msgCont").append(_html)
 }
 

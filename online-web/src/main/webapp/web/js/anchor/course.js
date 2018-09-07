@@ -1142,7 +1142,10 @@ function initAlbumNoExitCourse(id,collectionId,multimediaType){
         collectionCourseListQuickly = courses;
         
         for(var i=0;courses.length>i;i++){
+        	
             str += "<option value='"+courses[i].id+"'>"+courses[i].title+"</option>";
+            
+            
         }
         $("#select-add").html(str);
         
@@ -1988,23 +1991,28 @@ function validateResource(){
     }
     return true;
 }
-//TODO
 /**
  * Description：初始化资源下拉框
  * creed: Talk is cheap,show me the code
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 2018/2/2 0002 下午 9:09
  **/
+var resources
 function initResource(multimediaType,nv){
-	debugger;
     RequestService("/anchor/course/getAllCourseResources?multimediaType="+multimediaType, "get", null, function(data) {
-        var resources = data.resultObject;
+        resources = data.resultObject;
         var str = "";
         if(nv){
             str="<option value=''>选择一个视频</option>";
         }
         for(var i=0;resources.length>i;i++){
-            str += "<option value='"+resources[i].id+"'>"+resources[i].title+"</option>";
+        	if (resources[i].length== null || resources[i].length== ""  || resources[i].length== -1) {
+        		 str += "<option disabled='disabled' style='background:#ececec;' value='"+resources[i].id+"' data-length='"+resources[i].length+"'>"+resources[i].title+" 转码中</option>";
+       
+        	}else{
+        		str += "<option value='"+resources[i].id+"' data-length='"+resources[i].length+"'>"+resources[i].title+"</option>";
+        	}
+            
         }
         $("#id_select").html(str);
         $('.course_resource').selectpicker('refresh');
@@ -2016,10 +2024,21 @@ function initResource(multimediaType,nv){
         $('.selectpicker').selectpicker({
             'selectedText': 'cat',size:10
         });
+        resourcesSelect()
     },false);
 }
 
-
+function resourcesSelect(){
+		var resourcesValue=$("#id_select").val();
+		for(var i=0;resources.length>i;i++){
+			if (resources[i].id== resourcesValue) {
+				$(".course_length").val(resources[i].length);
+				return false
+			}else{
+				$(".course_length").val("");
+			}
+		}
+	}
 
 
 /**

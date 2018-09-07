@@ -155,7 +155,7 @@ $(function () {
 		         	if (data.success==true) {
 		         		watchState=data.resultObject.watchState;
 		         		type=data.resultObject.type;
-		         		collection=data.resultObject.collection ? 0 : 1;
+		         		collection=data.resultObject.collection ? 1 : 0;
 		         		realCourseId=data.resultObject.id;
 						learning=data.resultObject.learning;
 						cutoff=data.resultObject.cutoff;
