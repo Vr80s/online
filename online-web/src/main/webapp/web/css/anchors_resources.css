@@ -248,6 +248,9 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 .shopping_box .shopping-list-top ul li{
 	float: left;
 }
+.shopping_box .shopping-list-top ul li p{
+	margin: 0;
+}
 .shopping_box .shopping-list-top ul li:nth-child(1){
 	width: 118px;
 	background: pink;
@@ -255,6 +258,26 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 	line-height: 40px;
 	text-align: center;
 }
+.shopping_box .shopping-list-top ul li:nth-child(2){
+	width: 220px;
+	background: palegoldenrod;
+	color: #666666;
+	line-height: 40px;
+	text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
