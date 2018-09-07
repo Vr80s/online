@@ -177,7 +177,12 @@
 												{{each items as item i}}																							
 												<div class="course clearfix">
 													{{if item.type == 1 || item.type == 2 || item.type == 4 }}
-													<a style="cursor:pointer" href="/courses/{{item.id}}/info" target="_blank">
+														{{if item.collection == true}}
+															<a style="cursor:pointer" href="/courses/{{item.collectionId}}/info" target="_blank">
+														{{else}}
+															<a style="cursor:pointer" href="/courses/{{item.id}}/info" target="_blank">
+														{{/if}}
+													
 													{{else if item.type == 3}}
 														{{if item.lineState == 1 || item.lineState == 4}}
 														 <a style="cursor:pointer" href="/web/liveCoursePage/{{item.id}}" target="_blank">		

@@ -59,6 +59,7 @@ $("#filter-msg").on("click", function() {//只看主办方消息
     }
 })
 
+var userIdArray = [];
 
 if(liveStatus == 1 || liveStatus == 3){
     //初始化 微吼云播放器 
@@ -78,6 +79,7 @@ function initVideo(){
       window.doc = new VhallDocPassive({
         channelId:vhallObj.channelId, //频道Id
         docNode:docNode,//文档显示节点div id
+        showLastPage:true,
         width:320,
         height:180
       });
@@ -113,39 +115,6 @@ function initVideo(){
          token:vhallObj.token//token必填
     });
 }
-
-
-/**
- * 获取当前网络状态
- * 	@return {int}  
- * 0:音频/视频尚未初始化,
- * 1:音频/视频是活动的且已选取资源，但并未使用网络,
- * 2:浏览器正在下载数据,
- * 3:未找到音频/视频来源
- */
-//var falgNetWorkstate  = 0;
-//setInterval(function(){
-//	try{
-//		var netWorkstate = VhallPlayer.getNetworkState();
-//		if(netWorkstate ==3 ){
-//			falgNetWorkstate++;
-//		}
-//    	if(falgNetWorkstate>2){
-//    		$(".playback").attr("type",21);
-//    		$(".playback div").hide();
-//        	$(".media-error").show();
-//        	$(".playback").show();
-//    	}
-//    	if(netWorkstate != 2){
-//    		console.error("netWorkstate："+netWorkstate);
-//    	}
-//	}catch(error){
-//	 	console.log(error);
-//	 	if(initVideoFalg !=1){
-//	 		initVideo();
-//	 	}
-//	}
-//},1000)
 
 
 function elsBind(){
@@ -274,7 +243,6 @@ function elsBind(){
 //            viewJoinleaveRoomInfo(msg,"leave");
 //        })
         
-        var userIdArray = [];
 		window.chat.join(function(msg) {
 			if(!isInArray(userIdArray,msg.third_party_user_id)  && liveStatus == 1){ //没有包含用户id
 				userIdArray.push(msg.third_party_user_id);
@@ -413,10 +381,21 @@ function msgList(pos,limit){
              	 $("#chatmsg").html(e);
              	 $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom");
              }
-        } 	
+        }
+        
+        /*
+         * 	当前用户进入直播间
+         */
+        if(!isInArray(userIdArray,userInfo.id)  && liveStatus == 1){ //没有包含用户id
+			userIdArray.push(userInfo.id);
+			var msg = {nick_name:userInfo.name};
+   			viewJoinleaveRoomInfo(msg,"join");
+	    }
+        
+       
   });      	
 }
-msgList(0,100);
+//msgList(0,100);
 
 
 
