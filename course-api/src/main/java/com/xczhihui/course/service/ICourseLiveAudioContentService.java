@@ -1,12 +1,13 @@
 package com.xczhihui.course.service;
 
 
-import java.util.List;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.course.vo.CourseLiveAudioContentVO;
 import com.xczhihui.course.vo.CourseLiveAudioDiscussionVO;
 import com.xczhihui.course.vo.CourseLiveAudioPPTVO;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -28,7 +29,7 @@ public interface ICourseLiveAudioContentService {
 
     Page<CourseLiveAudioContentVO> selectCourseLiveAudioContentByCourseId(Page page, String endTime, Integer courseId);
 
-    Page<CourseLiveAudioDiscussionVO> selectCourseLiveAudioDiscussionByCourseId(Page page, String endTime, Integer courseId);
+    Page<CourseLiveAudioDiscussionVO> selectCourseLiveAudioDiscussionByCourseId(Page page, String endTime, Integer courseId, Boolean question);
 
     void deleteCourseLiveAudioContent(String accountId, Integer courseLiveAudioContentId) throws Exception;
 
@@ -40,7 +41,7 @@ public interface ICourseLiveAudioContentService {
 
     List<CourseLiveAudioPPTVO> selectCourseLiveAudioPPTsByCourseId(Integer courseId);
 
-    String getCourseLiveAudioAccessToken(Integer courseId, String accountId) throws Exception;
+    Map<String, Object> getCourseLiveAudioAccessToken(Integer courseId, String accountId) throws Exception;
 
     void stop(String accountId, Integer courseId);
 

@@ -412,7 +412,7 @@ $(".footer_bg").click(function(){
     };
 });*/
 
-//init();  /*默认方法--可用于判断是否回放*/
+init();  /*默认方法--可用于判断是否回放*/
 // 弹幕开始
 var data = ['你好世界','世界你好','啊啊啊哈哈哈哈'];  //定义最后3条
 var SixHide = 0;
@@ -510,6 +510,7 @@ $(".chat_all").click(function(){
     $(".barrage_switch").hide();  /*弹幕隐藏*/
     $(".chat").addClass("chats");  /*增加input长度*/
     $(".chat_put").addClass("chat_puts");   /*增加input外div长度*/
+    getcontentList(1,"down");
 });
 
 // 点击只看問題
