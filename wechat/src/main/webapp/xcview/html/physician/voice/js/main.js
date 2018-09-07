@@ -412,12 +412,12 @@ $(".footer_bg").click(function(){
     };
 });*/
 
-init();  /*默认方法--可用于判断是否回放*/
+//init();  /*默认方法--可用于判断是否回放*/
 // 弹幕开始
 var data = ['你好世界','世界你好','啊啊啊哈哈哈哈'];  //定义最后3条
 var SixHide = 0;
 
-function init(){
+/*function init(){
     setInterval(function(){
         // console.log(data)
         biubiubiu()     
@@ -430,7 +430,7 @@ function init(){
             }
         }
     },1000)
-}
+}*/
 
 // 点击发送
 function sendMsgBtn(){
@@ -461,7 +461,7 @@ function showList(text){
 }
 
 // 发送內容后移除前面的內容
-function biubiubiu(){
+/*function biubiubiu(){
     if(data == ''){             
         return
     }
@@ -473,7 +473,7 @@ function biubiubiu(){
         var _tempText =  data.pop()
         showList(_tempText) 
     }       
-}
+}*/
 // 弹幕结束
 
 // 点击全部评论的开关按钮
