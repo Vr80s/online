@@ -184,7 +184,14 @@ function go_play_hos_collection(course_id,collection_id,obj){
  */
 function go_play_hos(type,collection,id){
 	if(type ==3){ //直播
-		location.href="/page/course/"+id
+		
+		requestService("/xczh/course/userCurrentCourseStatus?courseId=" + id, null, function (data) {
+			
+			if(data.success){
+			    var userPlay = data.resultObject;
+		        livePlay(id,userPlay.watchState,userPlay.lineState);
+		    }
+		})
 	}else if((type ==1 || type ==2) && !collection){ //课程页面
 		location.href="live_audio.html?my_study="+id
 	}else if(type ==4){								 //线下培训班
@@ -193,4 +200,49 @@ function go_play_hos(type,collection,id){
 		location.href="live_select_album.html?course_id="+id
 	}
 }
+
+
+function livePlay(id, watchState,lineState) {
+	
+//付费的
+    if (watchState == 0) {
+        location.href = "/xcview/html/school_play.html?course_id=" + id + "&type=" + 1
+    }
+    
+//免费的    直播跳转      
+    else if (watchState == 1 && (lineState == 1 ||  lineState == 3)) {  //直播中  或 直播 预告
+    	
+        requestService("/xczh/history/add", {courseId: id, recordType: 2}, function (data) {
+            console.log("增加观看记录");
+        });
+        requestService("/xczh/history/add", {courseId: id, recordType: 1}, function (data) {
+            console.log("增加学习记录");
+        });
+        
+        location.href = "/xcview/html/details.html?courseId=" + id
+//免费 的直播预告   
+    } else if (watchState == 1 && lineState != 1 && lineState != 3) { //先去直播详情页  ---》在去直播间
+        requestService("/xczh/history/add", {courseId: id, recordType: 1}, function (data) {
+            console.log("增加学习记录");
+        });
+        location.href = "/xcview/html/live_play.html?my_study=" + id;
+    }
+    
+//购买后的直播和即将直播跳直播间   school_play.html?course_id=2207&type=1
+    else if(watchState==2 && (lineState == 1 ||  lineState == 3)){
+     	 //增加学习记录
+         requestService("/xczh/history/add",
+            {courseId:id,recordType:1}
+            ,function(data) {
+         }) 
+            
+         location.href="/xcview/html/details.html?courseId="+id      
+         
+    }else if(watchState==2 &&  lineState != 1 && lineState != 3){
+    	
+     	location.href="/xcview/html/school_play.html?course_id="+id;
+    }
+}
+
+
 //搜索历史播放结束
