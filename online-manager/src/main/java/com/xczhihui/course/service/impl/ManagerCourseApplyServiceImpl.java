@@ -30,6 +30,7 @@ import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.ApplyStatus;
 import com.xczhihui.common.util.enums.CourseDismissal;
 import com.xczhihui.common.util.enums.CourseForm;
+import com.xczhihui.common.util.enums.LiveCaseType;
 import com.xczhihui.common.util.enums.MessageTypeEnum;
 import com.xczhihui.common.util.enums.Multimedia;
 import com.xczhihui.common.util.enums.RouteTypeEnum;
@@ -496,6 +497,8 @@ public class ManagerCourseApplyServiceImpl extends OnlineBaseServiceImpl impleme
             courseService.addCourseCity(course.getCity());
         } else if (course.getType() == CourseForm.LIVE.getCode()) {
             course.setStartTime(courseApply.getStartTime());
+            course.setLiveCase(LiveCaseType.NORMAL_LIVE.getCode());
+            
             if (course.getRecord() == null) {
                 course.setRecord(true);
             }
@@ -504,6 +507,7 @@ public class ManagerCourseApplyServiceImpl extends OnlineBaseServiceImpl impleme
                     course.setDirectId(RoomService.create());
                     // 将直播课设置为预告
                     course.setLiveStatus(2);
+                    
                 }
                 if (StringUtils.isBlank(course.getChannelId())) {
                     course.setChannelId(ChannelService.create());
