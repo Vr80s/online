@@ -60,6 +60,8 @@
 			self.ok.innerText = self.options.buttons[1];
 			self.cancel.addEventListener('tap', function(event) {
 				self.hide();
+				var hide = document.querySelector(".birthplace_bg");
+				hide.style.display="none";  //html里面添加了背景色
 			}, false);
 			self.ok.addEventListener('tap', function(event) {
 				if (self.callback) {
@@ -68,6 +70,8 @@
 						self.hide();
 					}
 				}
+				var hide = document.querySelector(".birthplace_bg");
+				hide.style.display="none";  //html里面添加了背景色
 			}, false);
 			self.mask[0].addEventListener('tap', function() {
 				self.hide();
