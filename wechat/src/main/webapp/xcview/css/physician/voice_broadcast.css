@@ -343,6 +343,8 @@ body{
     background: #fff;
     position: fixed;
     top: 4.24rem;
+    left: 50%;
+    margin-left: -3.75rem;
     padding-bottom: 1rem;
     overflow-y: scroll;
     z-index: 99999991;
@@ -356,6 +358,8 @@ body{
     margin-bottom: 0.2rem;
     position: fixed;
     top: 4.24rem;
+    left: 50%;
+    margin-left: -3.75rem;
 }
 .comment_area_problem_left{
     width: 3rem;
@@ -410,13 +414,24 @@ body{
     height: 0.98rem;
 }
 .comment_area_main{
-    border-bottom: 1px solid #F0F0F0;
+    /* border-bottom: 1px solid #F0F0F0; */
     margin-top: 0.2rem;
+    background: #fff;
 }
 .comment_area_cen{
-    width: 6.98rem;
+    /*width: 6.98rem;*/
+    width: 100%;
     height: 100%;
     margin: 0 auto;
+    padding-left: 0.26rem;
+    margin-bottom: 0.2rem;
+    border-bottom: 1px solid #F0F0F0;
+    border-bottom: 1px solid #F0F0F0;
+}
+.comment_area_cen:last-child{
+    border: none;
+    margin-bottom: 0;
+    /*border-bottom: 1px solid red;*/
 }
 .criticism{
     width: 100%;
@@ -493,7 +508,9 @@ body{
     /*box-shadow: 0 -2px 4px 0 #F0F0F0;*/
     position: fixed;
     bottom: 0;
+    left: 50%;
     z-index: 99999999;
+    margin-left: -3.75rem;
     border-top: 1px solid #f0f0f0;
 }
 .footer_bg{
