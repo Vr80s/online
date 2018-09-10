@@ -85,15 +85,8 @@ function elsBind() {
 						}else{
 							$("#record_none").text("直播结束，正在生成回放…");
 						}
-						if (lineState == 3) {
-			                // 获取视频是否全屏
-			                if (VhallPlayer.isFyllscreen == true) {
-			                    location.reload();
-			                }else{
-			                    $(".video_end_top2").show();
-			                };
-			            };
 						
+						$(".video_end_top2").show();
 					}else{
 						
 						$(".video_end_top0").hide();
@@ -182,6 +175,17 @@ function initChat() {
 
 				} else if (msg.type == 13) { // 结束直播  --》  生成点播
 					
+					/**
+				     * 获取当前是否全屏
+				     * @return {bool}   是否全屏,true or false
+				     */
+					// VhallPlayer.isFullscreen();
+
+	                if (VhallPlayer.isFullscreen() == true) {
+	                    location.reload();
+	                    return;
+	                }
+		         
 					liveEndFalg = 13;
 					
 					if (record == false) {
@@ -432,5 +436,4 @@ function replaceEmoji(contents) {
 	}
 	return str;
 }
-
 
