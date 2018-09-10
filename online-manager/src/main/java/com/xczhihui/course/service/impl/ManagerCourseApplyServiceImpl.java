@@ -493,7 +493,7 @@ public class ManagerCourseApplyServiceImpl extends OnlineBaseServiceImpl impleme
             course.setStartTime(courseApply.getStartTime());
             course.setEndTime(courseApply.getEndTime());
             course.setCity(courseApply.getCity());
-            course.setRecord(false);
+            course.setRecord(true);
             
             // 添加城市管理
             courseService.addCourseCity(course.getCity());
@@ -523,7 +523,7 @@ public class ManagerCourseApplyServiceImpl extends OnlineBaseServiceImpl impleme
                 }
             }
         } else if (course.getType() == CourseForm.VOD.getCode()) {
-        	course.setRecord(false);
+        	course.setRecord(true);
             // yuruixin-2017-08-16
             // 课程资源
             course.setMultimediaType(courseApply.getMultimediaType());
