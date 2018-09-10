@@ -177,6 +177,20 @@ pre:after {
     display: block;
     margin-left: 0.26rem;
 }
+.my_right_img{
+	position: absolute;
+	right: 0;
+}
+.birthplace_bg{
+	width: 7.5rem;
+    height: 100%;
+    background: #000;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    opacity: 0.5;
+    display: none;
+}
 </style>
 <link href="/xcview/css/picker.css" rel="stylesheet" />
 
@@ -677,6 +691,7 @@ pre:after {
 	}
 	.attention_top{
 		width: 7.5rem;
+		z-index: 1;
 	}
 	.htmleaf-container{
 		width: 7.5rem;
@@ -917,7 +932,9 @@ pre:after {
 	
 	<!-- 修改密码结束 -->
 	<div style="text-align: center;color: red;margin-top: 20px;font-size: 14px;" id="errorMsg"></div>
-
+	<!-- 籍贯添加背景开始 -->
+	<div class="birthplace_bg"></div>
+	<!-- 籍贯添加背景结束 -->
 </body>
 
 <script src="/xcview/js/city.js"></script>
@@ -926,6 +943,15 @@ pre:after {
 <script src="/xcview/js/common/mui.poppicker.js"></script>
 
 <script>
+	// 点击选择地址  添加背景色
+	$("#showCityPicker").click(function(){
+		// $(".birthplace_bg").show();
+		if($('.mui-poppicker').is('.mui-active')){
+            $(".birthplace_bg").show();
+        }else{
+        	$(".birthplace_bg").hide();
+        }
+	});
 	
 	//去地址管理页面
 	function gotoAddress(){
