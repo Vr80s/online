@@ -29,7 +29,7 @@ public interface CourseLiveAudioDiscussionMapper extends BaseMapper<CourseLiveAu
     CourseLiveAudioDiscussionVO selectCourseLiveAudioDiscussionById(@Param("discussionId") Integer discussionId);
 
     @Select({"<script> " +
-            " SELECT ou.`small_head_photo` imgUrl,ou.`name`,clad.id,clad.is_anchor anchor,clad.`is_question` question,clad.`content_type` contentType,clad.`content`,clad.`likes`,clad.`create_time` createTime " +
+            " SELECT ou.`small_head_photo` imgUrl,ou.`name`,clad.id,clad.is_anchor anchor,clad.`is_question` question,clad.discussion_id discussionId,clad.`content_type` contentType,clad.`content`,clad.`likes`,clad.`create_time` createTime " +
             " FROM `oe_course_live_audio_discussion` clad JOIN `oe_user` ou ON clad.`user_id`=ou.id WHERE clad.course_id=#{courseId} " +
             "<if test='question != null'>" +
             " AND clad.is_question = true " +

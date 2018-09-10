@@ -1,24 +1,42 @@
 var courseId = getQueryString("courseId");
-courseId = 905;
+courseId = 814;
 var barrageData = [];
 var SixHide = 0;
-var cuurentDate = getNowFormatDate();
-var pageNumber = 1;
 var isQuestion = "";
 $(function(){
     getAccessToken();
-    //getcontentList(pageNumber);
+    getBarrageList();
 
 });
 
 //获取讨论内容列表
-function getcontentList(pageNumber) {
-    requestGetService("/xczh/course/live/audio/courseLiveAudioContent/"+courseId,{
+function getBarrageList() {
+    requestGetService("/xczh/course/live/audio/courseLiveAudioDiscussion/"+courseId,{
         courseId:courseId,
-        pageNumber:pageNumber
+        pageNumber:1,
+        pageSize:3
     },function (data) {
         if (data.success == true) {
-            barrageData = data.resultObject.records;
+            var records = data.resultObject.records;
+            for(var i=0;i<records.length;i++){
+                var msg = records[i];
+                var _html="<div class=\"msgItem\"> <div class=\"text\">";
+                if(msg.question) {
+                    _html+="<span class=\"ask\">问</span>"+msg.content+"</div>"+
+                        '<div class="avatar">'+
+                        '<img src='+msg.imgUrl+' />'+
+                        '</div>'+
+                        '</div>';
+                } else {
+                    _html+=msg.content+"</div>"+
+                        '<div class="avatar">'+
+                        '<img src='+msg.imgUrl+' />'+
+                        '</div>'+
+                        '</div>';
+
+                }
+                $(".msgCont").append(_html);
+            }
             init();
         }
     });
@@ -32,19 +50,26 @@ function getAccessToken() {
             appId = result.appId;
             accountId = result.accountId;
             token = result.accessToken;
+            window.Vhall.ready(function() {
+
+                window.chat = new VhallChat({
+                    channelId: result.channelId //频道Id
+                });
+                window.chat.onCustomMsg(function (msg) {
+                    msg = JSON.parse(msg);
+                    barrageData.push(msg);
+                    //renderMsg(msg)
+                    SixHide = 0;
+                    biubiubiu();
+                });
+            });
+
             //配置初始化
             Vhall.config({
                 appId : result.appId,//应用 ID ,必填
                 accountId : result.accountId,//第三方用户唯一标识,必填
                 token : result.accessToken,   //token必填
                 channelId: result.channelId
-            });
-            window.chat = new VhallChat({
-                channelId: result.channelId //频道Id
-            });
-            window.chat.onCustomMsg(function (msg) {
-                msg = JSON.parse(msg);
-                renderMsg(msg)
             });
 
         }
@@ -56,6 +81,8 @@ function getAccessToken() {
 function getcontentList(pageNumber,downOrUp) {
     if($(".problem_label_put").is(':checked')) {
         isQuestion = true;
+    } else {
+        isQuestion = "";
     }
     requestGetService("/xczh/course/live/audio/courseLiveAudioDiscussion/"+courseId,{
         courseId:courseId,
@@ -64,7 +91,22 @@ function getcontentList(pageNumber,downOrUp) {
     },function (data) {
         if (data.success == true) {
             var obj = data.resultObject.records;
-            $(".comment_area_main").html(template('comment_area_list',{items:obj}));
+
+            if(downOrUp=='down'){
+                if(obj.length==0){
+
+                }else{
+
+                }
+                // 列表
+                $(".comment_area_main").html(template('comment_area_list',{items:obj}));
+                miniRefresh.endDownLoading(true);// 结束下拉刷新
+            } else if(obj.length==0){
+                miniRefresh.endUpLoading(true);// 结束上拉加载
+            } else {
+                $(".comment_area_main").append(template('comment_area_list',{items:obj}));
+                miniRefresh.endUpLoading(false);
+            }
         }
     });
 
@@ -104,94 +146,91 @@ function sendDiscussion() {
         }
     });
 }
-//弹幕开始
+
+
+
+function renderMsg(msg) {
+    var _html="<div class=\"msgItem\"> <div class=\"text\">";
+    if(msg.body.question) {
+        _html+="<span class=\"ask\">问</span>"+msg.body.content+"</div>"+
+            '<div class="avatar">'+
+            '<img src='+msg.body.imgUrl+' />'+
+            '</div>'+
+            '</div>';
+    } else {
+        _html+=msg.body.content+"</div>"+
+            '<div class="avatar">'+
+            '<img src='+msg.body.imgUrl+' />'+
+            '</div>'+
+            '</div>';
+
+    }
+    $(".msgCont").append(_html)
+
+
+}
+
+
+
+//init();  /*默认方法--可用于判断是否回放*/
+// 弹幕开始
+var data = ['你好世界','世界你好','啊啊啊哈哈哈哈'];  //定义最后3条
+
+
 function init(){
-    setInterval(function(){
+    /*setInterval(function(){
+        // console.log(data)
         biubiubiu()
-    },1500)
+    },1500)*/
     setInterval(function(){
         if(barrageData == 0 ){
             SixHide++
-            if(SixHide == 6){ //设置发弹幕--6秒后移除    //SixHide == 0.5(時間，錯誤操作，時間小於0.5一直顯示彈幕)
+            if(SixHide == 6){ //设置发弹幕--6秒后移除    //SixHide == 0.5(时间，错误操作，时间小于0.5一直显示弹幕)
                 $(".msgCont").html('')
             }
         }
     },1000)
 }
 
-// 發送內容后移除前面的內容
+
+
+// 发送內容后移除前面的內容
 function biubiubiu(){
     if(barrageData == ''){
-        getcontentList(pageNumber);
-    } else {
-        for(var i=0;i<barrageData.length;i++){
-            if($(".msgCont .msgItem").length > 2){
-                $(".msgCont .msgItem").eq(0).remove()
-                var _tempText =  barrageData[i]; //出栈 最新的 后加入进来的弹幕
-                showList(_tempText)
-            }else{
-                var _tempText =  barrageData[i];
-                showList(_tempText)
-            }
-            if(barrageData.length == i+1){
-                cuurentDate = barrageData[i].createTime;
-                barrageData.length = 0;
-                pageNumber++
-                getcontentList(pageNumber);
+        return
+    }
+    if($(".msgCont .msgItem").length > 2){
+        $(".msgCont .msgItem").eq(0).remove()
+        var _tempText =  barrageData.pop()  //出栈 最新的 后加入进来的弹幕
+        renderMsg(_tempText)
+    }else{
+        var _tempText =  barrageData.pop()
+        renderMsg(_tempText)
+    }
+}
 
-            }
+
+//刷新
+// 初始化页码
+var page = 1;
+
+// miniRefresh 对象
+var miniRefresh = new MiniRefresh({
+    container: '#minirefresh',
+    down: {
+        //isLock: true,//是否禁用下拉刷新
+        callback: function () {
+            page = 1;
+            getcontentList(page,'down');
+
+        }
+    },
+    up: {
+        isAuto: false,
+        callback: function () {
+            page++;
+            getcontentList(page,'up');
         }
     }
-
-    /*if(barrageData.length <=0){
-        getcontentList();
-    }*/
-
-
-}
-
-// 顯示發送內容
-function showList(text){
-    var _html = '<div class="msgItem">'+
-					'<div class="text"><span class="ask">问</span>${text.content}</div>'+
-                    '<div class="avatar">'+
-                    '<img src="/xcview/images/touxiang.png" />'+
-                    '</div>'+
-                    '</div>'
-    $(".msgCont").append(_html)
-}
-
-// 点击发送--还原输入区域
-$(".transmit").click(function(){
-    var commentArea = $(".comment_area").css("display");  /*獲取全部評論顯示隱藏*/
-    if (commentArea == "block") {
-        $(".footer_bg").hide();
-    }else{
-        if($("#chat_put").val()==''){
-            jqtoast("输入内容不能为空");
-        }
-        sendContent();
-
-    };
-
 });
 
-
-//获取当前的日期时间 格式“yyyy-MM-dd HH:MM:SS”
-function getNowFormatDate() {
-    var date = new Date();
-    var seperator1 = "-";
-    var seperator2 = ":";
-    var month = date.getMonth() + 1;
-    var strDate = date.getDate();
-    if (month >= 1 && month <= 9) {
-        month = "0" + month;
-    }
-    if (strDate >= 0 && strDate <= 9) {
-        strDate = "0" + strDate;
-    }
-    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-        + " " + date.getHours() + seperator2 + date.getMinutes()
-        + seperator2 + date.getSeconds();
-    return currentdate;
-}

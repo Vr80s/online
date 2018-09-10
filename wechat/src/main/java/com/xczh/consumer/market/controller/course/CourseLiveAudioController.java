@@ -93,8 +93,8 @@ public class CourseLiveAudioController {
     }
 
     @RequestMapping(value = "courseLiveAudioDiscussion/{courseId}",method = RequestMethod.GET)
-    public ResponseObject courseLiveAudioDiscussionList(String endTime,Integer pageNumber,@PathVariable Integer courseId,Boolean question) throws Exception {
-        Page page = new Page(pageNumber == null?1:pageNumber,10);
+    public ResponseObject courseLiveAudioDiscussionList(String endTime,Integer pageNumber,Integer pageSize,@PathVariable Integer courseId,Boolean question) throws Exception {
+        Page page = new Page(pageNumber == null?1:pageNumber,pageSize == null?10:pageSize);
         return ResponseObject.newSuccessResponseObject(courseLiveAudioContentService.selectCourseLiveAudioDiscussionByCourseId(page,endTime,courseId,question));
     }
 
