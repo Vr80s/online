@@ -526,10 +526,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         if(course.getRecord()) {
             JSONObject job = new JSONObject();
             job.put("type", type);
-            job.put("message", message);
+            //安卓端需要用对象
+            job.put("message", ImmutableMap.of("content", "回放生成成功", "headImg", "", "username", "", "role", ""));
             MessageService.sendMessage(MessageService.CustomBroadcast, job.toJSONString(), course.getChannelId());
         }
     }
+    
 
     @Override
     public Integer updateCourseLiveStatus(String event, String roomId,String clientType) {
