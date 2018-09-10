@@ -263,9 +263,342 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 	background: palegoldenrod;
 	color: #666666;
 	line-height: 40px;
+	text-align: left;
+}
+.shopping_box .shopping-list-top ul li:nth-child(3){
+	width: 125px;
+	background: #a7a7a2;
+	color: #666666;
+	line-height: 40px;
 	text-align: center;
 }
+.shopping_box .shopping-list-top ul li:nth-child(4){
+	width: 100px;
+	background: palegreen;
+	color: #666666;
+	line-height: 40px;
+	text-align: center;
+}
+.shopping_box .shopping-list-top ul li:nth-child(5){
+	width: 120px;
+	background: palevioletred;
+	color: #666666;
+	line-height: 40px;
+	text-align: center;
+}
+.shopping_box .shopping-list-top ul li:nth-child(6){
+	width: 130px;
+	background: peachpuff;
+	color: #666666;
+	line-height: 40px;
+	text-align: center;
+}
+.shopping_box .shopping-list-top ul li:nth-child(7){
+	width: 100px;
+	background: burlywood;
+	color: #666666;
+	line-height: 40px;
+	text-align: center;
+}
+.shopping-list-content ul li{
+	width: 100%;
+	height: 80px;
+	border-bottom: 1px solid #dedede;
+	padding: 10px 0 10px 10px;
+}
+.shopping-list-content ul li .ware-menu-one{
+	width: 328px;
+	background: pink;
+	height: 100%;
+	overflow: hidden;
+}
+.shopping-list-content ul li .ware-menu-one .img-ware-show{
+	overflow: hidden;
+	width: 60px;
+	height: 60px;
+	margin-right: 20px;
+}
+.shopping-list-content ul li .ware-menu-one .img-ware-show img{
+	width: 100%;
+	height: 100%;
+}
+.shopping-list-content ul li .ware-menu-one .ware-name{
+	color: #188EEE;
+	margin: 8px 0 5px;
+	max-width: 245px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.shopping-list-content ul li .ware-menu-one .ware-price{
 
+	color: #F97B49;	
+}
+.page-view{
+	width: 125px;
+    background: skyblue;
+    height: 100%;
+    overflow: hidden;
+}
+.page-view p{
+	margin: 0;
+	padding-left: 22px;
+}
+.page-view p:nth-child(1){
+	margin: 7px 0 0;
+	margin-top: 9px;
+}
+.ware-stock{
+	width: 100px;
+    background: pink;
+    height: 100%;
+    text-align: center;
+    line-height: 60px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.total-sales{
+	width: 120px;
+    background: #ecdbde;
+    height: 100%;
+    text-align: center;
+    line-height: 60px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.creation-time{
+	width: 130px;
+    background: pink;
+    height: 100%;
+    text-align: center;
+    overflow: hidden;
+    word-break: break-word;
+    padding-top: 10px;
+}
+.order-number{
+	width: 100px;
+    background: #ecdbde;
+    height: 100%;
+    text-align: center;
+    line-height: 60px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+/*订单管理*/
+.order-management-wrap{
+	padding-top: 20px;
+}
+.order-search-num{
+	margin-bottom: 20px;
+}
+.order-search-num .left-tip{
+	width: 150px;
+	display: inline-block;
+    margin-right: 10px;
+    text-align: right;
+}
+
+.order-search-num .order-write-num{
+	width: 180px;
+    height: 36px;
+    border: 1px solid #f0f0f0;
+    padding-left: 5px;
+    outline: none;
+
+}
+.order-search-num .select-before-time{
+	padding: 2px 5px;
+	border: 1px solid #f0f0f0;
+	border-radius: 2px;
+	margin-left: 20px;
+	cursor: pointer;
+}
+.order-search-num button{
+	 background: #00BC12;
+    border-radius: 4px;
+    width: 92px;
+    height: 36px;
+    color: white;
+    border: 0;
+    outline: none;
+}
+
+.order-search-num .clear-order-commodity{
+	font-size: 14px;
+    color: #00BC12;
+    text-align: center;
+    margin-left: 30px;
+    cursor: pointer;
+}
+.ware-list-content{
+	padding: 0 20px 20px;
+	color: #666666;
+}
+ .goods-status ul {
+ 	overflow: hidden;
+ 	border-bottom: 1px solid #f0f0f0;
+ }
+ .goods-status ul li{
+ 	float: left;
+ 	cursor: pointer;
+ 	padding: 8px 20px
+}  
+
+.goods-status ul .active{
+   	background: #f0f0f0;
+}  
+.goods-top-menu{
+	width: 100%;
+	height: 40px;
+	background: #f0f0f0;
+	margin-bottom: 20px;
+}
+
+.goods-top-menu ul li{
+	float: left;
+	line-height: 40px;
+}
+.goods-top-menu ul li:nth-child(1){
+	margin: 0 230px 0 30px
+}
+.goods-top-menu ul li:nth-child(2){
+	margin-right: 50px
+}
+.goods-top-menu ul li:nth-child(3){
+	margin-right: 80px
+}
+.goods-top-menu ul li:nth-child(4){
+	margin-right: 70px
+}
+.goods-top-menu ul li:nth-child(5){
+	margin-right: 70px
+}
+.goods-top-menu ul li:nth-child(6){
+	margin-right: 50px
+}
+.goods-bottom-list ul li{
+	border: 1px solid #dedede;
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+.goods-bottom-list ul .order-num-list{
+	height: 30px;
+	padding-left: 20px;
+	background: #f0f0f0;
+	line-height: 30px;
+	margin-bottom: 0;
+}
+.goods-bottom-list ul .goods-inf-list{
+	width: 355px;	
+	margin-left: 10px
+}
+.goods-bottom-list ul .all-order-wrap{
+	margin: 20px 0;
+	overflow: hidden;
+}
+.goods-bottom-list ul .goods-list-content{
+	border-right: 1px solid #f0f0f0;
+	border-bottom: 1px solid #f0f0f0;
+	padding: 20px 0;
+	overflow: hidden;
+}
+.goods-bottom-list ul .goods-inf-img {
+	width: 60px;
+	height: 60px;
+}
+.goods-bottom-list ul .goods-inf-img img{
+	width:100%;
+	height:100%;	
+}
+.goods-bottom-list ul .goods-inf-name {
+	margin-top: 10px;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.goods-bottom-list ul .goods-inf-name p{
+	margin-bottom: 0;
+	width: 180px;
+	max-width: 240px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    float: left;
+
+}
+
+.goods-bottom-list ul .goods-inf-name span{
+    float: right;
+    width: 100px;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.select-order-num {
+	width: 100px;
+	text-align: center;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.ware-after-sale{
+	width: 100px;
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+}
+.ware-Buyer{
+	width: 106px;
+    text-align: center;
+    height: 60px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-top: 10px;
+}
+.ware-Buyer p{
+	margin-bottom: 0;
+}
+.order-time-inf{
+	width: 123px;
+    text-align: center;
+    height: 60px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-top: 10px;
+}
+.order-time-inf p{
+	margin-bottom: 0;
+}
+.order-status-time{
+    width: 134px;
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.amount-payment{
+	width: 75px;
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #F97B49;
+}
+.comment-list-style{
+	height: 100px;
+	line-height: 100px;
+	padding-top: 0;
+}
 
 
 

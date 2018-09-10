@@ -1642,11 +1642,14 @@ function btnColorReply(){
 	        'selectedText': 'cat',size:10
 	});
 
-//健康好货开始
+//	健康好货开始  我的商品
 
 
-
-
+//	我的订单
+$(".goods-status ul li").click(function(){
+	$(".goods-status ul li").removeClass("active");
+	$(this).addClass("active");
+})
 
 
 
