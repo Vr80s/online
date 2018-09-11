@@ -115,6 +115,25 @@ requestService("/xczh/course/liveDetails",{
 			$(".btn1").hide()
 		}
 		
+        $(".memory_lujin").click(function(){
+            var memory_data=$(this).attr("data-memory")
+            requestService("/xczh/history/add",
+            {courseId:memory_data,recordType:2},function(data) {
+                
+            })
+            // multimediaType 1视频直播 2音频直播
+            if(data.resultObject.multimediaType == 2){
+                window.location.href="/xcview/html/physician/voice_broadcast.html?courseId="+course_id;
+            }else{
+                requestService("/xczh/manager/home",null,function(data) {
+                    if (data.resultObject.appointmentInfoId !=null) {
+                        window.location.href="salon.html?courseId="+course_id;
+                    }else{
+                        window.location.href="details.html?courseId="+course_id;
+                    };
+                })
+            };
+        })
 		
 },false);
 
@@ -123,17 +142,17 @@ requestService("/xczh/course/liveDetails",{
 
     
   // 点击播放记下记录
-	$(".memory_lujin").click(function(){
+	/*$(".memory_lujin").click(function(){
 		var memory_data=$(this).attr("data-memory")
 		requestService("/xczh/history/add",
 		{courseId:memory_data,recordType:2},function(data) {
 			
 		})	
-		/*if (resultObject.lecturerDescription.appointmentInfoId !=null) {
+		if (resultObject.lecturerDescription.appointmentInfoId !=null) {
             window.location.href="salon.html?courseId="+course_id;
         }else{
             window.location.href="details.html?courseId="+course_id;
-        };*/
+        };
         requestService("/xczh/manager/home",null,function(data) {
             if (data.resultObject.appointmentInfoId !=null) {
                 window.location.href="salon.html?courseId="+course_id;
@@ -141,10 +160,8 @@ requestService("/xczh/course/liveDetails",{
                 window.location.href="details.html?courseId="+course_id;
             };
         })  
-
-
 		// window.location.href="details.html?courseId="+course_id;
-	})
+	})*/
 
 
 
