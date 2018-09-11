@@ -68,6 +68,13 @@
 	.li_list{
 		/*background: yellow;*/
 	}
+	.microphones{
+		width: 0.3rem;
+	    height: 0.3rem;
+	    position: absolute;
+	    left: 0.1rem;
+	    top: 0.1rem;
+	}
 </style>
 </head>
 <body style="background: #F8F8F8;display: none;">
@@ -234,43 +241,63 @@
             	<!--swiper推荐名师结束-->
 				
             	<!--语音直播开始-->
-            	<div class="voice_broadcast" style="display:none;">
+            	<div class="voice_broadcast">
+            		<script type="text/html" id="voice_broadcast_main">
             		<div class="voice_broadcast_title careful_class">
-            			语音直播
+            			<span></span>
             			<img src="/xcview/images/video_review.png" alt="" />
             		</div>
             		<div class="voice_broadcast_main">
+            			
+						{{each items as item i}}
+						{{if item.type == 1 || item.type == 2 || item.type == 4}}
+	                					 
+                    		<a class="onClickA" onclick="common_jump_all({{item.id}})"></a>
+							<a class="onClickA" onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection?1:0}},{{item.id}})"></a>
+                		{{else if item.type == 3}}
+							<a class="onClickA" onclick="common_jump_all({{item.id}})"></a>
+    					{{/if}}
+
             			<div class="voice_broadcast_list">
             				<div class="list_surface_plot">
-            					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+            					<img src="{{item.smallImgPath}}" alt="" class="surface_plot" />
+            					<img src="/xcview/images/microphones.png" class="microphones" />
+            					{{if item.lineState == 1}}
             					<div class="identifying">直播中</div>
+            					{{/if}}
             				</div>
             				<div class="voice_broadcast_center">
-	            				<div class="title">郝万山《伤寒论》讲解伤寒论二期报名</div>
-	            				<div class="charge"><span>9000</span>熊猫币</div>
-	            				<!-- <div class="charge"><span>免费</span></div> -->
-	            			</div>
-            			</div>
-            			<div class="voice_broadcast_list">
-            				<div class="list_surface_plot">
-            					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-            					<!-- <div class="identifying">直播中</div> -->
-            				</div>
-            				<div class="voice_broadcast_center">
-	            				<div class="title">郝万山《伤寒论》讲解伤寒论二期报名</div>
-	            				<!-- <div class="charge"><span>9000</span>熊猫币</div> -->
+	            				<div class="title">{{item.gradeName}}</div>
+	            				{{if item.watchState == 1}}
 	            				<div class="charge"><span>免费</span></div>
+	            				{{else}}
+	            				<div class="charge"><span>{{item.currentPrice}}</span>熊猫币</div>
+	            				{{/if}}
 	            			</div>
             			</div>
+            			{{/each}}
             			
             		</div>
+            		</script>
             	</div>
+            	<!-- <div class="voice_broadcast_list">
+        				<div class="list_surface_plot">
+        					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+        					<div class="identifying">直播中</div>
+        				</div>
+        				<div class="voice_broadcast_center">
+            				<div class="title">郝万山《伤寒论》讲解伤寒论二期报名</div>
+            				<div class="charge"><span>9000</span>熊猫币</div>
+            				<div class="charge"><span>免费</span></div>
+            			</div>
+        			</div> -->
             	<!--语音直播结束-->
 
             	<!--精品课程开始-->
             	<div class="first_box"></div>
             	<script type="text/html" id="shipin">
-						{{each items as item i}} 
+
+				{{each items as item i}}
             	<div class="acupuncture">
             		<div class="boutique_title careful_class" menuType="{{item.menuType}}">{{item.title}}<img src="/xcview/images/video_review.png" alt="" style="width: 0.15rem;margin-right: 0.26rem;float: right;margin-top: 0.08rem;" /></div>
             		<div class="boutique_main">
@@ -282,22 +309,12 @@
                 					<!--watchState，1免费、0收费-type，1-视频、2-音频、3-直播、4-线下培训班   collection:1-专辑   -->
                 					
 	                    			
-			          	{{if item.type == 1 || item.type == 2 || item.type == 4}}
+			          				{{if item.type == 1 || item.type == 2 || item.type == 4}}
 	                					 
-			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
-													onclick="common_jump_all({{item.id}})"></a>
-
-
-<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
-												onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection?1:0}},{{item.id}})"></a>
-		                    			
+			                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_all({{item.id}})"></a>
+										<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection?1:0}},{{item.id}})"></a>
 		                    		{{else if item.type == 3}}
-		                    			
-		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
-													onclick="common_jump_all({{item.id}})"></a>
-		                    			
-		                    			
-		                    			
+										<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_all({{item.id}})"></a>
                 					{{/if}}
 
 
