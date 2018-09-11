@@ -275,6 +275,7 @@
     height: 1.2rem;
     /*background: #ccc;*/
     margin-bottom: 0.2rem;
+    position: relative;
 }
 .list_surface_plot{
     width: 2.13rem;

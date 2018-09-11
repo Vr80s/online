@@ -250,15 +250,16 @@
             		<div class="voice_broadcast_main">
             			
 						{{each items as item i}}
-						{{if item.type == 1 || item.type == 2 || item.type == 4}}
-	                					 
-                    		<a class="onClickA" onclick="common_jump_all({{item.id}})"></a>
-							<a class="onClickA" onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection?1:0}},{{item.id}})"></a>
-                		{{else if item.type == 3}}
-							<a class="onClickA" onclick="common_jump_all({{item.id}})"></a>
-    					{{/if}}
+						
 
-            			<div class="voice_broadcast_list">
+            			<div class="voice_broadcast_list" style="">
+            				{{if item.type == 1 || item.type == 2 || item.type == 4}}
+	                					 
+	                    		<a class="onClickA" onclick="common_jump_all({{item.id}})"></a>
+								<a class="onClickA" onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection?1:0}},{{item.id}})"></a>
+	                		{{else if item.type == 3}}
+								<a class="onClickA" onclick="common_jump_all({{item.id}})"></a>
+	    					{{/if}}
             				<div class="list_surface_plot">
             					<img src="{{item.smallImgPath}}" alt="" class="surface_plot" />
             					<img src="/xcview/images/microphones.png" class="microphones" />
