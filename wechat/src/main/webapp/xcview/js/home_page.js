@@ -173,9 +173,7 @@ function recommendSchool() {
     //精品课程
     requestService("/xczh/recommend/recommendCourse", null, function (data) {
         if (data.success == true) {
-
-//				console.log(data)
-            $(".first_box").html(template('shipin', {items: data.resultObject}))
+            $(".first_box").html(template('shipin', {items: data.resultObject}));
             $(".careful_class").click(function () {
                 var data_num = $(this).attr("menuType");
                 window.location.href = "/xcview/html/curriculum_table.html?menuType=" + data_num + "";
@@ -183,9 +181,21 @@ function recommendSchool() {
             var myHeight = $(".tjks").height();
             $(".gieTa").height(myHeight);
 
+            // 语音直播
+            var liveAudioCourse = data.resultObject.menuType;
+            if (liveAudioCourse == liveAudioCourse) {
+                $(".voice_broadcast").show();
+                $(".voice_broadcast").html(template('voice_broadcast_main', {items: data.resultObject[0].courseList}));
+                $(".voice_broadcast_title span").html(data.resultObject[0].title);
+                $(".first_box .acupuncture:first").hide();
+            };
+
         }
     })
     //推荐模块结束
+
+    
+    
 
 }
 

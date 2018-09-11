@@ -360,8 +360,15 @@
 	</div>
 	<!-- 底部结束 -->
 	<div class="show"></div>
-
+	<!-- 给底部一个高度--配合底部输入框 -->
 	<div class="main-height" style="height:6.4rem;width:100%;display: none;"></div>
+
+	<!-- 分享给的提示开始 -->
+	<div class="weixin_ceng">
+		<div class="weixin_ceng_bg"></div>
+		<div class="weixin_img"><img src="/xcview/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
+	</div>
+	<!-- 分享给的提示结束 -->
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
@@ -415,6 +422,16 @@
 <!-- 语音直播引用文件结束 -->
 
 <script>
+window.onload = function(){
+	// 点击分享按钮
+	$(".share").click(function(){
+		$(".weixin_ceng").show();
+	});
+	// 点击背景色
+	$(".weixin_img").click(function(){
+		$(".weixin_ceng").hide();
+	});
+
 	//聊天最大高度
 	var container_height=$(window).height()-$(".main-height").height();
 	$(".container").height(container_height);
@@ -428,6 +445,8 @@
 	$(".container .home").height(home_height);
 
 	// alert(main_height);
+};
+	
 </script>
 
 </html>

@@ -238,6 +238,7 @@
     background: #fff;
     margin-bottom: 0.2rem;
     margin-top: 0.2rem;
+    display: none;
 }
 .voice_broadcast_title{
     font-size: 0.32rem;
@@ -253,15 +254,28 @@
     margin-top: 0.08rem;
 }
 .voice_broadcast_main{
+    position: relative;
     width: 7rem;
     margin: 0 auto; 
     padding-bottom: 0.3rem;
+}
+.onClickA{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    display: block;
+    width: 7rem;
+    height: 1.12rem;
+    display: inline-table;
+    /*background: red;*/
 }
 .voice_broadcast_list{
     width: 100%;
     height: 1.2rem;
     /*background: #ccc;*/
     margin-bottom: 0.2rem;
+    position: relative;
 }
 .list_surface_plot{
     width: 2.13rem;
