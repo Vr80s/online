@@ -505,6 +505,9 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 	padding: 20px 0;
 	overflow: hidden;
 }
+.goods-bottom-list ul .goods-list-content:nth-last-child(1){
+	border-bottom: 0;
+}
 .goods-bottom-list ul .goods-inf-img {
 	width: 60px;
 	height: 60px;
@@ -599,6 +602,18 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 	line-height: 100px;
 	padding-top: 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
