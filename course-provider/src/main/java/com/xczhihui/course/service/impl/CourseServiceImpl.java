@@ -176,10 +176,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public List<CollectionCoursesVo> selectCoursesByCollectionId(Integer collectionId) {
         List<CollectionCoursesVo> courses = iCourseMapper.selectCoursesByCollectionId(collectionId);
         for (CollectionCoursesVo courseLecturVo : courses) {
-        	Double d = Double.valueOf(courseLecturVo.getCourseLength()) * 60;
-        	courseLecturVo.setCourseLength(
-        			com.xczhihui.common.support.cc.util.DateUtil.
-        			turnSecondsToTimestring(d.intValue()));
+        	try {
+        		if(courseLecturVo.getCourseLength()!=null) {
+            		Double d = Double.valueOf(courseLecturVo.getCourseLength()) * 60;
+                	courseLecturVo.setCourseLength(com.xczhihui.common.support.cc.util.DateUtil.turnSecondsToTimestring(d.intValue()));
+            	}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
         return courses;
     }

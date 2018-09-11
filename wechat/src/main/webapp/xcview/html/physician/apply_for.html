@@ -232,6 +232,12 @@
         }
 	});
 
+	// 点击背景色
+	$(".birthplace_bg").click(function(){
+        $('.mui-poppicker').removeClass("mui-active");
+        $(".birthplace_bg").hide();
+	});
+
 	// 选择地址
 	(function($, doc) {
 		$.init();
@@ -251,19 +257,6 @@
 				});
 			}, false);
 		});
-
-		/*if($('.mui-poppicker').is('.mui-active')){
-            $(".birthplace_bg").show();
-        }else{
-        	$(".birthplace_bg").hide();
-        }*/
-
-		/*$(".mui-btn").click(function(){
-			$(".birthplace_bg").hide();
-		});
-		$(".mui-poppicker-btn-cancel").click(function(){
-			$(".birthplace_bg").hide();
-		});*/
 
 
 	})(mui, document);
