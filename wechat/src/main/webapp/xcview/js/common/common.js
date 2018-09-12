@@ -278,8 +278,11 @@ function common_share_back() {
           alert(2222);
     }*/
 
+    var shareBack = getQueryString("shareBack");
+    
     if(isNotBlank(shareBack)){
         if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
+        	
             window.history.back();
         } else {
             window.location.href = "/xcview/html/physician/index.html";
@@ -293,12 +296,8 @@ function common_share_back() {
 
 function common_share_backs() {
     var back = document.referrer;
-    
-    var userId = localStorage.userId;
-    if (isNotBlank(userId) && userId == "c5f315df48c54110a8ae85ccb2e06c7b") {
-    	alert("back:"+back);
-    }
-
+   	var shareBack = getQueryString("shareBack");
+   	     
     if(isNotBlank(shareBack)){
         if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
             window.history.back();

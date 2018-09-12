@@ -246,7 +246,7 @@ $(function () {
                     }
                 });
             } else {
-                showTip("其他设备正在直播，请关闭后继续使用该设备进行直播");
+                showTip("其他设备正在直播，请关闭后继续使用本设备进行直播");
             }
         } else {
             confirmBox.open("提示", "确认结束当前直播吗?", function() {
