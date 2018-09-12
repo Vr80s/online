@@ -95,7 +95,7 @@
 	<!-- 头部开始 -->
 	<div class="voice_broadcast_top">
 		<div class="header">
-			<div class="header_return">
+			<div class="header_return" onclick="javascript:history.go(-1);">
 				<img src="/xcview/images/anchorj.png" alt="" />
 			</div>
 			<div class="share">
@@ -133,10 +133,19 @@
 				<div class="anchor_message_name">{{items.name}}</div>
 				<div class="anchor_message_number">{{items.learndCount}}人<span class="subscribe">预约</span><span class="live_streaming"><div class="live_streaming_dot"></div>直播中</span></div>
 			</div>
-			<div class="booking_person booking_person_bg">
-				<img src="/xcview/images/weigz.png" alt="" />
-				<p>加关注</p>
-			</div>
+			<!--0 未关注 1 关注 -->
+			{{if items.isFocus == 1}}
+				<div class="booking_person booking_person_bg">
+					<img src="/xcview/images/weigz.png" alt="" />
+					<p>00加关注</p>
+				</div>
+			{{else}}
+				<div class="booking_person booking_person_bg" style="    background: rgb(187, 187, 187);">
+					<img src="/xcview/images/yigz.png" alt="" />
+					<p>已关注</p>
+				</div>
+			{{/if}}
+			
 			</script>
 		</div>
 	</div>

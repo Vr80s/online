@@ -34,6 +34,15 @@ function getFlagStatus() {
 /**
 头部课件区域渲染
 **/
+
+function my_follow(teacherId, type) {
+    requestService("/xczh/myinfo/updateFocus", {
+        lecturerId: teacherId,
+        type: type
+    }, function (data) {
+    })
+}
+
 requestService("/xczh/course/liveDetails",{courseId:courseId},function (data) {
     if (data.success == true) {
         
@@ -63,15 +72,15 @@ requestService("/xczh/course/liveDetails",{courseId:courseId},function (data) {
 
         // 点击关注
         // $(".booking_person").click(function(){
-        $('.attention_main').on('click','.booking_person',function(){
+        /*$('.attention_main').on('click','.booking_person',function(){
             teacherId = data.resultObject.userLecturerId; // 讲师Id
             //type 1 增加关注 2 取消关注
-            var type = 1;
+            // var type = 1;
             var htmlstr = $(".booking_person").find('p').html();
             if (htmlstr == "加关注") { // 增加关注
-                type = 2;
+                type = 1;   //1 增加关注
             } else {
-                type = 1;
+                type = 2;   //2 取消关注
             }
             requestService("/xczh/myinfo/updateFocus", {
                 lecturerId: teacherId,
@@ -79,11 +88,13 @@ requestService("/xczh/course/liveDetails",{courseId:courseId},function (data) {
             }, function (data) {
                 if (data.success) {
                     if (htmlstr == "已关注") {
+                        my_follow(lecturerId,2);
                         $(".booking_person").find('img').attr('src','/xcview//images/weigz.png');
                         $(".booking_person").find('p').html("加关注");
                         $(".booking_person").removeClass("booking_person_bg_two");
                         $(".booking_person").addClass("booking_person_bg");
                     } else {
+                        my_follow(lecturerId,1);
                         $(".booking_person").find('img').attr('src','/xcview//images/yigz.png');
                         $(".booking_person").find('p').html("已关注");
                         $(".booking_person").removeClass("booking_person_bg");
@@ -93,7 +104,7 @@ requestService("/xczh/course/liveDetails",{courseId:courseId},function (data) {
                 }
             })
 
-        });
+        });*/
 
     }
 });
