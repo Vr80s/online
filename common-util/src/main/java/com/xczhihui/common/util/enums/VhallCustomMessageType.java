@@ -13,7 +13,7 @@ public enum VhallCustomMessageType {
     GIFT_MESSAGE(11, "礼物消息"),
     LIVE_START(12, "直播开始"),
     LIVE_END(13, "直播结束"),
-    LIVE_EXIT_BUT_NOT_END(14, "直播结束"),
+    LIVE_EXIT_BUT_NOT_END(14, "直播推出但不结束"),
     PLAYBACK_GENERATION_SECCESS(16, "回放生成成功"),
     PLAYBACK_GENERATION_FAILURE(17, "回放生成失败");
 

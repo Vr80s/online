@@ -176,10 +176,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public List<CollectionCoursesVo> selectCoursesByCollectionId(Integer collectionId) {
         List<CollectionCoursesVo> courses = iCourseMapper.selectCoursesByCollectionId(collectionId);
         for (CollectionCoursesVo courseLecturVo : courses) {
-        	Double d = Double.valueOf(courseLecturVo.getCourseLength()) * 60;
-        	courseLecturVo.setCourseLength(
-        			com.xczhihui.common.support.cc.util.DateUtil.
-        			turnSecondsToTimestring(d.intValue()));
+        	try {
+        		if(courseLecturVo.getCourseLength()!=null) {
+            		Double d = Double.valueOf(courseLecturVo.getCourseLength()) * 60;
+                	courseLecturVo.setCourseLength(com.xczhihui.common.support.cc.util.DateUtil.turnSecondsToTimestring(d.intValue()));
+            	}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
         return courses;
     }
@@ -526,10 +530,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         if(course.getRecord()) {
             JSONObject job = new JSONObject();
             job.put("type", type);
-            job.put("message", message);
+            //安卓端需要用对象
+            job.put("message", ImmutableMap.of("content", "回放生成成功", "headImg", "", "username", "", "role", ""));
             MessageService.sendMessage(MessageService.CustomBroadcast, job.toJSONString(), course.getChannelId());
         }
     }
+    
 
     @Override
     public Integer updateCourseLiveStatus(String event, String roomId,String clientType) {
@@ -685,8 +691,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         
 	     // 将直播课设置为预告
         course.setLiveStatus(2);	
+        course.setLiveCase(1);
         course.setSort(0);
         course.setStatus("1");
+        
         // 推荐值
         course.setRecommendSort(0);
         // 请填写一个基数，统计的时候加上这个基数

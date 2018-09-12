@@ -55,6 +55,7 @@ function common_jump_all(courseId) {
 function common_jump_play(id, watchState, lineState) {
 	
 	location.href = "/page/course/" + id;
+	
     //var userPlay=data.resultObject;
 //付费的
 //    if (watchState == 0) {

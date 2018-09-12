@@ -1,8 +1,8 @@
-(function ($) {
+/*(function ($) {
     mui(".navtab").on('tap', 'a', function () {
         document.location.href = this.href;
     })
-})(mui);
+})(mui);*/
 
 /**
  * cookie
@@ -201,8 +201,9 @@ function ajaxRequest(url, param,type, callback, ac) {
     if(document.location.host.indexOf('dev.ixincheng.com')!=-1){
         url = "/apis"+url;
     }
-    mui.ajax({
+    //mui.ajax({
     // jQuery.ajax({
+    $.ajax({
         url: url,
         type: type,
         data: param,

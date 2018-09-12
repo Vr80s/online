@@ -22,37 +22,46 @@
 	    }
 	}	
 </script>
-    <style>
-		.wrap1{
-			min-height: 1rem;
-		}
-		.wrap{
-			min-height: 1rem;
-		}
-		.play_video_hide{
-			width: 2rem;
-		    height: 0.5rem;
-		    line-height: 0.5rem;
-		    font-size: 0.22rem;
-		    color: #fff;
-		    text-align: center;
-		    background: #000;
-		    margin: 0 auto;
-		    display: none;
-		    position: absolute;
-		    top: 0;
-		    left: 50%;
-		    margin-left: -1rem;
-		    margin-top: 1.8rem;
-		    border-radius: 4px;
-		    opacity: 0.8;
-		}
-    </style>
+<style>
+	.wrap1{
+		min-height: 1rem;
+	}
+	.wrap{
+		min-height: 1rem;
+	}
+	.play_video_hide{
+		width: 2rem;
+	    height: 0.5rem;
+	    line-height: 0.5rem;
+	    font-size: 0.22rem;
+	    color: #fff;
+	    text-align: center;
+	    background: #000;
+	    margin: 0 auto;
+	    display: none;
+	    position: absolute;
+	    top: 0;
+	    left: 50%;
+	    margin-left: -1rem;
+	    margin-top: 1.8rem;
+	    border-radius: 4px;
+	    opacity: 0.8;
+	}
+</style>
 <body style="background:#F8F8F8;">
 <div class="wp">
 	<div class="wrap-header">
-		<div class="header">		
-			<p>直播课程</p>
+		<div class="header">
+			<div class="headers">
+				<!--multimediaType 1视频直播 2音频直播-->
+				<script type="text/html" id="headers">
+					{{if multimediaType == 2}}
+						<p>语音直播</p>
+					{{else}}
+						<p>直播课程</p>
+					{{/if}}
+				</script>	
+			</div>
 			<div class="arror_return z" onclick="common_share_back()">
 			<!--<div class="arror_return z">-->
 				<!--<img src="../images/back icon.png"  onclick="javascript: history.back(-1)"/>-->
@@ -101,7 +110,8 @@
 						{{else if startLevel == 5}}
 						<img src="../images/xing5.png"/>					
 						{{/if}}
-						<a href="javascript:;">共{{criticizeCount}}条评价</a>
+						<a href="javascript:;">共<span id="criticizeCountId">{{criticizeCount}}</span>条评价 <img src=
+						"../images/video_review.png" style="width: 0.15rem;height: 0.25rem;display: inline-block;margin-top: 0.06rem;" /></a>
 					</li>
 				</ul>
 			</div> 
@@ -133,7 +143,11 @@
 				<ul class="playTime z" style="border-bottom: 0;">
 					<li style="float: left;">
 						<img style="margin-top: 0.03rem;" src="../images/Sinatv_time.png"/>
-						<span>直播时间：{{startTime.slice(0,16)}}&nbsp;&nbsp;</span>
+						{{if multimediaType == 2}}
+							<span>语音直播时间：{{startTime.slice(0,16)}}&nbsp;&nbsp;</span>
+						{{else}}
+							<span>直播时间：{{startTime.slice(0,16)}}&nbsp;&nbsp;</span>
+						{{/if}}
 						{{if lineState == 1}}
 						<p>直播中</p>
 						{{/if}}

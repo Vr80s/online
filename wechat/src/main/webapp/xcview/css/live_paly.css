@@ -138,7 +138,11 @@ color: #fff;
 .speak_title{
 	font-size: 0.32rem;
 	color: #333333;
-	padding-bottom: 0.17rem;
+	margin-bottom: 0.17rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
 }
 
 .wrap_grade{

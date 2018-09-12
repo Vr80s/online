@@ -225,6 +225,15 @@ requestService("/xczh/course/liveDetails", {
                 $(".history_span").text("直播中");
 
                 $("#mywords").click(function () {
+                    clearInterval(timer);
+                    var index = 0;
+                    timer = setInterval(function() {
+                        if(index>5) {
+                            $('body').scrollTop(1000000);
+                            clearInterval(timer);
+                        }
+                        index++;
+                    }, 50)
                     $(".coze_bottom input").css("width", "6rem");
                     $(".div_input").css("background", "none");
                 });

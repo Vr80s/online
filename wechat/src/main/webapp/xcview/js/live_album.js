@@ -52,7 +52,7 @@ function stripHTML(str){
     
 
     //传ID courseId为接口的课程ID
-    requestService("/xczh/course/liveDetails",{
+    requestService("/xczh/course/details",{
         courseId : courseId 
     },function(data) {
         wwww1=data.resultObject.id

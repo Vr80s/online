@@ -99,19 +99,19 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
      * @param page     page
      * @return
      */
-    @Select({"(select * from (select mt.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, mtai.name as nickname,ou.`small_head_photo` avatar, mt.id, mt.info_id as infoId, '1' as start \n" +
+    @Select({"(select * from (select mt.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, mt.course_id as courseId, mtai.name as nickname,ou.`small_head_photo` avatar, mt.id, mt.info_id as infoId, '1' as start \n" +
             "             from medical_treatment_appointment_info mtai join medical_treatment mt on mtai.id = mt.info_id join oe_user ou on mtai.user_id = ou.id \n" +
             "             where mt.doctor_id = #{doctorId} and mt.status = 2 and (CURRENT_TIMESTAMP >= mt.treatment_start_time - INTERVAL 10 MINUTE)" +
             " and mtai.deleted is false and mt.deleted is false\n" +
             "             order by mt.date asc, mt.start_time asc) as result0)\n" +
             " union all \n" +
-            "(select * from (select mt.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, mtai.name as nickname,ou.`small_head_photo` avatar, mt.id, mt.info_id as infoId, '0' as start \n" +
+            "(select * from (select mt.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, mt.course_id as courseId, mtai.name as nickname,ou.`small_head_photo` avatar, mt.id, mt.info_id as infoId, '0' as start \n" +
             "             from medical_treatment_appointment_info mtai join medical_treatment mt on mtai.id = mt.info_id join oe_user ou on mtai.user_id = ou.id \n" +
             "             where mt.doctor_id = #{doctorId} and (mt.status = 3 OR mt.status = 1 OR (mt.status = 2 and (CURRENT_TIMESTAMP < mt.treatment_start_time - INTERVAL 10 MINUTE)))" +
             " and mtai.deleted is false and mt.deleted is false\n" +
             "             order by mt.date asc, mt.start_time asc) as result1) \n" +
             "             union all \n" +
-            " (select * from (select mt.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, mtai.name as nickname,ou.`small_head_photo` avatar, mt.id, mt.info_id as infoId, '0' as start \n" +
+            " (select * from (select mt.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, mt.course_id as courseId, mtai.name as nickname,ou.`small_head_photo` avatar, mt.id, mt.info_id as infoId, '0' as start \n" +
             "             from medical_treatment_appointment_info mtai join medical_treatment mt on mtai.id = mt.info_id join oe_user ou on mtai.user_id = ou.id \n" +
             "             where mt.doctor_id = #{doctorId} and (mt.status = 5 OR mt.status = 4) and mtai.deleted is false and mt.deleted is false\n" +
             "             order by mt.date asc, mt.start_time asc) as result4) \n"})

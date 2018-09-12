@@ -60,6 +60,8 @@
 			self.ok.innerText = self.options.buttons[1];
 			self.cancel.addEventListener('tap', function(event) {
 				self.hide();
+				var hide = document.querySelector(".birthplace_bg");
+				hide.style.display="none"; //html里面添加了背景色
 			}, false);
 			self.ok.addEventListener('tap', function(event) {
 				if (self.callback) {
@@ -68,6 +70,8 @@
 						self.hide();
 					}
 				}
+				var hide = document.querySelector(".birthplace_bg");
+				hide.style.display="none";  //html里面添加了背景色
 			}, false);
 			self.mask[0].addEventListener('tap', function() {
 				self.hide();
@@ -76,9 +80,17 @@
 			//防止滚动穿透
 			self.panel.addEventListener($.EVENT_START, function(event) {
 				event.preventDefault();
+				// $(".birthplace_bg").hide();
+				// alert(111);
+				/*var hide = document.querySelector(".birthplace_bg");
+				hide.style.display="none";*/
 			}, false);
 			self.panel.addEventListener($.EVENT_MOVE, function(event) {
 				event.preventDefault();
+				// $(".birthplace_bg").hide();
+				// alert(222);
+				/*var hide = document.querySelector(".birthplace_bg");
+				hide.style.display="none";*/
 			}, false);
 		},
 		_createPicker: function() {
@@ -155,6 +167,11 @@
 				self.disposed = true;
 			}, 300);
 		}
+		/*if($('.mui-poppicker').is('.mui-active')){
+	        $(".birthplace_bg").show();
+	    }else{
+	    	$(".birthplace_bg").hide();
+	    }*/
 	});
 
 })(mui, document);

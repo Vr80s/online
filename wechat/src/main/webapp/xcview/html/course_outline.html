@@ -64,11 +64,18 @@
 			<div class="outline_cen">
 				<div class="outline_cen_left">
 					<img src="../images/outline_bg.png" />
-					共{{courseNumber}}集，已更新{{dirtyNumber}}集 
+					共{{courseNumber}}集，
+	                {{if dirtyNumber == null}}
+						已更新0集 
+					{{else}}
+						已更新{{dirtyNumber}}集 
+					{{/if}}
 				</div>
 				<div class="outline_cen_right">
 					<img src="../images/time_bg0.png" />
-					{{dirtyDate}}
+					{{if dirtyDate != null}}
+						{{dirtyDate.replace(/(、)/g,"")}}
+					{{/if}}
 				</div>
 				<div class="both"></div>
 			</div>
