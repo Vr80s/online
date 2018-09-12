@@ -133,7 +133,7 @@ function sendDiscussion() {
         async:false,
         success: function(data) {
             if(data.success === true) {
-                // 全部评论隱藏--點擊發送
+                // 全部评论隐藏--点击发送
                 $(".barrage_switch").hide();  /*弹幕隐藏*/
                 $(".chat_all").hide();      /*查看更多评论隐藏*/
                 $(".chat").removeClass("chats");  /*增加input长度*/
@@ -234,3 +234,29 @@ var miniRefresh = new MiniRefresh({
     }
 });
 
+
+
+
+/**
+头部课件区域渲染
+**/
+requestService("/xczh/course/liveDetails",{courseId:courseId},function (data) {
+    if (data.success == true) {
+        
+        //lineState 直播课程状态 1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
+        if (data.resultObject.lineState == 1) {
+            $('.surface_plot').hide();
+            $('.courseware').show();
+        }else{
+            $('.courseware').hide();
+            $('.surface_plot').show();
+            // 开播前10分钟详情
+            $('.surface_plot').html(template('surface_plot', {items: data.resultObject}));
+        };
+
+
+        //关注区域
+        $('.attention_main').html(template('attention_main', {items: data.resultObject}));
+        
+    }
+});
