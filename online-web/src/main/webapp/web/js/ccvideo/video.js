@@ -64,6 +64,16 @@ RequestService("/online/live/getOpenCourseById", "get", {
 }, false);
 
 
+var msgTip='<div id="blackTip" style="display: none;padding: 8px 32px;'+
+			'border-radius: 4px;'+
+			'position: fixed;color: #fff;top: 50%;left: 50%;transform: translate(-50%,-50%);'+
+			'z-index: 1000;">保存失败</div>';
+function showTipFixed(contant,fn){
+	$("body").append(msgTip);
+    $('#blackTip').text(contant).show();
+}	
+
+
 //获取视频信息接口
 RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/user/isAlive
 	if(data.success === true) {
@@ -90,18 +100,16 @@ RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/u
 					console.log("添加观看记录");
 				},false);
 				
-				
 				var playCodeStr = data.resultObject;
 	            var playCodeObj = JSON.parse(playCodeStr);
 	            console.log(playCodeObj.video.playcode);
-	            
 				$(".videoBody-video").html(playCodeObj.video.playcode);
 			
-				
 			} else if(data.success == false) {
 				
 				//弹出错误信息
-				alert(data.errorMessage);
+				//alert(data.errorMessage);
+				showTipFixed(data.errorMessage);
 			}
 		});
 	} else {
