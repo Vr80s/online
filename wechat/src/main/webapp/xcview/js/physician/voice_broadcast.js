@@ -430,3 +430,26 @@ var miniRefresh1 = new MiniRefresh({
     }
 });*/
 
+/**
+头部课件区域渲染
+**/
+requestService("/xczh/course/liveDetails",{courseId:courseId},function (data) {
+    if (data.success == true) {
+        
+        //lineState 直播课程状态 1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
+        if (data.resultObject.lineState == 1) {
+            $('.surface_plot').hide();  //即将直播位置
+            $('.courseware').show();    //课件
+        }else{
+            $('.courseware').hide();
+            $('.surface_plot').show();
+            // 开播前10分钟详情
+            $('.surface_plot').html(template('surface_plot', {items: data.resultObject}));
+        };
+
+
+        //关注区域
+        $('.attention_main').html(template('attention_main', {items: data.resultObject}));
+        
+    }
+});
