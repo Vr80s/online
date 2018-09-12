@@ -323,7 +323,7 @@ function loadmore(){
 
 
 // 语音直播点击事件
-var htmlstr = $(".booking_person").find('p').html();
+/*var htmlstr = $(".booking_person").find('p').html();
 // $(".booking_person").click(function(){
 $('.attention_main').on('click','.booking_person',function(){
     if (htmlstr == "已关注") {
@@ -338,7 +338,7 @@ $('.attention_main').on('click','.booking_person',function(){
         $(".booking_person").addClass("booking_person_bg_two");
     };
 
-});
+});*/
 
 // 点击提问获取
 $(".chat_radio").click(function(){

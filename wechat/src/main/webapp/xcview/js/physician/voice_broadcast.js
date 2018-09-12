@@ -1,5 +1,5 @@
 var courseId = getQueryString("courseId");
-courseId = 800;
+// courseId = 800;
 var barrageData = [];
 var SixHide = 0;
 var isQuestion = "";
@@ -9,12 +9,95 @@ var audioList = [] ;// 音频列表 从 dataList 过滤得到
 var currenttimeLine = {}; // 当前播放语音的控制器
 var autoplay = true;// 是否自动播放
 var dataList = [];//消息存放
+var teacherId;  //讲师id
 $(function(){
     getAccessToken();
     getBarrageList();
     getLiveAudioContentList(1,'');
 
 });
+
+// 跳转完善信息页--点击关注的时候如果没有完善信息跳转到完善信息页面
+function getFlagStatus() {
+    var falg = USER_NORMAL;
+    var user_cookie = cookie.get("_ipandatcm_user_");
+    var third_party_cookie = cookie.get("_third_ipandatcm_user_");
+    if (isBlank(user_cookie)) {
+        falg = USER_UN_LOGIN;
+        if (isNotBlank(third_party_cookie)) {
+            falg = USER_UN_BIND;
+        }
+    }
+    return falg;
+}
+
+/**
+头部课件区域渲染
+**/
+requestService("/xczh/course/liveDetails",{courseId:courseId},function (data) {
+    if (data.success == true) {
+        
+        //lineState 直播课程状态 1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
+        if (data.resultObject.lineState == 1) {
+            $('.surface_plot').hide();  //即将直播位置
+            $('.courseware').show();    //课件
+        }else{
+            $('.courseware').hide();
+            $('.surface_plot').show();
+            // 开播前10分钟详情
+            $('.surface_plot').html(template('surface_plot', {items: data.resultObject}));
+        };
+
+        //关注区域
+        $('.attention_main').html(template('attention_main', {items: data.resultObject}));
+        if (data.resultObject.lineState == 1) {
+            $(".subscribe").hide();  //预约
+            $(".live_streaming").show();  //直播中
+        }else if (data.resultObject.lineState == 2 || data.resultObject.lineState == 4 ||data.resultObject.lineState == 5 || data.resultObject.lineState == 6) {
+            $(".subscribe").show();  //预约
+            $(".live_streaming").hide();  //直播中
+        }else if (data.resultObject.lineState == 3) {
+            $(".subscribe").show();  //预约
+            $(".live_streaming").hide();  //直播中
+        };
+
+        
+        // $(".booking_person").click(function(){
+        $('.attention_main').on('click','.booking_person',function(){
+            teacherId = data.resultObject.userLecturerId; // 讲师Id
+            //type 1 增加关注 2 取消关注
+            var type = 1;
+            var htmlstr = $(".booking_person").find('p').html();
+            if (htmlstr == "加关注") { // 增加关注
+                type = 2;
+            } else {
+                type = 1;
+            }
+            requestService("/xczh/myinfo/updateFocus", {
+                lecturerId: teacherId,
+                type: type
+            }, function (data) {
+                if (data.success) {
+                    if (htmlstr == "已关注") {
+                        $(".booking_person").find('img').attr('src','/xcview//images/weigz.png');
+                        $(".booking_person").find('p').html("加关注");
+                        $(".booking_person").removeClass("booking_person_bg_two");
+                        $(".booking_person").addClass("booking_person_bg");
+                    } else {
+                        $(".booking_person").find('img').attr('src','/xcview//images/yigz.png');
+                        $(".booking_person").find('p').html("已关注");
+                        $(".booking_person").removeClass("booking_person_bg");
+                        $(".booking_person").addClass("booking_person_bg_two");
+                        jqtoast("关注成功");
+                    }
+                }
+            })
+
+        });
+
+    }
+});
+
 
 //音频播放
 function audioPlay() {
@@ -430,26 +513,4 @@ var miniRefresh1 = new MiniRefresh({
     }
 });*/
 
-/**
-头部课件区域渲染
-**/
-requestService("/xczh/course/liveDetails",{courseId:courseId},function (data) {
-    if (data.success == true) {
-        
-        //lineState 直播课程状态 1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
-        if (data.resultObject.lineState == 1) {
-            $('.surface_plot').hide();  //即将直播位置
-            $('.courseware').show();    //课件
-        }else{
-            $('.courseware').hide();
-            $('.surface_plot').show();
-            // 开播前10分钟详情
-            $('.surface_plot').html(template('surface_plot', {items: data.resultObject}));
-        };
 
-
-        //关注区域
-        $('.attention_main').html(template('attention_main', {items: data.resultObject}));
-        
-    }
-});
