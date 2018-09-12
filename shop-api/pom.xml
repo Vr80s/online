@@ -8,11 +8,11 @@
         <relativePath>../</relativePath>
     </parent>
 
-    <artifactId>course-api</artifactId>
+    <artifactId>shop-api</artifactId>
     <packaging>jar</packaging>
     <version>3.0.0-SNAPSHOT</version>
 
-    <name>course-api</name>
+    <name>shop-api</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -21,10 +21,7 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.xczhihui</groupId>
-            <artifactId>common-solr</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>com.xczhihui</groupId>
             <artifactId>common-exception</artifactId>
