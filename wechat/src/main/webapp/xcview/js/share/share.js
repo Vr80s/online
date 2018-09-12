@@ -155,8 +155,13 @@ try {
 }
 
 
+//点击微信出现提示框
+$(".header_news").click(function(){
+	$(".weixin_ceng").show();
+});
+// 浏览器上提示分享空间和微博，由于分享后显示无法点击，故暂时隐藏
 //点击分享share
-if(is_weixin()){
+/*if(is_weixin()){
 	
 	//点击微信出现提示框
 	$(".header_news").click(function(){
@@ -178,7 +183,7 @@ if(is_weixin()){
 		
 	    $(".share").show();	
 	});
-}
+}*/
 
 $(".weixin_ceng").click(function(){
 	$(".weixin_ceng").hide();
