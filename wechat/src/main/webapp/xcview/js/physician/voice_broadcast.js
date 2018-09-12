@@ -61,7 +61,7 @@ requestService("/xczh/course/liveDetails",{courseId:courseId},function (data) {
             $(".live_streaming").hide();  //直播中
         };
 
-        
+        // 点击关注
         // $(".booking_person").click(function(){
         $('.attention_main').on('click','.booking_person',function(){
             teacherId = data.resultObject.userLecturerId; // 讲师Id
