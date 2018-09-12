@@ -17,7 +17,7 @@ var audio = document.createElement('AUDIO'),
  * @param {any} dur  添加方向 首 - 1 尾 1
  * @returns {list: 数据列表 }
  */
-function fakeData(start,length,dur) {
+/*function fakeData(start,length,dur) {
     var n = length || 20, d = dur || 1,no;
 
     if(dur<0){
@@ -56,12 +56,12 @@ function fakeData(start,length,dur) {
 
 }
 
-/**
+/!**
  * 渲染函数
  * 
  * @param {any} data 需要添加的数据
  * @param {any} position 添加的位置 前 -1 后1 默认后
- */
+ *!/
 function render(data, position) {
     var p = position || 1;
     if (p > 0) {
@@ -192,19 +192,19 @@ function onTouchMove(e){
     currenttimeLine.btn.next().find('span').text(dur)
     audio.currentTime = dur
 }
-/**
+/!**
  * 数据加载
  * 
  * @param {any} messageID 起始消息id
  * @param {any} userID 用户id
  * @param {any} roomId 房间号id
  * @param {any} beforeOrAfter 往前还是往后加载 默认往后
- */
+ *!/
 function loadMessage(messageID, userID, roomId, beforeOrAfter) {
     var ba = beforeOrAfter || 'after'
     //模拟数据
     return fakeData
-}
+}*/
 //点赞
 $('.home').on('click','.like p',function(){
     var messageId =  $(this).parents('.item').attr('data-message-id')
@@ -219,7 +219,7 @@ $('.home').on('click','.like p',function(){
 })
 
 //回到播放位置
-document.querySelector('.scroll-box').addEventListener('scroll', _.throttle(updatePosition, 600),false)
+/*document.querySelector('.scroll-box').addEventListener('scroll', _.throttle(updatePosition, 600),false)
 
 function updatePosition(e){
     if(pending){
@@ -233,7 +233,7 @@ function updatePosition(e){
     }else{
         $('.currentPosition').hide()
     }
-}
+}*/
 
 $('.currentPosition').click(function(){
     var t = $('.message[data-id-'+currentAudio.id+']').parent().position().top;
@@ -241,7 +241,7 @@ $('.currentPosition').click(function(){
 })
 
 //点击按钮播放
-$('.home').on('click', '.play_status', function () {
+/*$('.home').on('click', '.play_status', function () {
     var msg = $(this).parents('.item'),messageId = msg.attr('data-message-id'),messageInfo;
     if(messageId == currentAudio.id){
         if(audio.paused){
@@ -255,7 +255,7 @@ $('.home').on('click', '.play_status', function () {
     }
     currentAudio = getInfoFromData(messageId)
     audioPlay()
-})
+})*/
 /**
  * 根据id查找数据
  * 
@@ -268,8 +268,8 @@ function getInfoFromData(messageid) {
     return data;
 }
 // 上拉下拉刷新
-
-document.querySelector('.scroll-box').addEventListener('scroll', _.debounce(loadmore, 800),false)
+/*
+document.querySelector('.scroll-box').addEventListener('scroll', _.debounce(loadmore, 800),false)*/
 
 function loadmore(){
     var t = $('.scroll-box').scrollTop(),h = $('.scroll-box').height(),h_ = $('.scroll-wrapper').height();
@@ -309,7 +309,7 @@ function loadmore(){
 
 }
 //初始化
-window.onload = function () {
+/*window.onload = function () {
     var LastPlay = getLastPlay()
     if(LastPlay !== false){
         $('.tips').show()
@@ -319,7 +319,7 @@ window.onload = function () {
     }
     
     audioPlay()
-}
+}*/
 
 
 // 语音直播点击事件

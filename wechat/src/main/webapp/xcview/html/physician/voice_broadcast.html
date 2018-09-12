@@ -102,32 +102,41 @@
 			</div>
 		</div>
 		<div class="surface_plot">
+			<script type="text/html" id="surface_plot">
 			<div class="surface_plot_img">
-				<img src="/xcview/images/xianxia_03.jpg" alt="" />
+				<img src="{{items.smallImgPath}}" alt="" />
 				<div class="surface_plot_bg"></div>
 				<div class="surface_plot_fize">
-					<p class="surface_plot_fize_title">即将直播：如何治疗感冒及普通感冒的推荐治疗冒的推荐治疗冒的推荐治疗</p>
-					<!-- <p class="surface_plot_fize_time">开课时间：08:00</p> -->
-					<div id="box1"></div>
+					<p class="surface_plot_fize_title">即将直播：{{items.gradeName}}</p>
+					<p class="surface_plot_fize_time">开播时间：{{items.startTime.slice(11,16)}}</p>
+					<!-- <div id="box1"></div>  此乃倒计时 -->
 				</div>
 			</div>
+			</script>
+		</div>
+		<div class="courseware">
+			<img src="/xcview/images/xianxia_03.jpg" alt="" class="courseware_img" />
+			<div class="courseware_hint">主播暂未上传课件</div>
 		</div>
 	</div>
 	<!-- 头部结束 -->
 	<!-- 关注区域开始 -->
 	<div class="attention">
 		<div class="attention_main">
+			<script type="text/html" id="attention_main">
 			<div class="anchor_head">
-				<img src="/xcview/images/touxiang.png" alt="" />
+				<img src="{{items.headImg}}?imageMogr2/thumbnail/!100x100r|imageMogr2/gravity/Center/crop/100x100" alt="" />
 			</div>
+			
 			<div class="anchor_message">
-				<div class="anchor_message_name">这里是主播名字</div>
-				<div class="anchor_message_number">320人<span class="subscribe">预约</span><span class="live_streaming"><div class="live_streaming_dot"></div>直播中</span></div>
+				<div class="anchor_message_name">{{items.name}}</div>
+				<div class="anchor_message_number">{{items.learndCount}}人<span class="subscribe">预约</span><span class="live_streaming"><div class="live_streaming_dot"></div>直播中</span></div>
 			</div>
 			<div class="booking_person booking_person_bg">
 				<img src="/xcview/images/weigz.png" alt="" />
 				<p>加关注</p>
 			</div>
+			</script>
 		</div>
 	</div>
 	<!-- 关注区域结束
@@ -197,6 +206,7 @@
 
 	            <div class="scroll-box">
 	            	<!-- 这段注释也要放到刷新里面 -->
+
 					<div class="instructions">
 						<div class="instructions_title">操作指南</div>
 						<ul>
@@ -207,24 +217,24 @@
 					
 					<!-- 这段注释也要放到刷新里面 -->
 	                <div class="scroll-wrapper">
-	                	
+
 						<div class="main_time">10:02</div>
 	                    <!-- <p class="tips"><span>上次看到这里了</span></p> -->
 	                    <div class="live_to">直播开始</div>
 	                    <script id="msg" type="text/html">
-	                        {{each list as value i}}
-	                            <div class="item"  data-message-id="{{value.id}}">
-	                                <div class="message" data-id-{{value.id}}>
+	                        {{each items as item i}}
+	                            <div class="item"  data-message-id="{{item.id}}">
+	                                <div class="message" data-id-{{item.id}}>
 	                                    <div class="box-left">
 	                                        <div class="head">
-	                                            <div class="head-box" style="background-image:url({{value.img}})"></div>
+	                                            <div class="head-box" style="background-image:url({{item.imgUrl}})"></div>
 	                                        </div>
 	                                    </div>
 	                                    <div class="box-right">
-	                                        <div class="nickname">{{value.name}}</div>
+	                                        <div class="nickname">{{item.name}}</div>
 	                                        <div class="content">
-	                                            {{if value.type == 1}}
-	                                                <div class="soundbody" data-id="{{value.id}}">
+	                                            {{if item.contentType == 2}}
+	                                                <div class="soundbody" data-id="{{item.id}}">
 	                                                    <div class="flex-box">
 	                                                        <div class="play_status">
 	                                                            <p class="iconfont playing">&#xe61c;</p>
@@ -237,7 +247,7 @@
 	                                                                <p><span>0</span>″</p>
 	                                                            </div>
 	                                                        </div>
-	                                                        <div class="second">{{value.sound.second}}″</div>
+	                                                        <div class="second">{{item.length}}″</div>
 	                                                    </div>
 	                                                    <div class="label">
 	                                                        <div class="complete iconfont">&#xe6c1;</div>
@@ -246,12 +256,12 @@
 	                                                </div>
 	                                            {{else}}
 	                                                <div class="text">
-	                                                    <p>{{value.text}}</p>
+	                                                    <p>{{item.content}}</p>
 	                                                </div>
 	                                            {{/if}}
 	                                        </div>
 	                                        <div class="like">
-	                                            <p><span class="iconfont">&#xe63e;</span> {{ value.likes }}</p>
+	                                            <p><span class="iconfont">&#xe63e;</span> {{ item.likes }}</p>
 	                                        </div>
 	                                    </div>
 	                                </div>

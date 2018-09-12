@@ -1,16 +1,15 @@
 package com.xczhihui.course.mapper;
 
-import java.util.List;
-
+import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.course.model.CourseLiveAudioContent;
+import com.xczhihui.course.vo.CourseLiveAudioContentVO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.course.model.CourseLiveAudioContent;
-import com.xczhihui.course.vo.CourseLiveAudioContentVO;
+import java.util.List;
 
 /**
  * <p>
@@ -26,8 +25,10 @@ public interface CourseLiveAudioContentMapper extends BaseMapper<CourseLiveAudio
     int insertCourseLiveAudioContentLike(@Param("audioContentId") Integer audioContentId, @Param("userId") String userId);
 
     @Select("SELECT clac.id,clac.`course_id` AS courseId,clac.`audio_ppt_id` AS audiopptId,clac.`content_type` AS contentType,clac.`content`," +
-            "clac.`length`,clac.`user_id` AS userId,clac.`discussion_id` AS discussionId,clac.likes,clac.`create_time` createTime,ppt.`ppt_img_url` pptImgUrl " +
+            "clac.`length`,clac.`user_id` AS userId,clac.`discussion_id` AS discussionId,clac.likes,clac.`create_time` createTime," +
+            "ppt.`ppt_img_url` pptImgUrl,ou.name AS name,ou.small_head_photo AS imgUrl " +
             "FROM `oe_course_live_audio_content` clac LEFT JOIN `oe_course_live_audio_ppt` ppt ON ppt.id=clac.`audio_ppt_id`  " +
+            "LEFT JOIN oe_user ou ON ou.id = clac.`user_id` " +
             " WHERE clac.`is_delete`=0 AND clac.`course_id`=#{courseId} AND clac.`create_time` <= #{endTime} order by clac.`create_time` desc")
     List<CourseLiveAudioContentVO> selectCourseLiveAudioContentByCourseId(@Param("page") Page page, @Param("endTime") String endTime, @Param("courseId") Integer courseId);
 
