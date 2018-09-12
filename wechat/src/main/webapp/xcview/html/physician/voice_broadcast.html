@@ -206,6 +206,7 @@
 
 	            <div class="scroll-box">
 	            	<!-- 这段注释也要放到刷新里面 -->
+
 					<div class="instructions">
 						<div class="instructions_title">操作指南</div>
 						<ul>
@@ -216,24 +217,24 @@
 					
 					<!-- 这段注释也要放到刷新里面 -->
 	                <div class="scroll-wrapper">
-	                	
+
 						<div class="main_time">10:02</div>
 	                    <!-- <p class="tips"><span>上次看到这里了</span></p> -->
 	                    <div class="live_to">直播开始</div>
 	                    <script id="msg" type="text/html">
-	                        {{each list as value i}}
-	                            <div class="item"  data-message-id="{{value.id}}">
-	                                <div class="message" data-id-{{value.id}}>
+	                        {{each items as item i}}
+	                            <div class="item"  data-message-id="{{item.id}}">
+	                                <div class="message" data-id-{{item.id}}>
 	                                    <div class="box-left">
 	                                        <div class="head">
-	                                            <div class="head-box" style="background-image:url({{value.img}})"></div>
+	                                            <div class="head-box" style="background-image:url({{item.imgUrl}})"></div>
 	                                        </div>
 	                                    </div>
 	                                    <div class="box-right">
-	                                        <div class="nickname">{{value.name}}</div>
+	                                        <div class="nickname">{{item.name}}</div>
 	                                        <div class="content">
-	                                            {{if value.type == 1}}
-	                                                <div class="soundbody" data-id="{{value.id}}">
+	                                            {{if item.contentType == 2}}
+	                                                <div class="soundbody" data-id="{{item.id}}">
 	                                                    <div class="flex-box">
 	                                                        <div class="play_status">
 	                                                            <p class="iconfont playing">&#xe61c;</p>
@@ -246,7 +247,7 @@
 	                                                                <p><span>0</span>″</p>
 	                                                            </div>
 	                                                        </div>
-	                                                        <div class="second">{{value.sound.second}}″</div>
+	                                                        <div class="second">{{item.length}}″</div>
 	                                                    </div>
 	                                                    <div class="label">
 	                                                        <div class="complete iconfont">&#xe6c1;</div>
@@ -255,12 +256,12 @@
 	                                                </div>
 	                                            {{else}}
 	                                                <div class="text">
-	                                                    <p>{{value.text}}</p>
+	                                                    <p>{{item.content}}</p>
 	                                                </div>
 	                                            {{/if}}
 	                                        </div>
 	                                        <div class="like">
-	                                            <p><span class="iconfont">&#xe63e;</span> {{ value.likes }}</p>
+	                                            <p><span class="iconfont">&#xe63e;</span> {{ item.likes }}</p>
 	                                        </div>
 	                                    </div>
 	                                </div>

@@ -1,11 +1,10 @@
 package com.xczhihui.course.vo;
 
+import com.xczhihui.common.util.enums.CourseLiveAudioMessageType;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-
-import com.xczhihui.common.util.enums.CourseLiveAudioMessageType;
-
-import lombok.Data;
 
 /**
  * <p>
@@ -31,6 +30,8 @@ public class CourseLiveAudioContentVO implements Serializable {
     private Integer discussionId;
     private Integer likes;
     private Date createTime;
+    private String name;
+    private String imgUrl;
 
     private CourseLiveAudioDiscussionVO courseLiveAudioDiscussionVO;
 
