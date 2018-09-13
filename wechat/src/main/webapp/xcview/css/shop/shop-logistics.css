@@ -1,0 +1,156 @@
+*{margin: 0;padding: 0;}
+.z{float: left;}
+.y{float: right;}
+.wp{max-width: 7.5rem; margin: 0 auto;}
+p{margin: 0;}
+body{
+	font-size: 0.24rem;
+	color: #999999;
+	font-family: "微软雅黑";
+	background: #f0f0f0;
+}
+ul li{list-style: none;}
+a:link{text-decoration:none;}/* 指正常的未被访问过的链接*/
+
+a:visited{text-decoration:none;}/*指已经访问过的链接*/
+
+a:hover{text-decoration:none;}/*指鼠标在链接*/
+
+a:active{text-decoration:none;}/* 指正在点的链接*/ 
+.header-wrap{
+	width: 7.5rem;
+	height: 0.88rem;	
+}
+.header{
+	width: 100%;
+	height: 0.88rem;	
+	text-align: center;
+	background: #fafafa;
+	line-height: 0.88rem;
+	position: fixed;
+	top: 0;
+}
+.header .return-img{
+	width: 0.24rem;
+	height: 0.42rem;
+	float: left;
+	position: absolute;
+	top: 0.23rem;
+	left: 0.25rem;
+}
+.header h3{
+	font-size: 0.36rem;
+	font-weight: 500;
+	color: #333;
+}
+.ware-main{
+	padding: 0.2rem 0.25rem;
+	overflow: hidden;
+	background: white;
+}
+.ware-main .ware-img{
+	width: 1.2rem;
+	height: 1.2rem;	
+}
+.ware-main .ware-img img{
+	width: 100%;
+	height: 100%;
+}
+.ware-main p{
+	padding-left: 0.2rem;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 0.1rem;
+}
+.ware-main p:nth-child(2){
+	font-size: 0.28rem;
+	color: #F97215;
+}
+.ware-main p:nth-last-child(1){
+	margin-bottom: 0;
+}
+/*物流信息*/
+.logistics-wrap{
+	width: 100%;
+	padding: 0.26rem;
+	position: relative;
+	background: white;
+	overflow: hidden;
+    margin-top: 0.2rem;
+    box-sizing: border-box;
+}
+.ware-address{
+	width: 6rem;
+    box-sizing: border-box;
+    position: relative;
+}
+.ware-address img{
+	    width: 0.24rem;
+    left: -0.11rem;
+    top: 0.06rem;
+    position: absolute;
+}
+.ware-address p{
+	width: 5.6rem;
+	height: 0.66rem;
+	margin-left: 0.2rem;
+	float: left;
+	line-height: 0.33rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+.ware-address .address-line{
+	width: 0.01rem;
+	height: 1.2rem;
+	border-left: 1px dashed #DEDEDE;
+	margin-top: 0.2rem;
+}
+
+.logistics-left-time {
+	width: 0.8rem;
+	margin-top: 1.4rem;
+}
+.logistics-left-time ul li{
+	width: 0.8rem;
+	text-align: right;
+	margin-bottom: 0.78rem;
+}
+.logistics-right-address{
+	width: 6rem;
+    box-sizing: border-box;
+}
+.logistics-right-address ul li{
+	width: 6rem;
+	height: 0.66rem;
+	position: relative;
+	margin-bottom: 0.75rem;
+}
+.logistics-right-address ul li .location-line{
+	width: 0.01rem;
+	height: 1.2rem;
+	border-left: 1px dashed #DEDEDE;
+	margin-top: 0.2rem;
+}
+.logistics-right-address ul li .address-text{
+	width: 5.6rem;
+    height: 0.66rem;
+    margin-left: 0.2rem;
+    float: left;
+    line-height: 0.33rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+.logistics-right-address ul li .location-icon{
+	width: 0.2rem;
+	height: 0.2rem;
+	background: #DEDEDE;
+	border-radius: 50%;
+    position: absolute;
+    left: -0.09rem;
+    top: 0.06rem;
+}
