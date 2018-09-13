@@ -412,6 +412,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
         List<CourseLecturVo> records = selectTeachingCoursesByUserId(new Page<CourseLecturVo>(1, 4), lecturerId,
                 userId);
+        
         Map<String, Object> map1 = new HashMap<String, Object>();
         map1.put("text", "跟师直播");
         map1.put("code", 5);
@@ -545,7 +546,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         }
         Course course = courses.get(0);
 
-        String startOrEnd = "";
         Integer type = 0;
         if (course != null) {
             switch (event) {
@@ -556,6 +556,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                     if(MultiUrlHelper.URL_TYPE_APP.equals(clientType)) {
                     	course.setLiveSourceType(true);
                     }
+                    course.setLiveCase(LiveCaseType.NORMAL_LIVE.getCode());
+                    
                     break;
                 case STOP_EVENT:
                     course.setLiveStatus(3);
