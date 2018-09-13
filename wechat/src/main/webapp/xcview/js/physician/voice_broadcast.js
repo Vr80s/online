@@ -13,6 +13,7 @@ $(function(){
     getAccessToken();
     getBarrageList();
     getLiveAudioContentList(1,'');
+    initMiniRefreshs(1);
 
 });
 
@@ -213,14 +214,14 @@ function getLiveAudioContentList(pageNumber,downOrUp) {
             var records = data.resultObject.records;
 
             if(downOrUp=='down'){
-                if(obj.length==0){
+                if(records.length==0){
                 }else{
                 }
                 // 列表
                 $(".scroll-wrapper").prepend(template('msg',{items:records}));
-                miniRefresh1.endDownLoading(true);// 结束下拉刷新
+                miniRefreshArr[1].endDownLoading(true);// 结束下拉刷新
             } else if(records.length==0){
-                miniRefresh1.endDownLoading(true);// 结束上拉加载
+                miniRefreshArr[1].endDownLoading(true);// 结束上拉加载
             } else {
                 $(".scroll-wrapper").html(template('msg',{items:records}));
                 //miniRefresh1.endUpLoading(false);
@@ -255,6 +256,8 @@ function getLiveAudioContentList(pageNumber,downOrUp) {
                 currenttimeLine.btn.next().css('left',Math.ceil(audio.currentTime / audio.duration * 100) + '%')
             }
 
+            //document.querySelector('.scroll-box').addEventListener('scroll', _.debounce(loadmore, 800),false)
+
         }
     },false);
 
@@ -262,6 +265,7 @@ function getLiveAudioContentList(pageNumber,downOrUp) {
 
 //获取讨论内容列表
 function getcontentList(pageNumber,downOrUp) {
+    initMiniRefreshs(2);
     if($(".problem_label_put").is(':checked')) {
         isQuestion = true;
     } else {
@@ -283,12 +287,12 @@ function getcontentList(pageNumber,downOrUp) {
                 }
                 // 列表
                 $(".comment_area_main").html(template('comment_area_list',{items:obj}));
-                miniRefresh.endDownLoading(true);// 结束下拉刷新
+                miniRefreshArr[2].endDownLoading(true);// 结束下拉刷新
             } else if(obj.length==0){
-                miniRefresh.endUpLoading(true);// 结束上拉加载
+                miniRefreshArr[2].endUpLoading(true);// 结束上拉加载
             } else {
                 $(".comment_area_main").append(template('comment_area_list',{items:obj}));
-                miniRefresh.endUpLoading(false);
+                miniRefreshArr[2].endUpLoading(false);
             }
         }
     });
@@ -389,12 +393,55 @@ function biubiubiu(){
 }
 
 
+
+var miniRefreshArr = [];
+var initMiniRefreshs = function(index) {
+
+    //listDomArr[index] = document.querySelector('#listdata' + index);
+
+    miniRefreshArr[index] = new MiniRefresh({
+        container: '#minirefresh' + index,
+        down: {
+            callback: function() {
+                if(index == 1){
+                    page1++;
+                    getLiveAudioContentList(page1,'down');
+                } else {
+                    page = 1;
+                    getcontentList(page,'down');
+                }
+                /*setTimeout(function() {
+                    // 每次下拉刷新后，上拉的状态会被自动重置
+                    appendTestData(listDomArr[index], 10, true, index);
+                    miniRefreshArr[index].endDownLoading(true);
+                }, requestDelayTime);*/
+            }
+        },
+        up: {
+            isAuto: false,
+            callback: function() {
+                if(index == 1){
+                    miniRefreshArr[index].endUpLoading(true);
+                } else {
+                    page++;
+                    getcontentList(page,'up');
+                }
+                /*setTimeout(function() {
+                    appendTestData(listDomArr[index], 10, false, index);
+                    miniRefreshArr[index].endUpLoading(listDomArr[index].children.length >= maxDataSize ? true : false);
+                }, requestDelayTime);*/
+            }
+        }
+    });
+};
+
+
 //刷新
 // 初始化页码
 var page = 1;
 
 // miniRefresh 对象
-var miniRefresh = new MiniRefresh({
+/*var miniRefresh = new MiniRefresh({
     container: '#minirefresh',
     down: {
         //isLock: true,//是否禁用下拉刷新
@@ -411,14 +458,14 @@ var miniRefresh = new MiniRefresh({
             getcontentList(page,'up');
         }
     }
-});
+});*/
 
 //音频直播课程内容列表刷新
 // 初始化页码
-/*var page1 = 1;
+var page1 = 1;
 
 // miniRefresh 对象
-var miniRefresh1 = new MiniRefresh({
+/*var miniRefresh1 = new MiniRefresh({
     container: '#minirefresh1',
     down: {
         //isLock: true,//是否禁用下拉刷新

@@ -60,7 +60,7 @@
 	}
 
 	/*处理刷新*/
-	.minirefresh-wrap{
+	/*.minirefresh-wrap{
 		top: 1.1rem;
 	}
 	.minirefresh-theme-default .minirefresh-downwrap{
@@ -75,18 +75,49 @@
 		max-height: 0.5rem;
 		line-height: 0.6rem;
 		padding: 0;
-		/*margin-top: -0.5rem;*/
+		!*margin-top: -0.5rem;*!
 	}
 	.minirefresh-scroll{
 		background: none;
 	}
-	/*处理只看问题刷新列表*/
+	!*处理只看问题刷新列表*!
 	#minirefresh .minirefresh-upwrap{
 		margin-bottom: 1.3rem;
 	}
 	#minirefresh .upwrap-tips{
 		padding-top: 0 !important;
 		line-height: 0;
+	}*/
+
+	/*处理刷新效果*/
+	.mui-scroll-wrapper{
+		top: 1.1rem;
+
+	}
+	.mui-pull-top-pocket{
+		top: 0;
+	}
+	.mui-scroll-wrapper{
+		height: 100%;
+		position: fixed;
+		top: 5.4rem;
+	}
+	.mui-pull-bottom-pocket .mui-pull{
+		bottom: 1rem;
+	}
+	.bought_main{
+		padding-bottom: 0.6rem;
+	}
+	.mui-pull-bottom-pocket .mui-pull{
+		bottom: 0rem;
+		height: 40px;
+		line-height: 40px;
+	}
+	.mui-pull-bottom-pocket{
+		position: relative;
+		bottom: 1rem;
+		height: 40px;
+		line-height: 40px;
 	}
 </style>
 </head>
@@ -197,7 +228,8 @@
 
 	            <div class="scroll-box">
 	            	<!-- 这段注释也要放到刷新里面 -->
-
+					<div id="minirefresh1" class="minirefresh-wrap ">
+						<div class="minirefresh-scroll">
 					<div class="instructions">
 						<div class="instructions_title">操作指南</div>
 						<ul>
@@ -207,8 +239,7 @@
 					</div>
 					
 					<!-- 这段注释也要放到刷新里面 -->
-	                <div class="scroll-wrapper">
-
+	                <div class="scroll-wrapper " id="listdata1">
 						<div class="main_time">10:02</div>
 	                    <!-- <p class="tips"><span>上次看到这里了</span></p> -->
 	                    <div class="live_to">直播开始</div>
@@ -261,6 +292,8 @@
 	                    </script>
 	                </div>
 	            </div>
+					</div>
+				</div>
 	        </div>
 	        <div class="currentPosition">
 	            <p>回到播放位置</p>
@@ -287,9 +320,9 @@
 			<div class="comment_area_height"></div>
 			<!-- 评论区 -->
 
-			<div id="minirefresh" class="minirefresh-wrap">
+			<div id="minirefresh2" class="minirefresh-wrap">
 				<div class="minirefresh-scroll">
-			<div class="comment_area_main">
+			<div class="comment_area_main" id="listdata2">
 				<script type="text/html" id="comment_area_list">
 					{{each items as item i}}
 				<div class="comment_area_cen">

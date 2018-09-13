@@ -271,7 +271,7 @@ function getInfoFromData(messageid) {
 /*
 document.querySelector('.scroll-box').addEventListener('scroll', _.debounce(loadmore, 800),false)*/
 
-function loadmore(){
+/*function loadmore(){
     var t = $('.scroll-box').scrollTop(),h = $('.scroll-box').height(),h_ = $('.scroll-wrapper').height();
     if(pending){
         return;
@@ -307,7 +307,7 @@ function loadmore(){
         },1000)
     }
 
-}
+}*/
 //初始化
 /*window.onload = function () {
     var LastPlay = getLastPlay()
@@ -484,6 +484,7 @@ $(".comment_area_close").click(function(){
     $(".barrage_switch").show();  /*弹幕*/
     $(".chat_all").show();      /*查看更多评论*/
     $(".comment_area").hide();  /*隱藏全部評論*/
+    initMiniRefreshs(1);
 });
 
 // 点击发送--还原输入区域  comment_area_close
