@@ -69,6 +69,7 @@ public class XzWxPayController {
 
     public WxPayApiConfig getApiConfig(boolean appPay) {
         notify_url = wxPayBean.getDomain().concat("/xczh/pay/pay_notify");
+        
         if (appPay) {
             log.info("========app=======");
             log.info("appi" + wxPayBean.getAppId4App());

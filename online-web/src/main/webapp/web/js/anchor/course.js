@@ -1314,7 +1314,7 @@ function startLive(courseId, channelId) {
         if (getPushStatus(courseId) === 0) {
             location.href = "/courses/liveRoom?courseId=" + courseId;
         } else {
-            showTip("其他设备正在直播，请关闭后继续使用被设备进行直播");
+            showTip("其他设备正在直播，请关闭后继续使用本设备进行直播");
         }
     }
 }

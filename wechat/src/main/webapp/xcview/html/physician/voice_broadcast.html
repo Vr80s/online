@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="/xcview/html/physician/voice/style/main.css">
 <!--刷新 -->
 <link rel="stylesheet" href="/xcview/css/minirefresh/minirefresh.css?version=71e5ea2f95&version=71e5ea2f95&version=71e5ea2f95">
+<link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
 <script type="text/javascript" src="/xcview/js/minirefresh/minirefresh.js?version=db3081c0a1&version=db3081c0a1&version=db3081c0a1"></script>
 
 <script>
@@ -125,7 +126,7 @@
 	<!-- 头部开始 -->
 	<div class="voice_broadcast_top">
 		<div class="header">
-			<div class="header_return">
+			<div class="header_return" onclick="javascript:history.go(-1);">
 				<img src="/xcview/images/anchorj.png" alt="" />
 			</div>
 			<div class="share">
@@ -133,32 +134,54 @@
 			</div>
 		</div>
 		<div class="surface_plot">
+			<script type="text/html" id="surface_plot">
 			<div class="surface_plot_img">
-				<img src="/xcview/images/xianxia_03.jpg" alt="" />
+				<img src="{{items.smallImgPath}}" alt="" />
 				<div class="surface_plot_bg"></div>
 				<div class="surface_plot_fize">
-					<p class="surface_plot_fize_title">即将直播：如何治疗感冒及普通感冒的推荐治疗冒的推荐治疗冒的推荐治疗</p>
-					<!-- <p class="surface_plot_fize_time">开课时间：08:00</p> -->
-					<div id="box1"></div>
+					<p class="surface_plot_fize_title">即将直播：{{items.gradeName}}</p>
+					<p class="surface_plot_fize_time">开播时间：{{items.startTime.slice(11,16)}}</p>
+					<!-- <div id="box1"></div>  此乃倒计时 -->
 				</div>
 			</div>
+			</script>
+		</div>
+		<div class="courseware">
+			<img src="/xcview/images/xianxia_03.jpg" alt="" class="courseware_img" />
+			<div class="courseware_hint">主播暂未上传课件</div>
 		</div>
 	</div>
 	<!-- 头部结束 -->
 	<!-- 关注区域开始 -->
 	<div class="attention">
 		<div class="attention_main">
+			<script type="text/html" id="attention_main">
 			<div class="anchor_head">
-				<img src="/xcview/images/touxiang.png" alt="" />
+				<img src="{{items.headImg}}?imageMogr2/thumbnail/!100x100r|imageMogr2/gravity/Center/crop/100x100" alt="" />
 			</div>
+			
 			<div class="anchor_message">
-				<div class="anchor_message_name">这里是主播名字</div>
-				<div class="anchor_message_number">320人<span class="subscribe">预约</span><span class="live_streaming"><div class="live_streaming_dot"></div>直播中</span></div>
+				<div class="anchor_message_name">{{items.name}}</div>
+				<div class="anchor_message_number">{{items.learndCount}}人<span class="subscribe">预约</span><span class="live_streaming"><div class="live_streaming_dot"></div>直播中</span></div>
 			</div>
-			<div class="booking_person booking_person_bg">
+			<!--0 未关注 1 关注 
+			{{if items.isFocus == 1}}
+				<div class="booking_person booking_person_bg">
+					<img src="/xcview/images/weigz.png" alt="" />
+					<p>00加关注</p>
+				</div>
+			{{else}}
+				<div class="booking_person booking_person_bg" style="background: rgb(187, 187, 187);">
+					<img src="/xcview/images/yigz.png" alt="" />
+					<p>11已关注</p>
+				</div>
+			{{/if}}-->
+			<div class="booking_person booking_person_bg"data-lecturerid="{{items.userLecturerId}}">
 				<img src="/xcview/images/weigz.png" alt="" />
 				<p>加关注</p>
 			</div>
+			
+			</script>
 		</div>
 	</div>
 	<!-- 关注区域结束
@@ -454,6 +477,7 @@
 <script src="https://cdn.bootcss.com/lodash.js/4.17.10/lodash.min.js"></script>
 <script src="/xcview/html/physician/voice/js/main.js"></script>
 <!-- 语音直播引用文件结束 -->
+<script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
 
 <script>
 window.onload = function(){
