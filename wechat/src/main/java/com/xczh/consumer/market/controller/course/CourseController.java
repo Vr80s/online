@@ -212,7 +212,7 @@ public class CourseController {
         return ResponseObject.newSuccessResponseObject(courses);
     }
 
-    /**
+    /**	
      * Description：根据直播状态跳转不同页面
      * creed: Talk is cheap,show me the code
      *

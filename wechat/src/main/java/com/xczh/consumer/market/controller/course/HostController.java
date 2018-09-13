@@ -196,7 +196,7 @@ public class HostController {
         MedicalDoctorAccount doctorAccount = medicalDoctorBusinessService.getByDoctorId(doctorId);
         String userId = accountIdOpt.orElse(null);
         if (doctorAccount != null) {
-            apprenticeData.put("apprenticeCourses", courseService.selectTeachingCoursesByUserId(new Page<CourseLecturVo>(1, 100),doctorAccount.getAccountId(),userId));
+            apprenticeData.put("apprenticeCourses", courseService.selectTeachingCoursesByUserId(new Page<CourseLecturVo>(1, 4),doctorAccount.getAccountId(),userId));
         } else {
             apprenticeData.put("apprenticeCourses", Collections.emptyList());
         }
