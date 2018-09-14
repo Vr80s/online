@@ -1,0 +1,67 @@
+.header-wrap{
+	width: 7.5rem;
+	height: 0.88rem;	
+}
+.header{
+	width: 7.5rem;
+	height: 0.88rem;	
+	text-align: center;
+	background: #fafafa;
+	line-height: 0.88rem;
+	position: fixed;
+	top: 0;
+}
+.header .return-img{
+	width: 0.24rem;
+	height: 0.42rem;
+	float: left;
+	position: absolute;
+	top: 0.23rem;
+	left: 0.25rem;
+}
+.header h3{
+	font-size: 0.36rem;
+	font-weight: 500;
+	color: #333;
+}
+.refund-top ul {
+	overflow: hidden;
+}
+.refund-top ul li{
+	border-bottom: 1px solid #f3f3f3;
+	height: 0.88rem;
+	background: white;
+	padding: 0 0.25rem;
+	line-height: 0.88rem;
+}
+.refund-top ul .refund-status{
+	height: 1.38rem;
+	line-height: normal;
+}
+.refund-top ul .refund-status p{
+	font-size: 0.32rem;
+	color: #F97215;
+	padding: 0.3rem 0 0.1rem 0;
+}
+.refund-top ul .refund-money p{
+	float: left;
+	font-size: 0.26rem;
+	color: #333;
+}
+.refund-top ul .refund-money span{
+	float: right;
+	font-size: 0.26rem;
+	color: #F97215;
+}
+.refund-top ul .refund-card{
+	border-bottom: 0;
+	font-size: 0.26rem;
+	color: #333;
+}
+.refund-top ul .refund-card p{
+	float: left;
+}
+.refund-top ul .refund-card span{
+	float: right;
+}
+

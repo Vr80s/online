@@ -1,28 +1,9 @@
-*{margin: 0;padding: 0;}
-.z{float: left;}
-.y{float: right;}
-.wp{max-width: 7.5rem; margin: 0 auto;}
-p{margin: 0;}
-body{
-	font-size: 0.24rem;
-	color: #999999;
-	font-family: "微软雅黑";
-	background: #f0f0f0;
-}
-ul li{list-style: none;}
-a:link{text-decoration:none;}/* 指正常的未被访问过的链接*/
-
-a:visited{text-decoration:none;}/*指已经访问过的链接*/
-
-a:hover{text-decoration:none;}/*指鼠标在链接*/
-
-a:active{text-decoration:none;}/* 指正在点的链接*/ 
 .header-wrap{
 	width: 7.5rem;
 	height: 0.88rem;	
 }
 .header{
-	width: 100%;
+	width: 7.5rem;
 	height: 0.88rem;	
 	text-align: center;
 	background: #fafafa;
