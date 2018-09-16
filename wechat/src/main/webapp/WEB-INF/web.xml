@@ -75,7 +75,7 @@
     </error-page>
 
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>/xcview/html/home_page.html</welcome-file>
     </welcome-file-list>
 
 </web-app>

@@ -17,7 +17,9 @@
     <import resource="classpath:spring/spring-mybatis.xml"/>
 
     <!-- dubbo -->
-    <dubbo:application name="${dubbo.app.name}"/>
+    <dubbo:application name="${dubbo.app.name}">
+        <dubbo:parameter key="qos.enable" value="false"/>
+    </dubbo:application>
     <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"/>
     <dubbo:protocol name="dubbo" host="${dubbo.protocol.host}" port="${dubbo.protocol.port}"/>
 
