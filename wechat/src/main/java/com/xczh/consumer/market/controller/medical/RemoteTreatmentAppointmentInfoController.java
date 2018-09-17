@@ -24,6 +24,7 @@ import com.xczhihui.common.util.enums.MessageTypeEnum;
 import com.xczhihui.common.util.enums.ResultCode;
 import com.xczhihui.common.util.enums.RouteTypeEnum;
 import com.xczhihui.common.util.vhallyun.InteractionService;
+import com.xczhihui.common.util.vhallyun.RoomService;
 import com.xczhihui.course.model.Course;
 import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.service.ICommonMessageService;
@@ -199,7 +200,8 @@ public class RemoteTreatmentAppointmentInfoController {
 
     @RequestMapping(value = "inavUserList", method = RequestMethod.GET)
     public ResponseObject inavUserList(@RequestParam String inavId) throws Exception {
-        List<String> inavUserList = InteractionService.getInavUserList(inavId);
+        String channelId = courseService.selectChannelIdByInavId(inavId);
+        List<String> inavUserList = RoomService.listOnlineUsers(channelId, 0, 1000);
         return ResponseObject.newSuccessResponseObject(inavUserList.isEmpty() ? Collections.emptyList() : userCenterService.findByIds(inavUserList));
     }
 
