@@ -64,4 +64,147 @@
 .refund-top ul .refund-card span{
 	float: right;
 }
+.ferund-centent{
+	width: 100%;
+	padding: 0.2rem 0;
+	overflow: hidden;
+	position: relative;
+		background: #f8f8f8;
+}
+.ferund-centent .progress-bar-img {
+	width: 5.1rem;
+	margin: 0 auto;
+}
+.ferund-centent .progress-bar-img img{
+	width: 100%;
+}
+.ferund-centent .acceptance-status{
+	padding: 0 0.3rem;
+	overflow: hidden;
+	margin: 0 auto;
 
+}
+.acceptance-status .acceptance-left{
+
+	text-align: center;
+}
+.acceptance-status .acceptance-middle{
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    -webkit-transform:translate(-50%,-50%);
+     margin-top: 0.16rem;
+}
+.acceptance-status .acceptance-right{
+	text-align: center;
+}
+.see-mode{
+	width: 100%;
+	height: 0.88rem;
+	background: white;
+	line-height: 0.88rem;
+	padding: 0 0.25rem;
+	font-size: 0.26rem;
+	box-sizing: border-box;
+}
+.see-mode p{
+	float: left;
+}
+.see-mode img{
+	    float: right;
+    width: 0.15rem;
+    height: 0.25rem;
+    margin-top: 0.3rem;
+}
+/*退款信息*/
+.refund-inf-wrap{
+	margin-top: 0.2rem;
+	overflow: hidden;
+}
+.refund-title-inf{
+	width: 100%;
+	height: 0.88rem;
+	background: white;
+	line-height: 0.88rem;
+	padding: 0 0.25rem;
+	font-size: 0.26rem;
+	box-sizing: border-box;
+}
+
+.refund-ware-modal{
+	width: 100%;
+	padding: 0.2rem 0.25rem;
+	box-sizing: border-box;
+	background: #f8f8f8;
+	overflow: hidden;
+}
+.refund-ware-modal .ware-img{
+	width: 1.2rem;
+	height: 1.2rem;
+}
+.refund-ware-modal .ware-img img{
+	width: 100%;
+	height: 100%;
+}
+.refund-ware-modal .ware-right-data{
+	overflow: hidden;
+	
+}
+.ware-right-data p{
+	margin-bottom: 0.1rem;
+	color: #333333;
+	width: 5.58rem;
+}
+.ware-right-data p:nth-last-child(1){
+	margin-bottom: 0;
+}
+.ware-right-data .ware-title{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.ware-right-data .ware-save{
+	font-size: 0.22rem;
+	color: #999999;
+}
+.ware-right-data .ware-price{
+	font-size: 0.26rem;
+}
+.ware-right-data .ware-price span{
+	float: right;
+}
+.refund-reason{
+	overflow: hidden;
+	padding: 0.2rem 0 0.2rem 0.25rem;
+	background: white;
+}
+.refund-reason ul li{
+	width: 7rem;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 0.2rem;   
+}
+.refund-reason ul li:nth-last-child(1){
+	margin-bottom: 0;
+}
+.refund-bottom{
+	width: 100%;
+	height: 0.88rem;
+	line-height: 0.88rem;
+}
+.refund-jump{
+	width: 1.6rem;
+	margin: 0 auto;
+	overflow: hidden;
+	background: white;
+}
+.refund-jump img{
+	float: left;
+	width: 0.4rem;
+}
+.refund-jump img p{
+	float: right;
+}
