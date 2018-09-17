@@ -240,5 +240,6 @@
     <!--商城相关-->
 	<dubbo:reference interface="net.shopxx.merge.service.OrderOperService"
 		id="orderOperServiceImpl" timeout="${dubbo.provider.timeout}" />
-
+    <dubbo:reference interface="net.shopxx.merge.service.ShopCartService"
+                     id="shopCartService" timeout="${dubbo.provider.timeout}"/>
 </beans>
