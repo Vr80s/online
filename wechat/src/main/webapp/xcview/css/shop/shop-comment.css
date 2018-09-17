@@ -17,3 +17,9 @@ a:visited{text-decoration:none;}/*指已经访问过的链接*/
 a:hover{text-decoration:none;}/*指鼠标在链接*/
 
 a:active{text-decoration:none;}/* 指正在点的链接*/ 
+a {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    -webkit-user-select: none;
+    -moz-user-focus: none;
+    -moz-user-select: none;
+}

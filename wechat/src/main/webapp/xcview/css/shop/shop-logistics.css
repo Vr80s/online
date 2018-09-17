@@ -24,6 +24,32 @@
 	font-weight: 500;
 	color: #333;
 }
+.header .news-wrap {
+	    width: 0.36rem;
+    height: 0.36rem;
+    position: absolute;
+    right: 0.3rem;
+    top: 0.27rem;
+}
+.header .news-wrap img{
+	width: 0.36rem;
+	height: 0.36rem;
+	display: block;
+}
+.header .news-wrap p{
+    position: absolute;
+    top: -0.15rem;
+    right: -0.15rem;
+    width: 0.36rem;
+    height: 0.3rem;
+    background: #F97215;
+    border-radius: 1rem;
+    text-align: center;
+    line-height: 0.3rem;
+    z-index: 5;
+    color: white;
+}
+
 .ware-main{
 	padding: 0.2rem 0.25rem;
 	overflow: hidden;
@@ -105,15 +131,14 @@
 }
 .logistics-right-address ul li{
 	width: 6rem;
-	height: 0.66rem;
+	height: 1.41rem;
 	position: relative;
-	margin-bottom: 0.75rem;
 }
 .logistics-right-address ul li .location-line{
 	width: 0.01rem;
-	height: 1.2rem;
-	border-left: 1px dashed #DEDEDE;
-	margin-top: 0.2rem;
+	height: 100%;
+	border-left: 1px solid #DEDEDE;
+
 }
 .logistics-right-address ul li .address-text{
 	width: 5.6rem;

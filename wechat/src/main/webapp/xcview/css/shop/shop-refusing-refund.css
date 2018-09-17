@@ -24,6 +24,32 @@
 	font-weight: 500;
 	color: #333;
 }
+.header .news-wrap {
+	    width: 0.36rem;
+    height: 0.36rem;
+    position: absolute;
+    right: 0.3rem;
+    top: 0.27rem;
+}
+.header .news-wrap img{
+	width: 0.36rem;
+	height: 0.36rem;
+	display: block;
+}
+.header .news-wrap p{
+    position: absolute;
+    top: -0.15rem;
+    right: -0.15rem;
+    width: 0.36rem;
+    height: 0.3rem;
+    background: #F97215;
+    border-radius: 1rem;
+    text-align: center;
+    line-height: 0.3rem;
+    z-index: 5;
+    color: white;
+}
+/*退款中、退款成功*/
 .refund-top ul {
 	overflow: hidden;
 }
@@ -35,13 +61,13 @@
 	line-height: 0.88rem;
 }
 .refund-top ul .refund-status{
-	height: 1.38rem;
+	height: 1.18rem;
 	line-height: normal;
 }
 .refund-top ul .refund-status p{
 	font-size: 0.32rem;
 	color: #F97215;
-	padding: 0.3rem 0 0.1rem 0;
+	padding: 0 0 0.1rem 0;
 }
 .refund-top ul .refund-money p{
 	float: left;
@@ -100,6 +126,86 @@
 .acceptance-status .acceptance-right{
 	text-align: center;
 }
+
+/*商家拒绝/退款关闭*/
+.refund-top{
+	padding: 0 0.25rem;
+	overflow: hidden;
+	background: white;
+	box-sizing: border-box;
+	padding-top: 0.2rem;
+}
+.refund-top .refund-time{
+	border-bottom: 0.01rem solid #f8f8f8;
+}
+.refund-top .refund-time .refuse-status{
+	font-size: 0.32rem;
+	color: #F97215;
+}
+.refund-top .refund-time p {
+	color: #999;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 0.2rem 0;
+}
+.refund-top .refund-time p span{
+	color: #F97215;
+}
+.refund-reason-top p{
+	margin-top: 0.2rem;
+	color: #333;
+}
+.refund-reason-top .refund-revoke{
+	margin: 0.2rem 0;
+}
+
+.refund-top .modify-apply{
+	width: 1.45rem;
+	height: 0.52rem;
+	border: 1px solid #F97215;
+	border-radius: 1rem;
+	background: white;
+	margin: 0.3rem 0;
+	outline: none;
+}
+.refund-top .modify-apply a{
+	color: #F97215;
+}
+/*等待处理*/
+.discharge-petition{
+	width: 1.45rem;
+	height: 0.52rem;
+	border: 1px solid #dedede;
+	border-radius: 1rem;
+	background: white;
+	margin: 0.3rem 0;
+	outline: none;
+	color: #333333;
+	margin-right: 0.3rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .see-mode{
 	width: 100%;
 	height: 0.88rem;
@@ -108,6 +214,7 @@
 	padding: 0 0.25rem;
 	font-size: 0.26rem;
 	box-sizing: border-box;
+	margin-top: 0.2rem;
 }
 .see-mode p{
 	float: left;
