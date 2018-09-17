@@ -194,17 +194,20 @@
 	width: 100%;
 	height: 0.88rem;
 	line-height: 0.88rem;
+	background: white;
+	border-top: 0.01rem solid #f8f8f8;
 }
 .refund-jump{
 	width: 1.6rem;
 	margin: 0 auto;
 	overflow: hidden;
-	background: white;
+
 }
 .refund-jump img{
 	float: left;
 	width: 0.4rem;
+	margin-top: 0.25rem;
 }
-.refund-jump img p{
+.refund-jump p{
 	float: right;
 }
