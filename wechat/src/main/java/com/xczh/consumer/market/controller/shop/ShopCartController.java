@@ -22,8 +22,8 @@ public class ShopCartController {
     private ShopCartService shopCartService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseObject add(@Account String accountId, @RequestParam long skuId, @RequestParam int count) {
-        shopCartService.add(accountId, skuId, count);
+    public ResponseObject add(@Account String accountId, @RequestParam long skuId, @RequestParam int quantity) {
+        shopCartService.add(accountId, skuId, quantity);
         return ResponseObject.newSuccessResponseObject();
     }
 
@@ -39,7 +39,7 @@ public class ShopCartController {
     }
 
     @RequestMapping(value = "sku/delete", method = RequestMethod.POST)
-    public ResponseObject remove(@Account String accountId, @RequestParam Long skuId, @RequestParam int quantity) {
+    public ResponseObject remove(@Account String accountId, @RequestParam Long skuId) {
         shopCartService.remove(accountId, skuId);
         return ResponseObject.newSuccessResponseObject();
     }
