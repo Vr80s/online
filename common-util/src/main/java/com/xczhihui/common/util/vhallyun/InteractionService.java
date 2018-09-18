@@ -33,9 +33,7 @@ public class InteractionService {
             if (vhallYunResult.isOk()) {
                 List<Map<String, Object>> userList = (List<Map<String, Object>>) vhallYunResult.getData();
                 for (Map<String, Object> user : userList) {
-                    if (((int) user.get("status")) == 2) {
-                        userIdList.add((String) user.get("third_party_user_id"));
-                    }
+                    userIdList.add((String) user.get("third_party_user_id"));
                 }
             }
         } catch (Exception e) {

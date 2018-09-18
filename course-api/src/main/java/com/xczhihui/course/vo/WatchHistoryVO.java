@@ -48,6 +48,8 @@ public class WatchHistoryVO implements Serializable {
      * 原价
      */
     private Double originalCost;
+    
+    private Boolean record;
 
     public String getUserId() {
         return userId;
@@ -265,4 +267,20 @@ public class WatchHistoryVO implements Serializable {
     public void setOriginalCost(Double originalCost) {
         this.originalCost = originalCost;
     }
+
+	public String getCollectionName() {
+		return collectionName;
+	}
+
+	public void setCollectionName(String collectionName) {
+		this.collectionName = collectionName;
+	}
+
+	public Boolean getRecord() {
+		return record;
+	}
+
+	public void setRecord(Boolean record) {
+		this.record = record;
+	}
 }

@@ -343,12 +343,13 @@ public interface ICourseService {
     Integer getCourseLivePushStreamStatus(Integer courseId);
 
 
-	/**  
-	 * <p>Title: createTherapyLive</p>  
-	 * <p>Description:审核通过创建诊疗直播信息 </p>  
-	 * @param id  
-	 */ 
-    Integer createTherapyLive(Integer id,Integer clientType,String accountId) throws Exception;
+    /**
+     * <p>Title: createTherapyLive</p>
+     * <p>Description:审核通过创建诊疗直播信息 </p>
+     *
+     * @param id
+     */
+    Integer createTherapyLive(Integer id, Integer clientType, String accountId) throws Exception;
 
 
     /**
@@ -363,9 +364,18 @@ public interface ICourseService {
 
     /**
      * 直播中的课程
+     *
      * @return
      */
     List<Course> listLiving();
 
     String getHostCollectionUpdateDateText(Integer collectionId);
+
+    /**
+     * 获取渠道id
+     *
+     * @param inavId
+     * @return
+     */
+    String selectChannelIdByInavId(String inavId);
 }
