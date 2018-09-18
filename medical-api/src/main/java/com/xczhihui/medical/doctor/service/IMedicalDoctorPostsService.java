@@ -1,9 +1,12 @@
 package com.xczhihui.medical.doctor.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.common.util.bean.ProductPostsVO;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Description：医师动态service
@@ -84,5 +87,15 @@ public interface IMedicalDoctorPostsService {
      * @return
      */
     void addDoctorPosts(String userId,Integer courseId,Integer articleId,String courseName,String subtitle, Integer appointmentInfoId);
+
+	/**  
+	 * <p>Title: getProductPostsByProductId</p>  
+	 * <p>Description: </p>  
+	 * @param productId
+	 * @param pageNumber
+	 * @param pageSize
+	 * @return  
+	 */ 
+    Set<Map<String,Object>> getProductPostsByProductId(Integer productId, Integer pageNumber, Integer pageSize);
 
 }

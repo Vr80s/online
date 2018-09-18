@@ -1,22 +1,38 @@
 package com.xczhihui.medical.doctor.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.util.StringLegalUtil;
+import com.xczhihui.common.util.bean.ProductPostsVO;
 import com.xczhihui.common.util.enums.DoctorPostsType;
 import com.xczhihui.medical.common.bean.PictureSpecification;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsLikeMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsMapper;
-import com.xczhihui.medical.doctor.model.*;
-import com.xczhihui.medical.doctor.service.*;
+import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
+import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
+import com.xczhihui.medical.doctor.model.MedicalDoctorPostsComment;
+import com.xczhihui.medical.doctor.model.MedicalDoctorPostsLike;
+import com.xczhihui.medical.doctor.model.TreatmentAppointmentInfo;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsCommentService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
+import com.xczhihui.medical.doctor.service.IRemoteTreatmentService;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import com.xczhihui.medical.enrol.service.EnrolService;
 import com.xczhihui.utils.HtmlUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 /**
  * Description：医师动态 服务实现类
@@ -261,4 +277,10 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
         }
     }
 
+    @Override
+    public Set<Map<String,Object>> getProductPostsByProductId(Integer productId,Integer pageNumber,Integer pageSize) {
+    	
+    	return medicalDoctorPostsMapper.getProductPostsByProductId(productId, pageNumber, pageSize);
+    }
+    
 }

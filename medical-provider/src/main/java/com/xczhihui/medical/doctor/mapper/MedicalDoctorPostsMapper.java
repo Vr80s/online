@@ -1,11 +1,15 @@
 package com.xczhihui.medical.doctor.mapper;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.common.util.bean.ProductPostsVO;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
 
 /**
@@ -75,5 +79,16 @@ public interface MedicalDoctorPostsMapper extends BaseMapper<MedicalDoctorPosts>
      * @return
      */
     List<MedicalDoctorPosts> getMedicalDoctorPostsByCourseId(@Param("courseId") Integer courseId);
-
+    
+    
+    
+    @Select({" select \r\n" + 
+    		"	 mdp.id,mdp.content,mdp.doctor_id doctorId,md.name doctorName,mdai.head_portrait doctorHeadImg,\r\n" + 
+    		"	 mdp.product_id productId,mdp.level\r\n" + 
+    		"from medical_doctor_posts mdp \r\n" + 
+    		"	inner join medical_doctor md on mdp.doctor_id = md.id\r\n" + 
+    		"	left join medical_doctor_authentication_information mdai on md.`authentication_information_id` = mdai.`id`\r\n" + 
+    		"where mdp.product_id = #{infoId} order by mdp.create_time limit #{pageNumber},#{pageSize}  "})
+    Set<Map<String,Object>> getProductPostsByProductId(@Param("productId") Integer productId,@Param("pageNumber") Integer pageNumber,
+    		@Param("pageSize") Integer pageSize);
 }
