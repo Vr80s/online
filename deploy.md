@@ -223,5 +223,23 @@ dev-2.5
     
      替换掉医馆图片信息中的图片后缀      
     update 	medical_hospital_picture	set  picture = left(picture, if(LOCATE("?",picture) >0,LOCATE("?",picture)-1,length(picture))) where picture is not null
+    
+  
+    ALTER TABLE `medical_doctor_posts` ADD `product_id` bigint(20)  DATETIME  NULL COMMENT '商品id';
+	ALTER TABLE `medical_doctor_posts` ADD `level` int(1) DEFAULT NULL COMMENT '医师推荐指数';
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+    
         
         
