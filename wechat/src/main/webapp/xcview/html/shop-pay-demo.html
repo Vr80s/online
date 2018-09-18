@@ -15,19 +15,17 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <body>
-<form id="orderForm" class="ajax-form form-horizontal" action="/xczh/shop/order/create" method="post" novalidate="novalidate">
-	<input name="skuId" type="hidden" value="315">
-	<input name="quantity" type="hidden" value="1">
-	<input id="receiverId" name="receiverId" type="hidden" value="10002">
-	<input id="paymentMethodId" name="paymentMethodId" type="hidden" value="1">
-	<input id="shippingMethodId" name="shippingMethodId" type="hidden" value="1">
-
-
-	<div class="bar">
-		<div class="row">
-
-			<div class="col-xs-1">
-				<button class="btn btn-primary btn-lg btn-block" type="submit">订单结算</button>
+<form action="http://localhost:8383/payment" method="post" target="_blank">
+	<input name="paymentItemList[0].type" type="hidden" value="ORDER_PAYMENT">
+	<input name="paymentItemList[0].orderSn" type="hidden" value="201809171010205">
+	<input id="rePayUrl" name="rePayUrl" type="hidden" value="/order/payment?orderSns=201809171010205">
+	<input id="paymentPluginId" name="paymentPluginId" type="hidden" value="alipayPagePaymentPlugin">
+	<div class="panel panel-default">
+		<div class="panel-footer">
+			<div class="row">
+				<div class="col-xs-9 col-sm-10 col-xs-offset-3 col-sm-offset-2">
+					<button class="btn btn-primary btn-lg" type="submit" data-toggle="modal" data-target="#payConfirmModal" data-backdrop="static">立即支付</button>
+				</div>
 			</div>
 		</div>
 	</div>
