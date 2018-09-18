@@ -295,11 +295,9 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
     
     
     @Override
-    public Set<Map<String,Object>> getProductPostsByProductId(Integer productId,Integer pageNumber,Integer pageSize) {
+    public Set<Map<String,Object>> getProductPostsByProductId(Long productId,Integer pageNumber,Integer pageSize) {
     	
     	return medicalDoctorPostsMapper.getProductPostsByProductId(productId, pageNumber, pageSize);
     }
-
-	
     
 }

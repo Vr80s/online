@@ -88,7 +88,7 @@ public interface MedicalDoctorPostsMapper extends BaseMapper<MedicalDoctorPosts>
     		"from medical_doctor_posts mdp \r\n" + 
     		"	inner join medical_doctor md on mdp.doctor_id = md.id\r\n" + 
     		"	left join medical_doctor_authentication_information mdai on md.`authentication_information_id` = mdai.`id`\r\n" + 
-    		"where mdp.product_id = #{infoId} order by mdp.create_time limit #{pageNumber},#{pageSize}  "})
-    Set<Map<String,Object>> getProductPostsByProductId(@Param("productId") Integer productId,@Param("pageNumber") Integer pageNumber,
+    		"where mdp.product_id = #{productId} order by mdp.create_time limit #{pageNumber},#{pageSize}  "})
+    Set<Map<String,Object>> getProductPostsByProductId(@Param("productId") Long productId,@Param("pageNumber") Integer pageNumber,
     		@Param("pageSize") Integer pageSize);
 }

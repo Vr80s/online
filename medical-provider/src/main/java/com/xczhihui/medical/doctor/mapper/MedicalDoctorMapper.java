@@ -109,4 +109,11 @@ public interface MedicalDoctorMapper extends BaseMapper<MedicalDoctor> {
             "             LEFT JOIN `medical_doctor_authentication_information` mdai\n" +
             "             on md.`authentication_information_id` = mdai.`id` where md.id = #{doctorId}"})
     Map<String, Object> selectUserByDoctorId(@Param("doctorId") String doctorId);
+    
+    
+    @Select({"select mda.account_id as id, mdai.head_portrait avatar, md.name\n" +
+            "             FROM medical_doctor md join medical_doctor_account mda on md.`id` = mda.`doctor_id`\n" +
+            "             LEFT JOIN `medical_doctor_authentication_information` mdai\n" +
+            "             on md.`authentication_information_id` = mdai.`id` where mda.account_id = #{accountId}"})
+    Map<String, Object> selectUserByAccountId(@Param("accountId") String accountId);
 }
