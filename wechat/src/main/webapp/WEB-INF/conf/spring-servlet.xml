@@ -232,10 +232,14 @@
 
 
 	<dubbo:reference interface="com.xczhihui.medical.doctor.service.IDoctorTypeService"
-		id="doctorTypeServiceImpl" timeout="${dubbo.provider.timeout}" />  
-		
+		id="doctorTypeServiceImpl" timeout="${dubbo.provider.timeout}" />
+
+    <!--商城相关-->
 	 <dubbo:reference id="goodsServiceImpl" interface="net.shopxx.merge.service.GoodsService"
-                     timeout="${dubbo.consumer.timeout}"/>	
-		
+                     timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="net.shopxx.merge.service.OrderOperService"
+                     id="orderOperServiceImpl" timeout="${dubbo.provider.timeout}" />
+    <dubbo:reference interface="net.shopxx.merge.service.ShopCartService"
+                     id="shopCartService" timeout="${dubbo.provider.timeout}"/>
 
 </beans>
