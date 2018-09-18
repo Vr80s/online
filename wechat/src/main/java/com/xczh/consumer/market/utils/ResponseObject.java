@@ -52,6 +52,18 @@ public class ResponseObject implements Serializable {
     /**
      * 构造一个成功响应对象
      *
+     * @return
+     */
+    public static ResponseObject newSuccessResponseObject() {
+        ResponseObject res = new ResponseObject();
+        res.setSuccess(true);
+        res.setResultObject(null);
+        return res;
+    }
+
+    /**
+     * 构造一个成功响应对象
+     *
      * @param resultObject
      * @return
      */

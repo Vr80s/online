@@ -75,12 +75,9 @@
     <mvc:default-servlet-handler/>
 
 
-    <dubbo:application name="${dubbo.app.name}">
-        <dubbo:parameter key="qos.enable" value="false"/>
-    </dubbo:application>
+    <dubbo:application name="${dubbo.app.name}"/>
     <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"
                     file="${catalina.home}/dubbo-registry/dubbo-registry.properties"/>
-    <dubbo:protocol name="dubbo" serialization="java"/>
 
 
     <dubbo:reference id="userCenterService" interface="com.xczhihui.user.center.service.UserCenterService"
@@ -235,10 +232,10 @@
 
 
 	<dubbo:reference interface="com.xczhihui.medical.doctor.service.IDoctorTypeService"
-		id="doctorTypeServiceImpl" timeout="${dubbo.provider.timeout}" />
-
-    <!--商城相关-->
-	<dubbo:reference interface="net.shopxx.merge.service.OrderOperService"
-		id="orderOperServiceImpl" timeout="${dubbo.provider.timeout}" />
+		id="doctorTypeServiceImpl" timeout="${dubbo.provider.timeout}" />  
+		
+	 <dubbo:reference id="goodsServiceImpl" interface="net.shopxx.merge.service.GoodsService"
+                     timeout="${dubbo.consumer.timeout}"/>	
+		
 
 </beans>
