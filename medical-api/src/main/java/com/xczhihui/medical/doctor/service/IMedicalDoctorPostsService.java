@@ -1,7 +1,6 @@
 package com.xczhihui.medical.doctor.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.common.util.bean.ProductPostsVO;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
 
 import java.util.List;
