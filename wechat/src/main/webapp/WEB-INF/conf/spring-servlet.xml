@@ -75,7 +75,9 @@
     <mvc:default-servlet-handler/>
 
 
-    <dubbo:application name="${dubbo.app.name}"/>
+    <dubbo:application name="${dubbo.app.name}">
+        <dubbo:parameter key="qos.enable" value="false"/>
+    </dubbo:application>
     <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"
                     file="${catalina.home}/dubbo-registry/dubbo-registry.properties"/>
 
