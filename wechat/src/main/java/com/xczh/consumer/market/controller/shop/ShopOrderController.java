@@ -3,6 +3,7 @@ package com.xczh.consumer.market.controller.shop;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.utils.ResponseObject;
 import net.shopxx.merge.service.OrderOperService;
+import net.shopxx.merge.vo.OrderVO;
 import net.shopxx.merge.vo.ReceiverVO;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,6 +93,15 @@ public class ShopOrderController {
     @RequestMapping("/receiver/delete")
     public ResponseObject deleteReceiver(@Account String accountId, @RequestParam Long receiverId){
         orderOperService.deleteReceiver(receiverId,accountId);
+        return ResponseObject.newSuccessResponseObject(null);
+    }
+
+    @RequestMapping(value = "/receiver/list",method = RequestMethod.GET)
+    public ResponseObject list( @RequestParam OrderVO.Type type, @RequestParam OrderVO.Status status, @RequestParam Boolean isPendingReceive
+            , @RequestParam Boolean isPendingRefunds, @RequestParam Boolean isUseCouponCode, @RequestParam Boolean isExchangePoint, @RequestParam Boolean isAllocatedStock
+            , @RequestParam Boolean hasExpired, @RequestParam(defaultValue = "1") int pageNumber, @RequestParam(defaultValue = "10") int pageSize){
+        orderOperService.findPage(type, status, null, "aa79673b899249d9a07b0f19732a1b0e", null, isPendingReceive,
+                isPendingRefunds, isUseCouponCode, isExchangePoint, isAllocatedStock, hasExpired, pageNumber, pageSize);
         return ResponseObject.newSuccessResponseObject(null);
     }
 
