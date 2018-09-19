@@ -52,6 +52,12 @@ public class RedisCacheKey {
     
     public static final String PROVINCE_CITY_COUNTY  = "province:city:county";
 
+    
+    public static final String STORE_DOCTOR_RELEVANCE  = "STORE:DOCTOR:RELEVANCE";
+    
+    
+    
+
     public static String getGiftCacheKey(String str) {
         return GIFT_CACHE__PREFIX + REDIS_SPLIT_CHAR + str;
     }
