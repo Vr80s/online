@@ -102,18 +102,26 @@ public interface MedicalDoctorMapper extends BaseMapper<MedicalDoctor> {
 
     Map<String, Object> selectDoctorWorkTimeAndDetailsById(@Param("doctorId") String doctorId);
 
-    List<MedicalDoctorVO> selectHotInBatch(@Param("page")Page<MedicalDoctorVO> page);
+    List<MedicalDoctorVO> selectHotInBatch(@Param("page") Page<MedicalDoctorVO> page);
 
     @Select({"select mda.account_id as id, mdai.head_portrait avatar, md.name\n" +
             "             FROM medical_doctor md join medical_doctor_account mda on md.`id` = mda.`doctor_id`\n" +
             "             LEFT JOIN `medical_doctor_authentication_information` mdai\n" +
             "             on md.`authentication_information_id` = mdai.`id` where md.id = #{doctorId}"})
     Map<String, Object> selectUserByDoctorId(@Param("doctorId") String doctorId);
-    
-    
+
     @Select({"select mda.account_id as id, mdai.head_portrait avatar, md.name\n" +
             "             FROM medical_doctor md join medical_doctor_account mda on md.`id` = mda.`doctor_id`\n" +
             "             LEFT JOIN `medical_doctor_authentication_information` mdai\n" +
             "             on md.`authentication_information_id` = mdai.`id` where mda.account_id = #{accountId}"})
     Map<String, Object> selectUserByAccountId(@Param("accountId") String accountId);
+
+    /**
+     * 查询所有有效的主播医师
+     *
+     * @return
+     */
+    @Select({"select mda.account_id as id, md.name\n" +
+            "             FROM medical_doctor md join medical_doctor_account mda on md.`id` = mda.`doctor_id` where md.status = 1\n"})
+    List<MedicalDoctorVO> listDoctor();
 }
