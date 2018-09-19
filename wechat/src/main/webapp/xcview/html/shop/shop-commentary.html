@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" href="/xcview/css/shop/shop-comment.css">
+		<link rel="stylesheet" href="/xcview/css/shop/shop-commentary.css">
+		<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+		<script>
+		// rem响应式处理
+			var kk=document.documentElement.clientWidth;
+			if(kk>750){
+				kk=750
+			}
+			document.documentElement.style.fontSize=kk/7.5+"px";
+		</script>
+	</head>
+	<body>
+		<div class="wp">
+			<div class="header-wrap">			
+				<div class="header">
+					<img class="return-img" src="/xcview/images/screen_close.png" alt="返回" />
+					<h3>发布评价</h3>
+					<div class="news-wrap">
+						<p>发布</p>
+					</div>
+				</div>				
+			</div>
+			<!--一-->
+			<div class="commentary-wrap">
+				<div class="commentary-top">
+					<div class="ware-img z">
+						<img src="/xcview/images/banner01.png" alt="商品" />
+					</div>
+					<p class="ware-describe">描述相符</p>
+					<div class="select-impress y">  
+				        <img src="/xcview/images/xing1.png" alt="星星" />  
+				       	<img src="/xcview/images/xing1.png" alt="星星" />
+				       	<img src="/xcview/images/xing1.png" alt="星星" />
+				       	<img src="/xcview/images/xing1.png" alt="星星" />
+				       	<img src="/xcview/images/xing1.png" alt="星星" />
+				        <span></span>  
+				    </div> 
+				</div>
+				<div class="commentary-text">
+					<textarea placeholder="大声说出你的爱~"></textarea>
+				</div>
+				<!--图片上传-->
+				<div class="upload-picture-wrap">
+					<p class="picture-top">上传凭证<span>（最多6张）</span></p>				
+					<div class="save-pic z">
+						<ul>
+						</ul>
+						<div class="btn-upload z">
+							<p>上传凭证</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--二-->
+			<div class="commentary-wrap">
+				<div class="commentary-top">
+					<div class="ware-img z">
+						<img src="/xcview/images/banner01.png" alt="商品" />
+					</div>
+					<p class="ware-describe">描述相符</p>
+					<div class="select-impress y">  
+				        <img src="/xcview/images/xing1.png" alt="星星" />  
+				       	<img src="/xcview/images/xing1.png" alt="星星" />
+				       	<img src="/xcview/images/xing1.png" alt="星星" />
+				       	<img src="/xcview/images/xing1.png" alt="星星" />
+				       	<img src="/xcview/images/xing1.png" alt="星星" />
+				        <span></span>  
+				    </div> 
+				</div>
+				<div class="commentary-text">
+					<textarea placeholder="大声说出你的爱~"></textarea>
+				</div>
+				<!--图片上传-->
+				<div class="upload-picture-wrap">
+					<p class="picture-top">上传凭证<span>（最多6张）</span></p>				
+					<div class="save-pic z">
+						<ul>
+						</ul>
+						<div class="btn-upload z">
+							<p>上传凭证</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			
+			
+			
+			
+		</div>
+		
+		
+		
+		
+		<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+		<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script>
+		<script type="text/javascript" src="/xcview/js/common/template.js"></script> 
+		<!--上传照片JS-->
+		<script type="text/javascript" src="/xcview/js/shop/comment-pic-upload.js"></script>
+		<script type="text/javascript" src="/xcview/js/shop/shop-commentary.js"></script>
+		<script type="text/javascript">
+//			上传照片部分JS
+			var img=$(".img");
+			var callBack=function(album,img,save){
+				album.forEach(function(val,idx){ 				
+					var div=$('<li><p><img src="/xcview/images/select_close.png" style="width:0.3rem;"></p></li>');
+					var img=$("<img/>");
+					img.attr("src",val.data);
+					div.append(img);
+					save.append(div);
+					isPiclength()
+					$(".btn-upload input").val("")
+				});
+			}
+			var carera=new $.Pgater($(".btn-upload"),callBack);
+//			判断一共上传了多少张
+			function isPiclength() {
+				save.find("li").each(function(){					
+					if(save.find("li").length>=6){
+						save.siblings(".btn-upload").css('display','none')
+					}else{
+						save.siblings(".btn-upload").css('display','block')
+					}
+				})
+			}
+
+		</script>
+	</body>
+</html>

@@ -1,24 +1,32 @@
 $.Pgater=(function(){
-	var agent=navigator.userAgent.toLowerCase();
-	var iswx=agent.indexOf('qqbrowser') >= 0;
-	if(iswx){
-		var File=$("<input type='file' id='csl_gater_file' accept='image/*' capture='camera' multiple='multiple'>");
-	}else{
-		var File=$("<input type='file' id='csl_gater_file' accept='image/*' multiple='multiple'>");
-	};
-	File.css('display','none');
 	return function(target,callBack){
-		console.log(File);
-		this.ele=File;
-		this.parent=target;
-		this.parent.append(this.ele);
-		this.bindClk(this.parent,this.ele[0]);
-		this.bindFuc(this.ele,callBack);
+//		console.log(File);
+		for(var i=0;i<target.length;i++){
+			this.ele=getFileDom(i);
+			this.parent=$(target[i]);
+			this.parent.append(this.ele);
+			this.bindClk(this.parent,this.ele[0]);
+			this.bindFuc(this.ele,callBack);			
+		}
 	};
 })();
+function getFileDom(index){
+	var agent=navigator.userAgent.toLowerCase();
+	var iswx=agent.indexOf('qqbrowser') >= 0;
+	var File
+	if(iswx){
+		File=$("<input type='file' class='csl_gater_file"+index+"' accept='image/*' capture='camera' multiple='multiple'>");
+	}else{
+		File=$("<input type='file' class='csl_gater_file"+index+"' accept='image/*' multiple='multiple'>");
+	};
+	File.css('display','none');
+	return File;
+}
+var save;
 $.Pgater.prototype.bindFuc=function(ele,callBack){
-	ele.on("change",function(){
+	ele.on("change",function(){		
 		console.log(ele[0].files);
+		 save=$(this).parent().parent().find("ul");
 		var all=ele[0].files;
 		var reader = new FileReader();
 		var album=[];
@@ -40,7 +48,7 @@ $.Pgater.prototype.bindFuc=function(ele,callBack){
 				}else{
 					ele.value = '';
 					//alert(i);
-					callBack(album,img);
+					callBack(album,img,save);
 				};
 			};
 		};

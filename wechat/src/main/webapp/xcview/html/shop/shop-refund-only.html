@@ -82,7 +82,7 @@
 				
 			
 			<!--货物状态弹窗-->
-			<div class="gray-bgcolor"></div>
+			<div class="gray-bgcolor hide"></div>
 			<div class="comment-modal goos-status-modal">
 				<div class="comment-goos-top goos-status-top">
 					<p>货物状态</p>
@@ -91,11 +91,11 @@
 				<div class="comment-text-select goos-status-select">
 					<ul>
 						<li>
-							<p>多拍/错拍/不想要</p>
+							<p>未收到货</p>
 							<span></span>
 						</li>
 						<li>
-							<p>快递一直未送到</p>
+							<p>已收到货</p>
 							<span></span>
 						</li>
 					</ul>
@@ -110,13 +110,30 @@
 				<div class="comment-text-select return-goods-select">
 					<ul>
 						<li>
-							<p>22</p>
+							<p>多拍/错拍/不想要</p>
 							<span></span>
 						</li>
 						<li>
-							<p>33</p>
+							<p>快递一直未送到</p>
 							<span></span>
 						</li>
+						<li>
+							<p>未按约定时间发货</p>
+							<span></span>
+						</li>
+						<li>
+							<p>快递无跟踪记录</p>
+							<span></span>
+						</li>
+						<li>
+							<p>空包裹/少货</p>
+							<span></span>
+						</li>
+						<li>
+							<p>其他</p>
+							<span></span>
+						</li>
+						
 					</ul>
 				</div>
 			</div>
@@ -149,9 +166,8 @@
 				console.log(album);
 				console.log(img);
 				album.forEach(function(val,idx){
-					var div=$('<li><p><img src="/xcview/images/select_close.png" style="width:0.3rem"></p></li>');
+					var div=$('<li><p><img src="/xcview/images/select_close.png" style="width:0.3rem;"></p></li>');
 					var img=$("<img/>");
-
 					img.attr("src",val.data);
 					div.append(img);
 					$(".save-pic ul").append(div);

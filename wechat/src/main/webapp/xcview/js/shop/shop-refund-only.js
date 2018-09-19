@@ -3,19 +3,20 @@ $(function(){
 		$(this).parent().remove();
 		isPiclength();
 	});
-//	开启弹窗
+//	开启弹窗   货物状态
 	$(".goods-select").click(function(){
 		$(".gray-bgcolor").removeClass("hide");
 		$(".goos-status-modal").animate({"bottom":"0"},300)
 	});
-	$(".return-goods-reason").click(function(){
+//	退货原因
+	$(".goods-select-reason").click(function(){
 		$(".gray-bgcolor").removeClass("hide");
 		$(".return-goods-modal").animate({"bottom":"0"},300)
 	});
 //	关闭弹窗
 	$(".gray-bgcolor, .goos-status-top img, .return-goods-top img").click(function(){
 		$(".gray-bgcolor").addClass("hide");
-		$(".comment-modal").stop().animate({"bottom":"-6rem"},200)
+		$(".comment-modal").stop().animate({"bottom":"-8rem"},200)
 	});
 //	选中货物状态
 	$(".goos-status-select ul li span").click(function(){
