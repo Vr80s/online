@@ -96,6 +96,19 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
      */
     @TableField("stick")
     private Boolean stick;
+    
+    /**
+     * 商品id
+     */
+    @TableField("product_id")
+    private Long productId;
+    /**
+     * 医师推荐星级
+     */
+    @TableField("level")
+    private Integer level;
+    
+    
     /**
      * 现价
      */
@@ -533,8 +546,25 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
     public void setTreatmentStatus(Integer treatmentStatus) {
         this.treatmentStatus = treatmentStatus;
     }
+    
 
-    @Override
+    public Long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Long productId) {
+		this.productId = productId;
+	}
+
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+
+	@Override
     public String toString() {
         return "MedicalDoctorPosts{" +
                 "id=" + id +
