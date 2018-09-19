@@ -27,11 +27,7 @@ $(function(){
 				liBtn.parent().siblings(".btn-upload").css('display','block')
 
 			}
-		})
-		
-		
+		})		
 		that.parent().remove();
-		
-		
 	});
 })

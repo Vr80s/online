@@ -162,15 +162,13 @@
 		<script type="text/javascript">
 //			上传照片部分JS
 			var img=$(".img");
-			var callBack=function(album){
-				console.log(album);
-				console.log(img);
-				album.forEach(function(val,idx){
+			var callBack=function(album,img,save){
+				album.forEach(function(val,idx){ 				
 					var div=$('<li><p><img src="/xcview/images/select_close.png" style="width:0.3rem;"></p></li>');
 					var img=$("<img/>");
 					img.attr("src",val.data);
 					div.append(img);
-					$(".save-pic ul").append(div);
+					save.append(div);
 					isPiclength()
 					$(".btn-upload input").val("")
 				});
@@ -178,15 +176,15 @@
 			var carera=new $.Pgater($(".btn-upload"),callBack);
 //			判断一共上传了多少张
 			function isPiclength() {
-				$(".save-pic ul li").each(function(){
-					
-					if($(".save-pic ul li").length>=6){
-						$(".btn-upload").css('display','none')
+				save.find("li").each(function(){					
+					if(save.find("li").length>=6){
+						save.siblings(".btn-upload").css('display','none')
 					}else{
-						$(".btn-upload").css('display','block')
+						save.siblings(".btn-upload").css('display','block')
 					}
 				})
 			}
+
 		</script>
 	</body>
 </html>

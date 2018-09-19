@@ -1,7 +1,18 @@
 $(function(){
+	//  删除图片
 	$('.save-pic ul').on('click',"p",function(){
-		$(this).parent().remove();
-		isPiclength();
+		var that=$(this)
+		var liBtn=that.parent().parent().find("li");
+
+			liBtn.each(function(){					
+			if(liBtn.length>=7){
+				liBtn.parent().siblings(".btn-upload").css('display','none')
+			}else{
+				liBtn.parent().siblings(".btn-upload").css('display','block')
+
+			}
+		})
+		that.parent().remove();
 	});
 //	开启弹窗   货物状态
 	$(".goods-select").click(function(){
