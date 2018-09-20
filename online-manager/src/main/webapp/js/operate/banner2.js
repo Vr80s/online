@@ -9,6 +9,16 @@ var goodBili = 0.4;
 var minbili = 0.35;
 var maxbili = 0.45;
 
+var productVos = productCategorys;
+if(productVos!=null && productVos.length>0){
+	var	childrenVOs = productVos[0].childrenVOs;
+	if(childrenVOs!=null && childrenVOs.length>0){
+		$("#J-product-category").show();
+	}else{
+		$("#J-product-category").hide();
+	}
+}
+debugger;
 $(function () {
     nowTime = show();
 
@@ -402,6 +412,74 @@ $(".add_bx").click(function () {
     }
 });
 
+
+function lala(obj){
+	
+	try{
+		var rootCateGoryId = $(obj).val();
+		for (var index = 0; index < productVos.length; index++) {
+			if(productVos[index].id == rootCateGoryId){
+				
+			    var childrenVOs = productVos[index].childrenVOs;
+			    if(childrenVOs.length>0){
+			        var optionHtml = "";
+				    var childrenOneId = "";
+					for (var i = 0; i < childrenVOs.length; i++) {
+						if(i==0){
+							rootCateGoryId = childrenVOs[i].id;
+						}
+						optionHtml +=("<option value="+childrenVOs[i].id+">"+childrenVOs[i].name+"</option>");
+					}
+					$("#J-product-category").show();
+					
+					$("#J-product-category").html(optionHtml);
+			    }else{
+			   	    $("#J-product-category").hide();
+			    }
+			    /*
+			     * 去后台请求下课程列表
+			     */
+			     ajaxRequest(basePath + "/operate/banner2/getProductsByCategoryId", {"categoryId": rootCateGoryId}, function (data) {
+			           if (data.success) {
+			           	    var products = data.resultObject;
+	        				var optionHtml = "";
+	        				for (var i = 0; i < products.length; i++) {
+								optionHtml +=("<option value="+products[i].id+">"+products[i].name+"</option>");
+							}
+	        				$("#J-product").html(optionHtml);
+					        $('.selectpicker').selectpicker('refresh');
+					        $('.selectpicker').selectpicker({'selectedText': 'cat',size:10});
+			           }
+			    });
+				break;
+			}
+		}
+	}catch(e){
+		console.error(e);
+	}
+}
+
+function hehe(obj){
+
+	/*
+     * 去后台请求下课程列表
+     */
+	 var rootCateGoryId = $(obj).val();	    
+     ajaxRequest(basePath + "/operate/banner2/getProductsByCategoryId", {"categoryId": rootCateGoryId}, function (data) {
+           if (data.success) {
+           	    var products = data.resultObject;
+				var optionHtml = "";
+				for (var i = 0; i < products.length; i++) {
+					optionHtml +=("<option value="+products[i].id+">"+products[i].name+"</option>");
+				}
+				$("#J-product").html(optionHtml);
+		        $('.selectpicker').selectpicker('refresh');
+		        $('.selectpicker').selectpicker({'selectedText': 'cat',size:10});
+           }
+    });
+}
+
+
 function routeTypeChange(obj) {
     var routeTypeValue = $(obj).val();
     if (routeTypeValue) {
@@ -411,18 +489,21 @@ function routeTypeChange(obj) {
             $('.J-anchor-detail').hide();
             $('.J-doctor-detail').hide();
             $('.J-apprentice-detail').hide();
+            $('.J-product-detail').hide();
         } else if (routeTypeValue === 'ANCHOR_INDEX') {
             $('.J-link').hide();
             $('.J-course-detail').hide();
             $('.J-anchor-detail').show();
             $('.J-doctor-detail').hide();
             $('.J-apprentice-detail').hide();
+               $('.J-product-detail').hide();
         } else if(routeTypeValue === "DOCTOR_POST"){
             $('.J-link').hide();
             $('.J-course-detail').hide();
             $('.J-anchor-detail').hide();
             $('.J-doctor-detail').show();
             $('.J-apprentice-detail').hide();
+               $('.J-product-detail').hide();
         }  else if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE' || routeTypeValue === 'H5') {
             var placeholder = "";
             if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE') {
@@ -436,12 +517,24 @@ function routeTypeChange(obj) {
             $('.J-anchor-detail').hide();
             $('.J-apprentice-detail').hide();
             $('.J-doctor-detail').hide();
+               $('.J-product-detail').hide();
         } else if (routeTypeValue === 'APPRENTICE_DETAIL') {
             $('.J-link').hide();
             $('.J-course-detail').hide();
             $('.J-anchor-detail').hide();
             $('.J-doctor-detail').hide();
             $('.J-apprentice-detail').show();
+            $('.J-product-detail').hide();
+        }else if(routeTypeValue === 'PRODUCT_DETAIL'){
+        
+        	$('.J-link').hide();
+            $('.J-course-detail').hide();
+            $('.J-anchor-detail').hide();
+            $('.J-doctor-detail').hide();
+            $('.J-apprentice-detail').hide();
+            $('.J-product-detail').show();
+            
+            
         }
     } else {
         $('.J-link').hide();
@@ -449,15 +542,19 @@ function routeTypeChange(obj) {
         $('.J-anchor-detail').hide();
         $('.J-apprentice-detail').hide();
         $('.J-doctor-detail').hide();
+        $('.J-product-detail').hide();
     }
 }
 
 function routeTypeChangeEdit(obj) {
+	debugger;
     var $editLink = $('.J-edit-link');
     var $editCourseLink = $('.J-edit-course-detail');
     var $editAnchorLink = $('.J-edit-anchor-detail');
     var $editApprenticeLink = $('.J-edit-apprentice-detail');
     var $editDoctorLink = $('.J-edit-doctor-detail');
+    var $editProductLink = $('.J-product-detail');
+
     var routeTypeValue = $(obj).val();
     if (routeTypeValue) {
         if (routeTypeValue === "COMMON_COURSE_DETAIL_PAGE") {
@@ -466,18 +563,21 @@ function routeTypeChangeEdit(obj) {
             $editAnchorLink.hide();
             $editApprenticeLink.hide();
             $editDoctorLink.hide();
+            $editProductLink.hide();
         } else if (routeTypeValue === 'ANCHOR_INDEX') {
             $editLink.hide();
             $editCourseLink.hide();
             $editAnchorLink.show();
             $editApprenticeLink.hide();
             $editDoctorLink.hide();
+             $editProductLink.hide();
         } else if (routeTypeValue === 'DOCTOR_POST') {
             $editLink.hide();
             $editCourseLink.hide();
             $editAnchorLink.hide();
             $editApprenticeLink.hide();
             $editDoctorLink.show();
+             $editProductLink.hide();
         }  else if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE' || routeTypeValue === 'H5') {
             var placeholder = "";
             if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE') {
@@ -491,12 +591,22 @@ function routeTypeChangeEdit(obj) {
             $editAnchorLink.hide();
             $editApprenticeLink.hide();
             $editDoctorLink.hide();
+             $editProductLink.hide();
         } else if (routeTypeValue === 'APPRENTICE_DETAIL') {
             $editLink.hide();
             $editCourseLink.hide();
             $editAnchorLink.hide();
             $editDoctorLink.hide();
             $editApprenticeLink.show();
+             $editProductLink.hide();
+        }else if (routeTypeValue === 'PRODUCT_DETAIL') {
+        	
+            $editLink.hide();
+            $editCourseLink.hide();
+            $editAnchorLink.hide();
+            $editDoctorLink.hide();
+            $editApprenticeLink.hide();
+            $editProductLink.show();
         }
     } else {
         $editLink.hide();
@@ -504,6 +614,7 @@ function routeTypeChangeEdit(obj) {
         $editAnchorLink.hide();
         $editDoctorLink.hide();
         $editApprenticeLink.hide();
+        $editProductLink.hide();
     }
 }
 

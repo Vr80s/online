@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
 import com.xczhihui.anchor.service.AnchorService;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
@@ -79,14 +80,19 @@ public class Banner2Controller {
         @SuppressWarnings("unchecked")
 		List<ProductCategoryVO> list = (List<ProductCategoryVO>) shopCategoryService.list();
         
-        LOGGER.warn("product category list:"+list.size());
-        
+       
         mav.addObject("productCategorys", list);
+        mav.addObject("childrenVOs",(list!=null && list.size()>0 ? list.get(0).getChildrenVOs() : null));
+        
+        
+        String json = JSON.toJSONString(list);
+        mav.addObject("productCategorysStr", json);
+        
         if (!list.isEmpty()) {
         	//Object products = goodsService.findIdByCategoryId(list.get(0).getId());
 
         	@SuppressWarnings("unchecked")
-			List<ProductVO> products =  (List<ProductVO>) goodsService.findIdByCategoryId(list.get(0).getId());
+			List<ProductVO> products =  (List<ProductVO>) goodsService.findIdByCategoryId(12L);
         	
         	LOGGER.warn("products:"+products.size());
         	
@@ -95,6 +101,18 @@ public class Banner2Controller {
         return mav;
     }
 
+    
+    @RequestMapping(value = "/getProductsByCategoryId") 
+    @ResponseBody
+    public ResponseObject productsByCategoryId(Long categoryId) {
+        
+        return ResponseObject.newSuccessResponseObject(goodsService.findIdByCategoryId(categoryId));
+    }
+
+    
+    
+    
+    
     // @RequiresPermissions("operate:menu:banner2")
     @RequestMapping(value = "/findBanner2List", method = RequestMethod.POST)
     @ResponseBody

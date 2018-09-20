@@ -16,6 +16,7 @@
 </script>
 <script src="/js/layer/layer.js"></script>
 <script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+<script  src="/bootstrap/assets/js/bootstrap-select.js" type="text/javascript"></script>
 <div class="page-header">
     当前位置：运营管理
     <small><i class="ace-icon fa fa-angle-double-right"></i>
@@ -163,6 +164,7 @@
                     <option value="H5">外部链接</option>
                     <option value="APPRENTICE_DETAIL">招生简章</option><!-- 招生简章 -->
                     <option value="DOCTOR_POST">医师动态</option>
+                    <option value="PRODUCT_DETAIL">商品详情</option>
                 </select>
             </div>
         </div>
@@ -217,7 +219,7 @@
                <!-- 商品链接  -->
                <div class="J-product-detail" style="display: none">
                		<!-- 顶级分类 -->
-                    <select data-live-search="true" id="J-product-rootCategory">
+                    <select data-live-search="true" onchange="lala(this)" id="J-product-rootCategory">
                         <c:forEach var="rootCategory" items="${productCategorys}">
                             <option value="${rootCategory.id}">
                                     ${rootCategory.name}
@@ -227,15 +229,13 @@
                     
                     <!-- 二级分类 -->
                     
-                    <c:if test="${rootCategory.childrenVOs.size > 0 }" >
-	 					<select data-live-search="true" id="J-product-category">
-	                        <c:forEach var="category" items="${regulations}">
-	                            <option value="${category.id}">
-	                                    ${category.title}
-	                            </option>
-	                        </c:forEach>
-	                    </select>
-					</c:if>
+ 					<select data-live-search="true" onchange="hehe()" id="J-product-category">
+                        <c:forEach var="category" items="${childrenVOs}">
+                            <option value="${category.id}">
+                                    ${category.name}
+                            </option>
+                        </c:forEach>
+                    </select>
                     
                     <!-- 商品名字  -->
                     <select class="selectpicker"  data-live-search="true" id="J-product">
@@ -319,6 +319,7 @@
                     <option value="H5">外部链接</option>
                     <option value="APPRENTICE_DETAIL">招生简章</option><!-- 招生简章 -->
                     <option value="DOCTOR_POST">医师动态</option>
+                    <option value="PRODUCT_DETAIL">商品详情</option>
                 </select>
             </div>
         </div>
@@ -393,6 +394,24 @@
         <input type="hidden" name="type" id="upload_bannerType">
     </form>
 </div>
-
+<%
+	Object productCategorys = request.getAttribute("productCategorysStr"); // JSP片段中定义变量
+%>
+<script>
+	var productCategorys = <%=productCategorys %>;
+	console.log(productCategorys);
+</script>
 <script type="text/javascript" src="/js/operate/banner2.js?v=ipandatcm_1.3"></script>
-<script type="text/javascript" src="/bootstrap/assets/js/bootstrap-select.js?v=ipandatcm_1.3"></script>
+	<script type="text/javascript">
+		
+		$(function() {
+			$(".selectpicker").selectpicker({
+				noneSelectedText: '请选择',
+				countSelectedText: function(){}
+			});
+		});
+	 /*   function selectValue() {
+			//获取选择的值
+            alert($('#usertype').selectpicker('val'));
+        } */
+ </script>
