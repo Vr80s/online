@@ -49,4 +49,10 @@ public class ShopCartController {
         shopCartService.clear(accountId);
         return ResponseObject.newSuccessResponseObject();
     }
+    
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseObject getCartQuantity(@Account String accountId) {
+        return ResponseObject.newSuccessResponseObject(shopCartService.getCartQuantity(accountId));
+    }
+
 }
