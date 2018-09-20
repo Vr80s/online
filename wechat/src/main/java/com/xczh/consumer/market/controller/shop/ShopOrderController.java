@@ -96,13 +96,33 @@ public class ShopOrderController {
         return ResponseObject.newSuccessResponseObject(null);
     }
 
-    @RequestMapping(value = "/receiver/list",method = RequestMethod.GET)
-    public ResponseObject list( @RequestParam OrderVO.Type type, @RequestParam OrderVO.Status status, @RequestParam Boolean isPendingReceive
-            , @RequestParam Boolean isPendingRefunds, @RequestParam Boolean isUseCouponCode, @RequestParam Boolean isExchangePoint, @RequestParam Boolean isAllocatedStock
-            , @RequestParam Boolean hasExpired, @RequestParam(defaultValue = "1") int pageNumber, @RequestParam(defaultValue = "10") int pageSize){
-        orderOperService.findPage(type, status, null, "aa79673b899249d9a07b0f19732a1b0e", null, isPendingReceive,
+    @RequestMapping(value = "/order/list",method = RequestMethod.GET)
+    public ResponseObject list( @RequestParam(required = false) OrderVO.Type type, @RequestParam(required = false) OrderVO.Status status, @RequestParam(required = false) Boolean isPendingReceive
+            , @RequestParam(required = false) Boolean isPendingRefunds, @RequestParam(required = false) Boolean isUseCouponCode, @RequestParam(required = false) Boolean isExchangePoint
+            , @RequestParam(required = false) Boolean isAllocatedStock, @RequestParam(required = false) Boolean hasExpired
+            , @RequestParam(defaultValue = "1") int pageNumber, @RequestParam(defaultValue = "10") int pageSize){
+        List<OrderVO> list = orderOperService.findPage(type, status, null, "aa79673b899249d9a07b0f19732a1b0e", null, isPendingReceive,
                 isPendingRefunds, isUseCouponCode, isExchangePoint, isAllocatedStock, hasExpired, pageNumber, pageSize);
-        return ResponseObject.newSuccessResponseObject(null);
+        return ResponseObject.newSuccessResponseObject(list);
+    }
+
+    @RequestMapping(value = "/order/detail",method = RequestMethod.GET)
+    public ResponseObject detail( @RequestParam String sn){
+        OrderVO order = orderOperService.findBySn(sn);
+        return ResponseObject.newSuccessResponseObject(order);
+    }
+
+    @RequestMapping(value = "/order/cancel",method = RequestMethod.POST)
+    public ResponseObject cancel(OrderVO order){
+        orderOperService.cancel(order);
+        return ResponseObject.newSuccessResponseObject("取消成功");
+    }
+
+
+    @RequestMapping(value = "/order/receive",method = RequestMethod.POST)
+    public ResponseObject receive(OrderVO order){
+        orderOperService.receive(order);
+        return ResponseObject.newSuccessResponseObject("确认收货");
     }
 
 }
