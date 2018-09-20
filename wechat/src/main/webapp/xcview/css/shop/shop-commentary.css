@@ -1,0 +1,173 @@
+.hide{display: none;} 
+.header-wrap{
+	width: 7.5rem;
+	height: 0.88rem;	
+}
+.header{
+	width: 7.5rem;
+	height: 0.88rem;	
+	text-align: center;
+	background: #fafafa;
+	line-height: 0.88rem;
+	position: fixed;
+	top: 0;
+	z-index: 100;
+}
+.header .return-img{
+	width: 0.24rem;
+	height: 0.42rem;
+	float: left;
+	position: absolute;
+	top: 0.23rem;
+	left: 0.25rem;
+}
+.header h3{
+	font-size: 0.36rem;
+	font-weight: 500;
+	color: #333;
+}
+.header .news-wrap {
+    position: absolute;
+    right: 0.25rem;
+    top: 0rem;
+}
+
+.header .news-wrap p{
+  font-size: 0.28rem;
+	color: #F97215;
+}
+.commentary-wrap{
+	overflow: hidden;
+	width: 100%;
+	background: white;
+	margin-bottom: 0.2rem;
+}
+.commentary-top{
+	width: 100%;
+	height: 1.2rem;
+	border-bottom: 1px solid #efefef;
+	padding: 0.2rem 0.3rem;
+	box-sizing: border-box;
+	overflow: hidden;
+	font-size: 0.28rem;
+}
+.commentary-top .ware-img{
+	width: 0.8rem;
+	height: 0.8rem;
+	overflow: hidden;
+}
+.commentary-top .ware-img img{
+	width: 100px;
+	height: 100px;
+	display: block;
+}
+.commentary-top .ware-describe{
+	float: left;
+	margin-top: 0.25rem;
+	margin-left: 0.2rem;
+}
+.commentary-top .select-impress {
+	    margin-top: 0.17rem;
+    width: 4.35rem;
+}
+.commentary-top .select-impress img{
+	width: 0.5rem;
+	float: left;
+	margin-right: 0.15rem;
+}
+.commentary-top .select-impress span{
+	margin-left: 0.15rem;
+	float:left;
+	margin-top: 0.05rem;
+}
+.commentary-text{
+	padding: 0.2rem 0 0 0.2rem;
+	overflow: hidden;
+}
+.commentary-text textarea{
+	width: 100%;
+    height: 2rem;
+     padding-right: 0.2rem; 
+    box-sizing: border-box;
+    resize: none;
+    outline: none;
+    border: 0;   
+    font-size: 0.28rem;
+}
+/*图片上传*/
+.upload-picture-wrap {
+	    padding: 0 0.2rem 0.2rem;
+    overflow: hidden;
+}
+.upload-picture-wrap .save-pic{
+	width: 100%;
+}
+.upload-picture-wrap .save-pic ul li{
+	width: 1.6rem;
+	height: 1.6rem;
+	border: 1px dashed #ccc;	
+	overflow: hidden;
+	margin-right: 0.14rem;
+	margin-top: 0.2rem;
+	float: left;
+	position: relative;
+}
+.upload-picture-wrap .save-pic ul li p{
+	position: absolute;
+	right: 0.08rem;
+	top: 0.1rem;
+	color: #333;
+	z-index: 5;
+	cursor: pointer;
+}
+.upload-picture-wrap .save-pic ul li p img{
+	width: 0.3rem;
+}
+.upload-picture-wrap .save-pic ul li img{
+	width: 100%;
+	height: 100%;
+}
+.upload-picture-wrap .save-pic ul li:nth-child(4n){
+	margin-right: 0;
+}
+.upload-picture-wrap .save-pic .btn-upload{
+	width: 1.6rem;
+	height: 1.6rem;
+	border: 1px dashed #ccc;
+	text-align: center;
+	background: url("/xcview/images/paizhao.png") no-repeat center 0.3rem;
+	background-size: 0.54rem 0.47rem;
+	margin-top: 0.2rem;
+}
+.upload-picture-wrap .save-pic .btn-upload p{
+	margin-top: 0.9rem;
+}
+/*卖家服务,物流服务*/
+.seller-logistics{
+	overflow: hidden;
+	margin-bottom: 0.2rem;
+}
+.seller-wrap{
+	overflow: hidden;
+    padding: 0.2rem 0.25rem;
+    background: white;
+    font-size: 0.28rem;
+    
+}
+.seller-wrap p{
+	float: left;
+    margin: 0.08rem 0.3rem 0 0;
+
+}
+
+    
+.seller-wrap .select-impress img{
+	width: 0.5rem;
+	float: left;
+	margin-right: 0.15rem;
+}
+.seller-wrap .select-impress span{
+	margin-left: 0.15rem;
+	float:left;
+	margin-top: 0.05rem;
+}

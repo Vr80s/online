@@ -1,0 +1,320 @@
+.header-wrap{
+	width: 7.5rem;
+	height: 0.88rem;	
+}
+.header{
+	width: 7.5rem;
+	height: 0.88rem;	
+	text-align: center;
+	background: #fafafa;
+	line-height: 0.88rem;
+	position: fixed;
+	top: 0;
+}
+.header .return-img{
+	width: 0.24rem;
+	height: 0.42rem;
+	float: left;
+	position: absolute;
+	top: 0.23rem;
+	left: 0.25rem;
+}
+.header h3{
+	font-size: 0.36rem;
+	font-weight: 500;
+	color: #333;
+}
+.header .news-wrap {
+	    width: 0.36rem;
+    height: 0.36rem;
+    position: absolute;
+    right: 0.3rem;
+    top: 0.27rem;
+}
+.header .news-wrap img{
+	width: 0.36rem;
+	height: 0.36rem;
+	display: block;
+}
+.header .news-wrap p{
+    position: absolute;
+    top: -0.15rem;
+    right: -0.15rem;
+    width: 0.36rem;
+    height: 0.3rem;
+    background: #F97215;
+    border-radius: 1rem;
+    text-align: center;
+    line-height: 0.3rem;
+    z-index: 5;
+    color: white;
+}
+/*退款中、退款成功*/
+.refund-top ul {
+	overflow: hidden;
+}
+.refund-top ul li{
+	border-bottom: 1px solid #f3f3f3;
+	height: 0.88rem;
+	background: white;
+	padding: 0 0.25rem;
+	line-height: 0.88rem;
+}
+.refund-top ul .refund-status{
+	height: 1.18rem;
+	line-height: normal;
+}
+.refund-top ul .refund-status p{
+	font-size: 0.32rem;
+	color: #F97215;
+	padding: 0 0 0.1rem 0;
+}
+.refund-top ul .refund-money p{
+	float: left;
+	font-size: 0.26rem;
+	color: #333;
+}
+.refund-top ul .refund-money span{
+	float: right;
+	font-size: 0.26rem;
+	color: #F97215;
+}
+.refund-top ul .refund-card{
+	border-bottom: 0;
+	font-size: 0.26rem;
+	color: #333;
+}
+.refund-top ul .refund-card p{
+	float: left;
+}
+.refund-top ul .refund-card span{
+	float: right;
+}
+.ferund-centent{
+	width: 100%;
+	padding: 0.2rem 0;
+	overflow: hidden;
+	position: relative;
+		background: #f8f8f8;
+}
+.ferund-centent .progress-bar-img {
+	width: 5.1rem;
+	margin: 0 auto;
+}
+.ferund-centent .progress-bar-img img{
+	width: 100%;
+}
+.ferund-centent .acceptance-status{
+	padding: 0 0.3rem;
+	overflow: hidden;
+	margin: 0 auto;
+
+}
+.acceptance-status .acceptance-left{
+
+	text-align: center;
+}
+.acceptance-status .acceptance-middle{
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    -webkit-transform:translate(-50%,-50%);
+     margin-top: 0.16rem;
+}
+.acceptance-status .acceptance-right{
+	text-align: center;
+}
+
+/*商家拒绝/退款关闭*/
+.refund-top{
+	padding: 0 0.25rem;
+	overflow: hidden;
+	background: white;
+	box-sizing: border-box;
+	padding-top: 0.2rem;
+}
+.refund-top .refund-time{
+	border-bottom: 0.01rem solid #f8f8f8;
+}
+.refund-top .refund-time .refuse-status{
+	font-size: 0.32rem;
+	color: #F97215;
+}
+.refund-top .refund-time p {
+	color: #999;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 0.2rem 0;
+}
+.refund-top .refund-time p span{
+	color: #F97215;
+}
+.refund-reason-top p{
+	margin-top: 0.2rem;
+	color: #333;
+}
+.refund-reason-top .refund-revoke{
+	margin: 0.2rem 0;
+}
+
+.refund-top .modify-apply{
+	width: 1.45rem;
+	height: 0.52rem;
+	border: 1px solid #F97215;
+	border-radius: 1rem;
+	background: white;
+	margin: 0.3rem 0;
+	outline: none;
+}
+.refund-top .modify-apply a{
+	color: #F97215;
+}
+/*等待处理*/
+.discharge-petition{
+	width: 1.45rem;
+	height: 0.52rem;
+	border: 1px solid #dedede;
+	border-radius: 1rem;
+	background: white;
+	margin: 0.3rem 0;
+	outline: none;
+	color: #333333;
+	margin-right: 0.3rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.see-mode{
+	width: 100%;
+	height: 0.88rem;
+	background: white;
+	line-height: 0.88rem;
+	padding: 0 0.25rem;
+	font-size: 0.26rem;
+	box-sizing: border-box;
+	margin-top: 0.2rem;
+}
+.see-mode p{
+	float: left;
+}
+.see-mode img{
+	    float: right;
+    width: 0.15rem;
+    height: 0.25rem;
+    margin-top: 0.3rem;
+}
+/*退款信息*/
+.refund-inf-wrap{
+	margin-top: 0.2rem;
+	overflow: hidden;
+}
+.refund-title-inf{
+	width: 100%;
+	height: 0.88rem;
+	background: white;
+	line-height: 0.88rem;
+	padding: 0 0.25rem;
+	font-size: 0.26rem;
+	box-sizing: border-box;
+}
+
+.refund-ware-modal{
+	width: 100%;
+	padding: 0.2rem 0.25rem;
+	box-sizing: border-box;
+	background: #f8f8f8;
+	overflow: hidden;
+}
+.refund-ware-modal .ware-img{
+	width: 1.2rem;
+	height: 1.2rem;
+}
+.refund-ware-modal .ware-img img{
+	width: 100%;
+	height: 100%;
+}
+.refund-ware-modal .ware-right-data{
+	overflow: hidden;
+	
+}
+.ware-right-data p{
+	margin-bottom: 0.1rem;
+	color: #333333;
+	width: 5.58rem;
+}
+.ware-right-data p:nth-last-child(1){
+	margin-bottom: 0;
+}
+.ware-right-data .ware-title{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.ware-right-data .ware-save{
+	font-size: 0.22rem;
+	color: #999999;
+}
+.ware-right-data .ware-price{
+	font-size: 0.26rem;
+}
+.ware-right-data .ware-price span{
+	float: right;
+}
+.refund-reason{
+	overflow: hidden;
+	padding: 0.2rem 0 0.2rem 0.25rem;
+	background: white;
+}
+.refund-reason ul li{
+	width: 7rem;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 0.2rem;   
+}
+.refund-reason ul li:nth-last-child(1){
+	margin-bottom: 0;
+}
+.refund-bottom{
+	width: 100%;
+	height: 0.88rem;
+	line-height: 0.88rem;
+	background: white;
+	border-top: 0.01rem solid #f8f8f8;
+}
+.refund-jump{
+	width: 1.6rem;
+	margin: 0 auto;
+	overflow: hidden;
+
+}
+.refund-jump img{
+	float: left;
+	width: 0.4rem;
+	margin-top: 0.25rem;
+}
+.refund-jump p{
+	float: right;
+}
