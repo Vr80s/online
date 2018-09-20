@@ -1,11 +1,13 @@
 package com.xczhihui.anchor.web;
 
+import com.google.common.collect.ImmutableMap;
 import com.xczhihui.anchor.service.AnchorService;
 import com.xczhihui.bxg.online.common.domain.CourseAnchor;
 import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.util.DateUtil;
+import com.xczhihui.common.util.HttpUtil;
 import com.xczhihui.common.util.Md5Encrypt;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
@@ -33,6 +35,8 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
+import net.shopxx.merge.service.UsersService;
+
 /**
  * 课程管理控制层实现类
  *
@@ -54,8 +58,12 @@ public class CourseAnchorController extends AbstractController {
     private CourseService courseService;
     @Autowired
     private OnlineUserService onlineUserService;
+    @Autowired
+    private UsersService usersService;
     @Value("${web.url}")
     private String url;
+    @Value("${shop.url}")
+    private String shopUrl;
 
     @RequestMapping(value = "index")
     public String index(HttpServletRequest request) {
@@ -104,6 +112,18 @@ public class CourseAnchorController extends AbstractController {
 
         Page<CourseAnchor> page = anchorService.findCourseAnchorPage(searchVo, currentPage, pageSize);
         int total = page.getTotalCount();
+        page.getItems().forEach(item -> {
+            if (item.getType() == 1) {
+                String doctorId = anchorService.findDoctorIdByUserId(item.getUserId());
+                if (doctorId != null) {
+                    String username = usersService.getBusinessUsernameByDoctorId(doctorId);
+                    if (username != null) {
+                        item.setRelationShop(true);
+                        item.setBusinessName(username);
+                    }
+                }
+            }
+        });
         tableVo.setAaData(page.getItems());
         tableVo.setiTotalDisplayRecords(total);
         tableVo.setiTotalRecords(total);
@@ -321,5 +341,10 @@ public class CourseAnchorController extends AbstractController {
         OnlineUser user = onlineUserService.getUserByLoginName(loginName);
         String fastLoginToken = Md5Encrypt.getFastLoginToken(loginName, user.getPassword());
         response.sendRedirect(url + "/online/user/fastLogin/" + loginName + "/" + fastLoginToken);
+    }
+
+    @RequestMapping(value = "/loginBusiness/{username}", method = RequestMethod.GET)
+    public void loginBusiness(@PathVariable String username, HttpServletResponse response) throws ServletException, IOException {
+        response.sendRedirect(shopUrl + "/business/login?username=" + username + "&freeSecretKey=" + usersService.createFreeSecretKey(username));
     }
 }

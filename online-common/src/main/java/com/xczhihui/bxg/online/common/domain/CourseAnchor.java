@@ -63,6 +63,12 @@ public class CourseAnchor implements java.io.Serializable {
     private int courseCount;
 
     @Transient
+    private boolean relationShop;
+
+    @Transient
+    private String businessName;
+
+    @Transient
     private String refId;
 
     @Transient
@@ -353,5 +359,23 @@ public class CourseAnchor implements java.io.Serializable {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    @Transient
+    public boolean isRelationShop() {
+        return relationShop;
+    }
+
+    public void setRelationShop(boolean relationShop) {
+        this.relationShop = relationShop;
+    }
+
+    @Transient
+    public String getBusinessName() {
+        return businessName;
+    }
+
+    public void setBusinessName(String businessName) {
+        this.businessName = businessName;
     }
 }
