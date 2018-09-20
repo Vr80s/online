@@ -1,0 +1,110 @@
+<!doctype html>
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="utf-8">
+<title>熊猫中医</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+
+<link type="text/css" rel="stylesheet" href="/xcview/css/shop/record.css" />
+<link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
+</head>
+
+<body style="background: #f0f0f0;">
+	<!-- 头部区域开始 -->
+	<header>
+		<div class="header">
+			<div class="return" onclick="location.href ='/xcview/html/shop/commodity_details.html'">
+				<img src="/xcview/images/backicon.png" alt="" class="">
+			</div>
+			<div class="title">退款协商记录</div>
+			<div class="advices">
+				<img src="/xcview/images/shop/newsbg.png" alt="" class="news news_class">
+				<span class="advices_number">17</span>
+			</div>
+		</div>
+	</header>
+	<div class="header_hidden_field"></div>
+	<!-- 头部区域结束 -->
+	
+	<!-- 中间内容开始 -->
+	<div class="record">
+		<div class="record_list">
+			<div class="message">
+				<img src="/xcview/images/touxiang.png" alt="" class="head_portrait" />
+				<div class="payment_method">
+					<div class="way">卖家拒绝退款</div>
+					<div class="way">卖家同意退款</div>
+					<div class="way">用户修改申请</div>
+					<div class="way">用户发起退款申请</div>
+					<div class="way">用户发起退款申请</div>
+					<div class="data">2018-09-21  10:20</div>
+				</div>
+			</div>
+			<div class="accden" style="displays: none;">  <!-- 卖家拒绝退款 -->
+				<div class="refusal_cause">拒绝原因：其他</div>
+				<div class="state">拒绝说明：已通过红包的方式到您支付宝了，麻烦您查看一下哦，有什么问题麻烦旺旺联系客服哦</div>
+			</div>
+			<div class="refund_amount" style="display: none;">退款金额：￥0.01</div>  <!-- 卖家同意退款 -->
+			
+			<div class="apply_for" style="display: none;"><!-- 用户修改申请 -->
+				<div class="apply_refund_amount">退款金额：￥0.01</div>
+				<div class="refund_cause">退款原因：其他</div>
+				<div class="return_policy">退货说明：您好，我要退货</div>
+				<div class="illustration">
+					<img src="/xcview/images/xianxia_03.jpg" alt="" />
+				</div>
+			</div>
+
+			<div class="apply_for" style="display: none;"><!-- 用户发起退款申请 -->
+				<div class="apply_refund_amount">退款金额：￥0.01</div>
+				<div class="refund_cause">退款原因：其他</div>
+				<div class="return_policy">退货说明：您好，我要退货</div>
+				<div class="illustration">
+					<img src="/xcview/images/xianxia_03.jpg" alt="" />
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- 中间内容结束 -->
+
+	
+
+	
+</body>
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+
+<!-- <script type="text/javascript" src="/xcview/js/shop/confirm_order.js"></script> -->
+
+<script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
+
+<script>
+	// 点击头部区域客服消息  
+	$(".advices").click(function(){
+		jqtoast("熊猫客服休息中，稍后报道！");
+	});
+</script>
+
+</html>
