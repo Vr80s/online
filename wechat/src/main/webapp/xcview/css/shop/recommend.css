@@ -1,0 +1,448 @@
+不来*{
+	margin: 0;
+	padding: 0;
+}
+a{
+	text-decoration: none;
+}
+li{
+	list-style: none;
+}
+img{
+	border: 0px;
+	border: none;
+}
+.both{
+	clear: both;
+}
+
+/*头部区域开始*/
+header {
+    width: 7.5rem;
+    height: .88rem;
+    position: fixed;
+    top: 0;
+    z-index: 2;
+    background: rgba(250,250,250,0.98);
+}
+.header {
+    width: 7.5rem;
+    height: 0.88rem;
+    margin: 0 auto;
+    /*background: #fff; */
+    border-bottom: 1px solid rgb(240, 240, 240);
+}
+.header_height{
+	width: 100%;
+	height: .88rem;
+}
+.return{
+	width: 1.24rem;
+    height: .88rem;
+    float: left;
+}
+.return_class {
+	width: .24rem;
+    height: .36rem;
+    margin-top: .24rem;
+    margin-left: .26rem;
+    float: left;
+}
+.advices {
+    width: .6rem;
+    height: .6rem;
+    float: right;
+    margin-top: .15rem;
+    margin-right: .26rem;
+    position: relative;
+}
+.news_class {
+    width: .42rem;
+    height: .42rem;
+    margin-top: .09rem;
+    /* background: url(/xcview/images/shop/newsbg.png) no-repeat; */
+	float: right;
+}
+.advices_number {
+    position: absolute;
+    top: 0;
+    right: -.1rem;
+    background: #F97215;
+    border-radius: 100px;
+    font-size: .22rem;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 0 .08rem;
+}
+.share_class {
+    width: .36rem;
+    height: .36rem;
+    margin-top: .25rem;
+    float: right;
+    margin-right: .2rem;
+}
+.header_tab{
+	position: absolute;
+	width: 100%;
+	height: .88rem;
+	line-height: .88rem;
+	text-align: center;
+	font-size: .36rem;
+	color: #333;
+    top: 0;
+    z-index: -1;
+}
+/*头部区域结束*/
+
+/*中间区域开始*/
+.recommend{
+	width: 7.5rem;
+	height: 100%;
+	margin: 0 auto;
+}
+.list{
+	width: 6.5rem;
+	min-height: 1.8rem;
+	margin: 0 auto;
+	margin-top: .2rem;
+	background: #fff;
+	border-radius: 16px;
+	padding: .2rem;
+}
+.referrer{
+	width: 100%;
+	height: .8rem;
+	line-height: .8rem;
+	margin-bottom: .2rem;
+}
+.head_portrait{
+	width: .8rem;
+	height: .8rem;
+	margin-right: .2rem;
+	float: left;
+}
+.referrer .name{
+	font-size: .28rem;
+	color: #666666;
+	margin-right: .12rem;
+	float: left;
+}
+.recommendation{
+	font-size: .24rem;
+	color: #999999;
+	float: left;
+	margin-right: .04rem;
+}
+.xingxing{
+	width: 1.62rem;
+	height: .24rem;
+	float: left;
+	margin-top: .28rem;
+}
+.list .center{
+	width: 100%;
+	height: 100%;
+	font-size: .28rem;
+	color: #333333;
+}
+/*中间区域结束*/
+
+/*点击分享按钮提示开始*/
+.weixin_ceng {
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.weixin_ceng_bg {
+    width: 7.5rem;
+    height: 100%;
+    background: #000;
+    opacity: 0.5;
+    position: fixed;
+    left: 50%;
+    top: 0;
+    z-index: 999999999999999;
+    margin-left: -3.75rem;
+}
+.weixin_img {
+    /* background: red; */
+    position: fixed;
+    z-index: 99999999999;
+    top: 0rem;
+    left: 50%;
+    width: 7.5rem;
+    height: 100%;
+    margin-left: -3.75rem;
+}
+.weixin_img img {
+    position: absolute;
+    top: 0rem;
+    right: 0.26rem;
+    width: 3rem;
+    z-index: 99999999999;
+}
+/*点击分享按钮结束*/
+
+/*底部区域开始*/
+.footer_height{
+    width: 7.5rem;
+    height: 1.2rem;
+    margin: 0 auto;
+}
+.footer{
+    position: fixed;
+    bottom: 0;
+    width: 7.5rem;
+    height: .98rem;
+    margin: 0 auto;
+    background: rgba(250,250,250,0.98);
+    box-shadow: 0 -1px 1px 0 #DEDEDE;
+}
+.footer .center{
+    width: 6.98rem;
+    height: 100%;
+    margin: 0 auto;
+}
+.footer .service{
+    width: 0.5rem;
+    font-size: .2rem;
+    color: #999999;
+    float: left;
+    text-align: center;
+    margin-top: .12rem;
+    margin-right: .6rem;
+}
+.footer .service img{
+    width: .42rem;
+    height: .42rem;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: .08rem;
+}
+.footer .shopping_cart{
+    position: relative;
+    width: .7rem;
+    font-size: .2rem;
+    color: #999999;
+    float: left;
+    text-align: center;
+    margin-top: .12rem;
+}
+.footer .shopping_cart img{
+    width: .42rem;
+    height: .42rem;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: .08rem;
+}
+.footer .shopping_quantity{
+    position: absolute;
+    right: -.15rem;
+    top: 0;
+    background: #F97215;
+    border-radius: 100px;
+    font-size: .18rem;
+    color: #fff;
+    padding: 0 .1rem;
+}
+.footer .deal{
+    width: 4.6rem;
+    height: .72rem;
+    line-height: .72rem;
+    float: right;
+    margin-top: 0.13rem;
+}
+.footer .add_cart{
+    width: 50%;
+    height: .72rem;
+    text-align: center;
+    font-size: .3rem;
+    color: #FFFFFF;
+    background: #F97215;
+    border-radius: 36px 0 0 36px;
+    float: left;
+}
+.footer .buy_now{
+    width: 50%;
+    height: .72rem;
+    text-align: center;
+    font-size: .3rem;
+    color: #FFFFFF;
+    background: #FF4012;
+    border-radius: 0 36px 36px 0;
+    float: right;
+}
+/*底部结束*/
+
+/*点击购物车出现提示开始*/
+.shopping_trolley{
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.shopping_trolley_bg{
+    position: fixed;
+    top: 0;
+    width: 7.5rem;
+    height: 100%;
+    background: #000;
+    opacity: 0.3;
+    z-index: 2;
+}
+.shopping_trolley_main{
+    position: fixed;
+    bottom: 0;
+    z-index: 2;
+    width: 7.5rem;
+    /*height: 8.28rem;*/
+    height: 7.68rem;
+    margin: 0 auto;
+    padding: .3rem 0;
+    background: #FFFFFF;
+    border-radius: 16px 16px 0 0;
+}
+.shopping_trolley_center{
+    width: 7.5rem;
+    height: 100%;
+    margin: 0 auto;
+    /*background: darkseagreen;*/
+}
+.shopping_trolley .message{
+    width: 6.98rem;
+    height: 2rem;
+    margin: 0 auto;
+    margin-bottom: .3rem;
+}
+.surface_plot{
+    float: left;
+    width: 2rem;
+    height: 2rem;
+    display: inline-block;
+    margin-right: .2rem;
+}
+.shopping_trolley_center .message .price{
+    font-size: .28rem;
+    color: #F97215;
+    margin-top: 0;
+    margin-bottom: 0.1rem;
+    padding-top: 0.75rem;
+}
+.shopping_trolley_center .message .repertory{
+    font-size: .26rem;
+    color: #666666;
+    margin-bottom: 0.1rem;
+}
+.shopping_trolley_center .message .category{
+    overflow: hidden;
+}
+.shopping_trolley_center .message .category span{
+    font-size: .26rem;
+    color: #666666;
+    display: inherit;
+    float: left;
+    margin-right: .2rem;
+}
+.shopping_trolley_center .specifications{
+    width: 100%;
+    overflow: hidden;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: .2rem;
+}
+.shopping_trolley_center .specifications span{
+    width: 6.98rem;
+    margin: 0 auto;
+    font-size: .26rem;
+    color: #666666;
+    margin-bottom: .2rem;
+    display: inherit;
+}
+.specifications_ul{
+    width: 6.98rem;
+    margin: 0 auto;
+}
+.specifications_ul li{
+    padding: .1rem .24rem;
+    border-radius: 100px;
+    display: inline-block;
+    float: left;
+    margin-right: .3rem;
+    margin-bottom: .2rem;
+    font-size: .24rem;
+}
+.specifications_ul .casing{
+    color: #333333;
+    background: #F0F0F0;
+}
+.public{
+    color: #FFFFFF !important;
+    background: #F97215 !important;
+}
+/* .casing_li{
+    color: #FFFFFF !important;
+    background: #F97215 !important;
+} */
+/*分类*/
+.shopping_trolley_center .classify{
+    width: 100%;
+    overflow: hidden;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: .28rem;
+}
+.shopping_trolley_center .classify span{
+    width: 6.98rem;
+    margin: 0 auto;
+    font-size: .26rem;
+    color: #666666;
+    margin-bottom: .2rem;
+    display: inherit;
+}
+.classify_ul{
+    width: 6.98rem;
+    margin: 0 auto;
+}
+.classify_ul li{
+    font-size: .24rem;
+    padding: .1rem .28rem;
+    border-radius: 100px;
+    display: inline-block;
+    float: left;
+    margin-right: .3rem;
+    margin-bottom: .2rem;
+}
+.classify_ul .hue{
+    color: #333333;
+    background: #F0F0F0;
+}
+/* .hue_li{
+    color: #FFFFFF !important;
+    background: #F97215 !important;
+} */
+/*购买数量*/
+.shopping_trolley_center .buy{
+    width: 6.98rem;
+    height: .55rem;
+    /*height: 1.52rem;*/
+    line-height: .55rem;
+    margin: 0 auto;
+    overflow: hidden;
+    /*background: #ddc2c2;*/
+    margin-bottom: .33rem;
+}
+.shopping_trolley_center .purchase_quantity{
+    font-size: .26rem;
+    color: #666666;
+    float: left;
+}
+.shopping_trolley_center .determine{
+    width: 6.98rem;
+    height: .72rem;
+    line-height: .72rem;
+    margin: 0 auto;
+    background: #F97215;
+    border-radius: 100px;
+    font-size: .3rem;
+    color: #FFFFFF;
+    text-align: center;
+}
+/*点击购物车出现提示开始*/
+

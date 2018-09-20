@@ -1,0 +1,215 @@
+<!doctype html>
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="utf-8">
+<title>熊猫中医</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
+<link rel="stylesheet" href="/xcview/css/shop/jquery.spinner.css" /><!-- 点击数量加减 -->
+<link rel="stylesheet" href="/xcview/css/shop/all_evaluation.css" />
+<link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
+</head>
+
+<body style="background: #F0F0F0;">
+	<!-- 头部区域开始 -->
+	<header>
+		<div class="header" id="header">
+			<div class="return" onclick="javascript:history.go(-1);">
+				<img src="/xcview/images/backicon.png" alt="" class="return_class" />
+			</div>
+			
+			<div class="header_tab">
+				全部评价
+			</div>
+			<div class="advices">
+				<img src="/xcview/images/shop/newsbg.png" alt="" class="news news_class">
+				<span class="advices_number">17</span>
+			</div>
+			<!-- <img src="/xcview/images/share_img.png" alt="" class="share share_class"> -->
+		</div>
+	</header>
+	<div class="header_height"></div>
+	<!-- 头部区域结束 -->
+
+	<!-- 中间区域开始 -->
+	<div class="recommend">
+		<div class="list">
+			<div class="referrer">
+				<img src="/xcview/images/touxiang.png" alt="" class="head_portrait" />
+				<div class="name">陈文伯医师</div>
+				<div class="both"></div>
+			</div>
+			<div class="particulars">
+				<span class="data">2018.04.12 11:20</span>
+				<span class="details">花束（红）；11朵；简单包装</span>
+			</div>
+			<div class="center">无添加玫瑰花红糖，不添加任何防腐剂，口感细滑，易于吸收，具有良好的温补功效，了解一下？</div>
+		</div>
+	</div>
+	<!-- 中间区域结束 -->
+
+	<!-- 底部区域开始 -->
+	<div class="footer_height"></div>
+	<div class="footer">
+		<div class="center">
+			<div class="service">
+				<img src="/xcview/images/shop/service.png" alt="">
+				客服
+			</div>
+			<div class="shopping_cart" onclick="location.href ='/xcview/html/shop/shopping_trolley.html '">
+				<img src="/xcview/images/shop/shopping_cart.png" alt="">
+				购物车
+				<span class="shopping_quantity">12</span>
+			</div>
+			<div class="deal">
+				<div class="add_cart">加入购物车</div>
+				<div class="buy_now">立即购买</div>
+			</div>
+		</div>
+	</div>
+	<!-- 底部区域结束 -->
+
+	<!-- 点击购物车出现提示开始 -->
+	<div class="shopping_trolley">
+		<div class="shopping_trolley_bg"></div>
+		<div class="shopping_trolley_main">
+			<div class="shopping_trolley_center">
+				<div class="message">
+					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+					<div class="information">
+						<div class="price">￥100.00</div>
+						<div class="repertory">库存120件</div>
+						<div class="category">
+							<span class="choice">选择</span>
+							<span class="specification">规格</span>
+							<span class="kind">分类</span>
+						</div>
+					</div>
+				</div>
+				<div class="specifications">
+					<span class="">规格</span>
+					<ul class="specifications_ul">
+						<li class="casing include">5包装</li>
+						<li class="casing include">1盒10包装</li>
+						<li class="casing include">2盒22包装</li>
+						<li class="casing include">一箱8盒100包</li>
+					</ul>
+				</div>
+
+				<div class="classify">
+					<span class="">分类</span>
+					<ul class="classify_ul">
+						<li class="hue include">红色</li>
+						<li class="hue include">白色</li>
+						<li class="hue include">黄色</li>
+					</ul>
+				</div>
+				<div class="buy">
+					<div class="purchase_quantity">购买数量</div>
+					<center>
+						<input type="text" class="spinnerExample"/>
+					</center>
+				</div>
+				<div class="determine">确定</div>
+			</div>
+		</div>
+	</div>
+	<!-- 点击购物车出现提示结束 -->
+	
+</body>
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script> 
+<script type="text/javascript" src="/xcview/js/common/common.js"></script> 
+
+<script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
+
+<script type="text/javascript" src="/xcview/js/shop/jquery.spinner.js"></script><!-- 点击数量引入 -->
+
+<script>
+	window.onload =  function(){
+		// 点击数量加减
+		$('.spinnerExample').spinner({});
+		// 点击规格
+		var aBtn=$('.specifications_ul .casing');
+	  	for(i=0;i<aBtn.length;i++){
+		    $(aBtn[i]).click(function(){
+		    	var specification = document.querySelector(".specification");  //规格
+				specification.style.display="none";
+				// 判断显示已选择
+		    	if ($(".include").hasClass("public")) {
+					$(".kind").show();
+					$(".specification").show();
+					$(".choice").html("已选择");
+				};
+		    	
+			    for(i=0;i<aBtn.length;i++){
+			        $(aBtn[i]).removeClass('public');
+			    }
+			    $(this).addClass('public');
+
+			    var publicHtml = $(this).html();
+			    $(".specification").html(publicHtml);
+			})
+		};
+		// 点击分类
+		var aBtnHue=$('.classify_ul .hue');
+	  	for(i=0;i<aBtnHue.length;i++){
+		    $(aBtnHue[i]).click(function(){
+		    	var kind = document.querySelector(".kind");  //分类
+				kind.style.display="none";
+				// 判断显示已选择
+		    	if ($(".include").hasClass("public")) {
+					$(".kind").show();
+					$(".specification").show();
+					$(".choice").html("已选择");
+				};
+		    	
+			    for(i=0;i<aBtnHue.length;i++){
+			        $(aBtnHue[i]).removeClass('public');
+			    }
+			    $(this).addClass('public');
+			    var publicHtml = $(this).html();
+			    $(".kind").html(publicHtml);
+			})
+		}
+
+		// 点击加入购物车 
+		$('.add_cart').click(function(){
+			$('.shopping_trolley').show();
+		});
+		// 点击详情背景色
+		$('.shopping_trolley_bg').click(function(){
+			$('.shopping_trolley').hide();
+		});
+		// 点击客服
+		$(".service").click(function(){
+			jqtoast("熊猫客服休息中，稍后报道！");
+		});
+		// 点击头部区域客服消息  
+		$(".advices").click(function(){
+			jqtoast("熊猫客服休息中，稍后报道！");
+		});
+	};
+</script>
+
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="utf-8">
+<title>熊猫中医</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+
+<link type="text/css" rel="stylesheet" href="/xcview/css/shop/payment_success.css" />
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
+</head>
+
+<body style="background: #f0f0f0;">
+	<!-- 头部区域开始 -->
+	<header>
+		<div class="header">
+			<div class="return" onclick="location.href ='/xcview/html/shop/'">
+				<img src="/xcview/images/backicon.png" alt="" class="">
+			</div>
+			<div class="title">支付成功</div>
+		</div>
+	</header>
+	<div class="header_hidden_field"></div>
+	<!-- 头部区域结束 -->
+	
+	<!-- 中间内容开始 -->
+	<div class="center">
+		<div class="main">
+			<div class="win">
+				<img src="/xcview/images/shop/win.png" alt="" />支付成功
+			</div>
+			<div class="actual_payment">实付款￥24.09</div>
+			<div class="button">
+				<div class="index" onclick="location.href ='/xcview/html/shop/shop.html'">商城首页</div>
+				<div class="details" onclick="location.href ='/xcview/html/shop/commodity_details.html'">订单详情</div>
+			</div>
+		</div>
+		<div class="object_error">
+			<div class="object_error_main">
+				<div class="pay">支付方式</div>
+				<div class="pattern">支付宝</div>
+			</div>
+		</div>
+		<div class="warm_prompt">温馨提示：商家不会以商品或订单异常，系统升级为由要求您点击任何链接或提供个人信息进行退款操作</div>
+	</div>
+	<!-- 中间内容结束 -->
+
+	
+
+	
+</body>
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+
+
+</html>

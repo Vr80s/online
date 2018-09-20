@@ -1,0 +1,278 @@
+<!doctype html>
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="utf-8">
+<title>熊猫中医</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+
+<link type="text/css" rel="stylesheet" href="/xcview/css/shop/confirm_order.css" />
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
+</head>
+
+<body style="background: #f0f0f0;">
+	<!-- 头部区域开始 -->
+	<header>
+		<div class="header">
+			<div class="return" onclick="location.href ='/xcview/html/shop/commodity_details.html'">
+				<img src="/xcview/images/backicon.png" alt="" class="">
+			</div>
+			<div class="title">确认订单</div>
+		</div>
+	</header>
+	<div class="header_hidden_field"></div>
+	<!-- 头部区域结束 -->
+
+	<!-- 选择地址开始 -->
+	<div class="select_address">
+		<div class="select_address_main">
+			<div class="no_address" style="displayss: none;">
+				<img src="/xcview/images/shop/location.png" alt="" class="location" />
+				<div class="addition">还没有收货地址，<span>去添加</span></div>
+				<img src="/xcview/images/account05.png" alt="" class="skip" />
+				<div class="both"></div>
+			</div>
+			<div class="yes_address" style="display: none;">
+				<div class="address_message">
+					<div class="address_message_top">
+						<div class="addressee"><strong>收件人：宫崎骏</strong></div>
+						<div class="cell-phone"><strong>13612638888</strong></div>
+					</div>
+					<div class="detailed_address">海南省海口市琼山区滨海大道128号</div>
+				</div>
+				<img src="/xcview/images/account05.png" alt="" class="skip" />
+			</div>
+		</div>
+	</div>
+	<!-- 选择地址结束 -->
+	
+	<!-- 中间内容开始 -->
+	<div class="indent">
+		<div class="indent_list">
+			<div class="tilte">
+				<img src="/xcview/images/touxiang.png" alt="" class="head_portrait" />
+				林超岱医师推荐
+			</div>
+			<div class="main_product_details">
+				<div class="product_details">
+					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+					<div class="product_details_center">
+						<div class="title"><h4>正宗老北京足贴买2送1买3送2一盒50贴老北京足贴</h4></div>
+						<div class="pack">
+							1盒10包装；白色（库存10件）
+						</div>
+						<div class="total_prices">
+							<div class="price_yuan" >
+								<div class="yuan">￥<span>110.01</span></div>
+								<div class="number"><strong>x<span>3</span></strong></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="product_details">
+					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+					<div class="product_details_center">
+						<div class="title"><h4>正宗老北京足贴买2送1买3送2一盒50贴老北京足贴</h4></div>
+						<div class="pack">
+							1盒10包装；白色（库存10件）
+						</div>
+						<div class="total_prices">
+							<div class="price_yuan" >
+								<div class="yuan">￥<span>100.01</span></div>
+								<div class="number"><strong>x<span>2</span></strong></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="zongjia"></div>
+
+			<div class="express">
+				<div class="freight"><strong>运费</strong></div>
+				<div class="express_price"><strong>￥<span>10.00</span></strong></div>
+			</div>
+
+			<div class="BBS">
+				<div class="message"><strong>买家留言：</strong><input type="text" placeholder="给商家留言" /></div>
+			</div>
+		</div>
+		<div class="indent_list">
+			<div class="tilte">
+				<img src="/xcview/images/touxiang.png" alt="" class="head_portrait" />
+				林超岱医师推荐
+			</div>
+			<div class="main_product_details">
+				<div class="product_details">
+					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+					<div class="product_details_center">
+						<div class="title"><h4>正宗老北京足贴买2送1买3送2一盒50贴老北京足贴</h4></div>
+						<div class="pack">
+							1盒10包装；白色（库存10件）
+						</div>
+						<div class="total_prices">
+							<div class="price_yuan" >
+								<div class="yuan">￥<span>110.01</span></div>
+								<div class="number"><strong>x<span>3</span></strong></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="product_details">
+					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+					<div class="product_details_center">
+						<div class="title"><h4>正宗老北京足贴买2送1买3送2一盒50贴老北京足贴</h4></div>
+						<div class="pack">
+							1盒10包装；白色（库存10件）
+						</div>
+						<div class="total_prices">
+							<div class="price_yuan" >
+								<div class="yuan">￥<span>100.01</span></div>
+								<div class="number"><strong>x<span>3</span></strong></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="zongjia"></div>
+
+			<div class="express">
+				<div class="freight"><strong>运费</strong></div>
+				<div class="express_price"><strong>￥<span>10.00</span></strong></div>
+			</div>
+
+			<div class="BBS">
+				<div class="message"><strong>买家留言：</strong><input type="text" placeholder="给商家留言" /></div>
+			</div>
+		</div>
+
+		<!-- 优惠券开始
+		<div class="coupon">
+			<div class="coupon_main">
+				<div class="coupon_hint">
+					<div class="coupon_hints">优惠券</div><div class="selected" style="display:none;">选中<span>1</span>张</div>
+				</div>
+				<div class="coupon_price">
+					<img src="/xcview/images/account05.png" alt="" class="coupon_price_img" />
+					<div class="not_available">暂无可用优惠券</div>
+					<div class="coupon_yuan" style="display:none;">优惠￥6.00</div>
+				</div>
+			</div>
+		</div>优惠券结束 -->
+		
+		<!-- 计算总价开始 -->
+		<div class="total_price">
+			<div class="total_price_main">
+				<div class="total last">
+					<div class="totals">商品总价</div>
+					<div class="totals_yuan">￥<span>1644.00</span></div>
+				</div>
+				<div class="carriage last">
+					<div class="carriages">运费</div>
+					<div class="carriage_yuan">+￥10.00</div>
+				</div>
+				<!-- <div class="discount_amount last" style="display: none;">
+					<div class="discount_amounts">优惠金额</div>
+					<div class="discount_amount_yuan">-￥10.00</div>
+				</div> -->
+			</div>
+		</div>
+		<!-- 计算总价结束 -->
+
+	</div>
+	<!-- 中间内容结束 -->
+
+	<!-- 底部开始 -->
+	<div class="footer_height"></div>
+	<div class="footer">
+		<div class="footer_main">
+			<div class="summation"><span class="summations">合计</span><span class="yuan">￥<span>1648.00</span></span></div>
+			<div class="submit_order">提交订单</div>
+		</div>
+	</div>
+	<!-- 底部结束 -->
+
+	<!-- 点击优惠券提示开始 -->
+	<div class="coupon_hide">
+		<div class="coupon_hide_bg"></div>
+		<div class="coupon_hide_main">
+			<div class="title">优惠券<span>×</span></div>
+			<div class="coupon_list" style="display:none;">
+				<div class="coupon_lists">
+					<div class="coupon_money">
+						<div class="aui_circle"></div>
+						<div class="figure"><span class="symbol"><strong>￥</strong></span><span class="yuan"><strong>5</strong></span></div>
+						<div class="impletion">满120元可用</div>
+					</div>
+					<div class="his_general">
+						<div class="general">全场通用</div>						
+						<div class="data">2018.09.10-2018.09.20</div>						
+					</div>
+				</div>
+				<div class="coupon_lists">
+					<div class="coupon_money">
+						<div class="aui_circle"></div>
+						<div class="figure"><span class="symbol"><strong>￥</strong></span><span class="yuan"><strong>5</strong></span></div>
+						<div class="impletion">满120元可用</div>
+					</div>
+					<div class="his_general">
+						<div class="general">全场通用</div>						
+						<div class="data">2018.09.10-2018.09.20</div>						
+					</div>
+				</div>
+				<div class="coupon_lists">
+					<div class="coupon_money">
+						<div class="aui_circle"></div>
+						<div class="figure"><span class="symbol"><strong>￥</strong></span><span class="yuan"><strong>5</strong></span></div>
+						<div class="impletion">满120元可用</div>
+					</div>
+					<div class="his_general">
+						<div class="general">全场通用</div>						
+						<div class="data">2018.09.10-2018.09.20</div>						
+					</div>
+				</div>
+			</div>
+			<div class="coupon_null">
+				<img src="/xcview/images/shop/discount_coupon.png" alt="" />
+				<div class="no_available">很遗憾，您暂无优惠券可用</div>
+			</div>
+		</div>
+	</div>
+	<!-- 点击优惠券提示结束 -->
+</body>
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+
+<script type="text/javascript" src="/xcview/js/shop/confirm_order.js"></script>
+<script>
+	// 点击打开优惠券提示 
+	$(".coupon").click(function(){
+		$(".coupon_hide").show();
+	});
+
+	// 点击关闭优惠券提示
+	$(".coupon_hide_main .title span").click(function(){
+		$(".coupon_hide").hide();
+	});
+</script>
+
+</html>

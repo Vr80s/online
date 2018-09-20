@@ -1,0 +1,432 @@
+<!doctype html>
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="utf-8">
+<title>熊猫中医</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+
+<link type="text/css" rel="stylesheet" href="/xcview/css/shop/base.css" />
+<link rel="stylesheet" href="/xcview/css/shop/jquery.spinner.css" /><!-- 提示框=点击数量加减 -->
+<link type="text/css" rel="stylesheet" href="/xcview/css/shop/module.css"  /><!-- 点击数量加减 -->
+<link rel="stylesheet" href="/xcview/css/shop/shopping_trolley.css" /><!-- 点击数量加减 -->
+
+<script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
+<link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
+<style>
+	.shopping{
+		width: 7.5rem;
+		height: 100%;
+		margin: 0 auto;
+		display: none;
+	}
+</style>
+</head>
+
+<body>
+	<!-- 头部区域开始 -->
+	<header>
+		<div class="header">
+			<div class="return" onclick="location.href ='/xcview/html/shop/commodity_details.html'">
+				<img src="/xcview/images/backicon.png" alt="" class="">
+			</div>
+			<div class="title">购物车</div>
+			<div class="message">
+				<img src="/xcview/images/shop/newsbg.png" alt="" />
+				<span class="advices_number">17</span>
+			</div>
+			<div class="compile" style="displays: none;">编辑</div>
+			<div class="finish">完成</div>
+		</div>
+	</header>
+	<div class="header_hidden_field"></div>
+	<!-- 头部区域结束 -->
+	
+	<!-- 中间内容开始 -->
+	<div class="shopping" style="display:block;">
+		<div class="shop-group-item">
+			<div class="shop-name">
+				<input type="checkbox" class="check goods-check shopCheck" style="margin-left:.26rem;">
+				<h4>
+					<img src="/xcview/images/touxiang.png" alt="" class="head_portrait" />
+					<a href="#" class="shop-names">林超岱医师推荐</a>
+				</h4>
+				<!-- <div class="coupons"><span>领券</span><em>|</em><span>编辑</span></div> -->
+			</div>
+			<ul>
+				<li>
+					<div class="shop-info">
+						<input type="checkbox" class="check goods-check goodsCheck">
+						<div class="shop-info-img"><a href="#"><img src="/xcview/images/xianxia_03.jpg" /></a></div>
+						<div class="shop-info-text">
+							<h4>正宗老北京足贴买2送1买3送2一盒50贴老北京足贴</h4>
+							<div class="inventory"><span class="packaging">1盒10包装；</span><span class="colour">白色</span>（库存<span class="number_packages">10</span>件）<img src="/xcview/images/bot.png" alt="" class="select" /><div class="selectbg"></div></div>
+							<div class="shop-price">
+								<div class="shop-pices">￥<b class="price">100.00</b></div>
+								<div class="shop-arithmetic">
+									<a href="javascript:;" class="minus minus-class">-</a>
+									<span class="num" >1</span>
+									<a href="javascript:;" class="plus">+</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="shop-info">
+						<input type="checkbox" class="check goods-check goodsCheck">
+						<div class="shop-info-img"><a href="#"><img src="/xcview/images/xianxia_03.jpg" /></a></div>
+						<div class="shop-info-text">
+							<h4>正宗老北京足贴买2送1买3送2一盒50贴老北京足贴</h4>
+							<div class="inventory"><span class="packaging">1盒10包装；</span><span class="colour">白色</span>（库存<span class="number_packages">10</span>件）<img src="/xcview/images/bot.png" alt="" class="select" /><div class="selectbg"></div></div>
+							<div class="shop-price">
+								<div class="shop-pices">￥<b class="price">10.00</b></div>
+								<div class="shop-arithmetic">
+									<a href="javascript:;" class="minus minus-class">-</a>
+									<span class="num" >1</span>
+									<a href="javascript:;" class="plus">+</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="shop-info">
+						<input type="checkbox" class="check goods-check goodsCheck">
+						<div class="shop-info-img"><a href="#"><img src="/xcview/images/xianxia_03.jpg" /></a></div>
+						<div class="shop-info-text">
+							<h4>正宗老北京足贴买2送1买3送2一盒50贴老北京足贴</h4>
+							<div class="inventory"><span class="packaging">1盒10包装；</span><span class="colour">白色</span>（库存<span class="number_packages">10</span>件）<img src="/xcview/images/bot.png" alt="" class="select" /><div class="selectbg"></div></div>
+							<div class="shop-price">
+								<div class="shop-pices">￥<b class="price">100.00</b></div>
+								<div class="shop-arithmetic">
+									<a href="javascript:;" class="minus minus-class">-</a>
+									<span class="num" >1</span>
+									<a href="javascript:;" class="plus">+</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+
+			<div class="shopPrice" style="displayss: none;">本店总计：￥<span class="shop-total-amount ShopTotal">0.00</span></div>
+		</div>
+
+		<div class="shop-group-item">
+			<div class="shop-name">
+				<input type="checkbox" class="check goods-check shopCheck" style="margin-left:.26rem;">
+				<h4>
+					<img src="/xcview/images/touxiang.png" alt="" class="head_portrait" />
+					<a href="#" class="shop-names">林超岱医师推荐</a>
+				</h4>
+				<!-- <div class="coupons"><span>领券</span><em>|</em><span>编辑</span></div> -->
+			</div>
+			<ul>
+				<li>
+					<div class="shop-info">
+						<input type="checkbox" class="check goods-check goodsCheck">
+						<div class="shop-info-img"><a href="#"><img src="/xcview/images/xianxia_03.jpg" /></a></div>
+						<div class="shop-info-text">
+							<h4>正宗老北京足贴买2送1买3送2一盒50贴老北京足贴</h4>
+							<div class="inventory"><span class="packaging">1盒10包装；</span><span class="colour">白色</span>（库存<span class="number_packages">10</span>件）<img src="/xcview/images/bot.png" alt="" class="select" /><div class="selectbg"></div></div>
+							<div class="shop-price">
+								<div class="shop-pices">￥<b class="price">100.00</b></div>
+								<div class="shop-arithmetic">
+									<a href="javascript:;" class="minus minus-class">-</a>
+									<span class="num" >1</span>
+									<a href="javascript:;" class="plus">+</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="shop-info">
+						<input type="checkbox" class="check goods-check goodsCheck">
+						<div class="shop-info-img"><a href="#"><img src="/xcview/images/xianxia_03.jpg" /></a></div>
+						<div class="shop-info-text">
+							<h4>正宗老北京足贴买2送1买3送2一盒50贴老北京足贴</h4>
+							<div class="inventory"><span class="packaging">1盒10包装；</span><span class="colour">白色</span>（库存<span class="number_packages">10</span>件）<img src="/xcview/images/bot.png" alt="" class="select" /><div class="selectbg"></div></div>
+							<div class="shop-price">
+								<div class="shop-pices">￥<b class="price">100.00</b></div>
+								<div class="shop-arithmetic">
+									<a href="javascript:;" class="minus minus-class">-</a>
+									<span class="num" >1</span>
+									<a href="javascript:;" class="plus">+</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="shop-info">
+						<input type="checkbox" class="check goods-check goodsCheck">
+						<div class="shop-info-img"><a href="#"><img src="/xcview/images/xianxia_03.jpg" /></a></div>
+						<div class="shop-info-text">
+							<h4>正宗老北京足贴买2送1买3送2一盒50贴老北京足贴</h4>
+							<div class="inventory"><span class="packaging">1盒10包装；</span><span class="colour">白色</span>（库存<span class="number_packages">10</span>件）<img src="/xcview/images/bot.png" alt="" class="select" /><div class="selectbg"></div></div>
+							<div class="shop-price">
+								<div class="shop-pices">￥<b class="price">100.00</b></div>
+								<div class="shop-arithmetic">
+									<a href="javascript:;" class="minus minus-class">-</a>
+									<span class="num" >1</span>
+									<a href="javascript:;" class="plus">+</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+			
+			<div class="shopPrice" style="display: none;">本店总计：￥<span class="shop-total-amount ShopTotal">0.00</span></div>
+		</div>
+	</div>
+	<!-- 中间内容结束 -->
+
+	<!-- 底部开始 -->
+	<div class="hidden_field" style="displays:none;"></div>
+	<div class="payment-bar" style="displays:none;">
+		<div class="all-checkbox"><input type="checkbox" class="check goods-check" id="AllCheck" style="margin-left:.26rem;" />全选</div>
+
+		<div class="pick-compile">
+			
+			<div class="shop-total">
+				<span class="exclude-freight">不含运费</span>
+				总价：<span>￥</span><span class="total" id="AllTotal">0.00</span>
+				<a href="#" class="settlement" onclick="location.href ='/xcview/html/shop/confirm_order.html'">结算</a>
+			</div>
+			<div class="itemdelete">删除商品</div>
+		</div>
+	</div>
+	<!-- 底部结束 -->
+
+	<!-- 点击选中按钮后==点击规格显示框开始 -->
+	<div class="shopping_trolley">
+		<div class="shopping_trolley_bg"></div>
+		<div class="shopping_trolley_main">
+			<div class="shopping_trolley_center">
+				<div class="message">
+					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot">
+					<div class="information">
+						<div class="price">￥100.00</div>
+						<div class="repertory">库存120件</div>
+						<div class="category">
+							<span class="choice">选择</span>
+							<span class="specification">规格</span>
+							<span class="kind">分类</span>
+						</div>
+					</div>
+				</div>
+				<div class="specifications">
+					<span class="">规格</span>
+					<ul class="specifications_ul">
+						<li class="casing include">5包装</li>
+						<li class="casing include">1盒10包装</li>
+						<li class="casing include">2盒22包装</li>
+						<li class="casing include">一箱8盒100包</li>
+					</ul>
+				</div>
+
+				<div class="classify">
+					<span class="">分类</span>
+					<ul class="classify_ul">
+						<li class="hue include">红色</li>
+						<li class="hue include">白色</li>
+						<li class="hue include">黄色</li>
+					</ul>
+				</div>
+				<div class="buy">
+					<div class="purchase_quantity">购买数量</div>
+					<center>
+						<div class="spinner">
+							<input type="text" class="spinnerExample value passive" />
+						</div>
+					</center>
+				</div>
+				<div class="determine">确定</div>
+			</div>
+		</div>
+	</div>
+	<!-- 点击选中按钮后==点击规格显示框结束 -->
+
+	<!-- 删除所选商品提示开始 -->
+	<div class="removeitem">
+		<div class="removeitembg"></div>
+		<div class="removeitem-main">
+			<div class="reminder"><strong>提示</strong></div>
+			<div class="reminder-main">确认删除所选商品？</div>
+			<div class="removeitem-choice">
+				<div class="countermand">取消</div>
+				<div class="affirm">确认</div>
+			</div>
+		</div>
+	</div>
+	<!-- 删除所选商品提示结束 -->
+
+	<!-- 购物车为空的时候===编辑compile隐藏  shopping中间内容隐藏 底部隐藏payment-bar  hidden_field底部开始隐藏  -->
+	<!-- 购物车空的状态开始 -->
+	<div class="vacancy-main" style="display: none;">
+		<div class="vacancy">
+			<img src="/xcview/images/soldout.png" alt="" />
+			<div class="vacancy-cen">您的购物车空空如也，先去挑选心爱的好货吧~</div>
+			<div class="vacancy-btn">挑好货</div>
+		</div>
+		<div class="main_center">
+			<div class="hot_sale">猜你喜欢</div>
+			<ul class="list">
+				<li>
+					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plots">
+					<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
+					<div class="price">￥188.00</div>
+					<div class="referrer">
+						<img src="/xcview/images/touxiang.png" alt="">林超岱医师 推荐
+					</div>
+				</li>
+				<li>
+					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plots">
+					<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
+					<div class="price">￥188.00</div>
+					<div class="referrer">
+						<img src="/xcview/images/touxiang.png" alt="">林超岱医师 推荐
+					</div>
+				</li>
+				<li>
+					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plots">
+					<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
+					<div class="price">￥188.00</div>
+					<div class="referrer">
+						<img src="/xcview/images/touxiang.png" alt="">林超岱医师 推荐
+					</div>
+				</li>
+				<li>
+					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plots">
+					<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
+					<div class="price">￥188.00</div>
+					<div class="referrer">
+						<img src="/xcview/images/touxiang.png" alt="">林超岱医师 推荐
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<!-- 购物车空的状态结束 -->
+
+</body>
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+<script type="text/javascript" src="/xcview/js/shop/shopping_trolley.js"></script>  <!-- 选中点击按钮 -->
+
+
+<script type="text/javascript" src="/xcview/js/shop/jquery.spinner.js"></script><!-- 提示框=点击数量引入 -->
+
+<!-- 数量区域 -->
+<script>
+	// 点击数量加减
+	$('.spinnerExample').spinner({});
+	// 点击规格
+	var aBtn=$('.specifications_ul .casing');
+  	for(i=0;i<aBtn.length;i++){
+	    $(aBtn[i]).click(function(){
+	    	var specification = document.querySelector(".specification");  //规格
+			specification.style.display="none";
+			// 判断显示已选择
+	    	if ($(".include").hasClass("public")) {
+				$(".kind").show();
+				$(".specification").show();
+				$(".choice").html("已选择");
+			};
+	    	
+		    for(i=0;i<aBtn.length;i++){
+		        $(aBtn[i]).removeClass('public');
+		    }
+		    $(this).addClass('public');
+
+		    var publicHtml = $(this).html();
+		    $(".specification").html(publicHtml);
+		})
+	};
+	// 点击分类
+	var aBtnHue=$('.classify_ul .hue');
+  	for(i=0;i<aBtnHue.length;i++){
+	    $(aBtnHue[i]).click(function(){
+	    	var kind = document.querySelector(".kind");  //分类
+			kind.style.display="none";
+			// 判断显示已选择
+	    	if ($(".include").hasClass("public")) {
+				$(".kind").show();
+				$(".specification").show();
+				$(".choice").html("已选择");
+			};
+	    	
+		    for(i=0;i<aBtnHue.length;i++){
+		        $(aBtnHue[i]).removeClass('public');
+		    }
+		    $(this).addClass('public');
+		    var publicHtml = $(this).html();
+		    $(".kind").html(publicHtml);
+		})
+	}
+	// 点击加入购物车 
+	$('.add_cart').click(function(){
+		$('.shopping_trolley').show();
+	});
+	// 点击详情背景色
+	$('.shopping_trolley_bg').click(function(){
+		$('.shopping_trolley').hide();
+	});
+
+	// 点击加号
+	$('.increase').click(function(){
+		$('.decrease').css("background","#fff");
+	});
+	$('.decrease').click(function(){
+		if ($('.spinnerExample').val() == 1) {
+			$('.decrease').css("background","#f0f0f0");
+		};
+	});
+
+	// 点击遮盖在select上的div
+	$('.selectbg').click(function(){
+		$('.shopping_trolley').show();
+	});
+
+	// 点击头部编辑  
+	$('.compile').click(function(){
+		$(this).hide();
+		$('.finish').show();
+		$('.shop-total').hide();
+		$('.itemdelete').show();
+	});
+
+	// 点击头部完成  
+	$('.finish').click(function(){
+		$(this).hide();
+		$('.compile').show();
+		$('.shop-total').show();
+		$('.itemdelete').hide();
+	});
+</script>
+
+</html>

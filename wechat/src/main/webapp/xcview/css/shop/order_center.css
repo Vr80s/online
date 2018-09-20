@@ -1,0 +1,377 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+a{
+	text-decoration: none;
+}
+li{
+	list-style: none;
+}
+img{
+	border: 0px;
+	border: none;
+}
+.both{
+	clear: both;
+}
+/*头部区域开始*/
+header{
+	width: 7.5rem;
+    height: .88rem;
+    position: fixed;
+    top: 0;
+    z-index: 2;
+    background: rgba(250,250,250,0.98);
+    border-bottom: 1px solid #f0f0f0;
+}
+.header{
+	width: 6.98rem;
+	height: 0.88rem;
+	margin: 0 auto;
+	/*background: #ccc;*/
+	position: relative;
+}
+.return{
+	width: 1rem;
+	height: .88rem;
+	float: left;
+	/*margin-top: .15rem;*/
+	/*background: red;*/
+}
+.return img{
+	width: .24rem;
+    height: .42rem;
+    margin-top: .24rem;
+    float: left;
+}
+.header .title{
+	position: absolute;
+	top: 0;
+	z-index: -1;
+	width: 100%;
+	height: .88rem;
+	line-height: .88rem;
+	font-size: .36rem;
+	color: #333333;
+	text-align: center;
+}
+
+.header_hidden_field{
+	width: 7.5rem;
+	height: 0.88rem;
+	margin: 0 auto;
+}
+
+.advices {
+    width: .6rem;
+    height: .6rem;
+    float: right;
+    margin-top: .15rem;
+    /*margin-right: .26rem;*/
+    position: relative;
+}
+.news_class {
+    width: .36rem;
+    height: .36rem;
+    margin-top: .09rem;
+    /* background: url(/xcview/images/shop/newsbg.png) no-repeat; */
+    float: right;
+    margin-right: .04rem;
+}
+.advices_number {
+    position: absolute;
+    top: 0;
+    right: -.17rem;
+    background: #F97215;
+    border-radius: 100px;
+    font-size: .22rem;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 0 .08rem;
+}
+/*头部区域结束*/
+
+/*中间内容开始*/
+.indent{
+	width: 7.5rem;
+	height: 100%;
+	margin: 0 auto;
+	/*background: red;*/
+}
+.indent_list{
+	width: 7.5rem;
+	min-height: 1rem;
+	margin: 0 auto;
+	background: #f8f8f8;
+	margin-bottom: .2rem;
+}
+.indent_list_title{
+	width: 7.5rem;
+	height: .4rem;
+	padding: .24rem 0;
+	background: #fff;
+	border-bottom: 1px solid #f8f8f8;
+}
+.indent_list .tilte{
+	width: 4rem;
+    height: .4rem;
+    line-height: .4rem;
+    /* margin: 0 auto; */
+    font-size: .28rem;
+    color: #333333;
+    float: left;
+}
+.head_portrait{
+	width: .4rem;
+	height: .4rem;
+	border-radius: 100px;
+	margin-right: .1rem;
+	margin-left: .256rem;
+	float: left;
+}
+.payment_operation{
+	font-size: .28rem;
+	color: #F97215;
+	text-align: right;
+	margin-right: .26rem;
+}
+.product_details{
+	width: 7.24rem;
+	height: 1.8rem;
+	/*background: #bcbcd2;*/
+	margin-left: .26rem;
+	padding: .2rem 0;
+    /*margin-top: .1rem;*/
+    border-bottom: 1px solid #d8d8d8;
+}
+.main_product_details .product_details:last-child{
+	border: none;
+}
+.product_details .surface_plot{
+	width: 1.8rem;
+	height: 1.8rem;
+	margin-right: .2rem;
+	float: left;
+}
+.product_details_center{
+	width: 4.98rem;
+	height: 100%;
+	float: left;
+}
+.product_details_center .title{
+	font-size: .24rem;
+	color: #333333;
+	margin-bottom: .1rem;
+	margin-top: .1rem;
+	display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+.product_details_center .pack{
+	margin-bottom: .25rem;
+	font-size: .22rem;
+	color: #999999;
+}
+.total_prices{
+	width: 5rem;
+}
+.price_yuan{
+	overflow: hidden;
+}
+.price_yuan .yuan{
+	float: left;
+	font-size: .28rem;
+	color: #F97215;
+}
+.price_yuan .number{
+	font-size: .28rem;
+	color: #333333;
+	float: right;
+}
+.indent_list .express{
+	width: 7.5rem;
+	height: .88rem;
+	line-height: .88rem;
+	border-bottom: 1px solid #dedede;
+	background: #fff;
+	overflow: hidden;
+}
+.express .express_price{
+	font-size: .28rem;
+	color: #333333;
+	float: right;
+	margin-right: .26rem;
+}
+.express .express_price span{
+	font-weight: bold;
+}
+
+.indent_list .payment_method{
+	width: 7.5rem;
+	height: .88rem;
+	line-height: .88rem;
+	background: #fff;
+}
+
+/*等待买家付款*/
+.waiting_payment{
+	width: 100%;
+	height: .88rem;
+	overflow: hidden;
+}
+.waiting_payment div{
+	width: 1.45rem;
+	height: .52rem;
+	line-height: .52rem;
+	font-size: .24rem;
+	text-align: center;
+	border-radius: 100px;
+	float: right;
+    margin-top: .18rem;
+}
+/*等待买家付款*/
+.waiting_payment .immediate_payment{
+	color: #F97215;
+	border: 1px solid #F97215;
+	margin-right: .3rem;
+}
+
+.waiting_payment .cancel_order{
+	color: #333;
+	border: 1px solid #DEDEDE;
+	margin-right: .23rem;
+}
+
+/*买家已付款*/
+.buy_again{
+	color: #F97215;
+	border: 1px solid #F97215;
+	margin-right: .26rem;
+}
+
+/*卖家已发货*/
+.check_logistics{
+	color: #F97215;
+	border: 1px solid #F97215;
+	margin-right: .3rem;
+}
+.shipped_cancel_order{
+	color: #F97215;
+	border: 1px solid #F97215;
+	margin-right: .3rem;
+}
+.confirm_receipt{
+	color: #F97215;
+	border: 1px solid #F97215;
+	margin-right: .26rem;
+}
+
+/*交易成功*/
+.win_check_logistics{
+	color: #F97215;
+	border: 1px solid #F97215;
+	margin-right: .3rem;
+}
+.win_shipped_cancel_order{
+	color: #F97215;
+	border: 1px solid #F97215;
+	margin-right: .3rem;
+}
+.win_evaluate{
+	color: #F97215;
+	border: 1px solid #F97215;
+	margin-right: .26rem;
+}
+
+/*交易关闭*/
+.delete_order{
+	color: #F97215;
+	border: 1px solid #F97215;
+	margin-right: .3rem;
+}
+.fack_shipped_cancel_order{
+	color: #F97215;
+	border: 1px solid #F97215;
+	margin-right: .26rem;
+}
+/*中间内容结束*/
+
+/*取消订单提示开始*/
+.removeitem {
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.removeitembg {
+    width: 7.5rem;
+    height: 100%;
+    background: #000;
+    opacity: 0.3;
+    position: fixed;
+    top: 0;
+    z-index: 3;
+}
+.removeitem-main {
+    width: 5.4rem;
+    height: 2.6rem;
+    background: #fff;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 4;
+    margin-top: -1.3rem;
+    margin-left: -2.7rem;
+    border-radius: 16px;
+}
+.reminder {
+    width: 100%;
+    font-size: .32rem;
+    color: #333333;
+    text-align: center;
+    padding-top: .4rem;
+    margin-bottom: .1rem;
+}
+.reminder-main {
+    width: 100%;
+    font-size: .26rem;
+    color: #333333;
+    text-align: center;
+    margin-bottom: .4rem;
+}
+.removeitem-choice {
+    width: 100%;
+    height: .87rem;
+    line-height: .87rem;
+    border-top: 1px solid #D8DDE6;
+}
+.countermand {
+    width: 48%;
+    height: 100%;
+    font-size: .3rem;
+    color: #333333;
+    text-align: center;
+    border-right: 1px solid #D8DDE6;
+    float: left;
+}
+.affirm {
+    width: 48%;
+    height: 100%;
+    font-size: .3rem;
+    color: #F97215;
+    text-align: center;
+    float: left;
+}
+
+/*取消订单提示结束*/
+
+
+
+
+
+
+
+
+
+

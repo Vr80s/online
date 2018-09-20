@@ -33,15 +33,28 @@ header{
     top: 0;
     z-index: 21;
     background: rgba(250,250,250,0.98);
+    border-bottom: 1px solid #f0f0f0;
+}
+.return{
+	width: .4rem;
+    height: .74rem;
+    margin-left: .26rem;
+    float: left;
+}
+.return img{
+	/*width: .24rem;*/
+	height: .36rem;
+    float: left;
+    margin-top: .15rem;
 }
 .header{
 	/*margin: 0 auto;*/
 	/*margin-top: .14rem;*/
-	width: 6.26rem;
+	width: 5.86rem;
 	height: .6rem;
 	background: #F0F0F0;
 	border-radius: 100px;
-	margin-left: 0.26rem;
+	/*margin-left: 0.26rem;*/
 	float: left;
 }
 .header img{
@@ -61,7 +74,7 @@ header{
 }
 .header_hidden_field{
 	width: 100%;
-	height: 0.88rem;
+	height: 1.78rem;
 }
 .advices{
 	width: .36rem;
@@ -89,69 +102,15 @@ header{
 	padding: 0 .08rem;
 }
 /*头部区域结束*/
-/*轮播区域开始*/
-.banner{
-	margin: 0 auto;
-	width: 7.5rem;
-	height: 3.02rem;
-	/*background: red;*/
-    position: relative;
-    overflow: hidden;
-}
-/*轮播开始*/
-.swiper-container{
-	width: 7.5rem !important;
-	height: 3.02rem !important;
-}
-.swiper-slide{
-	 width: 7.5rem !important;
-}
-.swiper-slide img{
-	 width: 7.5rem;
-}
-.swiper-pagination {
-	text-align: right;
-}
-.swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet:last-child{
-	margin-right: 0.26rem;
-	width: 0.22rem !important;
-    border-radius: 8px !important;
-    height: 0.06rem !important;
-}
-.swiper-slide img{
-	width: 100%;
-    height: 100%;
-}
-.swiper-pagination-bullet-active{
-	background: #00bc12;
-    width: 0.22rem;
-    height: .06rem;
-    border-radius: 100px;
-}
-.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction{
-	bottom: 0;
-} 
-.pagination {
-	position: absolute;
-	z-index: 20;
-	bottom: 0;
-	text-align: center;
-	width: 3rem;
-	left: 50%;
-	margin-left: -1.5rem;
-}
-.swiper-pagination-bullet{
-	width: 0.22rem;
-    height: .06rem;
-    margin-right: 0.08rem;
-}
-/*轮播结束*/
 
 /*tab选项开始*/
 #mainMenuBar {
-	width:100%;
-	background-color:white;
-	z-index:100;
+	width: 100%;
+    background-color: white;
+    z-index: 100;
+    position: fixed;
+    top: .88rem;
+    border-bottom: 1px solid #f0f0f0;
 }
 .stick {
 	position:fixed;
@@ -274,46 +233,3 @@ header{
 	height: .98rem;
 }
 /*中间内容结束*/
-
-/*底部区域开始*/
-.footer {
-    width: 7.5rem;
-    height: 1rem;
-    background: #fff;
-    /* background: red; */
-    position: fixed;
-    bottom: 0;
-    border-top: 1px solid #d8dde6;
-    left: 50%;
-    margin-left: -3.75rem;
-}
-.footer ul li {
-    width: 0.78rem;
-    float: left;
-    text-align: center;
-    margin-left: 0.6rem;
-}
-.footer ul li a {
-    display: block;
-    width: 0.486rem;
-    height: 0.42rem;
-    text-align: center;
-    margin: 0 auto;
-    margin-bottom: 0.06rem;
-    margin-top: 0.14rem;
-}
-.footer ul li p {
-    width: 100%;
-    color: #999; 
-    font-size: 0.2rem;
-    text-align: center;
-}
-.footer_one {
-    background: url(/xcview/images/school_one.png) no-repeat center;
-    background-size: 0.48rem 0.37rem;
-}
-.footer_two {
-    background: url(/xcview/images/learn_two.png) no-repeat center;
-    background-size: 0.4rem 0.4rem;
-}
-/*底部区域结束*/

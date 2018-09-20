@@ -1,0 +1,166 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+a{
+	text-decoration: none;
+}
+li{
+	list-style: none;
+}
+img{
+	border: 0px;
+	border: none;
+}
+.both{
+	clear: both;
+}
+/*头部区域开始*/
+header{
+	width: 7.5rem;
+    height: .88rem;
+    position: fixed;
+    top: 0;
+    z-index: 2;
+    background: rgba(250,250,250,0.98);
+    border-bottom: 1px solid #f0f0f0;
+}
+.header{
+	width: 6.98rem;
+	height: 0.88rem;
+	margin: 0 auto;
+	/*background: #ccc;*/
+	position: relative;
+}
+.return{
+	width: 1rem;
+	height: .88rem;
+	float: left;
+	/*margin-top: .15rem;*/
+	/*background: red;*/
+}
+.return img{
+	width: .24rem;
+    height: .42rem;
+    margin-top: .24rem;
+    float: left;
+}
+.header .title{
+	position: absolute;
+	top: 0;
+	z-index: -1;
+	width: 100%;
+	height: .88rem;
+	line-height: .88rem;
+	font-size: .36rem;
+	color: #333333;
+	text-align: center;
+}
+.header_hidden_field{
+	width: 7.5rem;
+	height: 0.88rem;
+	margin: 0 auto;
+}
+/*头部区域结束*/
+/*中间内容开始*/
+.main{
+	width: 7.5rem;
+	height: 2.4rem;
+	margin: 0 auto;
+	padding-top: .9rem;
+	padding-bottom: .6rem;
+	background: #fff;
+}
+.win{
+	width: 2.1rem;
+    height: .6rem;
+    line-height: .6rem;
+    font-size: .32rem;
+    color: #333333;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: .3rem;
+}
+.win img{
+	width: .6rem;
+    height: .6rem;
+    margin-right: .2rem;
+    float: left;
+}
+.actual_payment{
+	font-size: .24rem;
+	color: #F97215;
+	text-align: center;
+	margin-bottom: .72rem;
+}
+.button{
+	width: 4rem;
+	height: .6rem;
+	margin: 0 auto;
+	overflow: hidden;
+}
+.button div{
+	width: 1.6rem;
+	height: .56rem;
+	line-height: .56rem;
+	font-size: .24rem;
+	color: #333333;
+	text-align: center;
+	border: 1px solid #DEDEDE;
+	border-radius: 100px;
+}
+.button .index{
+	float: left;
+}
+.button .details{
+	float: right;
+}
+
+.object_error{
+	width: 7.5rem;
+	height: .88rem;
+	line-height: .88rem;
+	margin: 0 auto;
+	margin-bottom: .2rem;
+	background: #fff;
+	border-top: 1px solid #f0f0f0;
+	overflow: hidden;
+}
+.object_error_main{
+	width: 6.98rem;
+	height: .88rem;
+	margin: 0 auto;
+}
+.object_error_main div{
+	font-size: .28rem;
+	color: #666666;
+}
+.object_error_main .pay{
+	float: left;
+}
+.object_error_main .pattern{
+	float: right;
+}
+.warm_prompt{
+	width: 6.98rem;
+	margin: 0 auto;
+	font-size: .26rem;
+	color: #999999;
+}
+/*中间内容结束*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

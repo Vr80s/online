@@ -1,0 +1,76 @@
+.buy center{
+	width: 1.85rem;
+    height: .52rem;
+    float: right;
+    border: 1px solid #dedede;
+    border-radius: 100px;
+}
+
+.spinner-sprite, .spinner .decrease, .spinner .decrease[disabled], .spinner .increase, .spinner .value, .spinner .value.passive {
+	/*background: url('/xcview/images/shop/spinner.png') no-repeat*/
+}
+.spinner {
+    width: 1.85rem;
+	height: .52rem;
+    /*overflow: hidden;*/
+	/*background: #FFEB3B;*/
+	border-radius: 100px;
+}
+.spinner button, .spinner .value {
+	text-align: center;
+	display: block;
+	float: left;
+	height: 100%;
+	line-height: 25px;
+	margin: 0
+}
+.spinner button {
+	border: none;
+	width: .6rem;
+	height: .52rem;
+	color: #F97215;
+	font: 22px Arial bold;
+	padding: 0;
+	outline: none
+}
+.spinner .decrease {
+	/*background-position: 0 -50px;*/
+	cursor: pointer;
+	/*text-indent: -10000px*/
+    border-radius: 50px 0 0 50px;
+}
+.spinner .decrease[disabled] {
+	background-position: 0 -75px;
+    cursor: default;
+    /*font-size: 0.28rem;*/
+    color: #999999;
+    /*font-weight: bold;*/
+}
+.spinner .increase {
+	/*background-position: 0 0;*/
+	cursor: pointer;
+	/*text-indent: -10000px*/
+	/*font-size: .28rem;*/
+	color: #F97215;
+	background: #fff;
+	border-radius: 0 50px 50px 0;
+}
+.spinner .value {
+	background-position: 0 -100px;
+	width: .6rem;
+	height: .52rem;
+	border: none;
+	/*font-family: Arial;*/
+	font-size: .28rem;
+	color: #333;
+	padding: 0px;
+	border-left: 1px solid #DEDEDE;
+    border-right: 1px solid #DEDEDE;
+}
+.spinner .value.passive {
+	background-position: 0 -25px;
+	color: #919191
+}
+.spinner .error, .spinner .invalid {
+	background: #aa0000
+}
