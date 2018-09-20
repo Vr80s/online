@@ -1,6 +1,10 @@
 package com.xczhihui.medical.doctor.service;
 
 
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.baomidou.mybatisplus.service.IService;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 
@@ -22,4 +26,7 @@ public interface IMedicalDoctorAccountService extends IService<MedicalDoctorAcco
      * @Date: 2018/6/20 18:18
      **/
     MedicalDoctorAccount getByUserId(String userId);
+    
+    
+    Map<String, Object> selectUserByAccountId(String userId);
 }

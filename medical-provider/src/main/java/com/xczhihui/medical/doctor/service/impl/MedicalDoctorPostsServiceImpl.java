@@ -277,8 +277,25 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
         }
     }
 
+    
+	@Override
+	public void addDoctorPosts(String userId,String content, Long productId, Integer level) {
+		  MedicalDoctorPosts mdp = new MedicalDoctorPosts();
+		  MedicalDoctorAccount mha = medicalDoctorAccountService.getByUserId(userId);
+		  if(mha!=null){
+			  mdp.setType(DoctorPostsType.POSTSPOSTS.getCode());
+	          mdp.setDoctorId(mha.getDoctorId());
+	          mdp.setContent(content);
+	          mdp.setProductId(productId);
+	          mdp.setLevel(level);
+	          
+	          addMedicalDoctorPosts(mdp);
+		  }
+	}
+    
+    
     @Override
-    public Set<Map<String,Object>> getProductPostsByProductId(Integer productId,Integer pageNumber,Integer pageSize) {
+    public Set<Map<String,Object>> getProductPostsByProductId(Long productId,Integer pageNumber,Integer pageSize) {
     	
     	return medicalDoctorPostsMapper.getProductPostsByProductId(productId, pageNumber, pageSize);
     }

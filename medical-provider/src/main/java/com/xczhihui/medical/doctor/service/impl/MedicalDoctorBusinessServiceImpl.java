@@ -858,4 +858,9 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     public Map<String, Object> getDoctorInfoByDoctorId(String doctorId) {
         return medicalDoctorMapper.selectUserByDoctorId(doctorId);
     }
+
+    @Override
+    public List<MedicalDoctorVO> listDoctor() {
+        return medicalDoctorMapper.listDoctor();
+    }
 }

@@ -3,6 +3,7 @@
 <%@ include file="../common/jstl_taglib.jsp" %>
 <link href="/css/jquery-ui-timepicker-addon.css" type="text/css"/>
 <link href="/js/layer/skin/layer.css" type="text/css"/>
+<link href="/bootstrap/assets/css/bootstrap-select.css" type="text/css"/>
 
 <script type="text/javascript">
     try {
@@ -212,6 +213,40 @@
                         </c:forEach>
                     </select>
                 </div>
+                
+               <!-- 商品链接  -->
+               <div class="J-product-detail" style="display: none">
+               		<!-- 顶级分类 -->
+                    <select data-live-search="true" id="J-product-rootCategory">
+                        <c:forEach var="rootCategory" items="${productCategorys}">
+                            <option value="${rootCategory.id}">
+                                    ${rootCategory.name}
+                            </option>
+                        </c:forEach>
+                    </select>
+                    
+                    <!-- 二级分类 -->
+                    
+                    <c:if test="${rootCategory.childrenVOs.size > 0 }" >
+	 					<select data-live-search="true" id="J-product-category">
+	                        <c:forEach var="category" items="${regulations}">
+	                            <option value="${category.id}">
+	                                    ${category.title}
+	                            </option>
+	                        </c:forEach>
+	                    </select>
+					</c:if>
+                    
+                    <!-- 商品名字  -->
+                    <select class="selectpicker"  data-live-search="true" id="J-product">
+                        <c:forEach var="product" items="${products}">
+                            <option value="${product.id}">
+                                    ${product.name}
+                            </option>
+                        </c:forEach>
+                    </select>
+                </div>
+                
             </div>
         </div>
         <div class="space-4"></div>
@@ -325,7 +360,7 @@
                     </select>
                 </div>
                 <div class="J-edit-apprentice-detail" style="display: none">
-                    <select data-live-search="true" id="J-edit-apprentice">
+                    <select data-live-search="true"  id="J-edit-apprentice">
                         <c:forEach var="regulation" items="${regulations}">
                             <option value="${regulation.id}">
                                     ${regulation.title}
@@ -360,3 +395,4 @@
 </div>
 
 <script type="text/javascript" src="/js/operate/banner2.js?v=ipandatcm_1.3"></script>
+<script type="text/javascript" src="/bootstrap/assets/js/bootstrap-select.js?v=ipandatcm_1.3"></script>

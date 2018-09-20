@@ -11,7 +11,9 @@ public enum DoctorPostsType {
     PICTUREPOSTS(2, "图片动态"),
     VIDEOPOSTS(3, "视频动态"),
     ARTICLEPOSTS(4, "文章动态"),
-    COURSEPOSTS(5, "课程动态");
+    COURSEPOSTS(5, "课程动态"),
+    POSTSPOSTS(6, "商品动态"),
+    ;
 
     private String text;
     private int code;

@@ -186,4 +186,6 @@ public interface IMedicalDoctorBusinessService {
     public List<Map<String, Object>> doctorTypeList();
 
 	Map<String, Object> getDoctorInfoByDoctorId(String doctorId);
+
+    List<MedicalDoctorVO> listDoctor();
 }
