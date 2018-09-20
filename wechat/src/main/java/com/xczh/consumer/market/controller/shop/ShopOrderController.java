@@ -3,6 +3,7 @@ package com.xczh.consumer.market.controller.shop;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.utils.ResponseObject;
 import net.shopxx.merge.service.OrderOperService;
+import net.shopxx.merge.vo.OrderVO;
 import net.shopxx.merge.vo.ReceiverVO;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,11 +41,11 @@ public class ShopOrderController {
     }
 
     /**
+     * @param cartItemIds 购物车子项目id
      * @param skuId 库存id
      * @param quantity 数量
      * @param cartTag 购物车标签
      * @param receiverId 收货地址
-     * @param paymentMethodId 支付方式
      * @param shippingMethodId 配送方式
      * @param code 优惠码
      * @param invoiceTitle 发票抬头
@@ -55,10 +56,22 @@ public class ShopOrderController {
      * @return
      */
     @RequestMapping("/order/create")
-    public ResponseObject createOrder(@Account String accountId,String cartItemIds,Long skuId, Integer quantity, String cartTag, Long receiverId, Long paymentMethodId, Long shippingMethodId,
+    public ResponseObject createOrder(@Account String accountId,String cartItemIds,Long skuId, Integer quantity, String cartTag, Long receiverId, Long shippingMethodId,
                                          String code, String invoiceTitle, String invoiceTaxNumber, BigDecimal balance, String memo ){
-        Map<String, Object> map = orderOperService.create(cartItemIds,skuId, quantity, cartTag, receiverId, paymentMethodId, shippingMethodId, code, invoiceTitle, invoiceTaxNumber, balance, memo, accountId);
+        Map<String, Object> map = orderOperService.create(cartItemIds,skuId, quantity, cartTag, receiverId, shippingMethodId, code, invoiceTitle, invoiceTaxNumber, balance, memo, accountId);
         return ResponseObject.newSuccessResponseObject(map);
+    }
+
+    @RequestMapping("/order/calculate")
+    public ResponseObject calculateOrder(@Account String accountId,String cartItemIds, Long skuId, Integer quantity, Long receiverId, Long shippingMethodId, String code, String invoiceTitle, String invoiceTaxNumber, BigDecimal balance, String memo ){
+        Map<String, Object> map = orderOperService.calculate(cartItemIds,skuId, quantity, receiverId, shippingMethodId, code, invoiceTitle, invoiceTaxNumber, balance, memo, accountId);
+        return ResponseObject.newSuccessResponseObject(map);
+    }
+
+    @RequestMapping("/order/getByOrderSns")
+    public ResponseObject getByOrderSns(String orderSns ){
+        List<OrderVO> orderVOS = orderOperService.findBySns(orderSns);
+        return ResponseObject.newSuccessResponseObject(orderVOS);
     }
 
     @RequestMapping(value = "/receiver/add")
@@ -93,6 +106,12 @@ public class ShopOrderController {
     public ResponseObject deleteReceiver(@Account String accountId, @RequestParam Long receiverId){
         orderOperService.deleteReceiver(receiverId,accountId);
         return ResponseObject.newSuccessResponseObject(null);
+    }
+
+    @RequestMapping("/area")
+    public ResponseObject findArea(Long parentId){
+        List<Map<String, Object>> area = orderOperService.findArea(parentId);
+        return ResponseObject.newSuccessResponseObject(area);
     }
 
 }
