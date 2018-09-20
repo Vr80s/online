@@ -161,6 +161,32 @@ header{
     margin: 0 auto;
     margin-top: 0.2rem;
 }
+.information{
+	width: 7.5rem;
+	height: 100%;
+	margin: 0 auto;
+	background: #fff;
+	overflow: hidden;
+}
+.information_click{
+	width: 7.24rem;
+	height: .98rem;
+	line-height: .98rem;
+	float: right;
+	border-bottom: 1px solid #f0f0f0;
+}
+.good_order{
+	width: 6rem;
+	float: left;
+}
+.good_order img{
+	width: .38rem;
+	height: .38rem;
+	float: left;
+	margin-right: .2rem;
+	margin-top: .28rem;''
+}
+
 
 .treatment{
 	width: 7.5rem;
@@ -405,7 +431,7 @@ header{
 	background-size: 0.48rem 0.37rem;
 }
 .footer_two{
-	background: url(../images/learn_two.png) no-repeat center;
+	background: url(/xcview/images/shop/shop.png) no-repeat center;
 	background-size: 0.4rem 0.4rem;
 	
 }

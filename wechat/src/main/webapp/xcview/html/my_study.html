@@ -45,6 +45,27 @@
     	padding-right: 0.49rem;
     	margin-right: 0;
 	}
+	.return{
+		width: 1rem;
+		height: .88rem;
+		/*background: red;*/
+		float: left;
+	}
+	.return img {
+	    width: 0.24rem;
+	    height: 0.42rem;
+	    margin-left: 0.26rem;
+	    margin-top: 0rem;
+	    display: -webkit-box;
+	    margin-top: 0.21rem;
+	}
+	.header .title{
+		position: fixed;
+	    text-align: center;
+	    top: 0;
+	    width: 100%;
+        z-index: -1;
+	}
 </style>
 	
 	<!--公用弹框 -->
@@ -55,8 +76,13 @@
 <body style="background:#F8F8F8;">
 <div class="wp" style="position: relative;">
 	<div class="wrap-header">
-		<div class="header">		
-			<p>学习</p>
+		
+		<div class="header">
+			<div class="return" onclick="javascript:history.go(-1);">
+				<img src="/xcview/images/backicon.png" alt="" />
+			</div>
+			<div class="title" ><p>学习</p></div>
+			
 			<div class="header_news" style="display: none;">
 				<img src="/xcview/images/system_messages.png" alt="">
 				<div class="header_news_rudio">1</div>
@@ -222,8 +248,8 @@
 
 	
 <!--底部开始-->
-	<div class="footer_perch"></div>
-	<div class="footer">
+	<!-- <div class="footer_perch"></div> -->
+	<div class="footer" style="display: none;">
 		<ul>
 			<li>
 				<a href="/xcview/html/physician/index.html" class="physician" style="width: 0.42rem;height: 0.42rem;background: url(/xcview/images/physicians_nav.png) no-repeat center;background-size: 0.42rem 0.42rem;margin-top: 0.14rem;"></a>
