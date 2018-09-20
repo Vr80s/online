@@ -180,4 +180,12 @@
     <dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseApplyService" id="courseApplyServiceImpl"
                      timeout="${dubbo.consumer.timeout}"/>                 
                      
+                     
+    <dubbo:reference interface="net.shopxx.merge.service.ShopCategoryService" id="shopCategoryServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/> 
+                     
+    <dubbo:reference interface="net.shopxx.merge.service.GoodsService" id="goodsServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>                                  
+                     
+                     
 </beans>
