@@ -132,8 +132,9 @@ header{
     display: none;
 }
 .li_a{
-	color: #F97215;
+	color: #F97215 !important;
 }
+
 /*头部区域结束*/
 
 /*轮播区域开始*/
@@ -306,6 +307,15 @@ header{
 	float: left;
 	margin-right: .04rem;
 	margin-left: .1rem;
+}
+.referrer_img{
+	width: 6.98rem;
+	height: 100%;
+	margin: 0 auto;
+}
+.referrer_img img{
+	width: 1.2rem;
+	height: 1.2rem;
 }
 .recommendation_rate{
 	font-size: .24rem;
@@ -737,3 +747,15 @@ header{
     z-index: 99999999999;
 }
 /*点击分享提示结束*/
+
+
+/*评价查看大图开始*/
+.figure_big{
+	width: 1.2rem !important;
+	height: 1.2rem !important;
+}
+.figure_big div{
+	width: 1.2rem !important;
+	height: 1.2rem !important;
+}
+/*评价查看大图开始*/
