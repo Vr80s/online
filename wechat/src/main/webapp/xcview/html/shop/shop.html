@@ -35,7 +35,6 @@
 
 <body>
 	
-	
 	<!-- 头部区域开始 -->
 	<header>
 		<div class="header" onclick="location.href ='/xcview/html/shop/search_goods.html'">
@@ -52,14 +51,17 @@
 	<!-- 头部区域结束 -->
 
 	<!-- 轮播区域开始 -->
-	<div class="banner">
+	<div class="banner top_details">
+		<script type="text/html" id="top_details">
 		<div class="swiper-wrapper">
-			<div class="swiper-slide"><img src="http://test-file.ipandatcm.com/18719144415/a82649e617d7-500c1171747f45c5ab0e79c7f1a42c971531982655040.png" /></div>
-			<div class="swiper-slide"><img src="http://test-file.ipandatcm.com/18719144415/a82649e617d7-500c1171747f45c5ab0e79c7f1a42c971531982655040.png" /></div>
-			<div class="swiper-slide"><img src="http://test-file.ipandatcm.com/18719144415/a82649e617d7-500c1171747f45c5ab0e79c7f1a42c971531982655040.png" /></div>
-			<div class="swiper-slide"><img src="http://test-file.ipandatcm.com/18719144415/a82649e617d7-500c1171747f45c5ab0e79c7f1a42c971531982655040.png" /></div>
+			
+			{{each items as item i}}
+			<div class="swiper-slide"><img src="{{item.imgPath}}" alt="" data_target="{{item.target}}" data_id="{{item.id}}" /></div>
+			{{/each}}
 		</div>
+		
 		<div class="pagination"></div>
+		</script>
 	</div>
 	<!-- 轮播区域结束 -->
 
@@ -90,12 +92,37 @@
 		</div>
 	</div>
 	<!-- tab选项结束 -->
-	<div class="body">
-	<script type="text/html" id="body">
+	
+	
 	<!-- 中间内容开始 -->
 	<div class="main_center">
-		<ul class="list">
-			<li onclick="location.href ='/xcview/html/shop/commodity_details.html'">
+		<ul class="list product_list">
+			<script type="text/html" id="product_list">
+			{{each items as item i}}
+			<li data-id="{{item.id}}">
+				<!--<img src="{{item.productImages}}" alt="" class="surface_plot" />-->
+
+				{{if item.productImages != null}}
+				<img src="{{item.productImages[0].source}}" alt="" class="surface_plot" />
+				{{else}}
+				<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+				{{/if}}
+
+				<div class="title">{{item.name}}</div>
+				<div class="price">￥{{item.price}}</div>
+				<div class="referrer">
+					<img src="{{item.doctor}}" alt="" />
+
+					{{if item.doctor != null}}
+					<span>{{item.doctor.name}}</span>
+					{{else}}
+					<span>11111</span>
+					{{/if}}
+
+					医师 推荐
+				</div>
+			</li>
+			<!--<li onclick="location.href ='/xcview/html/shop/commodity_details.html'">
 				<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
 				<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
 				<div class="price">￥188.00</div>
@@ -126,20 +153,14 @@
 				<div class="referrer">
 					<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
 				</div>
-			</li>
-			<li>
-				<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-				<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
-				<div class="price">￥188.00</div>
-				<div class="referrer">
-					<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
-				</div>
-			</li>
+			</li>-->
+			{{/each}}
+			</script>
 		</ul>
 	</div>
 	<!-- 中间内容结束 -->
-	</script>
-	</div>
+	
+	
 	<!-- 底部开始 -->
 	<div class="hidden_field"></div>
 	<div class="footer">
@@ -174,10 +195,11 @@
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
- <script type="text/javascript" src="/xcview/js/common/common.js"></script>
- <script src="/xcview/js/shop/shop.js"></script><!-- 数据渲染 -->
+<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>   <!--模板引入-->
+<script src="/xcview/js/shop/shop.js"></script><!-- 数据渲染 -->
 
-<script src="/xcview/js/shop/jquery-1.10.1.min.js"></script><!-- 轮播引入 -->
+<!--<script src="/xcview/js/shop/jquery-1.10.1.min.js"></script> 轮播引入 -->
 <script src="/xcview/js/shop/swiper.min.js"></script> <!-- 轮播引入 -->
 <!-- 轮播 -->
 <script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
@@ -209,14 +231,6 @@
 <!-- 选项卡点击事件 -->
 <script>
 	window.onload = function(){
-		// 轮播--渲染时放到，渲染的js下面
-		var mySwiper = new Swiper('.banner',{
-		  	autoplay:1500,
-		  	visibilityFullFit : true,
-		  	loop:true,
-		  	pagination : '.pagination',
-	  	});
-
 		// option_newest--最新    option_recommend--推荐   option_hottest--最热  option_price--价格
 		// 最新
 		$(".option_newest").click();
