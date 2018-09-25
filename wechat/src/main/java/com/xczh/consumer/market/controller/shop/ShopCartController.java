@@ -50,7 +50,7 @@ public class ShopCartController {
         return ResponseObject.newSuccessResponseObject();
     }
     
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "quantity",method = RequestMethod.GET)
     public ResponseObject getCartQuantity(@Account String accountId) {
         return ResponseObject.newSuccessResponseObject(shopCartService.getCartQuantity(accountId));
     }

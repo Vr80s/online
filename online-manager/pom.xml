@@ -47,6 +47,10 @@
             <groupId>com.xczhihui</groupId>
             <artifactId>medical-api</artifactId>
         </dependency>
+         <dependency>
+            <groupId>com.xczhihui</groupId>
+            <artifactId>shop-api</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.alibaba</groupId>

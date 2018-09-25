@@ -121,7 +121,7 @@ public interface MedicalDoctorMapper extends BaseMapper<MedicalDoctor> {
      *
      * @return
      */
-    @Select({"select mda.account_id as id, md.name\n" +
+    @Select({"select md.id as id, md.name\n" +
             "             FROM medical_doctor md join medical_doctor_account mda on md.`id` = mda.`doctor_id` where md.status = 1\n"})
     List<MedicalDoctorVO> listDoctor();
 }

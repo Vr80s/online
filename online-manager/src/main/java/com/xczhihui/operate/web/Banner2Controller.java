@@ -6,14 +6,16 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
 import com.xczhihui.anchor.service.AnchorService;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
@@ -30,10 +32,16 @@ import com.xczhihui.utils.Groups;
 import com.xczhihui.utils.TableVo;
 import com.xczhihui.utils.Tools;
 
+import net.shopxx.merge.vo.ProductCategoryVO;
+import net.shopxx.merge.vo.ProductVO;
+
 @Controller
 @RequestMapping(value = "/operate/banner2")
 public class Banner2Controller {
 
+	
+    private static final Logger LOGGER = LoggerFactory.getLogger(Banner2Controller.class);
+	
     @Autowired
     private Banner2Service banner2Service;
     @Autowired
@@ -44,11 +52,18 @@ public class Banner2Controller {
     private CommonMenuService commonMenuService;
     @Autowired
     private MedicalEnrollmentRegulationsService medicalEnrollmentRegulationsService;
+    
+    
+    @Autowired
+    private net.shopxx.merge.service.ShopCategoryService shopCategoryService;
+    
+    @Autowired
+    private net.shopxx.merge.service.GoodsService goodsService;
 
     /**
      * @return
      */
-    @RequestMapping(value = "/index")
+    @RequestMapping(value = "/index") 
     public ModelAndView index() {
         ModelAndView mav = new ModelAndView("/operate/banner2");
         List<MenuVo> menus = commonMenuService.list();
@@ -60,9 +75,44 @@ public class Banner2Controller {
         mav.addObject("anchors", anchorService.listDoctor());
         mav.addObject("regulations", medicalEnrollmentRegulationsService.getAllMedicalEntryInformationList());
         mav.addObject("menus", menus);
+        
+        
+        @SuppressWarnings("unchecked")
+		List<ProductCategoryVO> list = (List<ProductCategoryVO>) shopCategoryService.list();
+        
+       
+        mav.addObject("productCategorys", list);
+        mav.addObject("childrenVOs",(list!=null && list.size()>0 ? list.get(0).getChildrenVOs() : null));
+        
+        
+        String json = JSON.toJSONString(list);
+        mav.addObject("productCategorysStr", json);
+        
+        if (!list.isEmpty()) {
+        	//Object products = goodsService.findIdByCategoryId(list.get(0).getId());
+
+        	@SuppressWarnings("unchecked")
+			List<ProductVO> products =  (List<ProductVO>) goodsService.findIdByCategoryId(12L);
+        	
+        	LOGGER.warn("products:"+products.size());
+        	
+        	mav.addObject("products", products);
+        }
         return mav;
     }
 
+    
+    @RequestMapping(value = "/getProductsByCategoryId") 
+    @ResponseBody
+    public ResponseObject productsByCategoryId(Long categoryId) {
+        
+        return ResponseObject.newSuccessResponseObject(goodsService.findIdByCategoryId(categoryId));
+    }
+
+    
+    
+    
+    
     // @RequiresPermissions("operate:menu:banner2")
     @RequestMapping(value = "/findBanner2List", method = RequestMethod.POST)
     @ResponseBody

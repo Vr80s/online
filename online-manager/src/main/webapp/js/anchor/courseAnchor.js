@@ -84,10 +84,13 @@ $(function() {
                        str += '<a class="blue" href="javascript:void(-1);" title="快速登录" onclick="fastLogin(this);"><i class="ace-icon fa fa-circle-o-notch fa-spin fa-3x fa-fw bigger-130"></i></a>';
                        str += '<a class="blue" href="javascript:void(-1);" title="关闭主播权限" onclick="editPermissions(this);"><i class="ace-icon fa fa-ban bigger-130"></i></a>';
                 } else {
-                       str += '<a class="blue" href="javascript:void(-1);" title="打开主播权限" onclick="editPermissions(this);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a>';
+                    str += '<a class="blue" href="javascript:void(-1);" title="打开主播权限" onclick="editPermissions(this);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a>';
                 }
                 str += '<a class="blue" href="javascript:void(-1);" title="设置" onclick="toEdit(this,1);"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
                 str += '<a class="blue" href="javascript:void(-1);" title="课程列表" onclick="showCourseListDialog(this);">课程列表</a>';
+                if (row.relationShop) {
+                    str += '<a class="blue" href="javascript:void(-1);" title="登录商家后台" onclick="loginBusiness(this);">登录商家后台</a>';
+                }
                 return str;
             }
         }];
@@ -364,10 +367,15 @@ function setUserLecturer(obj,op){
  * @Date: 2018/3/15 21:16
  **/
 function showCourseListDialog(obj) {
-    ;
     var oo = $(obj).parent().parent().parent();
     var aData = P_courseTable.fnGetData(oo); // get datarow
     window.location.href = basePath + '/home#anchor/courseAnchor/anchorCourse?userId=' + aData.userId+'&anchorNname='+aData.name+'&loginName='+aData.loginName;
+}
+
+function loginBusiness(obj) {
+    var oo = $(obj).parent().parent().parent();
+    var row = P_courseTable.fnGetData(oo);
+    window.open(basePath + '/anchor/courseAnchor/loginBusiness/' + row.businessName,'_blank');
 }
 
 /**
