@@ -18,6 +18,7 @@ import com.xczhihui.course.service.IMobileBannerService;
 import com.xczhihui.medical.banner.model.OeBanner;
 import com.xczhihui.medical.banner.service.PcBannerService;
 
+import net.shopxx.merge.enums.OrderType;
 import net.shopxx.merge.service.GoodsService;
 import net.shopxx.merge.service.ShopReviewService;
 import net.shopxx.merge.vo.GoodsPageParams;
@@ -28,27 +29,27 @@ import net.shopxx.merge.vo.GoodsPageParams;
 @RestController
 @RequestMapping("/xczh/shop/goods")
 public class ShopGoodsController {
-	
+
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ShopGoodsController.class);
-    
+
     @Autowired
     public GoodsService goodsService;
-    
+
     @Autowired
     public IMobileBannerService mobileBannerService;
-    
+
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
 
-    
+
     @Autowired
     private PcBannerService bannerService;
-    
+
     @Autowired
     private ShopReviewService shopReviewService;
 
     @RequestMapping("list")
-    public ResponseObject list(GoodsPageParams goodsPageParams,GoodsPageParams.OrderType orderType) {
+    public ResponseObject list(GoodsPageParams goodsPageParams, OrderType orderType) {
         return ResponseObject.newSuccessResponseObject(goodsService.list(goodsPageParams, orderType));
     }
 
@@ -56,13 +57,13 @@ public class ShopGoodsController {
     public ResponseObject details(Long productId) {
         return ResponseObject.newSuccessResponseObject(goodsService.findProductById(productId));
     }
-    
+
     @RequestMapping("banner")
     public ResponseObject banner(HttpServletRequest request) {
 
         int clientType = HeaderInterceptor.getClientType().getCode();
-        Page<OeBanner> page =  bannerService.page(new Page<>(1, 3),8,clientType);
-        if(HeaderInterceptor.ONLY_THREAD.get()) {
+        Page<OeBanner> page = bannerService.page(new Page<>(1, 3), 8, clientType);
+        if (HeaderInterceptor.ONLY_THREAD.get()) {
             return ResponseObject.newSuccessResponseObject(null);
         }
         page.getRecords().forEach(bannerVo -> {
@@ -76,15 +77,12 @@ public class ShopGoodsController {
                 bannerVo.setTarget("");
             }
         });
-    	
+
         return ResponseObject.newSuccessResponseObject(page.getRecords());
     }
-    
+
     @RequestMapping("review")
-    public ResponseObject review(Long productId,Integer pageNumber,Integer pageSize) {
-    	
-        return ResponseObject.newSuccessResponseObject(shopReviewService.list(productId,pageNumber,pageSize));
+    public ResponseObject review(Long productId, Integer pageNumber, Integer pageSize) {
+        return ResponseObject.newSuccessResponseObject(shopReviewService.list(productId, pageNumber, pageSize));
     }
-    
-    
 }
