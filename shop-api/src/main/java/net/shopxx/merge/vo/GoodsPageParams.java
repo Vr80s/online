@@ -59,6 +59,8 @@ public class GoodsPageParams implements Serializable{
 	
 	
 	private Integer pageSize = 10;
+	
+	private String keyWord;
 
 	
 	public Integer getPageNumber() {
@@ -78,6 +80,15 @@ public class GoodsPageParams implements Serializable{
 
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
+	}
+	
+	
+	public String getKeyWord() {
+		return keyWord;
+	}
+
+	public void setKeyWord(String keyWord) {
+		this.keyWord = keyWord;
 	}
 
 	@Override

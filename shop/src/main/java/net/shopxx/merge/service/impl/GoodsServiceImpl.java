@@ -164,6 +164,8 @@ public class GoodsServiceImpl implements GoodsService {
 		//市场价
 		pv.setMarketprice(product.getDefaultSku().getMarketPrice());
 		
+		//分类id
+		pv.setProductcategoryId(product.getProductCategory().getId());
 		
 		return pv;
 	}

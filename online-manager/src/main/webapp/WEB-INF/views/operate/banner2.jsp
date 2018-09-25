@@ -54,6 +54,10 @@
                 <a href="#home" aria-controls="home" class="zykgl_bx" title="7" role="tab"
                    data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">医馆banner</a>
             </li>
+            <li role="presentation">
+                <a href="#home" aria-controls="home" class="zykgl_bx" title="8" role="tab"
+                   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">商品banner</a>
+            </li>
         </ul>
         <div role="tabpanel" class="tab-pane active" id="home">
             <div class="mainrighttab tabresourse bordernone" id="courseDiv">

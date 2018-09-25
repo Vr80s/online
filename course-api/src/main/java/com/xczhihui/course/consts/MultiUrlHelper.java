@@ -179,6 +179,9 @@ public class MultiUrlHelper {
             URL_TYPE_APP, "xczh://ipandatcm.com/appointmentTreatmentInfo?id={0}",
             URL_TYPE_WEB, "/headline/details/{0}",
             URL_TYPE_MOBILE, "/xcview/html/physician/consilia.html?consiliaId={0}");
+    
+    private static Map<String, String> productInfoMap = ImmutableMap.of(
+            URL_TYPE_APP, "/xcview/html/shop/commodity_details.html?id={0}");
 
     
     
@@ -224,6 +227,8 @@ public class MultiUrlHelper {
         //====================================================================
         
         urlMap.put(RouteTypeEnum.APPOINTMENT_TREATMENT_INFO_PAGE.name(), appointmentTreatmentInfoMap);
+        urlMap.put(RouteTypeEnum.PRODUCT_DETAIL.name(), productInfoMap);
+        
     }
 
     public static String getUrl(String routeType, String source, String detailId, String link) {

@@ -1,11 +1,23 @@
 package com.xczh.consumer.market.controller.shop;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.baomidou.mybatisplus.plugins.Page;
+import com.xczh.consumer.market.interceptor.HeaderInterceptor;
+import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.enums.BannerType;
+import com.xczhihui.course.consts.MultiUrlHelper;
+import com.xczhihui.course.service.IMobileBannerService;
+import com.xczhihui.medical.banner.model.OeBanner;
+import com.xczhihui.medical.banner.service.PcBannerService;
 
 import net.shopxx.merge.service.GoodsService;
 import net.shopxx.merge.vo.GoodsPageParams;
@@ -21,6 +33,16 @@ public class ShopGoodsController {
     
     @Autowired
     public GoodsService goodsService;
+    
+    @Autowired
+    public IMobileBannerService mobileBannerService;
+    
+    @Value("${returnOpenidUri}")
+    private String returnOpenidUri;
+
+    
+    @Autowired
+    private PcBannerService bannerService;
 
     @RequestMapping("list")
     public ResponseObject checkSku(GoodsPageParams goodsPageParams,GoodsPageParams.OrderType orderType) {
@@ -31,4 +53,29 @@ public class ShopGoodsController {
     public ResponseObject checkout(Long productId) {
         return ResponseObject.newSuccessResponseObject(goodsService.findProductById(productId));
     }
+    
+    @RequestMapping("banner")
+    public ResponseObject banner(HttpServletRequest request) {
+
+
+        int clientType = HeaderInterceptor.getClientType().getCode();
+        Page<OeBanner> page =  bannerService.page(new Page<>(1, 3),8,clientType);
+        if(HeaderInterceptor.ONLY_THREAD.get()) {
+            return ResponseObject.newSuccessResponseObject(null);
+        }
+        page.getRecords().forEach(bannerVo -> {
+            String routeType = bannerVo.getRouteType();
+            String linkParam = bannerVo.getLinkParam();
+            if (StringUtils.isNotBlank(routeType)) {
+                String url = MultiUrlHelper.getUrl(mobileBannerService.getHandleRouteType(routeType, linkParam),
+                        APPUtil.getMobileSource(request), MultiUrlHelper.handleParam(returnOpenidUri, linkParam, routeType));
+                bannerVo.setTarget(url);
+            } else {
+                bannerVo.setTarget("");
+            }
+        });
+    	
+        return ResponseObject.newSuccessResponseObject(page.getRecords());
+    }
+    
 }

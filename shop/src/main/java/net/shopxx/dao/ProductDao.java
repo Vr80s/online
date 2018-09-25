@@ -17,6 +17,7 @@ import net.shopxx.Page;
 import net.shopxx.Pageable;
 import net.shopxx.entity.*;
 import net.shopxx.merge.vo.GoodsPageParams;
+import net.shopxx.merge.vo.GoodsPageParams.OrderType;
 
 /**
  * Dao - 商品
@@ -182,4 +183,13 @@ public interface ProductDao extends BaseDao<Product, Long> {
 	 * @return  
 	 */ 
     List<Map<String,Object>> findIdByCategoryId(ProductCategory productCategory);
+
+	/**  
+	 * <p>Title: findPageKayWordXc</p>  
+	 * <p>Description: </p>  
+	 * @param goodsPageParams
+	 * @param orderType
+	 * @return  
+	 */ 
+	List<Product> findPageKayWordXc(GoodsPageParams goodsPageParams, OrderType orderType);
 }

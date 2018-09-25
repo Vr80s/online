@@ -83,6 +83,8 @@ function loadBanner2List() {
                     return "医师动态";
                 } else if (data === 'APPRENTICE_DETAIL') {
                     return "招生简章";
+                }else if (data === 'PRODUCT_DETAIL') {
+                    return "商品详情";
                 }
                 return "";
             }
@@ -303,6 +305,7 @@ function renderCourseSelect(menuId, courseId) {
 $(".add_bx").click(function () {
 
     $(".J-link").hide();
+    $(".J-product-detail").hide();
     $("#yqti_textarea").val("");
     $("#add_url").attr("placeholder", "");
 
