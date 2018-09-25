@@ -131,15 +131,15 @@ public class ShopOrderController {
     }
 
     @RequestMapping(value = "/order/cancel",method = RequestMethod.POST)
-    public ResponseObject cancel(OrderVO order){
-        orderOperService.cancel(order);
+    public ResponseObject cancel(@Account String accountId, @RequestParam String sn){
+        orderOperService.cancel(sn,accountId);
         return ResponseObject.newSuccessResponseObject("取消成功");
     }
 
 
     @RequestMapping(value = "/order/receive",method = RequestMethod.POST)
-    public ResponseObject receive(OrderVO order){
-        orderOperService.receive(order);
+    public ResponseObject receive(@Account String accountId, @RequestParam String sn){
+        orderOperService.receive(sn,accountId);
         return ResponseObject.newSuccessResponseObject("确认收货");
     }
 
