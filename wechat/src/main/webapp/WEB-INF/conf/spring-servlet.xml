@@ -242,6 +242,10 @@
     <dubbo:reference interface="net.shopxx.merge.service.OrderOperService"
                      id="orderOperServiceImpl" timeout="${dubbo.provider.timeout}" />
     <dubbo:reference interface="net.shopxx.merge.service.ShopCartService"
-                     id="shopCartService" timeout="${dubbo.provider.timeout}"/>
+                     id="shopCartServiceImpl" timeout="${dubbo.provider.timeout}"/>
+                     
+    <dubbo:reference interface="net.shopxx.merge.service.ShopReviewService" id="shopReviewServiceImpl" 
+    		timeout="${dubbo.provider.timeout}"/>
+                     
 
 </beans>

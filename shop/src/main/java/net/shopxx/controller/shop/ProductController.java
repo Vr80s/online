@@ -47,6 +47,7 @@ import net.shopxx.entity.StoreProductCategory;
 import net.shopxx.exception.ResourceNotFoundException;
 import net.shopxx.merge.service.GoodsService;
 import net.shopxx.merge.service.ShopCategoryService;
+import net.shopxx.merge.service.ShopReviewService;
 import net.shopxx.merge.vo.GoodsPageParams;
 import net.shopxx.merge.vo.ProductCategoryVO;
 import net.shopxx.service.AttributeService;
@@ -100,6 +101,9 @@ public class ProductController extends BaseController {
 	@Inject
 	private ShopCategoryService shopCategoryService;
 
+	@Inject
+	private ShopReviewService shopReviewService;
+	
 	/**
 	 * 详情
 	 */
@@ -445,10 +449,6 @@ public class ProductController extends BaseController {
         return findChildren;
 	}
 	
-	/**
-	 * 详情
-	 * @return 
-	 */
 	/**  
 	 * <p>Title: prodoctCategoryId</p>  
 	 * <p>Description: </p>  
@@ -458,18 +458,19 @@ public class ProductController extends BaseController {
 	@GetMapping("/prodoctCategoryId")
 	public @ResponseBody Object prodoctCategoryId(Long id) {
 		
-		
 	    //List<ProductCategoryVO> list = (List<ProductCategoryVO>) shopCategoryService.list();
-		
 		System.out.println("===============");
-		
-		
 		Object findIdByCategoryId = goodsService.findIdByCategoryId(id);
-		
 		System.out.println("===============");
-		
         return findIdByCategoryId;
 	}
 	
-	
+	@GetMapping("/review")
+	public @ResponseBody Object review(Long id) {
+		
+		System.out.println("===============");
+		Object list = shopReviewService.list(id, 1, 10);
+		System.out.println("===============");
+        return list;
+	}
 }

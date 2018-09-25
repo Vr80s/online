@@ -13,13 +13,13 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.common.util.enums.BannerType;
 import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.service.IMobileBannerService;
 import com.xczhihui.medical.banner.model.OeBanner;
 import com.xczhihui.medical.banner.service.PcBannerService;
 
 import net.shopxx.merge.service.GoodsService;
+import net.shopxx.merge.service.ShopReviewService;
 import net.shopxx.merge.vo.GoodsPageParams;
 
 /**
@@ -43,20 +43,22 @@ public class ShopGoodsController {
     
     @Autowired
     private PcBannerService bannerService;
+    
+    @Autowired
+    private ShopReviewService shopReviewService;
 
     @RequestMapping("list")
-    public ResponseObject checkSku(GoodsPageParams goodsPageParams,GoodsPageParams.OrderType orderType) {
+    public ResponseObject list(GoodsPageParams goodsPageParams,GoodsPageParams.OrderType orderType) {
         return ResponseObject.newSuccessResponseObject(goodsService.list(goodsPageParams, orderType));
     }
 
     @RequestMapping("details")
-    public ResponseObject checkout(Long productId) {
+    public ResponseObject details(Long productId) {
         return ResponseObject.newSuccessResponseObject(goodsService.findProductById(productId));
     }
     
     @RequestMapping("banner")
     public ResponseObject banner(HttpServletRequest request) {
-
 
         int clientType = HeaderInterceptor.getClientType().getCode();
         Page<OeBanner> page =  bannerService.page(new Page<>(1, 3),8,clientType);
@@ -77,5 +79,12 @@ public class ShopGoodsController {
     	
         return ResponseObject.newSuccessResponseObject(page.getRecords());
     }
+    
+    @RequestMapping("review")
+    public ResponseObject review(Long productId,Integer pageNumber,Integer pageSize) {
+    	
+        return ResponseObject.newSuccessResponseObject(shopReviewService.list(productId,pageNumber,pageSize));
+    }
+    
     
 }

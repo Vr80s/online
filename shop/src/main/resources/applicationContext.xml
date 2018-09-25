@@ -258,6 +258,7 @@
 	<dubbo:service interface="net.shopxx.merge.service.ShopCartService" ref="shopCartServiceImpl" timeout="${dubbo.provider.timeout}"/>
 	<dubbo:service interface="net.shopxx.merge.service.ShopCategoryService" ref="shopCategoryServiceImpl" timeout="${dubbo.provider.timeout}"/>
 	<dubbo:service interface="net.shopxx.merge.service.UsersService" ref="usersServiceImpl" timeout="${dubbo.provider.timeout}"/>
+	<dubbo:service interface="net.shopxx.merge.service.ShopReviewService" ref="shopReviewServiceImpl" timeout="${dubbo.provider.timeout}"/>
 
     <!--=============================================消费者start============================================-->
 
