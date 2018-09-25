@@ -27,7 +27,6 @@ import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import com.xczhihui.medical.enrol.service.EnrolService;
 
 import net.shopxx.merge.service.GoodsService;
-import net.shopxx.merge.vo.GoodsPageParams;
 import net.shopxx.merge.vo.ProductQueryParam;
 
 @RestController

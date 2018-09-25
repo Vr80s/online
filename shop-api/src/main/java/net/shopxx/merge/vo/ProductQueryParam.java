@@ -26,6 +26,8 @@ public class ProductQueryParam implements Serializable {
 
     private OrderType orderType = OrderType.DATE_DESC;
 
+    private boolean all;
+
     public int getPageNumber() {
         return pageNumber < 1 ? 1 : pageNumber ;
     }
@@ -88,5 +90,13 @@ public class ProductQueryParam implements Serializable {
 
     public void setOrderType(OrderType orderType) {
         this.orderType = orderType;
+    }
+
+    public boolean isAll() {
+        return all;
+    }
+
+    public void setAll(boolean all) {
+        this.all = all;
     }
 }

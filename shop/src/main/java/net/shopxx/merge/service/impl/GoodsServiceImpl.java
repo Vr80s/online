@@ -259,10 +259,14 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public Object listDoctorProduct(ProductQueryParam productQueryParam, String doctorId) {
-        List<Long> storeIds = storeDao.findByDoctorId(doctorId);
-        if (storeIds.isEmpty()) {
-            return Page.empty(new Pageable(productQueryParam.getPageNumber(), productQueryParam.getPageSize()));
+        if (productQueryParam.isAll()) {
+            return productDao.listByStoreId(Collections.EMPTY_LIST, productQueryParam);
+        } else {
+            List<Long> storeIds = storeDao.findByDoctorId(doctorId);
+            if (storeIds.isEmpty()) {
+                return Page.empty(new Pageable(productQueryParam.getPageNumber(), productQueryParam.getPageSize()));
+            }
+            return productDao.listByStoreId(storeIds, productQueryParam);
         }
-        return productDao.listByStoreId(storeIds, productQueryParam);
     }
 }
