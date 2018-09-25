@@ -16,8 +16,10 @@ import net.shopxx.Order;
 import net.shopxx.Page;
 import net.shopxx.Pageable;
 import net.shopxx.entity.*;
+import net.shopxx.merge.enums.OrderType;
 import net.shopxx.merge.vo.GoodsPageParams;
-import net.shopxx.merge.vo.GoodsPageParams.OrderType;
+import net.shopxx.merge.vo.ProductQueryParam;
+import net.shopxx.merge.vo.ProductVO;
 
 /**
  * Dao - 商品
@@ -166,7 +168,7 @@ public interface ProductDao extends BaseDao<Product, Long> {
      * @param goodsPageParams
      * @return
      */
-    List<Product> findPageXc(GoodsPageParams goodsPageParams, GoodsPageParams.OrderType orderType);
+    List<Product> findPageXc(GoodsPageParams goodsPageParams, OrderType orderType);
 
     /**
      * 查询商品信息，饥饿加载店铺
@@ -176,7 +178,7 @@ public interface ProductDao extends BaseDao<Product, Long> {
      */
     Product findFetchStore(Long id);
 
-	/**  
+	/**
 	 * <p>Title: findByProductNameAndId</p>  
 	 * <p>Description: </p>  
 	 * @param productCategoryId
@@ -192,4 +194,13 @@ public interface ProductDao extends BaseDao<Product, Long> {
 	 * @return  
 	 */ 
 	List<Product> findPageKayWordXc(GoodsPageParams goodsPageParams, OrderType orderType);
+
+    /**
+     * 医师id查询医师商品列表
+     *
+     * @param storeIds          storeIds
+     * @param productQueryParam productQueryParam
+     * @return
+     */
+    net.shopxx.merge.page.Page<ProductVO> listByStoreId(List<Long> storeIds, ProductQueryParam productQueryParam);
 }

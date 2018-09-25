@@ -47,6 +47,10 @@
             <artifactId>course-api</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.xczhihui</groupId>
+            <artifactId>shop-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>

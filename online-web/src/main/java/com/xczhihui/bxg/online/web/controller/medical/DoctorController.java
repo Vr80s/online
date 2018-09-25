@@ -26,6 +26,9 @@ import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import com.xczhihui.medical.enrol.service.EnrolService;
 
+import net.shopxx.merge.service.GoodsService;
+import net.shopxx.merge.vo.ProductQueryParam;
+
 @RestController
 @RequestMapping(value = "/doctor")
 public class DoctorController extends AbstractController {
@@ -40,6 +43,8 @@ public class DoctorController extends AbstractController {
     private ICourseService courseService;
     @Autowired
     private EnrolService enrolService;
+    @Autowired
+    private GoodsService goodsService;
     
     @Autowired
     private IDoctorTypeService doctorTypeService;
@@ -345,5 +350,12 @@ public class DoctorController extends AbstractController {
     public ResponseObject listEnrollmentRegulations() {
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(getUserId());
         return ResponseObject.newSuccessResponseObject(enrolService.listByDoctorId(doctorId));
+    }
+
+    @RequestMapping(value = "product/list", method = RequestMethod.GET)
+    public ResponseObject listProductByDoctor(ProductQueryParam productQueryParam) {
+        String userId = getUserId();
+        String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
+        return ResponseObject.newSuccessResponseObject(goodsService.listDoctorProduct(productQueryParam, doctorId));
     }
 }
