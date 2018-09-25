@@ -3,6 +3,7 @@ package com.xczhihui.operate.web;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -53,7 +54,6 @@ public class Banner2Controller {
     @Autowired
     private MedicalEnrollmentRegulationsService medicalEnrollmentRegulationsService;
     
-    
     @Autowired
     private net.shopxx.merge.service.ShopCategoryService shopCategoryService;
     
@@ -92,11 +92,11 @@ public class Banner2Controller {
         	//Object products = goodsService.findIdByCategoryId(list.get(0).getId());
 
         	@SuppressWarnings("unchecked")
-			List<ProductVO> products =  (List<ProductVO>) goodsService.findIdByCategoryId(12L);
+        	List<Map<String,Object>> listMap  =  (List<Map<String,Object>>) goodsService.findIdByCategoryId(list.get(0).getId());
         	
-        	LOGGER.warn("products:"+products.size());
+        	LOGGER.warn("products:"+listMap.size());
         	
-        	mav.addObject("products", products);
+        	mav.addObject("products", listMap);
         }
         return mav;
     }
@@ -109,8 +109,6 @@ public class Banner2Controller {
         return ResponseObject.newSuccessResponseObject(goodsService.findIdByCategoryId(categoryId));
     }
 
-    
-    
     
     
     // @RequiresPermissions("operate:menu:banner2")
@@ -164,6 +162,10 @@ public class Banner2Controller {
     public ResponseObject add(Banner2Vo banner2Vo, HttpServletRequest request) {
         ResponseObject responseObj = new ResponseObject();
         banner2Vo.setCreatePerson(ManagerUserUtil.getUsername());
+        
+        
+        LOGGER.info("banner2vo:"+banner2Vo.toString());
+        
         try {
             banner2Service.addBanner(banner2Vo);
             responseObj.setSuccess(true);

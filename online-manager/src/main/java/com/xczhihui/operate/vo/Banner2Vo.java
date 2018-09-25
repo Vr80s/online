@@ -150,4 +150,13 @@ public class Banner2Vo extends OnlineBaseVo {
     public void setClientType(String clientType) {
         this.clientType = clientType;
     }
+
+	@Override
+	public String toString() {
+		return "Banner2Vo [id=" + id + ", description=" + description + ", imgHref=" + imgHref + ", imgPath=" + imgPath
+				+ ", sort=" + sort + ", status=" + status + ", startTime=" + startTime + ", endTime=" + endTime
+				+ ", clickCount=" + clickCount + ", createPersonName=" + createPersonName + ", type=" + type
+				+ ", routeType=" + routeType + ", linkParam=" + linkParam + ", linkDesc=" + linkDesc + ", menuId="
+				+ menuId + ", clientType=" + clientType + "]";
+	}
 }

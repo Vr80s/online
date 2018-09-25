@@ -30,6 +30,7 @@ public class Banner2ServiceImpl extends OnlineBaseServiceImpl implements
                                            Integer pageNumber, Integer pageSize) {
         Page<Banner2Vo> page = banner2Dao.findBanner2Page(banner2Vo,
                 pageNumber, pageSize);
+        
         page.getItems().forEach(banner2 -> {
             Map<String, String> linkData = mobileBannerService.getLinkData(banner2.getRouteType(), banner2.getLinkParam());
             banner2.setLinkDesc(linkData.get("linkDesc"));

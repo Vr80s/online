@@ -11,6 +11,10 @@ import com.xczhihui.medical.dao.MedicalEnrollmentRegulationsDao;
 import com.xczhihui.operate.dao.MobileBannerDao;
 import com.xczhihui.operate.service.MobileBannerService;
 import com.xczhihui.operate.vo.MobileBannerVo;
+
+import net.shopxx.merge.service.GoodsService;
+import net.shopxx.merge.vo.ProductVO;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +37,12 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
     private MedicalEnrollmentRegulationsDao medicalEnrollmentRegulationsDao;
     @Autowired
     private DoctorDao doctorDao;
+    
+    @Autowired
+    private GoodsService goodsService;
+    
+    
+    
 
     @Override
     public Page<MobileBannerVo> findMobileBannerPage(
@@ -226,6 +236,7 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
         Map<String, String> map = new HashMap<>();
         if (StringUtils.isNotBlank(routeType)) {
             if (StringUtils.isNotBlank(linkParam)) {
+            	
                 if (routeType.equals(RouteTypeEnum.COMMON_COURSE_DETAIL_PAGE.name())) {
                     Course course = courseDao.getCourseById(Integer.parseInt(linkParam));
                     if (course != null) {
@@ -242,12 +253,12 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
                     if (medicalDoctor != null) {
                         map.put("linkDesc", medicalDoctor.getName());
                     }
-                } else if (routeType.equals(RouteTypeEnum.APPRENTICE_DETAIL.name())) {
-                    MedicalEnrollmentRegulations medicalEnrollmentRegulations = medicalEnrollmentRegulationsDao.findById(Integer.parseInt(linkParam));
-                    if (medicalEnrollmentRegulations != null) {
-                        map.put("linkDesc", medicalEnrollmentRegulations.getTitle());
-                    }
-                } else {
+                } else if (routeType.equals(RouteTypeEnum.PRODUCT_DETAIL.name())) {
+                	
+                   ProductVO findProductById = (ProductVO) goodsService.findProductById(Long.valueOf(linkParam));
+                   map.put("linkDesc", findProductById.getName());
+                   map.put("menuId", findProductById.getProductcategoryId()+"");
+                }else {
                     map.put("linkDesc", linkParam);
                 }
             }

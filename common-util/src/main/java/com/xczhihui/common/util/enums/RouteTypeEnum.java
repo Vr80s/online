@@ -49,7 +49,9 @@ public enum RouteTypeEnum {
     DOCTOR_POST(1),
     MESSAGE_LIST(0),
     
-    APPOINTMENT_TREATMENT_INFO_PAGE(1);
+    APPOINTMENT_TREATMENT_INFO_PAGE(1),
+	
+	PRODUCT_DETAIL(1); //商品详情
 
     //0 => 不带参数 1=>详情页跳转，参数为id 2 => 列表筛选条件 3=>h5
     private int paramType;

@@ -229,7 +229,7 @@
                     
                     <!-- 二级分类 -->
                     
- 					<select data-live-search="true" onchange="hehe()" id="J-product-category">
+ 					<select data-live-search="true" onchange="hehe(this)" id="J-product-category">
                         <c:forEach var="category" items="${childrenVOs}">
                             <option value="${category.id}">
                                     ${category.name}
