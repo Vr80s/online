@@ -43,6 +43,7 @@
 	<form id="update-form" class="form-horizontal"  method="post" action="" >
 		<input type="hidden" id="update_id"  name="id" value="${MedicalEnrollmentRegulations.id}" >
 		<input type="hidden" id="creator"  name="creator" value="${MedicalEnrollmentRegulations.creator}" >
+		<input type="hidden" id="doctorId"  name="doctorId" value="${MedicalEnrollmentRegulations.doctorId}" >
 		<input type="hidden" id="createTimeStr"  name="createTimeStr" value="${MedicalEnrollmentRegulations.createTime}" >
 		<div class="form-group" style="margin-top: 18px;">
 			<label class="col-sm-1 control-label no-padding-right" for="update_title"><font color="red">*</font>招生标题: </label>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" href="/xcview/css/shop/shop-comment.css">
+		<link rel="stylesheet" href="/xcview/css/shop/shop-refund-only.css">
+		<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+		<script>
+		// rem响应式处理
+			var kk=document.documentElement.clientWidth;
+			if(kk>750){
+				kk=750
+			}
+			document.documentElement.style.fontSize=kk/7.5+"px";
+		</script>
+	</head>
+	<body>
+		<div class="wp">
+			<div class="header-wrap">			
+				<div class="header">
+					<img class="return-img" src="/xcview/images/screen_close.png" alt="返回" />
+					<h3>申请退款</h3>
+					<div class="news-wrap">
+						<a href="">
+							<img class="news-img" src="/xcview/images/xiaoxi.png" alt="消息" />
+							<p class="news-num">12</p>
+						</a>
+					</div>
+				</div>				
+			</div>
+			<div class="refund-ware-modal">
+				<div class="ware-img z">
+					<img src="/xcview/images/regards.png">
+				</div>
+				<div class="ware-right-data y">
+					<p class="ware-title">汉方气血茶好气色喝回来非一般的红枣枸杞茶</p>
+					<p class="ware-save">礼盒（库存100件）</p>
+				</div>
+			</div>
+			<!--退货状态、原因-->
+			<div class="return-goods-wrap">
+				<div class="goods-status">
+					<p>货物状态</p>
+					<div class="goods-select y">
+						<img src="/xcview/images/rightj.png" alt="选择" />
+						<span>请选择</span>
+					</div>
+				</div>
+				<div class="return-goods-reason">
+					<p>退货原因</p>
+					<div class="goods-select-reason y">
+						<img src="/xcview/images/rightj.png" alt="选择" />
+						<span>请选择</span>
+					</div>
+				</div>
+				<div class="return-goods-money">
+					<p>退货金额：<span>&yen;125.02</span></p>
+				</div>
+			</div>
+			<div class="return-goods-tip">
+				<p>最多&yen;151.03，含发货运费&yen;0.00</p>
+			</div>
+			<div class="return-goods-explain">
+				<p>退货说明：<input type="text" placeholder="选填" /></p>
+			</div>
+			<!--图片上传-->
+			<div class="upload-picture-wrap">
+				<p class="picture-top">上传凭证<span>（最多6张）</span></p>				
+				<div class="save-pic z">
+					<ul>
+					</ul>
+					<div class="btn-upload z">
+						<p>上传凭证</p>
+					</div>
+				</div>
+				
+			</div>
+			<!--提交退款-->
+			<div class="submission-pic">提交退款</div>
+				
+			
+			<!--货物状态弹窗-->
+			<div class="gray-bgcolor hide"></div>
+			<div class="comment-modal goos-status-modal">
+				<div class="comment-goos-top goos-status-top">
+					<p>货物状态</p>
+					<img src="/xcview/images/select_close.png" alt="关闭" />
+				</div>
+				<div class="comment-text-select goos-status-select">
+					<ul>
+						<li>
+							<p>未收到货</p>
+							<span></span>
+						</li>
+						<li>
+							<p>已收到货</p>
+							<span></span>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!--退货原因弹窗-->
+			<div class="comment-modal return-goods-modal">
+				<div class="comment-goos-top return-goods-top">
+					<p>退货原因</p>
+					<img src="/xcview/images/select_close.png" alt="关闭" />
+				</div>
+				<div class="comment-text-select return-goods-select">
+					<ul>
+						<li>
+							<p>多拍/错拍/不想要</p>
+							<span></span>
+						</li>
+						<li>
+							<p>快递一直未送到</p>
+							<span></span>
+						</li>
+						<li>
+							<p>未按约定时间发货</p>
+							<span></span>
+						</li>
+						<li>
+							<p>快递无跟踪记录</p>
+							<span></span>
+						</li>
+						<li>
+							<p>空包裹/少货</p>
+							<span></span>
+						</li>
+						<li>
+							<p>其他</p>
+							<span></span>
+						</li>
+						
+					</ul>
+				</div>
+			</div>
+			
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+		<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script>
+		<script type="text/javascript" src="/xcview/js/common/template.js"></script> 
+		<!--上传照片JS-->
+		<script type="text/javascript" src="/xcview/js/shop/comment-pic-upload.js"></script>
+		<script type="text/javascript" src="/xcview/js/shop/shop-refund-only.js"></script>
+		
+		<script type="text/javascript">
+//			上传照片部分JS
+			var img=$(".img");
+			var callBack=function(album,img,save){
+				album.forEach(function(val,idx){ 				
+					var div=$('<li><p><img src="/xcview/images/select_close.png" style="width:0.3rem;"></p></li>');
+					var img=$("<img/>");
+					img.attr("src",val.data);
+					div.append(img);
+					save.append(div);
+					isPiclength()
+					$(".btn-upload input").val("")
+				});
+			}
+			var carera=new $.Pgater($(".btn-upload"),callBack);
+//			判断一共上传了多少张
+			function isPiclength() {
+				save.find("li").each(function(){					
+					if(save.find("li").length>=6){
+						save.siblings(".btn-upload").css('display','none')
+					}else{
+						save.siblings(".btn-upload").css('display','block')
+					}
+				})
+			}
+
+		</script>
+	</body>
+</html>

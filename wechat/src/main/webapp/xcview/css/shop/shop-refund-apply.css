@@ -1,0 +1,122 @@
+.header-wrap{
+	width: 7.5rem;
+	height: 0.88rem;	
+}
+.header{
+	width: 7.5rem;
+	height: 0.88rem;	
+	text-align: center;
+	background: #fafafa;
+	line-height: 0.88rem;
+	position: fixed;
+	top: 0;
+}
+.header .return-img{
+	width: 0.24rem;
+	height: 0.42rem;
+	float: left;
+	position: absolute;
+	top: 0.23rem;
+	left: 0.25rem;
+}
+.header h3{
+	font-size: 0.36rem;
+	font-weight: 500;
+	color: #333;
+}
+.header .news-wrap {
+	    width: 0.36rem;
+    height: 0.36rem;
+    position: absolute;
+    right: 0.3rem;
+    top: 0.27rem;
+}
+.header .news-wrap img{
+	width: 0.36rem;
+	height: 0.36rem;
+	display: block;
+}
+.header .news-wrap p{
+    position: absolute;
+    top: -0.15rem;
+    right: -0.15rem;
+    width: 0.36rem;
+    height: 0.3rem;
+    background: #F97215;
+    border-radius: 1rem;
+    text-align: center;
+    line-height: 0.3rem;
+    z-index: 5;
+    color: white;
+}
+.refund-ware-modal{
+	width: 100%;
+	padding: 0.2rem 0.25rem;
+	box-sizing: border-box;
+	background: white;
+	overflow: hidden;
+}
+.refund-ware-modal .ware-img{
+	width: 1.2rem;
+	height: 1.2rem;
+}
+.refund-ware-modal .ware-img img{
+	width: 100%;
+	height: 100%;
+}
+.refund-ware-modal .ware-right-data{
+	overflow: hidden;
+	
+}
+.ware-right-data p{
+	margin-bottom: 0.1rem;
+	color: #333333;
+	width: 5.58rem;
+}
+.ware-right-data p:nth-last-child(1){
+	margin-bottom: 0;
+}
+.ware-right-data .ware-title{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.ware-right-data .ware-save{
+	font-size: 0.22rem;
+	color: #999999;
+}
+.ware-right-data .ware-price{
+	font-size: 0.26rem;
+}
+.refund-select{
+	margin-top: 0.2rem;
+}
+.refund-select ul li{
+	width: 100%;
+	padding: 0.2rem 0.25rem;
+	background: white;
+	position: relative;
+	box-sizing: border-box;
+	border-bottom: 1px solid #f8f8f8;
+}
+.refund-select ul li:nth-last-child(1){
+	border-bottom: 0;
+}
+.refund-select ul li a{
+	display: block;
+	color: #999;
+}
+.refund-select ul li span{
+	font-size: 0.26rem;
+	color: #333333;	
+}
+.refund-select ul li p{
+	margin-top: 0.1rem;
+}
+.refund-select ul li img{
+	width: 0.15rem;
+    height: 0.25rem;
+    position: absolute;
+    top: 0.45rem;
+    right: 0.25rem;
+}

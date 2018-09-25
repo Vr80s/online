@@ -1,0 +1,290 @@
+.hide{display: none;} 
+.header-wrap{
+	width: 7.5rem;
+	height: 0.88rem;	
+}
+.header{
+	width: 7.5rem;
+	height: 0.88rem;	
+	text-align: center;
+	background: #fafafa;
+	line-height: 0.88rem;
+	position: fixed;
+	top: 0;
+	z-index: 10;
+}
+.header .return-img{
+	width: 0.24rem;
+	height: 0.42rem;
+	float: left;
+	position: absolute;
+	top: 0.23rem;
+	left: 0.25rem;
+}
+.header h3{
+	font-size: 0.36rem;
+	font-weight: 500;
+	color: #333;
+}
+.chat-content{
+	overflow: hidden;
+	padding: 0.2rem 0;
+	box-sizing: border-box;
+	margin-bottom: 0.9rem;
+}
+.select-sare-wrap{
+	overflow: hidden;
+	
+}
+.select-sare-wrap .select-time{
+	margin: 0 auto 0.2rem;
+    padding: 0.02rem 0.1rem;
+    background: #dedede;
+    color: white;
+    font-size: 0.12rem;
+    width: 0.6rem;
+    border-radius: 0.04rem;
+}
+.chat-content .select-ware{
+	overflow: hidden;
+	padding: 0.2rem 0.25rem;
+	background: white;
+	position: relative;
+	margin-bottom: 0.2rem;
+}
+.chat-content .select-ware .ware-img{
+	width: 1.2rem;
+	height: 1.2rem;
+	overflow: hidden;
+}
+.chat-content .select-ware .ware-img img{
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+.select-ware .ware-right-data{
+	margin-bottom: 0.1rem;
+    color: #333333;
+    width: 5.58rem;    
+
+}
+.select-ware .ware-right-data p{
+	width: 100%;
+	/*line-height:0.21rem;*/
+	font-size: 0.24rem;
+	/*max-height: 0.42rem;*/
+	overflow: hidden;
+    display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+}
+.select-ware .ware-right-data .ware-title{
+	margin-bottom: 0.1rem;
+}
+.select-ware .ware-right-data .ware-save{
+	color: #F97215 ;
+}
+.select-ware .send-out {
+	padding: 0.07rem 0.12rem;
+	position: absolute;
+	right: 0.25rem;
+	bottom: 0.2rem;
+	border: 1px solid #F97215;
+	border-radius: 1rem;
+	color: #F97215;
+	background: white;
+}
+/*发送宝贝后的样式*/
+.send-ware-wrap{
+	overflow: hidden;
+	padding: 0 0.25rem 0.2rem;
+}
+.send-ware-wrap .send-time{
+	margin: 0 auto 0.2rem;
+    padding: 0.02rem 0.1rem;
+    background: #dedede;
+    color: white;
+    font-size: 0.12rem;
+    width: 0.6rem;
+    border-radius: 0.04rem;
+}
+.send-ware-wrap .send-head{
+	width: 0.8rem;
+	height: 0.8rem;
+	overflow: hidden;
+}
+.send-ware-wrap .send-head img{
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+.send-ware-wrap .send-inf-ware{
+	width: 4.77rem;
+    padding: 0.2rem;
+    box-sizing: border-box;
+    background: white;
+    margin-right: 0.2rem;
+}
+.send-ware-wrap .send-inf-ware .send-ware-img{
+	width: 1.2rem;
+	height: 1.2rem;
+	overflow: hidden;
+}
+.send-ware-wrap .send-inf-ware .send-ware-img img{
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+.send-inf-ware .send-ware-title{
+	width: 3rem;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 0.2rem;
+}
+.send-inf-ware .send-ware-price{
+	font-size: 0.26rem;
+	color: #F97215;
+	width: 3rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 0.2rem;
+}
+
+/*自己发的聊天信息*/
+.myself-information{
+	overflow: hidden;
+	padding: 0 0.25rem 0.2rem;
+}
+.myself-information .myself-time{
+	margin: 0 auto 0.2rem;
+    padding: 0.02rem 0.1rem;
+    background: #dedede;
+    color: white;
+    font-size: 0.12rem;
+    width: 0.6rem;
+    border-radius: 0.04rem;
+}
+.myself-information .myself-head{
+	width: 0.8rem;
+	height: 0.8rem;
+	overflow: hidden;
+	border-radius: 50%;
+}
+.myself-information .myself-head img{
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+.myself-information .myself-text{
+	max-width: 4.77rem;
+    background: #F5A623;
+    border: 1px solid #DEDEDE;
+    border-radius: 0.08rem;
+    color: white;
+    padding: 0.23rem;
+    margin-right: 0.2rem;
+    box-sizing: border-box;
+    word-wrap: break-word; 
+    break-word: break-all;
+    position: relative;
+    font-size: 0.28rem;
+}
+.myself-information .myself-text .unread{
+	font-size: 0.24rem;
+	color: #F97215;
+	position: absolute;
+	left: -0.7rem;
+	bottom: 0;
+}
+.myself-information .myself-text .read{
+	font-size: 0.24rem;
+	color: #999999;
+	position: absolute;
+	left: -0.7rem;
+	bottom: 0;
+}
+/*别人发的信息*/
+.other-information{
+	overflow: hidden;
+	padding: 0 0.25rem 0.2rem;
+}
+.other-information .other-time{
+	margin: 0 auto 0.2rem;
+    padding: 0.02rem 0.1rem;
+    background: #dedede;
+    color: white;
+    font-size: 0.12rem;
+    width: 0.6rem;
+    border-radius: 0.04rem;
+}
+.other-information .other-head{
+	width: 0.8rem;
+	height: 0.8rem;
+	overflow: hidden;
+	border-radius: 50%;
+}
+.other-information .other-head img{
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+.other-information .other-text{
+	max-width: 4.77rem;
+    background: #fff;
+    border: 1px solid #DEDEDE;
+    border-radius: 0.08rem;
+    color: #333;
+    padding: 0.23rem;
+    margin-left: 0.2rem;
+    box-sizing: border-box;
+    word-wrap: break-word; 
+    break-word: break-all;
+    position: relative;
+    font-size: 0.28rem;
+}
+.other-information .other-text .unread{
+	font-size: 0.24rem;
+	color: #F97215;
+	position: absolute;
+	right: -0.7rem;
+	bottom: 0;
+}
+.other-information .other-text .read{
+	font-size: 0.24rem;
+	color: #999999;
+	position: absolute;
+	right: -0.7rem;
+	bottom: 0;
+}
+.bottom-input{
+	width: 100%;
+	background: white;
+	overflow: hidden;
+	position: fixed;
+	bottom: 0;
+	padding: 0.2rem 0;
+
+}
+.bottom-input input{
+	width: 5rem;
+	min-height: 0.6rem;
+    max-height: 1.6rem;
+	background: #f0f0f0;
+	outline: none;
+	border: 0;	
+	float: left;	
+	border-radius: 1rem;
+	margin-left: 0.3rem;
+	padding: 0 0.2rem;
+    box-sizing: border-box;
+}
+.bottom-input .brow{
+    width: 0.6rem;
+    margin-left: 0.4rem;
+}
+.bottom-input .select-img{
+    width: 0.6rem;
+    margin-right: 0.3rem;
+}

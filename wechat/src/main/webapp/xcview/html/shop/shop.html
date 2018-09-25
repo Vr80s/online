@@ -1,0 +1,327 @@
+<!doctype html>
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="utf-8">
+<title>熊猫中医</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
+<link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
+<link rel="stylesheet" href="/xcview/css/shop/swiper.min.css" />  <!-- 轮播引入 -->
+<link rel="stylesheet" href="/xcview/css/shop/shop.css" />
+
+<style>
+	
+</style>
+</head>
+
+<body>
+	<!-- 头部区域开始 -->
+	<header>
+		<div class="header" onclick="location.href ='/xcview/html/shop/search_goods.html'">
+			<img src="/xcview/images/sousuo0.png" alt="" />
+			<span calss="header_default">搜索好货</span>
+			<span calss="tacitly_approve">搜索好货</span>
+		</div>
+		<div class="advices">
+			<img src="/xcview/images/shop/newsbg.png" alt="" class="news" />
+			<span class="advices_number">17</span>
+		</div>
+	</header>
+	<div class="header_hidden_field"></div>
+	<!-- 头部区域结束 -->
+
+	<!-- 轮播区域开始 -->
+	<div class="banner">
+		<div class="swiper-wrapper">
+			<div class="swiper-slide"><img src="http://test-file.ipandatcm.com/18719144415/a82649e617d7-500c1171747f45c5ab0e79c7f1a42c971531982655040.png" /></div>
+			<div class="swiper-slide"><img src="http://test-file.ipandatcm.com/18719144415/a82649e617d7-500c1171747f45c5ab0e79c7f1a42c971531982655040.png" /></div>
+			<div class="swiper-slide"><img src="http://test-file.ipandatcm.com/18719144415/a82649e617d7-500c1171747f45c5ab0e79c7f1a42c971531982655040.png" /></div>
+			<div class="swiper-slide"><img src="http://test-file.ipandatcm.com/18719144415/a82649e617d7-500c1171747f45c5ab0e79c7f1a42c971531982655040.png" /></div>
+		</div>
+		<div class="pagination"></div>
+	</div>
+	<!-- 轮播区域结束 -->
+
+	<!-- tab选项开始 -->
+	<div id="mainMenuBarAnchor"></div>
+	<div class="size" id="mainMenuBar">
+		<div class="option">
+			<ul>
+				<li class="option_recommend default_click">
+					<img src="/xcview/images/shop/hottest.png" alt="" />推荐
+				</li>
+				<li class="option_newest">
+					<img src="/xcview/images/shop/newests.png" alt="" />最新
+				</li>
+				<li class="option_hottest">
+					<img src="/xcview/images/shop/hottests.png" alt="" />最热
+				</li>
+				<li class="option_price">
+					<img src="/xcview/images/shop/prices.png" alt="" />价格
+				</li>
+				<li class="low_to_high">
+					<img src="/xcview/images/shop/prices.png" alt="" />价格
+				</li>
+				<li class="down">
+					<img src="/xcview/images/shop/prices.png" alt="" />价格
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- tab选项结束 -->
+	<!-- 中间内容开始 -->
+	<div class="main_center">
+		<ul class="list">
+			<li onclick="location.href ='/xcview/html/shop/commodity_details.html'">
+				<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+				<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
+				<div class="price">￥188.00</div>
+				<div class="referrer">
+					<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
+				</div>
+			</li>
+			<li>
+				<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+				<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
+				<div class="price">￥188.00</div>
+				<div class="referrer">
+					<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
+				</div>
+			</li>
+			<li>
+				<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+				<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
+				<div class="price">￥188.00</div>
+				<div class="referrer">
+					<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
+				</div>
+			</li>
+			<li>
+				<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+				<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
+				<div class="price">￥188.00</div>
+				<div class="referrer">
+					<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
+				</div>
+			</li>
+			<li>
+				<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+				<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
+				<div class="price">￥188.00</div>
+				<div class="referrer">
+					<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
+				</div>
+			</li>
+		</ul>
+	</div>
+	<!-- 中间内容结束 -->
+
+	<!-- 底部开始 -->
+	<div class="hidden_field"></div>
+	<div class="footer">
+		<ul>
+			<li>
+				<a href="/xcview/html/physician/index.html" class="physician" style="width: 0.42rem;height: 0.42rem;background: url(/xcview/images/physicians_nav.png) no-repeat center;background-size: 0.42rem 0.42rem;margin-top: 0.14rem;"></a>
+				<p>中医师</p>
+			</li>
+			<li>
+				<a href="/xcview/html/home_page.html" class="footer_one"></a>
+				<p>学堂</p>
+			</li>
+			<!-- <li>
+				<a href="javascript:;" class="footer_two" onclick="go_study()"></a>
+				<p>学习</p>
+			</li> -->
+			<li>
+				<a href="javascript:;" class="footer_two"></a>
+				<p style="color:#00bc12;">好货</p>
+			</li>
+			<li>
+				<a href="/xcview/html/apprentice/apprentice.html" class="footer_three" style="height: 0.42rem;background: url(/xcview/images/discovery_three.png) no-repeat center;background-size: 0.42rem 0.42rem;margin-bottom: 0.06rem;"></a>
+				<p>发现</p>
+			</li>
+			<li>
+				<a href="/xcview/html/my_homepage.html" class="footer_four" style="background: url(/xcview/images/my_four.png) no-repeat center;background-size: 0.38rem 0.4rem;"></a>
+				<p>我的</p>
+			</li>
+		</ul>
+	</div>
+	<!-- 底部结束 -->
+</body>
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<!-- <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script> -->
+<!-- <script type="text/javascript" src="/xcview/js/common/common.js"></script> -->
+
+<script src="/xcview/js/shop/jquery-1.10.1.min.js"></script><!-- 轮播引入 -->
+<script src="/xcview/js/shop/swiper.min.js"></script> <!-- 轮播引入 -->
+<!-- 轮播 -->
+<script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
+
+<!-- 选项卡固定头部 -->
+<script>
+ $(document).ready(function() {
+     var $window = $(window),
+         $mainMenuBar = $('#mainMenuBar'),
+         $mainMenuBarAnchor = $('#mainMenuBarAnchor');
+     $window.scroll(function() {
+         //scrollTop()方法返回或设置匹配元素的滚动条的垂直位置
+         var window_top = $window.scrollTop();
+         //javascript用offsetTop();jquery用offset().top;
+         var div_top = $mainMenuBarAnchor.offset().top;
+         if (window_top > div_top) {
+             $mainMenuBar.addClass('stick');
+             $mainMenuBarAnchor.height($mainMenuBar.height());
+         } else {
+             $mainMenuBar.removeClass('stick');
+             $mainMenuBarAnchor.height(0);
+         }
+     });
+ });
+</script>
+
+<!-- 选项卡点击事件 -->
+<script>
+	window.onload = function(){
+		// 轮播--渲染时放到，渲染的js下面
+		var mySwiper = new Swiper('.banner',{
+		  	autoplay:1500,
+		  	visibilityFullFit : true,
+		  	loop:true,
+		  	pagination : '.pagination',
+	  	});
+
+		// option_newest--最新    option_recommend--推荐   option_hottest--最热  option_price--价格
+		// 最新
+		$(".option_newest").click();
+		$(".option_newest").click(function(){
+			$(".option_newest").addClass("default_click");  //最新
+			$(".option_recommend").removeClass("default_click");
+			$(".option_newest img").attr("src","/xcview/images/shop/newest.png");
+			$(".option_recommend").removeClass("default_click");  //推荐
+			$(".option_recommend img").attr("src","/xcview/images/shop/hottests.png");  //由高到低
+			$(".option_hottest").removeClass("default_click");  //最热
+			$(".option_hottest img").attr("src","/xcview/images/shop/hottests.png");
+			$(".option_newest").removeClass("option_recommend_width");
+			$(".option_recommend").removeClass("option_recommend_width");
+			$(".option_hottest").removeClass("option_recommend_width");
+			$(".low_to_high").hide();
+			$(".down").hide();
+			$(".option_price").show();
+			$(".low_to_high").removeClass(".low_to_high_width");
+			$(".down").removeClass("down_width");
+			$(".option_price").removeClass("option_newest_width");
+		});
+		//推荐
+		$(".option_recommend").click(function(){
+			$(".option_newest").removeClass("default_click");  //最新
+			$(".option_newest img").attr("src","/xcview/images/shop/newests.png");
+			$(".option_recommend").addClass("default_click");  //推荐
+			$(".option_recommend img").attr("src","/xcview/images/shop/hottest.png");
+			$(".option_hottest").removeClass("default_click");  //最热
+			$(".option_hottest img").attr("src","/xcview/images/shop/hottests.png");
+			$(".option_newest").removeClass("option_recommend_width");
+			$(".option_recommend").removeClass("option_recommend_width");
+			$(".option_hottest").removeClass("option_recommend_width");
+			$(".low_to_high").hide();
+			$(".down").hide();
+			$(".option_price").show();
+			$(".low_to_high").removeClass(".low_to_high_width");
+			$(".down").removeClass("down_width");
+			$(".option_price").removeClass("option_newest_width");
+		});
+		//最热
+		$(".option_hottest").click(function(){
+			$(".option_newest").removeClass("default_click");  //最新
+			$(".option_newest img").attr("src","/xcview/images/shop/newests.png");
+			$(".option_recommend").removeClass("default_click");  //推荐
+			$(".option_recommend img").attr("src","/xcview/images/shop/hottests.png");
+			$(".option_hottest").addClass("default_click");  //最热
+			$(".option_hottest img").attr("src","/xcview/images/shop/hottest.png");
+			$(".option_newest").removeClass("option_recommend_width");
+			$(".option_recommend").removeClass("option_recommend_width");
+			$(".option_hottest").removeClass("option_recommend_width");
+			$(".low_to_high").hide();
+			$(".down").hide();
+			$(".option_price").show();
+			$(".low_to_high").removeClass(".low_to_high_width");
+			$(".down").removeClass("down_width");
+			$(".option_price").removeClass("option_newest_width");
+		});
+		//价格
+		$(".option_price").click(function(){
+			$(".option_newest").removeClass("default_click");  //最新
+			$(".option_newest img").attr("src","/xcview/images/shop/newests.png");
+			$(".option_recommend").removeClass("default_click");  //推荐
+			$(".option_recommend img").attr("src","/xcview/images/shop/hottests.png");
+			$(".option_hottest").removeClass("default_click");  //最热
+			$(".option_hottest img").attr("src","/xcview/images/shop/hottests.png");
+			$(".low_to_high").show();
+			$(".low_to_high img").attr("src","/xcview/images/shop/prices-high.png");
+			$(".down").hide();
+			$(".option_price").hide();
+			$(".option_newest").addClass("option_newest_width");
+			$(".option_recommend").addClass("option_recommend_width");
+			$(".option_hottest").addClass("option_hottest_width");
+			$(".low_to_high").addClass("low_to_high_width");
+		});
+		//由低到高
+		$(".low_to_high").click(function(){
+			$(".option_newest").removeClass("default_click");  //最新
+			$(".option_newest img").attr("src","/xcview/images/shop/newests.png");
+			$(".option_recommend").removeClass("default_click");  //推荐
+			$(".option_recommend img").attr("src","/xcview/images/shop/hottests.png");
+			$(".option_hottest").removeClass("default_click");  //最热
+			$(".option_hottest img").attr("src","/xcview/images/shop/hottests.png");
+			$(".low_to_high").hide();
+			$(".down").show();
+			$(".down img").attr("src","/xcview/images/shop/prices-low.png"); //由低到高
+			$(".option_price").hide();
+			$(".option_newest").addClass("option_newest_width");
+			$(".option_recommend").addClass("option_recommend_width");
+			$(".option_hottest").addClass("option_hottest_width");
+			$(".option_price").addClass("option_newest_width");
+			$(".down").addClass("down_width");
+		});
+		//由高到低
+		$(".down").click(function(){
+			$(".option_newest").removeClass("default_click");  //最新
+			$(".option_newest img").attr("src","/xcview/images/shop/newests.png");
+			$(".option_recommend").removeClass("default_click");  //推荐
+			$(".option_recommend img").attr("src","/xcview/images/shop/hottests.png");
+			$(".option_hottest").removeClass("default_click");  //最热
+			$(".option_hottest img").attr("src","/xcview/images/shop/hottests.png");
+			$(".low_to_high").show();
+			$(".low_to_high img").attr("src","/xcview/images/shop/prices-high.png");
+			$(".down").hide();
+			$(".option_price").hide();
+			$(".option_newest").addClass("option_newest_width");
+			$(".option_recommend").addClass("option_recommend_width");
+			$(".option_hottest").addClass("option_hottest_width");
+			$(".low_to_high").addClass("option_newest_width");
+		});
+		// 点击头部区域客服消息
+		$(".advices").click(function(){
+			jqtoast("熊猫客服休息中，稍后报道！");
+		});
+	};
+</script>
+</html>

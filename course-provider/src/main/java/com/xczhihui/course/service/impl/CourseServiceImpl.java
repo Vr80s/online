@@ -50,7 +50,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public static final String START_EVENT = "start";
     public static final String STOP_EVENT = "stop";
 
-    
+
     @Autowired
     private CourseMapper iCourseMapper;
 
@@ -59,16 +59,16 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Autowired
     private FocusMapper focusMapper;
-    
+
     @Value("${weixin.course.remind.code}")
     private String weixinTemplateMessageRemindCode;
-    
+
     @Autowired
     private CacheService cacheService;
 
     @Autowired
     private ICourseSolrService courseSolrService;
-    
+
     @Override
     public Page<CourseLecturVo> selectCoursePage(Page<CourseLecturVo> page) {
         List<CourseLecturVo> records = iCourseMapper.selectCoursePage(page);
@@ -86,14 +86,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
          * 这里需要判断是否购买过了
          */
         if (userId != null) {
-        	
+
             // 是否关注
             Integer isFours = focusMapper.isFoursLecturer(userId, cv.getUserLecturerId());
             if (isFours != 0) {
                 cv.setIsFocus(1);
             }
             Integer falg = criticizeMapper.hasCourse(courseId, userId);
-            
+
             //如果是付费课程，判断这个课程是否已经被购买了
             if (cv.getWatchState() == 0) { // 付费课程    
                 if (falg > 0) {
@@ -108,13 +108,13 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             /**
              * 如果是诊疗直播，增加弟子信息
              */
-            if(cv.getAppointmentInfoId()!=null) {
-            	CourseLecturVo discipleInfo =  iCourseMapper.selectTreatmentAppointmentInfo(cv.getAppointmentInfoId());
-            	cv.setDiscipleName(discipleInfo.getDiscipleName());
-            	cv.setDiscipleHeadPhoto(discipleInfo.getDiscipleHeadPhoto());
-            	cv.setUserId(discipleInfo.getUserId());
+            if (cv.getAppointmentInfoId() != null) {
+                CourseLecturVo discipleInfo = iCourseMapper.selectTreatmentAppointmentInfo(cv.getAppointmentInfoId());
+                cv.setDiscipleName(discipleInfo.getDiscipleName());
+                cv.setDiscipleHeadPhoto(discipleInfo.getDiscipleHeadPhoto());
+                cv.setUserId(discipleInfo.getUserId());
             }
-            
+
         }
 
         return cv;
@@ -136,18 +136,18 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             if ("已结束课程".equals(courseLecturVo.getNote())) {
                 listNw.add(courseLecturVo);
             }
-            
-   	    	 if (courseLecturVo.getCollection()) {
-   	             //已更新多少集，等于总集数
-   	             if(courseLecturVo.getCourseNumber()!=null && courseLecturVo.getDirtyNumber()!=null 
-   	            		 && courseLecturVo.getCourseNumber().equals(courseLecturVo.getDirtyNumber())) {
-   	            	courseLecturVo.setDirtyDate(XzStringUtils.COLLECTION_UPDATE_FINISH);
-   	             }else {
-   	            	courseLecturVo.setDirtyDate(this.getHostCollectionUpdateDateText(courseLecturVo.getId()));
-   	             }
-   	    	 }    
-       	} 
-            
+
+            if (courseLecturVo.getCollection()) {
+                //已更新多少集，等于总集数
+                if (courseLecturVo.getCourseNumber() != null && courseLecturVo.getDirtyNumber() != null
+                        && courseLecturVo.getCourseNumber().equals(courseLecturVo.getDirtyNumber())) {
+                    courseLecturVo.setDirtyDate(XzStringUtils.COLLECTION_UPDATE_FINISH);
+                } else {
+                    courseLecturVo.setDirtyDate(this.getHostCollectionUpdateDateText(courseLecturVo.getId()));
+                }
+            }
+        }
+
         mapTj.put("title", "我的课程");
         mapTj.put("courseList", listTj);
 
@@ -160,7 +160,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         return mapCourseList;
     }
 
-	@Override
+    @Override
     public Integer selectMyFreeCourseListCount(String id) {
         return iCourseMapper.selectMyFreeCourseListCount(id);
     }
@@ -168,7 +168,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     public Page<CourseLecturVo> selectMyPurchasedCourseList(Page<CourseLecturVo> page, String id) {
         List<CourseLecturVo> records = iCourseMapper.selectMyPurchasedCourseList(page, id);
-        
+
         return page.setRecords(records);
     }
 
@@ -176,15 +176,15 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public List<CollectionCoursesVo> selectCoursesByCollectionId(Integer collectionId) {
         List<CollectionCoursesVo> courses = iCourseMapper.selectCoursesByCollectionId(collectionId);
         for (CollectionCoursesVo courseLecturVo : courses) {
-        	try {
-        		if(courseLecturVo.getCourseLength()!=null) {
-            		Double d = Double.valueOf(courseLecturVo.getCourseLength()) * 60;
-                	courseLecturVo.setCourseLength(com.xczhihui.common.support.cc.util.DateUtil.turnSecondsToTimestring(d.intValue()));
-            	}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+            try {
+                if (courseLecturVo.getCourseLength() != null) {
+                    Double d = Double.valueOf(courseLecturVo.getCourseLength()) * 60;
+                    courseLecturVo.setCourseLength(com.xczhihui.common.support.cc.util.DateUtil.turnSecondsToTimestring(d.intValue()));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return courses;
     }
 
@@ -250,14 +250,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                 if (falg > 0) {
                     cv.setWatchState(2);
                 }
-                
+
                 //如果是付费课程，如果不是专辑的话，那么就查看是否属于其中一个专辑。
-                if(CourseType.VIDEO.getId() == cv.getType() || CourseType.AUDIO.getId() == cv.getType()) {
-                	Map<String,Object> collectionHint = iCourseMapper.selectTheirCollection(courseId);
-                	
-                	cv.setCollectionHint(collectionHint);
+                if (CourseType.VIDEO.getId() == cv.getType() || CourseType.AUDIO.getId() == cv.getType()) {
+                    Map<String, Object> collectionHint = iCourseMapper.selectTheirCollection(courseId);
+
+                    cv.setCollectionHint(collectionHint);
                 }
-                
+
                 //如果是免费的  判断是否学习过
             } else if (cv.getWatchState() == 1) { // 免费课程
                 if (falg > 0) {
@@ -265,10 +265,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                 }
             }
         }
-        
-        
-        
-        
+
+
         return cv;
     }
 
@@ -412,7 +410,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
         List<CourseLecturVo> records = selectTeachingCoursesByUserId(new Page<CourseLecturVo>(1, 4), lecturerId,
                 userId);
-        
+
         Map<String, Object> map1 = new HashMap<String, Object>();
         map1.put("text", "跟师直播");
         map1.put("code", 5);
@@ -495,14 +493,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     public void updatePlayBackStatusAndSendVahllYunMessageByRecordId(String recordId, Integer status) throws Exception {
 
-    	/**
-    	 * 回放是否生成成功
-    	 */
-    	iCourseMapper.updatePlayBackStatusByRecordId(recordId, status);
-    	
-    	CourseLecturVo course = iCourseMapper.selectCourseByRecordId(recordId);
+        /**
+         * 回放是否生成成功
+         */
+        iCourseMapper.updatePlayBackStatusByRecordId(recordId, status);
 
-       
+        CourseLecturVo course = iCourseMapper.selectCourseByRecordId(recordId);
+
+
         Integer type = VhallCustomMessageType.PLAYBACK_GENERATION_SECCESS.getCode();
         String message = "回放生成成功";
         //发送im消息
@@ -513,22 +511,22 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             type = VhallCustomMessageType.PLAYBACK_GENERATION_FAILURE.getCode();
             message = "回放生成失败";
             try {
-            	String content = "未找到课程信息。";
+                String content = "未找到课程信息。";
                 List<Course> courses = iCourseMapper.selectByMap(ImmutableMap.of("record_id", recordId));
                 if (courses != null && courses.isEmpty()) {
-                	content = "课程名："+courses.get(0).getGradeName()+",课程id:"+courses.get(0).getId()+",回放id:"+recordId;
+                    content = "课程名：" + courses.get(0).getGradeName() + ",课程id:" + courses.get(0).getId() + ",回放id:" + recordId;
                 }
                 //发送email ,报告错误  
-                EmailUtil.sendExceptionMailBySSL("课程服务：回放生成失败", "回放生成失败。回放recordId = "+recordId,content);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+                EmailUtil.sendExceptionMailBySSL("课程服务：回放生成失败", "回放生成失败。回放recordId = " + recordId, content);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         
         /*
          * 如果直播没有回放，不发送消息到客户端
          */
-        if(course.getRecord()) {
+        if (course.getRecord()) {
             JSONObject job = new JSONObject();
             job.put("type", type);
             //安卓端需要用对象
@@ -536,10 +534,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             MessageService.sendMessage(MessageService.CustomBroadcast, job.toJSONString(), course.getChannelId());
         }
     }
-    
+
 
     @Override
-    public Integer updateCourseLiveStatus(String event, String roomId,String clientType) {
+    public Integer updateCourseLiveStatus(String event, String roomId, String clientType) {
         List<Course> courses = iCourseMapper.selectByMap(ImmutableMap.of("direct_id", roomId));
         if (courses == null || courses.isEmpty()) {
             return null;
@@ -553,11 +551,11 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                     course.setLiveStatus(1);
                     type = VhallCustomMessageType.LIVE_START.getCode();
                     // -- 》app端发起的直播
-                    if(MultiUrlHelper.URL_TYPE_APP.equals(clientType)) {
-                    	course.setLiveSourceType(true);
+                    if (MultiUrlHelper.URL_TYPE_APP.equals(clientType)) {
+                        course.setLiveSourceType(true);
                     }
                     course.setLiveCase(LiveCaseType.NORMAL_LIVE.getCode());
-                    
+
                     break;
                 case STOP_EVENT:
                     course.setLiveStatus(3);
@@ -580,16 +578,16 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             iCourseMapper.updateById(course);
             // 发送直播开始通知广播
             liveStatusUpdateNotice(course.getChannelId(), type);
-            
+
             //同步到solr
             try {
-				courseSolrService.initCourseSolrDataById(course.getId());
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (SolrServerException e) {
-				e.printStackTrace();
-			}
-            
+                courseSolrService.initCourseSolrDataById(course.getId());
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (SolrServerException e) {
+                e.printStackTrace();
+            }
+
             return course.getId();
         }
         return null;
@@ -637,29 +635,29 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         }
         return LivePushStreamStatus.NON_PUSH_STREAM.getCode();
     }
-    
 
-	//需要医师名，需要诊疗时间
-    
+
+    //需要医师名，需要诊疗时间
+
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Lock(lockName = "createTherapyLive", waitTime = 5, effectiveTime = 8)
-	public Integer createTherapyLive(Integer lockId,Integer clientType,String accountId) throws Exception {
-    	//查看诊疗必要信息
-		CourseLecturVo cv = iCourseMapper.selectTherapyLiveInfo(lockId);
-		if(cv == null) {
-			 throw new CourseException("课程数据有误");
-		}
-		
-		Course course = new Course();
-		//***医师的远程诊疗直播 yyyy/mm/dd 如有重复则加上编号（01,02,03….）。
-		
-		String gradeName = createTherapyGradeName(cv.getUserLecturerId(),cv.getDoctorName(),cv.getStartTime());
-		
-		//默认即学即用
-		course.setMenuId(210);
-		
-		course.setGradeName(gradeName);
+    public Integer createTherapyLive(Integer lockId, Integer clientType, String accountId) throws Exception {
+        //查看诊疗必要信息
+        CourseLecturVo cv = iCourseMapper.selectTherapyLiveInfo(lockId);
+        if (cv == null) {
+            throw new CourseException("课程数据有误");
+        }
+
+        Course course = new Course();
+        //***医师的远程诊疗直播 yyyy/mm/dd 如有重复则加上编号（01,02,03….）。
+
+        String gradeName = createTherapyGradeName(cv.getUserLecturerId(), cv.getDoctorName(), cv.getStartTime());
+
+        //默认即学即用
+        course.setMenuId(210);
+
+        course.setGradeName(gradeName);
         course.setAppointmentInfoId(lockId);
         //默认图
         course.setSmallImgPath("https://file.xczhihui.com/18821120655/9db25c52561d-9754170cc93c4169996f3ddc86ea30f91534824415642.png");
@@ -676,27 +674,27 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         //讲师名字和讲师简介   --》默认把主播名字和主播介绍带过去
         course.setLecturer(cv.getHeir());
         course.setLecturerDescription(cv.getLecturerDescription());
-        
+
         //预约时间
         course.setStartTime(cv.getStartTime());
         //结束时间
         course.setEndTime(cv.getEndTime());
-        
+
         //客户端类型
         course.setClientType(clientType);
         //房间id
-	    course.setDirectId(RoomService.create());
-	    //渠道id
-	    course.setChannelId(ChannelService.create());
-	    //互动id
-	    course.setInavId(InteractionService.create()); 
-        
-	     // 将直播课设置为预告
-        course.setLiveStatus(2);	
+        course.setDirectId(RoomService.create());
+        //渠道id
+        course.setChannelId(ChannelService.create());
+        //互动id
+        course.setInavId(InteractionService.create());
+
+        // 将直播课设置为预告
+        course.setLiveStatus(2);
         course.setLiveCase(1);
         course.setSort(0);
         course.setStatus("1");
-        
+
         // 推荐值
         course.setRecommendSort(0);
         // 请填写一个基数，统计的时候加上这个基数
@@ -708,14 +706,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         course.setFree(true); //免费
         
         /*
-		 * 保存审核信息
+         * 保存审核信息
 		 */
-		iCourseMapper.insertCouserApplyInfo(course);
+        iCourseMapper.insertCouserApplyInfo(course);
         /**
          * 保存课程信息
          */
         iCourseMapper.insert(course);
-        
+
         /**
          * redis 缓存中增加数据，开播10分钟提醒。
          */
@@ -725,24 +723,24 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         mtv.setUserId(accountId);
         mtv.setStartTime(cv.getStartTime());
         mtv.setEndTime(cv.getEndTime());
-        
+
         mtv.setMessageType(RedisCacheKey.TREATMENT_MINUTE_TYPE);
-        mtv.setTypeUnique(course.getId()+"");
-        
+        mtv.setTypeUnique(course.getId() + "");
+
         //存放redis
         cacheService.set(RedisCacheKey.COMMON_MINUTE_REMIND_KEY +
-									RedisCacheKey.REDIS_SPLIT_CHAR +
-						RedisCacheKey.TREATMENT_MINUTE_TYPE +
-									RedisCacheKey.REDIS_SPLIT_CHAR + 
-						course.getId(), mtv);
-        
+                RedisCacheKey.REDIS_SPLIT_CHAR +
+                RedisCacheKey.TREATMENT_MINUTE_TYPE +
+                RedisCacheKey.REDIS_SPLIT_CHAR +
+                course.getId(), mtv);
+
         List<CourseSolrVO> courseSolrVOS = iCourseMapper.selectCourses4Solr(course.getId());
-        
-        
+
+
         courseSolrService.initCourseSolrDataById(course.getId());
-        
+
         return course.getId();
-	}
+    }
 
     @Override
     public Course selectById(Integer courseId) {
@@ -762,56 +760,65 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
 
-	/**  
-	 * <p>Title: createTherapyGradeName</p>  
-	 * <p>Description: </p>  
-	 * @param doctorName
-	 * @param startTime
-	 * @return  
-	 */ 
-	private String createTherapyGradeName(String userLecturerId,String doctorName, Date startTime) {
-		//***医师的远程诊疗直播 yyyy/mm/dd 如有重复则加上编号（01,02,03….）。  
-		String strGradeName = doctorName+"医师的远程诊疗直播"+DateUtil.formatDate(startTime,"yyyyMMdd");
-		try {
-			//编号
-			List<String>  numberList   = iCourseMapper.selectDoctorCurrentDayTherapyNumber(startTime,userLecturerId);
-			if(numberList!=null && numberList.size()>1) {
-				String numberStr = numberList.get(0);
-				numberStr = numberStr.substring(numberStr.length()-2, numberStr.length());
-				int number = Integer.parseInt(numberStr);
-				if(number < 9) {
-					numberStr = "0"+(number+1);
-				}else if(number == 9) {
-					numberStr = "10";
-				}
-				strGradeName +=numberStr;
-			}else if(numberList!=null && numberList.size()==1){
-				strGradeName +="01";
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return strGradeName;
-	}
-	
-	
-	@Override
-	public String getHostCollectionUpdateDateText(Integer collectionId) {
-		String updateTime ="";
+    /**
+     * <p>Title: createTherapyGradeName</p>
+     * <p>Description: </p>
+     *
+     * @param doctorName
+     * @param startTime
+     * @return
+     */
+    private String createTherapyGradeName(String userLecturerId, String doctorName, Date startTime) {
+        //***医师的远程诊疗直播 yyyy/mm/dd 如有重复则加上编号（01,02,03….）。
+        String strGradeName = doctorName + "医师的远程诊疗直播" + DateUtil.formatDate(startTime, "yyyyMMdd");
+        try {
+            //编号
+            List<String> numberList = iCourseMapper.selectDoctorCurrentDayTherapyNumber(startTime, userLecturerId);
+            if (numberList != null && numberList.size() > 1) {
+                String numberStr = numberList.get(0);
+                numberStr = numberStr.substring(numberStr.length() - 2, numberStr.length());
+                int number = Integer.parseInt(numberStr);
+                if (number < 9) {
+                    numberStr = "0" + (number + 1);
+                } else if (number == 9) {
+                    numberStr = "10";
+                }
+                strGradeName += numberStr;
+            } else if (numberList != null && numberList.size() == 1) {
+                strGradeName += "01";
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return strGradeName;
+    }
+
+
+    @Override
+    public String getHostCollectionUpdateDateText(Integer collectionId) {
+        String updateTime = "";
         List<Integer> list = iCourseMapper.listDatesByCollectionId(collectionId);
-        if(list.size()  >= 7) {
+        if (list.size() >= 7) {
             return XzStringUtils.HOST_COLLECTION_UPDATE_ALL;
-        }else {
-        	updateTime = list.stream().map(DateUtil::getDayOfWeek).collect(Collectors.joining(""));
+        } else {
+            updateTime = list.stream().map(DateUtil::getDayOfWeek).collect(Collectors.joining(""));
         }
         String week = XzStringUtils.getWeekOfDate();
-        if(updateTime!=null && updateTime.indexOf(week)!=-1) {
-        	return XzStringUtils.HOST_COLLECTION_UPDATE_ALL;
-        }else if(updateTime!=null){
-        	updateTime = String.format(XzStringUtils.WEEKLY_UPDATE, updateTime);
-        }    
+        if (updateTime != null && updateTime.indexOf(week) != -1) {
+            return XzStringUtils.HOST_COLLECTION_UPDATE_ALL;
+        } else if (updateTime != null) {
+            updateTime = String.format(XzStringUtils.WEEKLY_UPDATE, updateTime);
+        }
         return updateTime;
-	}
-	
+    }
+
+    @Override
+    public String selectChannelIdByInavId(String inavId) {
+        List<Course> courses = iCourseMapper.selectByMap(ImmutableMap.of("inav_id", inavId));
+        if (courses != null && !courses.isEmpty()) {
+            return courses.get(0).getChannelId();
+        }
+        return null;
+    }
 }

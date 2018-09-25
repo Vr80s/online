@@ -1,5 +1,5 @@
 var courseId = getQueryString("courseId");
-courseId = 800;
+// courseId = 800;
 var barrageData = [];
 var SixHide = 0;
 var isQuestion = "";
@@ -9,12 +9,120 @@ var audioList = [] ;// 音频列表 从 dataList 过滤得到
 var currenttimeLine = {}; // 当前播放语音的控制器
 var autoplay = true;// 是否自动播放
 var dataList = [];//消息存放
+var teacherId;  //讲师id
 $(function(){
     getAccessToken();
     getBarrageList();
     getLiveAudioContentList(1,'');
+    initMiniRefreshs(1);
 
 });
+
+// 跳转完善信息页--点击关注的时候如果没有完善信息跳转到完善信息页面
+function getFlagStatus() {
+    var falg = USER_NORMAL;
+    var user_cookie = cookie.get("_ipandatcm_user_");
+    var third_party_cookie = cookie.get("_third_ipandatcm_user_");
+    if (isBlank(user_cookie)) {
+        falg = USER_UN_LOGIN;
+        if (isNotBlank(third_party_cookie)) {
+            falg = USER_UN_BIND;
+        }
+    }
+    return falg;
+}
+
+/**
+头部课件区域渲染
+**/
+
+/*function my_follow(teacherId, type) {
+    requestService("/xczh/myinfo/updateFocus", {
+        lecturerId: teacherId,
+        type: type
+    }, function (data) {
+    })
+}*/
+
+requestService("/xczh/course/liveDetails",{courseId:courseId},function (data) {
+    if (data.success == true) {
+        
+        //lineState 直播课程状态 1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
+        if (data.resultObject.lineState == 1) {
+            $('.surface_plot').hide();  //即将直播位置
+            $('.courseware').show();    //课件
+        }else{
+            $('.courseware').hide();
+            $('.surface_plot').show();
+            // 开播前10分钟详情
+            $('.surface_plot').html(template('surface_plot', {items: data.resultObject}));
+        };
+
+        //关注区域
+        $('.attention_main').html(template('attention_main', {items: data.resultObject}));
+        if (data.resultObject.lineState == 1) {
+            $(".subscribe").hide();  //预约
+            $(".live_streaming").show();  //直播中
+        }else if (data.resultObject.lineState == 2 || data.resultObject.lineState == 4 ||data.resultObject.lineState == 5 || data.resultObject.lineState == 6) {
+            $(".subscribe").show();  //预约
+            $(".live_streaming").hide();  //直播中
+        }else if (data.resultObject.lineState == 3) {
+            $(".subscribe").show();  //预约
+            $(".live_streaming").hide();  //直播中
+        };
+
+        // 点击关注
+        // $(".booking_person").click(function(){
+        $('.attention_main').on('click','.booking_person',function(){
+            teacherId = data.resultObject.userLecturerId; // 讲师Id
+            //type 1 增加关注 2 取消关注
+            var type = 1;
+            var htmlstr = $(".booking_person").find('p').html();
+            if (htmlstr == "加关注") { // 增加关注
+                type = 1;   //1 增加关注
+            } else {
+                type = 2;   //2 取消关注
+            }
+            requestService("/xczh/myinfo/updateFocus", {
+                lecturerId: teacherId,
+                type: type
+            }, function (data) {
+                if (data.success) {
+                    if (htmlstr == "已关注") {
+
+                        // my_follow(teacherId,2);
+                        $(".booking_person").find('img').attr('src','/xcview//images/weigz.png');
+                        $(".booking_person").find('p').html("加关注");
+                        $(".booking_person").removeClass("booking_person_bg_two");
+                        $(".booking_person").addClass("booking_person_bg");
+                    } else {
+
+                        // my_follow(teacherId,1);
+                        $(".booking_person").find('img').attr('src','/xcview//images/yigz.png');
+                        $(".booking_person").find('p').html("已关注");
+                        $(".booking_person").removeClass("booking_person_bg");
+                        $(".booking_person").addClass("booking_person_bg_two");
+                        jqtoast("关注成功");
+                    }
+                    /*if (data.resultObject.type == 1) {
+                        $(".booking_person").find('img').attr('src','/xcview//images/yigz.png');
+                        $(".booking_person").find('p').html("已关注");
+                        $(".booking_person").removeClass("booking_person_bg");
+                        $(".booking_person").addClass("booking_person_bg_two");
+                    }else{
+                        $(".booking_person").find('img').attr('src','/xcview//images/weigz.png');
+                        $(".booking_person").find('p').html("加关注");
+                        $(".booking_person").removeClass("booking_person_bg_two");
+                        $(".booking_person").addClass("booking_person_bg");
+                    };*/
+                }
+            })
+
+        });
+
+    }
+});
+
 
 //音频播放
 function audioPlay() {
@@ -213,14 +321,14 @@ function getLiveAudioContentList(pageNumber,downOrUp) {
             var records = data.resultObject.records;
 
             if(downOrUp=='down'){
-                if(obj.length==0){
+                if(records.length==0){
                 }else{
                 }
                 // 列表
                 $(".scroll-wrapper").prepend(template('msg',{items:records}));
-                miniRefresh1.endDownLoading(true);// 结束下拉刷新
+                miniRefreshArr[1].endDownLoading(true);// 结束下拉刷新
             } else if(records.length==0){
-                miniRefresh1.endDownLoading(true);// 结束上拉加载
+                miniRefreshArr[1].endDownLoading(true);// 结束上拉加载
             } else {
                 $(".scroll-wrapper").html(template('msg',{items:records}));
                 //miniRefresh1.endUpLoading(false);
@@ -255,6 +363,8 @@ function getLiveAudioContentList(pageNumber,downOrUp) {
                 currenttimeLine.btn.next().css('left',Math.ceil(audio.currentTime / audio.duration * 100) + '%')
             }
 
+            //document.querySelector('.scroll-box').addEventListener('scroll', _.debounce(loadmore, 800),false)
+
         }
     },false);
 
@@ -262,6 +372,7 @@ function getLiveAudioContentList(pageNumber,downOrUp) {
 
 //获取讨论内容列表
 function getcontentList(pageNumber,downOrUp) {
+    initMiniRefreshs(2);
     if($(".problem_label_put").is(':checked')) {
         isQuestion = true;
     } else {
@@ -283,12 +394,12 @@ function getcontentList(pageNumber,downOrUp) {
                 }
                 // 列表
                 $(".comment_area_main").html(template('comment_area_list',{items:obj}));
-                miniRefresh.endDownLoading(true);// 结束下拉刷新
+                miniRefreshArr[2].endDownLoading(true);// 结束下拉刷新
             } else if(obj.length==0){
-                miniRefresh.endUpLoading(true);// 结束上拉加载
+                miniRefreshArr[2].endUpLoading(true);// 结束上拉加载
             } else {
                 $(".comment_area_main").append(template('comment_area_list',{items:obj}));
-                miniRefresh.endUpLoading(false);
+                miniRefreshArr[2].endUpLoading(false);
             }
         }
     });
@@ -389,12 +500,55 @@ function biubiubiu(){
 }
 
 
+
+var miniRefreshArr = [];
+var initMiniRefreshs = function(index) {
+
+    //listDomArr[index] = document.querySelector('#listdata' + index);
+
+    miniRefreshArr[index] = new MiniRefresh({
+        container: '#minirefresh' + index,
+        down: {
+            callback: function() {
+                if(index == 1){
+                    page1++;
+                    getLiveAudioContentList(page1,'down');
+                } else {
+                    page = 1;
+                    getcontentList(page,'down');
+                }
+                /*setTimeout(function() {
+                    // 每次下拉刷新后，上拉的状态会被自动重置
+                    appendTestData(listDomArr[index], 10, true, index);
+                    miniRefreshArr[index].endDownLoading(true);
+                }, requestDelayTime);*/
+            }
+        },
+        up: {
+            isAuto: false,
+            callback: function() {
+                if(index == 1){
+                    miniRefreshArr[index].endUpLoading(true);
+                } else {
+                    page++;
+                    getcontentList(page,'up');
+                }
+                /*setTimeout(function() {
+                    appendTestData(listDomArr[index], 10, false, index);
+                    miniRefreshArr[index].endUpLoading(listDomArr[index].children.length >= maxDataSize ? true : false);
+                }, requestDelayTime);*/
+            }
+        }
+    });
+};
+
+
 //刷新
 // 初始化页码
 var page = 1;
 
 // miniRefresh 对象
-var miniRefresh = new MiniRefresh({
+/*var miniRefresh = new MiniRefresh({
     container: '#minirefresh',
     down: {
         //isLock: true,//是否禁用下拉刷新
@@ -411,14 +565,14 @@ var miniRefresh = new MiniRefresh({
             getcontentList(page,'up');
         }
     }
-});
+});*/
 
 //音频直播课程内容列表刷新
 // 初始化页码
-/*var page1 = 1;
+var page1 = 1;
 
 // miniRefresh 对象
-var miniRefresh1 = new MiniRefresh({
+/*var miniRefresh1 = new MiniRefresh({
     container: '#minirefresh1',
     down: {
         //isLock: true,//是否禁用下拉刷新
@@ -430,26 +584,4 @@ var miniRefresh1 = new MiniRefresh({
     }
 });*/
 
-/**
-头部课件区域渲染
-**/
-requestService("/xczh/course/liveDetails",{courseId:courseId},function (data) {
-    if (data.success == true) {
-        
-        //lineState 直播课程状态 1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
-        if (data.resultObject.lineState == 1) {
-            $('.surface_plot').hide();  //即将直播位置
-            $('.courseware').show();    //课件
-        }else{
-            $('.courseware').hide();
-            $('.surface_plot').show();
-            // 开播前10分钟详情
-            $('.surface_plot').html(template('surface_plot', {items: data.resultObject}));
-        };
 
-
-        //关注区域
-        $('.attention_main').html(template('attention_main', {items: data.resultObject}));
-        
-    }
-});

@@ -36,10 +36,18 @@ $(function () {
         		$(".othor-set .littleBox p:nth-child(6)").click();
         	}
         }
-        if (localStorage.docTblSta == 'doc_zhuanlan') $('.select_list li:nth-child(5)').click();
-        if (localStorage.docTblSta == 'doc_book') $('.select_list li:nth-child(6)').click();
-        if (localStorage.docTblSta == 'doc_media') $('.select_list li:nth-child(7)').click();
-        if (localStorage.docTblSta == 'doc_admit') $('.select_list li:nth-child(8)').click();
+        if (localStorage.docTblSta == 'doc_shopping'){
+        	$('.select_list li:nth-child(5)').click();
+        	if(localStorage.menuCache=="menu5-1"){
+        		$(".othor-shopping .littleBox p:nth-child(1)").click();
+        	}else if(localStorage.menuCache=="menu5-2"){
+        		$(".othor-shopping .littleBox p:nth-child(2)").click();
+        	}
+        }
+        if (localStorage.docTblSta == 'doc_zhuanlan') $('.select_list li:nth-child(6)').click();
+        if (localStorage.docTblSta == 'doc_book') $('.select_list li:nth-child(7)').click();
+        if (localStorage.docTblSta == 'doc_media') $('.select_list li:nth-child(8)').click();
+        if (localStorage.docTblSta == 'doc_admit') $('.select_list li:nth-child(9)').click();
     }, 100)
 
 
@@ -85,31 +93,44 @@ $(function () {
 
     $(".select_list .select-ud").bind('click', function (event) {
         event.stopPropagation();
-        $(".select_list .littleBox").stop().slideToggle();
+//      $(".select_list .littleBox").stop().slideToggle();
+//      新加
+		$(".select_list .littleBox").stop().slideUp();
+		$(this).find(".littleBox").stop().slideToggle();
     })
 
     $(".setTop").click(function () {
         $(".select_list .littleBox").slideUp()
         $(".select-ud").removeAttr("id")
     })
-    //对课程目录下小的下拉div进行操作
-    $(".select_list .littleBox p").bind('click', function (event) {
+    //对课程目录下小的下拉div进行操作  师承收徒
+    $(".select_list .littleBox .comment-menue").bind('click', function (event) {
         event.stopPropagation();
-        $(".select_list .littleBox p").removeClass("activeP");
+        $(".select_list .littleBox .comment-menue").removeClass("activeP");
         $(this).addClass("activeP");
         $(".contentWrap .little_box").hide().eq($(this).index()).show();
+        window.localStorage.menuCache = $(this).attr('data-name')
+    })
+      //对课程目录下小的下拉div进行操作 健康好货
+    $(".select_list .littleBox .shopping-menue").bind('click', function (event) {
+        event.stopPropagation();
+        $(".select_list .littleBox .shopping-menue").removeClass("activeP");
+        $(this).addClass("activeP");
+        $(".contentWrap .shopping_box").hide().eq($(this).index()).show();
         window.localStorage.menuCache = $(this).attr('data-name')
     })
 
     //		下拉小箭头设置
     $(".select-ud").click(function () {
         if ($(this).attr("id") == "open_list") {
-            $(this).removeAttr("id")
-            $(".select_list .arrow_jt").attr("src","/web/images/icon-select-right.png")
-
+            $(this).removeAttr("id");
+            $(this).find(".arrow_jt").attr("src","/web/images/icon-select-right.png");
+			
         } else {
-            $(this).attr("id", "open_list")
-             $(".select_list .arrow_jt").attr("src","/web/images/icon-select-down.png")
+        	$(".select-ud").removeAttr("id");
+            $(this).attr("id", "open_list");
+            $(".select-ud").attr("src","/web/images/icon-select-right.png");
+            $(this).find(".arrow_jt").attr("src","/web/images/icon-select-down.png")
 
         }
     })
@@ -452,17 +473,20 @@ var activityType;
 
 //  视频/图片/医案tab颜色变化
 	function activityTabClass(){
-		if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==true && $(".consilia-wrap").hasClass("hide")==true){
+		if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==true && $(".consilia-wrap").hasClass("hide")==true && $(".shopping-wrap").hasClass("hide")==true){
 		    $(".activity-nav li").removeClass("active");
-		}else if($(".photo-wrap").hasClass("hide")==false && $(".video-wrap").hasClass("hide")==true && $(".consilia-wrap").hasClass("hide")==true){
+		}else if($(".photo-wrap").hasClass("hide")==false && $(".video-wrap").hasClass("hide")==true && $(".consilia-wrap").hasClass("hide")==true && $(".shopping-wrap").hasClass("hide")==true){
 		    $(".activity-nav li").removeClass("active");
 		    $(".activity-nav li:first").addClass("active");
-		}else if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==false && $(".consilia-wrap").hasClass("hide")==true){
+		}else if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==false && $(".consilia-wrap").hasClass("hide")==true && $(".shopping-wrap").hasClass("hide")==true){
 		    $(".activity-nav li").removeClass("active");
 		    $(".activity-nav li:nth-child(2)").addClass("active");
-		}else if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==true && $(".consilia-wrap").hasClass("hide")==false){
+		}else if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==true && $(".consilia-wrap").hasClass("hide")==false && $(".shopping-wrap").hasClass("hide")==true){
 		    $(".activity-nav li").removeClass("active");
 		    $(".activity-nav li:nth-child(3)").addClass("active");
+		}else if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==true && $(".consilia-wrap").hasClass("hide")==true && $(".shopping-wrap").hasClass("hide")==false){
+		    $(".activity-nav li").removeClass("active");
+		    $(".activity-nav li:nth-child(4)").addClass("active");
 		}
 	}
 
@@ -487,6 +511,15 @@ var activityType;
     			clearTextarea()   //清空发布状态
     			return
 			});
+    	}else if($(".shopping-wrap").hasClass("hide")==false){
+    		confirmBox.open("标题","确定放弃商品编辑吗？",function(closefn){
+    			$('#photo_picIpt').click();
+    			$(".activity-nav li").removeClass("active");
+    			closeShopping();
+    			closefn();
+    			clearTextarea()   //清空发布状态
+    			return
+			});
     	}else{
     		$('#photo_picIpt').click();
     	}
@@ -505,8 +538,15 @@ var activityType;
 			});
     	}else if($(".consilia-wrap").hasClass("hide")==false){
     		confirmBox.open("标题","确定放弃医案编辑吗？",function(closefn){
-				closeConsilia()
-				
+				closeConsilia()				
+				$(".video-wrap").removeClass("hide");
+				activityTabClass()
+				closefn();
+				clearTextarea()   //清空发布状态
+			});
+    	}else if($(".shopping-wrap").hasClass("hide")==false){
+    		confirmBox.open("标题","确定放弃商品编辑吗？",function(closefn){
+    			closeShopping()				
 				$(".video-wrap").removeClass("hide");
 				activityTabClass()
 				closefn();
@@ -523,9 +563,8 @@ var activityType;
 		$(".comment-wrong").addClass("hide");  //清除提示
 		$(".add-consilia").click();      //指向医案
 		if($(".photo-wrap").hasClass("hide")==false){
-	    		confirmBox.open("标题","确定放弃视频图片吗？",function(closefn){
+	    		confirmBox.open("标题","确定放弃图片编辑吗？",function(closefn){
 	    			closeImages();
-	    			
 	    			$(".consilia-wrap").removeClass("hide");
 	    			activityTabClass()
 					closefn();
@@ -535,8 +574,16 @@ var activityType;
 	    	}else if($(".video-wrap").hasClass("hide")==false){
 	    		confirmBox.open("标题","确定放弃视频编辑吗？",function(closefn){
 	      			closeVideo();
-	      			
 	      			$(".consilia-wrap").removeClass("hide");
+	      			activityTabClass()
+					clearConsilia();  //清空文章
+					closefn();
+					clearTextarea()   //清空发布状态
+				});
+	    	}else if($(".shopping-wrap").hasClass("hide")==false){
+	    		confirmBox.open("标题","确定放弃商品编辑吗？",function(closefn){
+	    			closeShopping()				
+					$(".consilia-wrap").removeClass("hide");
 	      			activityTabClass()
 					clearConsilia();  //清空文章
 					closefn();
@@ -544,6 +591,39 @@ var activityType;
 				});
 	    	}else{
 	    			$(".consilia-wrap").removeClass("hide");
+	    			activityTabClass()
+	
+	    	}
+	})  
+//	点击商品
+	$(".shopping-nav").click(function(){
+		$(".comment-wrong").addClass("hide");  //清除提示
+		if($(".photo-wrap").hasClass("hide")==false){
+	    		confirmBox.open("标题","确定放弃图片编辑吗？",function(closefn){
+	    			closeImages();
+	    			$(".shopping-wrap").removeClass("hide");
+	    			activityTabClass()
+					closefn();
+					clearTextarea()   //清空发布状态
+				});
+	    	}else if($(".video-wrap").hasClass("hide")==false){
+	    		confirmBox.open("标题","确定放弃视频编辑吗？",function(closefn){
+	      			closeVideo();
+	      			$(".shopping-wrap").removeClass("hide");
+	      			activityTabClass()
+					closefn();
+					clearTextarea()   //清空发布状态
+				});
+	    	}else if($(".consilia-wrap").hasClass("hide")==false){
+	    		confirmBox.open("标题","确定放弃医案编辑吗？",function(closefn){
+					closeConsilia()				
+					$(".shopping-wrap").removeClass("hide");
+					activityTabClass()
+					closefn();
+					clearTextarea()   //清空发布状态
+				});
+	    	}else{
+	    			$(".shopping-wrap").removeClass("hide");
 	    			activityTabClass()
 	
 	    	}
@@ -564,7 +644,11 @@ var activityType;
 		closeConsilia();
 		activityTabClass();
 	})
-
+//	关闭商品
+	$(".close-shopping").click(function(){
+		closeShopping();
+		activityTabClass();
+	})
 	
 
 //	上传动态图片
@@ -801,6 +885,49 @@ var activityType;
 }
 
 template.config("escape", false);
+
+
+//-------------------------------------------------商品推荐---------------------------------------------
+
+$(".shopping-edit-box li").click(function(){
+	$(".shopping-edit-box li").removeClass("active");
+	$(this).addClass("active");
+})
+//	五星好评
+
+	$('.our-ratings img').each(function(index){  
+        var star='/web/images/star-dim.png';    //普通灰色星星图片的存储路径  
+        var starRed='/web/images/star-light.png';     //红色星星图片存储路径  
+        var prompt=['1分','2分','3分','4分','5分'];   //评价提示语  
+        this.id=index;      //遍历img元素，设置单独的id  
+        $(this).on("mouseover click",function(){    //设置鼠标滑动和点击都会触发事件  
+            $('.our-ratings img').attr('src',star);//当“回滚”、“改变主意”时，先复位所有图片为木有打星的图片颜色  
+            $(this).attr('src',starRed);        //设置鼠标当前所在图片为打星颜色图  
+            $(this).prevAll().attr('src',starRed);  //设置鼠标当前的前面星星图片为打星颜色图  
+//          $(this).siblings('span').text(prompt[this.id]);     //根据id的索引值作为数组的索引值  
+        });
+    });  
+//	选择要推荐的商品
+//	function selectWareImg(){
+		$(".select-ware-img").click(function(){
+			if($(this).find("img").length!=0){
+				$(".select-ware-img").html("").css({"border-color":"#bbb9b9"});
+		
+			}else{
+				$(".select-ware-img").html("").css({"border-color":"#bbb9b9"});
+				$(this).append('<img src="/web/images/submit.png"/>').css({"border-color":"#35b658"});	
+			}
+			
+		})
+	
+//	}
+
+
+
+
+
+
+
 
 //	动态列表	
 var posts;
@@ -1515,11 +1642,14 @@ function btnColorReply(){
 	        'selectedText': 'cat',size:10
 	});
 
+//	健康好货开始  我的商品
 
 
-
-
-
+//	我的订单
+$(".goods-status ul li").click(function(){
+	$(".goods-status ul li").removeClass("active");
+	$(this).addClass("active");
+})
 
 
 
@@ -3136,6 +3266,9 @@ function echoMedia(index) {
 	}
 	function closeConsilia(){
 		$(".consilia-wrap").addClass("hide");
+	}
+	function closeShopping(){
+		$(".shopping-wrap").addClass("hide");
 	}
 	function clearTextarea(){
 		$(".publish-activity").val("");

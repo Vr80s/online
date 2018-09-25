@@ -271,7 +271,7 @@ function getInfoFromData(messageid) {
 /*
 document.querySelector('.scroll-box').addEventListener('scroll', _.debounce(loadmore, 800),false)*/
 
-function loadmore(){
+/*function loadmore(){
     var t = $('.scroll-box').scrollTop(),h = $('.scroll-box').height(),h_ = $('.scroll-wrapper').height();
     if(pending){
         return;
@@ -307,7 +307,7 @@ function loadmore(){
         },1000)
     }
 
-}
+}*/
 //初始化
 /*window.onload = function () {
     var LastPlay = getLastPlay()
@@ -323,7 +323,7 @@ function loadmore(){
 
 
 // 语音直播点击事件
-var htmlstr = $(".booking_person").find('p').html();
+/*var htmlstr = $(".booking_person").find('p').html();
 // $(".booking_person").click(function(){
 $('.attention_main').on('click','.booking_person',function(){
     if (htmlstr == "已关注") {
@@ -338,7 +338,7 @@ $('.attention_main').on('click','.booking_person',function(){
         $(".booking_person").addClass("booking_person_bg_two");
     };
 
-});
+});*/
 
 // 点击提问获取
 $(".chat_radio").click(function(){
@@ -484,6 +484,7 @@ $(".comment_area_close").click(function(){
     $(".barrage_switch").show();  /*弹幕*/
     $(".chat_all").show();      /*查看更多评论*/
     $(".comment_area").hide();  /*隱藏全部評論*/
+    initMiniRefreshs(1);
 });
 
 // 点击发送--还原输入区域  comment_area_close

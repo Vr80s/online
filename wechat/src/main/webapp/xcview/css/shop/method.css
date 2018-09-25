@@ -1,0 +1,300 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+img{
+	border: 0;
+}
+li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+}
+.both{
+	clear: both;
+}
+
+body{
+	font-family: "Helvetica";
+}
+body{
+    width: 7.5rem;
+    margin: 0 auto;
+}
+/*头部开始*/
+.header_height{
+	width: 7.5rem;
+	height: .88rem;
+	margin: 0 auto;
+	margin-bottom: .2rem;
+}
+header {
+    width: 7.5rem;
+    height: 0.88rem;
+    line-height: 0.88rem;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    /*left: 0;*/
+    z-index: 9;
+}
+.header {
+    width: 6.98rem;
+    height: 100%;
+    /*margin-left: 0.553rem;*/
+    /* padding-top: 0.298rem; */
+    margin: 0 auto;
+}
+.header_return {
+    width: 2.15rem;
+    height: 0.88rem;
+    /* background: red; */
+    margin-right: 0.362rem;
+    float: left;
+    position: absolute;
+    z-index: 10;
+}
+.header_return img {
+    background-size: 100% 100%;
+    width: 0.24rem;
+    height: 0.42rem;
+    margin-top: 0.22rem;
+    display: block;
+    /*margin-left: 0.26rem;*/
+}
+.header_title {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 0.36rem;
+	color: #333333;
+    text-align: center;
+    color: #333;
+    z-index: 9;
+    border-bottom: 1px solid #D8DDE6;
+}
+.header_share{
+	width: 2.15rem;
+    height: 1.8rem;
+    /* background: red; */
+    margin-right: 0.362rem;
+/*    float: right;*/
+    position: absolute;
+    z-index: 10;
+    right: 0.362rem;
+    text-align: right;
+}
+.header_share img {
+    width: 0.894rem;
+    height: 0.915rem;
+}
+/*头部结束*/
+
+
+/*中间内容开始*/
+
+
+
+/*优惠券开始*/
+.purchase_list{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	margin-bottom: 0.426rem;
+}
+.purchase_list_main{
+	width: 7.24rem;
+	height: 100%;
+    float: right;
+}
+.purchase_list_one{
+	width: 100%;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	border-bottom: 1px solid #d8dde6;
+}
+.purchase_list_one_left{
+	font-size: 0.28rem;
+	color: #333;
+	float: left;
+}
+.purchase_list_one_left img{
+	width: 0.24rem;
+	height: 0.24rem;
+	margin-right: 0.1rem;
+}
+.purchase_list_one_right{
+	font-size: 0.28rem;
+	color: #333;
+	float: right;
+}
+.purchase_list_one_right span{
+	font-size: 0.3rem;
+	color: #F97215;
+}
+.purchase_list_one_right img{
+	width: 0.319rem;
+	height: 0.532rem;
+	margin-left: 0.382rem;
+    margin-right: 0.553rem;
+}
+
+
+
+.purchase_list_two{
+	width: 100%;
+	height: 1.702rem;
+	line-height: 1.702rem;
+	border-bottom: 1px solid #d8dde6;
+}
+.purchase_list_two_left{
+	font-size: 0.596rem;
+	color: #888;
+	float: left;
+}
+.purchase_list_two_left img{
+	width: 0.511rem;
+	height: 0.511rem;
+	margin-right: 0.212rem;
+}
+.purchase_list_two_right{
+	font-size: 0.596rem;
+	color: #888;
+	float: right;
+}
+.purchase_list_two_right span{
+	font-size: 0.766rem;
+	color: #F97B49;
+}
+.purchase_list_two_right img{
+	width: 0.319rem;
+	height: 0.532rem;
+	margin-left: 0.382rem;
+    margin-right: 0.553rem;
+}
+.purchase_list_main .div:last-child{
+	border: 0;
+	border: none;
+}
+.price{
+	width: 100%;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	background: #fff;
+}
+
+.price .purchase_list_one_right{
+	margin-right: 0.26rem;
+}
+.price .purchase_list_one{
+	border-bottom: 0;
+}
+
+
+/*支付方式开始*/
+.payment{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+    margin-top: 0.2rem;
+    padding: 0.2rem 0;
+}
+.payment_title{
+	font-size: 0.28rem;
+    color: #333333;
+    margin-bottom: 0.29rem;
+    margin-left: 0.26rem;
+}
+.payment_ul{
+	margin-bottom: 0.29rem;
+}
+.payment_ul ul li{
+	font-size: 0.28rem;
+    color: #666;
+    float: left;
+    width: 2.12rem;
+    height: 1rem;
+    line-height: 1rem;
+    /* border: 1px solid #DEDEDE; */
+    border-radius: 4px;
+    margin-left: 0.26rem;
+    text-align: center;
+    position: relative;
+}
+.ul_li{
+	border: 1px solid #DEDEDE;
+	
+	
+	/*background: url("");*/
+}
+.ul_li0{
+	border: 1px solid #F97B49;
+    background: url("/xcview/images/pitch.png") 1.84rem .72rem  no-repeat;
+    background-size: .42rem .42rem;
+}
+
+.payment_ul ul li img{
+	vertical-align: middle;
+    margin-right: 0.16rem;
+}
+.BTCpanda{
+	width: 0.6rem;
+	height: 0.49rem;
+}
+.alipay_img{
+	width: 1.277rem;
+	height: 1.064rem;
+}
+.weixin_img{
+	width: 0.6rem;
+	height: 0.54rem;
+}
+.balance{
+	font-size: 0.24rem;
+	color: #666;
+	margin-left: 0.5rem;
+}
+/*支付方式结束*/
+
+
+/*中间内容结束*/
+
+/*底部开始*/
+.footer_perch{
+	width: 100%;
+	height: 2.085rem;
+	margin-bottom: 0.426rem;
+}
+.footer{
+	width: 6.98rem;
+    height: 0.72rem;
+    line-height: 0.72rem;
+    text-align: center;
+    font-size: 0.3rem;
+    background: #fff;
+    background: #F97215;
+    border-radius: 100px 100px 100px 100px;
+    margin: 0 auto;
+    margin-top: .5rem;
+}
+.footer_div{
+	width: 100%;
+	height: 0.72rem;
+	line-height: 0.72rem;
+	color: #fff;
+}
+.footer_div_btn{
+	width: 100%;
+	height: 0.98rem;
+	line-height: 0.98rem;
+	color: #fff;
+}
+/*底部结束*/
+/*中间内容结束*/
+
+
+
+

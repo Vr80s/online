@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" href="/xcview/css/shop/shop-comment.css">
+		<link rel="stylesheet" href="/xcview/css/shop/shop-refund-details.css">
+		<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+		<script>
+		// rem响应式处理
+			var kk=document.documentElement.clientWidth;
+			if(kk>750){
+				kk=750
+			}
+			document.documentElement.style.fontSize=kk/7.5+"px";
+		</script>
+	</head>
+	<body>
+		<div class="wp">
+			<div class="header-wrap">			
+				<div class="header">
+					<img class="return-img" src="/xcview/images/screen_close.png" alt="返回" />
+					<h3>退款详情</h3>
+					<div class="news-wrap">
+						<a href="">
+							<img class="news-img" src="/xcview/images/xiaoxi.png" alt="消息" />
+							<p class="news-num">12</p>
+						</a>
+					</div>
+				</div>				
+			</div>
+			<div class="refund-status-wrap">			
+				<!--退款中、退款成功-->
+				<div class="refunds-wrap" style="display: none;">
+					<div class="refund-top">
+						<ul>
+							<li class="refund-status">
+								<p>退款中</p>
+								<span>2018-9-11 10:58</span>
+							</li>
+							<li class="refund-money">
+								<p>退款总金额</p>
+								<span>￥46.52</span>
+							</li>
+							<li class="refund-card">
+								<p>退回银行卡（尾号4638）</p>
+								<span>￥46.52</span>
+							</li>
+						</ul>
+					</div>
+					<div class="ferund-centent">
+						<div class="progress-bar-img">
+							<img src="/xcview/images/progress-bar.png" alt="进度条" />
+						</div>
+						<div class="acceptance-status">
+							<div class="acceptance-left z">
+								<span>卖家退款</span>
+								<p>2018-7-30 20:15</p>
+							</div>
+							<div class="acceptance-middle z">
+								<span>银行受理</span>
+								<p>2018-7-30 20:15</p>
+							</div>
+							<div class="acceptance-right y">
+								<span>退款成功</span>
+								<p>2018-7-30 20:15</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--退款关闭-->
+				<div class="refund-top" style="display: none;">
+					<div class="refund-time">
+						<span class="refuse-status">退款关闭</span>
+						<p>2018-9-11 10:58</p>
+					</div>
+					<div class="refund-reason-top">
+						<p class="refund-revoke">您已撤销本次退款申请，如问题仍未解决，您可以重新发起申请</p>
+					</div>
+				</div>
+				<!--商家拒绝-->
+				<div class="refund-top" style="display: none;">
+					<div class="refund-time">
+						<span class="refuse-status">商家已拒绝</span>
+						<p>若您在<span> 06天23时59分56秒 </span>内未处理，则本次申请将自动关闭</p>
+					</div>
+					<div class="refund-reason-top">
+						<p>拒绝原因：其他</p>
+						<p>拒绝说明：已通过红包的方式到您支付宝了，麻烦您查看一下哦，有什么问题麻烦旺旺联系客服哦</p>
+					</div>
+					<button class="modify-apply y" type="button"><a href="">修改申请</a></button>
+				</div>
+				<!--等待处理-->
+				<div class="refund-top">
+					<div class="refund-time">
+						<span class="refuse-status">请等待商家处理</span>
+						<p>若商家在<span> 06天23时59分56秒 </span>内未处理，则申请达成并退款给您</p>
+					</div>
+					<div class="refund-reason-top">
+						<p>商家同意或超时未处理，系统将退款给您。</p>
+						<p>如果商家拒绝，您可以修改退款申请后再次发起</p>
+					</div>
+					
+					<button class="modify-apply y" type="button"><a href="">修改申请</a></button>
+					<button class="discharge-petition y" type="button">撤销申请</button>
+				</div>
+	
+			</div>		
+			
+			
+			
+			<!--查看完整协商记录-->
+			<div class="see-mode">
+				<p>查看完整协商记录</p>
+				<img src="/xcview/images/rightj.png" />
+			</div>
+			<!--退款信息-->
+			<div class="refund-inf-wrap">
+				<div class="refund-title-inf">
+					<p>退款信息</p>
+				</div>
+				<div class="refund-ware-modal">
+					<div class="ware-img z">
+						<img src="/xcview/images/regards.png"/>
+					</div>
+					<div class="ware-right-data y">
+						<p class="ware-title">汉方气血茶好气色喝回来非一般的红枣枸杞茶</p>
+						<p class="ware-save">礼盒（库存100件）</p>
+						<p class="ware-price">￥1080.00<span>x1</span></p>
+					</div>
+				</div>
+				<div class="refund-reason">
+					<ul>
+						<li>
+							<span>退款原因：</span>
+							<span>其他</span>
+						</li>
+						<li>
+							<span>退款方式：</span>
+							<span>退货退款</span>
+						</li>
+						<li>
+							<span>退款金额：</span>
+							<span>￥0.01</span>
+						</li>
+						<li>
+							<span>申请时间：</span>
+							<span>2018-10-20 12:00</span>
+						</li>
+						<li>
+							<span>退款编号：</span>
+							<span>10455287345247491</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="refund-bottom">
+				<div class="refund-jump">
+					<img src="/xcview/images/zixun.png"/>
+					<p>联系客服</p>
+				</div>
+				
+			</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+		<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script>
+		<script type="text/javascript" src="/xcview/js/common/template.js"></script> 
+	</body>
+</html>

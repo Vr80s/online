@@ -56,7 +56,8 @@
         oc.smallimg_path AS smallimgPath,
         oc.current_price*10 AS currentPrice,
         oc.original_cost*10 as originalCost,
-        oc.is_free AS isFree
+        oc.is_free AS isFree,
+        oc.is_record record
     </sql>
 
     <select id="selectWatchHistory" resultType="com.xczhihui.course.vo.WatchHistoryVO">
