@@ -11,6 +11,7 @@
 	line-height: 0.88rem;
 	position: fixed;
 	top: 0;
+	z-index: 10;
 }
 .header .return-img{
 	width: 0.24rem;
@@ -29,6 +30,7 @@
 	overflow: hidden;
 	padding: 0.2rem 0;
 	box-sizing: border-box;
+	margin-bottom: 0.9rem;
 }
 .select-sare-wrap{
 	overflow: hidden;
@@ -255,4 +257,34 @@
 	position: absolute;
 	right: -0.7rem;
 	bottom: 0;
+}
+.bottom-input{
+	width: 100%;
+	background: white;
+	overflow: hidden;
+	position: fixed;
+	bottom: 0;
+	padding: 0.2rem 0;
+
+}
+.bottom-input input{
+	width: 5rem;
+	min-height: 0.6rem;
+    max-height: 1.6rem;
+	background: #f0f0f0;
+	outline: none;
+	border: 0;	
+	float: left;	
+	border-radius: 1rem;
+	margin-left: 0.3rem;
+	padding: 0 0.2rem;
+    box-sizing: border-box;
+}
+.bottom-input .brow{
+    width: 0.6rem;
+    margin-left: 0.4rem;
+}
+.bottom-input .select-img{
+    width: 0.6rem;
+    margin-right: 0.3rem;
 }
