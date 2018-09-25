@@ -39,6 +39,7 @@
         <module>./online-common</module>
         <module>./medical-api</module>
         <module>./course-api</module>
+        <module>./shop-api</module>
     </modules>
 
     <dependencyManagement>
