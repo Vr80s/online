@@ -42,7 +42,6 @@ public class ReviewVO implements Serializable {
     
     private UsersVO user;
     
-
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -156,5 +155,15 @@ public class ReviewVO implements Serializable {
 	public void setUser(UsersVO user) {
 		this.user = user;
 	}
+
+	@Override
+	public String toString() {
+		return "ReviewVO [id=" + id + ", createdDate=" + createdDate + ", lastmodifieddate=" + lastmodifieddate
+				+ ", version=" + version + ", content=" + content + ", ip=" + ip + ", isshow=" + isshow + ", score="
+				+ score + ", specifications=" + specifications + ", forreviewId=" + forreviewId + ", memberId="
+				+ memberId + ", productId=" + productId + ", storeId=" + storeId + ", user=" + user + "]";
+	}
     
+	
+	
 }

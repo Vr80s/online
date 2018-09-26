@@ -81,6 +81,26 @@ public class Review extends BaseEntity<Long> {
 	@Max(5)
 	@Column(nullable = false, updatable = false)
 	private Integer score;
+	
+	/**
+	 * 卖家服务
+	 */
+	@JsonView(BaseView.class)
+	@NotNull
+	@Min(1)
+	@Max(5)
+	@Column(nullable = false, updatable = false)
+	private Integer seller;
+
+	/**
+	 * 物流服务
+	 */
+	@JsonView(BaseView.class)
+	@NotNull
+	@Min(1)
+	@Max(5)
+	@Column(nullable = false, updatable = false)
+	private Integer logistics;
 
 	/**
 	 * 内容
@@ -336,6 +356,23 @@ public class Review extends BaseEntity<Long> {
 	 */
 	public void setSpecifications(List<String> specifications) {
 		this.specifications = specifications;
+	}
+
+	
+	public Integer getSeller() {
+		return seller;
+	}
+
+	public void setSeller(Integer seller) {
+		this.seller = seller;
+	}
+
+	public Integer getLogistics() {
+		return logistics;
+	}
+
+	public void setLogistics(Integer logistics) {
+		this.logistics = logistics;
 	}
 
 	/**

@@ -12,6 +12,23 @@ if(isNotBlank(openId)){
     localStorage.setItem("openid",openId);
 }
 
+
+//  var   saveData = {};
+//  saveData.logistics = 1;
+//  saveData.seller = 1;
+//
+//  var saveDataAry=[];  
+//  var data1={"id":1,"name":"gz","images":["111","222"]};  
+//  var data2={"id":2,"name":"gr","images":["111","222"]};  
+//  saveDataAry.push(data1);  
+//  saveDataAry.push(data2);         
+//
+//  saveData.reviewEntryList=saveDataAry;
+//
+//  requestService("/xczh/shop/goods/addReview", {"postdata":JSON.stringify(saveData)}, function (data) {
+//  })
+
+
 /**
  * 通过key 得到value  course_id=100 通过course_id 得到 100
  * @param search

@@ -27,6 +27,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -41,7 +42,6 @@ import net.shopxx.entity.Product;
 import net.shopxx.entity.ProductCategory;
 import net.shopxx.entity.ProductTag;
 import net.shopxx.entity.Promotion;
-import net.shopxx.entity.SpecificationItem;
 import net.shopxx.entity.Store;
 import net.shopxx.entity.StoreProductCategory;
 import net.shopxx.exception.ResourceNotFoundException;
@@ -49,7 +49,7 @@ import net.shopxx.merge.service.GoodsService;
 import net.shopxx.merge.service.ShopCategoryService;
 import net.shopxx.merge.service.ShopReviewService;
 import net.shopxx.merge.vo.GoodsPageParams;
-import net.shopxx.merge.vo.ProductCategoryVO;
+import net.shopxx.merge.vo.ReviewVO;
 import net.shopxx.service.AttributeService;
 import net.shopxx.service.BrandService;
 import net.shopxx.service.ProductCategoryService;
@@ -473,4 +473,74 @@ public class ProductController extends BaseController {
 		System.out.println("===============");
         return list;
 	}
+	
+	
+	@GetMapping("/review1")
+    public @ResponseBody Object lalala(Long orderId, ReviewEntryListForm reviewEntryListForm) {
+		
+		System.out.println("=======hahahahaha========");
+		System.out.println("物流服务"+reviewEntryListForm.getLogistics());
+		System.out.println("卖家服务"+reviewEntryListForm.getSeller());
+		List<ReviewVO> reviewEntryList = reviewEntryListForm.getReviewEntryList();
+		
+		for (ReviewVO reviewVO : reviewEntryList) {
+			System.out.println("reviewVo:"+reviewVO.toString());
+		}
+		
+		
+		
+        return null;
+    }
+	
+	   /**
+		 * FormBean - 评论条目
+		 * 
+		 * @author SHOP++ Team
+		 * @version 6.1
+		 */
+		public static class ReviewEntryListForm {
+
+			/**
+			 * 评论条目
+			 */
+			private List<ReviewVO> reviewEntryList;
+			
+			/**
+			 * 物流服务
+			 */
+			private Integer logistics;
+			
+			/**
+			 * 卖家服务
+			 */
+			private Integer seller;
+
+			
+			
+			public List<ReviewVO> getReviewEntryList() {
+				return reviewEntryList;
+			}
+
+			public void setReviewEntryList(List<ReviewVO> reviewEntryList) {
+				this.reviewEntryList = reviewEntryList;
+			}
+
+			public Integer getLogistics() {
+				return logistics;
+			}
+
+			public void setLogistics(Integer logistics) {
+				this.logistics = logistics;
+			}
+
+			public Integer getSeller() {
+				return seller;
+			}
+
+			public void setSeller(Integer seller) {
+				this.seller = seller;
+			}
+			
+		}
+	
 }

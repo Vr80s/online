@@ -12,4 +12,11 @@
 		
 
     ALTER TABLE `Users` add column `doctor_id` VARCHAR(50) NULL  DEFAULT NULL  COMMENT '医师id';
+    
+    
+3、商品评论表中增加 卖家服务、物流服务 评价字段
+
+	ALTER TABLE `review` ADD `seller` int(11) DEFAULT NULL COMMENT '卖家服务'  AFTER `score`;
+	
+	ALTER TABLE `review` ADD `logistics` int(11) DEFAULT NULL COMMENT '物流服务'  AFTER `score`;    
 

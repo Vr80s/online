@@ -1,15 +1,21 @@
 package com.xczh.consumer.market.controller.shop;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
@@ -17,10 +23,12 @@ import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.service.IMobileBannerService;
 import com.xczhihui.medical.banner.model.OeBanner;
 import com.xczhihui.medical.banner.service.PcBannerService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
 
 import net.shopxx.merge.service.GoodsService;
 import net.shopxx.merge.service.ShopReviewService;
 import net.shopxx.merge.vo.GoodsPageParams;
+import net.shopxx.merge.vo.ReviewVO;
 
 /**
  * 商城接口
@@ -46,6 +54,9 @@ public class ShopGoodsController {
     
     @Autowired
     private ShopReviewService shopReviewService;
+    
+	@Autowired
+	private IMedicalDoctorPostsService medicalDoctorPostsService;
 
     @RequestMapping("list")
     public ResponseObject list(GoodsPageParams goodsPageParams,GoodsPageParams.OrderType orderType) {
@@ -81,10 +92,81 @@ public class ShopGoodsController {
     }
     
     @RequestMapping("review")
-    public ResponseObject review(Long productId,Integer pageNumber,Integer pageSize) {
+    public ResponseObject review(Long productId,@RequestParam(required = false, value = "pageNumber")Integer pageNumber,
+    		@RequestParam(required = false, value = "pageSize")Integer pageSize) {
     	
         return ResponseObject.newSuccessResponseObject(shopReviewService.list(productId,pageNumber,pageSize));
     }
     
+
+    @RequestMapping("recommends")
+    public ResponseObject recommends(Long productId,@RequestParam(required = false, value = "pageNumber")Integer pageNumber,
+    		@RequestParam(required = false, value = "pageSize")Integer pageSize) {
+    	
+    	pageNumber = pageNumber == null ? 1 : pageNumber;
+        pageSize = pageSize == null ? 10 : pageSize;
+    	
+        return ResponseObject.newSuccessResponseObject(medicalDoctorPostsService.
+        		getProductPostsByProductId(productId, pageNumber, pageSize));
+    }
     
+    @RequestMapping("addReview")
+    public ResponseObject addReview(Long orderId,@RequestParam("postdata") String postdata,
+    		@Account String accountId,HttpServletRequest request) throws Exception {
+    	
+		shopReviewService.addReview(orderId,postdata,accountId,request.getRemoteAddr());
+		
+        return ResponseObject.newSuccessResponseObject(null);
+    }
+    
+    /**
+	 * FormBean - 评论条目
+	 * 
+	 * @author SHOP++ Team
+	 * @version 6.1
+	 */
+	public static class ReviewEntryListForm {
+
+		/**
+		 * 评论条目
+		 */
+		private List<ReviewVO> reviewEntryList;
+		
+		/**
+		 * 物流服务
+		 */
+		private Integer logistics;
+		
+		/**
+		 * 卖家服务
+		 */
+		private Integer seller;
+
+		
+		
+		public List<ReviewVO> getReviewEntryList() {
+			return reviewEntryList;
+		}
+
+		public void setReviewEntryList(List<ReviewVO> reviewEntryList) {
+			this.reviewEntryList = reviewEntryList;
+		}
+
+		public Integer getLogistics() {
+			return logistics;
+		}
+
+		public void setLogistics(Integer logistics) {
+			this.logistics = logistics;
+		}
+
+		public Integer getSeller() {
+			return seller;
+		}
+
+		public void setSeller(Integer seller) {
+			this.seller = seller;
+		}
+		
+	}
 }
