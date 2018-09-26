@@ -69,30 +69,14 @@
 
 	<!-- 轮播区域开始 -->
 	<div class="banner">
+			<script type="text/html" id="top_details">
+			    {{each items as item i}}
+					<img src="{{item.source}}" alt="" class="surface_plot" />
+					{{/if}}
+			    {{/each}}
+			</script>
 
-		<!--滑动焦点图--> 
-		<div class="swiper-container" alt="Image description">
-			<div class="my-gallery swiper-wrapper ">
-			    <div class="swiper-slide">			
-					<a href="/xcview/images/banner01.png"  data-size="1024x1024"><img src="/xcview/images/banner01.png" /></a>
-					<figcaption itemprop="caption description">你是不是傻你是不是傻  1</figcaption>		    	
-			    </div>
-			    <div class="swiper-slide">			
-			  		<a href="/xcview/images/topTwo_doc.png"  data-size="964x1024"><img src="/xcview/images/topTwo_doc.png" /></a>
-			  		<figcaption itemprop="caption description">傻瓜继续滑动啊傻瓜继续滑动啊 2</figcaption>				    	
-			    </div>
-			    <div class="swiper-slide">			
-				    <a href="/xcview/images/1526991186(1).png"  data-size="1024x683"><img src="/xcview/images/1526991186(1).png" /></a>
-				    <figcaption itemprop="caption description">说的就是你，还看傻瓜 3</figcaption>			   	
-			    </div>	
-			    <div class="swiper-slide">			
-					<a href="/xcview/images/banner01.png" data-size="1024x768"><img src="/xcview/images/banner01.png" /></a>
-					<figcaption itemprop="caption description">为什么要这样子哪？傻瓜非得翻到底 4</figcaption>			  	
-			    </div>		    
-			    	  	    
-			</div>
-			<div class="swiper-pagination"></div>
-		</div>            			
+		           			
 
 		<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 		    <div class="pswp__bg"></div>
@@ -137,13 +121,13 @@
 	<!-- 详情开始 -->
 	<div class="details" id="li_btn0">
 		<div class="details_main">
-			<div class="title">红豆薏米茶去湿茶正品除去湿茶健胃清热茶红豆薏米红豆薏米茶去湿茶正品除去湿茶健胃清热茶红豆薏米红豆薏米茶去湿茶正品除去湿茶健胃清热茶红豆薏米</div>
-			<div class="referral">假如有商品卖点介绍的话显示在标题下方，如果没有则不显示假如有商品卖点介绍的话显示在标题下方，如果没有则不显示假如有商品卖点介绍的话显示在标题下方，如果没有则不显示假如有商品卖点介绍的话显示在标题下方，如果没有则不显示</div>
+			<div class="title">{{items.name}}</div>
+			<div class="referral">{{items.caption}}</div>
 		</div>
 		<div class="price">
-			<span class="ruling_price">￥188.00</span>
-			<span class="original_price">￥422.00</span>
-			<span class="sold_out">已售100件</span>
+			<span class="ruling_price">￥{{items.price}}</span>
+			<span class="original_price">￥{{items.marketprice}}</span>
+			<span class="sold_out">已售{{items.sales}}件</span>
 			<div class="both"></div>
 		</div>
 	</div>
@@ -213,10 +197,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- 评价结束 -->
-
-	<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
 	    <!-- Background of PhotoSwipe. 
 	         It's a separate element as animating opacity is faster than rgba(). -->
@@ -279,6 +260,10 @@
 
 	    </div>
 	</div>
+	</div>
+	<!-- 评价结束 -->
+
+	
 
 	<!-- 商品详情开始 -->
 	<div class="commodity_details" id="li_btn2">
@@ -391,22 +376,28 @@
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script> 
 <script type="text/javascript" src="/xcview/js/common/common.js"></script> 
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>   <!--模板引入-->
+
+<script type="text/javascript" src="/xcview/js/shop/commodity_details.js"></script>
 
 <!-- 滑动焦点图引入-->	
+
+<script src="/xcview/js/shop/ckg/swiper.min.js"></script>
 <script src='/xcview/js/shop/ckg/big_img.js'></script>
 <script src='/xcview/js/shop/ckg/photoswipe.min.js'></script>
 <script src='/xcview/js/shop/ckg/photoswipe-ui-default.min.js'></script>
-<script src="/xcview/js/shop/ckg/bigImg.js"></script>
-<script src="/xcview/js/shop/ckg/swiper.min.js"></script>
+<script src='/xcview/js/shop/ckg/big_imgs.js'></script>
 <!-- 滑动焦点图引入-->	
 <script>  
-    var swiper = new Swiper('.swiper-container', {
+    /*var swiper = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
         paginationType: 'fraction'
-    });
+    });*/
 </script>
 <!-- 滑动焦点图end-->
-
+<script>
+	
+</script>
 <script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
 
 <script type="text/javascript" src="/xcview/js/shop/jquery.spinner.js"></script><!-- 点击数量引入 -->
@@ -553,239 +544,7 @@
 <script src="/xcview/js/shop/big_picture/js/jquery.min.js"></script>
 <script src="/xcview/js/shop/big_picture/js/photoswipe.js"></script>
 <script src="/xcview/js/shop/big_picture/js/photoswipe-ui-default.min.js"></script>
-<script type="text/javascript">
-	var initPhotoSwipeFromDOM = function(gallerySelector) {
 
-    // 解析来自DOM元素幻灯片数据（URL，标题，大小...）
-    // (children of gallerySelector)
-    var parseThumbnailElements = function(el) {
-        var thumbElements = el.childNodes,
-            numNodes = thumbElements.length,
-            items = [],
-            figureEl,
-            linkEl,
-            size,
-            item,
-			divEl;
-
-        for(var i = 0; i < numNodes; i++) {
-
-            figureEl = thumbElements[i]; // <figure> element
-
-            // 仅包括元素节点
-            if(figureEl.nodeType !== 1) {
-                continue;
-            }
-			divEl = figureEl.children[0];
-            linkEl = divEl.children[0]; // <a> element
-			
-            size = linkEl.getAttribute('data-size').split('x');
-
-            // 创建幻灯片对象
-            item = {
-                src: linkEl.getAttribute('href'),
-                w: parseInt(size[0], 10),
-                h: parseInt(size[1], 10)
-            };
-
-
-
-            if(figureEl.children.length > 1) {
-                // <figcaption> content
-                item.title = figureEl.children[1].innerHTML; 
-            }
-
-            if(linkEl.children.length > 0) {
-                // <img> 缩略图节点, 检索缩略图网址
-                item.msrc = linkEl.children[0].getAttribute('src');
-            } 
-
-            item.el = figureEl; // 保存链接元素 for getThumbBoundsFn
-            items.push(item);
-        }
-
-        return items;
-    };
-
-    // 查找最近的父节点
-    var closest = function closest(el, fn) {
-        return el && ( fn(el) ? el : closest(el.parentNode, fn) );
-    };
-
-    // 当用户点击缩略图触发
-    var onThumbnailsClick = function(e) {
-        e = e || window.event;
-        e.preventDefault ? e.preventDefault() : e.returnValue = false;
-
-        var eTarget = e.target || e.srcElement;
-
-        // find root element of slide
-        var clickedListItem = closest(eTarget, function(el) {
-            return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
-        });
-
-        if(!clickedListItem) {
-            return;
-        }
-
-        // find index of clicked item by looping through all child nodes
-        // alternatively, you may define index via data- attribute
-        var clickedGallery = clickedListItem.parentNode,
-            childNodes = clickedListItem.parentNode.childNodes,
-            numChildNodes = childNodes.length,
-            nodeIndex = 0,
-            index;
-
-        for (var i = 0; i < numChildNodes; i++) {
-            if(childNodes[i].nodeType !== 1) { 
-                continue; 
-            }
-
-            if(childNodes[i] === clickedListItem) {
-                index = nodeIndex;
-                break;
-            }
-            nodeIndex++;
-        }
-
-
-
-        if(index >= 0) {
-            // open PhotoSwipe if valid index found
-            openPhotoSwipe( index, clickedGallery );
-        }
-        return false;
-    };
-
-    // parse picture index and gallery index from URL (#&pid=1&gid=2)
-    var photoswipeParseHash = function() {
-        var hash = window.location.hash.substring(1),
-        params = {};
-
-        if(hash.length < 5) {
-            return params;
-        }
-
-        var vars = hash.split('&');
-        for (var i = 0; i < vars.length; i++) {
-            if(!vars[i]) {
-                continue;
-            }
-            var pair = vars[i].split('=');  
-            if(pair.length < 2) {
-                continue;
-            }           
-            params[pair[0]] = pair[1];
-        }
-
-        if(params.gid) {
-            params.gid = parseInt(params.gid, 10);
-        }
-
-        return params;
-    };
-
-    var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
-        var pswpElement = document.querySelectorAll('.pswp')[0],
-            gallery,
-            options,
-            items;
-
-        items = parseThumbnailElements(galleryElement);
-
-        // 这里可以定义参数
-        options = {
-          barsSize: { 
-            top: 100,
-            bottom: 100
-          }, 
-		   fullscreenEl : false,
-			shareButtons: [
-			{id:'wechat', label:'分享微信', url:'#'},
-			{id:'weibo', label:'新浪微博', url:'#'},
-			{id:'download', label:'保存图片', url:'{{raw_image_url}}', download:true}
-			],
-
-            // define gallery index (for URL)
-            galleryUID: galleryElement.getAttribute('data-pswp-uid'),
-
-            getThumbBoundsFn: function(index) {
-                // See Options -> getThumbBoundsFn section of documentation for more info
-                var thumbnail = items[index].el.getElementsByTagName('img')[0], // find thumbnail
-                    pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
-                    rect = thumbnail.getBoundingClientRect(); 
-
-                return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
-            }
-
-        };
-
-        // PhotoSwipe opened from URL
-        if(fromURL) {
-            if(options.galleryPIDs) {
-                // parse real index when custom PIDs are used 
-                for(var j = 0; j < items.length; j++) {
-                    if(items[j].pid == index) {
-                        options.index = j;
-                        break;
-                    }
-                }
-            } else {
-                // in URL indexes start from 1
-                options.index = parseInt(index, 10) - 1;
-            }
-        } else {
-            options.index = parseInt(index, 10);
-        }
-
-        // exit if index not found
-        if( isNaN(options.index) ) {
-            return;
-        }
-
-        if(disableAnimation) {
-            options.showAnimationDuration = 0;
-        }
-
-        // Pass data to PhotoSwipe and initialize it
-        gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
-        gallery.init();
-    };
-
-    // loop through all gallery elements and bind events
-    var galleryElements = document.querySelectorAll( gallerySelector );
-
-    for(var i = 0, l = galleryElements.length; i < l; i++) {
-        galleryElements[i].setAttribute('data-pswp-uid', i+1);
-        galleryElements[i].onclick = onThumbnailsClick;
-    }
-
-    // Parse URL and open gallery if it contains #&pid=3&gid=1
-    var hashData = photoswipeParseHash();
-    if(hashData.pid && hashData.gid) {
-        openPhotoSwipe( hashData.pid ,  galleryElements[ hashData.gid - 1 ], true, true );
-    }
-	};
-
-	// execute above function
-	initPhotoSwipeFromDOM('.my-gallery');
-
-	
-	$(".my-gallery>figure>div").each(function(){
-		$(this).height($(this).width());
-	});
-	function more(obj,id) {
- 		if ($('#txt'+id).is(":hidden")) {
- 			$('#p'+id).hide();
- 	 		$('#txt'+id).show();
- 	 		obj.innerHTML='收起';
- 		} else {
- 			$('#p'+id).show();
- 	 		$('#txt'+id).hide();
- 	 		obj.innerHTML='全文';
- 		}
- 	}
-</script>
 
 <script>
 	//点击简介、评价、详情定位到具体内容
