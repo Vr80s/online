@@ -352,7 +352,6 @@ $("#address_save").click(function(){
 	var urlProvice="/xczh/shop/area?parentId="+getProviceId;
 //	省
 	requestService(urlProvice,null, function(data) {
-		debugger
 		var str;
 		var provice=data.resultObject;
 			for(var i=0; i<provice.length;i++){
@@ -402,7 +401,7 @@ $("#address_save").click(function(){
 					}
 						$(".input-group .qu").html('<option data-id="0">请选择</option>'+str);
 				}
-				console.log(getQuId);
+
 			})
 	})
 //	区变化时
@@ -411,6 +410,6 @@ $("#address_save").click(function(){
 		if(getQuId == 0){
 			getQuId="";
 		}
-			console.log(getQuId);
+
 	})
 </script>
