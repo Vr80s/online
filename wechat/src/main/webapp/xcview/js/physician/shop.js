@@ -96,18 +96,7 @@ function recommends(pageNumber, downOrUp){
     
 
     $(".default_click").click(function(){
-        // 商品列表--最新
-        var recommend = 'RECOMMEND_DESC';
-        requestGetService("/xczh/shop/goods/list",{
-            pageNumber:1,
-            pageSize:10
-        },function (data) {
-            if (data.success == true) {
-                var obj = data.resultObject;
-                $(".product_list").html(template('product_list', {items: obj}));
-                listClick();
-            }
-        });
+        
     });
     
 
