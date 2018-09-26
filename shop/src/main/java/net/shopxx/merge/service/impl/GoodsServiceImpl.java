@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
 
 import net.sf.json.JSONObject;
@@ -53,6 +54,9 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Autowired
     private IMedicalDoctorPostsService medicalDoctorPostsService;
+    
+    @Autowired
+    private IMedicalDoctorBusinessService medicalDoctorBusinessService;
 
 
     @Autowired
@@ -78,9 +82,9 @@ public class GoodsServiceImpl implements GoodsService {
                 //普通属性
                 BeanUtils.copyProperties(pro, product);
 
-
                 //医师推荐信息
-                LOGGER.info("product.getStore().getBusiness().getId() " + product.getStore().getBusiness().getId());
+                LOGGER.info("product.getStore().getBusiness().getDoctorId() " + product.getStore().getBusiness().getDoctorId());
+                
                 String key = RedisCacheKey.STORE_DOCTOR_RELEVANCE +
                         RedisCacheKey.REDIS_SPLIT_CHAR + product.getStore().getId();
 
@@ -90,9 +94,13 @@ public class GoodsServiceImpl implements GoodsService {
                     JSONObject jasonObject = JSONObject.fromObject(value);
                     pro.setDoctor((Map) jasonObject);
                 } else {
-                    UsersRelation findByUserId = usersRelationService.findByUserId(product.getStore().getBusiness().getId());
-                    if (findByUserId != null) {
-                        Map<String, Object> map = medicalDoctorAccountService.selectUserByAccountId(findByUserId.getIpandatcmUserId());
+                    
+                	String doctorId = product.getStore().getBusiness().getDoctorId();
+                	
+                    if (doctorId != null) {
+                        
+                        Map<String, Object> map = medicalDoctorBusinessService.getDoctorInfoByDoctorId(doctorId);
+                        
                         LOGGER.info("map tostring " + (map != null ? map.toString() : null));
                         JSONObject jasonObject = JSONObject.fromObject(map);
                         redisCacheService.set(key, jasonObject.toString());

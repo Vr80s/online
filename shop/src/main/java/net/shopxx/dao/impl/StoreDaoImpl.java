@@ -163,7 +163,6 @@ public class StoreDaoImpl extends BaseDaoImpl<Store, Long> implements StoreDao {
 
     @Override
     public List<Long> findByDoctorId(String doctorId) {
-        doctorId = "22d7d06508804c909d7085bb98822db6";
         String sql = "SELECT s.id\n" +
                 "\tFROM Store s JOIN Users u ON s.business_id = u.id\n" +
                 "\tWHERE u.doctor_id = :doctorId";
