@@ -45,6 +45,7 @@ import net.shopxx.entity.Promotion;
 import net.shopxx.entity.Store;
 import net.shopxx.entity.StoreProductCategory;
 import net.shopxx.exception.ResourceNotFoundException;
+import net.shopxx.merge.enums.OrderType;
 import net.shopxx.merge.service.GoodsService;
 import net.shopxx.merge.service.ShopCategoryService;
 import net.shopxx.merge.service.ShopReviewService;
@@ -404,7 +405,7 @@ public class ProductController extends BaseController {
 	 * @return 
 	 */
 	@GetMapping("/list1")
-	public @ResponseBody Object list1(GoodsPageParams goodsPageParams,GoodsPageParams.OrderType orderType) {
+	public @ResponseBody Object list1(GoodsPageParams goodsPageParams, OrderType orderType) {
 		
         return goodsService.list(goodsPageParams, orderType);
 	}

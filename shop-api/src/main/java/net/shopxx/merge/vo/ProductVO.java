@@ -8,17 +8,14 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 
-* @ClassName: Product
-* @Description: 商品
-* @author yangxuan
-* @email yangxuan@ixincheng.com
-* @date 2018年9月17日
-*
+ * @author yangxuan
+ * @ClassName: Product
+ * @Description: 商品
+ * @email yangxuan@ixincheng.com
+ * @date 2018年9月17日
  */
 public class ProductVO implements Serializable {
-	
-	
+
     private Long id;
 
     private Date createddate;
@@ -148,31 +145,34 @@ public class ProductVO implements Serializable {
      * 购物车数量
      */
     private Integer cartQuantity;
-    
+
     /**
      * 商品评论
      */
     private Set<ReviewVO> reviewvs;
-    
+
     /**
      * 医师推荐
      */
     private Set<Map<String, Object>> posts;
-    
-    
-    private Map<String,Object> doctor;
-    
+
+
+    private Map<String, Object> doctor;
+
     /**
      * 标准
      */
-    private Set<SpecificationItemVO>  specificationItemvs;
-    
-    
+    private Set<SpecificationItemVO> specificationItemvs;
+
+
     private List<ProductImageVO> productImages;
-    
+
     private Boolean IsOutOfStock;
-    
-    
+
+    private Integer inventory;
+
+    private Long uv ;
+
     public Long getId() {
         return id;
     }
@@ -662,61 +662,80 @@ public class ProductVO implements Serializable {
         this.introduction = introduction == null ? null : introduction.trim();
     }
 
-	public Integer getCartQuantity() {
-		return cartQuantity;
-	}
+    public Integer getCartQuantity() {
+        return cartQuantity;
+    }
 
-	public void setCartQuantity(Integer cartQuantity) {
-		this.cartQuantity = cartQuantity;
-	}
+    public void setCartQuantity(Integer cartQuantity) {
+        this.cartQuantity = cartQuantity;
+    }
 
-	public Set<ReviewVO> getReviewvs() {
-		return reviewvs;
-	}
+    public Set<ReviewVO> getReviewvs() {
+        return reviewvs;
+    }
 
-	public void setReviewvs(Set<ReviewVO> reviewvs) {
-		this.reviewvs = reviewvs;
-	}
-	
+    public void setReviewvs(Set<ReviewVO> reviewvs) {
+        this.reviewvs = reviewvs;
+    }
 
-	public Set<Map<String, Object>> getPosts() {
-		return posts;
-	}
 
-	public void setPosts(Set<Map<String, Object>> posts) {
-		this.posts = posts;
-	}
+    public Set<Map<String, Object>> getPosts() {
+        return posts;
+    }
 
-	public Map<String, Object> getDoctor() {
-		return doctor;
-	}
+    public void setPosts(Set<Map<String, Object>> posts) {
+        this.posts = posts;
+    }
 
-	public void setDoctor(Map<String, Object> doctor) {
-		this.doctor = doctor;
-	}
+    public Map<String, Object> getDoctor() {
+        return doctor;
+    }
 
-	public Set<SpecificationItemVO> getSpecificationItemvs() {
-		return specificationItemvs;
-	}
+    public void setDoctor(Map<String, Object> doctor) {
+        this.doctor = doctor;
+    }
 
-	public void setSpecificationItemvs(Set<SpecificationItemVO> specificationItemvs) {
-		this.specificationItemvs = specificationItemvs;
-	}
+    public Set<SpecificationItemVO> getSpecificationItemvs() {
+        return specificationItemvs;
+    }
 
-	public List<ProductImageVO> getProductImages() {
-		return productImages;
-	}
+    public void setSpecificationItemvs(Set<SpecificationItemVO> specificationItemvs) {
+        this.specificationItemvs = specificationItemvs;
+    }
 
-	public void setProductImages(List<ProductImageVO> productImages) {
-		this.productImages = productImages;
-	}
+    public List<ProductImageVO> getProductImages() {
+        return productImages;
+    }
 
-	public Boolean getIsOutOfStock() {
-		return IsOutOfStock;
-	}
+    public void setProductImages(List<ProductImageVO> productImages) {
+        this.productImages = productImages;
+    }
 
-	public void setIsOutOfStock(Boolean isOutOfStock) {
-		IsOutOfStock = isOutOfStock;
-	}
-	
+    public Boolean getIsOutOfStock() {
+        return IsOutOfStock;
+    }
+
+    public void setIsOutOfStock(Boolean isOutOfStock) {
+        IsOutOfStock = isOutOfStock;
+    }
+
+    public Integer getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Integer inventory) {
+        this.inventory = inventory;
+    }
+
+    public Long getUv() {
+        return uv;
+    }
+
+    public void setUv(Long uv) {
+        this.uv = uv;
+    }
+
+    public String getPicture() {
+        return this.getProductImages() != null && !this.getProductImages().isEmpty() ? this.getProductImages().get(0).getThumbnail() : null;
+    }
 }

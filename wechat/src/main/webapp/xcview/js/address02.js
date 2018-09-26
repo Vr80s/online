@@ -94,7 +94,7 @@
 			
 		}
 		$("#vanishs").hide();
-//		手机号
+		
 		var phone =$("#phone").val();
 		if (isBlank(phone)) {
 			/*$("#errorMsg").html("<div class='vanish0'><div class='vanish0_bg'></div><div class='vanish0_cen'><div class='vanish0_size'>请填写手机号</div></div></div>");
@@ -110,23 +110,7 @@
 			webToast("请输入正确的手机号","middle",1500);
 			return false;
 		}
-//		邮编
-		var zipCode =$("#zip-code").val();
-		if(isBlank(zipCode)){
-//			$("#errorMsg").html("<div class='vanish3'><div class='vanish3_bg'></div><div class='vanish3_cen'><div class='vanish3_size'>请选择省市区</div></div></div>");
-//			$("#errorMsg").show();
-//			setTimeout(function(){$(".vanish3").hide();},1500);
-			webToast("请填写邮编","middle",1500);
-			return false;
-		}
-		if (!(/^\d+$/.test(zipCode))) {
-			/*$("#errorMsg").html("<div class='vanish1'><div class='vanish1_bg'></div><div class='vanish1_cen'><div class='vanish1_size'>手机号格式不正确</div></div></div>");
-			$("#errorMsg").show();
-			setTimeout(function(){$(".vanish1").hide();},1500);*/
-			webToast("请输入正确的邮编","middle",1500);
-			return false;
-		}
-//		省市区
+		
 		var cityP =$("#cityP").text();
 		if(isBlank(cityP) || cityP == "请选择"){
 //			$("#errorMsg").html("<div class='vanish3'><div class='vanish3_bg'></div><div class='vanish3_cen'><div class='vanish3_size'>请选择省市区</div></div></div>");
@@ -135,13 +119,13 @@
 			webToast("请选择省市区","middle",1500);
 			return false;
 		}
-//		详细地址
+		
 		var detailed_address =$("#detailed_address").val();
 		if(isBlank(detailed_address) || (detailed_address.length >50)){
 			/*$("#errorMsg").html("<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>收货人不能为空,详细地址不能大于50</div></div></div>");
 			$("#errorMsg").show();
 			setTimeout(function(){$(".vanish2").hide();},1500);*/
-//			$("")
+			$("")
 			// webToast("收货人不能为空,详细地址不能大于50","middle",1500);
 			webToast("请输入详细地址","middle",1500);
 			// $(".web_toast").css("left","50%");
@@ -169,8 +153,7 @@
 			provinces : provinces,
 			city : city,
 			county : county,
-			zipCode : zipCode,
-			address:detailed_address,
+			detailedAddress:detailed_address,
 			/*postalCode:postalCode,*/
 			consignee:consignee,
 			phone:phone
@@ -180,9 +163,9 @@
 		$(".person_prosperity").show();
 		$(".prosperity_cen_top").text("新增成功");
 		
-		var url_address = "/xczh/shop/receiver/add";
+		var url_address = "/xczh/set/saveAddress";
 		if(isNotBlank(addressId)){
-			urlparm.areaId = addressId;
+			urlparm.id = addressId;
 			url_address = "/xczh/set/updateAddress";
 			$(".person_prosperity").show();
 			$(".prosperity_cen_top").text("修改成功");
@@ -220,7 +203,8 @@
 	
 	/* 地址管理结束 */
 	function addressList(){
-		requestGetService("/xczh/shop/receiver/list",null, function(data) {
+		requestService("/xczh/set/getAddressAll",
+				null, function(data) {
 			if (data.success) {
 				//$("#address_list").html("");
 				//更改完手机号后，需要把session中的这个东西换下呢？
@@ -233,23 +217,23 @@
 					 */
 //					var a_all = result.provinces + result.city+ result.county + result.street +result.detailedAddress;
 					var a_all = "";
-				    if(isNotBlank(result.areaName)){
-				    	a_all+=result.areaName+"";
+				    if(isNotBlank(result.provinces)){
+				    	a_all+=result.provinces+"";
 				    }
-//				    if(isNotBlank(result.city)){
-//				    	a_all+=result.city+"";
-//				    }
-//				    if(isNotBlank(result.county)){
-//				    	a_all+=result.county+" ";
-//				    }
-				    if(isNotBlank(result.address)){
-				    	a_all+=result.address;
+				    if(isNotBlank(result.city)){
+				    	a_all+=result.city+"";
+				    }
+				    if(isNotBlank(result.county)){
+				    	a_all+=result.county+" ";
+				    }
+				    if(isNotBlank(result.detailedAddress)){
+				    	a_all+=result.detailedAddress;
 				    }
 					/*
 					 * 是否默认地址
 					 */
 					var isAcquiesStr = "";
-					if(result.isDefault == true || results.length==1){//是默认地址
+					if(result.isAcquiescence == 1 || results.length==1){//是默认地址
 						isAcquiesStr+="<div class='sit_bg site_bg01'></div><span class=''>默认地址</span>";
 					}else{
 						isAcquiesStr+="<div class='site_bg1 sit_bg'></div><span class='moren_span' style='color: #666;'>设为默认地址</span>";

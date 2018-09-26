@@ -1,12 +1,8 @@
 package com.xczh.consumer.market.controller.shop;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,10 +21,10 @@ import com.xczhihui.medical.banner.model.OeBanner;
 import com.xczhihui.medical.banner.service.PcBannerService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
 
+import net.shopxx.merge.enums.OrderType;
 import net.shopxx.merge.service.GoodsService;
 import net.shopxx.merge.service.ShopReviewService;
 import net.shopxx.merge.vo.GoodsPageParams;
-import net.shopxx.merge.vo.ReviewVO;
 
 /**
  * 商城接口
@@ -36,22 +32,22 @@ import net.shopxx.merge.vo.ReviewVO;
 @RestController
 @RequestMapping("/xczh/shop/goods")
 public class ShopGoodsController {
-	
+
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ShopGoodsController.class);
-    
+
     @Autowired
     public GoodsService goodsService;
-    
+
     @Autowired
     public IMobileBannerService mobileBannerService;
-    
+
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
 
-    
+
     @Autowired
     private PcBannerService bannerService;
-    
+
     @Autowired
     private ShopReviewService shopReviewService;
     
@@ -59,7 +55,7 @@ public class ShopGoodsController {
 	private IMedicalDoctorPostsService medicalDoctorPostsService;
 
     @RequestMapping("list")
-    public ResponseObject list(GoodsPageParams goodsPageParams,GoodsPageParams.OrderType orderType) {
+    public ResponseObject list(GoodsPageParams goodsPageParams, OrderType orderType) {
         return ResponseObject.newSuccessResponseObject(goodsService.list(goodsPageParams, orderType));
     }
 
@@ -67,13 +63,13 @@ public class ShopGoodsController {
     public ResponseObject details(Long productId) {
         return ResponseObject.newSuccessResponseObject(goodsService.findProductById(productId));
     }
-    
+
     @RequestMapping("banner")
     public ResponseObject banner(HttpServletRequest request) {
 
         int clientType = HeaderInterceptor.getClientType().getCode();
-        Page<OeBanner> page =  bannerService.page(new Page<>(1, 3),8,clientType);
-        if(HeaderInterceptor.ONLY_THREAD.get()) {
+        Page<OeBanner> page = bannerService.page(new Page<>(1, 3), 8, clientType);
+        if (HeaderInterceptor.ONLY_THREAD.get()) {
             return ResponseObject.newSuccessResponseObject(null);
         }
         page.getRecords().forEach(bannerVo -> {
@@ -87,10 +83,10 @@ public class ShopGoodsController {
                 bannerVo.setTarget("");
             }
         });
-    	
+
         return ResponseObject.newSuccessResponseObject(page.getRecords());
     }
-    
+
     @RequestMapping("review")
     public ResponseObject review(Long productId,@RequestParam(required = false, value = "pageNumber")Integer pageNumber,
     		@RequestParam(required = false, value = "pageSize")Integer pageSize) {
@@ -118,55 +114,4 @@ public class ShopGoodsController {
 		
         return ResponseObject.newSuccessResponseObject(null);
     }
-    
-    /**
-	 * FormBean - 评论条目
-	 * 
-	 * @author SHOP++ Team
-	 * @version 6.1
-	 */
-	public static class ReviewEntryListForm {
-
-		/**
-		 * 评论条目
-		 */
-		private List<ReviewVO> reviewEntryList;
-		
-		/**
-		 * 物流服务
-		 */
-		private Integer logistics;
-		
-		/**
-		 * 卖家服务
-		 */
-		private Integer seller;
-
-		
-		
-		public List<ReviewVO> getReviewEntryList() {
-			return reviewEntryList;
-		}
-
-		public void setReviewEntryList(List<ReviewVO> reviewEntryList) {
-			this.reviewEntryList = reviewEntryList;
-		}
-
-		public Integer getLogistics() {
-			return logistics;
-		}
-
-		public void setLogistics(Integer logistics) {
-			this.logistics = logistics;
-		}
-
-		public Integer getSeller() {
-			return seller;
-		}
-
-		public void setSeller(Integer seller) {
-			this.seller = seller;
-		}
-		
-	}
 }

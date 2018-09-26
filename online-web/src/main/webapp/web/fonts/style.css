@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?8nmxmx');
-  src:  url('fonts/icomoon.eot?8nmxmx#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?8nmxmx') format('truetype'),
-    url('fonts/icomoon.woff?8nmxmx') format('woff'),
-    url('fonts/icomoon.svg?8nmxmx#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?dwnx8s');
+  src:  url('fonts/icomoon.eot?dwnx8s#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?dwnx8s') format('truetype'),
+    url('fonts/icomoon.woff?dwnx8s') format('woff'),
+    url('fonts/icomoon.svg?dwnx8s#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -26,85 +26,73 @@
 
 .icomoon-icon-dingdan:before {
   content: "\e900";
-
 }
 .icomoon-icon-dongtai:before {
   content: "\e901";
-
 }
 .icomoon-icon-gonggao:before {
   content: "\e902";
-
+}
+.icomoon-icon-healthy:before {
+  content: "\e903";
 }
 .icomoon-icon-huifu:before {
-  content: "\e903";
-
+  content: "\e904";
 }
 .icomoon-icon-meiti:before {
-  content: "\e904";
-
+  content: "\e905";
+}
+.icomoon-icon-shang:before {
+  content: "\e906";
 }
 .icomoon-icon-shipin:before {
-  content: "\e905";
-
+  content: "\e907";
 }
 .icomoon-icon-shoutu:before {
-  content: "\e906";
-
+  content: "\e908";
 }
 .icomoon-icon-wenda:before {
-  content: "\e907";
-
+  content: "\e909";
 }
 .icomoon-icon-woshiyishi:before {
-  content: "\e908";
-
+  content: "\e90a";
+}
+.icomoon-icon-xia:before {
+  content: "\e90b";
 }
 .icomoon-icon-xuetang:before {
-  content: "\e909";
-
+  content: "\e90c";
 }
 .icomoon-icon-xuexi:before {
-  content: "\e90a";
-
+  content: "\e90d";
 }
 .icomoon-icon-yazhuanlan:before {
-  content: "\e90b";
-
+  content: "\e90e";
 }
 .icomoon-icon-yiguan:before {
-  content: "\e90c";
-
+  content: "\e90f";
 }
 .icomoon-icon-yishirenzheng:before {
-  content: "\e90d";
-
+  content: "\e910";
 }
 .icomoon-icon-zan:before {
-  content: "\e90e";
-
+  content: "\e911";
 }
 .icomoon-icon-zhaopian:before {
-  content: "\e90f";
-
+  content: "\e912";
 }
 .icomoon-icon-zhaopin:before {
-  content: "\e910";
-
+  content: "\e913";
 }
 .icomoon-icon-zhuanlan:before {
-  content: "\e911";
-
+  content: "\e914";
 }
 .icomoon-icon-zhuzuo:before {
-  content: "\e912";
-
+  content: "\e915";
 }
 .icomoon-icon-zichan:before {
-  content: "\e913";
-
+  content: "\e916";
 }
 .icomoon-icon-ziliao:before {
-  content: "\e914";
-
+  content: "\e917";
 }
