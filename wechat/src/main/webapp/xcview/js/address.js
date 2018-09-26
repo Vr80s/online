@@ -45,28 +45,20 @@
 	  * 修改地址
 	  */
 	 function editAddress(addressId){
-		 requestService("/xczh/set/findAddressById",
-					{id:addressId}, function(data) {
+		 requestGetService("/xczh/shop/receiver?receiverId="+addressId,null, function(data) {
+		 	debugger
 				if (data.success) {
 					var umv = data.resultObject;
 					$("#address_id").val(umv.id);
 				    $("#consignee").val(umv.consignee);
 				    $("#phone").val(umv.phone);
-				    
+				    $("#zip-code").val(umv.zipCode);
+				    isTrue=umv.isDefault;
 				    //
-				    var cityp = "";
-				    if(isNotBlank(umv.provinces)){
-				    	cityp+=umv.provinces+" ";
-				    }
-				    if(isNotBlank(umv.city)){
-				    	cityp+=umv.city+" ";
-				    }
-				    if(isNotBlank(umv.county)){
-				    	cityp+=umv.county;
-				    }
+				 
 				    //var cityp = umv.provinces+" "+ umv.city
-				    $("#cityP").text(cityp);
-					$("#detailed_address").val(umv.detailedAddress);
+
+					$("#detailed_address").val(umv.address);
 				/*	$("#postal_code").val(umv.postalCode);*/
 				} else {
 //				    alert("获取数据有误！");
@@ -81,7 +73,7 @@
 	 * 保存地址
 	 */
 	
-	
+	var isTrue=true;
 	$("#address_save").click(function(){
 		var consignee = $("#consignee").val();
 		var consigneeLength = consignee.length;
@@ -127,14 +119,24 @@
 			return false;
 		}
 //		省市区
-		var cityP =$("#cityP").text();
-		if(isBlank(cityP) || cityP == "请选择"){
-//			$("#errorMsg").html("<div class='vanish3'><div class='vanish3_bg'></div><div class='vanish3_cen'><div class='vanish3_size'>请选择省市区</div></div></div>");
-//			$("#errorMsg").show();
-//			setTimeout(function(){$(".vanish3").hide();},1500);
-			webToast("请选择省市区","middle",1500);
+//		var cityP =$("#cityP").text();
+//		if(isBlank(cityP) || cityP == "请选择"){
+//			webToast("请选择省市区","middle",1500);
+//			return false;
+//		}
+//		省市区
+		var areaId=getQuId;
+		if($(".sheng").val()=="请选择"){
+			webToast("请完善所在地区","middle",1500);
 			return false;
+		}else if($(".shi").val()=="请选择"){
+			webToast("请完善所在地区","middle",1500);
+			return false;
+		}else if($(".qu").hasClass("hide")){
+			areaId=getCityId;
 		}
+		
+		
 //		详细地址
 		var detailed_address =$("#detailed_address").val();
 		if(isBlank(detailed_address) || (detailed_address.length >50)){
@@ -149,13 +151,13 @@
 			return false;
 		}
 		
-		var provinces ="";var city = "";var county ="";
-		if(isNotBlank(cityP)){
-			var arr = cityP.split(" ");
-			provinces = arr[0];
-			city = arr[1];
-			county = arr[2];
-		}
+//		var provinces ="";var city = "";var county ="";
+//		if(isNotBlank(cityP)){
+//			var arr = cityP.split(" ");
+//			provinces = arr[0];
+//			city = arr[1];
+//			county = arr[2];
+//		}
 		/*var numberReg=/^\d{5}$/;//纯数字验证
 		var postalCode = $("#postal_code").val();
 		
@@ -166,14 +168,16 @@
 		}*/
 		
 		var urlparm = {
-			provinces : provinces,
-			city : city,
-			county : county,
+//			provinces : provinces,
+//			city : city,
+//			county : county,
+			areaId:areaId,
 			zipCode : zipCode,
 			address:detailed_address,
 			/*postalCode:postalCode,*/
 			consignee:consignee,
-			phone:phone
+			phone:phone,
+			isDefault:isTrue
 		}
 	
 	var addressId  = $("#address_id").val();
@@ -182,8 +186,8 @@
 		
 		var url_address = "/xczh/shop/receiver/add";
 		if(isNotBlank(addressId)){
-			urlparm.areaId = addressId;
-			url_address = "/xczh/set/updateAddress";
+			urlparm.receiverId = addressId;
+			url_address = "/xczh/shop/receiver/update";
 			$(".person_prosperity").show();
 			$(".prosperity_cen_top").text("修改成功");
 		}
@@ -338,23 +342,12 @@
 		   * 点击修改跳转到编辑页面
 			 */
 			$(".edit_go").click(function(){
-				/*$(".site_edit").show();
-				$(".site_call").hide();
-				$(".attention").hide();*/
-				
-				
 				var id = $(this)[0].title;
-				
 				location.href="edit_address.html?id="+id;
-
 			});
 			/**
 			 * 删除这个地址啦
 			 */
-			/*$(".site_bto_right02").click(function(){
-				$(".history_bg").show();
-			});*/
-			
 			$(".site_bto_right02").click(function(){
 				var id = $(this)[0].title;
 				$(".history_bg_bto2").attr("title",id);
@@ -379,14 +372,9 @@ function deleteAddress(obj){
 		/**
 		 * 根据id查询地址
 		 */
-		requestService("/xczh/set/deleteAddressById",
-				{id:addressId}, function(data) {
+		requestService("/xczh/shop/receiver/delete?receiverId="+addressId,null,function(data) {
 			if (data.success) {
 				 $(obj).attr("title","");
-				 
-//				 alert("删除数据成功！");
-//				$(".vanish").show();
-//				setTimeout(function(){$(".vanish").hide();},1500);
 				webToast("删除成功","middle",1500);
 
 				 addressList();

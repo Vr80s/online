@@ -189,10 +189,11 @@ ul {
 	width: 100%;
 	float: right;
 	height: 2.8rem;
-	border: 0;
+	border: 1px solid #dadada;
 	outline: none;
 	resize: none;
-	margin-top: 0.2rem;
 	color: #999;
 	background: #fff;
+	box-sizing: border-box;
+	padding: 0.1rem;
 }
