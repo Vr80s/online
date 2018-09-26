@@ -44,6 +44,7 @@
 	 /**
 	  * 修改地址
 	  */
+	 var isTrue=true;
 	 function editAddress(addressId){
 		 requestGetService("/xczh/shop/receiver?receiverId="+addressId,null, function(data) {
 		 	debugger
@@ -73,7 +74,7 @@
 	 * 保存地址
 	 */
 	
-	var isTrue=true;
+
 	$("#address_save").click(function(){
 		var consignee = $("#consignee").val();
 		var consigneeLength = consignee.length;
@@ -295,7 +296,6 @@
 		 if(aBtn6.length > 1){
 			 for(i=0;i<aBtn6.length;i++){
 		          $(aBtn6[i]).click(function(){
-		        	  
 		          	for(i=0;i<aBtn6.length;i++){ 
 		          		/*$(aBtn6[i]).find('.sit_bg').addClass('site_bg1');
 		                $(aBtn6[i]).find('.sit_bg').removeClass('site_bg01');*/
@@ -317,6 +317,7 @@
 		          	this_span.text("默认地址");
 		          	this_span.removeClass("moren_span");
 		            //然后点击的时候呢，需要判断
+		            debugger
 		            var newId = $(this)[0].id;
 		        	/**
 		        	 * 保存地址
