@@ -351,6 +351,10 @@
     <!-- 商城商品服务 -->
     <dubbo:reference interface="net.shopxx.merge.service.GoodsService"
                      id="goodsServiceImpl" timeout="${dubbo.provider.timeout}" check="false"/>
+    <!-- 商城订单服务 -->                
+    <dubbo:reference interface="net.shopxx.merge.service.OrderOperService"
+                     id="orderOperServiceImpl" timeout="${dubbo.provider.timeout}" />                 
+                     
     <!--=============================================消费者end============================================-->
 
 	<dubbo:reference interface="com.xczhihui.medical.doctor.service.IDoctorTypeService"

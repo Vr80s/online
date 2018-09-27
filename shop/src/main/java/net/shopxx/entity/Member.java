@@ -150,7 +150,6 @@ public class Member extends User {
 	 * 头像
 	 */
 	@Length(max = 200)
-	@Column(nullable = false)
 	private String headPhoto;
 
 	/**

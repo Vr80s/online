@@ -27,7 +27,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -98,20 +97,21 @@ public class ProductController extends BaseController {
 	private AttributeService attributeService;
 	@Inject
 	private GoodsService goodsService;
-	
+
 	@Inject
 	private ShopCategoryService shopCategoryService;
 
 	@Inject
 	private ShopReviewService shopReviewService;
-	
+
 	/**
 	 * 详情
 	 */
 	@GetMapping("/detail/{productId}")
 	public String detail(@PathVariable Long productId, ModelMap model) {
 		Product product = productService.find(productId);
-		if (product == null || BooleanUtils.isNotTrue(product.getIsActive()) || BooleanUtils.isNotTrue(product.getIsMarketable())) {
+		if (product == null || BooleanUtils.isNotTrue(product.getIsActive())
+				|| BooleanUtils.isNotTrue(product.getIsMarketable())) {
 			throw new ResourceNotFoundException();
 		}
 		model.addAttribute("product", product);
@@ -130,7 +130,8 @@ public class ProductController extends BaseController {
 
 		List<Product> products = productService.findList(productIds);
 		for (Product product : products) {
-			if (product != null && BooleanUtils.isTrue(product.getIsActive()) && BooleanUtils.isTrue(product.getIsMarketable())) {
+			if (product != null && BooleanUtils.isTrue(product.getIsActive())
+					&& BooleanUtils.isTrue(product.getIsMarketable())) {
 				Map<String, Object> item = new HashMap<>();
 				item.put("id", product.getId());
 				item.put("name", product.getName());
@@ -151,7 +152,8 @@ public class ProductController extends BaseController {
 	public ResponseEntity<?> addCompare(Long productId) {
 		Map<String, Object> data = new HashMap<>();
 		Product product = productService.find(productId);
-		if (product == null || BooleanUtils.isNotTrue(product.getIsActive()) || BooleanUtils.isNotTrue(product.getIsMarketable())) {
+		if (product == null || BooleanUtils.isNotTrue(product.getIsActive())
+				|| BooleanUtils.isNotTrue(product.getIsMarketable())) {
 			return Results.UNPROCESSABLE_ENTITY;
 		}
 
@@ -176,7 +178,8 @@ public class ProductController extends BaseController {
 
 		List<Product> products = productService.findList(productIds);
 		for (Product product : products) {
-			if (product != null && BooleanUtils.isTrue(product.getIsActive()) && BooleanUtils.isTrue(product.getIsMarketable())) {
+			if (product != null && BooleanUtils.isTrue(product.getIsActive())
+					&& BooleanUtils.isTrue(product.getIsMarketable())) {
 				Map<String, Object> item = new HashMap<>();
 				item.put("id", product.getId());
 				item.put("name", product.getName());
@@ -193,8 +196,10 @@ public class ProductController extends BaseController {
 	 * 列表
 	 */
 	@GetMapping("/list/{productCategoryId}")
-	public String list(@PathVariable Long productCategoryId, Product.Type type, Store.Type storeType, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Boolean isOutOfStock, Product.OrderType orderType, Integer pageNumber, Integer pageSize,
-			HttpServletRequest request, ModelMap model) {
+	public String list(@PathVariable Long productCategoryId, Product.Type type, Store.Type storeType, Long brandId,
+			Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Boolean isOutOfStock,
+			Product.OrderType orderType, Integer pageNumber, Integer pageSize, HttpServletRequest request,
+			ModelMap model) {
 		ProductCategory productCategory = productCategoryService.find(productCategoryId);
 		if (productCategory == null) {
 			throw new ResourceNotFoundException();
@@ -237,7 +242,10 @@ public class ProductController extends BaseController {
 		model.addAttribute("orderType", orderType);
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("page", productService.findPage(type, storeType, null, productCategory, null, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
+		model.addAttribute("page",
+				productService.findPage(type, storeType, null, productCategory, null, brand, promotion, productTag,
+						null, attributeValueMap, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null,
+						orderType, pageable));
 		return "shop/product/list";
 	}
 
@@ -245,7 +253,9 @@ public class ProductController extends BaseController {
 	 * 列表
 	 */
 	@GetMapping("/list")
-	public String list(Product.Type type, Store.Type storeType, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Boolean isOutOfStock, Product.OrderType orderType, Integer pageNumber, Integer pageSize, ModelMap model) {
+	public String list(Product.Type type, Store.Type storeType, Long storeProductCategoryId, Long brandId,
+			Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Boolean isOutOfStock,
+			Product.OrderType orderType, Integer pageNumber, Integer pageSize, ModelMap model) {
 		StoreProductCategory storeProductCategory = storeProductCategoryService.find(storeProductCategoryId);
 		Brand brand = brandService.find(brandId);
 		Promotion promotion = promotionService.find(promotionId);
@@ -271,7 +281,10 @@ public class ProductController extends BaseController {
 		model.addAttribute("orderType", orderType);
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("page", productService.findPage(type, storeType, null, null, storeProductCategory, brand, promotion, productTag, null, null, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType, pageable));
+		model.addAttribute("page",
+				productService.findPage(type, storeType, null, null, storeProductCategory, brand, promotion, productTag,
+						null, null, startPrice, endPrice, true, true, null, true, isOutOfStock, null, null, orderType,
+						pageable));
 		return "shop/product/list";
 	}
 
@@ -280,7 +293,9 @@ public class ProductController extends BaseController {
 	 */
 	@GetMapping(path = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
 	@JsonView(BaseEntity.BaseView.class)
-	public ResponseEntity<?> list(Long productCategoryId, Product.Type type, Long storeProductCategoryId, Long brandId, Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice, Product.OrderType orderType, Integer pageNumber, Integer pageSize, HttpServletRequest request) {
+	public ResponseEntity<?> list(Long productCategoryId, Product.Type type, Long storeProductCategoryId, Long brandId,
+			Long promotionId, Long productTagId, BigDecimal startPrice, BigDecimal endPrice,
+			Product.OrderType orderType, Integer pageNumber, Integer pageSize, HttpServletRequest request) {
 		ProductCategory productCategory = productCategoryService.find(productCategoryId);
 		StoreProductCategory storeProductCategory = storeProductCategoryService.find(storeProductCategoryId);
 		Brand brand = brandService.find(brandId);
@@ -307,14 +322,18 @@ public class ProductController extends BaseController {
 		}
 
 		Pageable pageable = new Pageable(pageNumber, pageSize);
-		return ResponseEntity.ok(productService.findPage(type, null, null, productCategory, storeProductCategory, brand, promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, null, null, null, orderType, pageable).getContent());
+		return ResponseEntity.ok(productService.findPage(type, null, null, productCategory, storeProductCategory, brand,
+				promotion, productTag, null, attributeValueMap, startPrice, endPrice, true, true, null, true, null,
+				null, null, orderType, pageable).getContent());
 	}
 
 	/**
 	 * 搜索
 	 */
 	@GetMapping("/search")
-	public String search(String keyword, Store.Type storeType, Long storeId, Boolean isOutOfStock, BigDecimal startPrice, BigDecimal endPrice, Product.OrderType orderType, Integer pageNumber, Integer pageSize, ModelMap model) {
+	public String search(String keyword, Store.Type storeType, Long storeId, Boolean isOutOfStock,
+			BigDecimal startPrice, BigDecimal endPrice, Product.OrderType orderType, Integer pageNumber,
+			Integer pageSize, ModelMap model) {
 		if (StringUtils.isEmpty(keyword)) {
 			return UNPROCESSABLE_ENTITY_VIEW;
 		}
@@ -336,7 +355,8 @@ public class ProductController extends BaseController {
 		model.addAttribute("endPrice", endPrice);
 		model.addAttribute("orderType", orderType);
 		model.addAttribute("searchType", "PRODUCT");
-		model.addAttribute("page", productService.search(keyword, null, storeType, store, isOutOfStock, null, startPrice, endPrice, orderType, pageable));
+		model.addAttribute("page", productService.search(keyword, null, storeType, store, isOutOfStock, null,
+				startPrice, endPrice, orderType, pageable));
 		return "shop/product/search";
 	}
 
@@ -345,7 +365,8 @@ public class ProductController extends BaseController {
 	 */
 	@GetMapping(path = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
 	@JsonView(BaseEntity.BaseView.class)
-	public ResponseEntity<?> search(String keyword, Long storeId, BigDecimal startPrice, BigDecimal endPrice, Product.OrderType orderType, Integer pageNumber, Integer pageSize) {
+	public ResponseEntity<?> search(String keyword, Long storeId, BigDecimal startPrice, BigDecimal endPrice,
+			Product.OrderType orderType, Integer pageNumber, Integer pageSize) {
 		if (StringUtils.isEmpty(keyword)) {
 			return Results.NOT_FOUND;
 		}
@@ -358,7 +379,9 @@ public class ProductController extends BaseController {
 		Store store = storeService.find(storeId);
 
 		Pageable pageable = new Pageable(pageNumber, pageSize);
-		return ResponseEntity.ok(productService.search(keyword, null, null, store, null, null, startPrice, endPrice, orderType, pageable).getContent());
+		return ResponseEntity.ok(
+				productService.search(keyword, null, null, store, null, null, startPrice, endPrice, orderType, pageable)
+						.getContent());
 	}
 
 	/**
@@ -398,150 +421,149 @@ public class ProductController extends BaseController {
 		return productService.viewHits(productId);
 	}
 
-	
-	
 	/**
 	 * 列表
-	 * @return 
+	 * 
+	 * @return
 	 */
 	@GetMapping("/list1")
 	public @ResponseBody Object list1(GoodsPageParams goodsPageParams, OrderType orderType) {
-		
-        return goodsService.list(goodsPageParams, orderType);
+
+		return goodsService.list(goodsPageParams, orderType);
 	}
-	
-	
-	/**
-	 * 详情
-	 * @return 
-	 */
-	@GetMapping("/details1")
-	public @ResponseBody Object details1(Long id) {
-		
-        return goodsService.findProductById(id);
-	}
-	
-	
 
 	/**
 	 * 详情
-	 * @return 
+	 * 
+	 * @return
+	 */
+	@GetMapping("/details1")
+	public @ResponseBody Object details1(Long id) {
+
+		return goodsService.findProductById(id);
+	}
+
+	/**
+	 * 详情
+	 * 
+	 * @return
 	 */
 	@GetMapping("/rootsCategory")
 	public @ResponseBody Object category1() {
-		
-		
+
 		List<ProductCategory> findRoots = productCategoryService.findRoots();
-		
+
 		System.out.println(findRoots.size());
-		
-        return findRoots;
+
+		return findRoots;
 	}
-	
+
 	/**
 	 * 详情
-	 * @return 
+	 * 
+	 * @return
 	 */
 	@GetMapping("/categoryId")
 	public @ResponseBody Object categoryId(Long id) {
 		ProductCategory find = productCategoryService.find(id);
 		List<ProductCategory> findChildren = productCategoryService.findChildren(find, false, Integer.MAX_VALUE);
 		System.out.println(findChildren.size());
-        return findChildren;
+		return findChildren;
 	}
-	
-	/**  
-	 * <p>Title: prodoctCategoryId</p>  
-	 * <p>Description: </p>  
+
+	/**
+	 * <p>
+	 * Title: prodoctCategoryId
+	 * </p>
+	 * <p>
+	 * Description:
+	 * </p>
+	 * 
 	 * @param id
-	 * @return  
-	 */ 
+	 * @return
+	 */
 	@GetMapping("/prodoctCategoryId")
 	public @ResponseBody Object prodoctCategoryId(Long id) {
-		
-	    //List<ProductCategoryVO> list = (List<ProductCategoryVO>) shopCategoryService.list();
+
+		// List<ProductCategoryVO> list = (List<ProductCategoryVO>)
+		// shopCategoryService.list();
 		System.out.println("===============");
 		Object findIdByCategoryId = goodsService.findIdByCategoryId(id);
 		System.out.println("===============");
-        return findIdByCategoryId;
+		return findIdByCategoryId;
 	}
-	
+
 	@GetMapping("/review")
 	public @ResponseBody Object review(Long id) {
-		
+
 		System.out.println("===============");
 		Object list = shopReviewService.list(id, 1, 10);
 		System.out.println("===============");
-        return list;
+		return list;
 	}
-	
-	
+
 	@GetMapping("/review1")
-    public @ResponseBody Object lalala(Long orderId, ReviewEntryListForm reviewEntryListForm) {
-		
+	public @ResponseBody Object lalala(Long orderId, ReviewEntryListForm reviewEntryListForm) {
+
 		System.out.println("=======hahahahaha========");
-		System.out.println("物流服务"+reviewEntryListForm.getLogistics());
-		System.out.println("卖家服务"+reviewEntryListForm.getSeller());
+		System.out.println("物流服务" + reviewEntryListForm.getLogistics());
+		System.out.println("卖家服务" + reviewEntryListForm.getSeller());
 		List<ReviewVO> reviewEntryList = reviewEntryListForm.getReviewEntryList();
-		
+
 		for (ReviewVO reviewVO : reviewEntryList) {
-			System.out.println("reviewVo:"+reviewVO.toString());
+			System.out.println("reviewVo:" + reviewVO.toString());
 		}
-		
-		
-		
-        return null;
-    }
-	
-	   /**
-		 * FormBean - 评论条目
-		 * 
-		 * @author SHOP++ Team
-		 * @version 6.1
+		return null;
+	}
+
+
+	/**
+	 * FormBean - 评论条目
+	 * 
+	 * @author SHOP++ Team
+	 * @version 6.1
+	 */
+	public static class ReviewEntryListForm {
+
+		/**
+		 * 评论条目
 		 */
-		public static class ReviewEntryListForm {
+		private List<ReviewVO> reviewEntryList;
 
-			/**
-			 * 评论条目
-			 */
-			private List<ReviewVO> reviewEntryList;
-			
-			/**
-			 * 物流服务
-			 */
-			private Integer logistics;
-			
-			/**
-			 * 卖家服务
-			 */
-			private Integer seller;
+		/**
+		 * 物流服务
+		 */
+		private Integer logistics;
 
-			
-			
-			public List<ReviewVO> getReviewEntryList() {
-				return reviewEntryList;
-			}
+		/**
+		 * 卖家服务
+		 */
+		private Integer seller;
 
-			public void setReviewEntryList(List<ReviewVO> reviewEntryList) {
-				this.reviewEntryList = reviewEntryList;
-			}
-
-			public Integer getLogistics() {
-				return logistics;
-			}
-
-			public void setLogistics(Integer logistics) {
-				this.logistics = logistics;
-			}
-
-			public Integer getSeller() {
-				return seller;
-			}
-
-			public void setSeller(Integer seller) {
-				this.seller = seller;
-			}
-			
+		public List<ReviewVO> getReviewEntryList() {
+			return reviewEntryList;
 		}
-	
+
+		public void setReviewEntryList(List<ReviewVO> reviewEntryList) {
+			this.reviewEntryList = reviewEntryList;
+		}
+
+		public Integer getLogistics() {
+			return logistics;
+		}
+
+		public void setLogistics(Integer logistics) {
+			this.logistics = logistics;
+		}
+
+		public Integer getSeller() {
+			return seller;
+		}
+
+		public void setSeller(Integer seller) {
+			this.seller = seller;
+		}
+
+	}
+
 }
