@@ -1231,13 +1231,4 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		}
 	}
 
-	
-	
-	@Override
-	@Transactional(readOnly = true)
-	public Page<Order> findPageXc(OrderPageParams orderPageParams,Type type,Status status,
-			Store store, Member member, Product product, Pageable pageable) {
-		return orderDao.findPageXc(orderPageParams,type, status, store, member, product, pageable);
-	}
-	
 }

@@ -28,9 +28,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.xczhihui.common.support.domain.BxgUser;
+import com.xczhihui.common.util.bean.ResponseObject;
 
 import net.shopxx.Pageable;
 import net.shopxx.Results;
@@ -45,10 +48,15 @@ import net.shopxx.entity.Store;
 import net.shopxx.entity.StoreProductCategory;
 import net.shopxx.exception.ResourceNotFoundException;
 import net.shopxx.merge.enums.OrderType;
+import net.shopxx.merge.enums.Status;
+import net.shopxx.merge.enums.Type;
+import net.shopxx.merge.enums.UsersType;
 import net.shopxx.merge.service.GoodsService;
+import net.shopxx.merge.service.OrderOperService;
 import net.shopxx.merge.service.ShopCategoryService;
 import net.shopxx.merge.service.ShopReviewService;
 import net.shopxx.merge.vo.GoodsPageParams;
+import net.shopxx.merge.vo.OrderPageParams;
 import net.shopxx.merge.vo.ReviewVO;
 import net.shopxx.service.AttributeService;
 import net.shopxx.service.BrandService;
@@ -103,6 +111,9 @@ public class ProductController extends BaseController {
 
 	@Inject
 	private ShopReviewService shopReviewService;
+
+	@Inject
+	private OrderOperService orderOperService;
 
 	/**
 	 * 详情
@@ -471,6 +482,21 @@ public class ProductController extends BaseController {
 		return findChildren;
 	}
 
+	
+	@RequestMapping(value = "/order/list")
+    @ResponseBody
+    public ResponseObject list(
+    		 OrderPageParams orderPageParams,
+    		 @RequestParam(required = false)UsersType type,
+    		 @RequestParam(required = false) Status status){
+    	
+    	System.out.println("orderPageParams : "+ orderPageParams.toString());
+    	System.out.println("type : "+ type);
+    	System.out.println("status : "+ status);
+        return ResponseObject.newSuccessResponseObject(orderOperService.findPageXc(orderPageParams,type, status, null, 
+        		"aa79673b899249d9a07b0f19732a1b0e",null, UsersType.BUSINESS));
+    }
+	
 	/**
 	 * <p>
 	 * Title: prodoctCategoryId

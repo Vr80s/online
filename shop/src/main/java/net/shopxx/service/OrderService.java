@@ -473,25 +473,4 @@ public interface OrderService extends BaseService<Order, Long> {
 	 */
 	BigDecimal grantedCommissionTotalAmount(Store store, CommissionType commissionType, Date beginDate, Date endDate, Order.Status... statuses);
 
-	/**  
-	 * <p>Title: findPageXc</p>  
-	 * <p>Description: </p>  
-	 * @param orderPageParams
-	 * @param type
-	 * @param status
-	 * @param store
-	 * @param member
-	 * @param product
-	 * @param isPendingReceive
-	 * @param isPendingRefunds
-	 * @param isUseCouponCode
-	 * @param isExchangePoint
-	 * @param isAllocatedStock
-	 * @param hasExpired
-	 * @param pageable
-	 * @return  
-	 */ 
-	Page<Order> findPageXc(OrderPageParams orderPageParams, Type type, Status status, Store store, Member member,
-			Product product, Pageable pageable);
-
 }

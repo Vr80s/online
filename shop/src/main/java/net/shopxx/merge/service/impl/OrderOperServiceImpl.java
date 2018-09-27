@@ -42,7 +42,6 @@ import net.shopxx.entity.Sku;
 import net.shopxx.entity.Store;
 import net.shopxx.merge.entity.UsersRelation;
 import net.shopxx.merge.enums.Status;
-import net.shopxx.merge.enums.Type;
 import net.shopxx.merge.enums.UsersType;
 import net.shopxx.merge.service.OrderOperService;
 import net.shopxx.merge.service.UsersRelationService;
@@ -838,7 +837,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Object findPageXc(OrderPageParams orderPageParams,Type type, Status status, ScoreVO store, 
+	public Object findPageXc(OrderPageParams orderPageParams,UsersType type, Status status, ScoreVO store, 
 			String ipandatcmUserId, ProductVO product,UsersType usersType) {
 		
 		Store ss = null;Member member = null;
@@ -853,10 +852,9 @@ public class OrderOperServiceImpl implements OrderOperService {
 		Pageable pageable = new Pageable(orderPageParams.getPageNumber(), orderPageParams.getPageSize());
 		
 		Page<Order> orderList = orderDao.findPageXc(orderPageParams,
-				(type !=null ? Order.Type.valueOf(type.toString()) : null),
+				Order.Type.GENERAL,
 				(status !=null ? Order.Status.valueOf(status.toString()) : null),
 				ss, member, null, pageable);
-		
 		
 		//分页参数赋值
         net.shopxx.merge.page.Pageable pageableVo = new 

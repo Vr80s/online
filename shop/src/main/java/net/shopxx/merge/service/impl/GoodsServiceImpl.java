@@ -46,12 +46,6 @@ public class GoodsServiceImpl implements GoodsService {
     @Inject
     private ProductDao productDao;
 
-    @Inject
-    private UsersRelationService usersRelationService;
-
-    @Autowired
-    private IMedicalDoctorAccountService medicalDoctorAccountService;
-
     @Autowired
     private IMedicalDoctorPostsService medicalDoctorPostsService;
     
@@ -139,9 +133,6 @@ public class GoodsServiceImpl implements GoodsService {
 //        } catch (IllegalAccessException | InvocationTargetException e) {
 //            e.printStackTrace();
 //        }
-        
-        
-        
         
         org.springframework.beans.BeanUtils.copyProperties(product,pv);
 

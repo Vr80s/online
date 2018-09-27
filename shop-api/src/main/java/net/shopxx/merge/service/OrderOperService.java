@@ -135,6 +135,6 @@ public interface OrderOperService {
 	 * @param pageSize
 	 * @return  
 	 */ 
-	Object findPageXc(OrderPageParams orderPageParams,Type type, Status status, ScoreVO store, 
+	Object findPageXc(OrderPageParams orderPageParams,UsersType type, Status status, ScoreVO store, 
 			String ipandatcmUserId, ProductVO product,UsersType usersType);
 }
