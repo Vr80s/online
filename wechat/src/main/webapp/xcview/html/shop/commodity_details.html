@@ -13,7 +13,7 @@
 <meta name="description" content="" />
 
 <!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+<script type="text/javascript" src="/xcview/js/common/layout.js?version=e2b9d5cdbd"></script>
 <script>
 	// 判断横屏展示时的状态
 	window.onorientationchange=function(){
@@ -24,20 +24,20 @@
 	    }
 	}	
 </script>
-<link rel="stylesheet" href="/xcview/js/shop/big_picture/css/demo.css">
-<link rel="stylesheet" href="/xcview/js/shop/big_picture/css/iconfont.css">
-<link rel="stylesheet prefetch" href="/xcview/js/shop/big_picture/css/photoswipe.css">
-<link rel="stylesheet prefetch" href="/xcview/js/shop/big_picture/css/default-skin/default-skin.css">
+<link rel="stylesheet" href="/xcview/js/shop/big_picture/css/demo.css?version=c94301827a">
+<link rel="stylesheet" href="/xcview/js/shop/big_picture/css/iconfont.css?version=46473f4fea">
+<link rel="stylesheet prefetch" href="/xcview/js/shop/big_picture/css/photoswipe.css?version=7dc0df1071">
+<link rel="stylesheet prefetch" href="/xcview/js/shop/big_picture/css/default-skin/default-skin.css?version=426e8908d7">
 
 
 
-<link rel="stylesheet" href="/xcview/css/shop/jquery.spinner.css" /><!-- 点击数量加减 -->
-<link rel="stylesheet" href="/xcview/css/shop/commodity_details.css" />
+<link rel="stylesheet" href="/xcview/css/shop/jquery.spinner.css?version=b93061713f" /><!-- 点击数量加减 -->
+<link rel="stylesheet" href="/xcview/css/shop/commodity_details.css?version=3199cb3149" />
 <!-- 轮播引入 -->
-<link rel='stylesheet prefetch' href='/xcview/css/shop/ckg/photoswipe.css'>
-<link rel='stylesheet prefetch' href='/xcview/css/shop/ckg/default-skin/default-skin.css'>
+<link rel='stylesheet prefetch' href='/xcview/css/shop/ckg/photoswipe.css?version=9200f216e3'>
+<link rel='stylesheet prefetch' href='/xcview/css/shop/ckg/default-skin/default-skin.css?version=c66976ff72'>
 <link rel="stylesheet" href="/xcview/css/shop/ckg/swiper.min.css">
-<link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
+<link rel="stylesheet" type="text/css" href="/xcview/css/popups.css?version=274f363430"/> <!-- 公用弹框 -->
 <!-- 轮播引入 -->
 <style>
 	/*隐藏轮播点击查看大图效果显示的第几张数字*/
@@ -69,23 +69,22 @@
 
 	<!-- 轮播区域开始 -->
 	<div class="banner">
-
+		<script type="text/html" id="top_details">
 		<!--滑动焦点图--> 
 		<div class="swiper-container" alt="Image description">
 			<div class="my-gallery swiper-wrapper">
-				<script type="text/html" id="top_details">
+				
 			    {{each items as item i}}
 			    <div class="swiper-slide">			
 					<a href="{{item.source}}" data-size="1024x1024">
 						<img src="{{item.source}}" alt="" class="surface_plot" />
-					</a>
-						    	
+					</a>   	
 			    </div>
 			    {{/each}}
-			</script>
+			
 			</div>
 			<div class="swiper-pagination"></div>
-		</div>            			
+		</div>              			
 
 		<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 		    <div class="pswp__bg"></div>
@@ -124,281 +123,278 @@
 		    </div>
 		</div>
 		<!-- 滑动焦点图 -->	
+		</script>
 	</div>
 	<!-- 轮播区域结束 -->
-	<div class="list_details">
-	<script type="text/html" id="list_details">
-		<!-- 详情开始 -->
-		<div class="details" id="li_btn0">
-			<div class="details_main">
-				<div class="title">{{items.name}}</div>
-				<div class="referral">{{items.caption}}</div>
-			</div>
-			<div class="price">
-				<span class="ruling_price">￥{{items.price}}</span>
-				<span class="original_price">￥{{items.marketprice}}</span>
-				<span class="sold_out">已售{{items.sales}}件</span>
+
+	<!-- 详情开始 -->
+	<div class="details" id="li_btn0">
+		<div class="details_main">
+			<div class="title">红豆薏米茶去湿茶正品除去湿茶健胃清热茶红豆薏米红豆薏米茶去湿茶正品除去湿茶健胃清热茶红豆薏米红豆薏米茶去湿茶正品除去湿茶健胃清热茶红豆薏米</div>
+			<div class="referral">假如有商品卖点介绍的话显示在标题下方，如果没有则不显示假如有商品卖点介绍的话显示在标题下方，如果没有则不显示假如有商品卖点介绍的话显示在标题下方，如果没有则不显示假如有商品卖点介绍的话显示在标题下方，如果没有则不显示</div>
+		</div>
+		<div class="price">
+			<span class="ruling_price">￥188.00</span>
+			<span class="original_price">￥422.00</span>
+			<span class="sold_out">已售100件</span>
+			<div class="both"></div>
+		</div>
+	</div>
+	<!-- 详情结束 -->
+	
+	<!-- 医师推荐开始 -->
+	<div class="physician_recommend">
+		<div class="recommend_main">
+			<div class="recommend" onclick="location.href ='/xcview/html/shop/recommend.html'">
+				<span class="title">医师推荐</span>
+				<span class="view_all">查看全部 <img src="/xcview/images/shop/view_all.png" alt="" /></span>
 				<div class="both"></div>
 			</div>
-		</div>
-		<!-- 详情结束 -->
-		
-		<!-- 医师推荐开始 -->
-		<div class="physician_recommend">
-			<div class="recommend_main">
-				<div class="recommend" onclick="location.href ='/xcview/html/shop/recommend.html'">
-					<span class="title">医师推荐</span>
-					<span class="view_all">查看全部 <img src="/xcview/images/shop/view_all.png" alt="" /></span>
-					<div class="both"></div>
+			<div class="referrer">
+				<div class="referrer_message">
+					<img src="/xcview/images/touxiang.png" alt="" class="head_portrait" />
+					<span class="name">陈文伯医师</span>
+					<span class="recommendation_rate">
+						推荐指数
+						<img src="/xcview/images/xing0_5.png" alt="" class="xingxing" />
+					</span>
 				</div>
-				<div class="referrer">
-					<div class="referrer_message">
-						<img src="/xcview/images/touxiang.png" alt="" class="head_portrait" />
-						<span class="name">陈文伯医师</span>
-						<span class="recommendation_rate">
-							推荐指数
-							<img src="/xcview/images/xing0_5.png" alt="" class="xingxing" />
-						</span>
-					</div>
-					<div class="center">无添加玫瑰花红糖，不添加任何防腐剂，口感细滑，易于吸收，具有良好的温补功效，了解一下？</div>
+				<div class="center">无添加玫瑰花红糖，不添加任何防腐剂，口感细滑，易于吸收，具有良好的温补功效，了解一下？</div>
+			</div>
+		</div>
+	</div>
+	<!-- 医师推荐结束 -->
+
+	<!-- 评价开始 -->
+	<div class="evaluate" id="li_btn1">
+		<div class="evaluate_main">
+			<div class="evaluate_top" onclick="location.href ='/xcview/html/shop/all_evaluation.html'">
+				<span class="title">评价</span>
+				<span class="evaluate_view_all">查看全部 <img src="/xcview/images/shop/view_all.png" alt="" /></span>
+				<div class="both"></div>
+			</div>
+			<div class="appraiser">
+				<div class="appraiser_message">
+					<img src="/xcview/images/touxiang.png" alt="" class="head_portrait" />
+					<span class="name">陈文伯医师</span>
+				</div>
+				<div class="center">无添加玫瑰花红糖，不添加任何防腐剂，口感细滑，易于吸收，具有良好的温补功效，了解一下？</div>
+				<!-- <div class="referrer_img">
+					<img src="/xcview/images/frog.jpg" alt="" />
+				</div> -->
+				<div class="contain">
+				    <ul>
+				        <li>
+				            <div class="body">
+				                <div class="text">
+				                    <div class="my-gallery" data-pswp-uid="2">
+					                    <figure class="figure_big">
+					                        <div><a href="/xcview/images/frog.jpg" data-size="286x220"><img style="height:100%;" src="/xcview/images/frog.jpg"></a></div>
+					                    </figure>
+					                    <figure class="figure_big">
+					                        <div><a href="/xcview/images/anchorbg.png" data-size="286x220"><img style="height:100%;" src="/xcview/images/anchorbg.png"></a></div>
+					                    </figure>
+					                    <figure class="figure_big">
+					                        <div><a href="/xcview/images/frog.jpg" data-size="286x220"><img style="height:100%;" src="/xcview/images/frog.jpg"></a></div>
+					                    </figure>
+				                    </div>
+				                </div>
+				            </div>
+				        </li>
+				        
+				    </ul>
 				</div>
 			</div>
 		</div>
-		<!-- 医师推荐结束 -->
+	</div>
+	<!-- 评价结束 -->
 
-		<!-- 评价开始 -->
-		<div class="evaluate" id="li_btn1">
-			<div class="evaluate_main">
-				<div class="evaluate_top" onclick="location.href ='/xcview/html/shop/all_evaluation.html'">
-					<span class="title">评价</span>
-					<span class="evaluate_view_all">查看全部 <img src="/xcview/images/shop/view_all.png" alt="" /></span>
-					<div class="both"></div>
-				</div>
-				<div class="appraiser">
-					<div class="appraiser_message">
-						<img src="/xcview/images/touxiang.png" alt="" class="head_portrait" />
-						<span class="name">陈文伯医师</span>
-					</div>
-					<div class="center">无添加玫瑰花红糖，不添加任何防腐剂，口感细滑，易于吸收，具有良好的温补功效，了解一下？</div>
-					<!-- <div class="referrer_img">
-						<img src="/xcview/images/frog.jpg" alt="" />
-					</div> -->
-					<div class="contain">
-					    <ul>
-					        <li>
-					            <div class="body">
-					                <div class="text">
-					                    <div class="my-gallery" data-pswp-uid="2">
-						                    <figure class="figure_big">
-						                        <div><a href="/xcview/images/frog.jpg" data-size="286x220"><img style="height:100%;" src="/xcview/images/frog.jpg"></a></div>
-						                    </figure>
-						                    <figure class="figure_big">
-						                        <div><a href="/xcview/images/anchorbg.png" data-size="286x220"><img style="height:100%;" src="/xcview/images/anchorbg.png"></a></div>
-						                    </figure>
-						                    <figure class="figure_big">
-						                        <div><a href="/xcview/images/frog.jpg" data-size="286x220"><img style="height:100%;" src="/xcview/images/frog.jpg"></a></div>
-						                    </figure>
-					                    </div>
-					                </div>
-					            </div>
-					        </li>
-					        
-					    </ul>
-					</div>
-				</div>
-			</div>
-			<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
-		    <!-- Background of PhotoSwipe. 
-		         It's a separate element as animating opacity is faster than rgba(). -->
-		    <div class="pswp__bg"></div>
+	    <!-- Background of PhotoSwipe. 
+	         It's a separate element as animating opacity is faster than rgba(). -->
+	    <div class="pswp__bg"></div>
 
-		    <!-- Slides wrapper with overflow:hidden. -->
-		    <div class="pswp__scroll-wrap">
+	    <!-- Slides wrapper with overflow:hidden. -->
+	    <div class="pswp__scroll-wrap">
 
-		        <!-- Container that holds slides. 
-		            PhotoSwipe keeps only 3 of them in the DOM to save memory.
-		            Don't modify these 3 pswp__item elements, data is added later on. -->
-		        <div class="pswp__container">
-		            <div class="pswp__item"></div>
-		            <div class="pswp__item"></div>
-		            <div class="pswp__item"></div>
-		        </div>
+	        <!-- Container that holds slides. 
+	            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+	            Don't modify these 3 pswp__item elements, data is added later on. -->
+	        <div class="pswp__container">
+	            <div class="pswp__item"></div>
+	            <div class="pswp__item"></div>
+	            <div class="pswp__item"></div>
+	        </div>
 
-		        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-		        <div class="pswp__ui pswp__ui--hidden">
+	        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+	        <div class="pswp__ui pswp__ui--hidden">
 
-		            <div class="pswp__top-bar">
+	            <div class="pswp__top-bar">
 
-		                <!--  Controls are self-explanatory. Order can be changed. -->
+	                <!--  Controls are self-explanatory. Order can be changed. -->
 
-		                <div class="pswp__counter"></div>
+	                <div class="pswp__counter"></div>
 
-		                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+	                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
 
-		                <button class="pswp__button pswp__button--share" title="Share"></button>
+	                <button class="pswp__button pswp__button--share" title="Share"></button>
 
-		                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+	                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
 
-		                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+	                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
 
-		                <!-- element will get class pswp__preloader--active when preloader is running -->
-		                <div class="pswp__preloader">
-		                    <div class="pswp__preloader__icn">
-		                      <div class="pswp__preloader__cut">
-		                        <div class="pswp__preloader__donut"></div>
-		                      </div>
-		                    </div>
-		                </div>
-		            </div>
+	                <!-- element will get class pswp__preloader--active when preloader is running -->
+	                <div class="pswp__preloader">
+	                    <div class="pswp__preloader__icn">
+	                      <div class="pswp__preloader__cut">
+	                        <div class="pswp__preloader__donut"></div>
+	                      </div>
+	                    </div>
+	                </div>
+	            </div>
 
-		            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-		                <div class="pswp__share-tooltip"></div> 
-		            </div>
+	            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+	                <div class="pswp__share-tooltip"></div> 
+	            </div>
 
-		            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-		            </button>
+	            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+	            </button>
 
-		            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-		            </button>
+	            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+	            </button>
 
-		            <div class="pswp__caption">
-		                <div class="pswp__caption__center"></div>
-		            </div>
+	            <div class="pswp__caption">
+	                <div class="pswp__caption__center"></div>
+	            </div>
 
-		        </div>
+	        </div>
 
-		    </div>
-		</div>
-		</div>
-		<!-- 评价结束 -->
+	    </div>
+	</div>
 
-		
-
-		<!-- 商品详情开始 -->
-		<div class="commodity_details" id="li_btn2">
-			<div class="commodity_details_main">
-				<div class="title">商品详情</div>
-				<div class="commodity_details_center">
-					<img src="/xcview/images/topTwo_doc.png" alt="" />
-				</div>
+	<!-- 商品详情开始 -->
+	<div class="commodity_details" id="li_btn2">
+		<div class="commodity_details_main">
+			<div class="title">商品详情</div>
+			<div class="commodity_details_center">
+				<img src="/xcview/images/topTwo_doc.png" alt="" />
 			</div>
 		</div>
-		<!-- 商品详情结束 -->
+	</div>
+	<!-- 商品详情结束 -->
 
-		<!-- 常见问题开始 -->
-		<div class="FAQ">
-			<div class="issue">
-				<div class="title">常见问题</div>
-				<div class="issue_main">
-					<ul>
-						<li>
-							<span class="yuan"></span>
-							划线价格
-							<div class="center">商品的专柜商品的专柜商品的专柜商品的专柜商品的专柜</div>
-						</li>
-						<li>
-							<span class="yuan"></span>
-							划线价格
-							<div class="center">商品的专柜商品的专柜商品的专柜商品的专柜商品的专柜</div>
-						</li>
-					</ul>
-				</div>
+	<!-- 常见问题开始 -->
+	<div class="FAQ">
+		<div class="issue">
+			<div class="title">常见问题</div>
+			<div class="issue_main">
+				<ul>
+					<li>
+						<span class="yuan"></span>
+						划线价格
+						<div class="center">商品的专柜商品的专柜商品的专柜商品的专柜商品的专柜</div>
+					</li>
+					<li>
+						<span class="yuan"></span>
+						划线价格
+						<div class="center">商品的专柜商品的专柜商品的专柜商品的专柜商品的专柜</div>
+					</li>
+				</ul>
 			</div>
 		</div>
-		<div class="hide_hide"></div>
-		<!-- 常见问题结束 -->
-		
-		<!-- 底部开始 -->
-		<div class="footer">
-			<div class="center">
-				<div class="service">
-					<img src="/xcview/images/shop/service.png" alt="" />
-					客服
-				</div>
-				<div class="shopping_cart" onclick="location.href ='/xcview/html/shop/shopping_trolley.html '">
-					<img src="/xcview/images/shop/shopping_cart.png" alt="" />
-					购物车
-					<span class="shopping_quantity">12</span>
-				</div>
-				<div class="deal">
-					<div class="add_cart">加入购物车</div>
-					<div class="buy_now">立即购买</div>
-				</div>
+	</div>
+	<div class="hide_hide"></div>
+	<!-- 常见问题结束 -->
+	
+	<!-- 底部开始 -->
+	<div class="footer">
+		<div class="center">
+			<div class="service">
+				<img src="/xcview/images/shop/service.png" alt="" />
+				客服
+			</div>
+			<div class="shopping_cart" onclick="location.href ='/xcview/html/shop/shopping_trolley.html '">
+				<img src="/xcview/images/shop/shopping_cart.png" alt="" />
+				购物车
+				<span class="shopping_quantity">12</span>
+			</div>
+			<div class="deal">
+				<div class="add_cart">加入购物车</div>
+				<div class="buy_now">立即购买</div>
 			</div>
 		</div>
-		<!-- 底部结束 -->
+	</div>
+	<!-- 底部结束 -->
 
-		<!-- 点击购物车出现提示开始 -->
-		<div class="shopping_trolley">
-			<div class="shopping_trolley_bg"></div>
-			<div class="shopping_trolley_main">
-				<div class="shopping_trolley_center">
-					<div class="message">
-						<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-						<div class="information">
-							<div class="price">￥100.00</div>
-							<div class="repertory">库存120件</div>
-							<div class="category">
-								<span class="choice">选择</span>
-								<span class="specification">规格</span>
-								<span class="kind">分类</span>
-							</div>
+	<!-- 点击购物车出现提示开始 -->
+	<div class="shopping_trolley">
+		<div class="shopping_trolley_bg"></div>
+		<div class="shopping_trolley_main">
+			<div class="shopping_trolley_center">
+				<div class="message">
+					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+					<div class="information">
+						<div class="price">￥100.00</div>
+						<div class="repertory">库存120件</div>
+						<div class="category">
+							<span class="choice">选择</span>
+							<span class="specification">规格</span>
+							<span class="kind">分类</span>
 						</div>
 					</div>
-					<div class="specifications">
-						<span class="">规格</span>
-						<ul class="specifications_ul">
-							<li class="casing include">5包装</li>
-							<li class="casing include">1盒10包装</li>
-							<li class="casing include">2盒22包装</li>
-							<li class="casing include">一箱8盒100包</li>
-						</ul>
-					</div>
-
-					<div class="classify">
-						<span class="">分类</span>
-						<ul class="classify_ul">
-							<li class="hue include">红色</li>
-							<li class="hue include">白色</li>
-							<li class="hue include">黄色</li>
-						</ul>
-					</div>
-					<div class="buy">
-						<div class="purchase_quantity">购买数量</div>
-						<center>
-							<input type="text" class="spinnerExample"/>
-						</center>
-					</div>
-					<div class="determine">确定</div>
 				</div>
+				<div class="specifications">
+					<span class="">规格</span>
+					<ul class="specifications_ul">
+						<li class="casing include">5包装</li>
+						<li class="casing include">1盒10包装</li>
+						<li class="casing include">2盒22包装</li>
+						<li class="casing include">一箱8盒100包</li>
+					</ul>
+				</div>
+
+				<div class="classify">
+					<span class="">分类</span>
+					<ul class="classify_ul">
+						<li class="hue include">红色</li>
+						<li class="hue include">白色</li>
+						<li class="hue include">黄色</li>
+					</ul>
+				</div>
+				<div class="buy">
+					<div class="purchase_quantity">购买数量</div>
+					<center>
+						<input type="text" class="spinnerExample"/>
+					</center>
+				</div>
+				<div class="determine">确定</div>
 			</div>
 		</div>
-		<!-- 点击购物车出现提示结束 -->
-
-		<!-- 点击分享提示开始 -->
-		<div class="weixin_ceng">
-			<div class="weixin_ceng_bg"></div>
-			<div class="weixin_img"><img src="/xcview/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
-		</div>
-		<!-- 点击分享提示结束 -->
-	</script>
 	</div>
+	<!-- 点击购物车出现提示结束 -->
+
+	<!-- 点击分享提示开始 -->
+	<div class="weixin_ceng">
+		<div class="weixin_ceng_bg"></div>
+		<div class="weixin_img"><img src="/xcview/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
+	</div>
+	<!-- 点击分享提示结束 -->
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script> 
-<script type="text/javascript" src="/xcview/js/common/common.js"></script> 
+<script type="text/javascript" src="/xcview/js/common/common.js?version=ed749a7870"></script> 
+
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>   <!--模板引入-->
 
 <script type="text/javascript" src="/xcview/js/shop/commodity_details.js"></script>
 
 <!-- 滑动焦点图引入-->	
-
-<script src="/xcview/js/shop/ckg/swiper.min.js"></script>
-<script src='/xcview/js/shop/ckg/big_img.js'></script>
+<script src='/xcview/js/shop/ckg/big_img.js?version=35a3532c5b'></script>
 <script src='/xcview/js/shop/ckg/photoswipe.min.js'></script>
 <script src='/xcview/js/shop/ckg/photoswipe-ui-default.min.js'></script>
-<script src='/xcview/js/shop/ckg/big_imgs.js'></script>
+<script src="/xcview/js/shop/ckg/bigImg.js?version=ca4b805048"></script>
+<script src="/xcview/js/shop/ckg/swiper.min.js"></script>
 <!-- 滑动焦点图引入-->	
 <script>  
     var swiper = new Swiper('.swiper-container', {
@@ -407,12 +403,10 @@
     });
 </script>
 <!-- 滑动焦点图end-->
-<script>
-	
-</script>
-<script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
 
-<script type="text/javascript" src="/xcview/js/shop/jquery.spinner.js"></script><!-- 点击数量引入 -->
+<script type="text/javascript" src="/xcview/js/common/popups.js?version=ac575e6012"></script>  <!-- 公用弹框 -->
+
+<script type="text/javascript" src="/xcview/js/shop/jquery.spinner.js?version=a3e4e4c603"></script><!-- 点击数量引入 -->
 <!-- 数量区域 -->
 <script>
 	// 点击数量加减
@@ -554,9 +548,241 @@
 </script>
 
 <script src="/xcview/js/shop/big_picture/js/jquery.min.js"></script>
-<script src="/xcview/js/shop/big_picture/js/photoswipe.js"></script>
+<script src="/xcview/js/shop/big_picture/js/photoswipe.js?version=a8d26ff349"></script>
 <script src="/xcview/js/shop/big_picture/js/photoswipe-ui-default.min.js"></script>
+<script type="text/javascript">
+	var initPhotoSwipeFromDOM = function(gallerySelector) {
 
+    // 解析来自DOM元素幻灯片数据（URL，标题，大小...）
+    // (children of gallerySelector)
+    var parseThumbnailElements = function(el) {
+        var thumbElements = el.childNodes,
+            numNodes = thumbElements.length,
+            items = [],
+            figureEl,
+            linkEl,
+            size,
+            item,
+			divEl;
+
+        for(var i = 0; i < numNodes; i++) {
+
+            figureEl = thumbElements[i]; // <figure> element
+
+            // 仅包括元素节点
+            if(figureEl.nodeType !== 1) {
+                continue;
+            }
+			divEl = figureEl.children[0];
+            linkEl = divEl.children[0]; // <a> element
+			
+            size = linkEl.getAttribute('data-size').split('x');
+
+            // 创建幻灯片对象
+            item = {
+                src: linkEl.getAttribute('href'),
+                w: parseInt(size[0], 10),
+                h: parseInt(size[1], 10)
+            };
+
+
+
+            if(figureEl.children.length > 1) {
+                // <figcaption> content
+                item.title = figureEl.children[1].innerHTML; 
+            }
+
+            if(linkEl.children.length > 0) {
+                // <img> 缩略图节点, 检索缩略图网址
+                item.msrc = linkEl.children[0].getAttribute('src');
+            } 
+
+            item.el = figureEl; // 保存链接元素 for getThumbBoundsFn
+            items.push(item);
+        }
+
+        return items;
+    };
+
+    // 查找最近的父节点
+    var closest = function closest(el, fn) {
+        return el && ( fn(el) ? el : closest(el.parentNode, fn) );
+    };
+
+    // 当用户点击缩略图触发
+    var onThumbnailsClick = function(e) {
+        e = e || window.event;
+        e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+        var eTarget = e.target || e.srcElement;
+
+        // find root element of slide
+        var clickedListItem = closest(eTarget, function(el) {
+            return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
+        });
+
+        if(!clickedListItem) {
+            return;
+        }
+
+        // find index of clicked item by looping through all child nodes
+        // alternatively, you may define index via data- attribute
+        var clickedGallery = clickedListItem.parentNode,
+            childNodes = clickedListItem.parentNode.childNodes,
+            numChildNodes = childNodes.length,
+            nodeIndex = 0,
+            index;
+
+        for (var i = 0; i < numChildNodes; i++) {
+            if(childNodes[i].nodeType !== 1) { 
+                continue; 
+            }
+
+            if(childNodes[i] === clickedListItem) {
+                index = nodeIndex;
+                break;
+            }
+            nodeIndex++;
+        }
+
+
+
+        if(index >= 0) {
+            // open PhotoSwipe if valid index found
+            openPhotoSwipe( index, clickedGallery );
+        }
+        return false;
+    };
+
+    // parse picture index and gallery index from URL (#&pid=1&gid=2)
+    var photoswipeParseHash = function() {
+        var hash = window.location.hash.substring(1),
+        params = {};
+
+        if(hash.length < 5) {
+            return params;
+        }
+
+        var vars = hash.split('&');
+        for (var i = 0; i < vars.length; i++) {
+            if(!vars[i]) {
+                continue;
+            }
+            var pair = vars[i].split('=');  
+            if(pair.length < 2) {
+                continue;
+            }           
+            params[pair[0]] = pair[1];
+        }
+
+        if(params.gid) {
+            params.gid = parseInt(params.gid, 10);
+        }
+
+        return params;
+    };
+
+    var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+        var pswpElement = document.querySelectorAll('.pswp')[0],
+            gallery,
+            options,
+            items;
+
+        items = parseThumbnailElements(galleryElement);
+
+        // 这里可以定义参数
+        options = {
+          barsSize: { 
+            top: 100,
+            bottom: 100
+          }, 
+		   fullscreenEl : false,
+			shareButtons: [
+			{id:'wechat', label:'分享微信', url:'#'},
+			{id:'weibo', label:'新浪微博', url:'#'},
+			{id:'download', label:'保存图片', url:'{{raw_image_url}}', download:true}
+			],
+
+            // define gallery index (for URL)
+            galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+
+            getThumbBoundsFn: function(index) {
+                // See Options -> getThumbBoundsFn section of documentation for more info
+                var thumbnail = items[index].el.getElementsByTagName('img')[0], // find thumbnail
+                    pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                    rect = thumbnail.getBoundingClientRect(); 
+
+                return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
+            }
+
+        };
+
+        // PhotoSwipe opened from URL
+        if(fromURL) {
+            if(options.galleryPIDs) {
+                // parse real index when custom PIDs are used 
+                for(var j = 0; j < items.length; j++) {
+                    if(items[j].pid == index) {
+                        options.index = j;
+                        break;
+                    }
+                }
+            } else {
+                // in URL indexes start from 1
+                options.index = parseInt(index, 10) - 1;
+            }
+        } else {
+            options.index = parseInt(index, 10);
+        }
+
+        // exit if index not found
+        if( isNaN(options.index) ) {
+            return;
+        }
+
+        if(disableAnimation) {
+            options.showAnimationDuration = 0;
+        }
+
+        // Pass data to PhotoSwipe and initialize it
+        gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+        gallery.init();
+    };
+
+    // loop through all gallery elements and bind events
+    var galleryElements = document.querySelectorAll( gallerySelector );
+
+    for(var i = 0, l = galleryElements.length; i < l; i++) {
+        galleryElements[i].setAttribute('data-pswp-uid', i+1);
+        galleryElements[i].onclick = onThumbnailsClick;
+    }
+
+    // Parse URL and open gallery if it contains #&pid=3&gid=1
+    var hashData = photoswipeParseHash();
+    if(hashData.pid && hashData.gid) {
+        openPhotoSwipe( hashData.pid ,  galleryElements[ hashData.gid - 1 ], true, true );
+    }
+	};
+
+	// execute above function
+	initPhotoSwipeFromDOM('.my-gallery');
+
+	
+	$(".my-gallery>figure>div").each(function(){
+		$(this).height($(this).width());
+	});
+	function more(obj,id) {
+ 		if ($('#txt'+id).is(":hidden")) {
+ 			$('#p'+id).hide();
+ 	 		$('#txt'+id).show();
+ 	 		obj.innerHTML='收起';
+ 		} else {
+ 			$('#p'+id).show();
+ 	 		$('#txt'+id).hide();
+ 	 		obj.innerHTML='全文';
+ 		}
+ 	}
+</script>
 
 <script>
 	//点击简介、评价、详情定位到具体内容
@@ -572,3 +798,4 @@
     }
 </script>
 </html>
+
