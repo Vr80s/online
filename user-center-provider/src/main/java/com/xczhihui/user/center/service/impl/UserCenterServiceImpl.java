@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.Md5Encrypt;
 import com.xczhihui.common.util.RandomUtil;
@@ -24,7 +25,6 @@ import com.xczhihui.user.center.mapper.OeUserMapper;
 import com.xczhihui.user.center.mapper.UserCoinMapper;
 import com.xczhihui.user.center.model.OeUser;
 import com.xczhihui.user.center.model.UserCoin;
-import com.xczhihui.user.center.service.CacheService;
 import com.xczhihui.user.center.service.IOeUserService;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.utils.SaltUtil;

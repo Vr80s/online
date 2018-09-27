@@ -1,31 +1,80 @@
 package net.shopxx.merge.service.impl;
 
-import net.shopxx.Page;
-import net.shopxx.Pageable;
-import net.shopxx.Setting;
-import net.shopxx.entity.*;
-import net.shopxx.merge.service.OrderOperService;
-import net.shopxx.merge.service.UsersRelationService;
-import net.shopxx.merge.vo.*;
-import net.shopxx.service.*;
-import net.shopxx.util.SystemUtils;
+import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.inject.Inject;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import javax.inject.Inject;
-import java.math.BigDecimal;
-import java.util.*;
+import com.alipay.api.domain.ForbbidenTime;
+
+import net.shopxx.Page;
+import net.shopxx.Pageable;
+import net.shopxx.Setting;
+import net.shopxx.entity.Area;
+import net.shopxx.entity.Cart;
+import net.shopxx.entity.CartItem;
+import net.shopxx.entity.CouponCode;
+import net.shopxx.entity.Invoice;
+import net.shopxx.entity.Member;
+import net.shopxx.entity.Order;
+import net.shopxx.entity.OrderItem;
+import net.shopxx.entity.OrderShipping;
+import net.shopxx.entity.PaymentMethod;
+import net.shopxx.entity.Product;
+import net.shopxx.entity.Receiver;
+import net.shopxx.entity.ShippingMethod;
+import net.shopxx.entity.Sku;
+import net.shopxx.entity.Store;
+import net.shopxx.merge.enums.Status;
+import net.shopxx.merge.enums.Type;
+import net.shopxx.merge.service.OrderOperService;
+import net.shopxx.merge.service.UsersRelationService;
+import net.shopxx.merge.vo.AreaVO;
+import net.shopxx.merge.vo.CartItemVO;
+import net.shopxx.merge.vo.CartVO;
+import net.shopxx.merge.vo.OrderItemVO;
+import net.shopxx.merge.vo.OrderVO;
+import net.shopxx.merge.vo.OrdersVO;
+import net.shopxx.merge.vo.ProductVO;
+import net.shopxx.merge.vo.ReceiverVO;
+import net.shopxx.merge.vo.ScoreVO;
+import net.shopxx.merge.vo.SkuVO;
+import net.shopxx.service.AreaService;
+import net.shopxx.service.CartService;
+import net.shopxx.service.CouponCodeService;
+import net.shopxx.service.OrderService;
+import net.shopxx.service.OrderShippingService;
+import net.shopxx.service.PaymentMethodService;
+import net.shopxx.service.ReceiverService;
+import net.shopxx.service.ShippingMethodService;
+import net.shopxx.service.SkuService;
+import net.shopxx.service.StoreService;
+import net.shopxx.util.SystemUtils;
 
 /**
  * 熊猫中医与shop用户关系
  */
 @Service
 public class OrderOperServiceImpl implements OrderOperService {
+	
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderOperServiceImpl.class);
 
 	@Inject
 	private SkuService skuService;
@@ -354,7 +403,9 @@ public class OrderOperServiceImpl implements OrderOperService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<OrderVO> findPage(OrderVO.Type type, OrderVO.Status status, ScoreVO store, String ipandatcmUserId, ProductVO product, Boolean isPendingReceive, Boolean isPendingRefunds, Boolean isUseCouponCode, Boolean isExchangePoint, Boolean isAllocatedStock, Boolean hasExpired, int pageNumber,int pageSize) {
+		
 		//获取当前用户
 		Member currentUser = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
 		Store ss = storeService.findByBusinessId(10101L);
@@ -368,17 +419,29 @@ public class OrderOperServiceImpl implements OrderOperService {
 			s = status.toString();
 		}
 		List<Order> orderList = orderService.findPage(t == null?null:Order.Type.valueOf(t.trim()), s == null?null:Order.Status.valueOf(s.trim()), null, currentUser, null, isPendingReceive, isPendingRefunds, isUseCouponCode, isExchangePoint, isAllocatedStock, hasExpired, pageable).getContent();
+		
+		LOGGER.info("orderList size "+orderList.size());
+		
 		List<OrderVO> list = new ArrayList<>();
+		
 		for(Order order : orderList){
 			OrderVO o = new OrderVO();
-			BeanUtils.copyProperties(order,o);
-			o.setId(order.getId());
+			try {
+				org.apache.commons.beanutils.BeanUtils.copyProperties(o,order);
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+			}
+			//o.setId(order.getId());
 			list.add(o);
 		}
+		
 		return list;
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public OrderVO findBySn(String sn) {
 		Order order = orderService.findBySn(sn);
 		OrderVO o = new OrderVO();
@@ -756,5 +819,66 @@ public class OrderOperServiceImpl implements OrderOperService {
 		}
 		return cart;
 	}
-
+	
+	@Override
+	public OrdersVO findBySnXc(String sn) {
+		Order order = orderService.findBySn(sn);
+		OrdersVO o = new OrdersVO();
+		if(order != null){
+			BeanUtils.copyProperties(order,o);
+		}
+		return o;
+	}
+	
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Object findPageXc(Type type, Status status, ScoreVO store, 
+			String ipandatcmUserId, ProductVO product, Boolean isPendingReceive, 
+			Boolean isPendingRefunds, Boolean isUseCouponCode, 
+			Boolean isExchangePoint, Boolean isAllocatedStock, 
+			Boolean hasExpired, int pageNumber,int pageSize) {
+		
+		//获取当前用户
+//		Member currentUser = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
+		Member currentUser = null;
+		
+		Store ss = storeService.findByBusinessId(10101L);
+		Pageable pageable = new Pageable(pageNumber, pageSize);
+		String t = null;
+		if(type != null){
+			t = type.toString();
+		}
+		String s = null;
+		if(status != null){
+			s = status.toString();
+		}
+		List<Order> orderList = orderService.findPage(t == null?null:Order.Type.valueOf(t.trim()), s == null?null:Order.Status.valueOf(s.trim()), null, currentUser, null, isPendingReceive, isPendingRefunds, isUseCouponCode, isExchangePoint, isAllocatedStock, hasExpired, pageable).getContent();
+		LOGGER.info("orderList size "+orderList.size());
+		List<OrdersVO> list = new ArrayList<>();
+		for(Order order : orderList){
+			OrdersVO o = new OrdersVO();
+			try {
+				org.apache.commons.beanutils.BeanUtils.copyProperties(o,order);
+				
+				o.setStatus(order.getStatus().ordinal());
+				
+				List<OrderItem> orderItems = order.getOrderItems();
+				List<OrderItemVO> orderVoItems = new ArrayList<OrderItemVO>();
+				for (OrderItem orderItem : orderItems) {
+					OrderItemVO orderItemVO = new OrderItemVO();
+					org.apache.commons.beanutils.BeanUtils.copyProperties(orderItemVO,orderItem);
+					orderVoItems.add(orderItemVO);
+				}
+				o.setOrderVoItems(orderVoItems);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			list.add(o);
+		}
+		return list;
+	}
+	
+	
+	
 }

@@ -33,6 +33,33 @@
 		left: 50%;
 		margin-left: -2.1rem;
 	}
+	.address-select{
+		clear: both;
+    overflow: hidden;
+        padding: 0.2rem 0.25rem;
+        color: #333;
+	}
+	    
+	.address-select select{
+		width: 2rem;
+	    height: 0.5rem;
+	    font-size: 0.2rem;
+	    background: white;
+	    border: 1px solid #dadada;
+	    margin-right: 0.1rem;
+	}
+	.address-select p{
+		font-size: 0.2rem;
+		float: left;
+		font-size: 0.28rem;
+		margin-bottom: 0.2rem;
+	}
+	.address-select .input-group{
+		float: left;
+	    display: inline-flex;
+	    clear: both;
+	}  
+	
 </style>
 <link rel="stylesheet" href="/xcview/css/css.css">
 <link rel="stylesheet" href="/xcview/css/tailor.css">
@@ -234,13 +261,29 @@
             <div class="edit_one_put"><input type="text" id="zip-code" placeholder="请输入邮编" style="text-align: right;font-size:0.28rem;" maxlength="11" /></div>
           </div>
         </div>
-        <div class="edit_one01">
+        <!--<div class="edit_one01">
           <div class="edit_one">
             <div class="edit_one_size">所在地区</div>
             <div class="edit_one_put" style="margin-right: 1rem;"><p id="cityP" onclick="picker2()" style="text-align: right;font-size:0.28rem;">请选择</p></div>
             <div class="my_right_img" style="float: right;margin-right: 0.26rem;"><img src="/xcview/images/right_jian.png"></div>
           </div>
+        </div>-->
+        <div class="address-select">
+        	<p>所在地区</p>
+        	<div class="input-group">
+        		<select class="sheng" name="">
+          			<option data-id="0">请选择</option>
+	          	</select>
+	          	<select class="shi hide" name="">
+					<option data-id="0">请选择</option>
+	          	</select>
+	          	<select class="qu hide" name="">
+					<option data-id="0">请选择</option>	
+	          	</select>
+        	</div>
+        	
         </div>
+          	
         <div class="edit_one01" style="height: 2.5rem;border: 0;">
           <div class="edit_one">
             <!--<div class="edit_one_size" style="color: #999;">请输入详细地址</div>-->
@@ -275,6 +318,7 @@
 
 <script>
 /* 选择省市区插件    -- 初始化新增地址这个地方啦 */
+var PickerId;
 function picker2() {
     //var nowValue = document.getElementById('nowValue');
     new Picker({
@@ -290,6 +334,7 @@ function picker2() {
         "callBack": function (val,b) {
             //回调函数（val为选择的值）
 			$("#cityP").html(val);
+			PickerId=b.split(",")[2]
         }
     });
 };
@@ -298,4 +343,73 @@ $("#address_save").click(function(){
 	$("#vanishs").hide();
 })
 
+
+
+//新的省市区
+	var getProviceId="";
+	var getCityId="";
+	var getQuId="";
+	var urlProvice="/xczh/shop/area?parentId="+getProviceId;
+//	省
+	requestService(urlProvice,null, function(data) {
+		var str;
+		var provice=data.resultObject;
+			for(var i=0; i<provice.length;i++){
+				str+="<option data-id="+provice[i].value+">"+provice[i].name+"</option>";
+			}
+		$(".input-group .sheng").html('<option data-id="0">请选择</option>'+str);
+		$(".input-group .shi").addClass("hide");
+		$(".input-group .qu").addClass("hide");
+	})
+//	省变化时
+	$(".input-group .sheng").on("change",function(){
+		 	getProviceId=$(".input-group .sheng option:selected").attr("data-id");			
+//	省市变化时,清空市和区的id,并隐藏区
+			$(".input-group .qu").addClass("hide");
+			getCityId="";
+			getQuId="";	
+//	如果省的value不为请选择时
+		if(getProviceId != 0){
+			$(".input-group .shi").removeClass("hide");
+			requestService("/xczh/shop/area?parentId="+getProviceId,null, function(data) {
+				var str;
+				var city=data.resultObject;
+				for(var i=0; i<city.length;i++){
+					str+="<option data-id="+city[i].value+">"+city[i].name+"</option>";
+				}
+				$(".input-group .shi").html('<option data-id="0">请选择</option>'+str);
+			})
+		}else{
+			$(".input-group .shi").addClass("hide");
+		}
+	})
+//	市变化时
+	$(".input-group .shi").on("change",function(){
+		 	getCityId=$(".input-group .shi option:selected").attr("data-id");	
+//		市发生改变时都让他为空
+		 	getQuId="";
+			requestService("/xczh/shop/area?parentId="+getCityId,null, function(data) {
+				var str;
+				var qu=data.resultObject;
+				if (qu.length == 0 || getCityId==0) {
+					$(".input-group .qu").addClass("hide");
+					getQuId="";
+				} else{
+					$(".input-group .qu").removeClass("hide");
+					for(var i=0; i<qu.length;i++){
+						str+="<option data-id="+qu[i].value+">"+qu[i].name+"</option>";
+					}
+						$(".input-group .qu").html('<option data-id="0">请选择</option>'+str);
+				}
+
+			})
+	})
+//	区变化时
+	$(".input-group .qu").on("change",function(){
+		getQuId=$(".input-group .qu option:selected").attr("data-id");
+		if(getQuId == 0){
+			getQuId="";
+		}
+
+	})
 </script>

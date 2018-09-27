@@ -134,11 +134,13 @@ public class GoodsServiceImpl implements GoodsService {
         ProductVO pv = new ProductVO();
 
         //普通属性值增加
-        try {
-            BeanUtils.copyProperties(pv, product);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
+//        try {
+//        	org.springframework.beans.BeanUtils.copyProperties(pv, product);
+//        } catch (IllegalAccessException | InvocationTargetException e) {
+//            e.printStackTrace();
+//        }
+        
+        org.springframework.beans.BeanUtils.copyProperties(product,pv);
 
         //医师推荐
         Set<Map<String, Object>> posts = medicalDoctorPostsService.getProductPostsByProductId(productId, 0, 1);
