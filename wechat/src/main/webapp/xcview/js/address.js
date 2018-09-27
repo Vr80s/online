@@ -44,9 +44,9 @@
 	 /**
 	  * 修改地址
 	  */
+	 var isTrue=true;
 	 function editAddress(addressId){
 		 requestGetService("/xczh/shop/receiver?receiverId="+addressId,null, function(data) {
-		 	debugger
 				if (data.success) {
 					var umv = data.resultObject;
 					$("#address_id").val(umv.id);
@@ -55,6 +55,32 @@
 				    $("#zip-code").val(umv.zipCode);
 				    isTrue=umv.isDefault;
 				    //
+				    var provice=umv.area;
+				    var arrProvice=umv.area.treePath.split(',')
+				    var proviceDom=$(".input-group .sheng option");
+				    var cityDom=$(".input-group .shi option");
+				    var quDom=$(".input-group .qu option");
+				    if(arrProvice.length==4){
+				    	$(".sheng").removeClass("hide");
+				    	$(".shi").removeClass("hide");
+				    	$(".qu").removeClass("hide");
+				    	arrProvice[1]
+				    	requestService("/xczh/shop/area?parentId="+arrProvice[1],null, function(data) {
+				    		for(var i=1; i<proviceDom.length; i++){
+				    			if(proviceDom[i].getAttribute("data-id")==arrProvice[1]){
+				    				$(".input-group .sheng option").eq(i).attr("selected","selected");
+				    			}
+				    		}
+				    	})
+				    	arrProvice[2]
+				    	requestService("/xczh/shop/area?parentId="+arrProvice[2],null, function(data) {
+				    		for(var i=1; i<cityDom.length; i++){
+				    			if(cityDom[i].getAttribute("data-id")==arrProvice[2]){
+				    				$(".input-group .shi option").eq(i).attr("selected","selected");
+				    			}
+				    		}
+				    	})
+				    }
 				 
 				    //var cityp = umv.provinces+" "+ umv.city
 
@@ -73,7 +99,7 @@
 	 * 保存地址
 	 */
 	
-	var isTrue=true;
+
 	$("#address_save").click(function(){
 		var consignee = $("#consignee").val();
 		var consigneeLength = consignee.length;
@@ -295,7 +321,6 @@
 		 if(aBtn6.length > 1){
 			 for(i=0;i<aBtn6.length;i++){
 		          $(aBtn6[i]).click(function(){
-		        	  
 		          	for(i=0;i<aBtn6.length;i++){ 
 		          		/*$(aBtn6[i]).find('.sit_bg').addClass('site_bg1');
 		                $(aBtn6[i]).find('.sit_bg').removeClass('site_bg01');*/
