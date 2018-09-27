@@ -13,7 +13,11 @@ import com.xczhihui.common.util.bean.ResponseObject;
 
 import net.shopxx.merge.enums.Status;
 import net.shopxx.merge.enums.Type;
+import net.shopxx.merge.enums.UsersType;
 import net.shopxx.merge.service.OrderOperService;
+import net.shopxx.merge.vo.OrderPageParams;
+import net.shopxx.merge.vo.ProductVO;
+import net.shopxx.merge.vo.ScoreVO;
 
 /**
  * 
@@ -35,21 +39,14 @@ public class ShopOrderController {
 	
     @RequestMapping(value = "/order/list")
     @ResponseBody
-    public ResponseObject list( @RequestParam(required = false)Type type,
-    		 @RequestParam(required = false) Status status, 
-    		 @RequestParam(required = false) Boolean isPendingReceive
-            , @RequestParam(required = false) Boolean isPendingRefunds, 
-              @RequestParam(required = false) Boolean isUseCouponCode, 
-              @RequestParam(required = false) Boolean isExchangePoint
-            , @RequestParam(required = false) Boolean isAllocatedStock,
-              @RequestParam(required = false) Boolean hasExpired
-            , @RequestParam(defaultValue = "1") int pageNumber,
-              @RequestParam(defaultValue = "10") int pageSize){
+    public ResponseObject list(
+    		 OrderPageParams orderPageParams,
+    		 @RequestParam(required = false)Type type,
+    		 @RequestParam(required = false) Status status){
     	
     	BxgUser loginUser = UserLoginUtil.getLoginUser();
     	
-        return ResponseObject.newSuccessResponseObject(orderOperService.findPageXc(type, status, null, "aa79673b899249d9a07b0f19732a1b0e", 
-        		null, isPendingReceive, isPendingRefunds, isUseCouponCode, 
-        		isExchangePoint, isAllocatedStock, hasExpired, pageNumber, pageSize));
+        return ResponseObject.newSuccessResponseObject(orderOperService.findPageXc(orderPageParams,type, status, null, 
+        		"aa79673b899249d9a07b0f19732a1b0e",null, UsersType.BUSINESS));
     }
 }

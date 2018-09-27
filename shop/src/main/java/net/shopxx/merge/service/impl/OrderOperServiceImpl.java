@@ -1,16 +1,16 @@
 package net.shopxx.merge.service.impl;
 
-import net.shopxx.Page;
-import net.shopxx.Pageable;
-import net.shopxx.Setting;
-import net.shopxx.entity.*;
-import net.shopxx.merge.enums.Status;
-import net.shopxx.merge.enums.Type;
-import net.shopxx.merge.service.OrderOperService;
-import net.shopxx.merge.service.UsersRelationService;
-import net.shopxx.merge.vo.*;
-import net.shopxx.service.*;
-import net.shopxx.util.SystemUtils;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.inject.Inject;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -21,9 +21,53 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import javax.inject.Inject;
-import java.math.BigDecimal;
-import java.util.*;
+import net.shopxx.Page;
+import net.shopxx.Pageable;
+import net.shopxx.Setting;
+import net.shopxx.dao.OrderDao;
+import net.shopxx.entity.Area;
+import net.shopxx.entity.Cart;
+import net.shopxx.entity.CartItem;
+import net.shopxx.entity.CouponCode;
+import net.shopxx.entity.Invoice;
+import net.shopxx.entity.Member;
+import net.shopxx.entity.Order;
+import net.shopxx.entity.OrderItem;
+import net.shopxx.entity.OrderShipping;
+import net.shopxx.entity.PaymentMethod;
+import net.shopxx.entity.Product;
+import net.shopxx.entity.Receiver;
+import net.shopxx.entity.ShippingMethod;
+import net.shopxx.entity.Sku;
+import net.shopxx.entity.Store;
+import net.shopxx.merge.entity.UsersRelation;
+import net.shopxx.merge.enums.Status;
+import net.shopxx.merge.enums.Type;
+import net.shopxx.merge.enums.UsersType;
+import net.shopxx.merge.service.OrderOperService;
+import net.shopxx.merge.service.UsersRelationService;
+import net.shopxx.merge.vo.AreaVO;
+import net.shopxx.merge.vo.CartItemVO;
+import net.shopxx.merge.vo.CartVO;
+import net.shopxx.merge.vo.OrderItemVO;
+import net.shopxx.merge.vo.OrderPageParams;
+import net.shopxx.merge.vo.OrderVO;
+import net.shopxx.merge.vo.OrdersVO;
+import net.shopxx.merge.vo.ProductVO;
+import net.shopxx.merge.vo.ReceiverVO;
+import net.shopxx.merge.vo.ScoreVO;
+import net.shopxx.merge.vo.SkuVO;
+import net.shopxx.service.AreaService;
+import net.shopxx.service.CartService;
+import net.shopxx.service.CouponCodeService;
+import net.shopxx.service.OrderService;
+import net.shopxx.service.OrderShippingService;
+import net.shopxx.service.PaymentMethodService;
+import net.shopxx.service.ReceiverService;
+import net.shopxx.service.ShippingMethodService;
+import net.shopxx.service.SkuService;
+import net.shopxx.service.StoreService;
+import net.shopxx.util.SystemUtils;
 
 /**
  * 熊猫中医与shop用户关系
@@ -55,6 +99,9 @@ public class OrderOperServiceImpl implements OrderOperService {
 	private OrderShippingService orderShippingService;
 	@Inject
 	private StoreService storeService;
+	
+	@Inject
+	private OrderDao orderDao;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -791,36 +838,37 @@ public class OrderOperServiceImpl implements OrderOperService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Object findPageXc(Type type, Status status, ScoreVO store, 
-			String ipandatcmUserId, ProductVO product, Boolean isPendingReceive, 
-			Boolean isPendingRefunds, Boolean isUseCouponCode, 
-			Boolean isExchangePoint, Boolean isAllocatedStock, 
-			Boolean hasExpired, int pageNumber,int pageSize) {
+	public Object findPageXc(OrderPageParams orderPageParams,Type type, Status status, ScoreVO store, 
+			String ipandatcmUserId, ProductVO product,UsersType usersType) {
 		
-		//获取当前用户
-//		Member currentUser = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
-		Member currentUser = null;
+		Store ss = null;Member member = null;
+		if(UsersType.BUSINESS.equals(usersType)) {  //商家
+			UsersRelation usersRelation = usersRelationService.findByIpandatcmUserId(ipandatcmUserId);
+			LOGGER.info("usersRelation.getUserId() "+usersRelation.getUserId());
+			ss = storeService.findByBusinessId(10101L); //TOTO 1010L测试使用
+		}else{
+			member = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
+		}
 		
-		Store ss = storeService.findByBusinessId(10101L);
-		Pageable pageable = new Pageable(pageNumber, pageSize);
-		String t = null;
-		if(type != null){
-			t = type.toString();
-		}
-		String s = null;
-		if(status != null){
-			s = status.toString();
-		}
-		List<Order> orderList = orderService.findPage(t == null?null:Order.Type.valueOf(t.trim()), s == null?null:Order.Status.valueOf(s.trim()), null, currentUser, null, isPendingReceive, isPendingRefunds, isUseCouponCode, isExchangePoint, isAllocatedStock, hasExpired, pageable).getContent();
-		LOGGER.info("orderList size "+orderList.size());
+		Pageable pageable = new Pageable(orderPageParams.getPageNumber(), orderPageParams.getPageSize());
+		
+		Page<Order> orderList = orderDao.findPageXc(orderPageParams,
+				(type !=null ? Order.Type.valueOf(type.toString()) : null),
+				(status !=null ? Order.Status.valueOf(status.toString()) : null),
+				ss, member, null, pageable);
+		
+		
+		//分页参数赋值
+        net.shopxx.merge.page.Pageable pageableVo = new 
+        		net.shopxx.merge.page.Pageable(orderPageParams.getPageNumber(), 
+        				orderPageParams.getPageSize());
+
 		List<OrdersVO> list = new ArrayList<>();
-		for(Order order : orderList){
+		for(Order order : orderList.getContent()){
 			OrdersVO o = new OrdersVO();
 			try {
 				org.apache.commons.beanutils.BeanUtils.copyProperties(o,order);
-				
 				o.setStatus(order.getStatus().ordinal());
-				
 				List<OrderItem> orderItems = order.getOrderItems();
 				List<OrderItemVO> orderVoItems = new ArrayList<OrderItemVO>();
 				for (OrderItem orderItem : orderItems) {
@@ -834,9 +882,6 @@ public class OrderOperServiceImpl implements OrderOperService {
 			}
 			list.add(o);
 		}
-		return list;
+		return new net.shopxx.merge.page.Page<OrdersVO>(list, orderList.getTotal(), pageableVo);
 	}
-	
-	
-	
 }

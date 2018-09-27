@@ -72,14 +72,14 @@
 				    			}
 				    		}
 				    	})
-				    	arrProvice[2]
-				    	requestService("/xczh/shop/area?parentId="+arrProvice[2],null, function(data) {
-				    		for(var i=1; i<cityDom.length; i++){
-				    			if(cityDom[i].getAttribute("data-id")==arrProvice[2]){
-				    				$(".input-group .shi option").eq(i).attr("selected","selected");
-				    			}
-				    		}
-				    	})
+//				    	arrProvice[2]
+//				    	requestService("/xczh/shop/area?parentId="+arrProvice[2],null, function(data) {
+//				    		for(var i=1; i<cityDom.length; i++){
+//				    			if(cityDom[i].getAttribute("data-id")==arrProvice[2]){
+//				    				$(".input-group .shi option").eq(i).attr("selected","selected");
+//				    			}
+//				    		}
+//				    	})
 				    }
 				 
 				    //var cityp = umv.provinces+" "+ umv.city
