@@ -3,6 +3,8 @@ package net.shopxx.merge.service;
 
 import net.shopxx.merge.enums.Status;
 import net.shopxx.merge.enums.Type;
+import net.shopxx.merge.enums.UsersType;
+import net.shopxx.merge.vo.OrderPageParams;
 import net.shopxx.merge.vo.OrderVO;
 import net.shopxx.merge.vo.OrdersVO;
 import net.shopxx.merge.vo.ProductVO;
@@ -131,7 +133,6 @@ public interface OrderOperService {
 	 * @param pageSize
 	 * @return  
 	 */ 
-	Object findPageXc(Type type, Status status, ScoreVO store, String ipandatcmUserId, ProductVO product,
-			Boolean isPendingReceive, Boolean isPendingRefunds, Boolean isUseCouponCode, Boolean isExchangePoint,
-			Boolean isAllocatedStock, Boolean hasExpired, int pageNumber, int pageSize);
+	Object findPageXc(OrderPageParams orderPageParams,Type type, Status status, ScoreVO store, 
+			String ipandatcmUserId, ProductVO product,UsersType usersType);
 }

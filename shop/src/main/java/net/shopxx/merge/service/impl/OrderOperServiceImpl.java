@@ -22,11 +22,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import com.alipay.api.domain.ForbbidenTime;
-
 import net.shopxx.Page;
 import net.shopxx.Pageable;
 import net.shopxx.Setting;
+import net.shopxx.dao.OrderDao;
 import net.shopxx.entity.Area;
 import net.shopxx.entity.Cart;
 import net.shopxx.entity.CartItem;
@@ -42,14 +41,17 @@ import net.shopxx.entity.Receiver;
 import net.shopxx.entity.ShippingMethod;
 import net.shopxx.entity.Sku;
 import net.shopxx.entity.Store;
+import net.shopxx.merge.entity.UsersRelation;
 import net.shopxx.merge.enums.Status;
 import net.shopxx.merge.enums.Type;
+import net.shopxx.merge.enums.UsersType;
 import net.shopxx.merge.service.OrderOperService;
 import net.shopxx.merge.service.UsersRelationService;
 import net.shopxx.merge.vo.AreaVO;
 import net.shopxx.merge.vo.CartItemVO;
 import net.shopxx.merge.vo.CartVO;
 import net.shopxx.merge.vo.OrderItemVO;
+import net.shopxx.merge.vo.OrderPageParams;
 import net.shopxx.merge.vo.OrderVO;
 import net.shopxx.merge.vo.OrdersVO;
 import net.shopxx.merge.vo.ProductVO;
@@ -98,6 +100,9 @@ public class OrderOperServiceImpl implements OrderOperService {
 	private OrderShippingService orderShippingService;
 	@Inject
 	private StoreService storeService;
+	
+	@Inject
+	private OrderDao orderDao;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -819,36 +824,37 @@ public class OrderOperServiceImpl implements OrderOperService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Object findPageXc(Type type, Status status, ScoreVO store, 
-			String ipandatcmUserId, ProductVO product, Boolean isPendingReceive, 
-			Boolean isPendingRefunds, Boolean isUseCouponCode, 
-			Boolean isExchangePoint, Boolean isAllocatedStock, 
-			Boolean hasExpired, int pageNumber,int pageSize) {
+	public Object findPageXc(OrderPageParams orderPageParams,Type type, Status status, ScoreVO store, 
+			String ipandatcmUserId, ProductVO product,UsersType usersType) {
 		
-		//获取当前用户
-//		Member currentUser = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
-		Member currentUser = null;
+		Store ss = null;Member member = null;
+		if(UsersType.BUSINESS.equals(usersType)) {  //商家
+			UsersRelation usersRelation = usersRelationService.findByIpandatcmUserId(ipandatcmUserId);
+			LOGGER.info("usersRelation.getUserId() "+usersRelation.getUserId());
+			ss = storeService.findByBusinessId(10101L); //TOTO 1010L测试使用
+		}else{
+			member = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
+		}
 		
-		Store ss = storeService.findByBusinessId(10101L);
-		Pageable pageable = new Pageable(pageNumber, pageSize);
-		String t = null;
-		if(type != null){
-			t = type.toString();
-		}
-		String s = null;
-		if(status != null){
-			s = status.toString();
-		}
-		List<Order> orderList = orderService.findPage(t == null?null:Order.Type.valueOf(t.trim()), s == null?null:Order.Status.valueOf(s.trim()), null, currentUser, null, isPendingReceive, isPendingRefunds, isUseCouponCode, isExchangePoint, isAllocatedStock, hasExpired, pageable).getContent();
-		LOGGER.info("orderList size "+orderList.size());
+		Pageable pageable = new Pageable(orderPageParams.getPageNumber(), orderPageParams.getPageSize());
+		
+		Page<Order> orderList = orderDao.findPageXc(orderPageParams,
+				(type !=null ? Order.Type.valueOf(type.toString()) : null),
+				(status !=null ? Order.Status.valueOf(status.toString()) : null),
+				ss, member, null, pageable);
+		
+		
+		//分页参数赋值
+        net.shopxx.merge.page.Pageable pageableVo = new 
+        		net.shopxx.merge.page.Pageable(orderPageParams.getPageNumber(), 
+        				orderPageParams.getPageSize());
+
 		List<OrdersVO> list = new ArrayList<>();
-		for(Order order : orderList){
+		for(Order order : orderList.getContent()){
 			OrdersVO o = new OrdersVO();
 			try {
 				org.apache.commons.beanutils.BeanUtils.copyProperties(o,order);
-				
 				o.setStatus(order.getStatus().ordinal());
-				
 				List<OrderItem> orderItems = order.getOrderItems();
 				List<OrderItemVO> orderVoItems = new ArrayList<OrderItemVO>();
 				for (OrderItem orderItem : orderItems) {
@@ -862,9 +868,6 @@ public class OrderOperServiceImpl implements OrderOperService {
 			}
 			list.add(o);
 		}
-		return list;
+		return new net.shopxx.merge.page.Page<OrdersVO>(list, orderList.getTotal(), pageableVo);
 	}
-	
-	
-	
 }

@@ -140,6 +140,9 @@ public class GoodsServiceImpl implements GoodsService {
 //            e.printStackTrace();
 //        }
         
+        
+        
+        
         org.springframework.beans.BeanUtils.copyProperties(product,pv);
 
         //医师推荐

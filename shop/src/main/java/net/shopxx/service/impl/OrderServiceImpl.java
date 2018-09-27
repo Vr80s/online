@@ -64,6 +64,7 @@ import net.shopxx.entity.Order;
 import net.shopxx.entity.Order.CommissionType;
 import net.shopxx.entity.Order.Status;
 import net.shopxx.entity.Order.Type;
+import net.shopxx.merge.vo.OrderPageParams;
 import net.shopxx.entity.OrderItem;
 import net.shopxx.entity.OrderLog;
 import net.shopxx.entity.OrderPayment;
@@ -1230,4 +1231,13 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		}
 	}
 
+	
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Page<Order> findPageXc(OrderPageParams orderPageParams,Type type,Status status,
+			Store store, Member member, Product product, Pageable pageable) {
+		return orderDao.findPageXc(orderPageParams,type, status, store, member, product, pageable);
+	}
+	
 }

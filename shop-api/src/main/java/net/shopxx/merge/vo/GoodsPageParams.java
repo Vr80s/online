@@ -18,7 +18,9 @@ import net.shopxx.merge.enums.OrderType;
  * @date 2018年9月13日
  */
 public class GoodsPageParams implements Serializable {
-    private OrderType orderType;
+	
+
+	private OrderType orderType;
 
     private Integer pageNumber = 1;
 

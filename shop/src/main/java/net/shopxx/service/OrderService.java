@@ -19,6 +19,8 @@ import net.shopxx.entity.Invoice;
 import net.shopxx.entity.Member;
 import net.shopxx.entity.Order;
 import net.shopxx.entity.Order.CommissionType;
+import net.shopxx.entity.Order.Status;
+import net.shopxx.entity.Order.Type;
 import net.shopxx.entity.OrderPayment;
 import net.shopxx.entity.OrderRefunds;
 import net.shopxx.entity.OrderReturns;
@@ -29,6 +31,7 @@ import net.shopxx.entity.Receiver;
 import net.shopxx.entity.ShippingMethod;
 import net.shopxx.entity.Store;
 import net.shopxx.entity.User;
+import net.shopxx.merge.vo.OrderPageParams;
 
 /**
  * Service - 订单
@@ -469,5 +472,26 @@ public interface OrderService extends BaseService<Order, Long> {
 	 * @return 已发放佣金总额
 	 */
 	BigDecimal grantedCommissionTotalAmount(Store store, CommissionType commissionType, Date beginDate, Date endDate, Order.Status... statuses);
+
+	/**  
+	 * <p>Title: findPageXc</p>  
+	 * <p>Description: </p>  
+	 * @param orderPageParams
+	 * @param type
+	 * @param status
+	 * @param store
+	 * @param member
+	 * @param product
+	 * @param isPendingReceive
+	 * @param isPendingRefunds
+	 * @param isUseCouponCode
+	 * @param isExchangePoint
+	 * @param isAllocatedStock
+	 * @param hasExpired
+	 * @param pageable
+	 * @return  
+	 */ 
+	Page<Order> findPageXc(OrderPageParams orderPageParams, Type type, Status status, Store store, Member member,
+			Product product, Pageable pageable);
 
 }

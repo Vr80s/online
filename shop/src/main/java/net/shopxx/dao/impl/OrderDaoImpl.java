@@ -27,11 +27,15 @@ import net.shopxx.entity.Member;
 import net.shopxx.entity.Order;
 import net.shopxx.entity.Order.CommissionType;
 import net.shopxx.entity.Order.Status;
+import net.shopxx.entity.Order.Type;
 import net.shopxx.entity.OrderItem;
 import net.shopxx.entity.PaymentMethod;
 import net.shopxx.entity.Product;
 import net.shopxx.entity.Sku;
 import net.shopxx.entity.Store;
+import net.shopxx.merge.vo.OrderPageParams;
+import net.shopxx.merge.vo.ProductVO;
+import net.shopxx.merge.vo.ScoreVO;
 
 /**
  * Dao - 订单
@@ -140,6 +144,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Order, Long> implements OrderDao {
 		if (member != null) {
 			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("member"), member));
 		}
+		
 		if (product != null) {
 			Subquery<Sku> skuSubquery = criteriaQuery.subquery(Sku.class);
 			Root<Sku> skuSubqueryRoot = skuSubquery.from(Sku.class);
@@ -384,6 +389,56 @@ public class OrderDaoImpl extends BaseDaoImpl<Order, Long> implements OrderDao {
 		criteriaQuery.where(restrictions);
 		BigDecimal result = entityManager.createQuery(criteriaQuery).getSingleResult();
 		return result != null ? result : BigDecimal.ZERO;
+	}
+
+	@Override
+	public Page<Order> findPageXc(OrderPageParams orderPageParams, Type type, Status status, Store store, Member member,
+			Product product,Pageable pageable) {
+		
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Order> criteriaQuery = criteriaBuilder.createQuery(Order.class);
+		Root<Order> root = criteriaQuery.from(Order.class);
+		criteriaQuery.select(root);
+		Predicate restrictions = criteriaBuilder.conjunction();
+		if (type != null) {
+			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("type"), type));
+		}
+		if (status != null) {
+			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("status"), status));
+		}
+		if (store != null) {
+			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("store"), store));
+		}
+		if (member != null) {
+			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("member"), member));
+		}
+		
+		if (orderPageParams.getStartDate() != null) {
+			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.greaterThanOrEqualTo(root.<Date>get("createdDate"), orderPageParams.getStartDate()));
+		}
+		if (orderPageParams.getEndDate() != null) {
+			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.lessThanOrEqualTo(root.<Date>get("createdDate"), orderPageParams.getEndDate()));
+		}
+		
+		
+	    restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.or(
+	    		 criteriaBuilder.like(root.<String>get("sn"), "%" + orderPageParams.getSn() + "%"), 
+				 criteriaBuilder.like(root.get("product").<String>get("name"), "%" + orderPageParams.getProductName() + "%")));
+	    
+		if (product != null) {
+			Subquery<Sku> skuSubquery = criteriaQuery.subquery(Sku.class);
+			Root<Sku> skuSubqueryRoot = skuSubquery.from(Sku.class);
+			skuSubquery.select(skuSubqueryRoot);
+			skuSubquery.where(criteriaBuilder.equal(skuSubqueryRoot.get("product"), product));
+
+			Subquery<OrderItem> orderItemSubquery = criteriaQuery.subquery(OrderItem.class);
+			Root<OrderItem> orderItemSubqueryRoot = orderItemSubquery.from(OrderItem.class);
+			orderItemSubquery.select(orderItemSubqueryRoot);
+			orderItemSubquery.where(criteriaBuilder.equal(orderItemSubqueryRoot.get("order"), root), criteriaBuilder.in(orderItemSubqueryRoot.get("sku")).value(skuSubquery));
+			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.exists(orderItemSubquery));
+		}
+		criteriaQuery.where(restrictions);
+		return super.findPage(criteriaQuery, pageable);
 	}
 
 }
