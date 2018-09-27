@@ -627,6 +627,20 @@ public class OrderOperServiceImpl implements OrderOperService {
 
 	@Override
 	@Transactional
+	public void setDefaultReceiver(Long receiverId, Boolean isDefault, String ipandatcmUserId) {
+		Receiver receiver = receiverService.find(receiverId);
+		if (receiver == null) {
+			throw new RuntimeException("修改信息有误");
+		}
+		receiver.setIsDefault(isDefault);
+
+		Member currentUser = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
+		receiver.setMember(currentUser);
+		receiverService.update(receiver);
+	}
+
+	@Override
+	@Transactional
 	public void deleteReceiver(Long receiverId, String ipandatcmUserId) {
 		Receiver receiver = receiverService.find(receiverId);
 		Member currentUser = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);

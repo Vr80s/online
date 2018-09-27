@@ -102,6 +102,12 @@ public class ShopOrderController {
         return ResponseObject.newSuccessResponseObject(null);
     }
 
+    @RequestMapping("/receiver/setDefaultReceiver")
+    public ResponseObject setDefaultReceiver(@Account String accountId,@RequestParam Boolean isDefault, @RequestParam Long receiverId){
+        orderOperService.setDefaultReceiver(receiverId,isDefault,accountId);
+        return ResponseObject.newSuccessResponseObject(null);
+    }
+
     @RequestMapping("/receiver/delete")
     public ResponseObject deleteReceiver(@Account String accountId, @RequestParam Long receiverId){
         orderOperService.deleteReceiver(receiverId,accountId);
