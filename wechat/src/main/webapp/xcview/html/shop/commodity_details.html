@@ -368,7 +368,7 @@
 						<div class="repertory">库存120件</div>
 						<div class="category">
 							<span class="choice">选择</span>
-							<span class="specification">规格</span>
+							<span class="specification fl1_{{items.id}}">规格</span>
 							<span class="kind">分类</span>
 						</div>
 					</div>
@@ -376,11 +376,11 @@
 				</div>
 				<div class="specifications">
 					<script type="text/html" id="specifications">
-					{{each item as item i}}
-					<span class="">{{item.name}}</span>
+					{{each item as items i}}
+					<span class="">{{items.name}}</span>
 					<ul class="specifications_ul">
-						{{each item.entries as item i}}
-						<li class="casing include">{{item.value}}</li>
+						{{each items.entries as itemss i}}
+						<li class="casing include" data-id="{{itemss.id}}" data-ids="{{items.id}}">{{itemss.value}}</li>
 						{{/each}}
 					</ul>
 					{{/each}}
@@ -447,28 +447,10 @@
 <script>
 	// 点击数量加减
 	$('.spinnerExample').spinner({});
-	// 点击规格
-	var aBtn=$('.specifications_ul .casing');
-  	for(i=0;i<aBtn.length;i++){
-	    $(aBtn[i]).click(function(){
-	    	var specification = document.querySelector(".specification");  //规格
-			specification.style.display="none";
-			// 判断显示已选择
-	    	if ($(".include").hasClass("public")) {
-				$(".kind").show();
-				$(".specification").show();
-				$(".choice").html("已选择");
-			};
-	    	
-		    for(i=0;i<aBtn.length;i++){
-		        $(aBtn[i]).removeClass('public');
-		    }
-		    $(this).addClass('public');
 
-		    var publicHtml = $(this).html();
-		    $(".specification").html(publicHtml);
-		})
-	};
+	
+
+
 	// 点击分类
 	var aBtnHue=$('.classify_ul .hue');
   	for(i=0;i<aBtnHue.length;i++){
