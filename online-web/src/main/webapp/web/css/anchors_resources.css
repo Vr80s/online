@@ -477,6 +477,15 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
     margin-left: 30px;
     cursor: pointer;
 }
+.shop-null {
+	width: 100%;
+    text-align: center;
+    color: #999999;
+    padding: 160px 0;
+}
+.shop-null p{
+	margin-top: 20px;
+}
 .ware-list-content{
 	padding: 0 20px 20px;
 	color: #666666;

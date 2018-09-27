@@ -2126,12 +2126,12 @@
 								<span style="width: 80px;" class="left-tip">价格</span>
 								<span class="wrap-price">
 									<span>&yen;</span>
-									<input class="sales-prise min-price" type="text" />
+									<input class="sales-prise min-price" type="text" oninput="value=value.replace(/[^\d]/g,'')" />
 								</span>							
 								<span>-</span>
 								<span class="wrap-price">
 									<span>&yen;</span>
-									<input class="sales-prise max-price" type="text" />
+									<input class="sales-prise max-price" type="text" oninput="value=value.replace(/[^\d]/g,'')" />
 								</span>
 							</p>
 							<p class="shopping-code">
@@ -2228,7 +2228,8 @@
 						</div>
 						<!--无商品时展示-->
 						<div class="shop-null hide">
-							无商品
+							<img src="/web/images/icon-nodata.png" alt="无数据">
+							<p>暂无数据</p>
 						</div>
 					</div>
 					

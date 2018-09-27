@@ -31,8 +31,10 @@ $(function(){
 		  			var shopData=data.resultObject.content;
 		  			if(shopData.length==0){
 		  				$(".shop-null").removeClass("hide");
+		  				$(".all-shopping-list").addClass("hide");
 		  			}else{
 		  				$(".shop-null").addClass("hide");
+		  				$(".all-shopping-list").removeClass("hide");
 		  				$("#shop-list-ul").html(template("shop-template",{items:shopData}))
 		  			}
 	//	  			分页
@@ -65,7 +67,8 @@ $(function(){
 		})
 //		点击筛选条件进行筛选
 		$(".screen-commodity").click(function(){
-			shopList(1)
+			shopList(1);
+			$(".shopping-list-top li i").removeClass("active");
 		})
 //		点击升序,降序进行筛选
 		$(".shopping-list-top").on("click","li i",function(){
