@@ -4,9 +4,9 @@ package com.xczhihui.user.center.service.impl;
 import static com.xczhihui.common.util.redis.key.RedisCacheKey.REDIS_SPLIT_CHAR;
 import static com.xczhihui.common.util.redis.key.RedisCacheKey.TICKET_PREFIX;
 
+import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.user.center.model.OeUser;
-import com.xczhihui.user.center.service.CacheService;
 import com.xczhihui.user.center.vo.Token;
 
 /**

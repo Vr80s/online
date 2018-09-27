@@ -32,6 +32,7 @@ public class UsersRelationServiceImpl extends BaseServiceImpl<UsersRelation, Lon
 	@Override
 	@Transactional(readOnly = true)
 	public Member getMemberByIpandatcmUserId(String ipandatcmUserId){
+		System.out.println("用户关联查询id："+ipandatcmUserId);
 		UsersRelation usersRelation = this.findByIpandatcmUserId(ipandatcmUserId);
 		User user = userService.find(usersRelation.getUserId());
 		return (Member) user;

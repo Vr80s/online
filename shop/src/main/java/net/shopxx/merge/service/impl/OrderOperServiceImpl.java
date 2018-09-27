@@ -4,6 +4,8 @@ import net.shopxx.Page;
 import net.shopxx.Pageable;
 import net.shopxx.Setting;
 import net.shopxx.entity.*;
+import net.shopxx.merge.enums.Status;
+import net.shopxx.merge.enums.Type;
 import net.shopxx.merge.service.OrderOperService;
 import net.shopxx.merge.service.UsersRelationService;
 import net.shopxx.merge.vo.*;
@@ -12,6 +14,8 @@ import net.shopxx.util.SystemUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +30,8 @@ import java.util.*;
  */
 @Service
 public class OrderOperServiceImpl implements OrderOperService {
+	
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderOperServiceImpl.class);
 
 	@Inject
 	private SkuService skuService;
@@ -354,7 +360,9 @@ public class OrderOperServiceImpl implements OrderOperService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<OrderVO> findPage(OrderVO.Type type, OrderVO.Status status, ScoreVO store, String ipandatcmUserId, ProductVO product, Boolean isPendingReceive, Boolean isPendingRefunds, Boolean isUseCouponCode, Boolean isExchangePoint, Boolean isAllocatedStock, Boolean hasExpired, int pageNumber,int pageSize) {
+		
 		//获取当前用户
 		Member currentUser = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
 		Store ss = storeService.findByBusinessId(10101L);
@@ -368,7 +376,11 @@ public class OrderOperServiceImpl implements OrderOperService {
 			s = status.toString();
 		}
 		List<Order> orderList = orderService.findPage(t == null?null:Order.Type.valueOf(t.trim()), s == null?null:Order.Status.valueOf(s.trim()), null, currentUser, null, isPendingReceive, isPendingRefunds, isUseCouponCode, isExchangePoint, isAllocatedStock, hasExpired, pageable).getContent();
+		
+		LOGGER.info("orderList size "+orderList.size());
+		
 		List<OrderVO> list = new ArrayList<>();
+		
 		for(Order order : orderList){
 			OrderVO o = new OrderVO();
 			BeanUtils.copyProperties(order,o);
@@ -382,10 +394,12 @@ public class OrderOperServiceImpl implements OrderOperService {
 			o.setOrderItems(orderItemVOList);
 			list.add(o);
 		}
+		
 		return list;
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public OrderVO findBySn(String sn) {
 		Order order = orderService.findBySn(sn);
 		OrderVO o = new OrderVO();
@@ -634,6 +648,20 @@ public class OrderOperServiceImpl implements OrderOperService {
 
 	@Override
 	@Transactional
+	public void setDefaultReceiver(Long receiverId, Boolean isDefault, String ipandatcmUserId) {
+		Receiver receiver = receiverService.find(receiverId);
+		if (receiver == null) {
+			throw new RuntimeException("修改信息有误");
+		}
+		receiver.setIsDefault(isDefault);
+
+		Member currentUser = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
+		receiver.setMember(currentUser);
+		receiverService.update(receiver);
+	}
+
+	@Override
+	@Transactional
 	public void deleteReceiver(Long receiverId, String ipandatcmUserId) {
 		Receiver receiver = receiverService.find(receiverId);
 		Member currentUser = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
@@ -749,5 +777,66 @@ public class OrderOperServiceImpl implements OrderOperService {
 		}
 		return cart;
 	}
-
+	
+	@Override
+	public OrdersVO findBySnXc(String sn) {
+		Order order = orderService.findBySn(sn);
+		OrdersVO o = new OrdersVO();
+		if(order != null){
+			BeanUtils.copyProperties(order,o);
+		}
+		return o;
+	}
+	
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Object findPageXc(Type type, Status status, ScoreVO store, 
+			String ipandatcmUserId, ProductVO product, Boolean isPendingReceive, 
+			Boolean isPendingRefunds, Boolean isUseCouponCode, 
+			Boolean isExchangePoint, Boolean isAllocatedStock, 
+			Boolean hasExpired, int pageNumber,int pageSize) {
+		
+		//获取当前用户
+//		Member currentUser = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
+		Member currentUser = null;
+		
+		Store ss = storeService.findByBusinessId(10101L);
+		Pageable pageable = new Pageable(pageNumber, pageSize);
+		String t = null;
+		if(type != null){
+			t = type.toString();
+		}
+		String s = null;
+		if(status != null){
+			s = status.toString();
+		}
+		List<Order> orderList = orderService.findPage(t == null?null:Order.Type.valueOf(t.trim()), s == null?null:Order.Status.valueOf(s.trim()), null, currentUser, null, isPendingReceive, isPendingRefunds, isUseCouponCode, isExchangePoint, isAllocatedStock, hasExpired, pageable).getContent();
+		LOGGER.info("orderList size "+orderList.size());
+		List<OrdersVO> list = new ArrayList<>();
+		for(Order order : orderList){
+			OrdersVO o = new OrdersVO();
+			try {
+				org.apache.commons.beanutils.BeanUtils.copyProperties(o,order);
+				
+				o.setStatus(order.getStatus().ordinal());
+				
+				List<OrderItem> orderItems = order.getOrderItems();
+				List<OrderItemVO> orderVoItems = new ArrayList<OrderItemVO>();
+				for (OrderItem orderItem : orderItems) {
+					OrderItemVO orderItemVO = new OrderItemVO();
+					org.apache.commons.beanutils.BeanUtils.copyProperties(orderItemVO,orderItem);
+					orderVoItems.add(orderItemVO);
+				}
+				o.setOrderVoItems(orderVoItems);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			list.add(o);
+		}
+		return list;
+	}
+	
+	
+	
 }

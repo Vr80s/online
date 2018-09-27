@@ -190,7 +190,7 @@
 				<property name="requestContextAttribute" value="requestContext" />
 			</bean>
 		</constructor-arg>
-		<property name="mobilePrefix" value="/" />
+		<property name="mobilePrefix" value="mobile/" />
 		<property name="tabletPrefix" value="tablet/" />
 		<property name="enableFallback" value="true" />
 	</bean>
