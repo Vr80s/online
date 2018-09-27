@@ -630,7 +630,6 @@ header{
 .shopping_trolley_center .specifications{
 	width: 100%;
     overflow: hidden;
-    border-bottom: 1px solid #f0f0f0;
     margin-bottom: .2rem;
 }
 .shopping_trolley_center .specifications span{
@@ -638,20 +637,25 @@ header{
     margin: 0 auto;
 	font-size: .26rem;
 	color: #666666;
+	margin-top: .2rem;
 	margin-bottom: .2rem;
 	display: inherit;
 }
+.shopping_trolley_center .specifications span:first-child{
+	margin-top: 0;
+}
 .specifications_ul{
-	width: 6.98rem;
+	width: 7.5rem;
 	margin: 0 auto;
+    border-bottom: 1px solid #f0f0f0;
+    overflow: hidden;
 }
 .specifications_ul li{
 	padding: .1rem .24rem;
 	border-radius: 100px;
     display: inline-block;
     float: left;
-    margin-right: .3rem;
-    margin-bottom: .2rem;
+    margin: 0 .04rem .2rem .26rem;
     font-size: .24rem;
 }
 .specifications_ul .casing{
@@ -703,6 +707,11 @@ header{
     background: #F97215 !important;
 } */
 /*购买数量*/
+.bottom_fiexd{
+	width: 7.5rem;
+	position: fixed;
+	bottom: .2rem;
+}
 .shopping_trolley_center .buy{
 	width: 6.98rem;
     height: .55rem;

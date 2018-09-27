@@ -17,6 +17,13 @@ requestGetService("/xczh/shop/goods/details",{
             paginationType: 'fraction'
         });
 
+        // 判断商品介绍为空
+        if (obj.caption == null) {
+            $(".referral").hide();
+        }else{
+            $(".referral").show();
+        };
+
         // 医师推荐
         if (obj.posts !=null) {
             $(".physician_recommend").show();
@@ -40,22 +47,12 @@ requestGetService("/xczh/shop/goods/details",{
             $(".commodity_details").show();
             $(".commodity_details_center").html(obj.introduction);
         };
+
+        // 点击加入购物车-封面图
+        $(".message").html(template('message', {items: obj}));
+        // 选择规格
+        $(".specifications").html(template('specifications', {item: obj.specificationItemvs}));
         
-        // 判断商品介绍为空
-        if (obj.caption == null) {
-            $(".referral").hide();
-        }else{
-            $(".referral").show();
-        };
-
-        /*var swiper = new Swiper('.swiper-container', {
-            pagination: '.swiper-pagination',
-            paginationType: 'fraction'
-        });*/
-        
-
-
-
 
     }
 });
