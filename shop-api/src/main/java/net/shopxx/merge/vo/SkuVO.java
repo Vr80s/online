@@ -85,4 +85,10 @@ public class SkuVO implements Serializable {
     private String image;
 
     private String name;
+    
+    private List<Integer> specificationValueIds;
+    
+    private boolean IsOutOfStock;
+    
+    
 }

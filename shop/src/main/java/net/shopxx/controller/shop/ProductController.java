@@ -107,9 +107,6 @@ public class ProductController extends BaseController {
 	private GoodsService goodsService;
 
 	@Inject
-	private ShopCategoryService shopCategoryService;
-
-	@Inject
 	private ShopReviewService shopReviewService;
 
 	@Inject
