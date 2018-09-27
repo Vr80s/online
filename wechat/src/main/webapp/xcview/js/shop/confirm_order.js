@@ -26,6 +26,21 @@ $(function() {
     $(".summation .yuan span").html(summation.toFixed(2));  //底部合计
     $(".totals_yuan span").html(oprice.toFixed(2));         //商品总价格
 
+    $(".submit_order").click(function(){
+        var skuId = 10001;
+        var quantity = 1;
+        var receiverId = 10210;
+        var shippingMethodId = 1;
+        var memo = "拒收到付";
+        requestService("/xczh/shop/order/create","skuId="+skuId+"&quantity="+quantity+"&shippingMethodId="+shippingMethodId+"&receiverId="+receiverId+"&memo="+memo,function(data){
+            if(data.success){
+                var orderSns = data.resultObject.orderSns;
+                window.location="http://localhost:8282/order/payment?orderSns="+orderSns;
+            }else{
+                alert(data.errorMessage);
+            }
+        },false);
+    });
 });
 
 

@@ -471,15 +471,15 @@
     });
 	//选择商品后，点击确定
     $('.determine').click(function () {
-        var skuId = 110;
+        var skuId = 10001;
         var quantity = 1;
         var flag = false;
         requestGetService("/xczh/shop/checkout?skuId="+skuId+"&quantity="+quantity,null,function(data){
 			if(data.success){
 				flag = true;
 			}
-		},true);
-        if(!falg){
+		},false);
+        if(!flag){
             return;
 		}
 		if(shoppingFlag == 1){
