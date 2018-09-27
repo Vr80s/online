@@ -53,7 +53,7 @@ public class ProductQueryParam implements Serializable {
     }
 
     public Integer getMinSales() {
-        return minSales;
+        return minSales == null ? -1 : minSales;
     }
 
     public void setMinSales(Integer minSales) {
@@ -61,7 +61,7 @@ public class ProductQueryParam implements Serializable {
     }
 
     public Integer getMaxSales() {
-        return maxSales;
+        return maxSales == null ? Integer.MAX_VALUE : maxSales;
     }
 
     public void setMaxSales(Integer maxSales) {
@@ -69,7 +69,7 @@ public class ProductQueryParam implements Serializable {
     }
 
     public BigDecimal getMinPrice() {
-        return minPrice;
+        return minPrice == null ? new BigDecimal(-1) : minPrice;
     }
 
     public void setMinPrice(BigDecimal minPrice) {
@@ -77,7 +77,7 @@ public class ProductQueryParam implements Serializable {
     }
 
     public BigDecimal getMaxPrice() {
-        return maxPrice;
+        return maxPrice == null ? new BigDecimal(Integer.MAX_VALUE) : maxPrice;
     }
 
     public void setMaxPrice(BigDecimal maxPrice) {

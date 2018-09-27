@@ -1,7 +1,12 @@
 package net.shopxx.merge.service;
 
 
+import net.shopxx.merge.enums.Status;
+import net.shopxx.merge.enums.Type;
+import net.shopxx.merge.enums.UsersType;
+import net.shopxx.merge.vo.OrderPageParams;
 import net.shopxx.merge.vo.OrderVO;
+import net.shopxx.merge.vo.OrdersVO;
 import net.shopxx.merge.vo.ProductVO;
 import net.shopxx.merge.vo.ReceiverVO;
 import net.shopxx.merge.vo.ScoreVO;
@@ -73,6 +78,8 @@ public interface OrderOperService {
 
     void updateReceiver(Long receiverId, String consignee, String address, String zipCode, String phone, Boolean isDefault, Long areaId, String ipandatcmUserId);
 
+    void setDefaultReceiver(Long receiverId, Boolean isDefault, String ipandatcmUserId);
+
     void deleteReceiver(Long receiverId, String ipandatcmUserId);
 
     List<Map<String, Object>> findArea(Long parentId);
@@ -101,4 +108,33 @@ public interface OrderOperService {
      * @return 物流动态
      */
     Map<String, Object> getTransitSteps(Long shippingId);
+
+	/**  
+	 * <p>Title: findBySnXc</p>  
+	 * <p>Description: </p>  
+	 * @param sn
+	 * @return  
+	 */ 
+	OrdersVO findBySnXc(String sn);
+
+	/**  
+	 * <p>Title: findPageXc</p>  
+	 * <p>Description: </p>  
+	 * @param type
+	 * @param status
+	 * @param store
+	 * @param ipandatcmUserId
+	 * @param product
+	 * @param isPendingReceive
+	 * @param isPendingRefunds
+	 * @param isUseCouponCode
+	 * @param isExchangePoint
+	 * @param isAllocatedStock
+	 * @param hasExpired
+	 * @param pageNumber
+	 * @param pageSize
+	 * @return  
+	 */ 
+	Object findPageXc(OrderPageParams orderPageParams,Type type, Status status, ScoreVO store, 
+			String ipandatcmUserId, ProductVO product,UsersType usersType);
 }

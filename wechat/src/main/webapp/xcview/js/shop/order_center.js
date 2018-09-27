@@ -10,4 +10,17 @@ $(function() {
         $(this).parent().parent().parent().parent(".main").remove();
     });
 
+    orderList();
+    function orderList() {
+        requestGetService("/xczh/shop/order/list", {
+            courseId: courseId
+        }, function (data) {
+            var obj =  data.resultObject;
+            if(data.success ){
+                console.log("111");
+            }
+        });
+
+    }
+
 });

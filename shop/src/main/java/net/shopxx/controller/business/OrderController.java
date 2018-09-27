@@ -432,7 +432,10 @@ public class OrderController extends BaseController {
 	 * 列表
 	 */
 	@GetMapping("/list")
-	public String list(Order.Type type, Order.Status status, String memberUsername, Boolean isPendingReceive, Boolean isPendingRefunds, Boolean isAllocatedStock, Boolean hasExpired, Pageable pageable, @CurrentStore Store currentStore, ModelMap model) {
+	public String list(Order.Type type, Order.Status status, String memberUsername, Boolean isPendingReceive, 
+			Boolean isPendingRefunds, Boolean isAllocatedStock,
+			Boolean hasExpired, Pageable pageable, 
+			@CurrentStore Store currentStore, ModelMap model) {
 		model.addAttribute("types", Order.Type.values());
 		model.addAttribute("statuses", Order.Status.values());
 		model.addAttribute("type", type);
@@ -449,6 +452,7 @@ public class OrderController extends BaseController {
 		} else {
 			model.addAttribute("page", orderService.findPage(type, status, currentStore, member, null, isPendingReceive, isPendingRefunds, null, null, isAllocatedStock, hasExpired, pageable));
 		}
+		
 		return "business/order/list";
 	}
 
