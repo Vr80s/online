@@ -248,54 +248,108 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 .shopping_box .shopping-list-top ul li{
 	float: left;
 }
+.shopping_box .shopping-list-top ul li .price-up{
+	position: absolute;
+    left: 33px;
+    top: 8px;
+}
+.shopping_box .shopping-list-top ul li .price-down{
+	position: absolute;
+    left: 33px;
+    bottom: 6px;
+}
+.shopping_box .shopping-list-top ul li .stock-up{
+	position: absolute;
+    left: 69px;
+    top: 8px;
+}
+.shopping_box .shopping-list-top ul li .stock-down{
+	position: absolute;
+    left: 69px;
+    bottom: 6px;
+}
+.shopping_box .shopping-list-top ul li .sales-up{
+	position: absolute;
+    left: 78px;
+    top: 8px;
+}
+.shopping_box .shopping-list-top ul li .sales-down{
+	position: absolute;
+    left: 78px;
+    bottom: 6px;
+}
+
+.shopping_box .shopping-list-top ul li .time-up{
+	position: absolute;
+    left: 99px;
+    top: 8px;
+}
+.shopping_box .shopping-list-top ul li .time-down{
+	position: absolute;
+    left: 99px;
+    bottom: 6px;
+}
+
+.shopping_box .shopping-list-top ul li .number-up{
+	position: absolute;
+    left: 80px;
+    top: 8px;
+}
+.shopping_box .shopping-list-top ul li .number-down{
+	position: absolute;
+    left: 80px;
+    bottom: 6px;
+}
+
+
 .shopping_box .shopping-list-top ul li p{
 	margin: 0;
 }
 .shopping_box .shopping-list-top ul li:nth-child(1){
 	width: 118px;
-	background: pink;
+
 	color: #666666;
 	line-height: 40px;
 	text-align: center;
 }
 .shopping_box .shopping-list-top ul li:nth-child(2){
 	width: 220px;
-	background: palegoldenrod;
+	position: relative;
 	color: #666666;
 	line-height: 40px;
 	text-align: left;
 }
 .shopping_box .shopping-list-top ul li:nth-child(3){
 	width: 125px;
-	background: #a7a7a2;
+
 	color: #666666;
 	line-height: 40px;
 	text-align: center;
 }
 .shopping_box .shopping-list-top ul li:nth-child(4){
 	width: 100px;
-	background: palegreen;
+	position: relative;
 	color: #666666;
 	line-height: 40px;
 	text-align: center;
 }
 .shopping_box .shopping-list-top ul li:nth-child(5){
-	width: 120px;
-	background: palevioletred;
+	width: 100px;
+	position: relative;
 	color: #666666;
 	line-height: 40px;
 	text-align: center;
 }
 .shopping_box .shopping-list-top ul li:nth-child(6){
 	width: 130px;
-	background: peachpuff;
+	position: relative;
 	color: #666666;
 	line-height: 40px;
 	text-align: center;
 }
 .shopping_box .shopping-list-top ul li:nth-child(7){
-	width: 100px;
-	background: burlywood;
+	width: 120px;
+	position: relative;
 	color: #666666;
 	line-height: 40px;
 	text-align: center;
@@ -308,7 +362,6 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 }
 .shopping-list-content ul li .ware-menu-one{
 	width: 328px;
-	background: pink;
 	height: 100%;
 	overflow: hidden;
 }
@@ -336,7 +389,6 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 }
 .page-view{
 	width: 125px;
-    background: skyblue;
     height: 100%;
     overflow: hidden;
 }
@@ -350,7 +402,6 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 }
 .ware-stock{
 	width: 100px;
-    background: pink;
     height: 100%;
     text-align: center;
     line-height: 60px;
@@ -359,8 +410,7 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
     text-overflow: ellipsis;
 }
 .total-sales{
-	width: 120px;
-    background: #ecdbde;
+	width: 100px;
     height: 100%;
     text-align: center;
     line-height: 60px;
@@ -370,7 +420,6 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 }
 .creation-time{
 	width: 130px;
-    background: pink;
     height: 100%;
     text-align: center;
     overflow: hidden;
@@ -378,8 +427,7 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
     padding-top: 10px;
 }
 .order-number{
-	width: 100px;
-    background: #ecdbde;
+	width: 120px;
     height: 100%;
     text-align: center;
     line-height: 60px;
