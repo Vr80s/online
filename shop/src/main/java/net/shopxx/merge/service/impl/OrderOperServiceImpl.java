@@ -373,6 +373,13 @@ public class OrderOperServiceImpl implements OrderOperService {
 			OrderVO o = new OrderVO();
 			BeanUtils.copyProperties(order,o);
 			o.setId(order.getId());
+			List<OrderItemVO> orderItemVOList = new ArrayList<>();
+			for(OrderItem orderItem : order.getOrderItems()){
+				OrderItemVO orderItemVO = new OrderItemVO();
+				BeanUtils.copyProperties(orderItem,orderItemVO);
+				orderItemVOList.add(orderItemVO);
+			}
+			o.setOrderItems(orderItemVOList);
 			list.add(o);
 		}
 		return list;

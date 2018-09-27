@@ -53,6 +53,9 @@
         <if test="type == 6">
             and oc.type = 1 and oc.multimedia_type = 2
         </if>
+        <if test="type == 7">
+            and mdp.product_id is not null
+        </if>
         ORDER BY mdp.stick desc,mdp.create_time desc
 
     </select>
@@ -99,6 +102,12 @@
             <if test="medicalDoctorPosts.articleId != null">
                 article_id,
             </if>
+            <if test="medicalDoctorPosts.productId != null">
+                product_id,
+            </if>
+            <if test="medicalDoctorPosts.level != null">
+                level,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="medicalDoctorPosts.content != null">
@@ -139,6 +148,12 @@
             </if>
             <if test="medicalDoctorPosts.articleId != null">
                 #{medicalDoctorPosts.articleId},
+            </if>
+            <if test="medicalDoctorPosts.productId != null">
+                #{medicalDoctorPosts.productId},
+            </if>
+            <if test="medicalDoctorPosts.level != null">
+                #{medicalDoctorPosts.level},
             </if>
         </trim>
     </insert>
@@ -182,6 +197,12 @@
         </if>
         <if test="medicalDoctorPosts.articleId != null">
             mdp.article_id = #{medicalDoctorPosts.articleId},
+        </if>
+        <if test="medicalDoctorPosts.productId != null">
+            mdp.product_id = #{medicalDoctorPosts.productId},
+        </if>
+        <if test="medicalDoctorPosts.level != null">
+            mdp.level = #{medicalDoctorPosts.level},
         </if>
         mdp.`update_time` = NOW()
         WHERE mdp.id = #{medicalDoctorPosts.id}
