@@ -1,6 +1,5 @@
 package net.shopxx.merge.service.impl;
 
-import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -431,14 +430,15 @@ public class OrderOperServiceImpl implements OrderOperService {
 		
 		for(Order order : orderList){
 			OrderVO o = new OrderVO();
-			try {
-				org.apache.commons.beanutils.BeanUtils.copyProperties(o,order);
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				e.printStackTrace();
+			BeanUtils.copyProperties(order,o);
+			o.setId(order.getId());
+			List<OrderItemVO> orderItemVOList = new ArrayList<>();
+			for(OrderItem orderItem : order.getOrderItems()){
+				OrderItemVO orderItemVO = new OrderItemVO();
+				BeanUtils.copyProperties(orderItem,orderItemVO);
+				orderItemVOList.add(orderItemVO);
 			}
-			//o.setId(order.getId());
+			o.setOrderItems(orderItemVOList);
 			list.add(o);
 		}
 		
@@ -689,6 +689,20 @@ public class OrderOperServiceImpl implements OrderOperService {
 		Area area = areaService.find(areaId);
 		receiver.setArea(area);
 		receiver.setAreaName(null);
+		receiver.setMember(currentUser);
+		receiverService.update(receiver);
+	}
+
+	@Override
+	@Transactional
+	public void setDefaultReceiver(Long receiverId, Boolean isDefault, String ipandatcmUserId) {
+		Receiver receiver = receiverService.find(receiverId);
+		if (receiver == null) {
+			throw new RuntimeException("修改信息有误");
+		}
+		receiver.setIsDefault(isDefault);
+
+		Member currentUser = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
 		receiver.setMember(currentUser);
 		receiverService.update(receiver);
 	}

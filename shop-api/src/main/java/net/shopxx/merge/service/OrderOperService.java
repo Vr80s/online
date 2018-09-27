@@ -78,6 +78,8 @@ public interface OrderOperService {
 
     void updateReceiver(Long receiverId, String consignee, String address, String zipCode, String phone, Boolean isDefault, Long areaId, String ipandatcmUserId);
 
+    void setDefaultReceiver(Long receiverId, Boolean isDefault, String ipandatcmUserId);
+
     void deleteReceiver(Long receiverId, String ipandatcmUserId);
 
     List<Map<String, Object>> findArea(Long parentId);

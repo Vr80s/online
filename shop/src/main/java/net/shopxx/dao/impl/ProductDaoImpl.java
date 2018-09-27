@@ -729,7 +729,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
         if (!storeIds.isEmpty()) {
             sqlBuilder.append(" and store.id in (:storeIds)");
         }
-        if (productQueryParam.getKeyword() != null) {
+        if (StringUtils.isNotBlank(productQueryParam.getKeyword())) {
             sqlBuilder.append(" and (p.name like :keyword OR p.sn like :keyword)");
         }
         sqlBuilder.append(" and p.price between :minPrice AND :maxPrice");
