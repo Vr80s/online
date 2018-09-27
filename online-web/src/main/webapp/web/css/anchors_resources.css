@@ -248,6 +248,9 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 .shopping_box .shopping-list-top ul li{
 	float: left;
 }
+.shopping_box .shopping-list-top ul li i{
+	cursor: pointer;
+}
 .shopping_box .shopping-list-top ul li .price-up{
 	position: absolute;
     left: 33px;
@@ -290,20 +293,13 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
     bottom: 6px;
 }
 
-.shopping_box .shopping-list-top ul li .number-up{
-	position: absolute;
-    left: 80px;
-    top: 8px;
-}
-.shopping_box .shopping-list-top ul li .number-down{
-	position: absolute;
-    left: 80px;
-    bottom: 6px;
-}
 
 
 .shopping_box .shopping-list-top ul li p{
 	margin: 0;
+}
+.shopping_box .shopping-list-top ul li .active{
+	color: #00bc12;
 }
 .shopping_box .shopping-list-top ul li:nth-child(1){
 	width: 118px;
