@@ -121,11 +121,11 @@ public class ShopOrderController {
     }
         
     @RequestMapping(value = "/order/list",method = RequestMethod.GET)
-    public ResponseObject list( @RequestParam(required = false) OrderVO.Type type, @RequestParam(required = false) OrderVO.Status status, @RequestParam(required = false) Boolean isPendingReceive
+    public ResponseObject list(@Account String accountId, @RequestParam(required = false) OrderVO.Type type, @RequestParam(required = false) OrderVO.Status status, @RequestParam(required = false) Boolean isPendingReceive
             , @RequestParam(required = false) Boolean isPendingRefunds, @RequestParam(required = false) Boolean isUseCouponCode, @RequestParam(required = false) Boolean isExchangePoint
             , @RequestParam(required = false) Boolean isAllocatedStock, @RequestParam(required = false) Boolean hasExpired
             , @RequestParam(defaultValue = "1") int pageNumber, @RequestParam(defaultValue = "10") int pageSize){
-        List<OrderVO> list = orderOperService.findPage(type, status, null, "aa79673b899249d9a07b0f19732a1b0e", null, isPendingReceive,
+        List<OrderVO> list = orderOperService.findPage(type, status, null, accountId, null, isPendingReceive,
                 isPendingRefunds, isUseCouponCode, isExchangePoint, isAllocatedStock, hasExpired, pageNumber, pageSize);
         return ResponseObject.newSuccessResponseObject(list);
     }
