@@ -16,6 +16,31 @@ requestGetService("/xczh/shop/goods/details",{
             pagination: '.swiper-pagination',
             paginationType: 'fraction'
         });
+
+        // 医师推荐
+        if (obj.posts !=null) {
+            $(".physician_recommend").show();
+            $(".recommend_main").html(template('recommend_main', {items: obj.posts}));
+        }else{
+            $(".physician_recommend").hide();
+        };
+
+        // 评价
+        if (obj.posts !=null) {
+            $(".evaluate").show();
+            $(".evaluate_main").html(template('evaluate_main', {items: obj.reviewvs}));
+        }else{
+            $(".evaluate").hide();
+        };
+        
+        // 商品详情
+        if (obj.introduction == null) {
+            $(".commodity_details").hide();
+        }else{
+            $(".commodity_details").show();
+            $(".commodity_details_center").html(obj.introduction);
+        };
+        
         // 判断商品介绍为空
         if (obj.caption == null) {
             $(".referral").hide();

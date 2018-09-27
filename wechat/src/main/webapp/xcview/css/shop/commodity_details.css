@@ -264,6 +264,7 @@ header{
 	background: #fff;
 	margin-bottom: .2rem;
 	padding: .2rem 0;
+	display: none;
 }
 .recommend_main{
 	width: 6.98rem;
@@ -288,6 +289,12 @@ header{
 	width: .12rem;
 	height: .24rem;
 	vertical-align:middle;
+}
+.referrer{
+	margin-bottom: .2rem;
+}
+.referrer:last-child{
+	margin-bottom: 0;
 }
 .referrer_message{
 	height: .8rem;
@@ -341,6 +348,7 @@ header{
 	background: #fff;
 	margin-bottom: .2rem;
 	padding: .2rem 0;
+	display: none;
 }
 .evaluate_main{
 	width: 6.98rem;
@@ -365,6 +373,12 @@ header{
 	width: .12rem;
 	height: .24rem;
 	vertical-align:middle;
+}
+.appraiser{
+	margin-bottom: .2rem;
+}
+.appraiser:last-child{
+	margin-bottom: 0;
 }
 .appraiser_message{
 	height: .8rem;
@@ -397,6 +411,7 @@ header{
 	background: #fff;
 	padding: .2rem 0;
 	margin-bottom: .2rem;
+	display: none;
 }
 .commodity_details_main{
 	width: 6.98rem;
@@ -406,6 +421,9 @@ header{
 	font-size: .28rem;
 	color: #333333;
 	margin-bottom: .2rem;
+}
+.commodity_details_center{
+	font-size: .28rem;
 }
 .commodity_details_center img{
 	max-width: 6.98rem;

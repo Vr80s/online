@@ -60,7 +60,7 @@
 			</div>
 			<div class="advices">
 				<img src="/xcview/images/shop/news.png" alt="" class="news" />
-				<span class="advices_number">17</span>
+				<!-- <span class="advices_number">17</span> -->
 			</div>
 			<img src="/xcview/images/shop/share.png" alt="" class="share" />
 		</div>	
@@ -143,149 +143,168 @@
 			</div>
 		</div>
 		<!-- 详情结束 -->
+	</script>
+	</div>
 		
-		<!-- 医师推荐开始 -->
-		<div class="physician_recommend">
-			<div class="recommend_main">
-				<div class="recommend" onclick="location.href ='/xcview/html/shop/recommend.html'">
-					<span class="title">医师推荐</span>
-					<span class="view_all">查看全部 <img src="/xcview/images/shop/view_all.png" alt="" /></span>
-					<div class="both"></div>
+	<!-- 医师推荐开始 -->
+	<div class="physician_recommend">
+		<div class="recommend_main">
+			<script type="text/html" id="recommend_main">
+			<div class="recommend" onclick="location.href ='/xcview/html/shop/recommend.html'">
+				<span class="title">医师推荐</span>
+				<span class="view_all">查看全部 <img src="/xcview/images/shop/view_all.png" alt="" /></span>
+				<div class="both"></div>
+			</div>
+			{{each items as item i}}
+			<div class="referrer">
+				<div class="referrer_message">
+					<img src="{{item.doctorHeadImg}}" alt="" class="head_portrait" />
+					<span class="name">{{item.doctorName}}</span>
+					<span class="recommendation_rate">
+						推荐指数
+						{{if item.level == 1}}
+						<img src="/xcview/images/xing1_0.png" alt="" class="xingxing" />
+						{{else if item.level == 2}}
+						<img src="/xcview/images/xing2.png" alt="" class="xingxing" />
+						{{else if item.level == 3}}
+						<img src="/xcview/images/xing3.png" alt="" class="xingxing" />
+						{{else if item.level == 4}}
+						<img src="/xcview/images/xing4_0.png" alt="" class="xingxing" />
+						{{else if item.level == 5}}
+						<img src="/xcview/images/xing5.png" alt="" class="xingxing" />
+						{{/if}}
+					</span>
 				</div>
-				<div class="referrer">
-					<div class="referrer_message">
-						<img src="/xcview/images/touxiang.png" alt="" class="head_portrait" />
-						<span class="name">陈文伯医师</span>
-						<span class="recommendation_rate">
-							推荐指数
-							<img src="/xcview/images/xing0_5.png" alt="" class="xingxing" />
-						</span>
-					</div>
-					<div class="center">无添加玫瑰花红糖，不添加任何防腐剂，口感细滑，易于吸收，具有良好的温补功效，了解一下？</div>
+				<div class="center">{{item.content}}</div>
+			</div>
+			{{/each}}
+			</script>
+		</div>
+	</div>
+	<!-- 医师推荐结束 -->
+
+	<!-- 评价开始 -->
+	<div class="evaluate" id="li_btn1">
+		<div class="evaluate_main">
+			<script type="text/html" id="evaluate_main">
+			<div class="evaluate_top" onclick="location.href ='/xcview/html/shop/all_evaluation.html'">
+				<span class="title">评价</span>
+				<span class="evaluate_view_all">查看全部 <img src="/xcview/images/shop/view_all.png" alt="" /></span>
+				<div class="both"></div>
+			</div>
+			{{each items as item i}}
+			<div class="appraiser">
+				<div class="appraiser_message">
+					<img src="{{item.user.headPhoto}}" alt="" class="head_portrait" />
+					<span class="name">{{item.user.username}}</span>
 				</div>
+				<div class="center">{{item.content}}</div>
+				<!-- <div class="referrer_img">
+					<img src="/xcview/images/frog.jpg" alt="" />
+				</div> -->
+				<!--<div class="contain">
+				    <ul>
+				        <li>
+				            <div class="body">
+				                <div class="text">
+				                    <div class="my-gallery" data-pswp-uid="2">
+					                    <figure class="figure_big">
+					                        <div><a href="/xcview/images/frog.jpg" data-size="286x220"><img style="height:100%;" src="/xcview/images/frog.jpg"></a></div>
+					                    </figure>
+					                    <figure class="figure_big">
+					                        <div><a href="/xcview/images/anchorbg.png" data-size="286x220"><img style="height:100%;" src="/xcview/images/anchorbg.png"></a></div>
+					                    </figure>
+					                    <figure class="figure_big">
+					                        <div><a href="/xcview/images/frog.jpg" data-size="286x220"><img style="height:100%;" src="/xcview/images/frog.jpg"></a></div>
+					                    </figure>
+				                    </div>
+				                </div>
+				            </div>
+				        </li>
+				        
+				    </ul>
+				</div>-->
+			</div>
+			{{/each}}
+			</script>
+		</div>
+		<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+	    <!-- Background of PhotoSwipe. 
+	         It's a separate element as animating opacity is faster than rgba(). -->
+	    <div class="pswp__bg"></div>
+
+	    <!-- Slides wrapper with overflow:hidden. -->
+	    <div class="pswp__scroll-wrap">
+
+	        <!-- Container that holds slides. 
+	            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+	            Don't modify these 3 pswp__item elements, data is added later on. -->
+	        <div class="pswp__container">
+	            <div class="pswp__item"></div>
+	            <div class="pswp__item"></div>
+	            <div class="pswp__item"></div>
+	        </div>
+
+	        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+	        <div class="pswp__ui pswp__ui--hidden">
+
+	            <div class="pswp__top-bar">
+
+	                <!--  Controls are self-explanatory. Order can be changed. -->
+
+	                <div class="pswp__counter"></div>
+
+	                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+	                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+	                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+	                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+	                <!-- element will get class pswp__preloader--active when preloader is running -->
+	                <div class="pswp__preloader">
+	                    <div class="pswp__preloader__icn">
+	                      <div class="pswp__preloader__cut">
+	                        <div class="pswp__preloader__donut"></div>
+	                      </div>
+	                    </div>
+	                </div>
+	            </div>
+
+	            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+	                <div class="pswp__share-tooltip"></div> 
+	            </div>
+
+	            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+	            </button>
+
+	            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+	            </button>
+
+	            <div class="pswp__caption">
+	                <div class="pswp__caption__center"></div>
+	            </div>
+
+	        </div>
+
+	    </div>
+	</div>
+	</div>
+	<!-- 评价结束 -->
+
+	<!-- 商品详情开始 -->
+	<div class="commodity_details" id="li_btn2">
+		<div class="commodity_details_main">
+			<div class="title">商品详情</div>
+			<div class="commodity_details_center">
+				<img src="/xcview/images/topTwo_doc.png" alt="" />
+				
 			</div>
 		</div>
-		<!-- 医师推荐结束 -->
-
-		<!-- 评价开始 -->
-		<div class="evaluate" id="li_btn1">
-			<div class="evaluate_main">
-				<div class="evaluate_top" onclick="location.href ='/xcview/html/shop/all_evaluation.html'">
-					<span class="title">评价</span>
-					<span class="evaluate_view_all">查看全部 <img src="/xcview/images/shop/view_all.png" alt="" /></span>
-					<div class="both"></div>
-				</div>
-				<div class="appraiser">
-					<div class="appraiser_message">
-						<img src="/xcview/images/touxiang.png" alt="" class="head_portrait" />
-						<span class="name">陈文伯医师</span>
-					</div>
-					<div class="center">无添加玫瑰花红糖，不添加任何防腐剂，口感细滑，易于吸收，具有良好的温补功效，了解一下？</div>
-					<!-- <div class="referrer_img">
-						<img src="/xcview/images/frog.jpg" alt="" />
-					</div> -->
-					<div class="contain">
-					    <ul>
-					        <li>
-					            <div class="body">
-					                <div class="text">
-					                    <div class="my-gallery" data-pswp-uid="2">
-						                    <figure class="figure_big">
-						                        <div><a href="/xcview/images/frog.jpg" data-size="286x220"><img style="height:100%;" src="/xcview/images/frog.jpg"></a></div>
-						                    </figure>
-						                    <figure class="figure_big">
-						                        <div><a href="/xcview/images/anchorbg.png" data-size="286x220"><img style="height:100%;" src="/xcview/images/anchorbg.png"></a></div>
-						                    </figure>
-						                    <figure class="figure_big">
-						                        <div><a href="/xcview/images/frog.jpg" data-size="286x220"><img style="height:100%;" src="/xcview/images/frog.jpg"></a></div>
-						                    </figure>
-					                    </div>
-					                </div>
-					            </div>
-					        </li>
-					        
-					    </ul>
-					</div>
-				</div>
-			</div>
-			<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-		    <!-- Background of PhotoSwipe. 
-		         It's a separate element as animating opacity is faster than rgba(). -->
-		    <div class="pswp__bg"></div>
-
-		    <!-- Slides wrapper with overflow:hidden. -->
-		    <div class="pswp__scroll-wrap">
-
-		        <!-- Container that holds slides. 
-		            PhotoSwipe keeps only 3 of them in the DOM to save memory.
-		            Don't modify these 3 pswp__item elements, data is added later on. -->
-		        <div class="pswp__container">
-		            <div class="pswp__item"></div>
-		            <div class="pswp__item"></div>
-		            <div class="pswp__item"></div>
-		        </div>
-
-		        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-		        <div class="pswp__ui pswp__ui--hidden">
-
-		            <div class="pswp__top-bar">
-
-		                <!--  Controls are self-explanatory. Order can be changed. -->
-
-		                <div class="pswp__counter"></div>
-
-		                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-		                <button class="pswp__button pswp__button--share" title="Share"></button>
-
-		                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-		                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-		                <!-- element will get class pswp__preloader--active when preloader is running -->
-		                <div class="pswp__preloader">
-		                    <div class="pswp__preloader__icn">
-		                      <div class="pswp__preloader__cut">
-		                        <div class="pswp__preloader__donut"></div>
-		                      </div>
-		                    </div>
-		                </div>
-		            </div>
-
-		            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-		                <div class="pswp__share-tooltip"></div> 
-		            </div>
-
-		            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-		            </button>
-
-		            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-		            </button>
-
-		            <div class="pswp__caption">
-		                <div class="pswp__caption__center"></div>
-		            </div>
-
-		        </div>
-
-		    </div>
-		</div>
-		</div>
-		<!-- 评价结束 -->
-
-		
-
-		<!-- 商品详情开始 -->
-		<div class="commodity_details" id="li_btn2">
-			<div class="commodity_details_main">
-				<div class="title">商品详情</div>
-				<div class="commodity_details_center">
-					<img src="/xcview/images/topTwo_doc.png" alt="" />
-				</div>
-			</div>
-		</div>
-		<!-- 商品详情结束 -->
+	</div>
+	<!-- 商品详情结束 -->
 
 		<!-- 常见问题开始 -->
 		<div class="FAQ">
@@ -383,8 +402,7 @@
 			<div class="weixin_img"><img src="/xcview/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
 		</div>
 		<!-- 点击分享提示结束 -->
-	</script>
-	</div>
+	
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script> 
