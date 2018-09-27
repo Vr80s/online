@@ -323,8 +323,8 @@
 							</span>
 
 							<div class="littleBox">
-								<p class="shopping-menue activeP" data-name="menu5-1">我的商品</p>
-								<p class="shopping-menue" data-name="menu5-2">我的订单</p>
+								<p class="shopping-menue shopping-list-btn activeP" data-name="menu5-1">我的商品</p>
+								<p class="shopping-menue shopping-order-btn" data-name="menu5-2">我的订单</p>
 							</div>
 						</li>	
 						<li class="setTop" id="nav-colume" data-name="doc_zhuanlan"><i class="icomoon-icon-zhuanlan left_range"></i><span>医案专栏</span></li>
@@ -2119,19 +2119,19 @@
 							<p class="shopping-code">
 								<!--总销量-->
 								<span class="left-tip">总销量</span>
-								<input class="sales-volume" type="text" />
+								<input class="sales-volume min-sales" type="text" oninput="value=value.replace(/[^\d]/g,'')" />
 								<span>-</span>
-								<input class="sales-volume" type="text" />
+								<input class="sales-volume max-sales" type="text" oninput="value=value.replace(/[^\d]/g,'')" />
 								<!--价格-->
 								<span style="width: 80px;" class="left-tip">价格</span>
 								<span class="wrap-price">
 									<span>&yen;</span>
-									<input class="sales-prise" type="text" />
+									<input class="sales-prise min-price" type="text" />
 								</span>							
 								<span>-</span>
 								<span class="wrap-price">
 									<span>&yen;</span>
-									<input class="sales-prise" type="text" />
+									<input class="sales-prise max-price" type="text" />
 								</span>
 							</p>
 							<p class="shopping-code">
@@ -2148,7 +2148,8 @@
 									<li>
 										<p class="select-sort">
 											<span>价格</span>
-											<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+											<i class="icomoon-icon-shang price-up" data-style="PRICE_ASC"></i>
+											<i class="icomoon-icon-xia price-down" data-style="PRICE_DESC"></i>
 										</p>
 									</li>
 									<li>
@@ -2157,59 +2158,77 @@
 									<li>
 										<p class="select-sort">
 											<span>库存</span>
-											<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+											<i class="icomoon-icon-shang stock-up" data-style="INVENTORY_ASC"></i>
+											<i class="icomoon-icon-xia stock-down" data-style="INVENTORY_DESC"></i>
 										</p>
 									</li>
 									<li>
 										<p class="select-sort">
 											<span>总销量</span>
-											<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+											<i class="icomoon-icon-shang sales-up" data-style="SALES_ASC"></i>
+											<i class="icomoon-icon-xia sales-down" data-style="SALES_DESC"></i>
 										</p>
 									</li>
 									<li>
 										<p class="select-sort">
 											<span>创建时间</span>
-											<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+											<i class="icomoon-icon-shang time-up" data-style="DATE_ASC"></i>
+											<i class="icomoon-icon-xia time-down" data-style="DATE_DESC"></i>
 										</p>
 									</li>
 									<li>
 										<p class="select-sort">
-											<span>序号</span>
-											<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+											<span>编号</span>
 										</p>
 									</li>
 								</ul>
 							</div>
 							<div class="shopping-list-content">
-								<ul>
-									<li>
-										<div class="ware-menu-one z">
-											<div class="img-ware-show z">
-												<img src="/web/images/1.jpg"/>
+								<ul id="shop-list-ul">
+									<script type="text/template" id="shop-template">
+										{{each items as item i}}
+										<li>
+											<div class="ware-menu-one z">
+												<div class="img-ware-show z">
+													<img src="{{item.picture}}"/>
+												</div>
+												<p class="ware-name">{{item.name}}</p>
+												<p class="ware-price">&yen; {{item.price}}</p>
 											</div>
-											<p class="ware-name">清空筛选条件清空筛选条件清空筛选条件</p>
-											<p class="ware-price">&yen; 200</p>
-										</div>
-										<div class="page-view z">
-											<p>访问量：65</p>
-											<p>浏览数：65</p>
-										</div>
-										<div class="ware-stock z">
-											<span>100</span>
-										</div>
-										<div class="total-sales z">
-											<span>100</span>
-										</div>
-										<div class="creation-time z">
-											<span>2018-08-12 20:00:20</span>
-										</div>
-										<div class="order-number z">
-											<span>30</span>
-										</div>
-									</li>
-									
+											<div class="page-view z">
+												<p>访问量：{{item.uv}}</p>
+												<p>浏览数：{{item.hits}}</p>
+											</div>
+											<div class="ware-stock z">
+												<span>{{item.inventory}}</span>
+											</div>
+											<div class="total-sales z">
+												<span>{{item.sales}}</span>
+											</div>
+											<div class="creation-time z">
+												<span>{{item.createddate}}</span>
+											</div>
+											<div class="order-number z">
+												<span>{{item.sn}}</span>
+											</div>
+										</li>
+										{{/each}}
+									</script>	
 								</ul>
 							</div>
+							<!--分页-->
+							<div class="shop_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+								<div id="Pagination_shop" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+								<div class="searchPage">
+									<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+									<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+									<a href="javascript:;" class="page-btn">确定</a>
+								</div>
+							</div>
+						</div>
+						<!--无商品时展示-->
+						<div class="shop-null hide">
+							无商品
 						</div>
 					</div>
 					
@@ -3065,6 +3084,7 @@
 	<!--<script src="/web/js/provinces.js"></script>-->
 	<script src="/web/js/anchors-disciple.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>
 	<script src="/web/js/anchors_resources.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>
+	<script src="/web/js/anchors_shop.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>
 	<script src="/web/js/anchor/teaching.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>
 	<script src="/web/js/common_msg.js" type="text/javascript" charset="UTF-8"></script>
 	<!--省市区三联动-->

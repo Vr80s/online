@@ -83,7 +83,7 @@ $(function () {
 	 		}else if(navText=="轮播图设置"){
 	 			bannerList(1);
 	 		}else if(navText=="医案专栏"){
-	 			columnList(1);
+	 			columnList(1,$(".column-select-wrap select").val());
 	 		}else if(navText=="著作"){
 	 			    workList(1);
 	 		}else if(navText=="媒体报道"){
