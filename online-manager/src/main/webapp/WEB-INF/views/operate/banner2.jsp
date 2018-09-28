@@ -376,7 +376,7 @@
                 
                 <div class="J-edit-product-detail" style="display: none">
                		<!-- 顶级分类 -->
-                    <select data-live-search="true" onchange="lala(this)" id="J-edit-product-rootCategory">
+                    <select data-live-search="true" onchange="lala(this,'edit')" id="J-edit-product-rootCategory">
                         <c:forEach var="rootCategory" items="${productCategorys}">
                             <option value="${rootCategory.id}">
                                     ${rootCategory.name}
@@ -385,7 +385,7 @@
                     </select>
                     
                     <!-- 二级分类 -->
- 					<select data-live-search="true" onchange="hehe(this)" id="J-edit-product-category">
+ 					<select data-live-search="true" onchange="hehe(this,'edit')" id="J-edit-product-category">
                        <%--  <c:forEach var="category" items="${childrenVOs}">
                             <option value="${category.id}">
                                     ${category.name}
