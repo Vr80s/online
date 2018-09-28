@@ -6,7 +6,8 @@ $(function(){
 			$(".input-code, .min-sales, .max-sales, .min-price, .max-price").val("");
 			shopList(1);
 		})
-//		var orderType;
+		var orderType;
+		shopList(1);
 		function shopList(pageNumber,orderType){
 			var keyword=$.trim($(".input-code").val()),
 				minSales=$.trim($(".min-sales").val()),
@@ -61,7 +62,7 @@ $(function(){
 		                    $(".shop_pages").addClass("hide");
 		                }
 		  		} else{
-		  			
+		  				showTip(data.errorMessage);
 		  		}
 		  })
 		}
@@ -86,8 +87,43 @@ $(function(){
 	
 //	订单管理
  	(function(){
-	 	RequestService("/xczh/shop/order/list", "get",orderData, function (data) {
-	 		
-	 	})
+ 		orderList(1) 	
+ 		$(".shopping-order-btn").click(function(){
+ 			orderList(1);
+ 		})
+ 		function orderList(pageNumber,status){
+ 			var orderValue=$.trim($(".order-value").val()),
+ 				wareValue=$.trim($(".ware-value").val()),
+ 				timeStart=$.trim($(".time-start").val()),
+ 				timeEnd=$.trim($(".time-end").val());
+ 			var orderData={};
+ 				orderData.pageNumber=pageNumber,
+ 				orderData.pageSize=10,
+ 				orderData.sn=orderValue,
+ 				orderData.productName=wareValue;
+// 				orderData.startDate=timeStart,
+// 				orderData.endDate=timeEnd;
+ 				if(status != null || status != ""){
+ 					orderData.status=status;
+ 				}else{
+ 					orderData.status="";
+ 				}
+ 			RequestService("/xczh/shop/order/list", "get",orderData, function (data) {
+	 			if(data.success==true){
+	 				var orderService=data.resultObject.content;
+	 					if(orderService.length==0){
+	 						$(".order-null").removeClass("hide");
+	 						$(".goods-bottom-list").addClass("hide");
+	 					}else{
+	 						$(".order-null").addClass("hide");
+	 						$(".goods-bottom-list").removeClass("hide");
+	 						$("#order-list-bottom").html(template("order-template",{items:orderService}))
+	 					}
+	 			}else{
+		  				showTip(data.errorMessage);
+		  		}
+	 		})
+ 		}
+	 	
  	})();
 })

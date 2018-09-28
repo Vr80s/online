@@ -19,7 +19,7 @@ function listClick(){
     // banner图
     requestService("/xczh/shop/goods/banner",null,function (data) {
         if (data.success == true) {   
-            $(".top_details").html(template('top_details', {items: data.resultObject.productImages}));
+            $(".top_details").html(template('top_details', {items: data.resultObject}));
             // 轮播--渲染时放到，渲染的js下面
             var mySwiper = new Swiper('.banner',{
                 autoplay:1500,

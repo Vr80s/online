@@ -181,7 +181,7 @@ public class MultiUrlHelper {
             URL_TYPE_MOBILE, "/xcview/html/physician/consilia.html?consiliaId={0}");
     
     private static Map<String, String> productInfoMap = ImmutableMap.of(
-            URL_TYPE_APP, "/xcview/html/shop/commodity_details.html?id={0}");
+    		URL_TYPE_MOBILE, "/xcview/html/shop/commodity_details.html?productId={0}");
 
     
     
@@ -239,6 +239,14 @@ public class MultiUrlHelper {
         }
     }
 
+    public static void main(String[] args) {
+		
+    	RouteTypeEnum valueOf = RouteTypeEnum.valueOf("PRODUCT_DETAIL");
+    	
+    	System.out.println(valueOf.toString());
+    	
+	}
+    
     public static String getUrl(String routeType, String source, String params) {
         String url = "";
         try {

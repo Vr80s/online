@@ -30,13 +30,10 @@ public class OrderPageParams implements Serializable {
 	private Date startDate;
 
 	private Date endDate;
-
 	
 	
 	public Integer getPageNumber() {
-		int num = (pageNumber - 1) * pageSize;
-		num = num < 0 ? 0 : num;
-		return num;
+		return pageNumber;
 	}
 
 	public void setPageNumber(Integer pageNumber) {
