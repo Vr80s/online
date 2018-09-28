@@ -163,6 +163,7 @@ requestGetService("/xczh/shop/goods/details",{
             		currentSku = skus[i];
             	}
             }
+            
             if(currentSku!=null){
 	         	$(".information .price").html("￥"+currentSku.price);
 	       	    $(".information .repertory").html("库存"+currentSku.stock+"件");
@@ -171,6 +172,7 @@ requestGetService("/xczh/shop/goods/details",{
         
     }
 });
+
 function listClick(){
     // 点击进入详情
     $(".recommend").click(function(){
@@ -179,6 +181,7 @@ function listClick(){
         window.location.href = "/xcview/html/shop/recommend.html?productId=" + productId + "";
     })
 };
+
 /*$(".specifications_ul .include").click(function(){
         alert(11111);
     });*/
