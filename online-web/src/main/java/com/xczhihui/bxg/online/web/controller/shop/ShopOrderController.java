@@ -40,15 +40,12 @@ public class ShopOrderController {
     @ResponseBody
     public ResponseObject list(
     		 OrderPageParams orderPageParams,
-    		 @RequestParam(required = false)Type type,
     		 @RequestParam(required = false) Status status){
     	
     	BxgUser loginUser = UserLoginUtil.getLoginUser();
     	
     	LOGGER.info("orderPageParams : "+ orderPageParams.toString());
-    	LOGGER.info("type : "+ type);
     	LOGGER.info("status : "+ status);
-    	
         return ResponseObject.newSuccessResponseObject(orderOperService.findPageXc(orderPageParams, status, null,
         		"aa79673b899249d9a07b0f19732a1b0e",null, UsersType.BUSINESS));
     }
