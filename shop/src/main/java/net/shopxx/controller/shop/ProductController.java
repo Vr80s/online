@@ -7,7 +7,9 @@
 package net.shopxx.controller.shop;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,11 +23,14 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -479,12 +484,19 @@ public class ProductController extends BaseController {
 	
 	@GetMapping(value = "/order/list")
     public @ResponseBody Object order(OrderPageParams orderPageParams,
-   		 @RequestParam(required = false) Status status){
+   		 @RequestParam(required = false) Status status,OrderType orderType){
     	
     	System.out.println("orderPageParams : "+ orderPageParams.toString());
     	//System.out.println("status : "+ status);
     	return orderOperService.findPageXc(orderPageParams, status, null, 
-        		"aa79673b899249d9a07b0f19732a1b0e",null, UsersType.BUSINESS);
+        		"aa79673b899249d9a07b0f19732a1b0e",null, UsersType.BUSINESS,orderType);
+    }
+	
+	@InitBinder
+    public void initBind(WebDataBinder binder){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+        dateFormat.setLenient(false);  
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));   
     }
 	
 	/**

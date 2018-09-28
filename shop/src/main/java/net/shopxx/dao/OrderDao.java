@@ -20,6 +20,7 @@ import net.shopxx.entity.Order.Status;
 import net.shopxx.entity.Order.Type;
 import net.shopxx.entity.Product;
 import net.shopxx.entity.Store;
+import net.shopxx.merge.enums.OrderType;
 import net.shopxx.merge.enums.UsersType;
 import net.shopxx.merge.vo.OrderPageParams;
 
@@ -253,6 +254,6 @@ public interface OrderDao extends BaseDao<Order, Long> {
 	 * @return  
 	 */ 
 	Page<Order> findPageXc(OrderPageParams orderPageParams, Type type, Status status, Store store, Member member,
-			Product product,Pageable pageable);
+			Product product,Pageable pageable,OrderType orderType);
 
 }

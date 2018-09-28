@@ -38,7 +38,11 @@ public class ShopOrderController {
     }
 
     @RequestMapping("checkout")
-    public ResponseObject checkout(@Account String accountId, Long skuId, Integer quantity,String cartItemIds) {
+    public ResponseObject checkout(@Account String accountId, Long skuId, 
+    		Integer quantity,String cartItemIds) {
+    	
+    	LOGGER.info("accountId:"+accountId+",skuId:"+skuId+",quantity:"+quantity+",cartItemIds:"+cartItemIds);
+    	
         Map<String, Object> map = orderOperService.checkout(skuId, quantity, cartItemIds, accountId);
         return ResponseObject.newSuccessResponseObject(map);
     }

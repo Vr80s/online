@@ -80,9 +80,8 @@
 	<div class="banner top_details">
 		<script type="text/html" id="top_details">
 		<div class="swiper-wrapper">
-			
 			{{each items as item i}}
-			<div class="swiper-slide"><img src="{{item.imgPath}}" alt="" data_target="{{item.target}}" data_id="{{item.id}}" /></div>
+			  <div class="swiper-slide"><img src="{{item.imgPath}}" alt="" data_target="{{item.target}}" data_id="{{item.id}}" /></div>
 			{{/each}}
 		</div>
 		
@@ -265,7 +264,7 @@
 	window.onload = function(){
 		// option_newest--最新    option_recommend--推荐   option_hottest--最热  option_price--价格
 		// 最新
-		$(".option_newest").click();
+		//$(".option_newest").click();
 		$(".option_newest").click(function(){
 			$(".option_newest").addClass("default_click");  //最新
 			$(".option_recommend").removeClass("default_click");

@@ -75,6 +75,8 @@ public class ShopGoodsController {
         page.getRecords().forEach(bannerVo -> {
             String routeType = bannerVo.getRouteType();
             String linkParam = bannerVo.getLinkParam();
+            
+            
             if (StringUtils.isNotBlank(routeType)) {
                 String url = MultiUrlHelper.getUrl(mobileBannerService.getHandleRouteType(routeType, linkParam),
                         APPUtil.getMobileSource(request), MultiUrlHelper.handleParam(returnOpenidUri, linkParam, routeType));
@@ -87,6 +89,16 @@ public class ShopGoodsController {
         return ResponseObject.newSuccessResponseObject(page.getRecords());
     }
 
+    
+    public static void main(String[] args) {
+		
+    	MultiUrlHelper.getUrl("PRODUCT_DETAIL",
+    			MultiUrlHelper.URL_TYPE_MOBILE, 
+    			"123");
+    	
+	}
+    
+    
     @RequestMapping("review")
     public ResponseObject review(Long productId,@RequestParam(required = false, value = "pageNumber")Integer pageNumber,
     		@RequestParam(required = false, value = "pageSize")Integer pageSize) {
@@ -96,7 +108,8 @@ public class ShopGoodsController {
     
 
     @RequestMapping("recommends")
-    public ResponseObject recommends(Long productId,@RequestParam(required = false, value = "pageNumber")Integer pageNumber,
+    public ResponseObject recommends(Long productId,
+    		@RequestParam(required = false, value = "pageNumber")Integer pageNumber,
     		@RequestParam(required = false, value = "pageSize")Integer pageSize) {
     	
     	pageNumber = pageNumber == null ? 1 : pageNumber;
