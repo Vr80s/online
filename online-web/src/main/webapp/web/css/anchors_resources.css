@@ -460,6 +460,11 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 	margin-left: 20px;
 	cursor: pointer;
 }
+.order-search-num .active-time{
+	background: #00bc12;
+    color: white;
+    border-radius: 4px;
+}
 .order-search-num button{
 	 background: #00BC12;
     border-radius: 4px;
