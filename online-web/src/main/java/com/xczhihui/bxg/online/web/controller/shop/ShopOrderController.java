@@ -1,8 +1,9 @@
 package com.xczhihui.bxg.online.web.controller.shop;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,8 +17,6 @@ import net.shopxx.merge.enums.Type;
 import net.shopxx.merge.enums.UsersType;
 import net.shopxx.merge.service.OrderOperService;
 import net.shopxx.merge.vo.OrderPageParams;
-import net.shopxx.merge.vo.ProductVO;
-import net.shopxx.merge.vo.ScoreVO;
 
 /**
  * 
@@ -32,7 +31,7 @@ import net.shopxx.merge.vo.ScoreVO;
 @RequestMapping(value = "/xczh/shop")
 public class ShopOrderController {
 	
-	///   xczh/order/order/list
+	private static final Logger LOGGER = LoggerFactory.getLogger(ShopOrderController.class);
 	
 	@Autowired
 	public OrderOperService orderOperService;
@@ -45,6 +44,10 @@ public class ShopOrderController {
     		 @RequestParam(required = false) Status status){
     	
     	BxgUser loginUser = UserLoginUtil.getLoginUser();
+    	
+    	LOGGER.info("orderPageParams : "+ orderPageParams.toString());
+    	LOGGER.info("type : "+ type);
+    	LOGGER.info("status : "+ status);
     	
         return ResponseObject.newSuccessResponseObject(orderOperService.findPageXc(orderPageParams,type, status, null, 
         		"aa79673b899249d9a07b0f19732a1b0e",null, UsersType.BUSINESS));

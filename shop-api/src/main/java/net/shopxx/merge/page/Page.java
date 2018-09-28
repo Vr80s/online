@@ -45,6 +45,7 @@ public class Page<T> implements Serializable {
         this.total = total;
         this.pageable = pageable;
     }
+    
 
     public List<T> getContent() {
         return content;

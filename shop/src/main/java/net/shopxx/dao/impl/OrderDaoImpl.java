@@ -23,6 +23,7 @@ import net.shopxx.Filter;
 import net.shopxx.Page;
 import net.shopxx.Pageable;
 import net.shopxx.dao.OrderDao;
+import net.shopxx.entity.ArticleCategory;
 import net.shopxx.entity.Member;
 import net.shopxx.entity.Order;
 import net.shopxx.entity.Order.CommissionType;
@@ -33,6 +34,7 @@ import net.shopxx.entity.PaymentMethod;
 import net.shopxx.entity.Product;
 import net.shopxx.entity.Sku;
 import net.shopxx.entity.Store;
+import net.shopxx.merge.enums.UsersType;
 import net.shopxx.merge.vo.OrderPageParams;
 import net.shopxx.merge.vo.ProductVO;
 import net.shopxx.merge.vo.ScoreVO;
@@ -392,7 +394,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Order, Long> implements OrderDao {
 	}
 
 	@Override
-	public Page<Order> findPageXc(OrderPageParams orderPageParams, Type type, Status status, Store store, Member member,
+	public Page<Order> findPageXc(OrderPageParams orderPageParams,Type type, Status status, Store store, Member member,
 			Product product,Pageable pageable) {
 		
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -420,11 +422,22 @@ public class OrderDaoImpl extends BaseDaoImpl<Order, Long> implements OrderDao {
 			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.lessThanOrEqualTo(root.<Date>get("createdDate"), orderPageParams.getEndDate()));
 		}
 		
+		if (orderPageParams.getProductName() != null) {
+			Subquery<OrderItem> subquery = criteriaQuery.subquery(OrderItem.class);
+			Root<OrderItem> subqueryRoot = subquery.from(OrderItem.class);
+			subquery.select(subqueryRoot);
+			subquery.where(criteriaBuilder.like(subqueryRoot.<String>get("name"),
+					"%" + orderPageParams.getProductName() + "%"));
+			
+			restrictions = criteriaBuilder.and(restrictions,criteriaBuilder.or(
+					criteriaBuilder.in(root.join("orderItems")).value(subquery)));
+		}
 		
-	    restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.or(
-	    		 criteriaBuilder.like(root.<String>get("sn"), "%" + orderPageParams.getSn() + "%"), 
-				 criteriaBuilder.like(root.get("product").<String>get("name"), "%" + orderPageParams.getProductName() + "%")));
-	    
+		if (orderPageParams.getSn() != null) {
+			 restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.or(
+		    		 criteriaBuilder.like(root.<String>get("sn"), "%" + orderPageParams.getSn() + "%")));
+		}
+		
 		if (product != null) {
 			Subquery<Sku> skuSubquery = criteriaQuery.subquery(Sku.class);
 			Root<Sku> skuSubqueryRoot = skuSubquery.from(Sku.class);

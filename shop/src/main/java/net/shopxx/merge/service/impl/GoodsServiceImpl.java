@@ -46,12 +46,6 @@ public class GoodsServiceImpl implements GoodsService {
     @Inject
     private ProductDao productDao;
 
-    @Inject
-    private UsersRelationService usersRelationService;
-
-    @Autowired
-    private IMedicalDoctorAccountService medicalDoctorAccountService;
-
     @Autowired
     private IMedicalDoctorPostsService medicalDoctorPostsService;
     
@@ -140,9 +134,6 @@ public class GoodsServiceImpl implements GoodsService {
 //            e.printStackTrace();
 //        }
         
-        
-        
-        
         org.springframework.beans.BeanUtils.copyProperties(product,pv);
 
         //医师推荐
@@ -166,13 +157,43 @@ public class GoodsServiceImpl implements GoodsService {
 
         //分类id
         pv.setProductcategoryId(product.getProductCategory().getId());
-
+        
+        //库存转换
+        pv.setSkuVOs(convertProductSku(product));
 
         return pv;
     }
 
 
-    /**
+    /**  
+	 * <p>Title: convertProductSku</p>  
+	 * <p>Description: </p>  
+	 * @param product
+	 * @return  
+	 */ 
+	private Set<SkuVO> convertProductSku(Product product) {
+		if(product.getSkus().size()>0) {
+			Set<Sku> skus = product.getSkus();
+			Set<SkuVO> skuVos = new HashSet<SkuVO>();
+			for (Sku sku : skus) {
+				 SkuVO skuVo = new SkuVO();
+				 try {
+					BeanUtils.copyProperties(skuVo,sku);
+					skuVo.setSpecificationValueIds(sku.getSpecificationValueIds());
+					skuVo.setIsOutOfStock(sku.getIsOutOfStock());
+					skuVos.add(skuVo);
+				 } catch (IllegalAccessException | InvocationTargetException e) {
+					e.printStackTrace();
+				 }
+			}
+			return skuVos;
+		}
+		return null;
+		
+	}
+
+
+	/**
      * <p>Title: convertProductimages</p>
      * <p>Description: 图片转换</p>
      *
@@ -262,7 +283,6 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     @Transactional(readOnly = true)
     public Object findIdByCategoryId(Long categoryId) {
-
         LOGGER.info("啦啦啦啦==========================");
         ProductCategory find = productCategoryDao.find(categoryId);
         List<Map<String, Object>> list = productDao.findIdByCategoryId(find);

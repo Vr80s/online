@@ -1,10 +1,5 @@
 $(function(){
 	(function(){	
-//		清空筛选条件
-		$(".clear-screen").click(function(){
-			$(".input-code, .min-sales, .max-sales, .min-price, .max-price").val("");
-		})
-
 		var orderType;
 		shopList(1)
 		function shopList(pageNumber,orderType){
@@ -36,8 +31,10 @@ $(function(){
 		  			var shopData=data.resultObject.content;
 		  			if(shopData.length==0){
 		  				$(".shop-null").removeClass("hide");
+		  				$(".all-shopping-list").addClass("hide");
 		  			}else{
 		  				$(".shop-null").addClass("hide");
+		  				$(".all-shopping-list").removeClass("hide");
 		  				$("#shop-list-ul").html(template("shop-template",{items:shopData}))
 		  			}
 	//	  			分页
@@ -63,6 +60,22 @@ $(function(){
 		  		}
 		  })
 		}
+	
+		//		清空筛选条件
+		$(".clear-screen").click(function(){
+			$(".input-code, .min-sales, .max-sales, .min-price, .max-price").val("");
+		})
+//		点击筛选条件进行筛选
+		$(".screen-commodity").click(function(){
+			shopList(1);
+			$(".shopping-list-top li i").removeClass("active");
+		})
+//		点击升序,降序进行筛选
+		$(".shopping-list-top").on("click","li i",function(){
+			var dataType=$(this).attr("data-style");
+			$(".shopping-list-top li i").removeClass("active");
+			$(this).addClass("active")
+			shopList(1,dataType)
+		})
 	})();
-	  
 })
