@@ -12,19 +12,19 @@ function appointmentList(pageNumber, downOrUp) {
 
 	requestService("/xczh/shop/goods/recommends",{
 		productId:10152,
-		pageNumber:1,
+		pageNumber:pageNumber,
 		pageSize:10
 	},function (data) {
 	    if (data.success == true) {
 	    	var obj = data.resultObject;
 			if(downOrUp=='down'){
                 // 推荐列表
-                $(".recommend").html(template('recommends', {items: obj}));
+                $(".recommends").html(template('shop_recommend', {items: obj}));
                 miniRefresh.endDownLoading(true);// 结束下拉刷新
             } else if(obj.length==0){
                 miniRefresh.endUpLoading(true);// 结束上拉加载
             } else {
-	           	$(".recommend").append(template('recommends', {items: obj}));
+	           	$(".recommends").append(template('shop_recommend', {items: obj}));
                 miniRefresh.endUpLoading(false);
             }
 	    }else{
