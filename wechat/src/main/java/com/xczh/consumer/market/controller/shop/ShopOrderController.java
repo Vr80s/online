@@ -28,7 +28,7 @@ public class ShopOrderController {
     
     @Autowired
     public OrderOperService orderOperService;
-    @Value("shop.url")
+    @Value("${shop.url}")
     private String shopUrl;
 
     @RequestMapping("checkSku")
@@ -156,6 +156,7 @@ public class ShopOrderController {
     public ResponseObject payment(@Account String accountId, @RequestParam String orderSnsStr){
         Map payment = orderOperService.payment(orderSnsStr);
         payment.put("ipandatcmUserId",accountId);
+        payment.put("shopUrl",shopUrl);
         return ResponseObject.newSuccessResponseObject(payment);
     }
 
