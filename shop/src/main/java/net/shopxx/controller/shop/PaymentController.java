@@ -21,6 +21,7 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -51,6 +52,8 @@ public class PaymentController extends BaseController {
 	private PluginService pluginService;
 	@Inject
 	private PaymentTransactionService paymentTransactionService;
+	@Value("${ipandatcm.url}")
+	private String ipandatcmUrl;
 
 	
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentController.class);
@@ -79,7 +82,6 @@ public class PaymentController extends BaseController {
 		if (CollectionUtils.isEmpty(paymentItems)) {
 			return UNPROCESSABLE_ENTITY_VIEW;
 		}
-
 		PaymentTransaction paymentTransaction = null;
 		if (paymentItems.size() > 1) {
 			Set<PaymentTransaction.LineItem> lineItems = new HashSet<>();
@@ -168,6 +170,7 @@ public class PaymentController extends BaseController {
 		}
 		ModelAndView modelAndView = new ModelAndView();
 		paymentPlugin.postPayHandle(paymentPlugin, paymentTransaction, getPaymentDescription(paymentTransaction), extra, isPaySuccess, request, response, modelAndView);
+		modelAndView.addObject("ipandatcmUrl",ipandatcmUrl);
 		return modelAndView.hasView() ? modelAndView : null;
 	}
 

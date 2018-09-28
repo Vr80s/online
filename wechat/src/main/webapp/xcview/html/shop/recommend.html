@@ -28,6 +28,43 @@
 <link rel="stylesheet" href="/xcview/css/shop/jquery.spinner.css" /><!-- 点击数量加减 -->
 <link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
 <link rel="stylesheet" href="/xcview/css/shop/recommend.css" />
+<link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
+
+<!--刷新 -->
+<link rel="stylesheet" href="/xcview/css/minirefresh/minirefresh.css">
+<script type="text/javascript" src="/xcview/js/minirefresh/minirefresh.js"></script>
+
+
+<style>
+	body{
+		background:#f0f0f0;
+	}
+
+	/*处理刷新*/
+	.minirefresh-wrap{
+		top: 1.1rem;
+	}
+	.minirefresh-theme-default .minirefresh-downwrap{
+		height: 1rem;
+		line-height: 1rem;
+	}
+	.minirefresh-theme-default .downwrap-content{
+		padding: 0;
+	}
+	.minirefresh-theme-default .minirefresh-upwrap{
+		height: 1rem;
+		max-height: 0.5rem;
+		line-height: 0.6rem;
+		padding: 0;
+		/*margin-top: -0.5rem;*/
+	}
+	.minirefresh-scroll{
+		background: none;
+	}
+	.more_people{
+		/*display: none;*/
+	}
+</style>
 </head>
 
 <body style="background: #F0F0F0;">
@@ -43,58 +80,46 @@
 			</div>
 			<div class="advices">
 				<img src="/xcview/images/shop/newsbg.png" alt="" class="news news_class">
-				<span class="advices_number">17</span>
+				<!--<span class="advices_number">17</span>-->
 			</div>
 			<img src="/xcview/images/share_img.png" alt="" class="share share_class">
 		</div>
 	</header>
 	<div class="header_height"></div>
 	<!-- 头部区域结束 -->
-
 	<!-- 中间区域开始 -->
 	<div class="recommend">
+		<div id="minirefresh" class="minirefresh-wrap">
+			<div class="minirefresh-scroll">
+			<div class="recommends">
+		<script type="text/html" id="recommends">
+		{{each items as item i}}
 		<div class="list">
 			<div class="referrer">
-				<img src="/xcview/images/touxiang.png" alt="" class="head_portrait" />
-				<div class="name">陈文伯医师</div>
+				<img src="{{item.doctorHeadImg}}" alt="" class="head_portrait" />
+				<div class="name">{{item.doctorName}}医师</div>
 				<div class="recommendation">推荐指数</div>
+				{{if item.level == 1}}
 				<img src="/xcview/images/xing1_0.png" alt="" class="xingxing" />
-				<img src="/xcview/images/xing2.png" alt="" class="xingxing" style="display:none;" />
-				<img src="/xcview/images/xing3.png" alt="" class="xingxing" style="display:none;" />
-				<img src="/xcview/images/xing4_0.png" alt="" class="xingxing" style="display:none;" />
-				<img src="/xcview/images/xing5.png" alt="" class="xingxing" style="display:none;" />
+				{{else if item.level == 2}}
+				<img src="/xcview/images/xing2.png" alt="" class="xingxing" />
+				{{else if item.level == 3}}
+				<img src="/xcview/images/xing3.png" alt="" class="xingxing" />
+				{{else if item.level == 4}}
+				<img src="/xcview/images/xing4_0.png" alt="" class="xingxing" />
+				{{else if item.level == 5}}
+				<img src="/xcview/images/xing5.png" alt="" class="xingxing" />
+				{{/if}}
 				<div class="both"></div>
 			</div>
-			<div class="center">无添加玫瑰花红糖，不添加任何防腐剂，口感细滑，易于吸收，具有良好的温补功效，了解一下？</div>
+			<div class="center">{{item.content}}</div>
 		</div>
-		<div class="list">
-			<div class="referrer">
-				<img src="/xcview/images/touxiang.png" alt="" class="head_portrait" />
-				<div class="name">陈文伯医师</div>
-				<div class="recommendation">推荐指数</div>
-				<img src="/xcview/images/xing1_0.png" alt="" class="xingxing" />
-				<img src="/xcview/images/xing2.png" alt="" class="xingxing" style="display:none;" />
-				<img src="/xcview/images/xing3.png" alt="" class="xingxing" style="display:none;" />
-				<img src="/xcview/images/xing4_0.png" alt="" class="xingxing" style="display:none;" />
-				<img src="/xcview/images/xing5.png" alt="" class="xingxing" style="display:none;" />
-				<div class="both"></div>
+		{{/each}}
+		</script>
 			</div>
-			<div class="center">无添加玫瑰花红糖，不添加任何防腐剂，口感细滑，易于吸收，具有良好的温补功效，了解一下？</div>
 		</div>
-		<div class="list">
-			<div class="referrer">
-				<img src="/xcview/images/touxiang.png" alt="" class="head_portrait" />
-				<div class="name">陈文伯医师</div>
-				<div class="recommendation">推荐指数</div>
-				<img src="/xcview/images/xing1_0.png" alt="" class="xingxing" />
-				<img src="/xcview/images/xing2.png" alt="" class="xingxing" style="display:none;" />
-				<img src="/xcview/images/xing3.png" alt="" class="xingxing" style="display:none;" />
-				<img src="/xcview/images/xing4_0.png" alt="" class="xingxing" style="display:none;" />
-				<img src="/xcview/images/xing5.png" alt="" class="xingxing" style="display:none;" />
-				<div class="both"></div>
-			</div>
-			<div class="center">无添加玫瑰花红糖，不添加任何防腐剂，口感细滑，易于吸收，具有良好的温补功效，了解一下？</div>
 		</div>
+		
 	</div>
 	<!-- 中间区域结束 -->
 
@@ -177,6 +202,11 @@
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script> 
 <script type="text/javascript" src="/xcview/js/common/common.js"></script> 
+
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>   <!--模板引入-->
+
+<script type="text/javascript" src="/xcview/js/shop/recommend.js"></script>
+
 
 <script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
 
