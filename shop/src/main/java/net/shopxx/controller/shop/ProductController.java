@@ -32,8 +32,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.xczhihui.common.support.domain.BxgUser;
-import com.xczhihui.common.util.bean.ResponseObject;
 
 import net.shopxx.Pageable;
 import net.shopxx.Results;
@@ -53,7 +51,6 @@ import net.shopxx.merge.enums.Type;
 import net.shopxx.merge.enums.UsersType;
 import net.shopxx.merge.service.GoodsService;
 import net.shopxx.merge.service.OrderOperService;
-import net.shopxx.merge.service.ShopCategoryService;
 import net.shopxx.merge.service.ShopReviewService;
 import net.shopxx.merge.vo.GoodsPageParams;
 import net.shopxx.merge.vo.OrderPageParams;
@@ -480,18 +477,14 @@ public class ProductController extends BaseController {
 	}
 
 	
-	@RequestMapping(value = "/order/list")
-    @ResponseBody
-    public ResponseObject list(
-    		 OrderPageParams orderPageParams,
-    		 @RequestParam(required = false)UsersType type,
-    		 @RequestParam(required = false) Status status){
+	@GetMapping(value = "/order/list")
+    public @ResponseBody Object order(OrderPageParams orderPageParams,
+   		 @RequestParam(required = false) Status status){
     	
     	System.out.println("orderPageParams : "+ orderPageParams.toString());
-    	System.out.println("type : "+ type);
-    	System.out.println("status : "+ status);
-        return ResponseObject.newSuccessResponseObject(orderOperService.findPageXc(orderPageParams,type, status, null, 
-        		"aa79673b899249d9a07b0f19732a1b0e",null, UsersType.BUSINESS));
+    	//System.out.println("status : "+ status);
+    	return orderOperService.findPageXc(orderPageParams, status, null, 
+        		"aa79673b899249d9a07b0f19732a1b0e",null, UsersType.BUSINESS);
     }
 	
 	/**

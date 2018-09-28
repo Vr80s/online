@@ -299,6 +299,59 @@ function renderCourseSelect(menuId, courseId) {
         }
     });
 }
+/**
+ * 
+ * @param {} menuId
+ * @param {} courseId
+ */
+//TODO
+function renderProductSelect(menuId, productId) {
+	
+	for (var i = 0; i < productVos.length; i++) {
+		if(productVos[i].id == menuId){
+			$("#J-edit-product-rootCategory").val(menuId); 
+			break;
+		}
+		for (var j = 0; j < productVos[i].childrenVOs.length; j++) {
+			
+			if(productVos[i].childrenVOs[j].id == menuId){
+				
+				$("#J-edit-product-rootCategory").val(productVos[i].id); 
+				var optionHtml = "";
+				for (var x = 0; x < productVos[i].childrenVOs.length; x++) {
+					if(productVos[i].childrenVOs[x].id == menuId){
+						optionHtml +=("<option value="+productVos[i].childrenVOs[x].id+" selected >"+productVos[i].childrenVOs[x].name+"</option>");
+					}else{
+						optionHtml +=("<option value="+productVos[i].childrenVOs[x].id+">"+productVos[i].childrenVOs[x].name+"</option>");
+					}
+				}
+				$("#J-edit-product-category").html(optionHtml);
+				break;
+			}
+		}
+	}
+	
+	  ajaxRequest(basePath + "/operate/banner2/getProductsByCategoryId", {"categoryId": menuId}, function (data) {
+	           if (data.success) {
+	           	    var products = data.resultObject;
+	           	    var optionHtml = "";
+	           	    if(products.length > 0){
+		           	    for (var i = 0; i < products.length; i++) {
+		           	    	if(products[i].id == productId){
+		           	    	    optionHtml +=("<option value="+products[i].id+" selected>"+products[i].name+"</option>");
+		           	    	}else{
+		           	    		optionHtml +=("<option value="+products[i].id+">"+products[i].name+"</option>");
+		           	    	}
+						}
+	           	    }else{
+	           	    	optionHtml +=("<option>暂无商品</option>");
+	           	    }
+					$("#J-edit-product").html(optionHtml);
+			        $('.selectpicker').selectpicker('refresh');
+			        $('.selectpicker').selectpicker({'selectedText': 'cat',size:10});
+	           }
+	    });
+}
 
 
 //新增框
@@ -388,8 +441,8 @@ $(".add_bx").click(function () {
             }
         }else if(routeType === 'PRODUCT_DETAIL'){
           	linkParam = $('#J-product').val();
-        	if (!linkParam) {
-                alertInfo("请选择跳转到的医师");
+        	if (!linkParam || linkParam == "暂无商品") {
+                alertInfo("请选择跳转到的商品详情");
                 return false;
             }
         }
@@ -422,7 +475,7 @@ $(".add_bx").click(function () {
 });
 
 
-function lala(obj){
+function lala(obj,falg){
 	
 	try{
 		var rootCateGoryId = $(obj).val();
@@ -438,11 +491,16 @@ function lala(obj){
 						}
 						optionHtml +=("<option value="+childrenVOs[i].id+">"+childrenVOs[i].name+"</option>");
 					}
-					$("#J-product-category").show();
 					
-					$("#J-product-category").html(optionHtml);
+					if(falg == "edit"){
+						$("#J-edit-product-category").show();
+						$("#J-edit-product-category").html(optionHtml);
+					}else{
+						$("#J-product-category").show();
+						$("#J-product-category").html(optionHtml);
+					}
 			    }else{
-			   	    $("#J-product-category").hide();
+			   	    $("#J-edit-product-category").hide();
 			    }
 			    /*
 			     * 去后台请求下课程列表
@@ -451,14 +509,19 @@ function lala(obj){
 			           if (data.success) {
 			           	    var products = data.resultObject;
 	        				var optionHtml = "";
-	        				if(products.length > 0){
+	        				if(products!=null && products.length > 0){
 	           	    		    for (var i = 0; i < products.length; i++) {
 									optionHtml +=("<option value="+products[i].id+">"+products[i].name+"</option>");
 								}
 			           	    }else{
 			           	    	optionHtml +=("<option>暂无商品</option>");
 			           	    }
-	        				$("#J-product").html(optionHtml);
+			           	    
+			           	    if(falg == "edit"){
+			           	  	  $("#J-edit-product").html(optionHtml);
+			           	    }else{
+			           	    	$("#J-product").html(optionHtml);
+			           	    }
 					        $('.selectpicker').selectpicker('refresh');
 					        $('.selectpicker').selectpicker({'selectedText': 'cat',size:10});
 			           }
@@ -471,9 +534,8 @@ function lala(obj){
 	}
 }
 
-function hehe(obj){
+function hehe(obj,falg){
 	debugger;
-
 	/*
      * 去后台请求下课程列表
      */
@@ -490,7 +552,13 @@ function hehe(obj){
            	    }else{
            	    	optionHtml +=("<option>暂无商品</option>");
            	    }
-				$("#J-product").html(optionHtml);
+           	    
+           	    if(falg == "edit"){
+           	      $("#J-edit-product").html(optionHtml);
+           	    }else{
+           	      $("#J-product").html(optionHtml);
+           	    }
+				
 		        $('.selectpicker').selectpicker('refresh');
 		        $('.selectpicker').selectpicker({'selectedText': 'cat',size:10});
            }
@@ -672,6 +740,7 @@ function updateMobileBanner(obj) {
     var $editAnchorLink = $('.J-edit-anchor-detail');
     var $editApprenticeLink = $('.J-edit-apprentice-detail');
     var $editDoctorLink = $('.J-edit-doctor-detail');
+    var $editProductLink = $('.J-edit-product-detail');
 
     if (routeTypeValue) {
         if (routeTypeValue === "COMMON_COURSE_DETAIL_PAGE") {
@@ -680,6 +749,7 @@ function updateMobileBanner(obj) {
             $editAnchorLink.hide();
             $editApprenticeLink.hide();
             $editDoctorLink.hide();
+            $editProductLink.hide();
             $('#J-edit-menu').val(menuId);
             renderCourseSelect(menuId, linkParam);
             $('#J-edit-course').val(linkParam);
@@ -689,6 +759,7 @@ function updateMobileBanner(obj) {
             $editAnchorLink.show();
             $editDoctorLink.hide();
             $editApprenticeLink.hide();
+            $editProductLink.hide();
             $('#J-edit-anchor').val(linkParam);
         }  else if(routeTypeValue === 'DOCTOR_POST') {
             $editLink.hide();
@@ -696,12 +767,14 @@ function updateMobileBanner(obj) {
             $editAnchorLink.hide();
             $editDoctorLink.show();
             $editApprenticeLink.hide();
+            $editProductLink.hide();
             $('#J-edit-doctor').val(linkParam);
         } else if (routeTypeValue === 'APPRENTICE_DETAIL') {
             $editLink.hide();
             $editCourseLink.hide();
             $editAnchorLink.hide();
             $editDoctorLink.hide();
+            $editProductLink.hide();
             $editApprenticeLink.show();
             $('#J-edit-apprentice').val(linkParam);
         }  else if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE' || routeTypeValue === 'H5') {
@@ -718,6 +791,19 @@ function updateMobileBanner(obj) {
             $editAnchorLink.hide();
             $editApprenticeLink.hide();
             $editDoctorLink.hide();
+            $editProductLink.hide();
+            
+        }else if(routeTypeValue === 'PRODUCT_DETAIL'){
+        	
+        	renderProductSelect(menuId, linkParam);
+        	
+          	$editLink.hide();
+            $editCourseLink.hide();
+            $editAnchorLink.hide();
+            $editApprenticeLink.hide();
+            $editDoctorLink.hide();
+            $editProductLink.show();
+            
         }
     } else {
         $editLink.hide();
@@ -795,6 +881,12 @@ function checkEditForm() {
         linkParam = $('#J-edit-link-param').val();
         if (!linkParam) {
             alertInfo("请输入跳转的外部链接");
+            return false;
+        }
+    }else if (routeType === 'PRODUCT_DETAIL') {
+        linkParam = $('#J-edit-product').val();
+        if (!linkParam || linkParam=="暂无商品") {
+            alertInfo("请输入对应的商品");
             return false;
         }
     }

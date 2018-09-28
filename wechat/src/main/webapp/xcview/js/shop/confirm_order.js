@@ -35,7 +35,7 @@ $(function() {
         requestService("/xczh/shop/order/create","skuId="+skuId+"&quantity="+quantity+"&shippingMethodId="+shippingMethodId+"&receiverId="+receiverId+"&memo="+memo,function(data){
             if(data.success){
                 var orderSns = data.resultObject.orderSns.join(',');
-                window.location="http://cs.shop.xczhihui.com/order/payment?orderSns="+orderSns;
+                window.location="/xcview/html/shop/method.html?orderSns="+orderSns;
             }else{
                 alert(data.errorMessage);
             }

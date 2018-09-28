@@ -68,8 +68,9 @@ public interface PaymentTransactionService extends BaseService<PaymentTransactio
 	 * 
 	 * @param paymentItem
 	 *            支付项
-	 * @return 支付明细
+	 * @param ipandatcmUserId
+     * @return 支付明细
 	 */
-	PaymentTransaction.LineItem generate(PaymentItem paymentItem);
+	PaymentTransaction.LineItem generate(PaymentItem paymentItem, String ipandatcmUserId);
 
 }

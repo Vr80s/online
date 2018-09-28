@@ -7,6 +7,7 @@ import net.shopxx.merge.vo.OrderVO;
 import net.shopxx.merge.vo.ReceiverVO;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +28,8 @@ public class ShopOrderController {
     
     @Autowired
     public OrderOperService orderOperService;
+    @Value("${shop.url}")
+    private String shopUrl;
 
     @RequestMapping("checkSku")
     public ResponseObject checkSku(Long skuId, Integer quantity) {
@@ -147,6 +150,14 @@ public class ShopOrderController {
     public ResponseObject receive(@Account String accountId, @RequestParam String sn){
         orderOperService.receive(sn,accountId);
         return ResponseObject.newSuccessResponseObject("确认收货");
+    }
+
+    @RequestMapping(value = "/order/payment")
+    public ResponseObject payment(@Account String accountId, @RequestParam String orderSnsStr){
+        Map payment = orderOperService.payment(orderSnsStr);
+        payment.put("ipandatcmUserId",accountId);
+        payment.put("shopUrl",shopUrl);
+        return ResponseObject.newSuccessResponseObject(payment);
     }
 
 }

@@ -82,6 +82,9 @@ public class AlipayWapPaymentPlugin extends PaymentPlugin {
 
 	@Override
 	public boolean supports(HttpServletRequest request) {
+		if(request == null){
+			return true;
+		}
 		Device device = DeviceUtils.getCurrentDevice(request);
 		return device != null && (device.isMobile() || device.isTablet());
 	}

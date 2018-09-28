@@ -691,10 +691,23 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
     public List<Map<String, Object>> findIdByCategoryId(ProductCategory productCategory) {
 
         String jpql = " SELECT id FROM productcategory WHERE treePath LIKE :categoryId";
-        List<BigInteger> resultList = entityManager.createNativeQuery(jpql)
-                .setParameter("categoryId", "%" + productCategory.getId() + "%").getResultList();
 
-        LOGGER.info("resultList size()" + resultList.size());
+//        List<BigInteger> resultList = new ArrayList<BigInteger>();
+//        if(productCategory.getParent()!=null) {
+//        	resultList.add(new BigInteger(productCategory.getId().toString()));
+//        }else {
+//        	resultList = entityManager.createNativeQuery(jpql)
+//                    .setParameter("categoryId", "%" + productCategory.getId() + "%").getResultList();
+//        }
+        List<BigInteger> resultList  = entityManager.createNativeQuery(jpql)
+                .setParameter("categoryId", "%" + productCategory.getId() + "%").getResultList();
+        if(resultList!=null) {
+            resultList.add(new BigInteger(productCategory.getId().toString()));
+        }else {
+        	resultList = new ArrayList<BigInteger>();
+        	 resultList.add(new BigInteger(productCategory.getId().toString()));
+        }
+        LOGGER.info("resultList size()" + resultList.size());	
         if (resultList != null && resultList.size() > 0) {
             String jpq2 = " SELECT p.id,p.name FROM product AS p WHERE p.productCategory_id IN (:categoryIds)";
             List rows = entityManager.createNativeQuery(jpq2).setParameter("categoryIds", resultList).getResultList();

@@ -92,6 +92,9 @@ public class WeixinH5PaymentPlugin extends PaymentPlugin {
 
 	@Override
 	public boolean supports(HttpServletRequest request) {
+		if(request == null){
+			return true;
+		}
 		String userAgent = request.getHeader("USER-AGENT");
 		Device device = DeviceUtils.getCurrentDevice(request);
 		return device.isMobile() && !StringUtils.contains(userAgent.toLowerCase(), "micromessenger");
