@@ -78,7 +78,7 @@ public class SkuVO implements Serializable {
     /**
      * 商品信息
      */
-    private ProductVO productVO;
+    private ProductVO product;
 
     private String specifications;
 
@@ -89,6 +89,6 @@ public class SkuVO implements Serializable {
     private List<Integer> specificationValueIds;
     
     private boolean IsOutOfStock;
-    
-    
+
+    private Long productId;
 }
