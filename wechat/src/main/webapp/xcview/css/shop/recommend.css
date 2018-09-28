@@ -120,6 +120,7 @@ header {
 	height: .8rem;
 	margin-right: .2rem;
 	float: left;
+	border-radius: 100px;
 }
 .referrer .name{
 	font-size: .28rem;
