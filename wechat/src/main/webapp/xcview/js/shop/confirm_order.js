@@ -34,8 +34,8 @@ $(function() {
         var memo = "拒收到付";
         requestService("/xczh/shop/order/create","skuId="+skuId+"&quantity="+quantity+"&shippingMethodId="+shippingMethodId+"&receiverId="+receiverId+"&memo="+memo,function(data){
             if(data.success){
-                var orderSns = data.resultObject.orderSns;
-                window.location="http://localhost:8282/order/payment?orderSns="+orderSns;
+                var orderSns = data.resultObject.orderSns.join(',');
+                window.location="http://cs.shop.xczhihui.com/order/payment?orderSns="+orderSns;
             }else{
                 alert(data.errorMessage);
             }
