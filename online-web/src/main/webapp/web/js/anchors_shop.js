@@ -1,7 +1,12 @@
 $(function(){
+//	商品好货
 	(function(){	
-		var orderType;
-		shopList(1)
+//	点击我的商品,重新获取数据
+		$(".shopping-list-btn").click(function(){
+			$(".input-code, .min-sales, .max-sales, .min-price, .max-price").val("");
+			shopList(1);
+		})
+//		var orderType;
 		function shopList(pageNumber,orderType){
 			var keyword=$.trim($(".input-code").val()),
 				minSales=$.trim($(".min-sales").val()),
@@ -61,7 +66,7 @@ $(function(){
 		  })
 		}
 	
-		//		清空筛选条件
+//		清空筛选条件
 		$(".clear-screen").click(function(){
 			$(".input-code, .min-sales, .max-sales, .min-price, .max-price").val("");
 		})
@@ -78,4 +83,11 @@ $(function(){
 			shopList(1,dataType)
 		})
 	})();
+	
+//	订单管理
+ 	(function(){
+	 	RequestService("/xczh/shop/order/list", "get",orderData, function (data) {
+	 		
+	 	})
+ 	})();
 })
