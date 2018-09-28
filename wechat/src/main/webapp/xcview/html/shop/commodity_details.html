@@ -366,12 +366,20 @@
 					<div class="information">
 						<div class="price">￥{{items.sales}}</div>
 						<div class="repertory">库存120件</div>
-						<div class="category">
+						<!--<div class="category">
 							<span class="choice">选择</span>
-							<span class="specification fl1_{{items.id}}">规格</span>
-							<span class="kind">分类</span>
-						</div>
+							<span class="specification fl1_{{items.id}}">包装规格</span>
+							<span class="kind">产品包装</span>
+						</div>-->
 					</div>
+					</script>
+				</div>
+				<div class="category">
+					<script type="text/html" id="category">
+					<span class="choice">选择</span>
+					{{each item as items i}}
+					<span class="specification fl1_{{items.id}}">{{items.name}}</span>
+					{{/each}}
 					</script>
 				</div>
 				<div class="specifications">

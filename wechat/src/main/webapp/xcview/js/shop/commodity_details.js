@@ -54,7 +54,8 @@ requestGetService("/xczh/shop/goods/details",{
         $(".specifications").html(template('specifications', {item: obj.specificationItemvs}));
         // $(".specificationsss").html(template('specificationsss', {item: obj.specificationItemvs}));
         
-
+        $(".category").html(template('category', {item: obj.specificationItemvs}));
+        
 
         // 点击规格
         /*var aBtn=$('.specifications_ul .casing');
