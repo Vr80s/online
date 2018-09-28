@@ -373,6 +373,35 @@
                         </c:forEach>
                     </select>
                 </div>
+                
+                <div class="J-edit-product-detail" style="display: none">
+               		<!-- 顶级分类 -->
+                    <select data-live-search="true" onchange="lala(this,'edit')" id="J-edit-product-rootCategory">
+                        <c:forEach var="rootCategory" items="${productCategorys}">
+                            <option value="${rootCategory.id}">
+                                    ${rootCategory.name}
+                            </option>
+                        </c:forEach>
+                    </select>
+                    
+                    <!-- 二级分类 -->
+ 					<select data-live-search="true" onchange="hehe(this,'edit')" id="J-edit-product-category">
+                       <%--  <c:forEach var="category" items="${childrenVOs}">
+                            <option value="${category.id}">
+                                    ${category.name}
+                            </option>
+                        </c:forEach> --%>
+                    </select>
+                    
+                    <!-- 商品名字  -->
+                    <select class="selectpicker"  data-live-search="true" id="J-edit-product">
+                       <%--  <c:forEach var="product" items="${products}">
+                            <option value="${product.id}">
+                                    ${product.name}
+                            </option>
+                        </c:forEach> --%>
+                    </select>
+                </div>
             </div>
         </div>
         <div class="space-4"></div>

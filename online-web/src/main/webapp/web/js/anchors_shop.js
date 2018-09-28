@@ -1,12 +1,12 @@
 $(function(){
+//	商品好货
 	(function(){	
-//		清空筛选条件
-		$(".clear-screen").click(function(){
+//	点击我的商品,重新获取数据
+		$(".shopping-list-btn").click(function(){
 			$(".input-code, .min-sales, .max-sales, .min-price, .max-price").val("");
+			shopList(1);
 		})
-
-		var orderType;
-		shopList(1)
+//		var orderType;
 		function shopList(pageNumber,orderType){
 			var keyword=$.trim($(".input-code").val()),
 				minSales=$.trim($(".min-sales").val()),
@@ -36,8 +36,10 @@ $(function(){
 		  			var shopData=data.resultObject.content;
 		  			if(shopData.length==0){
 		  				$(".shop-null").removeClass("hide");
+		  				$(".all-shopping-list").addClass("hide");
 		  			}else{
 		  				$(".shop-null").addClass("hide");
+		  				$(".all-shopping-list").removeClass("hide");
 		  				$("#shop-list-ul").html(template("shop-template",{items:shopData}))
 		  			}
 	//	  			分页
@@ -63,6 +65,29 @@ $(function(){
 		  		}
 		  })
 		}
+	
+//		清空筛选条件
+		$(".clear-screen").click(function(){
+			$(".input-code, .min-sales, .max-sales, .min-price, .max-price").val("");
+		})
+//		点击筛选条件进行筛选
+		$(".screen-commodity").click(function(){
+			shopList(1);
+			$(".shopping-list-top li i").removeClass("active");
+		})
+//		点击升序,降序进行筛选
+		$(".shopping-list-top").on("click","li i",function(){
+			var dataType=$(this).attr("data-style");
+			$(".shopping-list-top li i").removeClass("active");
+			$(this).addClass("active")
+			shopList(1,dataType)
+		})
 	})();
-	  
+	
+//	订单管理
+ 	(function(){
+	 	RequestService("/xczh/shop/order/list", "get",orderData, function (data) {
+	 		
+	 	})
+ 	})();
 })

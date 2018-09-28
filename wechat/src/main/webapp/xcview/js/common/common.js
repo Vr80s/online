@@ -188,6 +188,10 @@ function requestGetService(url, param, callback, ac) {
     ajaxRequest(url, param,"get", callback, ac);
 }
 
+function requestPostService(url, param, callback, ac) {
+    ajaxRequest(url, param, "post", callback, ac);
+}
+
 //ajax统一请求
 function requestService(url, param, callback, ac) {
     ajaxRequest(url, param,"post", callback, ac);
@@ -643,7 +647,6 @@ function locationToOriginPage() {
 var userId = localStorage.getItem("userId");
 if (isBlank(userId)) {
     var user_cookie = cookie.get("_ipandatcm_user_");
-    debugger;
     if (isNotBlank(user_cookie)) {//说明已经登录了
         /* 如果是微信公众号进入页面时，没有给他返回token。所以这里他在请求下呢  */
         var ccontrollerAddress = "/xczh/set/isLogined";
@@ -731,3 +734,22 @@ function nofinds(){
 // onerror="nofinds();"
 
 
+var getParam = function(name) {
+    var search = document.location.search;
+    //alert(search);
+    var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
+    var matcher = pattern.exec(search);
+    var items = null;
+    if(null != matcher) {
+        try {
+            items = decodeURIComponent(decodeURIComponent(matcher[1]));
+        } catch(e) {
+            try {
+                items = decodeURIComponent(matcher[1]);
+            } catch(e) {
+                items = matcher[1];
+            }
+        }
+    }
+    return items;
+};

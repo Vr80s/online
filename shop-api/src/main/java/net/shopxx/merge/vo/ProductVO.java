@@ -172,6 +172,9 @@ public class ProductVO implements Serializable {
     private Integer inventory;
 
     private Long uv ;
+    
+    private Set<SkuVO> skuVOs;
+    
 
     public Long getId() {
         return id;
@@ -738,4 +741,17 @@ public class ProductVO implements Serializable {
     public String getPicture() {
         return this.getProductImages() != null && !this.getProductImages().isEmpty() ? this.getProductImages().get(0).getThumbnail() : null;
     }
+
+	public Set<SkuVO> getSkuVOs() {
+		return skuVOs;
+	}
+
+	public void setSkuVOs(Set<SkuVO> skuVOs) {
+		this.skuVOs = skuVOs;
+	}
+
+	
+    
+    
+    
 }

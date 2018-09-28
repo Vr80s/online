@@ -2,7 +2,7 @@
 <shopxx>
 	<setting name="siteName" value="SHOP++商城" />
 	<!--暂时改为根目录地址-->
-	<setting name="siteUrl" value="http://cs.m.xczhihui.com:18080/" />
+	<setting name="siteUrl" value="http://cs.shop.xczhihui.com/" />
 	<setting name="logo" value="/upload/image/logos.png" />
 	<setting name="hotSearch" value="苹果,三星,索尼,华为,魅族,佳能,小米,美的,格力" />
 	<setting name="address" value="海南省海口市美兰区演丰镇瑶城一路D栋心承智慧大厦" />

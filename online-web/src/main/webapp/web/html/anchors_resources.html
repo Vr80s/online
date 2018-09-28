@@ -2126,12 +2126,12 @@
 								<span style="width: 80px;" class="left-tip">价格</span>
 								<span class="wrap-price">
 									<span>&yen;</span>
-									<input class="sales-prise min-price" type="text" />
+									<input class="sales-prise min-price" type="text" oninput="value=value.replace(/[^\d]/g,'')" />
 								</span>							
 								<span>-</span>
 								<span class="wrap-price">
 									<span>&yen;</span>
-									<input class="sales-prise max-price" type="text" />
+									<input class="sales-prise max-price" type="text" oninput="value=value.replace(/[^\d]/g,'')" />
 								</span>
 							</p>
 							<p class="shopping-code">
@@ -2148,8 +2148,8 @@
 									<li>
 										<p class="select-sort">
 											<span>价格</span>
-											<i class="icomoon-icon-shang price-up"></i>
-											<i class="icomoon-icon-xia price-down"></i>
+											<i class="icomoon-icon-shang price-up" data-style="PRICE_ASC"></i>
+											<i class="icomoon-icon-xia price-down" data-style="PRICE_DESC"></i>
 										</p>
 									</li>
 									<li>
@@ -2158,29 +2158,27 @@
 									<li>
 										<p class="select-sort">
 											<span>库存</span>
-											<i class="icomoon-icon-shang stock-up"></i>
-											<i class="icomoon-icon-xia stock-down"></i>
+											<i class="icomoon-icon-shang stock-up" data-style="INVENTORY_ASC"></i>
+											<i class="icomoon-icon-xia stock-down" data-style="INVENTORY_DESC"></i>
 										</p>
 									</li>
 									<li>
 										<p class="select-sort">
 											<span>总销量</span>
-											<i class="icomoon-icon-shang sales-up"></i>
-											<i class="icomoon-icon-xia sales-down"></i>
+											<i class="icomoon-icon-shang sales-up" data-style="SALES_ASC"></i>
+											<i class="icomoon-icon-xia sales-down" data-style="SALES_DESC"></i>
 										</p>
 									</li>
 									<li>
 										<p class="select-sort">
 											<span>创建时间</span>
-											<i class="icomoon-icon-shang time-up"></i>
-											<i class="icomoon-icon-xia time-down"></i>
+											<i class="icomoon-icon-shang time-up" data-style="DATE_ASC"></i>
+											<i class="icomoon-icon-xia time-down" data-style="DATE_DESC"></i>
 										</p>
 									</li>
 									<li>
 										<p class="select-sort">
-											<span>序号</span>
-											<i class="icomoon-icon-shang number-up"></i>
-											<i class="icomoon-icon-xia number-down"></i>
+											<span>编号</span>
 										</p>
 									</li>
 								</ul>
@@ -2194,7 +2192,7 @@
 												<div class="img-ware-show z">
 													<img src="{{item.picture}}"/>
 												</div>
-												<p class="ware-name">{{item.name}}</p>
+												<p class="ware-name" title="{{item.name}}">{{item.name}}</p>
 												<p class="ware-price">&yen; {{item.price}}</p>
 											</div>
 											<div class="page-view z">
@@ -2210,7 +2208,7 @@
 											<div class="creation-time z">
 												<span>{{item.createddate}}</span>
 											</div>
-											<div class="order-number z">
+											<div class="order-number z" title="{{item.sn}}">
 												<span>{{item.sn}}</span>
 											</div>
 										</li>
@@ -2230,7 +2228,8 @@
 						</div>
 						<!--无商品时展示-->
 						<div class="shop-null hide">
-							无商品
+							<img src="/web/images/icon-nodata.png" alt="无数据">
+							<p>暂无数据</p>
 						</div>
 					</div>
 					

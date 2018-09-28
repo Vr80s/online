@@ -13,6 +13,7 @@ import com.xczhihui.operate.service.MobileBannerService;
 import com.xczhihui.operate.vo.MobileBannerVo;
 
 import net.shopxx.merge.service.GoodsService;
+import net.shopxx.merge.vo.ProductCategoryVO;
 import net.shopxx.merge.vo.ProductVO;
 
 import org.apache.commons.lang3.StringUtils;
@@ -231,6 +232,9 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
         }
     }
 
+    @Autowired
+    private net.shopxx.merge.service.ShopCategoryService shopCategoryService;
+    
     @Override
     public Map<String, String> getLinkData(String routeType, String linkParam) {
         Map<String, String> map = new HashMap<>();
@@ -254,10 +258,19 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
                         map.put("linkDesc", medicalDoctor.getName());
                     }
                 } else if (routeType.equals(RouteTypeEnum.PRODUCT_DETAIL.name())) {
-                	
                    ProductVO findProductById = (ProductVO) goodsService.findProductById(Long.valueOf(linkParam));
                    map.put("linkDesc", findProductById.getName());
-                   map.put("menuId", findProductById.getProductcategoryId()+"");
+                   
+                   Long productcategoryId = findProductById.getProductcategoryId();
+                   
+                   ProductCategoryVO productCategoryVO = (ProductCategoryVO) 
+                		   shopCategoryService.details(findProductById.getId());
+                   String treepath = productCategoryVO.getTreepath();
+                   String[] split = treepath.split(",");
+                   if(split.length>2) {
+                	   productcategoryId = Long.parseLong(split[2]);
+                   }
+                   map.put("menuId", productcategoryId+"");
                 }else {
                     map.put("linkDesc", linkParam);
                 }

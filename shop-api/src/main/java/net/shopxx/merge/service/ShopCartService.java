@@ -1,5 +1,7 @@
 package net.shopxx.merge.service;
 
+import java.util.List;
+
 import net.shopxx.merge.vo.CartVO;
 
 /**
@@ -35,9 +37,9 @@ public interface ShopCartService {
      * 移除购物车SKU
      *
      * @param ipandatcmUserId 熊猫中医用户id
-     * @param skuId           SKU
+     * @param skuIds           SKU
      */
-    void remove(String ipandatcmUserId, Long skuId);
+    void remove(String ipandatcmUserId, List<Long> skuIds);
 
     /**
      * 清空购物车

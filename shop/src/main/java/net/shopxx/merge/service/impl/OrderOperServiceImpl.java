@@ -7,13 +7,14 @@ import net.shopxx.dao.OrderDao;
 import net.shopxx.entity.*;
 import net.shopxx.merge.entity.UsersRelation;
 import net.shopxx.merge.enums.Status;
-import net.shopxx.merge.enums.Type;
 import net.shopxx.merge.enums.UsersType;
 import net.shopxx.merge.service.OrderOperService;
 import net.shopxx.merge.service.UsersRelationService;
 import net.shopxx.merge.vo.*;
+import net.shopxx.plugin.PaymentPlugin;
 import net.shopxx.service.*;
 import net.shopxx.util.SystemUtils;
+import net.shopxx.util.WebUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -61,6 +62,8 @@ public class OrderOperServiceImpl implements OrderOperService {
 	
 	@Inject
 	private OrderDao orderDao;
+	@Inject
+	private PluginService pluginService;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -802,7 +805,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Object findPageXc(OrderPageParams orderPageParams,Type type, Status status, ScoreVO store, 
+	public Object findPageXc(OrderPageParams orderPageParams, Status status, ScoreVO store, 
 			String ipandatcmUserId, ProductVO product,UsersType usersType) {
 		
 		Store ss = null;Member member = null;
@@ -817,10 +820,9 @@ public class OrderOperServiceImpl implements OrderOperService {
 		Pageable pageable = new Pageable(orderPageParams.getPageNumber(), orderPageParams.getPageSize());
 		
 		Page<Order> orderList = orderDao.findPageXc(orderPageParams,
-				(type !=null ? Order.Type.valueOf(type.toString()) : null),
+				Order.Type.GENERAL,
 				(status !=null ? Order.Status.valueOf(status.toString()) : null),
 				ss, member, null, pageable);
-		
 		
 		//分页参数赋值
         net.shopxx.merge.page.Pageable pageableVo = new 
@@ -847,5 +849,52 @@ public class OrderOperServiceImpl implements OrderOperService {
 			list.add(o);
 		}
 		return new net.shopxx.merge.page.Page<OrdersVO>(list, orderList.getTotal(), pageableVo);
+	}
+
+	@Override
+	@Transactional
+	public Map payment(String orderSnsStr) {
+		String[] orderSns = orderSnsStr.split(",");
+		Map map = new HashMap();
+		List<PaymentPlugin> paymentPlugins = pluginService.getActivePaymentPlugins(WebUtils.getRequest());
+		PaymentPlugin defaultPaymentPlugin = null;
+		PaymentMethod orderPaymentMethod = null;
+		BigDecimal fee = BigDecimal.ZERO;
+		BigDecimal amount = BigDecimal.ZERO;
+		boolean online = false;
+		List<Order> orders = new ArrayList<>();
+		for (String orderSn : orderSns) {
+			Order order = orderService.findBySn(orderSn);
+			if (order == null) {
+				throw new RuntimeException("单号错误");
+			}
+			BigDecimal amountPayable = order.getAmountPayable();
+			if (order.getAmount().compareTo(order.getAmountPaid()) <= 0 || amountPayable.compareTo(BigDecimal.ZERO) <= 0) {
+				throw new RuntimeException("金额有误");
+			}
+			orderPaymentMethod = order.getPaymentMethod();
+			if (orderPaymentMethod == null) {
+				throw new RuntimeException("支付出现问题");
+			}
+			if (PaymentMethod.Method.ONLINE.equals(orderPaymentMethod.getMethod())) {
+				if (CollectionUtils.isNotEmpty(paymentPlugins)) {
+					defaultPaymentPlugin = paymentPlugins.get(0);
+				}
+				online = true;
+			} else {
+				fee = fee.add(order.getFee());
+				online = false;
+			}
+			amount = amount.add(amountPayable);
+			orders.add(order);
+		}
+		if (online && defaultPaymentPlugin != null) {
+			fee = defaultPaymentPlugin.calculateFee(amount).add(fee);
+			amount = fee.add(amount);
+		}
+		map.put("fee", fee);
+		map.put("amount", amount);
+		map.put("orderSns", Arrays.asList(orderSns));
+		return map;
 	}
 }

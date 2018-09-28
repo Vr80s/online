@@ -15,6 +15,7 @@ import java.util.Set;
 import javax.inject.Inject;
 import javax.persistence.LockModeType;
 
+import net.shopxx.merge.service.UsersRelationService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -89,6 +90,8 @@ public class PaymentTransactionServiceImpl extends BaseServiceImpl<PaymentTransa
 	private SvcService svcService;
 	@Inject
 	private StorePluginStatusService storePluginStatusService;
+	@Inject
+	private UsersRelationService usersRelationService;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -277,12 +280,15 @@ public class PaymentTransactionServiceImpl extends BaseServiceImpl<PaymentTransa
 	}
 
 	@Override
-	public LineItem generate(PaymentItem paymentItem) {
+	public LineItem generate(PaymentItem paymentItem,String ipandatcmUserId) {
 		if (paymentItem == null || paymentItem.getType() == null) {
 			return null;
 		}
 		Setting setting = SystemUtils.getSetting();
 		User user = userService.getCurrent();
+		if(user == null){
+			user = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
+		}
 		switch (paymentItem.getType()) {
 		case ORDER_PAYMENT:
 			Member member = (Member) user;
