@@ -254,7 +254,6 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
                         map.put("linkDesc", medicalDoctor.getName());
                     }
                 } else if (routeType.equals(RouteTypeEnum.PRODUCT_DETAIL.name())) {
-                	
                    ProductVO findProductById = (ProductVO) goodsService.findProductById(Long.valueOf(linkParam));
                    map.put("linkDesc", findProductById.getName());
                    map.put("menuId", findProductById.getProductcategoryId()+"");

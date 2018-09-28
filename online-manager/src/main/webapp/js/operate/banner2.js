@@ -299,6 +299,32 @@ function renderCourseSelect(menuId, courseId) {
         }
     });
 }
+/**
+ * 
+ * @param {} menuId
+ * @param {} courseId
+ */
+//TODO
+function renderProductSelect(menuId, productId) {
+    ajaxRequest("message/messagePush/course?menuId=" + menuId, null, function (res) {
+        console.log(res.resultObject.length);
+        $("#J-edit-course").html('');
+        if (res.resultObject.length > 0) {
+            for (var i = 0; i < res.resultObject.length; i++) {
+                var course = res.resultObject[i];
+                if (course != null) {
+                    var appendStr;
+                    if (courseId && course.id == courseId) {
+                        appendStr = '<option value=' + course.id + ' selected>' + course.courseName + '</option>';
+                    } else {
+                        appendStr = '<option value=' + course.id + '>' + course.courseName + '</option>';
+                    }
+                    $("#J-edit-course").append(appendStr);
+                }
+            }
+        }
+    });
+}
 
 
 //新增框
@@ -388,8 +414,8 @@ $(".add_bx").click(function () {
             }
         }else if(routeType === 'PRODUCT_DETAIL'){
           	linkParam = $('#J-product').val();
-        	if (!linkParam) {
-                alertInfo("请选择跳转到的医师");
+        	if (!linkParam || linkParam == "暂无商品") {
+                alertInfo("请选择跳转到的商品详情");
                 return false;
             }
         }
@@ -441,6 +467,7 @@ function lala(obj){
 					$("#J-product-category").show();
 					
 					$("#J-product-category").html(optionHtml);
+					
 			    }else{
 			   	    $("#J-product-category").hide();
 			    }
@@ -451,7 +478,7 @@ function lala(obj){
 			           if (data.success) {
 			           	    var products = data.resultObject;
 	        				var optionHtml = "";
-	        				if(products.length > 0){
+	        				if(products!=null && products.length > 0){
 	           	    		    for (var i = 0; i < products.length; i++) {
 									optionHtml +=("<option value="+products[i].id+">"+products[i].name+"</option>");
 								}
@@ -718,7 +745,16 @@ function updateMobileBanner(obj) {
             $editAnchorLink.hide();
             $editApprenticeLink.hide();
             $editDoctorLink.hide();
+            
+        }else if(routeTypeValue === 'PRODUCT_DETAIL'){
+        	
+          	linkParam = $('#J-product').val();
+        	if (!linkParam || linkParam == "暂无商品") {
+                alertInfo("请选择跳转到的商品详情");
+                return false;
+            }
         }
+        //TODO
     } else {
         $editLink.hide();
         $editCourseLink.hide();
