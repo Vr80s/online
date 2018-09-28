@@ -19,12 +19,12 @@ function appointmentList(pageNumber, downOrUp) {
 	    	var obj = data.resultObject;
 			if(downOrUp=='down'){
                 // 推荐列表
-                $(".recommends").html(template('recommends', {items: obj}));
+                $(".recommend").html(template('recommends', {items: obj}));
                 miniRefresh.endDownLoading(true);// 结束下拉刷新
             } else if(obj.length==0){
                 miniRefresh.endUpLoading(true);// 结束上拉加载
             } else {
-	           	$(".recommends").append(template('recommends', {items: obj}));
+	           	$(".recommend").append(template('recommends', {items: obj}));
                 miniRefresh.endUpLoading(false);
             }
 	    }else{
