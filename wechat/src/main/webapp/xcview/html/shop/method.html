@@ -125,7 +125,7 @@
             if(data.success){
                 console.info(data);
                 $("#ipandatcmUserId").val(data.resultObject.ipandatcmUserId);
-                $("#ipandatcmUserId").attr("action",data.resultObject.ipandatcmUserId + '/payment');
+                $("#payment").attr("action",data.resultObject.shopUrl + '/payment');
                 $(".amount").html(data.resultObject.amount);
                 var str = '';
                 for(var i=0;i<data.resultObject.orderSns.length;i++){
