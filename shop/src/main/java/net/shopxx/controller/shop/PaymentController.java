@@ -79,7 +79,6 @@ public class PaymentController extends BaseController {
 		if (CollectionUtils.isEmpty(paymentItems)) {
 			return UNPROCESSABLE_ENTITY_VIEW;
 		}
-
 		PaymentTransaction paymentTransaction = null;
 		if (paymentItems.size() > 1) {
 			Set<PaymentTransaction.LineItem> lineItems = new HashSet<>();
@@ -118,6 +117,8 @@ public class PaymentController extends BaseController {
 
 		ModelAndView modelAndView = new ModelAndView();
 		paymentPlugin.prePayHandle(paymentPlugin, paymentTransaction, getPaymentDescription(paymentTransaction), extra, request, response, modelAndView);
+		System.out.println(modelAndView.getViewName());
+		System.out.println(modelAndView.getView());
 		return modelAndView;
 	}
 

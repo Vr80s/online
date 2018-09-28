@@ -484,12 +484,12 @@ public class ProductController extends BaseController {
 	
 	@GetMapping(value = "/order/list")
     public @ResponseBody Object order(OrderPageParams orderPageParams,
-   		 @RequestParam(required = false) Status status){
+   		 @RequestParam(required = false) Status status,OrderType orderType){
     	
     	System.out.println("orderPageParams : "+ orderPageParams.toString());
     	//System.out.println("status : "+ status);
     	return orderOperService.findPageXc(orderPageParams, status, null, 
-        		"aa79673b899249d9a07b0f19732a1b0e",null, UsersType.BUSINESS);
+        		"aa79673b899249d9a07b0f19732a1b0e",null, UsersType.BUSINESS,orderType);
     }
 	
 	@InitBinder

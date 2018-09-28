@@ -108,10 +108,11 @@ public class ShopGoodsController {
     
 
     @RequestMapping("recommends")
-    public ResponseObject recommends(Long productId,@RequestParam(required = false, value = "pageNumber")Integer pageNumber,
+    public ResponseObject recommends(Long productId,
+    		@RequestParam(required = false, value = "pageNumber")Integer pageNumber,
     		@RequestParam(required = false, value = "pageSize")Integer pageSize) {
     	
-    	pageNumber = pageNumber == null ? 0 : pageNumber;
+    	pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 10 : pageSize;
     	
         return ResponseObject.newSuccessResponseObject(medicalDoctorPostsService.

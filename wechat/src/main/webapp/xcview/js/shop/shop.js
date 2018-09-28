@@ -73,7 +73,7 @@ function listClick(){
 
 function recommends(pageNumber, downOrUp){
     // 商品列表--推荐
-    var recommend = 'RECOMMEND_DESC';
+    var recommend = "RECOMMEND_DESC";
     requestGetService("/xczh/shop/goods/list",{
         pageNumber:pageNumber,
         pageSize:6,

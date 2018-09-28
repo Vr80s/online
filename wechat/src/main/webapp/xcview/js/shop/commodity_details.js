@@ -86,14 +86,29 @@ requestGetService("/xczh/shop/goods/details",{
        
 
         var skus = obj.skuVOs;
-
         var specificationIds = [];
+        var defaultSkus = {};
+        //var skuData = [];
         
         for (var i = 0; i < skus.length; i++) {
         	if(skus[i].isDefault){
         		specificationIds = skus[i].specificationValueIds;
-        		break;
+        		defaultSkus = skus[i];
         	}
+        	if(skus[i].specificationValueIds!=null &&
+        		skus[i].specificationValueIds.length>0){
+        			
+        	   skus[i].specificationIdsStr = skus[i].specificationValueIds.join(',');
+        	}
+        }
+        
+          /**
+         * 显示库存是否充足
+         * 	当前价格 
+         */
+        if(defaultSkus!=null){
+         	$(".information .price").html("￥"+defaultSkus.price);
+       	    $(".information .repertory").html("库存"+defaultSkus.stock+"件");
         }
         
 		//默认选中
@@ -127,21 +142,32 @@ requestGetService("/xczh/shop/goods/details",{
             $(this).addClass('public');
             $(this).siblings().removeClass('public');
             
+            $(".specification").addClass("hide");
+            
+            var lalala = [];
             $('.specifications_ul .casing[class*="public"]').each(function(index,obj){
             	 var dataId = $(obj).attr("data-id");
-            	 
             	 $(".specification").each(function(index,objs){
             	 	 var dataIds = $(objs).attr("data-id");
 		        	 if(dataId == dataIds){
 		        	 	$(objs).removeClass("hide");
-		        	 	break;
-		        	 }else{
-		        	 	$(objs).addClass("hide");
+						
+		        	 	lalala.push(dataIds);
 		        	 }
 		        })
             })
+            
+            var currentSku = {};
+            for (var i = 0; i < skus.length; i++) {
+            	if(skus[i].specificationIdsStr == lalala.join(",")){
+            		currentSku = skus[i];
+            	}
+            }
+            if(currentSku!=null){
+	         	$(".information .price").html("￥"+currentSku.price);
+	       	    $(".information .repertory").html("库存"+currentSku.stock+"件");
+        	}
         });
-        
         
     }
 });

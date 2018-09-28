@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.util.StringLegalUtil;
-import com.xczhihui.common.util.bean.ProductPostsVO;
 import com.xczhihui.common.util.enums.DoctorPostsType;
 import com.xczhihui.medical.common.bean.PictureSpecification;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsLikeMapper;
@@ -296,7 +295,11 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
     
     @Override
     public Set<Map<String,Object>> getProductPostsByProductId(Long productId,Integer pageNumber,Integer pageSize) {
-    	
+    	if(pageNumber <= 1) {
+    		pageNumber = 0;
+    	}else {
+    		pageNumber = pageNumber * pageSize;
+    	}
     	return medicalDoctorPostsMapper.getProductPostsByProductId(productId, pageNumber, pageSize);
     }
     

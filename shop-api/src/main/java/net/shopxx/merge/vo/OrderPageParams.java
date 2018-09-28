@@ -19,6 +19,9 @@ import java.util.Date;
  */
 public class OrderPageParams implements Serializable {
 
+	
+	
+	
 	private Integer pageNumber = 1;
 
 	private Integer pageSize = 10;

@@ -18,6 +18,7 @@ import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.util.bean.ResponseObject;
 
+import net.shopxx.merge.enums.OrderType;
 import net.shopxx.merge.enums.Status;
 import net.shopxx.merge.enums.Type;
 import net.shopxx.merge.enums.UsersType;
@@ -46,14 +47,15 @@ public class ShopOrderController {
     @ResponseBody
     public ResponseObject list(
     		 OrderPageParams orderPageParams,
-    		 @RequestParam(required = false) Status status){
+    		 Status status,
+    		 OrderType orderType){
     	
     	BxgUser loginUser = UserLoginUtil.getLoginUser();
     	
     	LOGGER.info("orderPageParams : "+ orderPageParams.toString());
     	LOGGER.info("status : "+ status);
         return ResponseObject.newSuccessResponseObject(orderOperService.findPageXc(orderPageParams, status, null,
-        		"aa79673b899249d9a07b0f19732a1b0e",null, UsersType.BUSINESS));
+        		"aa79673b899249d9a07b0f19732a1b0e",null, UsersType.BUSINESS,orderType));
     }
     
     @InitBinder
@@ -62,4 +64,5 @@ public class ShopOrderController {
         dateFormat.setLenient(false);  
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));   
     }
+    
 }
