@@ -112,6 +112,9 @@ public class WeixinPublicPaymentPlugin extends PaymentPlugin {
 
 	@Override
 	public boolean supports(HttpServletRequest request) {
+		if(request == null){
+			return true;
+		}
 		Matcher matcher = WEIXIN_VERSION_PATTERN.matcher(request.getHeader("USER-AGENT"));
 		return matcher.find() && Integer.valueOf(matcher.group("majorVersion")) >= 5;
 	}

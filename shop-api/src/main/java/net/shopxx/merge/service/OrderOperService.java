@@ -137,4 +137,6 @@ public interface OrderOperService {
 	 */ 
 	Object findPageXc(OrderPageParams orderPageParams,UsersType type, Status status, ScoreVO store, 
 			String ipandatcmUserId, ProductVO product,UsersType usersType);
+
+    Map payment(String orderSnsStr);
 }
