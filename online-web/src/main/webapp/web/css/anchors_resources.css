@@ -623,9 +623,9 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 	width: 123px;
     text-align: center;
     height: 60px;
-    overflow: hidden;
+    /*overflow: hidden;
     white-space: nowrap;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis;*/
     padding-top: 10px;
 }
 .order-time-inf p{

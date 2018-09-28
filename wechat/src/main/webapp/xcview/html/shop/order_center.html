@@ -14,8 +14,17 @@
 
 <!--手机嵌入模板-->
 <script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>
+
+<script type="text/javascript" src="/xcview/js/common/jquery.min-2.1.1.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+<!--刷新 -->
+<link rel="stylesheet" href="/xcview/css/minirefresh/minirefresh.css">
+<script type="text/javascript" src="/xcview/js/minirefresh/minirefresh.js"></script>
 
 <link type="text/css" rel="stylesheet" href="/xcview/css/shop/order_center.css" />
+
 <script>
 	// 判断横屏展示时的状态
 	window.onorientationchange=function(){
@@ -24,8 +33,31 @@
 	    }else{
 	        window.location.reload();  /*竖屏状态刷新*/
 	    }
-	}	
+	}
 </script>
+<style>
+	/*处理刷新*/
+	.minirefresh-wrap{
+		top: 1.1rem;
+	}
+	.minirefresh-theme-default .minirefresh-downwrap{
+		height: 1rem;
+		line-height: 1rem;
+	}
+	.minirefresh-theme-default .downwrap-content{
+		padding: 0;
+	}
+	.minirefresh-theme-default .minirefresh-upwrap{
+		height: 1rem;
+		max-height: 0.5rem;
+		line-height: 0.6rem;
+		padding: 0;
+		/*margin-top: -0.5rem;*/
+	}
+	.minirefresh-scroll{
+		background: none;
+	}
+</style>
 </head>
 
 <body style="background: #f0f0f0;">
@@ -47,6 +79,10 @@
 	
 	<!-- 中间内容开始 -->
 	<div class="indent">
+		<div id="minirefresh" class="minirefresh-wrap">
+			<div class="minirefresh-scroll">
+		<script type="text/html" id="order_list">
+			{{each items as item i}}
 		<div class="indent_list">
 			<div class="indent_list_title">
 				<div class="tilte">
@@ -54,6 +90,92 @@
 					林超岱医师推荐
 				</div>
 				<!-- 多种状态 -->
+				{{if item.status == 'PENDING_PAYMENT'}}
+				<div class="payment_operation">等待买家付款</div>
+				{{else if item.status == 'PENDING_REVIEW'}}
+				<div class="payment_operation" style="display: none;">买家已付款</div>
+				{{else if item.status == 'SHIPPED'}}
+				<div class="payment_operation" style="display: none;">卖家已发货</div>
+				{{else if item.status == 'COMPLETED'}}
+				<div class="payment_operation" style="display: none;">交易成功</div>
+				{{else if item.status == 'CANCELED'}}
+				<div class="payment_operation" style="display: none;">交易关闭</div>
+				{{/if}}
+			</div>
+			<div class="main_product_details">
+				{{each item.orderItems as orderItem }}
+				<div class="product_details">
+					<img src="{{orderItem.thumbnail}}" alt="" class="surface_plot" />
+					<div class="product_details_center">
+						<div class="title"><span>{{orderItem.name}}</span></div>
+						<div class="pack">
+							1盒10包装；白色（库存{{orderItem.sku.stock}}件）
+						</div>
+						<div class="total_prices">
+							<div class="price_yuan" >
+								<div class="yuan">￥<span>{{orderItem.price}}</span></div>
+								<div class="number">x<span>{{orderItem.quantity}}</span></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				{{/each}}
+				<!--<div class="product_details">
+					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+					<div class="product_details_center">
+						<div class="title"><span>正宗老北京足贴买2送1买3送2一盒50贴老北京足贴</span></div>
+						<div class="pack">
+							1盒10包装；白色（库存10件）
+						</div>
+						<div class="total_prices">
+							<div class="price_yuan" >
+								<div class="yuan">￥<span>100.01</span></div>
+								<div class="number">x<span>2</span></div>
+							</div>
+						</div>
+					</div>
+				</div>-->
+			</div>
+			<div class="zongjia"></div>
+
+			<div class="express">
+				<div class="express_price">共{{item.quantity}}件商品&nbsp;&nbsp;&nbsp;&nbsp;需付款&nbsp;<span>￥{{item.amount}}</span></div>
+			</div>
+
+			<div class="payment_method">
+				<div class="waiting_payment">
+					<!-- 等待买家付款 -->
+					<div class="immediate_payment">立即付款</div>
+					<div class="cancel_order">取消订单</div>
+					
+					<!-- 买家已付款 -->
+					<div class="buy_again" style="display: none;">再次购买</div>
+
+					<!-- 卖家已发货 -->
+					<div class="check_logistics" style="display: none;">查看物流</div>
+					<div class="shipped_cancel_order" style="display: none;">再次购买</div>
+					<div class="confirm_receipt" style="display: none;">确认收货</div>
+
+					<!-- 交易成功 -->
+					<div class="win_check_logistics" style="display: none;">查看物流</div>
+					<div class="win_shipped_cancel_order" style="display: none;">再次购买</div>
+					<div class="win_evaluate" style="display: none;">评价</div>   <!-- 交易成功后评价后-评价按钮隐藏 -->
+					
+					<!-- 交易关闭 -->
+					<div class="delete_order" style="display: none;">删除订单</div>
+					<div class="fack_shipped_cancel_order" style="display: none;">再次购买</div>
+				</div>
+			</div>
+		</div>
+			{{/each}}
+		</script>
+		<!--<div class="indent_list">
+			<div class="indent_list_title">
+				<div class="tilte">
+					<img src="/xcview/images/touxiang.png" alt="" class="head_portrait" />
+					林超岱医师推荐
+				</div>
+				&lt;!&ndash; 多种状态 &ndash;&gt;
 				<div class="payment_operation">等待买家付款</div>
 				<div class="payment_operation" style="display: none;">买家已付款</div>
 				<div class="payment_operation" style="display: none;">卖家已发货</div>
@@ -100,106 +222,31 @@
 
 			<div class="payment_method">
 				<div class="waiting_payment">
-					<!-- 等待买家付款 -->
+					&lt;!&ndash; 等待买家付款 &ndash;&gt;
 					<div class="immediate_payment">立即付款</div>
 					<div class="cancel_order">取消订单</div>
 					
-					<!-- 买家已付款 -->
+					&lt;!&ndash; 买家已付款 &ndash;&gt;
 					<div class="buy_again" style="display: none;">再次购买</div>
 
-					<!-- 卖家已发货 -->
+					&lt;!&ndash; 卖家已发货 &ndash;&gt;
 					<div class="check_logistics" style="display: none;">查看物流</div>
 					<div class="shipped_cancel_order" style="display: none;">再次购买</div>
 					<div class="confirm_receipt" style="display: none;">确认收货</div>
 
-					<!-- 交易成功 -->
+					&lt;!&ndash; 交易成功 &ndash;&gt;
 					<div class="win_check_logistics" style="display: none;">查看物流</div>
 					<div class="win_shipped_cancel_order" style="display: none;">再次购买</div>
-					<div class="win_evaluate" style="display: none;">评价</div>   <!-- 交易成功后评价后-评价按钮隐藏 -->
+					<div class="win_evaluate" style="display: none;">评价</div>   &lt;!&ndash; 交易成功后评价后-评价按钮隐藏 &ndash;&gt;
 					
-					<!-- 交易关闭 -->
+					&lt;!&ndash; 交易关闭 &ndash;&gt;
 					<div class="delete_order" style="display: none;">删除订单</div>
 					<div class="fack_shipped_cancel_order" style="display: none;">再次购买</div>
 				</div>
 			</div>
-		</div>
-		<div class="indent_list">
-			<div class="indent_list_title">
-				<div class="tilte">
-					<img src="/xcview/images/touxiang.png" alt="" class="head_portrait" />
-					林超岱医师推荐
-				</div>
-				<!-- 多种状态 -->
-				<div class="payment_operation">等待买家付款</div>
-				<div class="payment_operation" style="display: none;">买家已付款</div>
-				<div class="payment_operation" style="display: none;">卖家已发货</div>
-				<div class="payment_operation" style="display: none;">交易成功</div>
-				<div class="payment_operation" style="display: none;">交易关闭</div>
-			</div>
-			<div class="main_product_details">
-				<div class="product_details">
-					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-					<div class="product_details_center">
-						<div class="title"><span>正宗老北京足贴买2送1买3送2一盒50贴老北京足贴</span></div>
-						<div class="pack">
-							1盒10包装；白色（库存10件）
-						</div>
-						<div class="total_prices">
-							<div class="price_yuan" >
-								<div class="yuan">￥<span>110.01</span></div>
-								<div class="number">x<span>3</span></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="product_details">
-					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-					<div class="product_details_center">
-						<div class="title"><span>正宗老北京足贴买2送1买3送2一盒50贴老北京足贴</span></div>
-						<div class="pack">
-							1盒10包装；白色（库存10件）
-						</div>
-						<div class="total_prices">
-							<div class="price_yuan" >
-								<div class="yuan">￥<span>100.01</span></div>
-								<div class="number">x<span>2</span></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="zongjia"></div>
-
-			<div class="express">
-				<div class="express_price">共2件商品&nbsp;&nbsp;&nbsp;&nbsp;需付款&nbsp;<span>￥2348.00</span></div>
-			</div>
-
-			<div class="payment_method">
-				<div class="waiting_payment">
-					<!-- 等待买家付款 -->
-					<div class="immediate_payment">立即付款</div>
-					<div class="cancel_order">取消订单</div>
-					
-					<!-- 买家已付款 -->
-					<div class="buy_again" style="display: none;">再次购买</div>
-
-					<!-- 卖家已发货 -->
-					<div class="check_logistics" style="display: none;">查看物流</div>
-					<div class="shipped_cancel_order" style="display: none;">再次购买</div>
-					<div class="confirm_receipt" style="display: none;">确认收货</div>
-
-					<!-- 交易成功 -->
-					<div class="win_check_logistics" style="display: none;">查看物流</div>
-					<div class="win_shipped_cancel_order" style="display: none;">再次购买</div>
-					<div class="win_evaluate" style="display: none;">评价</div>   <!-- 交易成功后评价后-评价按钮隐藏 -->
-					
-					<!-- 交易关闭 -->
-					<div class="delete_order" style="display: none;">删除订单</div>
-					<div class="fack_shipped_cancel_order" style="display: none;">再次购买</div>
-				</div>
+		</div>-->
 			</div>
 		</div>
-
 	</div>
 	<!-- 中间内容结束 -->
 
@@ -219,9 +266,7 @@
 
 	
 </body>
-<script type="text/javascript" src="/xcview/js/common/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
-<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+
 
 <script type="text/javascript" src="/xcview/js/shop/confirm_order.js"></script>
 <script type="text/javascript" src="/xcview/js/shop/order_center.js"></script>

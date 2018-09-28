@@ -171,7 +171,14 @@ requestGetService("/xczh/shop/goods/details",{
         
     }
 });
-
+function listClick(){
+    // 点击进入详情
+    $(".recommend").click(function(){
+//      var id = $(this).attr("data-id");
+//var productId = getQueryString("productId");
+        window.location.href = "/xcview/html/shop/recommend.html?productId=" + productId + "";
+    })
+};
 /*$(".specifications_ul .include").click(function(){
         alert(11111);
     });*/
