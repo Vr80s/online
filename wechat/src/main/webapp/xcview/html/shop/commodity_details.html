@@ -13,7 +13,7 @@
 <meta name="description" content="" />
 
 <!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+<script type="text/javascript" src="/xcview/js/common/layout.js?version=e2b9d5cdbd"></script>
 <script>
 	// 判断横屏展示时的状态
 	window.onorientationchange=function(){
@@ -24,20 +24,20 @@
 	    }
 	}	
 </script>
-<link rel="stylesheet" href="/xcview/js/shop/big_picture/css/demo.css">
-<link rel="stylesheet" href="/xcview/js/shop/big_picture/css/iconfont.css">
-<link rel="stylesheet prefetch" href="/xcview/js/shop/big_picture/css/photoswipe.css">
-<link rel="stylesheet prefetch" href="/xcview/js/shop/big_picture/css/default-skin/default-skin.css">
+<link rel="stylesheet" href="/xcview/js/shop/big_picture/css/demo.css?version=c94301827a">
+<link rel="stylesheet" href="/xcview/js/shop/big_picture/css/iconfont.css?version=46473f4fea">
+<link rel="stylesheet prefetch" href="/xcview/js/shop/big_picture/css/photoswipe.css?version=7dc0df1071">
+<link rel="stylesheet prefetch" href="/xcview/js/shop/big_picture/css/default-skin/default-skin.css?version=426e8908d7">
 
 
 
-<link rel="stylesheet" href="/xcview/css/shop/jquery.spinner.css" /><!-- 点击数量加减 -->
-<link rel="stylesheet" href="/xcview/css/shop/commodity_details.css" />
+<link rel="stylesheet" href="/xcview/css/shop/jquery.spinner.css?version=b93061713f" /><!-- 点击数量加减 -->
+<link rel="stylesheet" href="/xcview/css/shop/commodity_details.css?version=3199cb3149" />
 <!-- 轮播引入 -->
-<link rel='stylesheet prefetch' href='/xcview/css/shop/ckg/photoswipe.css'>
-<link rel='stylesheet prefetch' href='/xcview/css/shop/ckg/default-skin/default-skin.css'>
+<link rel='stylesheet prefetch' href='/xcview/css/shop/ckg/photoswipe.css?version=9200f216e3'>
+<link rel='stylesheet prefetch' href='/xcview/css/shop/ckg/default-skin/default-skin.css?version=c66976ff72'>
 <link rel="stylesheet" href="/xcview/css/shop/ckg/swiper.min.css">
-<link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
+<link rel="stylesheet" type="text/css" href="/xcview/css/popups.css?version=274f363430"/> <!-- 公用弹框 -->
 <!-- 轮播引入 -->
 <style>
 	/*隐藏轮播点击查看大图效果显示的第几张数字*/
@@ -60,7 +60,7 @@
 			</div>
 			<div class="advices">
 				<img src="/xcview/images/shop/news.png" alt="" class="news" />
-				<span class="advices_number">17</span>
+				<!-- <span class="advices_number">17</span> -->
 			</div>
 			<img src="/xcview/images/shop/share.png" alt="" class="share" />
 		</div>	
@@ -69,30 +69,22 @@
 
 	<!-- 轮播区域开始 -->
 	<div class="banner">
-
+		<script type="text/html" id="top_details">
 		<!--滑动焦点图--> 
 		<div class="swiper-container" alt="Image description">
-			<div class="my-gallery swiper-wrapper ">
+			<div class="my-gallery swiper-wrapper">
+				
+			    {{each items as item i}}
 			    <div class="swiper-slide">			
-					<a href="/xcview/images/banner01.png"  data-size="1024x1024"><img src="/xcview/images/banner01.png" /></a>
-					<figcaption itemprop="caption description">你是不是傻你是不是傻  1</figcaption>		    	
+					<a href="{{item.source}}" data-size="1024x1024">
+						<img src="{{item.source}}" alt="" class="surface_plot" />
+					</a>   	
 			    </div>
-			    <div class="swiper-slide">			
-			  		<a href="/xcview/images/topTwo_doc.png"  data-size="964x1024"><img src="/xcview/images/topTwo_doc.png" /></a>
-			  		<figcaption itemprop="caption description">傻瓜继续滑动啊傻瓜继续滑动啊 2</figcaption>				    	
-			    </div>
-			    <div class="swiper-slide">			
-				    <a href="/xcview/images/1526991186(1).png"  data-size="1024x683"><img src="/xcview/images/1526991186(1).png" /></a>
-				    <figcaption itemprop="caption description">说的就是你，还看傻瓜 3</figcaption>			   	
-			    </div>	
-			    <div class="swiper-slide">			
-					<a href="/xcview/images/banner01.png" data-size="1024x768"><img src="/xcview/images/banner01.png" /></a>
-					<figcaption itemprop="caption description">为什么要这样子哪？傻瓜非得翻到底 4</figcaption>			  	
-			    </div>		    
-			    	  	    
+			    {{/each}}
+			
 			</div>
 			<div class="swiper-pagination"></div>
-		</div>            			
+		</div>              			
 
 		<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 		    <div class="pswp__bg"></div>
@@ -131,43 +123,62 @@
 		    </div>
 		</div>
 		<!-- 滑动焦点图 -->	
+		</script>
 	</div>
 	<!-- 轮播区域结束 -->
 
-	<!-- 详情开始 -->
-	<div class="details" id="li_btn0">
-		<div class="details_main">
-			<div class="title">红豆薏米茶去湿茶正品除去湿茶健胃清热茶红豆薏米红豆薏米茶去湿茶正品除去湿茶健胃清热茶红豆薏米红豆薏米茶去湿茶正品除去湿茶健胃清热茶红豆薏米</div>
-			<div class="referral">假如有商品卖点介绍的话显示在标题下方，如果没有则不显示假如有商品卖点介绍的话显示在标题下方，如果没有则不显示假如有商品卖点介绍的话显示在标题下方，如果没有则不显示假如有商品卖点介绍的话显示在标题下方，如果没有则不显示</div>
+	<div class="list_details">
+	<script type="text/html" id="list_details">
+		<!-- 详情开始 -->
+		<div class="details" id="li_btn0">
+			<div class="details_main">
+				<div class="title">{{items.name}}</div>
+				<div class="referral">{{items.caption}}</div>
+			</div>
+			<div class="price">
+				<span class="ruling_price">￥{{items.price}}</span>
+				<span class="original_price">￥{{items.marketprice}}</span>
+				<span class="sold_out">已售{{items.sales}}件</span>
+				<div class="both"></div>
+			</div>
 		</div>
-		<div class="price">
-			<span class="ruling_price">￥188.00</span>
-			<span class="original_price">￥422.00</span>
-			<span class="sold_out">已售100件</span>
-			<div class="both"></div>
-		</div>
+		<!-- 详情结束 -->
+	</script>
 	</div>
-	<!-- 详情结束 -->
-	
+		
 	<!-- 医师推荐开始 -->
 	<div class="physician_recommend">
 		<div class="recommend_main">
+			<script type="text/html" id="recommend_main">
 			<div class="recommend" onclick="location.href ='/xcview/html/shop/recommend.html'">
 				<span class="title">医师推荐</span>
 				<span class="view_all">查看全部 <img src="/xcview/images/shop/view_all.png" alt="" /></span>
 				<div class="both"></div>
 			</div>
+			{{each items as item i}}
 			<div class="referrer">
 				<div class="referrer_message">
-					<img src="/xcview/images/touxiang.png" alt="" class="head_portrait" />
-					<span class="name">陈文伯医师</span>
+					<img src="{{item.doctorHeadImg}}" alt="" class="head_portrait" />
+					<span class="name">{{item.doctorName}}</span>
 					<span class="recommendation_rate">
 						推荐指数
-						<img src="/xcview/images/xing0_5.png" alt="" class="xingxing" />
+						{{if item.level == 1}}
+						<img src="/xcview/images/xing1_0.png" alt="" class="xingxing" />
+						{{else if item.level == 2}}
+						<img src="/xcview/images/xing2.png" alt="" class="xingxing" />
+						{{else if item.level == 3}}
+						<img src="/xcview/images/xing3.png" alt="" class="xingxing" />
+						{{else if item.level == 4}}
+						<img src="/xcview/images/xing4_0.png" alt="" class="xingxing" />
+						{{else if item.level == 5}}
+						<img src="/xcview/images/xing5.png" alt="" class="xingxing" />
+						{{/if}}
 					</span>
 				</div>
-				<div class="center">无添加玫瑰花红糖，不添加任何防腐剂，口感细滑，易于吸收，具有良好的温补功效，了解一下？</div>
+				<div class="center">{{item.content}}</div>
 			</div>
+			{{/each}}
+			</script>
 		</div>
 	</div>
 	<!-- 医师推荐结束 -->
@@ -175,21 +186,23 @@
 	<!-- 评价开始 -->
 	<div class="evaluate" id="li_btn1">
 		<div class="evaluate_main">
+			<script type="text/html" id="evaluate_main">
 			<div class="evaluate_top" onclick="location.href ='/xcview/html/shop/all_evaluation.html'">
 				<span class="title">评价</span>
 				<span class="evaluate_view_all">查看全部 <img src="/xcview/images/shop/view_all.png" alt="" /></span>
 				<div class="both"></div>
 			</div>
+			{{each items as item i}}
 			<div class="appraiser">
 				<div class="appraiser_message">
-					<img src="/xcview/images/touxiang.png" alt="" class="head_portrait" />
-					<span class="name">陈文伯医师</span>
+					<img src="{{item.user.headPhoto}}" alt="" class="head_portrait" />
+					<span class="name">{{item.user.username}}</span>
 				</div>
-				<div class="center">无添加玫瑰花红糖，不添加任何防腐剂，口感细滑，易于吸收，具有良好的温补功效，了解一下？</div>
+				<div class="center">{{item.content}}</div>
 				<!-- <div class="referrer_img">
 					<img src="/xcview/images/frog.jpg" alt="" />
 				</div> -->
-				<div class="contain">
+				<!--<div class="contain">
 				    <ul>
 				        <li>
 				            <div class="body">
@@ -210,13 +223,12 @@
 				        </li>
 				        
 				    </ul>
-				</div>
+				</div>-->
 			</div>
+			{{/each}}
+			</script>
 		</div>
-	</div>
-	<!-- 评价结束 -->
-
-	<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
 	    <!-- Background of PhotoSwipe. 
 	         It's a separate element as animating opacity is faster than rgba(). -->
@@ -279,6 +291,8 @@
 
 	    </div>
 	</div>
+	</div>
+	<!-- 评价结束 -->
 
 	<!-- 商品详情开始 -->
 	<div class="commodity_details" id="li_btn2">
@@ -286,13 +300,14 @@
 			<div class="title">商品详情</div>
 			<div class="commodity_details_center">
 				<img src="/xcview/images/topTwo_doc.png" alt="" />
+				
 			</div>
 		</div>
 	</div>
 	<!-- 商品详情结束 -->
 
 	<!-- 常见问题开始 -->
-	<div class="FAQ">
+	<!-- <div class="FAQ">
 		<div class="issue">
 			<div class="title">常见问题</div>
 			<div class="issue_main">
@@ -311,9 +326,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="hide_hide"></div>
+	 -->
 	<!-- 常见问题结束 -->
-	
+	<div class="hide_hide"></div>
 	<!-- 底部开始 -->
 	<div class="footer">
 		<div class="center">
@@ -333,70 +348,96 @@
 		</div>
 	</div>
 	<!-- 底部结束 -->
+	<div class="main">
+		<script type="text/html" id="main">
+		<div class="">1111</div>
+		</script>
+	</div>
 
 	<!-- 点击购物车出现提示开始 -->
-	<div class="shopping_trolley">
+	<div class="shopping_trolley" style="display: block !important;">
 		<div class="shopping_trolley_bg"></div>
-		<div class="shopping_trolley_main">
+		<div class="shopping_trolley_main" style="height:8.28rem;">
 			<div class="shopping_trolley_center">
 				<div class="message">
-					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+					<script type="text/html" id="message">
+					<img src="{{items.productImages[0].source}}" alt="" class="surface_plot" />
+					
 					<div class="information">
-						<div class="price">￥100.00</div>
+						<div class="price">￥{{items.sales}}</div>
 						<div class="repertory">库存120件</div>
-						<div class="category">
+						<!--<div class="category">
 							<span class="choice">选择</span>
-							<span class="specification">规格</span>
-							<span class="kind">分类</span>
-						</div>
+							<span class="specification fl1_{{items.id}}">包装规格</span>
+							<span class="kind">产品包装</span>
+						</div>-->
 					</div>
+					</script>
+				</div>
+				<div class="category">
+					<script type="text/html" id="category">
+					<span class="choice">选择</span>
+					{{each item as items i}}
+					<span class="specification fl1_{{items.id}}">{{items.name}}</span>
+					{{/each}}
+					</script>
 				</div>
 				<div class="specifications">
-					<span class="">规格</span>
+					<script type="text/html" id="specifications">
+					{{each item as items i}}
+					<span class="">{{items.name}}</span>
 					<ul class="specifications_ul">
-						<li class="casing include">5包装</li>
-						<li class="casing include">1盒10包装</li>
-						<li class="casing include">2盒22包装</li>
-						<li class="casing include">一箱8盒100包</li>
+						{{each items.entries as itemss i}}
+						<li class="casing include" data-id="{{itemss.id}}" data-ids="{{items.id}}">{{itemss.value}}</li>
+						{{/each}}
 					</ul>
+					{{/each}}
+					</script>
 				</div>
 
-				<div class="classify">
+				<!-- <div class="classify">
 					<span class="">分类</span>
 					<ul class="classify_ul">
 						<li class="hue include">红色</li>
 						<li class="hue include">白色</li>
 						<li class="hue include">黄色</li>
 					</ul>
+				</div> -->
+				<div class="bottom_fiexd">
+					<div class="buy">
+						<div class="purchase_quantity">购买数量</div>
+						<center>
+							<input type="text" class="spinnerExample"/>
+						</center>
+					</div>
+					<div class="determine">确定</div>
 				</div>
-				<div class="buy">
-					<div class="purchase_quantity">购买数量</div>
-					<center>
-						<input type="text" class="spinnerExample"/>
-					</center>
-				</div>
-				<div class="determine">确定</div>
 			</div>
 		</div>
 	</div>
 	<!-- 点击购物车出现提示结束 -->
 
-	<!-- 点击分享提示开始 -->
-	<div class="weixin_ceng">
-		<div class="weixin_ceng_bg"></div>
-		<div class="weixin_img"><img src="/xcview/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
-	</div>
-	<!-- 点击分享提示结束 -->
+		<!-- 点击分享提示开始 -->
+		<div class="weixin_ceng">
+			<div class="weixin_ceng_bg"></div>
+			<div class="weixin_img"><img src="/xcview/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
+		</div>
+		<!-- 点击分享提示结束 -->
+	
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script> 
-<script type="text/javascript" src="/xcview/js/common/common.js"></script> 
+<script type="text/javascript" src="/xcview/js/common/common.js?version=ed749a7870"></script> 
+
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>   <!--模板引入-->
+
+<script type="text/javascript" src="/xcview/js/shop/commodity_details.js"></script>
 
 <!-- 滑动焦点图引入-->	
-<script src='/xcview/js/shop/ckg/big_img.js'></script>
+<script src='/xcview/js/shop/ckg/big_img.js?version=35a3532c5b'></script>
 <script src='/xcview/js/shop/ckg/photoswipe.min.js'></script>
 <script src='/xcview/js/shop/ckg/photoswipe-ui-default.min.js'></script>
-<script src="/xcview/js/shop/ckg/bigImg.js"></script>
+<script src="/xcview/js/shop/ckg/bigImg.js?version=ca4b805048"></script>
 <script src="/xcview/js/shop/ckg/swiper.min.js"></script>
 <!-- 滑动焦点图引入-->	
 <script>  
@@ -407,35 +448,17 @@
 </script>
 <!-- 滑动焦点图end-->
 
-<script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
+<script type="text/javascript" src="/xcview/js/common/popups.js?version=ac575e6012"></script>  <!-- 公用弹框 -->
 
-<script type="text/javascript" src="/xcview/js/shop/jquery.spinner.js"></script><!-- 点击数量引入 -->
+<script type="text/javascript" src="/xcview/js/shop/jquery.spinner.js?version=a3e4e4c603"></script><!-- 点击数量引入 -->
 <!-- 数量区域 -->
 <script>
 	// 点击数量加减
 	$('.spinnerExample').spinner({});
-	// 点击规格
-	var aBtn=$('.specifications_ul .casing');
-  	for(i=0;i<aBtn.length;i++){
-	    $(aBtn[i]).click(function(){
-	    	var specification = document.querySelector(".specification");  //规格
-			specification.style.display="none";
-			// 判断显示已选择
-	    	if ($(".include").hasClass("public")) {
-				$(".kind").show();
-				$(".specification").show();
-				$(".choice").html("已选择");
-			};
-	    	
-		    for(i=0;i<aBtn.length;i++){
-		        $(aBtn[i]).removeClass('public');
-		    }
-		    $(this).addClass('public');
 
-		    var publicHtml = $(this).html();
-		    $(".specification").html(publicHtml);
-		})
-	};
+	
+
+
 	// 点击分类
 	var aBtnHue=$('.classify_ul .hue');
   	for(i=0;i<aBtnHue.length;i++){
@@ -578,7 +601,7 @@
 </script>
 
 <script src="/xcview/js/shop/big_picture/js/jquery.min.js"></script>
-<script src="/xcview/js/shop/big_picture/js/photoswipe.js"></script>
+<script src="/xcview/js/shop/big_picture/js/photoswipe.js?version=a8d26ff349"></script>
 <script src="/xcview/js/shop/big_picture/js/photoswipe-ui-default.min.js"></script>
 <script type="text/javascript">
 	var initPhotoSwipeFromDOM = function(gallerySelector) {
@@ -828,3 +851,4 @@
     }
 </script>
 </html>
+
