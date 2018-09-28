@@ -63,12 +63,16 @@
 		<div class="payment_title">选择支付方式</div>
 		<div class="payment_ul">
 			<ul id="ul">
-				<li class="ul_li" data-value="alipayPagePaymentPlugin">
+				<li class="ul_li" data-value="alipayWapPaymentPlugin">
 					<img src="/xcview/images/pay01.png" class="BTCpanda" />支付宝
 					<div class="ul_li_bg"></div>
 				</li>
-				<li class="ul_li" data-value="weixinNativePaymentPlugin">
-					<img src="/xcview/images/weixin_img.png" class="weixin_img" />微信
+				<li class="ul_li" data-value="weixinPublicPaymentPlugin" >
+					<img src="/xcview/images/weixin_img.png" class="weixin_img" />微信公众号
+					<div class="ul_li_bg"></div>
+				</li>
+				<li class="ul_li" data-value="weixinH5PaymentPlugin" >
+					<img src="/xcview/images/weixin_img.png" class="weixin_img" />微信H5
 					<div class="ul_li_bg"></div>
 				</li>
 				<div class="ul_li_bg"></div>
@@ -85,7 +89,7 @@
 		<div class="footer_div pay">去支付</div>
 	</div>
 	<!--底部结束-->
-	<form action="" method="post" target="_blank" id="payment">
+	<form action="" method="post" id="payment">
 		<input id="rePayUrl" name="rePayUrl" type="hidden" value="/order/payment?orderSns=">
 		<input id="paymentPluginId" name="paymentPluginId" type="hidden" value="alipayPagePaymentPlugin">
 		<input id="ipandatcmUserId" name="ipandatcmUserId" type="hidden" value="">
@@ -139,7 +143,17 @@
         },false);
         
         $(".pay").click(function () {
-			$("#paymentPluginId").val($(".ul_li0").attr("data-value"));
+            var paymentPluginId = $(".ul_li0").attr("data-value");
+//            if(paymentPluginId == 'wechatPay'){
+//                var isWeChat = window.navigator.userAgent.indexOf('MicroMessenger') > -1;
+//                if(isWeChat){
+//                    paymentPluginId = 'weixinPublicPaymentPlugin';
+//				}else{
+//                    paymentPluginId = 'weixinH5PaymentPlugin';
+//				}
+            $("#paymentPluginId").val(paymentPluginId);
+//			}
+            alert($("#paymentPluginId").val());
             $("#payment").submit();
         });
     });
