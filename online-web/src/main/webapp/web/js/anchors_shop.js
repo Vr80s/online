@@ -6,7 +6,7 @@ $(function(){
 			$(".input-code, .min-sales, .max-sales, .min-price, .max-price").val("");
 			shopList(1);
 		})
-		var orderType;
+//		var orderType;
 		shopList(1);
 		function shopList(pageNumber,orderType){
 			var keyword=$.trim($(".input-code").val()),
@@ -44,12 +44,12 @@ $(function(){
 		  				$("#shop-list-ul").html(template("shop-template",{items:shopData}))
 		  			}
 	//	  			分页
-					var aa=Math.ceil(data.resultObject.total/10)
-	 				if (aa > 1) { //分页判断,接口总页数
+					var pages=Math.ceil(data.resultObject.total/10);
+	 				if (pages > 1) { //分页判断,接口总页数
 		                    $(".not-data").remove();
 		                    $(".shop_pages").removeClass("hide");
-		                    $(".shop_pages .searchPage .allPage").text(aa);  //接口总页数
-		                    $("#Pagination_shop").pagination(aa, {			//接口总页数
+		                    $(".shop_pages .searchPage .allPage").text(pages);  //接口总页数
+		                    $("#Pagination_shop").pagination(pages, {			//接口总页数
 		                        num_edge_entries: 1, //边缘页数
 		                        num_display_entries: 4, //主体页数
 		                        current_page: pageNumber - 1,  //所传的页数
@@ -101,8 +101,8 @@ $(function(){
  				orderData.pageSize=10,
  				orderData.sn=orderValue,
  				orderData.productName=wareValue;
-// 				orderData.startDate=timeStart,
-// 				orderData.endDate=timeEnd;
+   				orderData.startDate=timeStart,
+   				orderData.endDate=timeEnd;
  				if(status != null || status != ""){
  					orderData.status=status;
  				}else{
@@ -119,11 +119,44 @@ $(function(){
 	 						$(".goods-bottom-list").removeClass("hide");
 	 						$("#order-list-bottom").html(template("order-template",{items:orderService}))
 	 					}
+//	  			分页
+					var pages=Math.ceil(data.resultObject.total/10);
+	 				if (pages > 1) { //分页判断,接口总页数
+		                    $(".not-data").remove();
+		                    $(".order_pages").removeClass("hide");
+		                    $(".order_pages .searchPage .allPage").text(pages);  //接口总页数
+		                    $("#Pagination_order").pagination(pages, {			//接口总页数
+		                        num_edge_entries: 1, //边缘页数
+		                        num_display_entries: 4, //主体页数
+		                        current_page: pageNumber - 1,  //所传的页数
+		                        callback: function (page) {
+		                            //翻页功能
+		                            orderList(page + 1,status);
+		                        }
+		                    });
+		                } else {
+		                    $(".order_pages").addClass("hide");
+		                }
 	 			}else{
 		  				showTip(data.errorMessage);
 		  		}
 	 		})
  		}
-	 	
+//		点击发货状态进行筛选
+//	健康好货开始  我的商品
+
+
+//	我的订单
+		$(".goods-status ul").on("click","li",function(){
+			debugger
+			var dataStatus=$(this).attr("data-status");
+			$(".goods-status ul li").removeClass("active");
+			$(this).addClass("active");
+			if(dataStatus==0){
+				orderList(1);
+			}else{
+				orderList(1,dataStatus)
+			}
+		})	
  	})();
 })

@@ -2265,12 +2265,12 @@
 						<div class="ware-list-content">
 							<div class="goods-status">
 								<ul>
-									<li class="active">全部</li>
-									<li>代发货</li>
-									<li>已发货</li>
-									<li>已完成</li>
-									<li>已关闭</li>
-									<li>退款中</li>
+									<li class="active" data-status="0">全部</li>
+									<li data-status="PENDING_SHIPMENT">待发货</li>
+									<li data-status="SHIPPED">已发货</li>
+									<li data-status="COMPLETED">已完成</li>
+									<li data-status="CANCELED">已关闭</li>
+									<!--<li>退款中</li>-->
 								</ul>
 							</div>
 							<div class="goods-top-menu">
@@ -2288,110 +2288,173 @@
 								<ul id="order-list-bottom">
 									<script type="text/template" id="order-template">
 										{{each items as item i}}
-											{{each item.orderVoItems as order t}}
-											{{if order.length>1}}
 											<li>
-												<p class="order-num-list">订单号：{{order.sn}}</p>
+												<p class="order-num-list">订单号：{{item.sn}}</p>
 												<!--单个订单-->
-												<div class="all-order-wrap">								
-													<div class="goods-inf-list z">
-														<div class="goods-inf-img z">
-															<img src="/web/images/1.jpg"/>
+												{{if item.orderVoItems.length==1}}
+													{{each item.orderVoItems as order t}}
+													<div class="all-order-wrap">								
+														<div class="goods-inf-list z">
+															<div class="goods-inf-img z">
+																<img src="{{order.thumbnail}}"/>
+															</div>
+															<div class="goods-inf-name y">
+																<p>{{order.name}}</p>
+																<span>&yen; {{order.price}}</span>
+															</div>
+															<div class="select-order-num y">
+																<span>{{order.quantity}}件</span>
+															</div>
 														</div>
-														<div class="goods-inf-name y">
-															<p>订单号订单号订单号订单号订单号订单号</p>
-															<span>&yen; 22</span>
+														<!--售后-->
+														<div class="ware-after-sale z">
+															<span></span>
 														</div>
-														<div class="select-order-num y">
-															<span>1件</span>
+														<!--买家-->
+														<div class="ware-Buyer z">
+															<p>{{item.consignee}}</p>
+															<p>{{item.phone}}</p>
+														</div>
+														<!--下单时间-->
+														<div class="order-time-inf z">
+															<p>{{item.createdDate}}</p>
+														</div>
+														<!--订单状态-->
+														{{if item.status==0}}
+															<div class="order-status-time z">										
+																<span>等待买家付款</span>
+															</div>
+															{{else if item.status==1}}
+															<div class="order-status-time z">										
+																<span>等待审核</span>
+															</div>
+															{{else if item.status==2}}
+															<div class="order-status-time z">										
+																<span>等待商家发货</span>
+															</div>
+															{{else if item.status==3}}
+															<div class="order-status-time z">										
+																<span>卖家已发货</span>
+															</div>
+															{{else if item.status==4}}
+															<div class="order-status-time z">										
+																<span>已收货</span>
+															</div>
+															{{else if item.status==5}}
+															<div class="order-status-time z">										
+																<span>交易完成</span>
+															</div>
+															{{else if item.status==6}}
+															<div class="order-status-time z">										
+																<span>交易失败</span>
+															</div>
+															{{else if item.status==7}}
+															<div class="order-status-time z">										
+																<span>交易关闭</span>
+															</div>
+															{{else if item.status==8}}
+															<div class="order-status-time z">										
+																<span>拒绝订单</span>
+															</div>
+														{{/if}}
+														<!--实付金额-->
+														<div class="amount-payment z">										
+															<span>&yen; {{item.price}}</span>
 														</div>
 													</div>
-													<!--售后-->
-													<div class="ware-after-sale z">
-														<span>维权结束</span>
-													</div>
-													<!--买家-->
-													<div class="ware-Buyer z">
-														<p>维权结束</p>
-														<p>18899998888</p>
-													</div>
-													<!--下单时间-->
-													<div class="order-time-inf z">
-														<p>2018-08-12</p>
-														<p>20:00:20</p>
-													</div>
-													<!--订单状态-->
-													<div class="order-status-time z">										
-														<span>等待商家发货</span>
-													</div>
-													<!--实付金额-->
-													<div class="amount-payment z">										
-														<span>&yen; 55</span>
-													</div>
-												</div>
-											</li>									
-											{{else}}
-											<li>
-												<p class="order-num-list">订单号：{{order.sn}}</p>										
+													{{/each}}
+												{{else if item.orderVoItems.length>1}}														
 												<!--多个订单-->
 												<div class="all-order-content">
-													<div class="order-list-left z">											
-														<div class="goods-inf-list goods-list-content">
-															<div class="goods-inf-img z">
-																<img src="/web/images/1.jpg"/>
+													<div class="order-list-left z">		
+														{{each item.orderVoItems as mode m}}
+															<div class="goods-inf-list goods-list-content">
+																<div class="goods-inf-img z">
+																	<img src="{{mode.thumbnail}}"/>
+																</div>
+																<div class="goods-inf-name y">
+																	<p>{{mode.name}}</p>
+																	<span>&yen; 22</span>
+																</div>
+																<div class="select-order-num y">
+																	<span>{{mode.quantity}}件</span>
+																</div>
 															</div>
-															<div class="goods-inf-name y">
-																<p>订单号订单号订单号订单号订单号订单号</p>
-																<span>&yen; 22</span>
-															</div>
-															<div class="select-order-num y">
-																<span>1件</span>
-															</div>
-														</div>
-														<div class="goods-inf-list goods-list-content">
-															<div class="goods-inf-img z">
-																<img src="/web/images/1.jpg"/>
-															</div>
-															<div class="goods-inf-name y">
-																<p>订单号订单号订单号订单号订单号订单号</p>
-																<span>&yen; 22</span>
-															</div>
-															<div class="select-order-num y">
-																<span>1件</span>
-															</div>
-														</div>
+														{{/each}}
 													</div>
-													<!--售后-->
+													
 													<div class="order-list-right z">
+														<!--售后-->
 														<div class="ware-after-sale comment-list-style z">
-															<span>维权结束</span>
+															<span></span>
 														</div>
 														<!--买家-->
 														<div class="ware-Buyer comment-list-style z" style="line-height: 20px; padding-top: 30px;">
-															<p>维权结束</p>
-															<p>18899998888</p>
+															<p>{{item.consignee}}</p>
+															<p>{{item.phone}}</p>
 														</div>
 														<!--下单时间-->
 														<div class="order-time-inf comment-list-style z" style="line-height: 20px; padding-top: 30px;">
-															<p>2018-08-12</p>
-															<p>20:00:20</p>
+															<p>{{item.createdDate}}</p>
 														</div>
 														<!--订单状态-->
-														<div class="order-status-time comment-list-style z">										
-															<span>等待商家发货</span>
-														</div>
+														{{if item.status==0}}
+															<div class="order-status-time comment-list-style z">										
+																<span>等待买家付款</span>
+															</div>
+															{{else if item.status==1}}
+															<div class="order-status-time comment-list-style z">										
+																<span>等待审核</span>
+															</div>
+															{{else if item.status==2}}
+															<div class="order-status-time comment-list-style z">										
+																<span>等待商家发货</span>
+															</div>
+															{{else if item.status==3}}
+															<div class="order-status-time comment-list-style z">										
+																<span>卖家已发货</span>
+															</div>
+															{{else if item.status==4}}
+															<div class="order-status-time comment-list-style z">										
+																<span>已收货</span>
+															</div>
+															{{else if item.status==5}}
+															<div class="order-status-time comment-list-style z">										
+																<span>交易完成</span>
+															</div>
+															{{else if item.status==6}}
+															<div class="order-status-time comment-list-style z">										
+																<span>交易失败</span>
+															</div>
+															{{else if item.status==7}}
+															<div class="order-status-time comment-list-style z">										
+																<span>交易关闭</span>
+															</div>
+															{{else if item.status==8}}
+															<div class="order-status-time comment-list-style z">										
+																<span>拒绝订单</span>
+															</div>
+														{{/if}}
 														<!--实付金额-->
 														<div class="amount-payment comment-list-style z">										
-															<span>&yen; 55</span>
+															<span>&yen; {{item.price}}</span>
 														</div>
 													</div>	
 												</div>
-											</li>	
-											{{/if}}
+												{{/if}}	
+											</li>
 										{{/each}}
-									{{/each}}
 									</script>
 								</ul>
+								<!--分页-->
+								<div class="order_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+									<div id="Pagination_order" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+									<div class="searchPage">
+										<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+										<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+										<a href="javascript:;" class="page-btn">确定</a>
+									</div>
+								</div>
 							</div>
 						
 							<!--无订单时-->
