@@ -1,5 +1,7 @@
 package com.xczh.consumer.market.controller.shop;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,8 +41,8 @@ public class ShopCartController {
     }
 
     @RequestMapping(value = "sku/delete", method = RequestMethod.POST)
-    public ResponseObject remove(@Account String accountId, @RequestParam Long skuId) {
-        shopCartService.remove(accountId, skuId);
+    public ResponseObject remove(@Account String accountId, @RequestParam List<Long> skuIds) {
+        shopCartService.remove(accountId, skuIds);
         return ResponseObject.newSuccessResponseObject();
     }
 

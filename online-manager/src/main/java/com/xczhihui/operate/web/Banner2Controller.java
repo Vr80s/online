@@ -69,7 +69,7 @@ public class Banner2Controller {
         List<MenuVo> menus = commonMenuService.list();
         List<CourseVo> courses = new ArrayList<>();
         if (!menus.isEmpty()) {
-            courses = courseService.listByMenuId(menus.get(0).getId());
+            courses = courseService.listByMenuId(menus.get(0).getId()+"");
         }
         mav.addObject("courses", courses);
         mav.addObject("anchors", anchorService.listDoctor());

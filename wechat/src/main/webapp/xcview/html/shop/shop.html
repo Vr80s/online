@@ -28,36 +28,66 @@
 <link rel="stylesheet" href="/xcview/css/shop/swiper.min.css" />  <!-- 轮播引入 -->
 <link rel="stylesheet" href="/xcview/css/shop/shop.css" />
 
+<!--刷新 -->
+<link rel="stylesheet" href="/xcview/css/minirefresh/minirefresh.css">
+<script type="text/javascript" src="/xcview/js/minirefresh/minirefresh.js"></script>
+
 <style>
-	
+	/*处理刷新*/
+	.minirefresh-wrap{
+		top: 5rem;
+	}
+	.minirefresh-theme-default .minirefresh-downwrap{
+		height: 1rem;
+		line-height: 1rem;
+	}
+	.minirefresh-theme-default .downwrap-content{
+		padding: 0;
+	}
+	.minirefresh-theme-default .minirefresh-upwrap{
+		height: 1rem;
+		max-height: 0.5rem;
+		line-height: 0.6rem;
+		padding: 0;
+	}
+	.minirefresh-scroll{
+		background: none;
+	}
+	.minirefresh-wrap{
+		bottom: .98rem;
+	}
 </style>
 </head>
 
 <body>
+	
 	<!-- 头部区域开始 -->
 	<header>
 		<div class="header" onclick="location.href ='/xcview/html/shop/search_goods.html'">
 			<img src="/xcview/images/sousuo0.png" alt="" />
 			<span calss="header_default">搜索好货</span>
-			<span calss="tacitly_approve">搜索好货</span>
+			<!-- <span calss="tacitly_approve">搜索好货</span> -->
 		</div>
 		<div class="advices">
 			<img src="/xcview/images/shop/newsbg.png" alt="" class="news" />
-			<span class="advices_number">17</span>
+			<!-- <span class="advices_number">17</span> -->
 		</div>
 	</header>
 	<div class="header_hidden_field"></div>
 	<!-- 头部区域结束 -->
 
 	<!-- 轮播区域开始 -->
-	<div class="banner">
+	<div class="banner top_details">
+		<script type="text/html" id="top_details">
 		<div class="swiper-wrapper">
-			<div class="swiper-slide"><img src="http://test-file.ipandatcm.com/18719144415/a82649e617d7-500c1171747f45c5ab0e79c7f1a42c971531982655040.png" /></div>
-			<div class="swiper-slide"><img src="http://test-file.ipandatcm.com/18719144415/a82649e617d7-500c1171747f45c5ab0e79c7f1a42c971531982655040.png" /></div>
-			<div class="swiper-slide"><img src="http://test-file.ipandatcm.com/18719144415/a82649e617d7-500c1171747f45c5ab0e79c7f1a42c971531982655040.png" /></div>
-			<div class="swiper-slide"><img src="http://test-file.ipandatcm.com/18719144415/a82649e617d7-500c1171747f45c5ab0e79c7f1a42c971531982655040.png" /></div>
+			
+			{{each items as item i}}
+			<div class="swiper-slide"><img src="{{item.imgPath}}" alt="" data_target="{{item.target}}" data_id="{{item.id}}" /></div>
+			{{/each}}
 		</div>
+		
 		<div class="pagination"></div>
+		</script>
 	</div>
 	<!-- 轮播区域结束 -->
 
@@ -88,53 +118,81 @@
 		</div>
 	</div>
 	<!-- tab选项结束 -->
+	
+	
 	<!-- 中间内容开始 -->
 	<div class="main_center">
-		<ul class="list">
-			<li onclick="location.href ='/xcview/html/shop/commodity_details.html'">
-				<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-				<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
-				<div class="price">￥188.00</div>
-				<div class="referrer">
-					<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
-				</div>
-			</li>
-			<li>
-				<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-				<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
-				<div class="price">￥188.00</div>
-				<div class="referrer">
-					<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
-				</div>
-			</li>
-			<li>
-				<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-				<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
-				<div class="price">￥188.00</div>
-				<div class="referrer">
-					<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
-				</div>
-			</li>
-			<li>
-				<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-				<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
-				<div class="price">￥188.00</div>
-				<div class="referrer">
-					<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
-				</div>
-			</li>
-			<li>
-				<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-				<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
-				<div class="price">￥188.00</div>
-				<div class="referrer">
-					<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
-				</div>
-			</li>
-		</ul>
+		<div id="minirefresh" class="minirefresh-wrap">
+		<div class="minirefresh-scroll">
+			<ul class="list product_list">
+				<script type="text/html" id="product_list">
+				{{each items as item i}}
+				<li data-id="{{item.id}}">
+					<!--<img src="{{item.productImages}}" alt="" class="surface_plot" />-->
+
+					{{if item.productImages != null}}
+					<img src="{{item.productImages[0].source}}" alt="" class="surface_plot" />
+					{{else}}
+					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+					{{/if}}
+
+					<div class="title">{{item.name}}</div>
+					<div class="price">￥{{item.price}}</div>
+					<div class="referrer">
+						
+
+						{{if item.doctor != null}}
+						<img src="{{item.doctor.avatar}}" alt="" />
+						<span>{{item.doctor.name}}</span>
+						{{else}}
+						<img src="/xcview/images/touxiang.png" alt="" />
+						<span>11111</span>
+						{{/if}}
+
+						医师 推荐
+					</div>
+				</li>
+				<!--<li onclick="location.href ='/xcview/html/shop/commodity_details.html'">
+					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+					<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
+					<div class="price">￥188.00</div>
+					<div class="referrer">
+						<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
+					</div>
+				</li>
+				<li>
+					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+					<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
+					<div class="price">￥188.00</div>
+					<div class="referrer">
+						<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
+					</div>
+				</li>
+				<li>
+					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+					<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
+					<div class="price">￥188.00</div>
+					<div class="referrer">
+						<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
+					</div>
+				</li>
+				<li>
+					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+					<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
+					<div class="price">￥188.00</div>
+					<div class="referrer">
+						<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
+					</div>
+				</li>-->
+				{{/each}}
+				</script>
+			</ul>
+		</div>
+		</div>	
 	</div>
 	<!-- 中间内容结束 -->
-
+	
+	
 	<!-- 底部开始 -->
 	<div class="hidden_field"></div>
 	<div class="footer">
@@ -168,13 +226,17 @@
 	<!-- 底部结束 -->
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
-<!-- <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script> -->
-<!-- <script type="text/javascript" src="/xcview/js/common/common.js"></script> -->
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>   <!--模板引入-->
+<script src="/xcview/js/shop/shop.js"></script><!-- 数据渲染 -->
 
-<script src="/xcview/js/shop/jquery-1.10.1.min.js"></script><!-- 轮播引入 -->
+<!--<script src="/xcview/js/shop/jquery-1.10.1.min.js"></script> 轮播引入 -->
 <script src="/xcview/js/shop/swiper.min.js"></script> <!-- 轮播引入 -->
 <!-- 轮播 -->
 <script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
+
+
 
 <!-- 选项卡固定头部 -->
 <script>
@@ -201,14 +263,6 @@
 <!-- 选项卡点击事件 -->
 <script>
 	window.onload = function(){
-		// 轮播--渲染时放到，渲染的js下面
-		var mySwiper = new Swiper('.banner',{
-		  	autoplay:1500,
-		  	visibilityFullFit : true,
-		  	loop:true,
-		  	pagination : '.pagination',
-	  	});
-
 		// option_newest--最新    option_recommend--推荐   option_hottest--最热  option_price--价格
 		// 最新
 		$(".option_newest").click();

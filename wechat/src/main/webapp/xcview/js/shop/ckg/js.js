@@ -1,5 +1,4 @@
 var initPhotoSwipeFromDOM = function(gallerySelector) {
-
     // parse slide data (url, title, size ...) from DOM elements 
     // (children of gallerySelector)
     var parseThumbnailElements = function(el) {
@@ -46,7 +45,7 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
             item.el = figureEl; // save link to element for getThumbBoundsFn
             items.push(item);
         }
-window.CP.exitedLoop(1);
+        window.CP.exitedLoop(1);
 
 
         return items;
@@ -92,7 +91,7 @@ window.CP.exitedLoop(1);
             }
             nodeIndex++;
         }
-window.CP.exitedLoop(2);
+        window.CP.exitedLoop(2);
 
 
 
@@ -124,7 +123,7 @@ window.CP.exitedLoop(2);
             }           
             params[pair[0]] = pair[1];
         }
-window.CP.exitedLoop(3);
+        window.CP.exitedLoop(3);
 
 
         if(params.gid) {
@@ -170,7 +169,7 @@ window.CP.exitedLoop(3);
                         break;
                     }
                 }
-window.CP.exitedLoop(4);
+        window.CP.exitedLoop(4);
 
             } else {
                 // in URL indexes start from 1
@@ -201,7 +200,7 @@ window.CP.exitedLoop(4);
         galleryElements[i].setAttribute('data-pswp-uid', i+1);
         galleryElements[i].onclick = onThumbnailsClick;
     }
-window.CP.exitedLoop(5);
+    window.CP.exitedLoop(5);
 
 
     // Parse URL and open gallery if it contains #&pid=3&gid=1

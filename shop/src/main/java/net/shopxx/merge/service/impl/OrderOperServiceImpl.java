@@ -1,24 +1,23 @@
 package net.shopxx.merge.service.impl;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javax.inject.Inject;
 
+import net.shopxx.plugin.PaymentPlugin;
+import net.shopxx.service.*;
+import net.shopxx.util.WebUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
 
 import net.shopxx.Page;
@@ -56,16 +55,6 @@ import net.shopxx.merge.vo.ProductVO;
 import net.shopxx.merge.vo.ReceiverVO;
 import net.shopxx.merge.vo.ScoreVO;
 import net.shopxx.merge.vo.SkuVO;
-import net.shopxx.service.AreaService;
-import net.shopxx.service.CartService;
-import net.shopxx.service.CouponCodeService;
-import net.shopxx.service.OrderService;
-import net.shopxx.service.OrderShippingService;
-import net.shopxx.service.PaymentMethodService;
-import net.shopxx.service.ReceiverService;
-import net.shopxx.service.ShippingMethodService;
-import net.shopxx.service.SkuService;
-import net.shopxx.service.StoreService;
 import net.shopxx.util.SystemUtils;
 
 /**
@@ -101,6 +90,8 @@ public class OrderOperServiceImpl implements OrderOperService {
 	
 	@Inject
 	private OrderDao orderDao;
+	@Inject
+	private PluginService pluginService;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -837,7 +828,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Object findPageXc(OrderPageParams orderPageParams,UsersType type, Status status, ScoreVO store, 
+	public Object findPageXc(OrderPageParams orderPageParams, Status status, ScoreVO store, 
 			String ipandatcmUserId, ProductVO product,UsersType usersType) {
 		
 		Store ss = null;Member member = null;
@@ -881,5 +872,52 @@ public class OrderOperServiceImpl implements OrderOperService {
 			list.add(o);
 		}
 		return new net.shopxx.merge.page.Page<OrdersVO>(list, orderList.getTotal(), pageableVo);
+	}
+
+	@Override
+	@Transactional
+	public Map payment(String orderSnsStr) {
+		String[] orderSns = orderSnsStr.split(",");
+		Map map = new HashMap();
+		List<PaymentPlugin> paymentPlugins = pluginService.getActivePaymentPlugins(WebUtils.getRequest());
+		PaymentPlugin defaultPaymentPlugin = null;
+		PaymentMethod orderPaymentMethod = null;
+		BigDecimal fee = BigDecimal.ZERO;
+		BigDecimal amount = BigDecimal.ZERO;
+		boolean online = false;
+		List<Order> orders = new ArrayList<>();
+		for (String orderSn : orderSns) {
+			Order order = orderService.findBySn(orderSn);
+			if (order == null) {
+				throw new RuntimeException("单号错误");
+			}
+			BigDecimal amountPayable = order.getAmountPayable();
+			if (order.getAmount().compareTo(order.getAmountPaid()) <= 0 || amountPayable.compareTo(BigDecimal.ZERO) <= 0) {
+				throw new RuntimeException("金额有误");
+			}
+			orderPaymentMethod = order.getPaymentMethod();
+			if (orderPaymentMethod == null) {
+				throw new RuntimeException("支付出现问题");
+			}
+			if (PaymentMethod.Method.ONLINE.equals(orderPaymentMethod.getMethod())) {
+				if (CollectionUtils.isNotEmpty(paymentPlugins)) {
+					defaultPaymentPlugin = paymentPlugins.get(0);
+				}
+				online = true;
+			} else {
+				fee = fee.add(order.getFee());
+				online = false;
+			}
+			amount = amount.add(amountPayable);
+			orders.add(order);
+		}
+		if (online && defaultPaymentPlugin != null) {
+			fee = defaultPaymentPlugin.calculateFee(amount).add(fee);
+			amount = fee.add(amount);
+		}
+		map.put("fee", fee);
+		map.put("amount", amount);
+		map.put("orderSns", Arrays.asList(orderSns));
+		return map;
 	}
 }

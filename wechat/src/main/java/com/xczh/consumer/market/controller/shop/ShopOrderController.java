@@ -149,4 +149,10 @@ public class ShopOrderController {
         return ResponseObject.newSuccessResponseObject("确认收货");
     }
 
+    @RequestMapping(value = "/order/payment")
+    public ResponseObject payment(@Account String accountId, @RequestParam String orderSnsStr){
+        Map payment = orderOperService.payment(orderSnsStr);
+        return ResponseObject.newSuccessResponseObject(payment);
+    }
+
 }
