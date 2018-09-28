@@ -85,9 +85,10 @@
 		<div class="footer_div pay">去支付</div>
 	</div>
 	<!--底部结束-->
-	<form action="http://cs.shop.xczhihui.com/payment" method="post" target="_blank" id="payment">
+	<form action="" method="post" target="_blank" id="payment">
 		<input id="rePayUrl" name="rePayUrl" type="hidden" value="/order/payment?orderSns=">
 		<input id="paymentPluginId" name="paymentPluginId" type="hidden" value="alipayPagePaymentPlugin">
+		<input id="ipandatcmUserId" name="ipandatcmUserId" type="hidden" value="">
 	</form>
 </body>
 
@@ -123,6 +124,8 @@
         requestService("/xczh/shop/order/payment","orderSnsStr="+orderSns,function(data){
             if(data.success){
                 console.info(data);
+                $("#ipandatcmUserId").val(data.resultObject.ipandatcmUserId);
+                $("#ipandatcmUserId").attr("action",data.resultObject.ipandatcmUserId + '/payment');
                 $(".amount").html(data.resultObject.amount);
                 var str = '';
                 for(var i=0;i<data.resultObject.orderSns.length;i++){

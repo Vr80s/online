@@ -70,7 +70,7 @@ public class PaymentController extends BaseController {
 	 * 首页
 	 */
 	@RequestMapping
-	public String index(String paymentPluginId, String rePayUrl, PaymentItemListForm paymentItemListForm) {
+	public String index(String paymentPluginId, String rePayUrl, PaymentItemListForm paymentItemListForm, String ipandatcmUserId) {
 		PaymentPlugin paymentPlugin = pluginService.getPaymentPlugin(paymentPluginId);
 		if (paymentPlugin == null || BooleanUtils.isNotTrue(paymentPlugin.getIsEnabled()) || StringUtils.isEmpty(rePayUrl)) {
 			return UNPROCESSABLE_ENTITY_VIEW;
@@ -84,7 +84,7 @@ public class PaymentController extends BaseController {
 		if (paymentItems.size() > 1) {
 			Set<PaymentTransaction.LineItem> lineItems = new HashSet<>();
 			for (PaymentItem paymentItem : paymentItems) {
-				LineItem lineItem = paymentTransactionService.generate(paymentItem);
+				LineItem lineItem = paymentTransactionService.generate(paymentItem,ipandatcmUserId);
 				if (lineItem != null) {
 					lineItems.add(lineItem);
 				}
@@ -92,7 +92,7 @@ public class PaymentController extends BaseController {
 			paymentTransaction = paymentTransactionService.generateParent(lineItems, paymentPlugin, rePayUrl);
 		} else {
 			PaymentItem paymentItem = paymentItems.get(0);
-			LineItem lineItem = paymentTransactionService.generate(paymentItem);
+			LineItem lineItem = paymentTransactionService.generate(paymentItem,ipandatcmUserId);
 			paymentTransaction = paymentTransactionService.generate(lineItem, paymentPlugin, rePayUrl);
 		}
 		return "redirect:" + paymentPlugin.getPrePayUrl(paymentPlugin, paymentTransaction);
