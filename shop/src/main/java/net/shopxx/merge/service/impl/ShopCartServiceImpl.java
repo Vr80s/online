@@ -120,23 +120,25 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
     }
 
     @Override
-    public void remove(String ipandatcmUserId, Long skuId) {
+    public void remove(String ipandatcmUserId, List<Long> skuIds) {
         Member member = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
         Cart cart = member.getCart();
         if (cart == null) {
             cart = create(ipandatcmUserId);
         }
-        Sku sku = skuService.find(skuId);
-        Set<CartItem> cartItems = cart.getCartItems();
-        Optional<CartItem> cartItemOptional = cartItems.stream().filter(cartItem -> {
-            cartItem = cartItemDao.findFetchSku(cartItem.getId());
-            return cartItem != null && cartItem.getSku().getId().equals(skuId);
-        }).findFirst();
-        CartItem cartItem = cartItemOptional.orElseThrow(() -> new RuntimeException("skuId参数错误"));
-        cartItemService.delete(cartItem);
-        cart.remove(cartItem);
+        for (Long skuId : skuIds) {
+            Sku sku = skuService.find(skuId);
+            Set<CartItem> cartItems = cart.getCartItems();
+            Optional<CartItem> cartItemOptional = cartItems.stream().filter(cartItem -> {
+                cartItem = cartItemDao.findFetchSku(cartItem.getId());
+                return cartItem != null && cartItem.getSku().getId().equals(skuId);
+            }).findFirst();
+            CartItem cartItem = cartItemOptional.orElseThrow(() -> new RuntimeException("skuId参数错误"));
+            cartItemService.delete(cartItem);
+            cart.remove(cartItem);
 
-        applicationEventPublisher.publishEvent(new CartRemovedEvent(this, cart, sku));
+            applicationEventPublisher.publishEvent(new CartRemovedEvent(this, cart, sku));
+        }
     }
 
     @Override

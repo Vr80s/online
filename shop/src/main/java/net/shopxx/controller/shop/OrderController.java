@@ -595,7 +595,10 @@ public class OrderController extends BaseController {
 	 * 支付
 	 */
 	@GetMapping("/payment")
-	public String payment(String[] orderSns, @CurrentUser Member currentUser, ModelMap model) {
+	public String payment(String[] orderSns, String orderSnsStr, ModelMap model) {
+		if(orderSns == null || orderSns.length < 1){
+			orderSns = orderSnsStr.split(",");
+		}
 		if (ArrayUtils.isEmpty(orderSns)) {
 			return UNPROCESSABLE_ENTITY_VIEW;
 		}
@@ -617,13 +620,10 @@ public class OrderController extends BaseController {
 				return "redirect:/member/order/list";
 			}
 			orderPaymentMethod = order.getPaymentMethod();
-			if (!currentUser.equals(order.getMember()) || orderPaymentMethod == null) {
+			if (orderPaymentMethod == null) {
 				return UNPROCESSABLE_ENTITY_VIEW;
 			}
 			if (PaymentMethod.Method.ONLINE.equals(orderPaymentMethod.getMethod())) {
-				if (!orderService.acquireLock(order, currentUser)) {
-					return "redirect:/member/order/list";
-				}
 				if (CollectionUtils.isNotEmpty(paymentPlugins)) {
 					defaultPaymentPlugin = paymentPlugins.get(0);
 				}
