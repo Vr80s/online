@@ -398,12 +398,11 @@ public class OrderOperServiceImpl implements OrderOperService {
 			for(OrderItem orderItem : order.getOrderItems()){
 				OrderItemVO orderItemVO = new OrderItemVO();
 				BeanUtils.copyProperties(orderItem,orderItemVO);
-				orderItemVOList.add(orderItemVO);
 				//获取库存
-				orderItem.getSku();
-				Long ssss = orderItem.getSku().getId();
-				Integer aaa = orderItem.getSku().getStock();
-				System.out.println(aaa);
+				SkuVO sku = new SkuVO();
+				BeanUtils.copyProperties(orderItem.getSku(),sku);
+				orderItemVO.setSku(sku);
+				orderItemVOList.add(orderItemVO);
 			}
 			o.setOrderItems(orderItemVOList);
 			list.add(o);

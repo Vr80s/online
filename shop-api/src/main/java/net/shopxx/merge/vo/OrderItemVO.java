@@ -88,5 +88,10 @@ public class OrderItemVO implements Serializable {
 	 */
 	private List<String> specifications = new ArrayList<String>();
 
+	/**
+	 * SKU
+	 */
+	private SkuVO sku;
+
 
 }
