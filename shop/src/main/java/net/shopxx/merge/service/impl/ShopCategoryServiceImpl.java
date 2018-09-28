@@ -63,5 +63,18 @@ public class ShopCategoryServiceImpl implements ShopCategoryService {
 		}
 		return null;
 	}
+	
+	@Override
+	@Transactional
+	public Object details(Long productCateId) {
+		ProductCategory productCategory = productCategoryDao.find(productCateId);
+		ProductCategoryVO pv = new ProductCategoryVO();
+		try {
+			BeanUtils.copyProperties(pv, productCategory);
+		} catch (IllegalAccessException | InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return pv;
+	}	
 
 }

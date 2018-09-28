@@ -2243,15 +2243,15 @@
 						<div class="order-management-wrap">
 							<p class="order-search-num">
 								<span class="left-tip">订单号</span>
-								<input class="order-write-num" type="text" />
+								<input class="order-write-num order-value" type="text" />
 								<span class="left-tip" style="width: 80px;">商品名称</span>
-								<input class="order-write-num" type="text" />
+								<input class="order-write-num ware-value" type="text" />
 							</p>
 							<p class="order-search-num">
 								<span class="left-tip">下单时间</span>
-								<input class="order-write-num" type="text" />
+								<input class="order-write-num time-start" type="text" />
 								<span>至</span>
-								<input class="order-write-num" type="text" />
+								<input class="order-write-num time-end" type="text" />
 								<span class="select-before-time">近7天</span>
 								<span class="select-before-time" style="margin-left: 10px;">近30天</span>
 							</p>
@@ -2285,205 +2285,121 @@
 								</ul>
 							</div>
 							<div class="goods-bottom-list">
-								<ul>
-									<li>
-										<p class="order-num-list">订单号：E20180829145726079500003</p>
-										<!--单个订单-->
-										<div class="all-order-wrap">								
-											<div class="goods-inf-list z">
-												<div class="goods-inf-img z">
-													<img src="/web/images/1.jpg"/>
-												</div>
-												<div class="goods-inf-name y">
-													<p>订单号订单号订单号订单号订单号订单号</p>
-													<span>&yen; 22</span>
-												</div>
-												<div class="select-order-num y">
-													<span>1件</span>
-												</div>
-											</div>
-											<!--售后-->
-											<div class="ware-after-sale z">
-												<span>维权结束</span>
-											</div>
-											<!--买家-->
-											<div class="ware-Buyer z">
-												<p>维权结束</p>
-												<p>18899998888</p>
-											</div>
-											<!--下单时间-->
-											<div class="order-time-inf z">
-												<p>2018-08-12</p>
-												<p>20:00:20</p>
-											</div>
-											<!--订单状态-->
-											<div class="order-status-time z">										
-												<span>等待商家发货</span>
-											</div>
-											<!--实付金额-->
-											<div class="amount-payment z">										
-												<span>&yen; 55</span>
-											</div>
-										</div>
-										<!--多个订单-->
-										<div class="all-order-content" style="display: none;">
-											<div class="order-list-left z">											
-												<div class="goods-inf-list goods-list-content">
-													<div class="goods-inf-img z">
-														<img src="/web/images/1.jpg"/>
+								<ul id="order-list-bottom">
+									<script type="text/template" id="order-template">
+										{{each items as item i}}
+											{{each item.orderVoItems as order t}}
+											{{if order.length>1}}
+											<li>
+												<p class="order-num-list">订单号：{{order.sn}}</p>
+												<!--单个订单-->
+												<div class="all-order-wrap">								
+													<div class="goods-inf-list z">
+														<div class="goods-inf-img z">
+															<img src="/web/images/1.jpg"/>
+														</div>
+														<div class="goods-inf-name y">
+															<p>订单号订单号订单号订单号订单号订单号</p>
+															<span>&yen; 22</span>
+														</div>
+														<div class="select-order-num y">
+															<span>1件</span>
+														</div>
 													</div>
-													<div class="goods-inf-name y">
-														<p>订单号订单号订单号订单号订单号订单号</p>
-														<span>&yen; 22</span>
+													<!--售后-->
+													<div class="ware-after-sale z">
+														<span>维权结束</span>
 													</div>
-													<div class="select-order-num y">
-														<span>1件</span>
+													<!--买家-->
+													<div class="ware-Buyer z">
+														<p>维权结束</p>
+														<p>18899998888</p>
+													</div>
+													<!--下单时间-->
+													<div class="order-time-inf z">
+														<p>2018-08-12</p>
+														<p>20:00:20</p>
+													</div>
+													<!--订单状态-->
+													<div class="order-status-time z">										
+														<span>等待商家发货</span>
+													</div>
+													<!--实付金额-->
+													<div class="amount-payment z">										
+														<span>&yen; 55</span>
 													</div>
 												</div>
-												<div class="goods-inf-list goods-list-content">
-													<div class="goods-inf-img z">
-														<img src="/web/images/1.jpg"/>
+											</li>									
+											{{else}}
+											<li>
+												<p class="order-num-list">订单号：{{order.sn}}</p>										
+												<!--多个订单-->
+												<div class="all-order-content">
+													<div class="order-list-left z">											
+														<div class="goods-inf-list goods-list-content">
+															<div class="goods-inf-img z">
+																<img src="/web/images/1.jpg"/>
+															</div>
+															<div class="goods-inf-name y">
+																<p>订单号订单号订单号订单号订单号订单号</p>
+																<span>&yen; 22</span>
+															</div>
+															<div class="select-order-num y">
+																<span>1件</span>
+															</div>
+														</div>
+														<div class="goods-inf-list goods-list-content">
+															<div class="goods-inf-img z">
+																<img src="/web/images/1.jpg"/>
+															</div>
+															<div class="goods-inf-name y">
+																<p>订单号订单号订单号订单号订单号订单号</p>
+																<span>&yen; 22</span>
+															</div>
+															<div class="select-order-num y">
+																<span>1件</span>
+															</div>
+														</div>
 													</div>
-													<div class="goods-inf-name y">
-														<p>订单号订单号订单号订单号订单号订单号</p>
-														<span>&yen; 22</span>
-													</div>
-													<div class="select-order-num y">
-														<span>1件</span>
-													</div>
+													<!--售后-->
+													<div class="order-list-right z">
+														<div class="ware-after-sale comment-list-style z">
+															<span>维权结束</span>
+														</div>
+														<!--买家-->
+														<div class="ware-Buyer comment-list-style z" style="line-height: 20px; padding-top: 30px;">
+															<p>维权结束</p>
+															<p>18899998888</p>
+														</div>
+														<!--下单时间-->
+														<div class="order-time-inf comment-list-style z" style="line-height: 20px; padding-top: 30px;">
+															<p>2018-08-12</p>
+															<p>20:00:20</p>
+														</div>
+														<!--订单状态-->
+														<div class="order-status-time comment-list-style z">										
+															<span>等待商家发货</span>
+														</div>
+														<!--实付金额-->
+														<div class="amount-payment comment-list-style z">										
+															<span>&yen; 55</span>
+														</div>
+													</div>	
 												</div>
-											</div>
-											<!--售后-->
-											<div class="order-list-right z">
-												<div class="ware-after-sale comment-list-style z">
-													<span>维权结束</span>
-												</div>
-												<!--买家-->
-												<div class="ware-Buyer comment-list-style z" style="line-height: 20px; padding-top: 30px;">
-													<p>维权结束</p>
-													<p>18899998888</p>
-												</div>
-												<!--下单时间-->
-												<div class="order-time-inf comment-list-style z" style="line-height: 20px; padding-top: 30px;">
-													<p>2018-08-12</p>
-													<p>20:00:20</p>
-												</div>
-												<!--订单状态-->
-												<div class="order-status-time comment-list-style z">										
-													<span>等待商家发货</span>
-												</div>
-												<!--实付金额-->
-												<div class="amount-payment comment-list-style z">										
-													<span>&yen; 55</span>
-												</div>
-											</div>	
-										</div>
-									</li>									
-								
-								
-									<li>
-										<p class="order-num-list">订单号：E20180829145726079500003</p>
-										<!--单个订单-->
-										<div class="all-order-wrap" style="display: none;">								
-											<div class="goods-inf-list z">
-												<div class="goods-inf-img z">
-													<img src="/web/images/1.jpg"/>
-												</div>
-												<div class="goods-inf-name y">
-													<p>订单号订单号订单号订单号订单号订单号</p>
-													<span>&yen; 22</span>
-												</div>
-												<div class="select-order-num y">
-													<span>1件</span>
-												</div>
-											</div>
-											<!--售后-->
-											<div class="ware-after-sale z">
-												<span>维权结束</span>
-											</div>
-											<!--买家-->
-											<div class="ware-Buyer z">
-												<p>维权结束</p>
-												<p>18899998888</p>
-											</div>
-											<!--下单时间-->
-											<div class="order-time-inf z">
-												<p>2018-08-12</p>
-												<p>20:00:20</p>
-											</div>
-											<!--订单状态-->
-											<div class="order-status-time z">										
-												<span>等待商家发货</span>
-											</div>
-											<!--实付金额-->
-											<div class="amount-payment z">										
-												<span>&yen; 55</span>
-											</div>
-										</div>
-										<!--多个订单-->
-										<div class="all-order-content">
-											<div class="order-list-left z">											
-												<div class="goods-inf-list goods-list-content">
-													<div class="goods-inf-img z">
-														<img src="/web/images/1.jpg"/>
-													</div>
-													<div class="goods-inf-name y">
-														<p>订单号订单号订单号订单号订单号订单号</p>
-														<span>&yen; 22</span>
-													</div>
-													<div class="select-order-num y">
-														<span>1件</span>
-													</div>
-												</div>
-												<div class="goods-inf-list goods-list-content">
-													<div class="goods-inf-img z">
-														<img src="/web/images/1.jpg"/>
-													</div>
-													<div class="goods-inf-name y">
-														<p>订单号订单号订单号订单号订单号订单号</p>
-														<span>&yen; 22</span>
-													</div>
-													<div class="select-order-num y">
-														<span>1件</span>
-													</div>
-												</div>
-											</div>
-											<!--售后-->
-											<div class="order-list-right z">
-												<div class="ware-after-sale comment-list-style z">
-													<span>维权结束</span>
-												</div>
-												<!--买家-->
-												<div class="ware-Buyer comment-list-style z" style="line-height: 20px; padding-top: 30px;">
-													<p>维权结束</p>
-													<p>18899998888</p>
-												</div>
-												<!--下单时间-->
-												<div class="order-time-inf comment-list-style z" style="line-height: 20px; padding-top: 30px;">
-													<p>2018-08-12</p>
-													<p>20:00:20</p>
-												</div>
-												<!--订单状态-->
-												<div class="order-status-time comment-list-style z">										
-													<span>等待商家发货</span>
-												</div>
-												<!--实付金额-->
-												<div class="amount-payment comment-list-style z">										
-													<span>&yen; 55</span>
-												</div>
-											</div>	
-										</div>
-									</li>		
-								
+											</li>	
+											{{/if}}
+										{{/each}}
+									{{/each}}
+									</script>
 								</ul>
 							</div>
-						</div>
 						
-						
-						
-						
-						
-						
+							<!--无订单时-->
+							<div class="order-null hide">
+								<img src="/web/images/icon-nodata.png" alt="无数据">
+								<p>暂无数据</p>
+							</div>
+						</div>	
 					</div>
 				</div>
 				

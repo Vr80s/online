@@ -494,6 +494,12 @@ public class OrdersVO implements Serializable {
 	public void setOrderVoItems(List<OrderItemVO> orderVoItems) {
 		this.orderVoItems = orderVoItems;
 	}
-    
-    
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
 }
