@@ -2,7 +2,7 @@
 
 var productId = getQueryString("productId");
 requestGetService("/xczh/shop/goods/details",{
-    productId:productId,
+    productId:productId
 },function (data) {
     if (data.success == true) {
         var obj = data.resultObject;
@@ -51,7 +51,10 @@ requestGetService("/xczh/shop/goods/details",{
         // 点击加入购物车-封面图
         $(".message").html(template('message', {items: obj}));
         // 选择规格
+        
+        
         $(".specifications").html(template('specifications', {item: obj.specificationItemvs}));
+       
         // $(".specificationsss").html(template('specificationsss', {item: obj.specificationItemvs}));
         
         $(".category").html(template('category', {item: obj.specificationItemvs}));
@@ -80,26 +83,92 @@ requestGetService("/xczh/shop/goods/details",{
             })
         };*/
 
-        $('.specifications_ul .casing').click(function(){
-             // 判断显示已选择
-                if ($(".include").hasClass("public")) {
-                    $(".kind").show();
-                    $(".specification").show();
-                    $(".choice").html("已选择");
-                };
-                $(this).addClass('public');
-                $(this).siblings().removeClass('public');
-                var publicHtml = $(this).html();
-                $(".specification").html(publicHtml);
+       
 
-                /*var publicHtml = $(this).html();
-                var detaId = $(this).attr("data-ids");// 一级id
-                $(".fl1_"+detaId).html(publicHtml);*/
-
+        var skus = obj.skuVOs;
+        var specificationIds = [];
+        var defaultSkus = {};
+        //var skuData = [];
+        
+        for (var i = 0; i < skus.length; i++) {
+        	if(skus[i].isDefault){
+        		specificationIds = skus[i].specificationValueIds;
+        		defaultSkus = skus[i];
+        	}
+        	if(skus[i].specificationValueIds!=null &&
+        		skus[i].specificationValueIds.length>0){
+        			
+        	   skus[i].specificationIdsStr = skus[i].specificationValueIds.join(',');
+        	}
+        }
+        
+          /**
+         * 显示库存是否充足
+         * 	当前价格 
+         */
+        if(defaultSkus!=null){
+         	$(".information .price").html("￥"+defaultSkus.price);
+       	    $(".information .repertory").html("库存"+defaultSkus.stock+"件");
+        }
+        
+		//默认选中
+        $(".specification").each(function(index,obj){
+        	 var dataId = $(obj).attr("data-id");
+        	 for (var i = 0; i < specificationIds.length; i++) {
+	        	 if(dataId == specificationIds[i]){
+	        	 	$(obj).removeClass("hide");
+	        	 }
+        	 }
+        })
+        
+        $('.specifications_ul .casing').each(function(index,obj){
+        	 var dataId = $(obj).attr("data-id");
+        	 for (var i = 0; i < specificationIds.length; i++) {
+	        	 if(dataId == specificationIds[i]){
+	        	 	$(obj).addClass("public");
+	        	 }
+        	 }
+        })
+        
+        
+         $('.specifications_ul .casing').click(function(){
+            
+         	// 判断显示已选择
+            if ($(".include").hasClass("public")) {
+                $(".kind").show();
+                $(".specification").show();
+                $(".choice").html("已选择");
+            };
+            $(this).addClass('public');
+            $(this).siblings().removeClass('public');
+            
+            $(".specification").addClass("hide");
+            
+            var lalala = [];
+            $('.specifications_ul .casing[class*="public"]').each(function(index,obj){
+            	 var dataId = $(obj).attr("data-id");
+            	 $(".specification").each(function(index,objs){
+            	 	 var dataIds = $(objs).attr("data-id");
+		        	 if(dataId == dataIds){
+		        	 	$(objs).removeClass("hide");
+						
+		        	 	lalala.push(dataIds);
+		        	 }
+		        })
+            })
+            
+            var currentSku = {};
+            for (var i = 0; i < skus.length; i++) {
+            	if(skus[i].specificationIdsStr == lalala.join(",")){
+            		currentSku = skus[i];
+            	}
+            }
+            if(currentSku!=null){
+	         	$(".information .price").html("￥"+currentSku.price);
+	       	    $(".information .repertory").html("库存"+currentSku.stock+"件");
+        	}
         });
-
-
-
+        
     }
 });
 function listClick(){

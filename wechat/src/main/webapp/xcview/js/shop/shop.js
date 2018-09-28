@@ -1,10 +1,10 @@
 $(function () {
 
     recommends(1,'down');  /*定义一个方法*/
-    newests(1,'down');
-    hottests(1,'down');
-    ascendings(1,'down');
-    descendings(1,'down');
+//    newests(1,'down');
+//    hottests(1,'down');
+//    ascendings(1,'down');
+//    descendings(1,'down');
 })
 
 function listClick(){
@@ -19,7 +19,7 @@ function listClick(){
     // banner图
     requestService("/xczh/shop/goods/banner",null,function (data) {
         if (data.success == true) {   
-            $(".top_details").html(template('top_details', {items: data.resultObject.productImages}));
+            $(".top_details").html(template('top_details', {items: data.resultObject}));
             // 轮播--渲染时放到，渲染的js下面
             var mySwiper = new Swiper('.banner',{
                 autoplay:1500,
@@ -73,7 +73,7 @@ function listClick(){
 
 function recommends(pageNumber, downOrUp){
     // 商品列表--推荐
-    var recommend = 'RECOMMEND_DESC';
+    var recommend = "RECOMMEND_DESC";
     requestGetService("/xczh/shop/goods/list",{
         pageNumber:pageNumber,
         pageSize:6,
@@ -296,7 +296,7 @@ function recommends(pageNumber, downOrUp){
         });
     });
 
-    $(".default_click").click();/*默认点击推荐*/
+    //$(".default_click").click();/*默认点击推荐*/
 
     
 

@@ -154,6 +154,8 @@ public class GoodsServiceImpl implements GoodsService {
         //库存转换
         pv.setSkuVOs(convertProductSku(product));
         
+        
+        
         return pv;
     }
 

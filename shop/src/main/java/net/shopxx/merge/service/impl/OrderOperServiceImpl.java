@@ -6,6 +6,7 @@ import net.shopxx.Setting;
 import net.shopxx.dao.OrderDao;
 import net.shopxx.entity.*;
 import net.shopxx.merge.entity.UsersRelation;
+import net.shopxx.merge.enums.OrderType;
 import net.shopxx.merge.enums.Status;
 import net.shopxx.merge.enums.UsersType;
 import net.shopxx.merge.service.OrderOperService;
@@ -805,7 +806,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 	@Override
 	@Transactional(readOnly = true)
 	public Object findPageXc(OrderPageParams orderPageParams, Status status, ScoreVO store, 
-			String ipandatcmUserId, ProductVO product,UsersType usersType) {
+			String ipandatcmUserId, ProductVO product,UsersType usersType,OrderType orderType) {
 		
 		Store ss = null;Member member = null;
 		if(UsersType.BUSINESS.equals(usersType)) {  //商家
@@ -821,7 +822,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 		Page<Order> orderList = orderDao.findPageXc(orderPageParams,
 				Order.Type.GENERAL,
 				(status !=null ? Order.Status.valueOf(status.toString()) : null),
-				ss, member, null, pageable);
+				ss, member, null, pageable,orderType);
 		
 		//分页参数赋值
         net.shopxx.merge.page.Pageable pageableVo = new 
