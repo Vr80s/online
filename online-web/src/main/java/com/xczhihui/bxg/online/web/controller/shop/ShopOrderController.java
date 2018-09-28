@@ -1,8 +1,14 @@
 package com.xczhihui.bxg.online.web.controller.shop;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,5 +54,12 @@ public class ShopOrderController {
     	LOGGER.info("status : "+ status);
         return ResponseObject.newSuccessResponseObject(orderOperService.findPageXc(orderPageParams, status, null,
         		"aa79673b899249d9a07b0f19732a1b0e",null, UsersType.BUSINESS));
+    }
+    
+    @InitBinder
+    public void initBind(WebDataBinder binder){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+        dateFormat.setLenient(false);  
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));   
     }
 }

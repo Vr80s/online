@@ -1,10 +1,10 @@
 $(function () {
 
     recommends(1,'down');  /*定义一个方法*/
-    newests(1,'down');
-    hottests(1,'down');
-    ascendings(1,'down');
-    descendings(1,'down');
+//    newests(1,'down');
+//    hottests(1,'down');
+//    ascendings(1,'down');
+//    descendings(1,'down');
 })
 
 function listClick(){
@@ -296,7 +296,7 @@ function recommends(pageNumber, downOrUp){
         });
     });
 
-    $(".default_click").click();/*默认点击推荐*/
+    //$(".default_click").click();/*默认点击推荐*/
 
     
 
