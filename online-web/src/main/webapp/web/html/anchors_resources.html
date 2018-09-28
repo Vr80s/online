@@ -2249,11 +2249,11 @@
 							</p>
 							<p class="order-search-num">
 								<span class="left-tip">下单时间</span>
-								<input class="order-write-num time-start" type="text" />
+								<input class="order-write-num time-start" type="text" readonly="value" />
 								<span>至</span>
-								<input class="order-write-num time-end" type="text" />
-								<span class="select-before-time">近7天</span>
-								<span class="select-before-time" style="margin-left: 10px;">近30天</span>
+								<input class="order-write-num time-end" type="text" readonly="value" />
+								<span class="select-before-time date-seven" data-time="7">近7天</span>
+								<span class="select-before-time data-before" data-time="30" style="margin-left: 10px;">近30天</span>
 							</p>
 							<p class="order-search-num">
 								<span class="left-tip"></span>
@@ -3126,7 +3126,17 @@
 			        format:"hh:mm",
 			        isToday:false
 			    });
-		});
+//			我的商品,下单时间
+				jeDate(".time-start",{
+			        format:"YYYY-MM-DD hh:mm:ss",
+			        isToday:false
+			    });
+			    jeDate(".time-end",{
+			        format:"YYYY-MM-DD hh:mm:ss",
+			        isToday:false
+			    });
+
+				});
 
 		function getTomorrowDate() {
 			var date = new Date();
@@ -3193,6 +3203,20 @@
 	            + " " + strHours + seperator2 + strMinutes
 	            + seperator2 + strSeconds;
 	    return currentdate;    
+	}
+//			  过去7天
+	function getBeforeDate(n){//n为你要传入的参数，当前为0，前一天为-1，后一天为1
+      var date = new Date() ;
+      var year,month,day ;
+      date.setDate(date.getDate()+n);
+      year = date.getFullYear();
+      month = date.getMonth()+1;
+      day = date.getDate();
+    var strHours = date.getHours();
+    var strMinutes = date.getMinutes();
+    var strSeconds = date.getSeconds();
+      s = year + '-' + ( month < 10 ? ( '0' + month ) : month ) + '-' + ( day < 10 ? ( '0' + day ) : day)+' '+ ( strHours <10 ? ('0'+strHours ) : strHours)+':'+(strMinutes < 10 ? ('0'+strMinutes) : strMinutes)+':'+(strSeconds < 10 ? ('0'+strSeconds) : strSeconds);
+      return s ;
 	}
 	</script>
 	

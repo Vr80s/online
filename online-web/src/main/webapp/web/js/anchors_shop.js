@@ -3,7 +3,6 @@ $(function(){
 	(function(){	
 //	点击我的商品,重新获取数据
 		$(".shopping-list-btn").click(function(){
-			$(".input-code, .min-sales, .max-sales, .min-price, .max-price").val("");
 			shopList(1);
 		})
 //		var orderType;
@@ -143,12 +142,7 @@ $(function(){
 	 		})
  		}
 //		点击发货状态进行筛选
-//	健康好货开始  我的商品
-
-
-//	我的订单
 		$(".goods-status ul").on("click","li",function(){
-			debugger
 			var dataStatus=$(this).attr("data-status");
 			$(".goods-status ul li").removeClass("active");
 			$(this).addClass("active");
@@ -158,5 +152,44 @@ $(function(){
 				orderList(1,dataStatus)
 			}
 		})	
+//		输入条件点击筛选
+		$(".order-commodity").click(function(){
+			var timeStart=$(".time-start").val(),
+				timeEnd=$(".time-end").val();
+			if (timeStart != "" && timeEnd!= "") {
+				if (timeStart>timeEnd) {
+					showTip("开始时间不能大于结束时间");
+					return false;
+				}else{
+					orderList(1);
+				}
+			}else{
+				orderList(1)
+			}
+		})
+//		清空筛选条件
+		$(".clear-order-commodity").click(function(){
+			$(".order-value, .ware-value, .time-start, .time-end").val("");
+			$(".select-before-time").removeClass("active-time");
+		})
+//		点击近七天/近30天
+		$(".select-before-time").click(function(){
+			var dataTime=$(this).attr("data-time");
+			var nowtime=getBeforeDate(0);
+			var pastTime=getBeforeDate(-7);
+			var pastMoreTime=getBeforeDate(-30);
+			$(".select-before-time").removeClass("active-time");
+			$(this).addClass("active-time");
+			if (dataTime==7) {
+				$(".time-start").val(pastTime);
+				$(".time-end").val(nowtime);
+				orderList(1)
+			}else if(dataTime==30){
+				$(".time-start").val(pastMoreTime);
+				$(".time-end").val(nowtime);
+				orderList(1);
+			}
+		})
+
  	})();
 })
