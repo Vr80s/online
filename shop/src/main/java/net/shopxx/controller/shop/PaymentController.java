@@ -117,8 +117,6 @@ public class PaymentController extends BaseController {
 
 		ModelAndView modelAndView = new ModelAndView();
 		paymentPlugin.prePayHandle(paymentPlugin, paymentTransaction, getPaymentDescription(paymentTransaction), extra, request, response, modelAndView);
-		System.out.println(modelAndView.getViewName());
-		System.out.println(modelAndView.getView());
 		return modelAndView;
 	}
 

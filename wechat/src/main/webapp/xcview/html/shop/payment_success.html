@@ -47,7 +47,7 @@
 			<div class="win">
 				<img src="/xcview/images/shop/win.png" alt="" />支付成功
 			</div>
-			<div class="actual_payment">实付款￥24.09</div>
+			<div class="actual_payment">实付款<span class="amount"></span></div>
 			<div class="button">
 				<div class="index" onclick="location.href ='/xcview/html/shop/shop.html'">商城首页</div>
 				<div class="details" onclick="location.href ='/xcview/html/shop/commodity_details.html'">订单详情</div>
@@ -56,7 +56,7 @@
 		<div class="object_error">
 			<div class="object_error_main">
 				<div class="pay">支付方式</div>
-				<div class="pattern">支付宝</div>
+				<div class="pattern paymentPluginName">支付宝</div>
 			</div>
 		</div>
 		<div class="warm_prompt">温馨提示：商家不会以商品或订单异常，系统升级为由要求您点击任何链接或提供个人信息进行退款操作</div>
@@ -70,6 +70,13 @@
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js"></script>
-
+<script type="text/javascript">
+    var amount = getParam("amount");
+    $(".amount").html(amount);
+    var paymentPluginName = getParam("paymentPluginName");
+    $(".paymentPluginName").html(paymentPluginName);
+    var sn = getParam("sn");
+    alert(sn);
+</script>
 
 </html>

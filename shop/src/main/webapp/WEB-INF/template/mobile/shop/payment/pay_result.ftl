@@ -167,4 +167,11 @@
 		</div>
 	</footer>
 </body>
+<script type="text/javascript">
+	$(function(){
+		var href = "https://cs.m.xczhihui.com/xcview/html/shop/payment_success.html?amount=${currency(paymentTransaction.amount, true, true)}&sn=${paymentTransaction.sn}&paymentPluginName=${paymentTransaction.paymentPluginName}";
+		alert(href);
+//		window.location.href = href;
+	});
+</script>
 </html>
