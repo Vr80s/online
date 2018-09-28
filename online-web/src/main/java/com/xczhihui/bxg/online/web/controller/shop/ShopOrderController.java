@@ -49,7 +49,8 @@ public class ShopOrderController {
     	LOGGER.info("type : "+ type);
     	LOGGER.info("status : "+ status);
     	
-        return ResponseObject.newSuccessResponseObject(orderOperService.findPageXc(orderPageParams,type, status, null, 
-        		"aa79673b899249d9a07b0f19732a1b0e",null, UsersType.BUSINESS));
+//        return ResponseObject.newSuccessResponseObject(orderOperService.findPageXc(orderPageParams,type, status, null,
+//        		"aa79673b899249d9a07b0f19732a1b0e",null, UsersType.BUSINESS));
+		return null;
     }
 }
