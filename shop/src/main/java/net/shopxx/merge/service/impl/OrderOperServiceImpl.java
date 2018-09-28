@@ -1,16 +1,19 @@
 package net.shopxx.merge.service.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.inject.Inject;
-
+import net.shopxx.Page;
+import net.shopxx.Pageable;
+import net.shopxx.Setting;
+import net.shopxx.dao.OrderDao;
+import net.shopxx.entity.*;
+import net.shopxx.merge.entity.UsersRelation;
+import net.shopxx.merge.enums.Status;
+import net.shopxx.merge.enums.Type;
+import net.shopxx.merge.enums.UsersType;
+import net.shopxx.merge.service.OrderOperService;
+import net.shopxx.merge.service.UsersRelationService;
+import net.shopxx.merge.vo.*;
+import net.shopxx.service.*;
+import net.shopxx.util.SystemUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -21,53 +24,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import net.shopxx.Page;
-import net.shopxx.Pageable;
-import net.shopxx.Setting;
-import net.shopxx.dao.OrderDao;
-import net.shopxx.entity.Area;
-import net.shopxx.entity.Cart;
-import net.shopxx.entity.CartItem;
-import net.shopxx.entity.CouponCode;
-import net.shopxx.entity.Invoice;
-import net.shopxx.entity.Member;
-import net.shopxx.entity.Order;
-import net.shopxx.entity.OrderItem;
-import net.shopxx.entity.OrderShipping;
-import net.shopxx.entity.PaymentMethod;
-import net.shopxx.entity.Product;
-import net.shopxx.entity.Receiver;
-import net.shopxx.entity.ShippingMethod;
-import net.shopxx.entity.Sku;
-import net.shopxx.entity.Store;
-import net.shopxx.merge.entity.UsersRelation;
-import net.shopxx.merge.enums.Status;
-import net.shopxx.merge.enums.Type;
-import net.shopxx.merge.enums.UsersType;
-import net.shopxx.merge.service.OrderOperService;
-import net.shopxx.merge.service.UsersRelationService;
-import net.shopxx.merge.vo.AreaVO;
-import net.shopxx.merge.vo.CartItemVO;
-import net.shopxx.merge.vo.CartVO;
-import net.shopxx.merge.vo.OrderItemVO;
-import net.shopxx.merge.vo.OrderPageParams;
-import net.shopxx.merge.vo.OrderVO;
-import net.shopxx.merge.vo.OrdersVO;
-import net.shopxx.merge.vo.ProductVO;
-import net.shopxx.merge.vo.ReceiverVO;
-import net.shopxx.merge.vo.ScoreVO;
-import net.shopxx.merge.vo.SkuVO;
-import net.shopxx.service.AreaService;
-import net.shopxx.service.CartService;
-import net.shopxx.service.CouponCodeService;
-import net.shopxx.service.OrderService;
-import net.shopxx.service.OrderShippingService;
-import net.shopxx.service.PaymentMethodService;
-import net.shopxx.service.ReceiverService;
-import net.shopxx.service.ShippingMethodService;
-import net.shopxx.service.SkuService;
-import net.shopxx.service.StoreService;
-import net.shopxx.util.SystemUtils;
+import javax.inject.Inject;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * 熊猫中医与shop用户关系
@@ -412,7 +371,6 @@ public class OrderOperServiceImpl implements OrderOperService {
 		
 		//获取当前用户
 		Member currentUser = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
-		Store ss = storeService.findByBusinessId(10101L);
 		Pageable pageable = new Pageable(pageNumber, pageSize);
 		String t = null;
 		if(type != null){
@@ -432,11 +390,17 @@ public class OrderOperServiceImpl implements OrderOperService {
 			OrderVO o = new OrderVO();
 			BeanUtils.copyProperties(order,o);
 			o.setId(order.getId());
+			o.setStatus(OrderVO.Status.valueOf(order.getStatus().toString()));
 			List<OrderItemVO> orderItemVOList = new ArrayList<>();
 			for(OrderItem orderItem : order.getOrderItems()){
 				OrderItemVO orderItemVO = new OrderItemVO();
 				BeanUtils.copyProperties(orderItem,orderItemVO);
 				orderItemVOList.add(orderItemVO);
+				//获取库存
+				orderItem.getSku();
+				Long ssss = orderItem.getSku().getId();
+				Integer aaa = orderItem.getSku().getStock();
+				System.out.println(aaa);
 			}
 			o.setOrderItems(orderItemVOList);
 			list.add(o);
