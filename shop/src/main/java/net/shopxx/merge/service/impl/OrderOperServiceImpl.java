@@ -828,7 +828,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Object findPageXc(OrderPageParams orderPageParams,UsersType type, Status status, ScoreVO store, 
+	public Object findPageXc(OrderPageParams orderPageParams, Status status, ScoreVO store, 
 			String ipandatcmUserId, ProductVO product,UsersType usersType) {
 		
 		Store ss = null;Member member = null;
