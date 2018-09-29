@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
-import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.beans.BeanUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -65,7 +65,6 @@ public class ShopReviewServiceImpl implements ShopReviewService {
 	@Override
 	@Transactional(readOnly = true)
 	public Object list(Long productId, Integer pageNumber, Integer pageSize) {
-		
 		Product find = productDao.find(productId);
 		List<Review> content = reviewDao.findPage(null, find, null, null, true, 
 				new Pageable(pageNumber,pageSize)).getContent();
@@ -79,17 +78,13 @@ public class ShopReviewServiceImpl implements ShopReviewService {
 			for (Review review : content) {
 				ReviewVO reviewVo = new ReviewVO();
 				UsersVO usersVO = new UsersVO();
-				try {
-					BeanUtils.copyProperties(reviewVo,review);
-					if(review.getSpecifications().size()>0) {
-						String specifications = review.getSpecifications().stream().collect(Collectors.joining(";"));
-						reviewVo.setSpecifications(specifications);
-					}
-					BeanUtils.copyProperties(usersVO, review.getMember());
-					reviewVo.setUser(usersVO);
-				} catch (IllegalAccessException | InvocationTargetException e) {
-					e.printStackTrace();
+				BeanUtils.copyProperties(review,reviewVo);
+				if(review.getSpecifications().size()>0) {
+					String specifications = review.getSpecifications().stream().collect(Collectors.joining(";"));
+					reviewVo.setSpecifications(specifications);
 				}
+				BeanUtils.copyProperties(review.getMember(),usersVO);
+				reviewVo.setUser(usersVO);
 				reviewVos.add(reviewVo);
 			}
 			return reviewVos;
