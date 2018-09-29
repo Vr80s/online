@@ -828,6 +828,7 @@ public class Sku extends BaseEntity<Long> {
                 skuVO.setImage(productImages.get(0).getThumbnail());
             }
             skuVO.setName(this.product.getName());
+            skuVO.setProductId(this.getProduct().getId());
         }
         return skuVO;
     }

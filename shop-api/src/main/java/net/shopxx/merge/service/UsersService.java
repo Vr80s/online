@@ -2,8 +2,6 @@ package net.shopxx.merge.service;
 
 public interface UsersService {
 
-    void saveUserRelation(String ipandatcmUserId);
-
     /**
      * 通过doctorId获取商家后台用户名
      *
@@ -19,4 +17,6 @@ public interface UsersService {
      * @return 秘钥
      */
     String createFreeSecretKey(String username);
+
+    Long register(String username, String password, String email, String mobile);
 }

@@ -18,4 +18,6 @@ public interface UsersRelationService extends BaseService<UsersRelation, Long> {
     UsersRelation findByUserId(Long userId);
 
     Member getMemberByIpandatcmUserId(String ipandatcmUserId);
+
+    UsersRelation saveUserRelation(String ipandatcmUserId);
 }

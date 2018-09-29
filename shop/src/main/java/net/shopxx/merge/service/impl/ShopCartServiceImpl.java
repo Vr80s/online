@@ -1,12 +1,6 @@
 package net.shopxx.merge.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -112,11 +106,20 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
             cartItem = cartItemDao.findFetchSku(cartItem.getId());
             return cartItem != null && cartItem.getSku().getId().equals(skuId);
         }).findFirst();
-        CartItem cartItem = cartItemOptional.orElseThrow(() -> new RuntimeException("skuId参数错误"));
-        cartItem = cartItemDao.find(cartItem.getId());
-        cartItem.setQuantity(quantity);
-        cartItemService.update(cartItem);
-        applicationEventPublisher.publishEvent(new CartModifiedEvent(this, cart, sku, quantity));
+        CartItem cartItem;
+        if (cartItemOptional.isPresent()) {
+            cartItem = cartItemOptional.get();
+            cartItem = cartItemDao.find(cartItem.getId());
+            cartItem.setQuantity(quantity);
+            cartItemService.update(cartItem);
+            applicationEventPublisher.publishEvent(new CartModifiedEvent(this, cart, sku, quantity));
+        } else {
+            cartItem = new CartItem();
+            cartItem.setQuantity(quantity);
+            cartItem.setSku(sku);
+            cartItem.setCart(cart);
+            cartItemDao.persist(cartItem);
+        }
     }
 
     @Override
@@ -152,7 +155,7 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
         Set<CartItem> cartItems = cart.getCartItems();
         List<StoreCartItemVO> storeCartItemVOList = new ArrayList<>();
         Map<Long, List<CartItem>> allStoreCartItemMap = new HashMap<>();
-        List<Store> stores = new ArrayList<>();
+        Map<Long, Store> storeMap = new LinkedHashMap<>();
         for (CartItem cartItem : cartItems) {
             cartItem = cartItemDao.findFetchSku(cartItem.getId());
             Sku sku = cartItem.getSku();
@@ -170,10 +173,12 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
                     storeCartItemList.add(cartItem);
                     allStoreCartItemMap.put(storeId, storeCartItemList);
                 }
-                stores.add(store);
+                if (!storeMap.containsKey(storeId)) {
+                    storeMap.put(storeId, store);
+                }
             }
         }
-        for (Store store : stores) {
+        for (Store store : storeMap.values()) {
             StoreCartItemVO storeCartItemVO = new StoreCartItemVO();
             storeCartItemVO.setId(store.getId());
             storeCartItemVO.setName(store.getName());

@@ -846,13 +846,13 @@ public class OrderOperServiceImpl implements OrderOperService {
 		for(Order order : orderList.getContent()){
 			OrdersVO o = new OrdersVO();
 			try {
-				org.apache.commons.beanutils.BeanUtils.copyProperties(o,order);
+				org.springframework.beans.BeanUtils.copyProperties(order,o);
 				o.setStatus(order.getStatus().ordinal());
 				List<OrderItem> orderItems = order.getOrderItems();
 				List<OrderItemVO> orderVoItems = new ArrayList<OrderItemVO>();
 				for (OrderItem orderItem : orderItems) {
 					OrderItemVO orderItemVO = new OrderItemVO();
-					org.apache.commons.beanutils.BeanUtils.copyProperties(orderItemVO,orderItem);
+					org.springframework.beans.BeanUtils.copyProperties(orderItem,orderItemVO);
 					orderVoItems.add(orderItemVO);
 				}
 				o.setOrderVoItems(orderVoItems);

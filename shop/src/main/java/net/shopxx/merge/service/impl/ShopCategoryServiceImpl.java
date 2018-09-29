@@ -1,14 +1,13 @@
 package net.shopxx.merge.service.impl;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,32 +35,27 @@ public class ShopCategoryServiceImpl implements ShopCategoryService {
 
 		List<ProductCategoryVO> childrenVOs = new ArrayList<ProductCategoryVO>();
 		
-		try {
-			for (ProductCategory productCategory : productCategorys) {
-				
-				ProductCategoryVO pv = new ProductCategoryVO();
-				
-				BeanUtils.copyProperties(pv, productCategory);
-				
-				if (productCategory.getChildren().size() > 0) {
+		for (ProductCategory productCategory : productCategorys) {
+			
+			ProductCategoryVO pv = new ProductCategoryVO();
+			
+			BeanUtils.copyProperties( productCategory,pv );
+			
+			if (productCategory.getChildren().size() > 0) {
 
-					List<ProductCategoryVO> childrenVOsC = new ArrayList<ProductCategoryVO>();
-					
-					for (ProductCategory productCategoryc : productCategory.getChildren()) {
-						ProductCategoryVO pvC = new ProductCategoryVO();
-						BeanUtils.copyProperties(pvC, productCategoryc);
-						childrenVOsC.add(pvC);
-					}
-					
-					pv.setChildrenVOs(childrenVOsC);
+				List<ProductCategoryVO> childrenVOsC = new ArrayList<ProductCategoryVO>();
+				
+				for (ProductCategory productCategoryc : productCategory.getChildren()) {
+					ProductCategoryVO pvC = new ProductCategoryVO();
+					BeanUtils.copyProperties( productCategoryc, pvC);
+					childrenVOsC.add(pvC);
 				}
-				childrenVOs.add(pv);
+				
+				pv.setChildrenVOs(childrenVOsC);
 			}
-			return childrenVOs;
-		} catch (IllegalAccessException | InvocationTargetException e) {
-			e.printStackTrace();
+			childrenVOs.add(pv);
 		}
-		return null;
+		return childrenVOs;
 	}
 	
 	@Override
@@ -69,11 +63,7 @@ public class ShopCategoryServiceImpl implements ShopCategoryService {
 	public Object details(Long productCateId) {
 		ProductCategory productCategory = productCategoryDao.find(productCateId);
 		ProductCategoryVO pv = new ProductCategoryVO();
-		try {
-			BeanUtils.copyProperties(pv, productCategory);
-		} catch (IllegalAccessException | InvocationTargetException e) {
-			e.printStackTrace();
-		}
+		BeanUtils.copyProperties(productCategory,pv);
 		return pv;
 	}	
 
