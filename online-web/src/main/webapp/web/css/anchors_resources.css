@@ -532,7 +532,21 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 	margin-right: 70px
 }
 .goods-top-menu ul li:nth-child(5){
-	margin-right: 70px
+	margin-right: 70px;
+	position: relative;
+}
+.goods-top-menu ul li:nth-child(5) .order-up{
+	position: absolute;
+    right: -19px;
+    top: 7px;
+}
+.goods-top-menu ul li:nth-child(5) .order-down{
+	position: absolute;
+    right: -19px;
+    bottom: 6px;
+}
+.goods-top-menu ul li:nth-child(5) .order-active{
+	color: #00bc12;
 }
 .goods-top-menu ul li:nth-child(6){
 	margin-right: 50px
