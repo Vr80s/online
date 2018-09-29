@@ -5,6 +5,7 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import net.shopxx.dao.CartDao;
 import net.shopxx.dao.CartItemDao;
@@ -197,6 +198,7 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
 
 	
 	@Override
+	@Transactional
 	public Integer getCartQuantity(String accountId) {
 		Member member = usersRelationService.getMemberByIpandatcmUserId(accountId);
         Cart cart = member.getCart();
