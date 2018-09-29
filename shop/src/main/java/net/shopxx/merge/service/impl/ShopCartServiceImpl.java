@@ -5,6 +5,7 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import net.shopxx.dao.CartDao;
 import net.shopxx.dao.CartItemDao;
@@ -87,7 +88,22 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
             cart = create(ipandatcmUserId);
         }
         Sku sku = skuService.find(skuId);
-        cartService.add(cart, sku, quantity);
+        Set<CartItem> cartItems = cart.getCartItems();
+        Optional<CartItem> cartItemOptional = cartItems.stream().filter(cartItem -> {
+            cartItem = cartItemDao.findFetchSku(cartItem.getId());
+            return cartItem != null && cartItem.getSku().getId().equals(skuId);
+        }).findFirst();
+        CartItem cartItem = null;
+        if (cartItemOptional.isPresent()) {
+            cartItem = cartItemOptional.get();
+            cartItem.setQuantity(cartItem.getQuantity() + quantity);
+        } else {
+            cartItem = new CartItem();
+            cartItem.setCart(cart);
+            cartItem.setSku(sku);
+            cartItem.setQuantity(quantity);
+            cartItemDao.persist(cartItem);
+        }
     }
 
     @Override
@@ -197,6 +213,7 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
 
 	
 	@Override
+	@Transactional
 	public Integer getCartQuantity(String accountId) {
 		Member member = usersRelationService.getMemberByIpandatcmUserId(accountId);
         Cart cart = member.getCart();

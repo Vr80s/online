@@ -172,7 +172,6 @@ $(function () {
     $choiceProduct.on('click', '.include', function () {
         var index = $(this).data('index');
         $choiceProduct.find('.spec-index-' + index).html($(this).data('name'));
-        console.log($choiceProduct.find('.inlcude'));
         $(this).parents('.specifications_ul').find('.include').removeClass('public');
         $(this).addClass('public');
         changeProductProp();
@@ -194,6 +193,9 @@ $(function () {
         $('.itemdelete').hide();
     });
 
+    /**
+     * 确认修改规格
+     */
     $choiceProduct.on('click', '.determine', function (e) {
         e.stopPropagation();
         if (oldSkuId && updatedSkuId) {
@@ -231,6 +233,9 @@ $(function () {
         }
     });
 
+    /**
+     * 结算
+     */
     $('.settlement').on('click', function () {
         var ids = [];
         $shopCartDiv.find('.goodsCheck').each(function() {
@@ -243,6 +248,10 @@ $(function () {
             return false;
         }
         window.location.href='/xcview/html/shop/confirm_order.html?cartItemIds=' + ids.join(',');
+    });
+
+    $('.message').on('click', function () {
+        jqtoast('客服休息中,稍后报道~');
     })
 });
 initCart();

@@ -86,6 +86,7 @@ public class ShopReviewServiceImpl implements ShopReviewService {
 				BeanUtils.copyProperties(review.getMember(),usersVO);
 				
 				reviewVo.setUser(usersVO);
+				
 				reviewVos.add(reviewVo);
 			}
 			return reviewVos;
