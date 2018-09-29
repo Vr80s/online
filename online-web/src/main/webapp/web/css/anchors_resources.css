@@ -1125,11 +1125,6 @@ outline: none;
  }
 
 
-
-.shopping-list-wrap{
-	max-height: 606px;
-    overflow-y: auto;
-}
 .shopping-list-wrap table th{
 	background: #F0F0F0;
     height: 38px;
@@ -1150,7 +1145,10 @@ outline: none;
     color: #188EEE;
     text-align: center;
 }
-
+.shopping-list-wrap tr td:nth-child(1){
+	width: 106px;
+	height: 60px;
+}
 .shopping-list-wrap tr td .shopping-fengmian{
 	max-width: 106px;
     max-height: 60px;
