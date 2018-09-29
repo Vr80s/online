@@ -498,8 +498,8 @@
 								<div class="shopping-edit-box">
 									<img class="close-shopping" src="/web/images/alter-close.png" alt="关闭医案" title="关闭医案">
 									<ul>
-										<li class="active">我的商品</li>
-										<li>所有商品</li>
+										<li class="add-myware active" data-style="0">我的商品</li>
+										<li data-style="1">所有商品</li>
 									</ul>
 								</div>
 								<div class="our-ratings">
@@ -520,7 +520,7 @@
 								</div>
 								<p class="search-ware-num">全部结果约<span>0</span>条</p>
 								<p class="comment-wrong select-ware-null hide">请至少选择一件商品！</p>
-								<div class="shopping-list-wrap">
+								<div class="shopping-list-wrap hide" id="shopping-list">
 									<table border="0" cellspacing="0" cellpadding="0">
 										<tr>
 											<th>商品图片</th>
@@ -2249,9 +2249,9 @@
 							</p>
 							<p class="order-search-num">
 								<span class="left-tip">下单时间</span>
-								<input class="order-write-num time-start" type="text" readonly="value" />
+								<input class="order-write-num time-start" type="text" readonly="value" onchange="myFunction()" />
 								<span>至</span>
-								<input class="order-write-num time-end" type="text" readonly="value" />
+								<input class="order-write-num time-end" type="text" readonly="value" onchange="changeStyle()" />
 								<span class="select-before-time date-seven" data-time="7">近7天</span>
 								<span class="select-before-time data-before" data-time="30" style="margin-left: 10px;">近30天</span>
 							</p>
@@ -2279,7 +2279,10 @@
 									<li>单价/数量</li>
 									<li>售后</li>
 									<li>买家</li>
-									<li>下单时间</li>
+									<li>下单时间
+										<i class="icomoon-icon-shang order-up" data-style="DATE_ASC"></i>
+										<i class="icomoon-icon-xia order-down" data-style="DATE_DESC"></i>
+									</li>
 									<li>订单状态</li>
 									<li>实付金额</li>
 								</ul>
@@ -3126,7 +3129,7 @@
 			        format:"hh:mm",
 			        isToday:false
 			    });
-//			我的商品,下单时间
+//			我的商品/,下单时间
 				jeDate(".time-start",{
 			        format:"YYYY-MM-DD hh:mm:ss",
 			        isToday:false

@@ -85,12 +85,11 @@ $(function(){
 	})();
 	
 //	订单管理
- 	(function(){
- 		orderList(1) 	
+ 	(function(){	
  		$(".shopping-order-btn").click(function(){
  			orderList(1);
  		})
- 		function orderList(pageNumber,status){
+ 		function orderList(pageNumber,status,orderStyle){
  			var orderValue=$.trim($(".order-value").val()),
  				wareValue=$.trim($(".ware-value").val()),
  				timeStart=$.trim($(".time-start").val()),
@@ -106,6 +105,11 @@ $(function(){
  					orderData.status=status;
  				}else{
  					orderData.status="";
+ 				}
+ 				if(orderStyle != null || orderStyle != ""){
+ 					orderData.orderType=orderStyle;
+ 				}else{
+ 					orderData.orderType="";
  				}
  			RequestService("/xczh/shop/order/list", "get",orderData, function (data) {
 	 			if(data.success==true){
@@ -141,9 +145,11 @@ $(function(){
 		  		}
 	 		})
  		}
-//		点击发货状态进行筛选
+//		点击状态进行筛选
+		var dataStatus;
 		$(".goods-status ul").on("click","li",function(){
-			var dataStatus=$(this).attr("data-status");
+			$(".goods-top-menu ul li i").removeClass("order-active"); //去掉排序样式
+			dataStatus=$(this).attr("data-status");
 			$(".goods-status ul li").removeClass("active");
 			$(this).addClass("active");
 			if(dataStatus==0){
@@ -152,8 +158,22 @@ $(function(){
 				orderList(1,dataStatus)
 			}
 		})	
+//		时间上下排序
+		$(".goods-top-menu ul li i").click(function(){
+			var orderStyle=$(this).attr("data-style");
+			$(".goods-top-menu ul li i").removeClass("order-active");
+			$(this).addClass("order-active");
+			if(dataStatus==0){
+				orderList(1,"",orderStyle)
+			}else{
+				orderList(1,dataStatus,orderStyle);
+			}
+			
+		})	
 //		输入条件点击筛选
 		$(".order-commodity").click(function(){
+			$(".goods-top-menu ul li i").removeClass("order-active"); //去掉排序样式
+			$(".select-before-time").removeClass("active-time")  //去掉7天样式
 			var timeStart=$(".time-start").val(),
 				timeEnd=$(".time-end").val();
 			if (timeStart != "" && timeEnd!= "") {
@@ -161,10 +181,14 @@ $(function(){
 					showTip("开始时间不能大于结束时间");
 					return false;
 				}else{
-					orderList(1);
+					if(dataStatus==0){
+						orderList(1);
+					}else{
+						orderList(1,dataStatus);
+					}
 				}
 			}else{
-				orderList(1)
+				orderList(1,dataStatus)
 			}
 		})
 //		清空筛选条件
@@ -174,6 +198,7 @@ $(function(){
 		})
 //		点击近七天/近30天
 		$(".select-before-time").click(function(){
+			$(".goods-top-menu ul li i").removeClass("order-active"); //去掉排序样式
 			var dataTime=$(this).attr("data-time");
 			var nowtime=getBeforeDate(0);
 			var pastTime=getBeforeDate(-7);
@@ -183,13 +208,22 @@ $(function(){
 			if (dataTime==7) {
 				$(".time-start").val(pastTime);
 				$(".time-end").val(nowtime);
-				orderList(1)
+				if(dataStatus==0){
+					orderList(1)
+				}else{
+					orderList(1,dataStatus)
+				}
+				
 			}else if(dataTime==30){
 				$(".time-start").val(pastMoreTime);
 				$(".time-end").val(nowtime);
-				orderList(1);
+				if(dataStatus==0){
+					orderList(1)
+				}else{
+					orderList(1,dataStatus)
+				}
 			}
 		})
-
+		
  	})();
 })
