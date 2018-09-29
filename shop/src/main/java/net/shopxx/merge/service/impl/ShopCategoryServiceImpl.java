@@ -48,6 +48,7 @@ public class ShopCategoryServiceImpl implements ShopCategoryService {
 				for (ProductCategory productCategoryc : productCategory.getChildren()) {
 					ProductCategoryVO pvC = new ProductCategoryVO();
 					BeanUtils.copyProperties( productCategoryc, pvC);
+					pvC.setId(productCategory.getId());
 					childrenVOsC.add(pvC);
 				}
 				
@@ -64,6 +65,7 @@ public class ShopCategoryServiceImpl implements ShopCategoryService {
 		ProductCategory productCategory = productCategoryDao.find(productCateId);
 		ProductCategoryVO pv = new ProductCategoryVO();
 		BeanUtils.copyProperties(productCategory,pv);
+		pv.setId(productCategory.getId());
 		return pv;
 	}	
 
