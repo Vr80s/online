@@ -1,51 +1,52 @@
 package net.shopxx.merge.enums;
+
 /**
-	 * 状态
+ * 状态
+ */
+public enum Status {
+
+	/**
+	 * 等待付款
 	 */
-	public enum Status {
+	PENDING_PAYMENT,
 
-		/**
-		 * 等待付款
-		 */
-		PENDING_PAYMENT,
+	/**
+	 * 等待审核
+	 */
+	PENDING_REVIEW,
 
-		/**
-		 * 等待审核
-		 */
-		PENDING_REVIEW,
+	/**
+	 * 等待发货
+	 */
+	PENDING_SHIPMENT,
 
-		/**
-		 * 等待发货
-		 */
-		PENDING_SHIPMENT,
+	/**
+	 * 已发货
+	 */
+	SHIPPED,
 
-		/**
-		 * 已发货
-		 */
-		SHIPPED,
+	/**
+	 * 已收货
+	 */
+	RECEIVED,
 
-		/**
-		 * 已收货
-		 */
-		RECEIVED,
+	/**
+	 * 已完成
+	 */
+	COMPLETED,
 
-		/**
-		 * 已完成
-		 */
-		COMPLETED,
+	/**
+	 * 已失败
+	 */
+	FAILED,
 
-		/**
-		 * 已失败
-		 */
-		FAILED,
+	/**
+	 * 已取消
+	 */
+	CANCELED,
 
-		/**
-		 * 已取消
-		 */
-		CANCELED,
-
-		/**
-		 * 已拒绝
-		 */
-		DENIED
-	}
+	/**
+	 * 已拒绝
+	 */
+	DENIED
+}

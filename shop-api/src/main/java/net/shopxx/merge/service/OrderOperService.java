@@ -1,6 +1,7 @@
 package net.shopxx.merge.service;
 
 
+import net.shopxx.merge.enums.OrderType;
 import net.shopxx.merge.enums.Status;
 import net.shopxx.merge.enums.Type;
 import net.shopxx.merge.enums.UsersType;
@@ -136,7 +137,7 @@ public interface OrderOperService {
 	 * @return  
 	 */ 
 	Object findPageXc(OrderPageParams orderPageParams,Status status, ScoreVO store, 
-			String ipandatcmUserId, ProductVO product,UsersType usersType);
+			String ipandatcmUserId, ProductVO product,UsersType usersType,OrderType orderType);
 
     Map payment(String orderSnsStr);
 }

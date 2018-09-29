@@ -44,6 +44,11 @@
 	.pswp__counter{
 		display: none !important;
 	}
+	
+	.hide{
+		display: none!important;
+	}
+	
 </style>
 </head>
 <body>
@@ -355,7 +360,7 @@
 	</div>
 
 	<!-- 点击购物车出现提示开始 -->
-	<div class="shopping_trolley" style="display: block !important;">
+	<div class="shopping_trolley" style="displayss: block !important;">
 		<div class="shopping_trolley_bg"></div>
 		<div class="shopping_trolley_main" style="height:8.28rem;">
 			<div class="shopping_trolley_center">
@@ -378,7 +383,9 @@
 					<script type="text/html" id="category">
 					<span class="choice">选择</span>
 					{{each item as items i}}
-					<span class="specification fl1_{{items.id}}">{{items.name}}</span>
+  						{{each items.entries as itemss i}}
+						   <span class="hide specification fl1_{{items.id}}"  title="{{items.name}}" data-id="{{itemss.id}}" >{{itemss.value}}</span>
+						{{/each}}
 					{{/each}}
 					</script>
 				</div>
@@ -386,9 +393,11 @@
 					<script type="text/html" id="specifications">
 					{{each item as items i}}
 					<span class="">{{items.name}}</span>
-					<ul class="specifications_ul">
+					<ul class="specifications_ul" >
 						{{each items.entries as itemss i}}
-						<li class="casing include" data-id="{{itemss.id}}" data-ids="{{items.id}}">{{itemss.value}}</li>
+						    {{if itemss.isSelected}}					
+								<li class="casing include" title="{{items.name}}" data-id="{{itemss.id}}" data-ids="{{items.id}}">{{itemss.value}}</li>
+						    {{/if}}	
 						{{/each}}
 					</ul>
 					{{/each}}

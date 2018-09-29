@@ -48,7 +48,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Autowired
     private IMedicalDoctorPostsService medicalDoctorPostsService;
-    
+
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
 
@@ -78,7 +78,7 @@ public class GoodsServiceImpl implements GoodsService {
 
                 //医师推荐信息
                 LOGGER.info("product.getStore().getBusiness().getDoctorId() " + product.getStore().getBusiness().getDoctorId());
-                
+
                 String key = RedisCacheKey.STORE_DOCTOR_RELEVANCE +
                         RedisCacheKey.REDIS_SPLIT_CHAR + product.getStore().getId();
 
@@ -88,13 +88,13 @@ public class GoodsServiceImpl implements GoodsService {
                     JSONObject jasonObject = JSONObject.fromObject(value);
                     pro.setDoctor((Map) jasonObject);
                 } else {
-                    
+
                 	String doctorId = product.getStore().getBusiness().getDoctorId();
-                	
+
                     if (doctorId != null) {
-                        
+
                         Map<String, Object> map = medicalDoctorBusinessService.getDoctorInfoByDoctorId(doctorId);
-                        
+
                         LOGGER.info("map tostring " + (map != null ? map.toString() : null));
                         JSONObject jasonObject = JSONObject.fromObject(map);
                         redisCacheService.set(key, jasonObject.toString());
@@ -150,20 +150,22 @@ public class GoodsServiceImpl implements GoodsService {
 
         //分类id
         pv.setProductcategoryId(product.getProductCategory().getId());
-        
+
         //库存转换
         pv.setSkuVOs(convertProductSku(product));
+        
+        
         
         return pv;
     }
 
 
-    /**  
-	 * <p>Title: convertProductSku</p>  
-	 * <p>Description: </p>  
+    /**
+	 * <p>Title: convertProductSku</p>
+	 * <p>Description: </p>
 	 * @param product
-	 * @return  
-	 */ 
+	 * @return
+	 */
 	private Set<SkuVO> convertProductSku(Product product) {
 		if(product.getSkus().size()>0) {
 			Set<Sku> skus = product.getSkus();
@@ -182,7 +184,7 @@ public class GoodsServiceImpl implements GoodsService {
 			return skuVos;
 		}
 		return null;
-		
+
 	}
 
 
@@ -294,5 +296,25 @@ public class GoodsServiceImpl implements GoodsService {
             }
             return productDao.listByStoreId(storeIds, productQueryParam);
         }
+    }
+
+    @Override
+    public ProductVO getProductById(Long id) {
+        Product product = productDao.find(id);
+        if (product == null) {
+            throw new IllegalArgumentException("商品id参数错误");
+        }
+        ProductVO productVO = new ProductVO();
+        productVO.setId(id);
+        productVO.setSpecificationItemvs(convertSpecificationItem(product));
+        Set<SkuVO> skuVOs = product.getSkus().stream().map(sku -> {
+            SkuVO skuVO = new SkuVO();
+            org.springframework.beans.BeanUtils.copyProperties(sku, skuVO);
+            skuVO.setId(sku.getId());
+            skuVO.setSpecifications(sku.getSpecifications() != null ? sku.getSpecifications().stream().collect(Collectors.joining(",")) : null);
+            return skuVO;
+        }).collect(Collectors.toSet());
+        productVO.setSkuVOs(skuVOs);
+        return productVO;
     }
 }
