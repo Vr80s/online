@@ -43,6 +43,9 @@
 	/*处理刷新*/
 	.minirefresh-wrap{
 		top: 1.1rem;
+		padding-bottom: 1.6rem
+		;
+		z-index: -1;
 	}
 	.minirefresh-theme-default .minirefresh-downwrap{
 		height: 1rem;
@@ -63,6 +66,11 @@
 	}
 	.more_people{
 		/*display: none;*/
+	}
+	
+	/*规格hide*/
+	.hide {
+	    display: none!important;
 	}
 </style>
 </head>
@@ -142,7 +150,7 @@
 			<div class="shopping_cart" onclick="location.href ='/xcview/html/shop/shopping_trolley.html '">
 				<img src="/xcview/images/shop/shopping_cart.png" alt="">
 				购物车
-				<span class="shopping_quantity">12</span>
+				<span class="shopping_quantity">0</span>
 			</div>
 			<div class="deal">
 				<div class="add_cart">加入购物车</div>
@@ -151,49 +159,69 @@
 		</div>
 	</div>
 	<!-- 底部区域结束 -->
-
+		
 	<!-- 点击购物车出现提示开始 -->
-	<div class="shopping_trolley">
+	<div class="shopping_trolley" style="displayss: block !important;">
 		<div class="shopping_trolley_bg"></div>
-		<div class="shopping_trolley_main">
+		<div class="shopping_trolley_main" style="height:8.28rem;">
 			<div class="shopping_trolley_center">
 				<div class="message">
-					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+					<script type="text/html" id="message">
+					<img src="{{items.productImages[0].source}}" alt="" class="surface_plot" />
+					
 					<div class="information">
-						<div class="price">￥100.00</div>
+						<div class="price">￥{{items.sales}}</div>
 						<div class="repertory">库存120件</div>
-						<div class="category">
+						<!--<div class="category">
 							<span class="choice">选择</span>
-							<span class="specification">规格</span>
-							<span class="kind">分类</span>
-						</div>
+							<span class="specification fl1_{{items.id}}">包装规格</span>
+							<span class="kind">产品包装</span>
+						</div>-->
 					</div>
+					</script>
+				</div>
+				<div class="category">
+					<script type="text/html" id="category">
+					<span class="choice">选择</span>
+					{{each item as items i}}
+  						{{each items.entries as itemss i}}
+						   <span class="hide specification" title="{{items.name}}" data-id="{{itemss.id}}" >{{itemss.value}}</span>
+						{{/each}}
+					{{/each}}
+					</script>
 				</div>
 				<div class="specifications">
-					<span class="">规格</span>
-					<ul class="specifications_ul">
-						<li class="casing include">5包装</li>
-						<li class="casing include">1盒10包装</li>
-						<li class="casing include">2盒22包装</li>
-						<li class="casing include">一箱8盒100包</li>
+					<script type="text/html" id="specifications">
+					{{each item as items i}}
+					<span class="">{{items.name}}</span>
+					<ul class="specifications_ul" >
+						{{each items.entries as itemss i}}
+						    {{if itemss.isSelected}}					
+								<li class="casing include" title="{{items.name}}" data-id="{{itemss.id}}" data-ids="{{items.id}}">{{itemss.value}}</li>
+						    {{/if}}	
+						{{/each}}
 					</ul>
+					{{/each}}
+					</script>
 				</div>
 
-				<div class="classify">
+				<!-- <div class="classify">
 					<span class="">分类</span>
 					<ul class="classify_ul">
 						<li class="hue include">红色</li>
 						<li class="hue include">白色</li>
 						<li class="hue include">黄色</li>
 					</ul>
+				</div> -->
+				<div class="bottom_fiexd">
+					<div class="buy">
+						<div class="purchase_quantity">购买数量</div>
+						<center>
+							<input type="text" class="spinnerExample"/>
+						</center>
+					</div>
+					<div class="determine">确定</div>
 				</div>
-				<div class="buy">
-					<div class="purchase_quantity">购买数量</div>
-					<center>
-						<input type="text" class="spinnerExample"/>
-					</center>
-				</div>
-				<div class="determine">确定</div>
 			</div>
 		</div>
 	</div>
@@ -216,49 +244,58 @@
 	window.onload =  function(){
 		// 点击数量加减
 		$('.spinnerExample').spinner({});
-		// 点击规格
-		var aBtn=$('.specifications_ul .casing');
-	  	for(i=0;i<aBtn.length;i++){
-		    $(aBtn[i]).click(function(){
-		    	var specification = document.querySelector(".specification");  //规格
-				specification.style.display="none";
-				// 判断显示已选择
-		    	if ($(".include").hasClass("public")) {
-					$(".kind").show();
-					$(".specification").show();
-					$(".choice").html("已选择");
-				};
-		    	
-			    for(i=0;i<aBtn.length;i++){
-			        $(aBtn[i]).removeClass('public');
-			    }
-			    $(this).addClass('public');
-
-			    var publicHtml = $(this).html();
-			    $(".specification").html(publicHtml);
-			})
-		};
 		// 点击分类
-		var aBtnHue=$('.classify_ul .hue');
-	  	for(i=0;i<aBtnHue.length;i++){
-		    $(aBtnHue[i]).click(function(){
-		    	var kind = document.querySelector(".kind");  //分类
-				kind.style.display="none";
-				// 判断显示已选择
-		    	if ($(".include").hasClass("public")) {
-					$(".kind").show();
-					$(".specification").show();
-					$(".choice").html("已选择");
-				};
-		    	
-			    for(i=0;i<aBtnHue.length;i++){
-			        $(aBtnHue[i]).removeClass('public');
-			    }
-			    $(this).addClass('public');
-			    var publicHtml = $(this).html();
-			    $(".kind").html(publicHtml);
-			})
+	/*var aBtnHue=$('.classify_ul .hue');
+  	for(i=0;i<aBtnHue.length;i++){
+	    $(aBtnHue[i]).click(function(){
+	    	var kind = document.querySelector(".kind");  //分类
+			kind.style.display="none";
+			// 判断显示已选择
+	    	if ($(".include").hasClass("public")) {
+				$(".kind").show();
+				$(".specification").show();
+				$(".choice").html("已选择");
+			};
+	    	
+		    for(i=0;i<aBtnHue.length;i++){
+		        $(aBtnHue[i]).removeClass('public');
+		    }
+		    $(this).addClass('public');
+		    var publicHtml = $(this).html();
+		    $(".kind").html(publicHtml);
+		})
+	}*/
+	//1.选择商品放入购物车，2.选择商品立即购买.默认立即购买
+	var shoppingFlag = 2;
+    // 点击加入购物车
+    $('.add_cart').click(function(){
+        shoppingFlag = 1;
+        $('.shopping_trolley').show();
+    });
+    // 点击立即购买
+    $('.buy_now').click(function(){
+        shoppingFlag = 2;
+        $('.shopping_trolley').show();
+    });
+	//选择商品后，点击确定
+    $('.determine').click(function () {
+        var skuId = 10001;
+        var quantity = 1;
+        var flag = false;
+        requestGetService("/xczh/shop/checkout?skuId="+skuId+"&quantity="+quantity,null,function(data){
+			if(data.success){
+				flag = true;
+			}
+		},false);
+        if(!flag){
+            return;
 		}
+		if(shoppingFlag == 1){
+		    alert("购物车添加逻辑");
+		}else{
+			window.location = "/xcview/html/shop/confirm_order.html?skuId="+skuId+"&quantity="+quantity;
+		}
+    });
 
 		// 点击加入购物车 
 		$('.add_cart').click(function(){
