@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -54,6 +55,18 @@ public class CartController extends BaseController {
 		Map<String, Object> data = new HashMap<>();
 		Setting setting = SystemUtils.getSetting();
 		if (currentCart != null && !currentCart.isEmpty()) {
+			
+        	Set<CartItem> cartItems2 = currentCart.getCartItems();
+        	int quantity = 0;
+        	for (CartItem cartItem : cartItems2) {
+    			if (cartItem != null && cartItem.getQuantity() != null) {
+    				quantity += cartItem.getQuantity();
+    			}
+    		}
+
+        	System.out.println("quantity:"+quantity);
+			System.out.println("currentCart.getQuantity(false):"
+					+currentCart.getQuantity(false));
 			data.put("quantity", currentCart.getQuantity(false));
 			data.put("rewardPoint", currentCart.getRewardPoint());
 			data.put("effectivePrice", currentCart.getEffectivePrice());

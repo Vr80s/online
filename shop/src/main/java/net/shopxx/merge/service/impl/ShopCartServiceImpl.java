@@ -1,7 +1,15 @@
 package net.shopxx.merge.service.impl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -10,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import net.shopxx.dao.CartDao;
 import net.shopxx.dao.CartItemDao;
 import net.shopxx.dao.ProductDao;
-import net.shopxx.dao.SkuDao;
 import net.shopxx.entity.Cart;
 import net.shopxx.entity.CartItem;
 import net.shopxx.entity.Member;
@@ -34,12 +41,14 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
 
     private static final Object CART_LOCK = new Object();
 
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ShopCartServiceImpl.class);
+    
+    
     @Autowired
     private CartDao cartDao;
     @Autowired
     private CartItemDao cartItemDao;
-    @Autowired
-    private SkuDao skuDao;
+
     @Autowired
     private ProductDao productDao;
 
@@ -213,14 +222,22 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
 
 	
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public Integer getCartQuantity(String accountId) {
 		Member member = usersRelationService.getMemberByIpandatcmUserId(accountId);
         Cart cart = member.getCart();
         if (cart == null) {
         	return 0;
         }else {
-        	return cart.getQuantity(false);
+        	Set<CartItem> cartItems2 = cart.getCartItems();
+        	int quantity = 0;
+        	for (CartItem cartItem : cartItems2) {
+    			if (cartItem != null && cartItem.getQuantity() != null) {
+    				quantity += cartItem.getQuantity();
+    			}
+    		}
+        	LOGGER.info("quantity:"+quantity);
+        	return quantity;
         }
 	}
 }

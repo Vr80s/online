@@ -691,14 +691,6 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
     public List<Map<String, Object>> findIdByCategoryId(ProductCategory productCategory) {
 
         String jpql = " SELECT id FROM productcategory WHERE treePath LIKE :categoryId";
-
-//        List<BigInteger> resultList = new ArrayList<BigInteger>();
-//        if(productCategory.getParent()!=null) {
-//        	resultList.add(new BigInteger(productCategory.getId().toString()));
-//        }else {
-//        	resultList = entityManager.createNativeQuery(jpql)
-//                    .setParameter("categoryId", "%" + productCategory.getId() + "%").getResultList();
-//        }
         List<BigInteger> resultList  = entityManager.createNativeQuery(jpql)
                 .setParameter("categoryId", "%" + productCategory.getId() + "%").getResultList();
         if(resultList!=null) {

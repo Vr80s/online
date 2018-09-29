@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.common.util.bean.ShareInfoVo;
 import com.xczhihui.course.model.Course;
 import com.xczhihui.course.vo.CollectionCoursesVo;
 import com.xczhihui.course.vo.CourseLecturVo;
-import com.xczhihui.course.vo.ShareInfoVo;
 
 public interface ICourseService {
 
