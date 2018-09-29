@@ -1,7 +1,12 @@
 $shopCartDiv = $("#shop_cart_div");
-$(function() {
+$choiceProduct = $("#choice_product");
+var oldSkuId;
+var updatedSkuId;
+var updatedSku;
+var skus = [];
+$(function () {
     // 数量减
-    $shopCartDiv.on('click', '.minus',  function() {
+    $shopCartDiv.on('click', '.minus', function () {
         var t = $(this).parent().find('.num');
         t.text(parseInt(t.text()) - 1);
         if (t.text() <= 1) {
@@ -14,7 +19,7 @@ $(function() {
         TotalPrice();
     });
     // 数量加
-    $shopCartDiv.on('click', '.plus', function() {
+    $shopCartDiv.on('click', '.plus', function () {
         var t = $(this).parent().find('.num');
         t.text(parseInt(t.text()) + 1);
         if (t.text() <= 1) {
@@ -26,7 +31,7 @@ $(function() {
     });
     /******------------分割线-----------------******/
     // 点击商品按钮
-    $shopCartDiv.on('click', '.goodsCheck', function() {
+    $shopCartDiv.on('click', '.goodsCheck', function () {
         var goods = $(this).closest(".shop-group-item").find(".goodsCheck"); //获取本店铺的所有商品
         var goodsC = $(this).closest(".shop-group-item").find(".goodsCheck:checked"); //获取本店铺所有被选中的商品
         var Shops = $(this).closest(".shop-group-item").find(".shopCheck"); //获取本店铺的全选按钮
@@ -41,14 +46,14 @@ $(function() {
             }
 
             $(".exclude-freight").hide();  //不含运费
-            $(".select").hide();  //选择规格下拉隐藏
-            $(".selectbg").hide();  //选择规格下拉添加的 背景层
+            // $(".select").hide();  //选择规格下拉隐藏
+            // $(".selectbg").hide();  //选择规格下拉添加的 背景层
 
         } else { //如果选中的商品不等于所有商品
 
             $(".exclude-freight").show();  //不含运费
-            $(".select").show();  //选择规格下拉显示
-            $(".selectbg").show(); //选择规格下拉添加的 背景层
+            // $(".select").show();  //选择规格下拉显示
+            // $(".selectbg").show(); //选择规格下拉添加的 背景层
 
             Shops.prop('checked', false); //店铺全选按钮不被选中
             $("#AllCheck").prop('checked', false); //全选按钮也不被选中
@@ -58,11 +63,11 @@ $(function() {
         }
     });
     // 点击店铺按钮
-    $shopCartDiv.on('click', '.shopCheck', function() {
+    $shopCartDiv.on('click', '.shopCheck', function () {
         if ($(this).prop("checked") == true) { //如果店铺按钮被选中
             $(".exclude-freight").show();  //不含运费
-            $(".select").show();  //选择规格下拉显示
-            $(".selectbg").show();   //选择规格下拉添加的 背景层
+            // $(".select").show();  //选择规格下拉显示
+            // $(".selectbg").show();   //选择规格下拉添加的 背景层
             $(this).parents(".shop-group-item").find(".goods-check").prop('checked', true); //店铺内的所有商品按钮也被选中
             if ($(".shopCheck").length == $(".shopCheck:checked").length) { //如果店铺被选中的数量等于所有店铺的数量
                 $("#AllCheck").prop('checked', true); //全选按钮被选中
@@ -73,48 +78,49 @@ $(function() {
             }
         } else { //如果店铺按钮不被选中
             $(".exclude-freight").hide();  //不含运费
-            $(".select").hide();  //选择规格下拉隐藏
-            $(".selectbg").hide();   //选择规格下拉添加的 背景层
+            // $(".select").hide();  //选择规格下拉隐藏
+            // $(".selectbg").hide();   //选择规格下拉添加的 背景层
             $(this).parents(".shop-group-item").find(".goods-check").prop('checked', false); //店铺内的所有商品也不被全选
             $("#AllCheck").prop('checked', false); //全选按钮也不被选中
             TotalPrice();
         }
     });
     // 点击全选按钮
-    $("#AllCheck").click(function() {
+    $("#AllCheck").click(function () {
         if ($(this).prop("checked") == true) { //如果全选按钮被选中  
             $(".exclude-freight").show();   //不含运费
-            $(".select").show();  //选择规格下拉显示
-            $(".selectbg").show();    //选择规格下拉添加的 背景层
+            // $(".select").show();  //选择规格下拉显示
+            // $(".selectbg").show();    //选择规格下拉添加的 背景层
             $(".goods-check").prop('checked', true); //所有按钮都被选中
             TotalPrice();
         } else {
             $(".exclude-freight").hide(); //不含运费
-            $(".select").hide();      //选择规格下拉隐藏
-            $(".selectbg").hide();    //选择规格下拉添加的 背景层
+            // $(".select").hide();      //选择规格下拉隐藏
+            // $(".selectbg").hide();    //选择规格下拉添加的 背景层
             $(".goods-check").prop('checked', false); //else所有按钮不全选
             TotalPrice();
         }
         $(".shopCheck").change(); //执行店铺全选的操作
     });
+
     //计算
     function TotalPrice() {
         var allprice = 0; //总价
-        $(".shop-group-item").each(function() { //循环每个店铺
-            $(".check").click(function(){
-                if($('.check').is(':checked')) {
+        $(".shop-group-item").each(function () { //循环每个店铺
+            $(".check").click(function () {
+                if ($('.check').is(':checked')) {
                     $(".exclude-freight").show();  //不含运费
-                    $(".select").show();       //选择规格下拉隐藏
-                    $(".selectbg").show();     //选择规格下拉添加的 背景层
-                }else{
+                    // $(".select").show();       //选择规格下拉隐藏
+                    // $(".selectbg").show();     //选择规格下拉添加的 背景层
+                } else {
                     $(".exclude-freight").hide();  //不含运费
-                    $(".select").hide();       //选择规格下拉隐藏
-                    $(".selectbg").hide();     //选择规格下拉添加的 背景层
+                    // $(".select").hide();       //选择规格下拉隐藏
+                    // $(".selectbg").hide();     //选择规格下拉添加的 背景层
                 }
             });
 
             var oprice = 0; //店铺总价
-            $(this).find(".goodsCheck").each(function() { //循环店铺里面的商品
+            $(this).find(".goodsCheck").each(function () { //循环店铺里面的商品
                 if ($(this).is(":checked")) { //如果该商品被选中
                     var num = parseInt($(this).parents(".shop-info").find(".num").text()); //得到商品的数量
                     var price = parseFloat($(this).parents(".shop-info").find(".price").text()); //得到商品的单价
@@ -129,11 +135,142 @@ $(function() {
         $("#AllTotal").text(allprice.toFixed(2)); //输出全部总价
     }
 
+    // 点击加入购物车
+    $('.add_cart').click(function () {
+        $('.shopping_trolley').show();
+    });
+    // 点击详情背景色
+    $('.shopping_trolley_bg').click(function () {
+        // $('.shopping_trolley').hide();
+    });
 
+    // 点击加号
+    $('.increase').click(function () {
+        $('.decrease').css("background", "#fff");
+    });
+    $('.decrease').click(function () {
+        if ($('.spinnerExample').val() == 1) {
+            $('.decrease').css("background", "#f0f0f0");
+        }
+    });
+
+    // 点击遮盖在select上的div
+    $shopCartDiv.on('click', '.select', function () {
+        var pid = $(this).data('pid');
+        var sid = $(this).data('sid');
+        requestGetService("/xczh/shop/cart/product", {"id": pid}, function (data) {
+            $('.shopping_trolley_main').html(template('shop_product_choice', data.resultObject));
+            skus = data.resultObject.skuVOs;
+            choiceSku(sid);
+            $('.shopping_trolley').show();
+            // 点击数量加减
+            $choiceProduct.find('.spinnerExample').spinner({});
+            oldSkuId = sid;
+        });
+    });
+
+    $choiceProduct.on('click', '.include', function () {
+        var index = $(this).data('index');
+        $choiceProduct.find('.spec-index-' + index).html($(this).data('name'));
+        console.log($choiceProduct.find('.inlcude'));
+        $(this).parents('.specifications_ul').find('.include').removeClass('public');
+        $(this).addClass('public');
+        changeProductProp();
+    });
+
+    // 点击头部编辑
+    $('.compile').click(function () {
+        $(this).hide();
+        $('.finish').show();
+        $('.shop-total').hide();
+        $('.itemdelete').show();
+    });
+
+    // 点击头部完成
+    $('.finish').click(function () {
+        $(this).hide();
+        $('.compile').show();
+        $('.shop-total').show();
+        $('.itemdelete').hide();
+    });
+
+    $choiceProduct.on('click', '.determine', function(e) {
+        e.stopPropagation();
+        if (oldSkuId && updatedSkuId) {
+            var quantity = $choiceProduct.find('.spinnerExample').val();
+            requestPostService('/xczh/shop/cart/update', {'oldSkuId' : oldSkuId, 'updatedSkuId' : updatedSkuId, "quantity" : quantity}, function(data) {
+                if (data.success === true) {
+                    //没有修改规格，更新数量
+                    var $oldSkuId = $shopCartDiv.find('.product-sku-' + oldSkuId);
+                    if (oldSkuId === updatedSkuId) {
+                        $oldSkuId.find('.num').val(quantity);
+                    } else {
+                        //判断新增的sku是否已经存在在购物车中
+                        var $newSkuId = $shopCartDiv.find('.product-sku-' + updatedSkuId);
+                        if ($newSkuId.length > 0) {
+                            $newSkuId.find('.num').html(quantity);
+                        } else {
+                            $oldSkuId.addClass('product-sku-' + updatedSkuId);
+                            $oldSkuId.find('.goodsCheck').data('sid', updatedSkuId);
+                            $oldSkuId.find('.packaging').html(updatedSku.specifications);
+                            $oldSkuId.find('.number_packages').html(updatedSku.stock);
+                            $oldSkuId.find('.select').data('sid', updatedSkuId);
+                            $oldSkuId.find('.num').html(quantity);
+                            $oldSkuId.find('.price').html(updatedSku.price);
+                            $oldSkuId.removeClass('product-sku-' + oldSkuId);
+                        }
+                    }
+                    $('.shopping_trolley').hide();
+                }
+            });
+        }
+    });
 });
 initCart();
+
+function changeProductProp() {
+    var specIds = [];
+    $choiceProduct.find('.public').each(function() {
+        specIds.push($(this).data("eid"));
+    });
+    var matchIndex;
+    var match;
+    for (var i = 0; i < skus.length; i++) {
+        match = true;
+        for (var j = 0; j < specIds.length; j++) {
+            if (skus[i].specificationValueIds.indexOf(specIds[j]) === -1) {
+                match = false;
+                break;
+            }
+        }
+        if (match) {
+            matchIndex = i;
+            break;
+        }
+    }
+    $choiceProduct.find('.price').html('￥' + skus[matchIndex].price);
+    $choiceProduct.find('.repertory').html('库存' + skus[matchIndex].stock + '件');
+    updatedSkuId = skus[matchIndex].id;
+    updatedSku = skus[matchIndex];
+}
+
+function choiceSku(skuId) {
+    if (skus.length > 0) {
+        for (var i = 0; i < skus.length; i++) {
+            var specIds = skus[i].specificationValueIds;
+            if (skuId === skus[i].id) {
+                for (var j = 0; j < specIds.length; j++) {
+                    $('.spec-' + specIds[j]).trigger('click');
+                }
+                break;
+            }
+        }
+        changeProductProp();
+    }
+}
+
 function initCart() {
-    requestGetService("/xczh/shop/cart", null, function (data){
+    requestGetService("/xczh/shop/cart", null, function (data) {
         if (data.resultObject.storeCartItems.length < 1) {
             $('.vacancy-main').show();
         } else {
@@ -143,47 +280,46 @@ function initCart() {
 }
 
 function modifyCartQuantity(skuId, quantity) {
-    requestPostService('/xczh/shop/cart/modify', {'skuId': skuId, 'quantity' : quantity}, function (data){
+    requestPostService('/xczh/shop/cart/modify', {'skuId': skuId, 'quantity': quantity}, function (data) {
     });
 }
 
 function deleteCartProduct(skuIds) {
-    requestPostService('/xczh/shop/cart/sku/delete', {'skuIds': skuIds.join(",")}, function (data){
+    requestPostService('/xczh/shop/cart/sku/delete', {'skuIds': skuIds.join(",")}, function (data) {
     });
 }
 
 // 最大医师推荐div循环下li
-function recommendLi(){
+function recommendLi() {
     // 循环li
-    $('.shop-group-item ul li').each(function(){
-        if($(this).find(".check").is(':checked')) {
+    $('.shop-group-item ul li').each(function () {
+        if ($(this).find(".check").is(':checked')) {
             // $(this).parent().remove();
             $(this).remove();
             // 如果li为0，隐藏最大div
-            if($(".shop-group-item ul li").length == 0) {
-                  $(".shop-group-item").hide();   //ul 父级
-                  $(".shopping").hide();    //最大div
-                  $(".payment-bar").hide(); //底部---结算
+            if ($(".shop-group-item ul li").length == 0) {
+                $(".shop-group-item").hide();   //ul 父级
+                $(".shopping").hide();    //最大div
+                $(".payment-bar").hide(); //底部---结算
             }
-        };
+        }
     });
 }
 
-function recommend(){
+function recommend() {
     // 循环li最大父级别
-    $('.shop-group-item').each(function(){
-        if($(this).find("li").length == 0) {
+    $('.shop-group-item').each(function () {
+        if ($(this).find("li").length == 0) {
             $(this).remove();
-        };
+        }
     });
-};
-
+}
 
 // 点击确认删除选中商品
-$('.affirm').click(function(){
+$('.affirm').click(function () {
     var skuIds = [];
     $shopCartDiv.find('.product-li').each(function () {
-        $(this).find('input[type="checkbox"]:checked').each(function (){
+        $(this).find('input[type="checkbox"]:checked').each(function () {
             skuIds.push($(this).data('sid'));
         });
     });
@@ -202,44 +338,42 @@ $('.affirm').click(function(){
     // 判断有没有商品列表
     var a = $(".shopping").css("display");
     if (a == "block") {
-        $(".hidden_field").css("display","block");  //显示底部高度
+        $(".hidden_field").css("display", "block");  //显示底部高度
         $(".vacancy-main").hide();   //隐藏猜你喜欢
     } else {
-        $(".hidden_field").css("display","none");
+        $(".hidden_field").css("display", "none");
         $(".vacancy-main").show();   //显示猜你喜欢
     }
     deleteCartProduct(skuIds);
 });
 
-$(".foot_del").click(function() {
-    $(".Each").each(function() {
-        if($(this).prop('checked')) {
+$(".foot_del").click(function () {
+    $(".Each").each(function () {
+        if ($(this).prop('checked')) {
             $(this).parents(".imfor").remove();
-              totl();
-              if($(".imfor").length == 0) {
+            totl();
+            if ($(".imfor").length == 0) {
                 $("#susum").text(0);
-              }
+            }
         }
     })
-
-})
+});
 
 
 // 点击删除商品出现提示框  
-$('.itemdelete').click(function(){
+$('.itemdelete').click(function () {
 
-    if($(".shop-group-item ul li").find(".check").is(':checked')) {
+    if ($(".shop-group-item ul li").find(".check").is(':checked')) {
         $('.removeitem').show();
-    }else{
+    } else {
         jqtoast("请先选择要删除的商品");
-    };
-    
+    }
 });
 /*$('.itemdelete').click(function(){
     $('.removeitem').show();
 });*/
 // 点击取消隐藏删除提示框 
-$('.countermand').click(function(){
+$('.countermand').click(function () {
     $('.removeitem').hide();
 });
 

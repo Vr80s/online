@@ -89,50 +89,10 @@
 <!-- 底部结束 -->
 
 <!-- 点击选中按钮后==点击规格显示框开始 -->
-<div class="shopping_trolley">
+<div class="shopping_trolley" id="choice_product">
     <div class="shopping_trolley_bg"></div>
     <div class="shopping_trolley_main">
-        <div class="shopping_trolley_center">
-            <div class="message">
-                <img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot">
-                <div class="information">
-                    <div class="price">￥100.00</div>
-                    <div class="repertory">库存120件</div>
-                    <div class="category">
-                        <span class="choice">选择</span>
-                        <span class="specification">规格</span>
-                        <span class="kind">分类</span>
-                    </div>
-                </div>
-            </div>
-            <div class="specifications">
-                <span class="">规格</span>
-                <ul class="specifications_ul">
-                    <li class="casing include">5包装</li>
-                    <li class="casing include">1盒10包装</li>
-                    <li class="casing include">2盒22包装</li>
-                    <li class="casing include">一箱8盒100包</li>
-                </ul>
-            </div>
 
-            <div class="classify">
-                <span class="">分类</span>
-                <ul class="classify_ul">
-                    <li class="hue include">红色</li>
-                    <li class="hue include">白色</li>
-                    <li class="hue include">黄色</li>
-                </ul>
-            </div>
-            <div class="buy">
-                <div class="purchase_quantity">购买数量</div>
-                <center>
-                    <div class="spinner">
-                        <input type="text" class="spinnerExample value passive"/>
-                    </div>
-                </center>
-            </div>
-            <div class="determine">确定</div>
-        </div>
     </div>
 </div>
 <!-- 点击选中按钮后==点击规格显示框结束 -->
@@ -223,14 +183,17 @@
             </div>
             <ul>
                 {{each item.cartItems as cartItem i}}
-                <li class="product-li">
+                <li class="product-li product-li-{{i}} product-sku-{{cartItem.sku.id}}">
                     <div class="shop-info">
                         <input type="checkbox" class="check goods-check goodsCheck" data-sid="{{cartItem.sku.id}}">
                         <div class="shop-info-img"><a href="#"><img src="{{cartItem.sku.image}}"/></a></div>
                         <div class="shop-info-text">
-                            <h4>{{cartItem.sku.name}}</h4>
-                            <div class="inventory"><span class="packaging">{{cartItem.sku.specifications}}</span>（库存<span class="number_packages">{{cartItem.sku.stock}}</span>件）<img
-                                    src="/xcview/images/bot.png" alt="" class="select"/>
+                            <h4 class="">{{cartItem.sku.name}}</h4>
+                            <div class="inventory"><span
+                                    class="packaging">{{cartItem.sku.specifications}}</span>（库存<span
+                                    class="number_packages">{{cartItem.sku.stock}}</span>件）<img
+                                    src="/xcview/images/bot.png" alt="" class="select" style="display: inline"
+                                    data-pid="{{cartItem.sku.productId}}" data-sid="{{cartItem.sku.id}}"/>
                                 <div class="selectbg"></div>
                             </div>
                             <div class="shop-price">
@@ -254,96 +217,43 @@
     </div>
 </script>
 
-<!-- 数量区域 -->
-<script>
-    // 点击数量加减
-    $('.spinnerExample').spinner({});
-    // 点击规格
-    var aBtn = $('.specifications_ul .casing');
-    for (i = 0; i < aBtn.length; i++) {
-        $(aBtn[i]).click(function () {
-            var specification = document.querySelector(".specification");  //规格
-            specification.style.display = "none";
-            // 判断显示已选择
-            if ($(".include").hasClass("public")) {
-                $(".kind").show();
-                $(".specification").show();
-                $(".choice").html("已选择");
-            }
-            ;
-
-            for (i = 0; i < aBtn.length; i++) {
-                $(aBtn[i]).removeClass('public');
-            }
-            $(this).addClass('public');
-
-            var publicHtml = $(this).html();
-            $(".specification").html(publicHtml);
-        })
-    }
-    ;
-    // 点击分类
-    var aBtnHue = $('.classify_ul .hue');
-    for (i = 0; i < aBtnHue.length; i++) {
-        $(aBtnHue[i]).click(function () {
-            var kind = document.querySelector(".kind");  //分类
-            kind.style.display = "none";
-            // 判断显示已选择
-            if ($(".include").hasClass("public")) {
-                $(".kind").show();
-                $(".specification").show();
-                $(".choice").html("已选择");
-            }
-            ;
-
-            for (i = 0; i < aBtnHue.length; i++) {
-                $(aBtnHue[i]).removeClass('public');
-            }
-            $(this).addClass('public');
-            var publicHtml = $(this).html();
-            $(".kind").html(publicHtml);
-        })
-    }
-    // 点击加入购物车
-    $('.add_cart').click(function () {
-        $('.shopping_trolley').show();
-    });
-    // 点击详情背景色
-    $('.shopping_trolley_bg').click(function () {
-        $('.shopping_trolley').hide();
-    });
-
-    // 点击加号
-    $('.increase').click(function () {
-        $('.decrease').css("background", "#fff");
-    });
-    $('.decrease').click(function () {
-        if ($('.spinnerExample').val() == 1) {
-            $('.decrease').css("background", "#f0f0f0");
-        }
-        ;
-    });
-
-    // 点击遮盖在select上的div
-    $('.selectbg').click(function () {
-        $('.shopping_trolley').show();
-    });
-
-    // 点击头部编辑
-    $('.compile').click(function () {
-        $(this).hide();
-        $('.finish').show();
-        $('.shop-total').hide();
-        $('.itemdelete').show();
-    });
-
-    // 点击头部完成
-    $('.finish').click(function () {
-        $(this).hide();
-        $('.compile').show();
-        $('.shop-total').show();
-        $('.itemdelete').hide();
-    });
+<script type="text/html" id="shop_product_choice">
+    <div class="shopping_trolley_center">
+        <div class="message">
+            <img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot">
+            <div class="information">
+                <div class="price"></div>
+                <div class="repertory"></div><!--  -->
+                <div class="category">
+                    <span class="choice">选择</span>
+                    {{ each specificationItemvs as specificationItem i}}
+                        <span class="specification spec-index-{{i}}">{{specificationItem.name}}</span>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        {{ each specificationItemvs as specificationItem i }}
+        <div class="specifications">
+            <span class="">{{specificationItem.name}}</span>
+            <ul class="specifications_ul">
+                {{ each specificationItem.entries as entry e}}
+                    {{if entry.isSelected }}
+                        <li class="casing include spec-{{entry.id}}" data-eid="{{entry.id}}" data-index="{{i}}" data-name="{{entry.value}}">{{entry.value}}</li>
+                    {{/if}}
+                {{ /each }}
+            </ul>
+        </div>
+        {{/each}}
+        <div class="buy">
+            <div class="purchase_quantity">购买数量</div>
+            <center>
+                <div class="spinner">
+                    <input type="text" class="spinnerExample value passive"/>
+                </div>
+            </center>
+        </div>
+        <div class="determine">确定</div>
+    </div>
 </script>
 
 </html>

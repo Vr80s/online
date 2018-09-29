@@ -31,8 +31,6 @@ import net.shopxx.service.UserService;
 public class UsersServiceImpl implements UsersService {
 
     @Inject
-    private UsersRelationService usersRelationService;
-    @Inject
     private UserService userService;
     @Inject
     private MemberRankService memberRankService;
@@ -40,20 +38,6 @@ public class UsersServiceImpl implements UsersService {
     private BusinessDao businessDao;
     @Autowired
     private CacheManager cacheManager;
-
-    @Override
-    @Transactional
-    public void saveUserRelation(String ipandatcmUserId) {
-        UsersRelation usersRelation = usersRelationService.findByIpandatcmUserId(ipandatcmUserId);
-        if (usersRelation != null) {
-            throw new RuntimeException("该用户已创建商城个人信息");
-        }
-        usersRelation = new UsersRelation();
-        usersRelation.setIpandatcmUserId(ipandatcmUserId);
-        Long userId = register(ipandatcmUserId, ipandatcmUserId, ipandatcmUserId, ipandatcmUserId);
-        usersRelation.setUserId(userId);
-        usersRelationService.save(usersRelation);
-    }
 
     @Override
     public String getBusinessUsernameByDoctorId(String doctorId) {
@@ -70,6 +54,8 @@ public class UsersServiceImpl implements UsersService {
         return secret;
     }
 
+    @Override
+    @Transactional
     public Long register(String username, String password, String email, String mobile) {
         Member member = new Member();
         member.removeAttributeValue();

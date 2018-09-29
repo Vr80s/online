@@ -419,6 +419,19 @@ public class OrderOperServiceImpl implements OrderOperService {
 		OrderVO o = new OrderVO();
 		if(order != null){
 			BeanUtils.copyProperties(order,o);
+			o.setId(order.getId());
+			o.setStatus(OrderVO.Status.valueOf(order.getStatus().toString()));
+			List<OrderItemVO> orderItemVOList = new ArrayList<>();
+			for(OrderItem orderItem : order.getOrderItems()){
+				OrderItemVO orderItemVO = new OrderItemVO();
+				BeanUtils.copyProperties(orderItem,orderItemVO);
+				//获取库存
+				SkuVO sku = new SkuVO();
+				BeanUtils.copyProperties(orderItem.getSku(),sku);
+				orderItemVO.setSku(sku);
+				orderItemVOList.add(orderItemVO);
+			}
+			o.setOrderItems(orderItemVOList);
 		}
 		return o;
 	}
@@ -833,13 +846,13 @@ public class OrderOperServiceImpl implements OrderOperService {
 		for(Order order : orderList.getContent()){
 			OrdersVO o = new OrdersVO();
 			try {
-				org.apache.commons.beanutils.BeanUtils.copyProperties(o,order);
+				org.springframework.beans.BeanUtils.copyProperties(order,o);
 				o.setStatus(order.getStatus().ordinal());
 				List<OrderItem> orderItems = order.getOrderItems();
 				List<OrderItemVO> orderVoItems = new ArrayList<OrderItemVO>();
 				for (OrderItem orderItem : orderItems) {
 					OrderItemVO orderItemVO = new OrderItemVO();
-					org.apache.commons.beanutils.BeanUtils.copyProperties(orderItemVO,orderItem);
+					org.springframework.beans.BeanUtils.copyProperties(orderItem,orderItemVO);
 					orderVoItems.add(orderItemVO);
 				}
 				o.setOrderVoItems(orderVoItems);
