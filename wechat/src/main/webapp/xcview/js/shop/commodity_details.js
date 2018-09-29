@@ -133,9 +133,8 @@ requestGetService("/xczh/shop/goods/details",{
         	 }
         })
         
-        
+//     	 点击规格li
          $('.specifications_ul .casing').click(function(){
-            
          	// 判断显示已选择
             if ($(".include").hasClass("public")) {
                 $(".kind").show();
@@ -192,4 +191,21 @@ function listClick(){
 /*$(".specifications_ul .include").click(function(){
         alert(11111);
     });*/
+
+//底部--购物车数量
+requestGetService("/xczh/shop/cart/quantity",null,function (data) {
+    if (data.success == true) {
+    	var quantity = data.resultObject;
+    	
+//  	$(".shopping_quantity").html(quantity);
+       
+        if(quantity == null){
+       		$(".shopping_quantity").hide();
+        }else{
+       		$(".shopping_quantity").html(quantity);	
+       		$(".shopping_quantity").show();
+        };
+        
+    }
+});
 
