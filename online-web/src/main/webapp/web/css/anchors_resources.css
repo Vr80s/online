@@ -539,11 +539,13 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 	position: absolute;
     right: -19px;
     top: 7px;
+    cursor: pointer;
 }
 .goods-top-menu ul li:nth-child(5) .order-down{
 	position: absolute;
     right: -19px;
     bottom: 6px;
+    cursor: pointer;
 }
 .goods-top-menu ul li:nth-child(5) .order-active{
 	color: #00bc12;
@@ -1123,11 +1125,6 @@ outline: none;
  }
 
 
-
-.shopping-list-wrap{
-	max-height: 606px;
-    overflow-y: auto;
-}
 .shopping-list-wrap table th{
 	background: #F0F0F0;
     height: 38px;
@@ -1148,10 +1145,13 @@ outline: none;
     color: #188EEE;
     text-align: center;
 }
-
+.shopping-list-wrap tr td:nth-child(1){
+	width: 106px;
+	height: 60px;
+}
 .shopping-list-wrap tr td .shopping-fengmian{
-	    width: 106px;
-    height: 60px;
+	max-width: 106px;
+    max-height: 60px;
 }
 .shopping-list-wrap tr td .select-ware-img {
     width: 17px;

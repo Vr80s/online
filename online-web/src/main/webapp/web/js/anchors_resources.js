@@ -598,6 +598,7 @@ var activityType;
 //	点击商品
 	$(".shopping-nav").click(function(){
 		$(".comment-wrong").addClass("hide");  //清除提示
+		$(".shopping-edit-box .add-myware").click();      //指向我的商品
 		if($(".photo-wrap").hasClass("hide")==false){
 	    		confirmBox.open("标题","确定放弃图片编辑吗？",function(closefn){
 	    			closeImages();
@@ -888,11 +889,69 @@ template.config("escape", false);
 
 
 //-------------------------------------------------商品推荐---------------------------------------------
-
+var shopDataStyle;
 $(".shopping-edit-box li").click(function(){
+	shopDataStyle=$(this).attr("data-style");
 	$(".shopping-edit-box li").removeClass("active");
 	$(this).addClass("active");
+	orderListShop(1,shopDataStyle,"");	
+	$(".shopping-search-input input").val("")  //清空输入框条件
 })
+//	搜索商品
+var keyWordShop;
+$(".shopping-search-input img").click(function(){
+	keyWordShop=$.trim($(".shopping-search-input input").val());
+	orderListShop(1,shopDataStyle,keyWordShop)
+})
+
+
+function orderListShop(pageNumber,dataStyle,keyWord){
+		RequestService("/doctor/product/list", "get",{
+		"pageNumber":pageNumber,
+		"pageSize":10,
+		"all":dataStyle,
+		"keyword":keyWord
+	}, function (data) {
+		  if (data.success==true) {
+		  		var shopData=data.resultObject.content;
+//		  		搜索条数
+		  		if(isBlank(data.resultObject.total)){
+    				$(".search-ware-num span").text("0");
+	    		}else{
+	    			$(".search-ware-num span").text(data.resultObject.total);
+	    		}
+//		  		数据渲染		  		
+		  		if(shopData.length==0){
+		  			$(".shopping-list-wrap").addClass("hide");
+		  		}else{
+		  			$(".shopping-list-wrap").removeClass("hide");
+		  			$("#shopping-list").html(template("shopping-template",{items:shopData}))
+		  		}		  		
+//            	 分页
+				var shopPages=Math.ceil(data.resultObject.total/10);
+              	 if (shopPages > 1) { //分页判断
+                    $(".not-data").remove();
+                    $(".shopping_pages").removeClass("hide");
+                    $(".shopping_pages .searchPage .allPage").text(shopPages);  //接口总得页数
+                    $("#Pagination_shopping").pagination(shopPages, {			//接口总得页数
+                        num_edge_entries: 1, //边缘页数
+                        num_display_entries: 4, //主体页数
+                        current_page: pageNumber - 1,  //所传的页数
+                        callback: function (page) {
+                            //翻页功能
+                            //newsList(page + 1);
+                            orderListShop(page + 1,shopDataStyle,keyWordShop);
+                        }
+                    });
+                } else {
+                    $(".shopping_pages").addClass("hide");
+                }
+		  } else{
+		  	
+		  }
+	})
+}
+
 //	五星好评
 
 	$('.our-ratings img').each(function(index){  

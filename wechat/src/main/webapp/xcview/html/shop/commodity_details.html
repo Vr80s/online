@@ -192,7 +192,7 @@
 	<div class="evaluate" id="li_btn1">
 		<div class="evaluate_main">
 			<script type="text/html" id="evaluate_main">
-			<div class="evaluate_top" onclick="location.href ='/xcview/html/shop/all_evaluation.html'">
+			<div class="evaluate_top" onclick="evaluation()">
 				<span class="title">评价</span>
 				<span class="evaluate_view_all">查看全部 <img src="/xcview/images/shop/view_all.png" alt="" /></span>
 				<div class="both"></div>
@@ -333,7 +333,7 @@
 	</div>
 	 -->
 	<!-- 常见问题结束 -->
-	<div class="_"></div>
+	<div class="hide_hide"></div>
 	<!-- 底部开始 -->
 	<div class="footer">
 		<div class="center">
@@ -344,7 +344,7 @@
 			<div class="shopping_cart" onclick="location.href ='/xcview/html/shop/shopping_trolley.html '">
 				<img src="/xcview/images/shop/shopping_cart.png" alt="" />
 				购物车
-				<span class="shopping_quantity">12</span>
+				<span class="shopping_quantity">0</span>
 			</div>
 			<div class="deal">
 				<div class="add_cart">加入购物车</div>
@@ -360,7 +360,7 @@
 	</div>
 
 	<!-- 点击购物车出现提示开始 -->
-	<div class="shopping_trolley" style="displayss: block !important;">
+	<div class="shopping_trolley">
 		<div class="shopping_trolley_bg"></div>
 		<div class="shopping_trolley_main" style="height:8.28rem;">
 			<div class="shopping_trolley_center">
@@ -384,7 +384,7 @@
 					<span class="choice">选择</span>
 					{{each item as items i}}
   						{{each items.entries as itemss i}}
-						   <span class=" specification fl1_{{items.id}}"  title="{{items.name}}" data-id="{{itemss.id}}" >{{itemss.value}}</span>
+						   <span class=" specification hide"  title="{{items.name}}" data-id="{{itemss.id}}" >{{itemss.value}}</span>
 						{{/each}}
 					{{/each}}
 					</script>
@@ -465,9 +465,6 @@
 	// 点击数量加减
 	$('.spinnerExample').spinner({});
 
-	
-
-
 	// 点击分类
 	var aBtnHue=$('.classify_ul .hue');
   	for(i=0;i<aBtnHue.length;i++){
@@ -531,7 +528,7 @@
     });
 	// 点击详情背景色
 	$('.shopping_trolley_bg').click(function(){
-		$('.shopping_trolley').();
+		$('.shopping_trolley').hide();
 	});
 
 	// 点击分享按钮
@@ -539,7 +536,7 @@
 		$('.weixin_ceng').show();
 	});
 	$('.weixin_img').click(function(){
-		$('.weixin_ceng').();
+		$('.weixin_ceng').hide();
 	});
 
 	// 点击客服
@@ -571,7 +568,7 @@
 	    	$(".return").removeClass("return_class");
 	    	$(".share").removeClass("share_class");
 	    	$(".news").removeClass("news_class");
-	    	$(".header_tab").();
+	    	$(".header_tab").hide();
 	    	$("#header").css("border-bottom","none");
 	    }else if(top > 140){
 	    	// 改变后
@@ -590,9 +587,9 @@
 	    	$(this).find("a").addClass("li_a");
 	    	$(this).find(".border_a").show();
 	    	$(".tba_appraise").find("a").removeClass("li_a");
-	    	$(".tba_appraise").find(".border_a").();
+	    	$(".tba_appraise").find(".border_a").hide();
 	    	$(".tba_details").find("a").removeClass("li_a");
-	    	$(".tba_details").find(".border_a").();
+	    	$(".tba_details").find(".border_a").hide();
 	    });
 
 	    // 点击评价
@@ -600,9 +597,9 @@
 	    	$(this).find("a").addClass("li_a");
 	    	$(this).find(".border_a").show();
 	    	$(".tba_intro").find("a").removeClass("li_a");
-	    	$(".tba_intro").find(".border_a").();
+	    	$(".tba_intro").find(".border_a").hide();
 	    	$(".tba_details").find("a").removeClass("li_a");
-	    	$(".tba_details").find(".border_a").();
+	    	$(".tba_details").find(".border_a").hide();
 	    });
 
 	    // 点击详情
@@ -610,9 +607,9 @@
 	    	$(this).find("a").addClass("li_a");
 	    	$(this).find(".border_a").show();
 	    	$(".tba_intro").find("a").removeClass("li_a");
-	    	$(".tba_intro").find(".border_a").();
+	    	$(".tba_intro").find(".border_a").hide();
 	    	$(".tba_appraise").find("a").removeClass("li_a");
-	    	$(".tba_appraise").find(".border_a").();
+	    	$(".tba_appraise").find(".border_a").hide();
 	    });
 
 	}); 
