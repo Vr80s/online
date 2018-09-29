@@ -21,7 +21,7 @@ $(function() {
 
 	//搜索历史开始
 
-	requestService("/xczh/bunch/hotSearch", null,
+	requestService("/xczh/shop/goods/hotSearch", null,
 		function(data) {
 
 			if (data.success == true) {
@@ -126,7 +126,6 @@ $(function() {
 						} else {
 							var keyword = $(".keyword").html();
 							search_val = keyword;
-							// $(".header_seek_main").css("display","block");
 							$(".header_seek_main").css("display", "none");
 							//头部input搜索框开始
 							initHistoryList();

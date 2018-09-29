@@ -93,26 +93,6 @@
 			<div class="both"></div>
 		</div>
 		<div class="search_history_list">
-			<!--<div class="search_history_list_one">
-				<div class="div0">针灸疗法</div>
-				<div class="div1">×</div>
-				<div class="both"></div>
-			</div>
-			<div class="search_history_list_one">
-				<div class="div0">麦冬</div>
-				<div class="div1">×</div>
-				<div class="both"></div>
-			</div>
-			<div class="search_history_list_one">
-				<div class="div0">伤寒论</div>
-				<div class="div1">×</div>
-				<div class="both"></div>
-			</div>
-			<div class="search_history_list_one">
-				<div class="div0">各式推拿</div>
-				<div class="div1">×</div>
-				<div class="both"></div>
-			</div>-->
 		</div>
 		<div class="both"></div>
 	</div>
@@ -121,17 +101,17 @@
 
 </body>
 
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js"></script>
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>  <!--模板引入-->
-<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script src="/xcview/js/shop/search_goods.js"></script>
 <script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
 <script type="text/javascript">
-	hisArr="hisArr";
+	hisArr="hisArr_goods";
 	if(localStorage.token!=null){
 		var token = JSON.parse(localStorage.token);
-		hisArr = token.userId + "hisArr";
+		hisArr = token.userId + "hisArr_goods";
 	}
 	var arr=[];
 		//点击关键字查询

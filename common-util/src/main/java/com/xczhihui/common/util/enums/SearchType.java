@@ -16,8 +16,11 @@ public enum SearchType {
     SCHOOL_HOT_SEARCH(2, "课程  热门搜索"),
     
     DOCTOR_DEFAULT_SEARCH(3, "医师 默认检索提示"),
-    DOCTOR_HOT_SEARCH(4, "医师  热门搜索");
+    DOCTOR_HOT_SEARCH(4, "医师  热门搜索"),
 
+    PRODUCT_DEFAULT_SEARCH(5, "好货 默认检索提示"),
+    PRODUCT_HOT_SEARCH(6, "医好货 热门搜索");
+	
     /**
      * 描述
      **/
