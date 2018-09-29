@@ -26,6 +26,49 @@
 </script>
 <link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
 <link rel="stylesheet" href="/xcview/css/shop/search_listings.css" />
+
+<!--刷新 -->
+<link rel="stylesheet" href="/xcview/css/minirefresh/minirefresh.css">
+<script type="text/javascript" src="/xcview/js/minirefresh/minirefresh.js"></script>
+<style>
+	body{
+		background:#f0f0f0;
+	}
+
+	/*处理刷新*/
+	.minirefresh-wrap{
+		top: 1.1rem;
+		/*padding-bottom: 1.6rem;*/
+		/*z-index: -1;*/
+	}
+	.minirefresh-theme-default .minirefresh-downwrap{
+		height: 1rem;
+		line-height: 1rem;
+	}
+	.minirefresh-theme-default .downwrap-content{
+		padding: 0;
+	}
+	.minirefresh-theme-default .minirefresh-upwrap{
+		height: 1rem;
+		max-height: 0.5rem;
+		line-height: 0.6rem;
+		padding: 0;
+		/*margin-top: -0.5rem;*/
+	}
+	.minirefresh-scroll{
+		background: none;
+		margin-top: .9rem;
+	}
+	.more_people{
+		/*display: none;*/
+	}
+	.minirefresh-theme-default .downwrap-content{
+		padding-top: .5rem;
+	}
+	.product_list{
+		overflow: hidden;
+	}
+</style>
 </head>
 
 <body>
@@ -76,6 +119,8 @@
 	<!-- tab选项结束 -->
 	<!-- 中间内容开始 -->
 	<div class="main_center">
+		<div id="minirefresh" class="minirefresh-wrap">
+			<div class="minirefresh-scroll">
 		<ul class="list product_list">
 		    <script type="text/html" id="product_list">
 				{{each items as item i}}
@@ -103,6 +148,9 @@
 				{{/each}}
 		    </script>
 		</ul>
+	
+			</div>
+		</div>
 	</div>
 	<!-- 中间内容结束 -->
 </body>

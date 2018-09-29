@@ -355,7 +355,7 @@ var activityType;
 //	发布动态验证
 	function checkContent(data){
 	//	普通动态
-		if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==true && $(".consilia-wrap").hasClass("hide")==true){
+		if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==true && $(".consilia-wrap").hasClass("hide")==true && $(".shopping-wrap").hasClass("hide")==true){
 			if(isBlank(data.content)){
 				$(".activity-error").removeClass("hide");
 				return false;
@@ -364,11 +364,11 @@ var activityType;
 				activityType=1;
 			}
 	//	图片动态
-		}else if($(".photo-wrap").hasClass("hide")==false && $(".video-wrap").hasClass("hide")==true && $(".consilia-wrap").hasClass("hide")==true){
+		}else if($(".photo-wrap").hasClass("hide")==false && $(".video-wrap").hasClass("hide")==true && $(".consilia-wrap").hasClass("hide")==true && $(".shopping-wrap").hasClass("hide")==true){
 				$(".activity-error").addClass("hide");
 				activityType=2;
 	//	视频动态
-		}else if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==false && $(".consilia-wrap").hasClass("hide")==true){
+		}else if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==false && $(".consilia-wrap").hasClass("hide")==true && $(".shopping-wrap").hasClass("hide")==true){
 	//		视频videoFinsh
 			if(isBlank(saveVideoId)){
 				$(".video-null").removeClass("hide");
@@ -399,7 +399,7 @@ var activityType;
 //			}
 			activityType=3;
 	//	医案
-		}else if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==true && $(".consilia-wrap").hasClass("hide")==false){
+		}else if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==true && $(".consilia-wrap").hasClass("hide")==false && $(".shopping-wrap").hasClass("hide")==true){
 				if($(".result-list .select-text img").length==0){
 					$(".article-null").removeClass("hide");
 					return false;
@@ -407,6 +407,23 @@ var activityType;
 					$(".article-null").addClass("hide");
 				}		
 			activityType=4;
+		}
+//		商品
+		else if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==true && $(".consilia-wrap").hasClass("hide")==true && $(".shopping-wrap").hasClass("hide")==false){
+				if(imgLengthStart=="" || imgLengthStart.length==0){
+					$(".select-start-null").removeClass("hide");
+					return false;
+				}else{
+					$(".select-start-null").addClass("hide");
+				}
+				
+				if($(".shopping-list-wrap .select-ware-img img").length==0){
+					$(".select-ware-null").removeClass("hide");
+					return false;
+				}else{
+					$(".select-ware-null").addClass("hide");
+				}		
+			activityType=7;
 		}
 		return true;
 	}
@@ -434,6 +451,11 @@ var activityType;
 		
 	//	专栏文章
 		data.articleId=$(".result-list .select-text img").parent().attr("data-id");
+	//	商品id
+		data.productId=$("#shopping-list .select-ware-img img").parent().attr("data-id");
+//	商品推荐星级
+		data.level=imgLengthStart;
+//		data.level=
 		return data;
 	}
 //	点击发布动态
@@ -452,6 +474,7 @@ var activityType;
 	        		closeImages();		//关闭图片
 	        		closeConsilia();	//关闭文章
 	        		closeVideo();		//关闭视频并重置
+	        		closeShopping();	//关闭商品
 	        		clearTextarea();	//清空顶部动态文本       		
 	        		clearConsilia();	//清空文章  
 	        		activityTabClass(); //动态tab颜色
@@ -599,6 +622,7 @@ var activityType;
 	$(".shopping-nav").click(function(){
 		$(".comment-wrong").addClass("hide");  //清除提示
 		$(".shopping-edit-box .add-myware").click();      //指向我的商品
+		imgLengthStart="";	//清空星星长度
 		if($(".photo-wrap").hasClass("hide")==false){
 	    		confirmBox.open("标题","确定放弃图片编辑吗？",function(closefn){
 	    			closeImages();
@@ -896,6 +920,8 @@ $(".shopping-edit-box li").click(function(){
 	$(this).addClass("active");
 	orderListShop(1,shopDataStyle,"");	
 	$(".shopping-search-input input").val("")  //清空输入框条件
+	$(".our-ratings img").attr("src","/web/images/star-dim.png");
+	imgLengthStart="" //清空星星长度
 })
 //	搜索商品
 var keyWordShop;
@@ -953,22 +979,24 @@ function orderListShop(pageNumber,dataStyle,keyWord){
 }
 
 //	五星好评
-
+	var imgLengthStart="";
 	$('.our-ratings img').each(function(index){  
         var star='/web/images/star-dim.png';    //普通灰色星星图片的存储路径  
         var starRed='/web/images/star-light.png';     //红色星星图片存储路径  
         var prompt=['1分','2分','3分','4分','5分'];   //评价提示语  
         this.id=index;      //遍历img元素，设置单独的id  
         $(this).on("mouseover click",function(){    //设置鼠标滑动和点击都会触发事件  
-            $('.our-ratings img').attr('src',star);//当“回滚”、“改变主意”时，先复位所有图片为木有打星的图片颜色  
-            $(this).attr('src',starRed);        //设置鼠标当前所在图片为打星颜色图  
-            $(this).prevAll().attr('src',starRed);  //设置鼠标当前的前面星星图片为打星颜色图  
-//          $(this).siblings('span').text(prompt[this.id]);     //根据id的索引值作为数组的索引值  
+            $('.our-ratings img').attr('src',star).removeClass("active");//当“回滚”、“改变主意”时，先复位所有图片为木有打星的图片颜色  ,加active是为了获取长度
+            $(this).attr('src',starRed).addClass("active");        //设置鼠标当前所在图片为打星颜色图  
+            $(this).prevAll().attr('src',starRed).addClass("active");  //设置鼠标当前的前面星星图片为打星颜色图  
+//          $(this).siblings('span').text(prompt[this.id]);     //根据id的索引值作为数组的索引值  		
+			imgLengthStart=$('.our-ratings .active').length;
+			console.log(imgLengthStart)
         });
     });  
 //	选择要推荐的商品
 //	function selectWareImg(){
-		$(".select-ware-img").click(function(){
+		$("#shopping-list").on("click",".select-ware-img",function(){
 			if($(this).find("img").length!=0){
 				$(".select-ware-img").html("").css({"border-color":"#bbb9b9"});
 		

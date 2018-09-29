@@ -1076,8 +1076,9 @@ outline: none;
 .our-ratings{
 	padding-top: 20px;
     overflow: hidden;
-    width: 895px;
+    /*width: 895px;*/
     margin: 0 auto;
+    float: left;
 }
 .our-ratings img{
 	width: 23px;
@@ -1085,9 +1086,15 @@ outline: none;
 	margin-right: 5px;
 	cursor: pointer;
 }
-.our-ratings .left-explain{
+.shopping-wrap .left-explain{
 	color: #666666;
 	margin-right: 20px;
+	float: left;
+	margin-top: 20px;
+}
+.shopping-wrap .select-start-null{
+	clear: both;
+    margin-bottom: 0;
 }
 .shopping-search-wrap{
 	padding-top: 20px;
@@ -1159,6 +1166,7 @@ outline: none;
     border-radius: 50%;
     border: 1px solid #bbb9b9;
     margin: 0 auto;
+    cursor: pointer;
 }
 .shopping-list-wrap tr td .select-ware-img img{
 	display: block;

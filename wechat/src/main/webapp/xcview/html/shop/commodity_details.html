@@ -366,7 +366,7 @@
 			<div class="shopping_trolley_center">
 				<div class="message">
 					<script type="text/html" id="message">
-					<img src="{{items.productImages[0].source}}" alt="" class="surface_plot" />
+					<img src="{{items.picture}}" alt="" class="surface_plot" />
 					
 					<div class="information">
 						<div class="price">￥{{items.sales}}</div>
@@ -509,7 +509,7 @@
         //数量
         quantity = $(".spinnerExample").val();
         
-        requestGetService("/xczh/shop/checkout?skuId="+skuId+"&quantity="+quantity,null,function(data){
+        requestGetService("/xczh/shop/checkSku?skuId="+skuId+"&quantity="+quantity,null,function(data){
 			if(data.success){
 				flag = true;
 			}
@@ -518,8 +518,18 @@
             return;
 		}
 		if(shoppingFlag == 1){
-		    alert("购物车添加逻辑");
-		    
+		    requestPostService("/xczh/shop/cart", {'skuId': skuId, 'quantity' : quantity}, function(data){
+				if (data.success) {
+					$('.shopping_trolley').hide();
+					var cartQuantity = $('.shopping_quantity').val();
+					if (!cartQuantity) {
+					    cartQuantity = quantity;
+					} else {
+					    cartQuantity = parseInt(cartQuantity) + quantity;
+					}
+                    $('.shopping_quantity').html(cartQuantity);
+				}
+			});
 		}else{
 			//确认下单逻辑
 			
