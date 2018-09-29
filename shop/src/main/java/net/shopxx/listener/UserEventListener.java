@@ -62,14 +62,15 @@ public class UserEventListener {
 	public void handle(UserRegisteredEvent userRegisteredEvent) {
 		User user = userRegisteredEvent.getUser();
 		HttpServletRequest request = WebUtils.getRequest();
-
 		if (user instanceof Member) {
-			String socialUserId = request.getParameter("socialUserId");
-			String uniqueId = request.getParameter("uniqueId");
-			if (StringUtils.isNotEmpty(socialUserId) && StringUtils.isNotEmpty(uniqueId)) {
-				SocialUser socialUser = socialUserService.find(Long.parseLong(socialUserId));
-				if (socialUser != null && socialUser.getUser() == null) {
-					socialUserService.bindUser(user, socialUser, uniqueId);
+			if(request != null){
+				String socialUserId = request.getParameter("socialUserId");
+				String uniqueId = request.getParameter("uniqueId");
+				if (StringUtils.isNotEmpty(socialUserId) && StringUtils.isNotEmpty(uniqueId)) {
+					SocialUser socialUser = socialUserService.find(Long.parseLong(socialUserId));
+					if (socialUser != null && socialUser.getUser() == null) {
+						socialUserService.bindUser(user, socialUser, uniqueId);
+					}
 				}
 			}
 

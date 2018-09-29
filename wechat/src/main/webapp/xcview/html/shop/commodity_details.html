@@ -333,7 +333,7 @@
 	</div>
 	 -->
 	<!-- 常见问题结束 -->
-	<div class="hide_hide"></div>
+	<div class="_"></div>
 	<!-- 底部开始 -->
 	<div class="footer">
 		<div class="center">
@@ -360,7 +360,7 @@
 	</div>
 
 	<!-- 点击购物车出现提示开始 -->
-	<div class="shopping_trolley" style="display: block !important;">
+	<div class="shopping_trolley" style="displayss: block !important;">
 		<div class="shopping_trolley_bg"></div>
 		<div class="shopping_trolley_main" style="height:8.28rem;">
 			<div class="shopping_trolley_center">
@@ -384,7 +384,7 @@
 					<span class="choice">选择</span>
 					{{each item as items i}}
   						{{each items.entries as itemss i}}
-						   <span class="hide specification fl1_{{items.id}}"  title="{{items.name}}" data-id="{{itemss.id}}" >{{itemss.value}}</span>
+						   <span class=" specification fl1_{{items.id}}"  title="{{items.name}}" data-id="{{itemss.id}}" >{{itemss.value}}</span>
 						{{/each}}
 					{{/each}}
 					</script>
@@ -506,6 +506,12 @@
         var skuId = 10001;
         var quantity = 1;
         var flag = false;
+        
+        //库存id
+        skuId =  currentSku.id;
+        //数量
+        quantity = $(".spinnerExample").val();
+        
         requestGetService("/xczh/shop/checkout?skuId="+skuId+"&quantity="+quantity,null,function(data){
 			if(data.success){
 				flag = true;
@@ -516,13 +522,16 @@
 		}
 		if(shoppingFlag == 1){
 		    alert("购物车添加逻辑");
+		    
 		}else{
+			//确认下单逻辑
+			
 			window.location = "/xcview/html/shop/confirm_order.html?skuId="+skuId+"&quantity="+quantity;
 		}
     });
 	// 点击详情背景色
 	$('.shopping_trolley_bg').click(function(){
-		$('.shopping_trolley').hide();
+		$('.shopping_trolley').();
 	});
 
 	// 点击分享按钮
@@ -530,7 +539,7 @@
 		$('.weixin_ceng').show();
 	});
 	$('.weixin_img').click(function(){
-		$('.weixin_ceng').hide();
+		$('.weixin_ceng').();
 	});
 
 	// 点击客服
@@ -562,7 +571,7 @@
 	    	$(".return").removeClass("return_class");
 	    	$(".share").removeClass("share_class");
 	    	$(".news").removeClass("news_class");
-	    	$(".header_tab").hide();
+	    	$(".header_tab").();
 	    	$("#header").css("border-bottom","none");
 	    }else if(top > 140){
 	    	// 改变后
@@ -581,9 +590,9 @@
 	    	$(this).find("a").addClass("li_a");
 	    	$(this).find(".border_a").show();
 	    	$(".tba_appraise").find("a").removeClass("li_a");
-	    	$(".tba_appraise").find(".border_a").hide();
+	    	$(".tba_appraise").find(".border_a").();
 	    	$(".tba_details").find("a").removeClass("li_a");
-	    	$(".tba_details").find(".border_a").hide();
+	    	$(".tba_details").find(".border_a").();
 	    });
 
 	    // 点击评价
@@ -591,9 +600,9 @@
 	    	$(this).find("a").addClass("li_a");
 	    	$(this).find(".border_a").show();
 	    	$(".tba_intro").find("a").removeClass("li_a");
-	    	$(".tba_intro").find(".border_a").hide();
+	    	$(".tba_intro").find(".border_a").();
 	    	$(".tba_details").find("a").removeClass("li_a");
-	    	$(".tba_details").find(".border_a").hide();
+	    	$(".tba_details").find(".border_a").();
 	    });
 
 	    // 点击详情
@@ -601,9 +610,9 @@
 	    	$(this).find("a").addClass("li_a");
 	    	$(this).find(".border_a").show();
 	    	$(".tba_intro").find("a").removeClass("li_a");
-	    	$(".tba_intro").find(".border_a").hide();
+	    	$(".tba_intro").find(".border_a").();
 	    	$(".tba_appraise").find("a").removeClass("li_a");
-	    	$(".tba_appraise").find(".border_a").hide();
+	    	$(".tba_appraise").find(".border_a").();
 	    });
 
 	}); 

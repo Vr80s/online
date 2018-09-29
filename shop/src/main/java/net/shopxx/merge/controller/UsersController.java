@@ -25,14 +25,12 @@ import javax.inject.Inject;
 public class UsersController extends BaseController {
 
 	@Inject
-	private UsersService usersService;
-	@Inject
 	private UsersRelationService usersRelationService;
 
 	@GetMapping("/save")
 	@ResponseBody
 	public void save(String ipandatcmUserId) {
-		usersService.saveUserRelation(ipandatcmUserId);
+		usersRelationService.saveUserRelation(ipandatcmUserId);
 	}
 
 	@GetMapping("/get")
