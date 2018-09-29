@@ -95,6 +95,7 @@ function getShareIdAndType(){
 		obj.shareType = 6;
 	}
 }
+
 getShareIdAndType();
 
 var shareType = obj.shareType;
