@@ -52,14 +52,14 @@
 	<div class="trading_status">
 		{{if status == 'PENDING_PAYMENT'}}
 		<div class="payment_status">等待买家付款</div>
-		{{else if status == 'CANCELED'}}
-		<div class="payment_status" style="display:none;">交易关闭</div>
 		{{else if status == 'PENDING_REVIEW'}}
-		<div class="payment_status" style="display:none;">买家已付款</div>
+		<div class="payment_status">买家已付款</div>
 		{{else if status == 'SHIPPED'}}
-		<div class="payment_status" style="display:none;">卖家已发货</div>
+		<div class="payment_status">卖家已发货</div>
 		{{else if status == 'COMPLETED'}}
-		<div class="payment_status" style="display:none;">交易成功</div>
+		<div class="payment_status">交易成功</div>
+		{{else if status == 'CANCELED'}}
+		<div class="payment_status">交易关闭</div>
 		{{/if}}
 		<div class="orderid">订单编号：{{sn}}</div>
 		<div class="orderid">下单时间：{{createdDate}}</div>
@@ -177,24 +177,24 @@
 					
 					<!-- 买家已付款 -->
 					{{else if status == 'PENDING_PAYMENT'}}
-					<div class="buy_again" style="display: none;">再次购买</div>
+					<div class="buy_again">再次购买</div>
 
 					<!-- 卖家已发货 -->
 					{{else if status == 'SHIPPED'}}
-					<div class="check_logistics" style="display: none;">查看物流</div>
-					<div class="shipped_cancel_order" style="display: none;">再次购买</div>
-					<div class="confirm_receipt" style="display: none;">确认收货</div>
+					<div class="check_logistics">查看物流</div>
+					<div class="shipped_cancel_order">再次购买</div>
+					<div class="confirm_receipt">确认收货</div>
 
 					<!-- 交易成功 -->
 					{{else if status == 'COMPLETED'}}
-					<div class="win_check_logistics" style="display: none;">查看物流</div>
-					<div class="win_shipped_cancel_order" style="display: none;">再次购买</div>
-					<div class="win_evaluate" style="display: none;">评价</div>   <!-- 交易成功后评价后-评价按钮隐藏 -->
+					<div class="win_check_logistics">查看物流</div>
+					<div class="win_shipped_cancel_order">再次购买</div>
+					<div class="win_evaluate">评价</div>   <!-- 交易成功后评价后-评价按钮隐藏 -->
 					
 					<!-- 交易关闭 -->
 					{{else if status == 'CANCELED'}}
-					<div class="delete_order" style="display: none;">删除订单</div>
-					<div class="fack_shipped_cancel_order" style="display: none;">再次购买</div>
+					<div class="delete_order">删除订单</div>
+					<div class="fack_shipped_cancel_order">再次购买</div>
 					{{/if}}
 				</div>
 			</div>

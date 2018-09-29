@@ -699,6 +699,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 	}
 
 	@Override
+	@Transactional
 	public void cancel(String sn, String ipandatcmUserId) {
 		Order order = orderService.findBySn(sn);
 		if (order == null) {
@@ -715,6 +716,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 	}
 
 	@Override
+	@Transactional
 	public void receive(String sn, String ipandatcmUserId) {
 		Order order = orderService.findBySn(sn);
 		if (order == null) {
