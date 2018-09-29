@@ -88,6 +88,8 @@ public class GoodsServiceImpl implements GoodsService {
                 //普通属性
             BeanUtils.copyProperties(product,pro);
 
+            pro.setId(product.getId());
+            
             //医师推荐信息
             LOGGER.info("product.getStore().getBusiness().getDoctorId() " + product.getStore().getBusiness().getDoctorId());
 
@@ -137,6 +139,8 @@ public class GoodsServiceImpl implements GoodsService {
 
         org.springframework.beans.BeanUtils.copyProperties(product,pv);
 
+        pv.setId(product.getId());
+        
         //医师推荐
         Set<Map<String, Object>> posts = medicalDoctorPostsService.getProductPostsByProductId(productId, 0, 1);
         pv.setPosts(posts);
@@ -183,6 +187,7 @@ public class GoodsServiceImpl implements GoodsService {
 				org.springframework.beans.BeanUtils.copyProperties(sku,skuVo);
 				skuVo.setSpecificationValueIds(sku.getSpecificationValueIds());
 				skuVo.setIsOutOfStock(sku.getIsOutOfStock());
+				skuVo.setId(sku.getId());
 				skuVos.add(skuVo);
 			}
 			return skuVos;

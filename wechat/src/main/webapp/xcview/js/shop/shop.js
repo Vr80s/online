@@ -332,7 +332,13 @@ function recommends(pageNumber, downOrUp){
     });
 
 
-
+//banner隐藏,刷新上去
+var a = $(".banner").css("display");
+if (a == "block") {
+	$(".minirefresh-wrap").css("top","2rem");
+} else {
+	$(".minirefresh-wrap").css("top","5rem");
+}
 
 
 

@@ -1,6 +1,7 @@
 
 
 var productId = getQueryString("productId");
+var currentSku = null;
 requestGetService("/xczh/shop/goods/details",{
     productId:productId
 },function (data) {
@@ -98,7 +99,7 @@ requestGetService("/xczh/shop/goods/details",{
         	if(skus[i].specificationValueIds!=null &&
         		skus[i].specificationValueIds.length>0){
         			
-        	   skus[i].specificationIdsStr = skus[i].specificationValueIds.join(',');
+        	   skus[i].specificationIdsStr = skus[i].specificationValueIds.sort().join(',');
         	}
         }
         
@@ -109,6 +110,8 @@ requestGetService("/xczh/shop/goods/details",{
         if(defaultSkus!=null){
          	$(".information .price").html("￥"+defaultSkus.price);
        	    $(".information .repertory").html("库存"+defaultSkus.stock+"件");
+       	    
+       	    currentSku = defaultSkus;
         }
         
 		//默认选中
@@ -130,9 +133,8 @@ requestGetService("/xczh/shop/goods/details",{
         	 }
         })
         
-        
+//     	 点击规格li
          $('.specifications_ul .casing').click(function(){
-            
          	// 判断显示已选择
             if ($(".include").hasClass("public")) {
                 $(".kind").show();
@@ -157,7 +159,11 @@ requestGetService("/xczh/shop/goods/details",{
 		        })
             })
             
-            var currentSku = {};
+            if(lalala!=null){
+             	lalala.sort();
+            }
+            
+            
             for (var i = 0; i < skus.length; i++) {
             	if(skus[i].specificationIdsStr == lalala.join(",")){
             		currentSku = skus[i];
@@ -185,4 +191,21 @@ function listClick(){
 /*$(".specifications_ul .include").click(function(){
         alert(11111);
     });*/
+
+//底部--购物车数量
+requestGetService("/xczh/shop/cart/quantity",null,function (data) {
+    if (data.success == true) {
+    	var quantity = data.resultObject;
+    	
+//  	$(".shopping_quantity").html(quantity);
+       
+        if(quantity == null){
+       		$(".shopping_quantity").hide();
+        }else{
+       		$(".shopping_quantity").html(quantity);	
+       		$(".shopping_quantity").show();
+        };
+        
+    }
+});
 
