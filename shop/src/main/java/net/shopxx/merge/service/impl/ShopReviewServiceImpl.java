@@ -84,6 +84,7 @@ public class ShopReviewServiceImpl implements ShopReviewService {
 					reviewVo.setSpecifications(specifications);
 				}
 				BeanUtils.copyProperties(review.getMember(),usersVO);
+				
 				reviewVo.setUser(usersVO);
 				reviewVos.add(reviewVo);
 			}
@@ -93,6 +94,7 @@ public class ShopReviewServiceImpl implements ShopReviewService {
 	}
 
 	@Override
+	@Transactional
 	public Object addReview(Long orderId,Object obj,String accountId,String ip) throws Exception{
 
 		/**
@@ -120,6 +122,7 @@ public class ShopReviewServiceImpl implements ShopReviewService {
 	    	
 			LOGGER.info("物流服务"+json.getInt("logistics"));
 			LOGGER.info("卖家服务"+json.getInt("seller"));
+			
 			if(json.get("logistics") ==null || json.get("seller")==null) {
 				throw new Exception("请填写必要的评价信息");
 			}
