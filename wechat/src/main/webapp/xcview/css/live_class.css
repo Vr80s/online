@@ -719,37 +719,41 @@ margin-top: 0.1rem;
 }
 .select_lable .active_color{
 	background: #00BC12;
-
+    border: 1px solid #00bc12;
+    color: #fff;
 }
 .select_lable li{
 	float: left;
-	background: rgba(0,188,18,0.30);
-	color: white;
-	font-size: 0.28rem;
-	text-align: center;
-	height: 0.56rem;
-	line-height: 0.56rem;
-	margin-right: 0.2rem;
+    /* background: rgba(0,188,18,0.30); */
+    color: white;
+    font-size: 0.28rem;
+    text-align: center;
+    height: 0.56rem;
+    line-height: 0.56rem;
+    margin-right: 0.2rem;
+    border-radius: 100px;
+    color: #444444;
+    border: 1px solid #DEDEDE;
 }
 .select_lable li:nth-child(1){
-	width: 1.48rem;
+	width: .88rem;
 	
 }
 .select_lable li:nth-child(2){
-	width: 1.71rem;
+	width: 1.36rem;
 
 }
 .select_lable li:nth-child(3){
-	width: 1.71rem;
+	width: 1.36rem;
 }
 .select_lable li:nth-child(4){
-	width: 1.48rem;
-	margin-right: 0;
+	width: .88rem;
+	/*margin-right: 0;*/
 
 }
 .select_lable li:nth-child(5){
-	width: 1.48rem;
-	margin-top: 0.2rem;
+	width: 1.12rem;
+	/*margin-top: 0.2rem;*/
 	
 
 }
