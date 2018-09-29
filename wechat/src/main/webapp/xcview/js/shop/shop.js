@@ -5,6 +5,7 @@ $(function () {
 //    hottests(1,'down');
 //    ascendings(1,'down');
 //    descendings(1,'down');
+
 })
 
 // $(function () {
@@ -87,7 +88,7 @@ function recommends(pageNumber, downOrUp){
                 miniRefresh.endUpLoading(false);
             }
             
-            $(".product_list li").off("click");
+//          $(".product_list li").off("click");
             $(".product_list li").click(function(){
 		        var id = $(this).attr("data-id");
 		        window.location.href = "/xcview/html/shop/commodity_details.html?productId=" + id + "";
@@ -108,6 +109,10 @@ function recommends(pageNumber, downOrUp){
             if (data.success == true) {
                 var obj = data.resultObject;
                 $(".product_list").html(template('product_list', {items: obj}));
+                $(".product_list li").click(function(){
+			        var id = $(this).attr("data-id");
+			        window.location.href = "/xcview/html/shop/commodity_details.html?productId=" + id + "";
+			    })
 //              listClick();
             }
         });
@@ -150,6 +155,10 @@ function recommends(pageNumber, downOrUp){
             if (data.success == true) {
                 var obj = data.resultObject;
                 $(".product_list").html(template('product_list', {items: obj}));
+                $(".product_list li").click(function(){
+			        var id = $(this).attr("data-id");
+			        window.location.href = "/xcview/html/shop/commodity_details.html?productId=" + id + "";
+			    })
 //              listClick();
             }
         });
@@ -192,6 +201,10 @@ function recommends(pageNumber, downOrUp){
             if (data.success == true) {
                 var obj = data.resultObject;
                 $(".product_list").html(template('product_list', {items: obj}));
+                $(".product_list li").click(function(){
+			        var id = $(this).attr("data-id");
+			        window.location.href = "/xcview/html/shop/commodity_details.html?productId=" + id + "";
+			    })
 //              listClick();
             }
         });
@@ -234,6 +247,10 @@ function recommends(pageNumber, downOrUp){
             if (data.success == true) {
                 var obj = data.resultObject;
                 $(".product_list").html(template('product_list', {items: obj}));
+                $(".product_list li").click(function(){
+			        var id = $(this).attr("data-id");
+			        window.location.href = "/xcview/html/shop/commodity_details.html?productId=" + id + "";
+			    })
 //              listClick();
             }
         });
@@ -249,6 +266,10 @@ function recommends(pageNumber, downOrUp){
             if (data.success == true) {
                 var obj = data.resultObject;
                 $(".product_list").html(template('product_list', {items: obj}));
+                $(".product_list li").click(function(){
+			        var id = $(this).attr("data-id");
+			        window.location.href = "/xcview/html/shop/commodity_details.html?productId=" + id + "";
+			    })
 //              listClick();
             }
         });
@@ -291,6 +312,10 @@ function recommends(pageNumber, downOrUp){
             if (data.success == true) {
                 var obj = data.resultObject;
                 $(".product_list").html(template('product_list', {items: obj}));
+                $(".product_list li").click(function(){
+			        var id = $(this).attr("data-id");
+			        window.location.href = "/xcview/html/shop/commodity_details.html?productId=" + id + "";
+			    })
 //              listClick();
             }
         });
@@ -342,6 +367,10 @@ function recommends(pageNumber, downOrUp){
         window.location.href = "/xcview/html/shop/commodity_details.html?productId=" + id + "";
     })
 };*/
-
+// 点击进入详情
+    $(".product_list li").click(function(){
+        var id = $(this).attr("data-id");
+        window.location.href = "/xcview/html/shop/commodity_details.html?productId=" + id + "";
+    })
 // })
 
