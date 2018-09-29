@@ -598,6 +598,7 @@ var activityType;
 //	点击商品
 	$(".shopping-nav").click(function(){
 		$(".comment-wrong").addClass("hide");  //清除提示
+		$(".shopping-edit-box .add-myware").click();      //指向我的商品
 		if($(".photo-wrap").hasClass("hide")==false){
 	    		confirmBox.open("标题","确定放弃图片编辑吗？",function(closefn){
 	    			closeImages();
@@ -888,11 +889,55 @@ template.config("escape", false);
 
 
 //-------------------------------------------------商品推荐---------------------------------------------
-
+var shopDataStyle;
 $(".shopping-edit-box li").click(function(){
+	shopDataStyle=$(this).attr("data-style");
 	$(".shopping-edit-box li").removeClass("active");
 	$(this).addClass("active");
+	orderListShop(shopDataStyle,"");	
+	$(".shopping-search-input input").val("")  //清空输入框条件
 })
+//	搜索商品
+$(".shopping-search-input img").click(function(){
+	var keyWord=$.trim($(".shopping-search-input input").val());
+	orderListShop(shopDataStyle,keyWord)
+})
+
+
+function orderListShop(dataStyle,keyWord){
+		RequestService("/doctor/product/list", "get",{
+		"all":dataStyle,
+		"keyword":keyWord
+	}, function (data) {
+		  if (data.success==true) {
+		  		var shopData=data.resultObject.content;
+		  		if(isBlank(shopData.total)){
+    				$(".search-ware-num span").text("0");
+	    		}else{
+	    			$(".search-ware-num span").text(shopData.total);
+	    		}
+		  				  		
+		  		if(shopData.length==0){
+		  			$(".shopping-list-wrap").addClass("hide");
+		  		}else{
+		  			$(".shopping-list-wrap").removeClass("hide");
+		  			$("#shopping-list").html(template("shopping-template",{items:shopData}))
+		  		}
+		  } else{
+		  	
+		  }
+	})
+}
+
+
+
+
+
+
+
+
+
+
 //	五星好评
 
 	$('.our-ratings img').each(function(index){  

@@ -520,35 +520,30 @@
 								</div>
 								<p class="search-ware-num">全部结果约<span>0</span>条</p>
 								<p class="comment-wrong select-ware-null hide">请至少选择一件商品！</p>
-								<div class="shopping-list-wrap hide" id="shopping-list">
+								<div class="shopping-list-wrap hide">
 									<table border="0" cellspacing="0" cellpadding="0">
 										<tr>
 											<th>商品图片</th>
 											<th>名称</th>
 											<th>选择</th>
 										</tr>
-										<tr>
-											<td>
-												<img class="shopping-fengmian" src="/web/images/teacher_big_pic.png"/>
-											</td>
-											<td>请至少选择一件商品请至少选择一件商品</td>
-											<td>
-												<div class="select-ware-img">
-												
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<img class="shopping-fengmian" src="/web/images/teacher_big_pic.png"/>
-											</td>
-											<td>请至少选择一件商品请至少选择一件商品</td>
-											<td>
-												<div class="select-ware-img">
-												
-												</div>
-											</td>
-										</tr>
+										<tbody id="shopping-list">
+											<script type="text/template" id="shopping-template">
+												{{each items as item i}}
+													<tr>
+														<td>
+															<img class="shopping-fengmian" src="{{item.picture}}"/>
+														</td>
+														<td>请至少选择一件商品请至少选择一件商品</td>
+														<td>
+															<div class="select-ware-img">
+															
+															</div>
+														</td>
+													</tr>
+												{{/each}}
+											</script>
+										<tbody>
 									</table>
 								</div>
 								
