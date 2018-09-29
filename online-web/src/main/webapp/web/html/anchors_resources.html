@@ -535,7 +535,7 @@
 														<td>
 															<img class="shopping-fengmian" src="{{item.picture}}"/>
 														</td>
-														<td>请至少选择一件商品请至少选择一件商品</td>
+														<td>{{item.name}}</td>
 														<td>
 															<div class="select-ware-img" data-id="{{item.id}}">
 															
@@ -606,23 +606,7 @@
 										
 									</div>
 								{{/if}}
-								<!--商品-->
-								<!--<div class="save-class-wrap">
-										<a href="javascript:;" style="width: 100%;">
-										<div class="class-img-shopping z">
-											<img src="/web/images/teacher_big_pic.png" alt="课程封面" />
-										</div>
-										<div class="class-right-text-shopping y">
-											
-											<h5>这里有防护卵巢早衰的秘诀 | 余大夫小偏方</h5>	
-											<p class="shopping-price"><span>&yen;99</span></p>
-											<p class="shopping-recommend">
-												<span>推荐指数：</span>
-												<img src="/web/images/icon-start1_0.png"/>
-											</p>
-										</div>
-									</a>
-								</div>-->
+								
 								<!--医案/专栏/文章/著作-->
 								{{if item.type==4}}
 									{{if item.articleStatus==true}}
@@ -686,6 +670,35 @@
 											<p class="class-address">地址：{{item.courseAddress}}</p>
 											{{/if}}
 											
+										</div>
+									</a>
+								</div>
+								{{/if}}
+								<!--商品-->
+								{{if item.type==7}}
+								<div class="save-class-wrap">
+										<a href="javascript:;" style="width: 100%;">
+										<div class="class-img-shopping z">
+											<img src="/web/images/teacher_big_pic.png" alt="课程封面" />
+										</div>
+										<div class="class-right-text-shopping y">
+											
+											<h5>这里有防护卵巢早衰的秘诀 | 余大夫小偏方</h5>	
+											<p class="shopping-price"><span>&yen;99</span></p>
+											<p class="shopping-recommend">
+												<span>推荐指数：</span>
+												{{if item.level == 1}}
+												<img src="/web/images/icon-start1_0.png"/>
+												{{else if item.level == 2}}
+												<img src="/web/images/icon-start2_0.png"/>
+												{{else if item.level == 3}}
+												<img src="/web/images/icon-start3_0.png"/>
+												{{else if item.level == 4}}
+												<img src="/web/images/icon-start4_0.png"/>
+												{{else if item.level == 5}}
+												<img src="/web/images/icon-start5_0.png"/>
+												{{/if}}
+											</p>
 										</div>
 									</a>
 								</div>
