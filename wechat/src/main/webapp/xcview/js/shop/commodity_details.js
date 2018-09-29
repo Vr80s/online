@@ -182,12 +182,15 @@ requestGetService("/xczh/shop/goods/details",{
 function listClick(){
     // 点击进入详情
     $(".recommend").click(function(){
-//      var id = $(this).attr("data-id");
-//var productId = getQueryString("productId");
         window.location.href = "/xcview/html/shop/recommend.html?productId=" + productId + "";
     })
 };
-
+function evaluation(){
+    // 点击全部评价
+    $(".evaluate_top").click(function(){
+        window.location.href = "/xcview/html/shop/all_evaluation.html?productId=" + productId + "";
+    })
+};
 /*$(".specifications_ul .include").click(function(){
         alert(11111);
     });*/
@@ -208,4 +211,5 @@ requestGetService("/xczh/shop/cart/quantity",null,function (data) {
         
     }
 });
+
 
