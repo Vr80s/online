@@ -17,7 +17,7 @@ function appointmentList(pageNumber, downOrUp) {
 	            // 评价列表
 	            $(".recommends").html(template('shop_recommend', {items: obj}));
 	            miniRefresh.endDownLoading(true);// 结束下拉刷新
-	        } else if(obj.length==0){
+	        } else if(obj==null){
 	            miniRefresh.endUpLoading(true);// 结束上拉加载
 	        } else {
 	           	$(".recommends").append(template('shop_recommend', {items: obj}));
