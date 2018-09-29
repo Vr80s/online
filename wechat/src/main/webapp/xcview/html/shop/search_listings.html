@@ -76,47 +76,32 @@
 	<!-- tab选项结束 -->
 	<!-- 中间内容开始 -->
 	<div class="main_center">
-		<ul class="list">
-			<li onclick="location.href ='/xcview/html/shop/commodity_details.html'">
-				<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-				<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
-				<div class="price">￥188.00</div>
-				<div class="referrer">
-					<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
-				</div>
-			</li>
-			<li>
-				<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-				<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
-				<div class="price">￥188.00</div>
-				<div class="referrer">
-					<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
-				</div>
-			</li>
-			<li>
-				<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-				<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
-				<div class="price">￥188.00</div>
-				<div class="referrer">
-					<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
-				</div>
-			</li>
-			<li>
-				<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-				<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
-				<div class="price">￥188.00</div>
-				<div class="referrer">
-					<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
-				</div>
-			</li>
-			<li>
-				<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-				<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
-				<div class="price">￥188.00</div>
-				<div class="referrer">
-					<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
-				</div>
-			</li>
+		<ul class="list product_list">
+		    <script type="text/html" id="product_list">
+				{{each items as item i}}
+			  		<li onclick="location.href ='/xcview/html/shop/commodity_details.html?productId={{item.id}}'">
+						
+						{{if item.productImages != null}}
+							<img src="{{item.productImages[0].source}}" alt="" class="surface_plot" />
+						{{else}}
+							<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+						{{/if}}
+
+						<div class="title">{{item.name}}</div>
+						<div class="price">￥{{item.price}}</div>
+						<div class="referrer">
+					     	 {{if item.doctor != null}}
+								<img src="{{item.doctor.avatar}}" alt="" />
+								<span>{{item.doctor.name}}</span>
+							 {{else}}
+								<img src="/xcview/images/touxiang.png" alt="" />
+								<span></span>
+							 {{/if}}
+							   医师 推荐
+				        </div>
+			         </li>
+				{{/each}}
+		    </script>
 		</ul>
 	</div>
 	<!-- 中间内容结束 -->
@@ -125,13 +110,16 @@
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script> 
 <script type="text/javascript" src="/xcview/js/common/common.js"></script>
 <script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
+<script type="text/javascript" src="/xcview/js/common/template.js"></script> 
+<script type="text/javascript" src="/xcview/js/shop/shop_listings.js"></script>
 <!-- 选项卡点击事件 -->
 <script>
+
 	window.onload = function(){
 		
 		// option_newest--最新    option_recommend--推荐   option_hottest--最热  option_price--价格
 		// 最新
-		$(".option_newest").click();
+
 		$(".option_newest").click(function(){
 			$(".option_newest").addClass("default_click");  //最新
 			$(".option_recommend").removeClass("default_click");
@@ -149,6 +137,8 @@
 			$(".low_to_high").removeClass(".low_to_high_width");
 			$(".down").removeClass("down_width");
 			$(".option_price").removeClass("option_newest_width");
+			
+			listData(0,null,"DATE_DESC ",keyWord);  
 		});
 		//推荐
 		$(".option_recommend").click(function(){
@@ -167,6 +157,8 @@
 			$(".low_to_high").removeClass(".low_to_high_width");
 			$(".down").removeClass("down_width");
 			$(".option_price").removeClass("option_newest_width");
+			
+			listData(0,null,"RECOMMEND_DESC  ",keyWord);  
 		});
 		//最热
 		$(".option_hottest").click(function(){
@@ -185,6 +177,8 @@
 			$(".low_to_high").removeClass(".low_to_high_width");
 			$(".down").removeClass("down_width");
 			$(".option_price").removeClass("option_newest_width");
+			
+			listData(0,null,"SALES_DESC",keyWord);  
 		});
 		//价格
 		$(".option_price").click(function(){
@@ -220,6 +214,8 @@
 			$(".option_hottest").addClass("option_hottest_width");
 			$(".option_price").addClass("option_newest_width");
 			$(".down").addClass("down_width");
+			
+			listData(0,null,"PRICE_ASC",keyWord);
 		});
 		//由高到低
 		$(".down").click(function(){
@@ -237,6 +233,8 @@
 			$(".option_recommend").addClass("option_recommend_width");
 			$(".option_hottest").addClass("option_hottest_width");
 			$(".low_to_high").addClass("option_newest_width");
+			
+			listData(0,null,"PRICE_DESC",keyWord);
 		});
 		// 点击头部区域客服消息
 		$(".advices").click(function(){

@@ -1,5 +1,5 @@
 $(function() {
-
+    var sn = getQueryString("sn");
 
     orderDetails();
 

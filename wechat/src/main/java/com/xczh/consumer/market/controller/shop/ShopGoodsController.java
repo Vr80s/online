@@ -1,5 +1,8 @@
 package com.xczh.consumer.market.controller.shop;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
@@ -8,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.plugins.Page;
@@ -15,8 +19,10 @@ import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.enums.SearchType;
 import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.service.IMobileBannerService;
+import com.xczhihui.course.service.IMobileHotSearchService;
 import com.xczhihui.medical.banner.model.OeBanner;
 import com.xczhihui.medical.banner.service.PcBannerService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
@@ -53,6 +59,9 @@ public class ShopGoodsController {
     
 	@Autowired
 	private IMedicalDoctorPostsService medicalDoctorPostsService;
+	
+    @Autowired
+    private IMobileHotSearchService mobileHotSearchService;
 
     @RequestMapping("list")
     public ResponseObject list(GoodsPageParams goodsPageParams, OrderType orderType) {
@@ -90,13 +99,21 @@ public class ShopGoodsController {
     }
 
     
-    public static void main(String[] args) {
-		
-    	MultiUrlHelper.getUrl("PRODUCT_DETAIL",
-    			MultiUrlHelper.URL_TYPE_MOBILE, 
-    			"123");
+    /**
+     * 热门搜索列表
+     */
+    @RequestMapping("hotSearch")
+    @ResponseBody
+    public ResponseObject hotSearchList()
+            throws Exception {
     	
-	}
+        Map<String, Object> mapAll = new HashMap<String, Object>();
+        //默认搜索框
+        mapAll.put("defaultSearch", mobileHotSearchService.HotSearchList(SearchType.PRODUCT_DEFAULT_SEARCH.getCode()));
+        //热门搜索
+        mapAll.put("hotSearch", mobileHotSearchService.HotSearchList(SearchType.PRODUCT_HOT_SEARCH.getCode()));
+        return ResponseObject.newSuccessResponseObject(mapAll);
+    }
     
     
     @RequestMapping("review")

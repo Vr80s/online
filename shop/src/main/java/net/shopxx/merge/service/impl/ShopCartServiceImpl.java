@@ -91,7 +91,7 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
     }
 
     @Override
-    public void modify(String ipandatcmUserId, Long skuId, int quantity) {
+    public Long modify(String ipandatcmUserId, Long skuId, int quantity) {
         Member member = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
         Cart cart = member.getCart();
         if (cart == null) {
@@ -99,7 +99,7 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
         }
         Sku sku = skuService.find(skuId);
         if (CartItem.MAX_QUANTITY != null && quantity > CartItem.MAX_QUANTITY) {
-            return;
+            throw new IllegalArgumentException("参数错误");
         }
         Set<CartItem> cartItems = cart.getCartItems();
         Optional<CartItem> cartItemOptional = cartItems.stream().filter(cartItem -> {
@@ -120,6 +120,7 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
             cartItem.setCart(cart);
             cartItemDao.persist(cartItem);
         }
+        return cartItem.getId();
     }
 
     @Override
