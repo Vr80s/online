@@ -93,7 +93,14 @@ function getShareIdAndType(){
 		
 		obj.shareId = getQueryString("consiliaId");
 		obj.shareType = 6;
+		
+	}else if(viewHtml == "commodity_details.html" ||
+			viewHtml == "recommend.html" || viewHtml == "all_evaluation.html"){
+		
+		obj.shareId = getQueryString("productId");
+		obj.shareType = 8;
 	}
+	
 }
 
 getShareIdAndType();

@@ -55,13 +55,5 @@
             and is_delete=0 and status = 1
         </if>
         
-        <if test="type != null and (type == 6  or type == 7 )">
-            select id as shareId,title as name,content as description,
-	            img_Path as headImg,#{type} as type
-            from oe_bxs_article
-	            where id = #{shareId}
-	            and is_delete=0 and status = 1
-        </if>
-        
     </select>
 </mapper>

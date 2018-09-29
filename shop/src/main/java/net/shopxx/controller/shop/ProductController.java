@@ -23,6 +23,7 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -56,6 +57,7 @@ import net.shopxx.merge.enums.Type;
 import net.shopxx.merge.enums.UsersType;
 import net.shopxx.merge.service.GoodsService;
 import net.shopxx.merge.service.OrderOperService;
+import net.shopxx.merge.service.ShopCartService;
 import net.shopxx.merge.service.ShopReviewService;
 import net.shopxx.merge.vo.GoodsPageParams;
 import net.shopxx.merge.vo.OrderPageParams;
@@ -544,6 +546,19 @@ public class ProductController extends BaseController {
 		return null;
 	}
 
+	@Autowired
+    private ShopCartService shopCartService;
+	
+	@GetMapping("/cartNumber")
+	public @ResponseBody Object cartNumber() {
+
+		//Object list = shopReviewService.list(id, 1, 10);
+		
+		Integer cartQuantity = shopCartService.getCartQuantity("96cf3b35965c4fd2941faaf74c7abefc");
+		
+		return cartQuantity;
+	}
+	
 
 	/**
 	 * FormBean - 评论条目
