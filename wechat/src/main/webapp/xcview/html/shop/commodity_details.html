@@ -509,7 +509,7 @@
         //数量
         quantity = $(".spinnerExample").val();
         
-        requestGetService("/xczh/shop/checkout?skuId="+skuId+"&quantity="+quantity,null,function(data){
+        requestGetService("/xczh/shop/checkSku?skuId="+skuId+"&quantity="+quantity,null,function(data){
 			if(data.success){
 				flag = true;
 			}
