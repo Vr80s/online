@@ -31,10 +31,12 @@ function listClick(){
             var a = $(".swiper-slide").css("display");
             if (a == "block") {
                 $(".banner").show();
+                $(".minirefresh-wrap").css("top","5rem");
             } else {
                 $(".banner").hide();
+                $(".minirefresh-wrap").css("top","2rem");
             }
-
+            
             $(".swiper-slide img").click(function () {
                 var data_id = $(this).attr("data_id");
                 //增加banner的点击量
@@ -332,13 +334,7 @@ function recommends(pageNumber, downOrUp){
     });
 
 
-//banner隐藏,刷新上去
-var a = $(".banner").css("display");
-if (a == "block") {
-	$(".minirefresh-wrap").css("top","2rem");
-} else {
-	$(".minirefresh-wrap").css("top","5rem");
-}
+
 
 
 
