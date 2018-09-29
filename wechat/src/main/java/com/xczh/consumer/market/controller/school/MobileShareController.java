@@ -97,10 +97,8 @@ public class MobileShareController {
                 return ResponseObject.newErrorResponseObject("课程/文章已下架");
             }
 
-
         } catch (Exception e) {
             e.printStackTrace();
-
             //如果异常默认用这个
             ShareInfoVo sv = new ShareInfoVo();
             sv.setName("熊猫中医");
