@@ -12,7 +12,7 @@ function orderDetails() {
     }, function (data) {
         if(data.success ){
             var obj =  data.resultObject;
-                //$(".indent").html(template('order_list',{items:obj}));
+                $(".orderDetails").html(template('order_details',obj));
 
         }
     });

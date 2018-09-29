@@ -14,7 +14,7 @@
 
 <!--手机嵌入模板-->
 <script type="text/javascript" src="/xcview/js/common/layout.js"></script>
-
+	<script type="text/javascript" src="/xcview/js/common/template.js"></script>
 <link type="text/css" rel="stylesheet" href="/xcview/css/shop/line_item.css" />
 <link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
 <script>
@@ -45,18 +45,24 @@
 	</header>
 	<div class="header_hidden_field"></div>
 	<!-- 头部区域结束 -->
-	
-	<!-- 中间内容开始 -->
+	<div class="orderDetails"></div>
+	<script type="text/html" id="order_details">
+		<!-- 中间内容开始 -->
 	<!-- 交易状态开始 -->
 	<div class="trading_status">
+		{{if status == 'PENDING_PAYMENT'}}
 		<div class="payment_status">等待买家付款</div>
+		{{else if status == 'CANCELED'}}
 		<div class="payment_status" style="display:none;">交易关闭</div>
+		{{else if status == 'PENDING_REVIEW'}}
 		<div class="payment_status" style="display:none;">买家已付款</div>
+		{{else if status == 'SHIPPED'}}
 		<div class="payment_status" style="display:none;">卖家已发货</div>
-		<div class="payment_status" style="display:none;">等待买家付款</div>
+		{{else if status == 'COMPLETED'}}
 		<div class="payment_status" style="display:none;">交易成功</div>
-		<div class="orderid">订单编号：179975350809249174</div>
-		<div class="orderid">下单时间：2018-09-17 15:00</div>
+		{{/if}}
+		<div class="orderid">订单编号：{{sn}}</div>
+		<div class="orderid">下单时间：{{createdDate}}</div>
 	</div>
 	<!-- 交易状态结束 -->
 
@@ -80,14 +86,15 @@
 	<!-- 收件人开始 -->
 	<div class="recipients">
 		<div class="recipients_main">
-			<div class="name"><strong>收件人：宫崎骏</strong></div>
-			<div class="number"><strong>13612638888</strong></div>
+			<div class="name"><strong>收件人：{{consignee}}</strong></div>
+			<div class="number"><strong>{{phone}}</strong></div>
 		</div>
-		<div class="address">海南省海口市琼山区滨海大道128号海南省海口市琼山区滨海大道128号海南省海口市琼山区滨海大道128号海南省海口市琼山区滨海大道128号</div>
+		<div class="address">{{areaName}}{{address}}</div>
 	</div>
 	<!-- 收件人结束 -->
 	
 	<div class="indent">
+
 		<div class="indent_list">
 			<div class="indent_list_title">
 				<div class="tilte">
@@ -102,22 +109,24 @@
 				<div class="payment_operation" style="display: none;">交易关闭</div>
 			</div>
 			<div class="main_product_details">
+				{{each orderItems as orderItem }}
 				<div class="product_details">
-					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+					<img src="{{orderItem.thumbnail}}" alt="" class="surface_plot" />
 					<div class="product_details_center">
-						<div class="title"><span>正宗老北京足贴买2送1买3送2一盒50贴老北京足贴</span></div>
+						<div class="title"><span>{{orderItem.name}}</span></div>
 						<div class="pack">
-							1盒10包装；白色（库存10件）
+							1盒10包装；白色（库存{{orderItem.sku.stock}}件）
 						</div>
 						<div class="total_prices">
 							<div class="price_yuan" >
-								<div class="yuan">￥<span>110.01</span></div>
-								<div class="number">x<span>3</span></div>
+								<div class="yuan">￥<span>{{orderItem.price}}</span></div>
+								<div class="number">x<span>{{orderItem.quantity}}</span></div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="product_details">
+				{{/each}}
+				<!--<div class="product_details">
 					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
 					<div class="product_details_center">
 						<div class="title"><span>正宗老北京足贴买2送1买3送2一盒50贴老北京足贴</span></div>
@@ -131,18 +140,18 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>-->
 			</div>
 			<!-- <div class="zongjia"></div> -->
 			<div class="fund">
 				<div class="fund_main">
 					<div class="payment_details">
 						<div class="total fund_title">商品总价</div>
-						<div class="yuan">￥10.00</div>
+						<div class="yuan">￥{{amount}}</div>
 					</div>
 					<div class="payment_details">
 						<div class="fund_title">运费</div>
-						<div class="yuan">+￥10.00</div>
+						<div class="yuan">+￥{{freight}}</div>
 					</div>
 					<div class="payment_details">
 						<div class="fund_title">优惠金额</div>
@@ -162,28 +171,37 @@
 			<div class="payment_method">
 				<div class="waiting_payment">
 					<!-- 等待买家付款 -->
+					{{if status == 'PENDING_PAYMENT'}}
 					<div class="immediate_payment">立即付款</div>
 					<div class="cancel_order">取消订单</div>
 					
 					<!-- 买家已付款 -->
+					{{else if status == 'PENDING_PAYMENT'}}
 					<div class="buy_again" style="display: none;">再次购买</div>
 
 					<!-- 卖家已发货 -->
+					{{else if status == 'SHIPPED'}}
 					<div class="check_logistics" style="display: none;">查看物流</div>
 					<div class="shipped_cancel_order" style="display: none;">再次购买</div>
 					<div class="confirm_receipt" style="display: none;">确认收货</div>
 
 					<!-- 交易成功 -->
+					{{else if status == 'COMPLETED'}}
 					<div class="win_check_logistics" style="display: none;">查看物流</div>
 					<div class="win_shipped_cancel_order" style="display: none;">再次购买</div>
 					<div class="win_evaluate" style="display: none;">评价</div>   <!-- 交易成功后评价后-评价按钮隐藏 -->
 					
 					<!-- 交易关闭 -->
+					{{else if status == 'CANCELED'}}
 					<div class="delete_order" style="display: none;">删除订单</div>
 					<div class="fack_shipped_cancel_order" style="display: none;">再次购买</div>
+					{{/if}}
 				</div>
 			</div>
 		</div>
+
+	</div>
+	</script>
 	</div>
 	<!-- 中间内容结束 -->
 	<div class="main_height"></div>
