@@ -1,7 +1,12 @@
 package com.xczh.consumer.market.controller.medical;
 
-import java.util.Optional;
-
+import com.baomidou.mybatisplus.plugins.Page;
+import com.xczh.consumer.market.auth.Account;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
+import net.shopxx.merge.service.GoodsService;
+import net.shopxx.merge.vo.ProductVO;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,11 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.xczh.consumer.market.auth.Account;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Description：医师控制器
@@ -31,6 +33,8 @@ public class MedicalDoctorPostsController {
             .getLogger(MedicalDoctorPostsController.class);
     @Autowired
     private IMedicalDoctorPostsService medicalDoctorPostsService;
+    @Autowired
+    private GoodsService goodsService;
 
     /**
      * 医师动态列表
@@ -45,6 +49,18 @@ public class MedicalDoctorPostsController {
         page.setCurrent(pageNumber);
         page.setSize(pageSize);
         Page<MedicalDoctorPosts> list = medicalDoctorPostsService.selectMedicalDoctorPostsPage(page, type, doctorId, userId);
+        List<MedicalDoctorPosts> listMDP = list.getRecords();
+        for (int i=0;i<listMDP.size();i++){
+            if(listMDP.get(i).getProductId() != null){
+                ProductVO p = (ProductVO)goodsService.findProductById(listMDP.get(i).getProductId());
+                listMDP.get(i).setProductTitle(p.getName());
+                listMDP.get(i).setProductPrice(p.getPrice());
+                if(p.getProductImages() != null){
+                    listMDP.get(i).setProductImages(p.getProductImages().get(0).getThumbnail());
+                }
+            }
+        }
+        list.setRecords(listMDP);
         //过滤ios师承直播
 //        List<MedicalDoctorPosts> list1 = new ArrayList<MedicalDoctorPosts>();
 //        list.getRecords().forEach(medicalDoctorPosts -> {

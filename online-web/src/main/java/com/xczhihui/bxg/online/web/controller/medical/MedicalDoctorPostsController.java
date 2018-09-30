@@ -59,8 +59,9 @@ public class MedicalDoctorPostsController {
                 ProductVO p = (ProductVO)goodsService.findProductById(listMDP.get(i).getProductId());
                 listMDP.get(i).setProductTitle(p.getName());
                 listMDP.get(i).setProductPrice(p.getPrice());
-                listMDP.get(i).setProductImages(p.getProductImages().get(0).getThumbnail());
-
+                if(p.getProductImages() != null){
+                    listMDP.get(i).setProductImages(p.getProductImages().get(0).getThumbnail());
+                }
             }
         }
         list.setRecords(listMDP);
