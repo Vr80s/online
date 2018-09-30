@@ -297,10 +297,10 @@ public class MobileShareController {
             } else if (ShareType.ACTICLE_SHARE.getCode().equals(shareType)) {
                 res.sendRedirect(returnOpenidUri + WechatShareLinkType.MEDICAL_CASES.getLink()+ shareId);
                 
-            } 
-//            else if (ShareType.MEDICAL_CASES.getCode().equals(shareType)) {
-//                res.sendRedirect(returnOpenidUri + WechatShareLinkType.MEDICAL_CASES.getLink()+ shareId);
-//            }
+            } else if (ShareType.PRODUCT_SHARE.getCode().equals(shareType)) {
+            	
+                res.sendRedirect(returnOpenidUri + WechatShareLinkType.PRODUCT_DETAIL.getLink()+ shareId);
+            }
         } catch (Exception e) {
             e.printStackTrace();
 

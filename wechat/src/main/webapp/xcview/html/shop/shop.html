@@ -65,7 +65,18 @@
 	<header>
 		<div class="header" onclick="location.href ='/xcview/html/shop/search_goods.html'">
 			<img src="/xcview/images/sousuo0.png" alt="" />
-			<span calss="header_default">搜索好货</span>
+			<!--<span calss="header_default">搜索好货</span>-->
+			<span class="queryKey" style="margin-left: .02rem;">
+				<script type="text/html" id="queryKey">
+				{{each items as item i}}
+				{{if item.name !=null}}
+					<span>大家都在搜：<span class="keyword" style="float: right;margin-left: 0;">{{item.name}}</span></span>
+				{{else}}
+					<span></span>
+				{{/if}}
+				{{/each}}
+       	 		</script>
+			</span>
 			<!-- <span calss="tacitly_approve">搜索好货</span> -->
 		</div>
 		<div class="advices">

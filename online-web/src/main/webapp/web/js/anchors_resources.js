@@ -992,7 +992,6 @@ function orderListShop(pageNumber,dataStyle,keyWord){
             $(this).prevAll().attr('src',starRed).addClass("active");  //设置鼠标当前的前面星星图片为打星颜色图  
 //          $(this).siblings('span').text(prompt[this.id]);     //根据id的索引值作为数组的索引值  		
 			imgLengthStart=$('.our-ratings .active').length;
-			console.log(imgLengthStart)
         });
     });  
 //	选择要推荐的商品
