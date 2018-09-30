@@ -92,8 +92,7 @@ public class MobileShareController {
         try {
         	ShareInfoVo sv = null;
         	if(ShareType.PRODUCT_SHARE.getCode().equals(shareType)) {
-        		
-        		//goodsService
+        		sv = goodsService.findIdByShareInfo(shareId);
         	}else {
         		sv = courseServiceImpl.selectShareInfoByType(shareType, shareId);
         	}
