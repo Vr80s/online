@@ -167,7 +167,18 @@ $(".down").click(function(){
         }
     });
 });
-    
+
+var urlAttribute=getQueryString('queryKey')
+if (urlAttribute=='' || urlAttribute== null) {
+	
+} else{
+//	$('.header_seek_main .span_hide').hide();
+//	$('.header_seek_main').append('<span style='margin-left: 0.38rem;margin-top: -0.6rem;'>' + urlAttribute + '</span>');
+	/*$('.header .header_default').text(urlAttribute);
+	$('.header .tacitly_approve').html(urlAttribute);*/
+	$('.header').append('<span>' + urlAttribute + '</span>');
+	
+}
 
 
 

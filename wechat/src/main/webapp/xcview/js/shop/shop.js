@@ -374,3 +374,17 @@ function recommends(pageNumber, downOrUp){
     })
 // })
 
+
+requestService("/xczh/shop/goods/hotSearch", null,
+	function(data) {
+		if (data.success == true) {
+			// 	    	<!--给inpiu默认值-->
+			$(".queryKey").html(template('queryKey', {
+				items: data.resultObject.defaultSearch
+			}))
+			if (data.resultObject.defaultSearch != null && data.resultObject.defaultSearch.length > 0) {
+				localStorage.setItem("defaultKey", data.resultObject.defaultSearch[0].name);
+			}
+		}
+},false)
+
