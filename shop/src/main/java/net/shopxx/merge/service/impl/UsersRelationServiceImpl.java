@@ -33,8 +33,8 @@ public class UsersRelationServiceImpl extends BaseServiceImpl<UsersRelation, Lon
 	public UsersRelation findByIpandatcmUserId(String ipandatcmUserId) {
 		UsersRelation usersRelation = usersRelationDao.findByIpandatcmUserId(ipandatcmUserId);
 		if(usersRelation == null){
-//			usersRelation = saveUserRelation(ipandatcmUserId);
-			throw new RuntimeException("用户不存在");
+			usersRelation = saveUserRelation(ipandatcmUserId);
+//			throw new RuntimeException("用户不存在");
 		}
 		return usersRelation;
 	}

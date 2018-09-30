@@ -67,7 +67,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 	private PluginService pluginService;
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional
 	public void checkSku(Long skuId, Integer quantity) {
 		if (quantity == null || quantity < 1) {
 			throw new RuntimeException("数量有误");
@@ -370,7 +370,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional
 	public List<OrderVO> findPage(OrderVO.Type type, OrderVO.Status status, ScoreVO store, String ipandatcmUserId, ProductVO product, Boolean isPendingReceive, Boolean isPendingRefunds, Boolean isUseCouponCode, Boolean isExchangePoint, Boolean isAllocatedStock, Boolean hasExpired, int pageNumber,int pageSize) {
 		
 		//获取当前用户
@@ -413,7 +413,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional
 	public OrderVO findBySn(String sn) {
 		Order order = orderService.findBySn(sn);
 		OrderVO o = new OrderVO();
@@ -607,7 +607,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional
 	public List<ReceiverVO> receiverlist(String ipandatcmUserId) {
 		Member currentUser = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
 		Pageable pageable = new Pageable(0, 100);
@@ -624,7 +624,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional
 	public ReceiverVO findReceiverById(Long receiverId, String ipandatcmUserId) {
 		Member currentUser = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
 		Receiver receiver = receiverService.find(receiverId);
@@ -733,7 +733,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 		orderService.receive(order);
 	}
 
-	@Transactional(readOnly = true)
+	@Transactional
 	public List<Map<String, Object>> findArea(Long parentId) {
 		List<Map<String, Object>> data = new ArrayList<>();
 		Area parent = areaService.find(parentId);
@@ -819,7 +819,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 	
 	
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional
 	public Object findPageXc(OrderPageParams orderPageParams, Status status, ScoreVO store, 
 			String ipandatcmUserId, ProductVO product,UsersType usersType,OrderType orderType) {
 		

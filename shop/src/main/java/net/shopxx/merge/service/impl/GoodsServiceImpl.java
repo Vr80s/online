@@ -127,7 +127,7 @@ public class GoodsServiceImpl implements GoodsService {
 
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public Object findProductById(Long productId) {
 
         LOGGER.info("productId:" + productId);
@@ -273,7 +273,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public Object findIdByCategoryId(Long categoryId) {
         ProductCategory find = productCategoryDao.find(categoryId);
         List<Map<String, Object>> list = productDao.findIdByCategoryId(find);

@@ -63,7 +63,7 @@ public class ShopReviewServiceImpl implements ShopReviewService {
 
 	
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional
 	public Object list(Long productId, Integer pageNumber, Integer pageSize) {
 		Product find = productDao.find(productId);
 		List<Review> content = reviewDao.findPage(null, find, null, null, true, 

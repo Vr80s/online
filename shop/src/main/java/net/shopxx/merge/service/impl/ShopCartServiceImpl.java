@@ -222,7 +222,7 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
 
 	
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional
 	public Integer getCartQuantity(String accountId) {
 		Member member = usersRelationService.getMemberByIpandatcmUserId(accountId);
         Cart cart = member.getCart();
