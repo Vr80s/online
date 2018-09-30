@@ -39,61 +39,74 @@
 				   <li data-target="#carousel-example-generic" data-slide-to="1"></li>
 				</ol>
 				<div class="carousel-inner banner-carousel" role="listbox">
-				  	<div class="item active">
-				    	<img src="/web/images/wrap-banner.jpg" alt="广告图">
-				  	</div>
-				  	<div class="item">
-				   		<img src="/web/images/new-york.jpg" alt="广告图">
-				  	</div>
+				  
 				</div>
 			</div>
-			<h3 class="ware-title">结实耐用 USB充电接口】NTNL 大容量万向轮商量万向轮量万向轮商量万向轮商量量万向轮商量万向轮商量商量万向轮商量万向轮商量万向</h3>
-			<p class="ware-price">
-				<span class="ware-price-num z">&yen; 26.00</span>
-				<span class="ware-original z"><del>&yen; 35.00</del\></span>
-				<span class="sold-goods y">已售5695件</span>
-				
-			</p>
-			<hr class="line" />
-			<!--推荐医师-->
-			<div class="physician-main">
-				<div class="physician-title">
-					<span>医师推荐</span>
-					<p>
-						查看全部 &gt
+			<div class="shop-detail-wrap">
+				<script type="text/template" id="detail-template">
+					<h3 class="ware-title">{{item.name}}</h3>
+					<p class="ware-price">
+						<span class="ware-price-num z">&yen; {{item.price}}</span>
+						<span class="ware-original z"><del>&yen; {{item.marketprice}}</del\></span>
+						<span class="sold-goods y">已售{{item.sales}}件</span>
 					</p>
-				</div>
-				<div class="physician-inf-main">
-					<div class="physician-head z">
-						<img src="/web/images/1.jpg"/>
+				</script>
+			</div>
+			<!--推荐医师-->
+			<div class="physician-main" id="physician-main">
+				<script type="text/template" id="physician-template">					
+					<hr class="line" />
+					<div class="physician-title">
+						<span>医师推荐</span>
+						<p>
+							查看全部 &gt
+						</p>
 					</div>
-					<div class="physician-inf">
-						<span class="physician-name z">张家就医师</span>
-						<span class="physician-groom z">推荐指数</span>
-						<img class="groom-img" src="/web/images/icon-start3_0.png" />
+					<div class="physician-inf-main">
+						<div class="physician-head z">
+							<img src="{{item.doctorHeadImg}}"/>
+						</div>
+						<div class="physician-inf">
+							<span class="physician-name z">{{item.doctorName}}医师</span>
+							<span class="physician-groom z">推荐指数</span>
+							{{if item.level==1}}
+							<img class="groom-img" src="/web/images/icon-start1_0.png" />
+							{{else if item.level==2}}
+							<img class="groom-img" src="/web/images/icon-start2_0.png" />
+							{{else if item.level==3}}
+							<img class="groom-img" src="/web/images/icon-start3_0.png" />
+							{{else if item.level==4}}
+							<img class="groom-img" src="/web/images/icon-start4_0.png" />
+							{{else if item.level==5}}
+							<img class="groom-img" src="/web/images/icon-start5_0.png" />
+							{{/if}}
+						</div>
+						<p class="physician-text">{{item.content}}</p>
 					</div>
-					<p class="physician-text">无添加玫瑰花红糖，不添加任何防腐剂，口感细滑，易于吸收，具有良好的温补功效，了解一下？</p>
-				</div>
+				</script>
 			</div>
 			<!--商品评价-->
-			<hr class="line" />
 			<div class="ware-evaluate">
-				<div class="physician-title">
-					<span>评价</span>
-					<p>
-						查看全部 &gt
-					</p>
-				</div>
-				<div class="evaluate-head z">
-					<img src="/web/images/1.jpg"/>
-				</div>
-				<p class="evaluate-name z">陈娇娇</p>
-				<p class="buy-inf">2018.04.12 11:20 花束（红）；11朵；简单包装</p>
-				<p class="evaluate-text">不错不错，快递很快，在约定时间内送到了，花儿很新鲜，现在整个屋子都飘着香味呢，好评~</p>
+				<script type="text/template" id="evaluate-template">
+					<hr class="line" />
+					<div class="physician-title">
+						<span>评价</span>
+						<p>
+							查看全部 &gt
+						</p>
+					</div>
+					<div class="evaluate-head z">
+						<img src="/web/images/1.jpg"/>
+					</div>
+					<p class="evaluate-name z">{{item.user.username}}</p>
+					<p class="buy-inf">{{item.createdDate}} {{item.specifications}}</p>
+					<p class="evaluate-text">{{item.content}}</p>
+				</script>
 			</div>
 			<!--商品详情-->
-			<hr class="line" />
+			
 			<div class="ware-detail">
+				<hr class="line" />
 				<div class="physician-title" style="margin-bottom: 10px;">
 					<span>商品详情</span>					
 				</div>
@@ -138,8 +151,14 @@
 				</div>
 			</div>
 		<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="/web/js/artTemplate.js"></script>
 		<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>		
+		<script src="/web/js/common/common.js" type="text/javascript" charset="UTF-8"></script>		
+		<script src="/web/js/common_msg.js" type="text/javascript" charset="UTF-8"></script>
 		<script src="/web/js/anchors_preview.js" type="text/javascript" charset="utf-8"></script>
+		
+		
+		
 		<script>
 			$('.banner-wrap').carousel({
 			  interval: 3000
