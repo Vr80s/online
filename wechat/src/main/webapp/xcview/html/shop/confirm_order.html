@@ -44,7 +44,7 @@
 	<!-- 选择地址开始 -->
 	<div class="select_address">
 		<div class="select_address_main">
-			<div class="no_address" style="displayss: none;">
+			<div class="no_address" style="display: none;">
 				<img src="/xcview/images/shop/location.png" alt="" class="location" />
 				<div class="addition">还没有收货地址，<span>去添加</span></div>
 				<img src="/xcview/images/account05.png" alt="" class="skip" />
@@ -52,11 +52,12 @@
 			</div>
 			<div class="yes_address" style="display: none;">
 				<div class="address_message">
+					<input class="receiverId" type="hidden" />
 					<div class="address_message_top">
-						<div class="addressee"><strong>收件人：宫崎骏</strong></div>
-						<div class="cell-phone"><strong>13612638888</strong></div>
+						<div class="addressee"><strong>收件人：<span class="consignee"></span></span></strong></div>
+						<div class="cell-phone"><strong><span class="phone"></span></strong></div>
 					</div>
-					<div class="detailed_address">海南省海口市琼山区滨海大道128号</div>
+					<div class="detailed_address"><span class="areaName"></span><span class="address"></span></div>
 				</div>
 				<img src="/xcview/images/account05.png" alt="" class="skip" />
 			</div>

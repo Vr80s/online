@@ -27,9 +27,9 @@ $(function() {
     $(".totals_yuan span").html(oprice.toFixed(2));         //商品总价格
 
     $(".submit_order").click(function(){
-        var skuId = 10001;
-        var quantity = 1;
-        var receiverId = 10210;
+        var skuId = getParam("skuId");
+        var quantity = getParam("quantity");
+        var receiverId = $(".receiverId").val();
         var shippingMethodId = 1;
         var memo = "拒收到付";
         requestService("/xczh/shop/order/create","skuId="+skuId+"&quantity="+quantity+"&shippingMethodId="+shippingMethodId+"&receiverId="+receiverId+"&memo="+memo,function(data){
@@ -39,11 +39,44 @@ $(function() {
             }else{
                 alert(data.errorMessage);
             }
-        },false);
+        });
     });
+
+    getDefaultReceiver();
+
 });
 
+var receiver;
+function getDefaultReceiver(){
+    requestService("/xczh/shop/receiver/list",null,function(data){
+        if(data.success){
+            var receiverList = data.resultObject;
+            if(receiverList.length > 0){
+                $(".yes_address").show();
+                $(".no_address").hide();
+                receiver = receiverList[0];
+                for (var i = 0;i < receiverList.length;i++){
+                    if(receiverList[i].isDefault){
+                        receiver = receiverList[i];
+                    }
+                }
+                createReceiverInfo(receiver);
+            }else{
+                $(".yes_address").hide();
+                $(".no_address").show();
+            }
+        }else{
+            alert(data.errorMessage);
+        }
+    },false);
+}
 
-
+function createReceiverInfo(receiver){
+    $(".receiverId").val(receiver.id);
+    $(".consignee").html(receiver.consignee);
+    $(".phone").html(receiver.phone);
+    $(".areaName").html(receiver.areaName);
+    $(".address").html(receiver.address);
+}
 
 

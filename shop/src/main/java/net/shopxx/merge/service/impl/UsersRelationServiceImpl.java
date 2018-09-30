@@ -33,13 +33,15 @@ public class UsersRelationServiceImpl extends BaseServiceImpl<UsersRelation, Lon
 	public UsersRelation findByIpandatcmUserId(String ipandatcmUserId) {
 		UsersRelation usersRelation = usersRelationDao.findByIpandatcmUserId(ipandatcmUserId);
 		if(usersRelation == null){
-			usersRelation = saveUserRelation(ipandatcmUserId);
+//			usersRelation = saveUserRelation(ipandatcmUserId);
+			throw new RuntimeException("用户不存在");
 		}
 		return usersRelation;
 	}
 
 	@Override
-	@Transactional(propagation= Propagation.REQUIRES_NEW)
+	@Transactional
+//	@Transactional(propagation= Propagation.REQUIRES_NEW)
 	public Member getMemberByIpandatcmUserId(String ipandatcmUserId){
 		System.out.println("用户关联查询---id："+ipandatcmUserId);
 		UsersRelation usersRelation = this.findByIpandatcmUserId(ipandatcmUserId);
