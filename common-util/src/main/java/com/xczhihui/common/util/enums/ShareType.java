@@ -19,7 +19,7 @@ public enum ShareType {
     
     ACTICLE_SHARE(6, "文章分享，医案分享，著作分享"),
 	
-    PRODUCT_SHARE(7, "文章分享，医案分享，著作分享");
+    PRODUCT_SHARE(7, "商品详情");
 
     /**
      * 描述
