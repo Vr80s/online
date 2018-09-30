@@ -93,8 +93,17 @@ function getShareIdAndType(){
 		
 		obj.shareId = getQueryString("consiliaId");
 		obj.shareType = 6;
+		
+	// 商品详情分享	
+	}else if(viewHtml == "commodity_details.html" ||
+			viewHtml == "recommend.html" || viewHtml == "all_evaluation.html"){
+		
+		obj.shareId = getQueryString("productId");
+		obj.shareType = 7;
 	}
+	
 }
+
 getShareIdAndType();
 
 var shareType = obj.shareType;
@@ -105,8 +114,6 @@ var link = domain+"/wx_share.html?shareType="+shareType+"&shareId="+shareId;
 var title = "";
 var shareDescription = "";
 var shareSmallImgPath = "";
-
-
 
 /**
  * 获取分享信息

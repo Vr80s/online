@@ -46,11 +46,12 @@ public class ShopCartController {
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public ResponseObject update(@Account String accountId, @RequestParam Long oldSkuId, @RequestParam Long updatedSkuId, @RequestParam int quantity) {
-        List<Long> oldSkuIds = new ArrayList<>();
-        oldSkuIds.add(oldSkuId);
-        shopCartService.remove(accountId, oldSkuIds);
-        shopCartService.modify(accountId, updatedSkuId, quantity);
-        return ResponseObject.newSuccessResponseObject();
+        if (!oldSkuId.equals(updatedSkuId)) {
+            List<Long> oldSkuIds = new ArrayList<>();
+            oldSkuIds.add(oldSkuId);
+            shopCartService.remove(accountId, oldSkuIds);
+        }
+        return ResponseObject.newSuccessResponseObject(shopCartService.modify(accountId, updatedSkuId, quantity));
     }
 
     @RequestMapping(value = "sku/delete", method = RequestMethod.POST)

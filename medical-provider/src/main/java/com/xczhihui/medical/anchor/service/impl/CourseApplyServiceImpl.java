@@ -458,7 +458,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         if(list.size()  >= 7) {
             return XzStringUtils.COLLECTION_UPDATE_ALL;
         }else {
-            updateTime = list.stream().map(DateUtil::getDayOfWeek).collect(Collectors.joining("、"));
+            updateTime = list.stream().map(DateUtil::getDayOfWeek).collect(Collectors.joining(""));
         }
         if(updateTime!=null) {
         	updateTime = "每周"+updateTime+"更新";
@@ -466,15 +466,6 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         return updateTime;
     }
     
-    public static void main(String[] args) {
-		
-    	List<Integer> list = new ArrayList<Integer>();
-    	list.add(1);
-    	list.add(2);
-    	/* list.add(3);*/
-    	System.out.println(list.stream().map(DateUtil::getDayOfWeek).collect(Collectors.joining("、")));
-    	
-	}
 
     
     @Override

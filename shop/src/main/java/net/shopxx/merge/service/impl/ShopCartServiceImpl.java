@@ -1,15 +1,23 @@
 package net.shopxx.merge.service.impl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import net.shopxx.dao.CartDao;
 import net.shopxx.dao.CartItemDao;
 import net.shopxx.dao.ProductDao;
-import net.shopxx.dao.SkuDao;
 import net.shopxx.entity.Cart;
 import net.shopxx.entity.CartItem;
 import net.shopxx.entity.Member;
@@ -33,12 +41,14 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
 
     private static final Object CART_LOCK = new Object();
 
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ShopCartServiceImpl.class);
+    
+    
     @Autowired
     private CartDao cartDao;
     @Autowired
     private CartItemDao cartItemDao;
-    @Autowired
-    private SkuDao skuDao;
+
     @Autowired
     private ProductDao productDao;
 
@@ -87,11 +97,26 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
             cart = create(ipandatcmUserId);
         }
         Sku sku = skuService.find(skuId);
-        cartService.add(cart, sku, quantity);
+        Set<CartItem> cartItems = cart.getCartItems();
+        Optional<CartItem> cartItemOptional = cartItems.stream().filter(cartItem -> {
+            cartItem = cartItemDao.findFetchSku(cartItem.getId());
+            return cartItem != null && cartItem.getSku().getId().equals(skuId);
+        }).findFirst();
+        CartItem cartItem = null;
+        if (cartItemOptional.isPresent()) {
+            cartItem = cartItemOptional.get();
+            cartItem.setQuantity(cartItem.getQuantity() + quantity);
+        } else {
+            cartItem = new CartItem();
+            cartItem.setCart(cart);
+            cartItem.setSku(sku);
+            cartItem.setQuantity(quantity);
+            cartItemDao.persist(cartItem);
+        }
     }
 
     @Override
-    public void modify(String ipandatcmUserId, Long skuId, int quantity) {
+    public Long modify(String ipandatcmUserId, Long skuId, int quantity) {
         Member member = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
         Cart cart = member.getCart();
         if (cart == null) {
@@ -99,7 +124,7 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
         }
         Sku sku = skuService.find(skuId);
         if (CartItem.MAX_QUANTITY != null && quantity > CartItem.MAX_QUANTITY) {
-            return;
+            throw new IllegalArgumentException("参数错误");
         }
         Set<CartItem> cartItems = cart.getCartItems();
         Optional<CartItem> cartItemOptional = cartItems.stream().filter(cartItem -> {
@@ -120,6 +145,7 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
             cartItem.setCart(cart);
             cartItemDao.persist(cartItem);
         }
+        return cartItem.getId();
     }
 
     @Override
@@ -196,13 +222,25 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
 
 	
 	@Override
+	@Transactional
 	public Integer getCartQuantity(String accountId) {
 		Member member = usersRelationService.getMemberByIpandatcmUserId(accountId);
         Cart cart = member.getCart();
         if (cart == null) {
         	return 0;
         }else {
-        	return cart.getQuantity(false);
+        	Set<CartItem> cartItems2 = cart.getCartItems();
+        	int quantity = 0;
+        	for (CartItem cartItem : cartItems2) {
+    			if (cartItem != null && cartItem.getQuantity() != null) {
+    				quantity += cartItem.getQuantity();
+    			}
+    		}
+        	//
+        	cart.getQuantity(false);
+        	
+        	LOGGER.info("quantity:"+quantity);
+        	return quantity;
         }
 	}
 }

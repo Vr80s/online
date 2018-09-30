@@ -8,11 +8,21 @@ package net.shopxx.dao.impl;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.persistence.Query;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -28,12 +38,26 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.xczhihui.common.util.bean.ShareInfoVo;
 
-import net.shopxx.*;
+import net.shopxx.Filter;
 import net.shopxx.Order;
+import net.shopxx.Page;
+import net.shopxx.Pageable;
+import net.shopxx.Setting;
 import net.shopxx.dao.ProductDao;
-import net.shopxx.entity.*;
+import net.shopxx.entity.Attribute;
+import net.shopxx.entity.Brand;
+import net.shopxx.entity.Product;
+import net.shopxx.entity.ProductCategory;
+import net.shopxx.entity.ProductTag;
+import net.shopxx.entity.Promotion;
+import net.shopxx.entity.Sku;
+import net.shopxx.entity.Store;
+import net.shopxx.entity.StoreProductCategory;
+import net.shopxx.entity.StoreProductTag;
 import net.shopxx.merge.enums.OrderType;
 import net.shopxx.merge.vo.GoodsPageParams;
 import net.shopxx.merge.vo.ProductImageVO;
@@ -691,14 +715,6 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
     public List<Map<String, Object>> findIdByCategoryId(ProductCategory productCategory) {
 
         String jpql = " SELECT id FROM productcategory WHERE treePath LIKE :categoryId";
-
-//        List<BigInteger> resultList = new ArrayList<BigInteger>();
-//        if(productCategory.getParent()!=null) {
-//        	resultList.add(new BigInteger(productCategory.getId().toString()));
-//        }else {
-//        	resultList = entityManager.createNativeQuery(jpql)
-//                    .setParameter("categoryId", "%" + productCategory.getId() + "%").getResultList();
-//        }
         List<BigInteger> resultList  = entityManager.createNativeQuery(jpql)
                 .setParameter("categoryId", "%" + productCategory.getId() + "%").getResultList();
         if(resultList!=null) {
@@ -825,5 +841,46 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
         productVO.setInventory(objects[8] != null ? ((BigInteger) objects[8]).intValue() : 0);
         productVO.setUv(objects[9] != null ? ((BigInteger) objects[9]).longValue() : 0);
         return productVO;
+    }
+    
+    
+    
+    @Override
+    public ShareInfoVo findIdByShareInfo(Long productId) {
+
+        String jpq = " SELECT p.id,p.name,p.productImages,p.introduction FROM product AS p "
+        		+ " WHERE p.id =:categoryIds";
+        
+        Object singleResult = entityManager.createNativeQuery(jpq).setParameter("categoryIds", productId).getSingleResult();
+        if(singleResult!=null) {
+        	Object[] cells = (Object[]) singleResult;
+        	LOGGER.info(cells.toString());
+        	ShareInfoVo sinfo = new ShareInfoVo();
+        	sinfo.setShareId(cells[0].toString());
+        	sinfo.setName(cells[1].toString());
+        	String img = getShareImg(cells[2].toString());
+        	sinfo.setHeadImg(img);
+        	sinfo.setDescription(cells[3].toString());
+        	return sinfo;
+        }
+        return null;
+    }
+    
+    public String getShareImg(String imgs) {
+    	try {
+    		JSONArray jsonArray = (JSONArray) JSONObject.parse(imgs);
+    		String img = null;
+    		for (Object object : jsonArray) {
+    			JSONObject jsonObj =  (JSONObject) object;
+    			if(jsonObj!=null && jsonObj.get("thumbnail")!=null) {
+    				img = jsonObj.get("thumbnail").toString();
+    				break;
+    			}
+			}
+    		return img;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
     }
 }

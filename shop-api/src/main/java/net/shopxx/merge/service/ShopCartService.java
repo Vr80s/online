@@ -31,7 +31,7 @@ public interface ShopCartService {
      * @param skuId           skuId
      * @param quantity        数量
      */
-    void modify(String ipandatcmUserId, Long skuId, int quantity);
+    Long modify(String ipandatcmUserId, Long skuId, int quantity);
 
     /**
      * 移除购物车SKU

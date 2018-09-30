@@ -1,9 +1,8 @@
-package com.xczhihui.course.vo;
+package com.xczhihui.common.util.bean;
 
 import java.io.Serializable;
 
-import org.apache.commons.lang3.StringUtils;
-
+import com.xczhihui.common.util.IStringUtil;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.ShareType;
 
@@ -41,14 +40,13 @@ public class ShareInfoVo implements Serializable {
         }
 
         //详情
-        if (StringUtils.isNotBlank(details)) {
+        if (IStringUtil.isNotBlank(details)) {
             details = XzStringUtils.delHTMLTag(details);
-
             this.setDescription(details);
         }
 
         //头像 为空，默认给个
-        if (!StringUtils.isNotBlank(this.getHeadImg())) {
+        if (!IStringUtil.isNotBlank(this.getHeadImg())) {
 
             this.setHeadImg(webDomian+"/web/images/defaultHead/18.png");
         }

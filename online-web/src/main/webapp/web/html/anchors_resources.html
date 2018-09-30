@@ -498,12 +498,12 @@
 								<div class="shopping-edit-box">
 									<img class="close-shopping" src="/web/images/alter-close.png" alt="关闭医案" title="关闭医案">
 									<ul>
-										<li class="active">我的商品</li>
-										<li>所有商品</li>
+										<li class="add-myware active" data-style="0">我的商品</li>
+										<li data-style="1">所有商品</li>
 									</ul>
 								</div>
+								<p class="left-explain">推荐指数</p>
 								<div class="our-ratings">
-									 	<span class="left-explain">推荐指数</span>
 								        <img src="/web/images/star-dim.png"/>  
 								        <img src="/web/images/star-dim.png"/>  
 								        <img src="/web/images/star-dim.png"/> 
@@ -511,6 +511,7 @@
 								        <img src="/web/images/star-dim.png"/> 
 								        <span></span>  						
 								</div>	
+								<p class="comment-wrong select-start-null hide">请选择推荐指数！</p>
 								<div class="shopping-search-wrap">
 										<span class="left-shopping z">商品</span>
 										<div class="shopping-search-input z">
@@ -520,40 +521,42 @@
 								</div>
 								<p class="search-ware-num">全部结果约<span>0</span>条</p>
 								<p class="comment-wrong select-ware-null hide">请至少选择一件商品！</p>
-								<div class="shopping-list-wrap">
+								<div class="shopping-list-wrap hide">
 									<table border="0" cellspacing="0" cellpadding="0">
 										<tr>
 											<th>商品图片</th>
 											<th>名称</th>
 											<th>选择</th>
 										</tr>
-										<tr>
-											<td>
-												<img class="shopping-fengmian" src="/web/images/teacher_big_pic.png"/>
-											</td>
-											<td>请至少选择一件商品请至少选择一件商品</td>
-											<td>
-												<div class="select-ware-img">
-												
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<img class="shopping-fengmian" src="/web/images/teacher_big_pic.png"/>
-											</td>
-											<td>请至少选择一件商品请至少选择一件商品</td>
-											<td>
-												<div class="select-ware-img">
-												
-												</div>
-											</td>
-										</tr>
+										<tbody id="shopping-list">
+											<script type="text/template" id="shopping-template">
+												{{each items as item i}}
+													<tr>
+														<td>
+															<img class="shopping-fengmian" src="{{item.picture}}"/>
+														</td>
+														<td>{{item.name}}</td>
+														<td>
+															<div class="select-ware-img" data-id="{{item.id}}">
+															
+															</div>
+														</td>
+													</tr>
+												{{/each}}
+											</script>
+										<tbody>
 									</table>
-								</div>
-								
-								
-								
+									
+									<!--分页部分start-->
+									<div class="shopping_pages pages hide" style="padding-bottom: 20px; background: white;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+										<div id="Pagination_shopping" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+										<div class="searchPage">
+											<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+											<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+											<a href="javascript:;" class="page-btn">确定</a>
+										</div>
+									</div>
+								</div>		
 							</div>
 						</div>
 					</div>
@@ -603,23 +606,7 @@
 										
 									</div>
 								{{/if}}
-								<!--商品-->
-								<!--<div class="save-class-wrap">
-										<a href="javascript:;" style="width: 100%;">
-										<div class="class-img-shopping z">
-											<img src="/web/images/teacher_big_pic.png" alt="课程封面" />
-										</div>
-										<div class="class-right-text-shopping y">
-											
-											<h5>这里有防护卵巢早衰的秘诀 | 余大夫小偏方</h5>	
-											<p class="shopping-price"><span>&yen;99</span></p>
-											<p class="shopping-recommend">
-												<span>推荐指数：</span>
-												<img src="/web/images/icon-start1_0.png"/>
-											</p>
-										</div>
-									</a>
-								</div>-->
+								
 								<!--医案/专栏/文章/著作-->
 								{{if item.type==4}}
 									{{if item.articleStatus==true}}
@@ -683,6 +670,35 @@
 											<p class="class-address">地址：{{item.courseAddress}}</p>
 											{{/if}}
 											
+										</div>
+									</a>
+								</div>
+								{{/if}}
+								<!--商品-->
+								{{if item.type==7}}
+								<div class="save-class-wrap">
+										<a href="javascript:;" style="width: 100%;">
+										<div class="class-img-shopping z">
+											<img src="/web/images/teacher_big_pic.png" alt="课程封面" />
+										</div>
+										<div class="class-right-text-shopping y">
+											
+											<h5>这里有防护卵巢早衰的秘诀 | 余大夫小偏方</h5>	
+											<p class="shopping-price"><span>&yen;99</span></p>
+											<p class="shopping-recommend">
+												<span>推荐指数：</span>
+												{{if item.level == 1}}
+												<img src="/web/images/icon-start1_0.png"/>
+												{{else if item.level == 2}}
+												<img src="/web/images/icon-start2_0.png"/>
+												{{else if item.level == 3}}
+												<img src="/web/images/icon-start3_0.png"/>
+												{{else if item.level == 4}}
+												<img src="/web/images/icon-start4_0.png"/>
+												{{else if item.level == 5}}
+												<img src="/web/images/icon-start5_0.png"/>
+												{{/if}}
+											</p>
 										</div>
 									</a>
 								</div>
@@ -2192,7 +2208,7 @@
 												<div class="img-ware-show z">
 													<img src="{{item.picture}}"/>
 												</div>
-												<p class="ware-name" title="{{item.name}}">{{item.name}}</p>
+												<p class="ware-name" title="{{item.name}}"><a href="/web/html/anchors_preview.html?productId={{item.id}}" target="_blank">{{item.name}}</a></p>
 												<p class="ware-price">&yen; {{item.price}}</p>
 											</div>
 											<div class="page-view z">
@@ -2249,9 +2265,9 @@
 							</p>
 							<p class="order-search-num">
 								<span class="left-tip">下单时间</span>
-								<input class="order-write-num time-start" type="text" readonly="value" />
+								<input class="order-write-num time-start" type="text" readonly="value" onchange="myFunction()" />
 								<span>至</span>
-								<input class="order-write-num time-end" type="text" readonly="value" />
+								<input class="order-write-num time-end" type="text" readonly="value" onchange="changeStyle()" />
 								<span class="select-before-time date-seven" data-time="7">近7天</span>
 								<span class="select-before-time data-before" data-time="30" style="margin-left: 10px;">近30天</span>
 							</p>
@@ -2279,7 +2295,10 @@
 									<li>单价/数量</li>
 									<li>售后</li>
 									<li>买家</li>
-									<li>下单时间</li>
+									<li>下单时间
+										<i class="icomoon-icon-shang order-up" data-style="DATE_ASC"></i>
+										<i class="icomoon-icon-xia order-down" data-style="DATE_DESC"></i>
+									</li>
 									<li>订单状态</li>
 									<li>实付金额</li>
 								</ul>
@@ -3126,7 +3145,7 @@
 			        format:"hh:mm",
 			        isToday:false
 			    });
-//			我的商品,下单时间
+//			我的商品/,下单时间
 				jeDate(".time-start",{
 			        format:"YYYY-MM-DD hh:mm:ss",
 			        isToday:false

@@ -54,7 +54,7 @@
         <div class="title">购物车</div>
         <div class="message">
             <img src="/xcview/images/shop/newsbg.png" alt=""/>
-            <span class="advices_number">17</span>
+            <span class="advices_number"></span>
         </div>
         <div class="compile" style="displays: none;">编辑</div>
         <div class="finish">完成</div>
@@ -81,7 +81,7 @@
         <div class="shop-total">
             <span class="exclude-freight">不含运费</span>
             总价：<span>￥</span><span class="total" id="AllTotal">0.00</span>
-            <a href="#" class="settlement" onclick="location.href ='/xcview/html/shop/confirm_order.html'">结算</a>
+            <a href="#" class="settlement">结算</a>
         </div>
         <div class="itemdelete">删除商品</div>
     </div>
@@ -119,42 +119,7 @@
         <div class="vacancy-cen">您的购物车空空如也，先去挑选心爱的好货吧~</div>
         <div class="vacancy-btn">挑好货</div>
     </div>
-    <div class="main_center">
-        <div class="hot_sale">猜你喜欢</div>
-        <ul class="list">
-            <li>
-                <img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plots">
-                <div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
-                <div class="price">￥188.00</div>
-                <div class="referrer">
-                    <img src="/xcview/images/touxiang.png" alt="">林超岱医师 推荐
-                </div>
-            </li>
-            <li>
-                <img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plots">
-                <div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
-                <div class="price">￥188.00</div>
-                <div class="referrer">
-                    <img src="/xcview/images/touxiang.png" alt="">林超岱医师 推荐
-                </div>
-            </li>
-            <li>
-                <img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plots">
-                <div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
-                <div class="price">￥188.00</div>
-                <div class="referrer">
-                    <img src="/xcview/images/touxiang.png" alt="">林超岱医师 推荐
-                </div>
-            </li>
-            <li>
-                <img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plots">
-                <div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
-                <div class="price">￥188.00</div>
-                <div class="referrer">
-                    <img src="/xcview/images/touxiang.png" alt="">林超岱医师 推荐
-                </div>
-            </li>
-        </ul>
+    <div class="main_center" id="shop_recommend_product_ul">
     </div>
 </div>
 
@@ -168,6 +133,24 @@
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>   <!--模板引入-->
 
 <script type="text/javascript" src="/xcview/js/shop/jquery.spinner.js"></script><!-- 提示框=点击数量引入 -->
+
+<script type="text/html" id="shop_recommend_product_tmpl">
+    <div class="hot_sale">猜你喜欢</div>
+    <ul class="list">
+        {{ each resultObject as product i }}
+        <li>
+            <img src="{{product.picture}}" alt="" class="surface_plots">
+            <div class="title">{{product.name}}</div>
+            <div class="price">{{product.price}}</div>
+            {{ if product.doctor }}
+            <div class="referrer">
+                <img src="{{product.doctor.avatar}}" alt="">{{product.doctor.name}}
+            </div>
+            {{/if }}
+        </li>
+        {{/each}}
+    </ul>
+</script>
 
 <script type="text/html" id="shop_cart_tmpl">
     <div class="shopping" style="display:block;">
@@ -185,7 +168,7 @@
                 {{each item.cartItems as cartItem i}}
                 <li class="product-li product-li-{{i}} product-sku-{{cartItem.sku.id}}">
                     <div class="shop-info">
-                        <input type="checkbox" class="check goods-check goodsCheck" data-sid="{{cartItem.sku.id}}">
+                        <input type="checkbox" class="check goods-check goodsCheck" data-sid="{{cartItem.sku.id}}" data-cid="{{cartItem.id}}">
                         <div class="shop-info-img"><a href="#"><img src="{{cartItem.sku.image}}"/></a></div>
                         <div class="shop-info-text">
                             <h4 class="">{{cartItem.sku.name}}</h4>
@@ -227,7 +210,7 @@
                 <div class="category">
                     <span class="choice">选择</span>
                     {{ each specificationItemvs as specificationItem i}}
-                        <span class="specification spec-index-{{i}}">{{specificationItem.name}}</span>
+                    <span class="specification spec-index-{{i}}">{{specificationItem.name}}</span>
                     {{/each}}
                 </div>
             </div>
@@ -237,9 +220,11 @@
             <span class="">{{specificationItem.name}}</span>
             <ul class="specifications_ul">
                 {{ each specificationItem.entries as entry e}}
-                    {{if entry.isSelected }}
-                        <li class="casing include spec-{{entry.id}}" data-eid="{{entry.id}}" data-index="{{i}}" data-name="{{entry.value}}">{{entry.value}}</li>
-                    {{/if}}
+                {{if entry.isSelected }}
+                <li class="casing include spec-{{entry.id}}" data-eid="{{entry.id}}" data-index="{{i}}"
+                    data-name="{{entry.value}}">{{entry.value}}
+                </li>
+                {{/if}}
                 {{ /each }}
             </ul>
         </div>

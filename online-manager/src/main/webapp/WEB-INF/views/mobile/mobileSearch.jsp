@@ -457,6 +457,15 @@
 			<a href="#home" aria-controls="home" class="zykgl_bx" title="4" role="tab"
 			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">医师-热门搜索</a>
 		</li>
+		
+		<li role="presentation">
+			<a href="#home" aria-controls="home" class="zykgl_bx" title="5" role="tab"
+			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">好货-搜索框</a>
+		</li>
+		<li role="presentation">
+			<a href="#home" aria-controls="home" class="zykgl_bx" title="6" role="tab"
+			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">好货-热门搜索</a>
+		</li>
 
 	</ul>
 		<div role="tabpanel" class="tab-pane active" id="home">

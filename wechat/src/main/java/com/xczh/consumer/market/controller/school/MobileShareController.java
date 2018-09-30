@@ -22,17 +22,14 @@ import com.xczh.consumer.market.dao.OnlineUserMapper;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
-import com.xczhihui.common.util.enums.ApprenticeCheckStatus;
+import com.xczhihui.common.util.bean.ShareInfoVo;
 import com.xczhihui.common.util.enums.ShareType;
 import com.xczhihui.common.util.enums.TokenExpires;
 import com.xczhihui.common.util.enums.WechatShareLinkType;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.ICriticizeService;
 import com.xczhihui.course.vo.CourseLecturVo;
-import com.xczhihui.course.vo.ShareInfoVo;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
-import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MobileArticleVO;
@@ -40,6 +37,8 @@ import com.xczhihui.medical.enrol.service.EnrolService;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.utils.UCCookieUtil;
 import com.xczhihui.user.center.vo.Token;
+
+import net.shopxx.merge.service.GoodsService;
 
 /**
  * 热门搜索控制器 ClassName: MobileRecommendController.java <br>
@@ -70,6 +69,9 @@ public class MobileShareController {
     private IMedicalDoctorArticleService medicalDoctorArticleService;
     
     @Autowired
+    private GoodsService goodsService;
+    
+    @Autowired
     private EnrolService enrolService;
     
     @Value("${webdomain}")
@@ -88,7 +90,13 @@ public class MobileShareController {
             throws Exception {
 
         try {
-            ShareInfoVo sv = courseServiceImpl.selectShareInfoByType(shareType, shareId);
+        	ShareInfoVo sv = null;
+        	if(ShareType.PRODUCT_SHARE.getCode().equals(shareType)) {
+        		sv = goodsService.findIdByShareInfo(shareId);
+        	}else {
+        		sv = courseServiceImpl.selectShareInfoByType(shareType, shareId);
+        	}
+             
             //构造下分享出去的参数
             if(sv != null){
                 sv.build(returnOpenidUri,webdomain);
@@ -97,10 +105,8 @@ public class MobileShareController {
                 return ResponseObject.newErrorResponseObject("课程/文章已下架");
             }
 
-
         } catch (Exception e) {
             e.printStackTrace();
-
             //如果异常默认用这个
             ShareInfoVo sv = new ShareInfoVo();
             sv.setName("熊猫中医");
@@ -291,10 +297,10 @@ public class MobileShareController {
             } else if (ShareType.ACTICLE_SHARE.getCode().equals(shareType)) {
                 res.sendRedirect(returnOpenidUri + WechatShareLinkType.MEDICAL_CASES.getLink()+ shareId);
                 
-            } 
-//            else if (ShareType.MEDICAL_CASES.getCode().equals(shareType)) {
-//                res.sendRedirect(returnOpenidUri + WechatShareLinkType.MEDICAL_CASES.getLink()+ shareId);
-//            }
+            } else if (ShareType.PRODUCT_SHARE.getCode().equals(shareType)) {
+            	
+                res.sendRedirect(returnOpenidUri + WechatShareLinkType.PRODUCT_DETAIL.getLink()+ shareId);
+            }
         } catch (Exception e) {
             e.printStackTrace();
 

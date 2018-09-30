@@ -41,7 +41,6 @@ import net.shopxx.util.SystemUtils;
  */
 @Entity
 public class Sku extends BaseEntity<Long> {
-
     private static final long serialVersionUID = 2167830430439593293L;
 
     /**

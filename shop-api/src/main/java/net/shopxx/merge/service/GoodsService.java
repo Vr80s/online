@@ -1,5 +1,7 @@
 package net.shopxx.merge.service;
 
+import com.xczhihui.common.util.bean.ShareInfoVo;
+
 import net.shopxx.merge.enums.OrderType;
 import net.shopxx.merge.vo.GoodsPageParams;
 import net.shopxx.merge.vo.ProductQueryParam;
@@ -46,4 +48,12 @@ public interface GoodsService {
      * @return
      */
     ProductVO getProductById(Long id);
+
+	/**  
+	 * <p>Title: findIdByShareInfo</p>  
+	 * <p>Description: </p>  
+	 * @param shareId
+	 * @return  
+	 */ 
+	ShareInfoVo findIdByShareInfo(String shareId);
 }

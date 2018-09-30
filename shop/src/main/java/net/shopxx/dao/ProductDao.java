@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.xczhihui.common.util.bean.ShareInfoVo;
+
 import net.shopxx.Filter;
 import net.shopxx.Order;
 import net.shopxx.Page;
@@ -203,4 +205,12 @@ public interface ProductDao extends BaseDao<Product, Long> {
      * @return
      */
     net.shopxx.merge.page.Page<ProductVO> listByStoreId(List<Long> storeIds, ProductQueryParam productQueryParam);
+
+	/**  
+	 * <p>Title: 通过商品id获取商品分享信息findIdByShareInfo</p>  
+	 * <p>Description: </p>  
+	 * @param productId
+	 * @return  
+	 */ 
+	ShareInfoVo findIdByShareInfo(Long productId);
 }

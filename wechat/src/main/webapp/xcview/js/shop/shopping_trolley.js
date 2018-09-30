@@ -172,7 +172,6 @@ $(function () {
     $choiceProduct.on('click', '.include', function () {
         var index = $(this).data('index');
         $choiceProduct.find('.spec-index-' + index).html($(this).data('name'));
-        console.log($choiceProduct.find('.inlcude'));
         $(this).parents('.specifications_ul').find('.include').removeClass('public');
         $(this).addClass('public');
         changeProductProp();
@@ -194,11 +193,18 @@ $(function () {
         $('.itemdelete').hide();
     });
 
-    $choiceProduct.on('click', '.determine', function(e) {
+    /**
+     * 确认修改规格
+     */
+    $choiceProduct.on('click', '.determine', function (e) {
         e.stopPropagation();
         if (oldSkuId && updatedSkuId) {
             var quantity = $choiceProduct.find('.spinnerExample').val();
-            requestPostService('/xczh/shop/cart/update', {'oldSkuId' : oldSkuId, 'updatedSkuId' : updatedSkuId, "quantity" : quantity}, function(data) {
+            requestPostService('/xczh/shop/cart/update', {
+                'oldSkuId': oldSkuId,
+                'updatedSkuId': updatedSkuId,
+                "quantity": quantity
+            }, function (data) {
                 if (data.success === true) {
                     //没有修改规格，更新数量
                     var $oldSkuId = $shopCartDiv.find('.product-sku-' + oldSkuId);
@@ -212,6 +218,7 @@ $(function () {
                         } else {
                             $oldSkuId.addClass('product-sku-' + updatedSkuId);
                             $oldSkuId.find('.goodsCheck').data('sid', updatedSkuId);
+                            $oldSkuId.find('.goodsCheck').data('cid', data.resultObject);
                             $oldSkuId.find('.packaging').html(updatedSku.specifications);
                             $oldSkuId.find('.number_packages').html(updatedSku.stock);
                             $oldSkuId.find('.select').data('sid', updatedSkuId);
@@ -225,12 +232,34 @@ $(function () {
             });
         }
     });
+
+    /**
+     * 结算
+     */
+    $('.settlement').on('click', function () {
+        var ids = [];
+        $shopCartDiv.find('.goodsCheck').each(function() {
+            if ($(this).is(":checked")) {
+                ids.push($(this).data('cid'));
+            }
+        });
+        if (ids.length < 1) {
+            jqtoast('请勾选商品');
+            return false;
+        }
+        window.location.href='/xcview/html/shop/confirm_order.html?cartItemIds=' + ids.join(',');
+    });
+
+    $('.message').on('click', function () {
+        jqtoast('客服休息中,稍后报道~');
+    })
 });
 initCart();
+initRecommendProduct();
 
 function changeProductProp() {
     var specIds = [];
-    $choiceProduct.find('.public').each(function() {
+    $choiceProduct.find('.public').each(function () {
         specIds.push($(this).data("eid"));
     });
     var matchIndex;
@@ -286,6 +315,18 @@ function modifyCartQuantity(skuId, quantity) {
 
 function deleteCartProduct(skuIds) {
     requestPostService('/xczh/shop/cart/sku/delete', {'skuIds': skuIds.join(",")}, function (data) {
+    });
+}
+
+function initRecommendProduct() {
+    requestGetService("/xczh/shop/goods/list", {
+        'pageNumber': 1,
+        'pageSize': 4,
+        'orderType': 'RECOMMEND_DESC'
+    }, function (data) {
+        if (data.success) {
+            $('#shop_recommend_product_ul').html(template('shop_recommend_product_tmpl', data));
+        }
     });
 }
 
