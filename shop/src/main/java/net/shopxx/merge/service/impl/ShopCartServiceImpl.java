@@ -236,6 +236,9 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
     				quantity += cartItem.getQuantity();
     			}
     		}
+        	//
+        	cart.getQuantity(false);
+        	
         	LOGGER.info("quantity:"+quantity);
         	return quantity;
         }
