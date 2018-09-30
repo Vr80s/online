@@ -274,10 +274,8 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     @Transactional(readOnly = true)
     public Object findIdByCategoryId(Long categoryId) {
-        LOGGER.info("啦啦啦啦==========================");
         ProductCategory find = productCategoryDao.find(categoryId);
         List<Map<String, Object>> list = productDao.findIdByCategoryId(find);
-        LOGGER.info("哈哈哈哈==========================");
         return list;
     }
 
