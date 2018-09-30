@@ -919,6 +919,7 @@ $(".shopping-edit-box li").click(function(){
 	$(".shopping-edit-box li").removeClass("active");
 	$(this).addClass("active");
 	orderListShop(1,shopDataStyle,"");	
+	$(".comment-wrong").addClass("hide")	//隐藏提示
 	$(".shopping-search-input input").val("")  //清空输入框条件
 	$(".our-ratings img").attr("src","/web/images/star-dim.png");
 	imgLengthStart="" //清空星星长度

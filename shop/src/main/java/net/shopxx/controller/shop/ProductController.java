@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.xczhihui.common.util.bean.ShareInfoVo;
 
 import net.shopxx.Pageable;
 import net.shopxx.Results;
@@ -53,7 +54,6 @@ import net.shopxx.entity.StoreProductCategory;
 import net.shopxx.exception.ResourceNotFoundException;
 import net.shopxx.merge.enums.OrderType;
 import net.shopxx.merge.enums.Status;
-import net.shopxx.merge.enums.Type;
 import net.shopxx.merge.enums.UsersType;
 import net.shopxx.merge.service.GoodsService;
 import net.shopxx.merge.service.OrderOperService;
@@ -557,6 +557,15 @@ public class ProductController extends BaseController {
 		Integer cartQuantity = shopCartService.getCartQuantity("96cf3b35965c4fd2941faaf74c7abefc");
 		
 		return cartQuantity;
+	}
+	
+	
+	@GetMapping("/shareInfo")
+	public @ResponseBody Object shareInfo(String productId) {
+
+		ShareInfoVo findIdByShareInfo = goodsService.findIdByShareInfo(productId);
+		
+		return findIdByShareInfo;
 	}
 	
 

@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xczhihui.common.support.service.CacheService;
+import com.xczhihui.common.util.bean.ShareInfoVo;
 import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
@@ -274,10 +275,8 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     @Transactional(readOnly = true)
     public Object findIdByCategoryId(Long categoryId) {
-        LOGGER.info("啦啦啦啦==========================");
         ProductCategory find = productCategoryDao.find(categoryId);
         List<Map<String, Object>> list = productDao.findIdByCategoryId(find);
-        LOGGER.info("哈哈哈哈==========================");
         return list;
     }
 
@@ -313,4 +312,9 @@ public class GoodsServiceImpl implements GoodsService {
         productVO.setSkuVOs(skuVOs);
         return productVO;
     }
+
+	@Override
+	public ShareInfoVo findIdByShareInfo(String shareId) {
+		return productDao.findIdByShareInfo(Long.parseLong(shareId));
+	}
 }

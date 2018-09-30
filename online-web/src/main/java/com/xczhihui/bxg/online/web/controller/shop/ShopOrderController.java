@@ -10,7 +10,6 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +19,6 @@ import com.xczhihui.common.util.bean.ResponseObject;
 
 import net.shopxx.merge.enums.OrderType;
 import net.shopxx.merge.enums.Status;
-import net.shopxx.merge.enums.Type;
 import net.shopxx.merge.enums.UsersType;
 import net.shopxx.merge.service.OrderOperService;
 import net.shopxx.merge.vo.OrderPageParams;
@@ -33,7 +31,7 @@ import net.shopxx.merge.vo.OrderPageParams;
 * @email yangxuan@ixincheng.com
 * @date 2018年9月26日
 *
- */
+*/
 @RestController
 @RequestMapping(value = "/xczh/shop")
 public class ShopOrderController {
