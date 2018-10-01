@@ -45,6 +45,7 @@
 	  * 修改地址
 	  */
 	 var isTrue=true;
+	 
 	 function editAddress(addressId){
 		 requestGetService("/xczh/shop/receiver?receiverId="+addressId,null, function(data) {
 				if (data.success) {
@@ -55,11 +56,11 @@
 				    $("#zip-code").val(umv.zipCode);
 				    isTrue=umv.isDefault;
 				    //
+				    var quId=data.resultObject.id;
 				    var provice=umv.area;
 				    var arrProvice=umv.area.treePath.split(',')
+//				   	 省
 				    var proviceDom=$(".input-group .sheng option");
-				    var cityDom=$(".input-group .shi option");
-				    var quDom=$(".input-group .qu option");
 				    if(arrProvice.length==4){
 				    	$(".sheng").removeClass("hide");
 				    	$(".shi").removeClass("hide");
@@ -72,14 +73,73 @@
 				    			}
 				    		}
 				    	})
-//				    	arrProvice[2]
-//				    	requestService("/xczh/shop/area?parentId="+arrProvice[2],null, function(data) {
-//				    		for(var i=1; i<cityDom.length; i++){
-//				    			if(cityDom[i].getAttribute("data-id")==arrProvice[2]){
-//				    				$(".input-group .shi option").eq(i).attr("selected","selected");
-//				    			}
-//				    		}
-//				    	})
+//				    	市先获取数据加载后回显
+				    	arrProvice[1]
+				    	requestService("/xczh/shop/area?parentId="+arrProvice[1],null, function(data) {
+				    		var str;
+							var city=data.resultObject;
+							for(var i=0; i<city.length;i++){
+								str+="<option data-id="+city[i].value+">"+city[i].name+"</option>";
+							}
+							$(".input-group .shi").html('<option data-id="0">请选择</option>'+str);
+//							市回显
+							var cityDom=$(".input-group .shi option");
+				    		for(var i=0; i<cityDom.length; i++){
+				    			if(cityDom[i].getAttribute("data-id")==arrProvice[2]){
+				    				$(".input-group .shi option").eq(i).attr("selected","selected");
+				    			}
+				    		}
+				    	})
+//				    	区先获取数据加载后回显
+						arrProvice[2]
+				    	requestService("/xczh/shop/area?parentId="+arrProvice[2],null, function(data) {
+				    		var str;
+							var city=data.resultObject;
+							for(var i=0; i<city.length;i++){
+								str+="<option data-id="+city[i].value+">"+city[i].name+"</option>";
+							}
+							$(".input-group .qu").html('<option data-id="0">请选择</option>'+str);
+//							市回显
+							var quDom=$(".input-group .qu option");
+							
+				    		for(var i=0; i<quDom.length; i++){
+				    			if(quDom[i].getAttribute("data-id")==provice.id){
+				    				$(".input-group .qu option").eq(i).attr("selected","selected");
+				    			}
+				    		}
+				    		getQuId=provice.id;
+				    	})
+
+				    }else if(arrProvice.length==3){
+				    	$(".sheng").removeClass("hide");
+				    	$(".shi").removeClass("hide");
+				    	$(".qu").addClass("hide");
+				    	arrProvice[1]
+				    	requestService("/xczh/shop/area?parentId="+arrProvice[1],null, function(data) {
+				    		for(var i=1; i<proviceDom.length; i++){
+				    			if(proviceDom[i].getAttribute("data-id")==arrProvice[1]){
+				    				$(".input-group .sheng option").eq(i).attr("selected","selected");
+				    			}
+				    		}
+				    	})
+//				    	市先获取数据加载后回显
+				    	arrProvice[1]
+				    	requestService("/xczh/shop/area?parentId="+arrProvice[1],null, function(data) {
+				    		var str;
+							var city=data.resultObject;
+							for(var i=0; i<city.length;i++){
+								str+="<option data-id="+city[i].value+">"+city[i].name+"</option>";
+							}
+							$(".input-group .shi").html('<option data-id="0">请选择</option>'+str);
+//							市回显
+							var cityDom=$(".input-group .shi option");
+				    		for(var i=0; i<cityDom.length; i++){
+				    			if(cityDom[i].getAttribute("data-id")==provice.id){
+				    				$(".input-group .shi option").eq(i).attr("selected","selected");
+				    			}
+				    		}
+				    		getQuId=provice.id;
+				    	})
 				    }
 				 
 				    //var cityp = umv.provinces+" "+ umv.city
@@ -150,7 +210,7 @@
 //			webToast("请选择省市区","middle",1500);
 //			return false;
 //		}
-//		省市区
+//		省市区,判断是新增地址的ID 还是回显地址的ID
 		var areaId=getQuId;
 		if($(".sheng").val()=="请选择"){
 			webToast("请完善所在地区","middle",1500);
@@ -160,6 +220,9 @@
 			return false;
 		}else if($(".qu").hasClass("hide")){
 			areaId=getCityId;
+		}else if($(".qu").hasClass("hide")==false && $(".qu").val()=="请选择"){
+			webToast("请完善所在地区","middle",1500);
+			return false;
 		}
 		
 		
@@ -192,7 +255,7 @@
 			$("#errorMsg").show();
 			return false;
 		}*/
-		
+
 		var urlparm = {
 //			provinces : provinces,
 //			city : city,
@@ -346,8 +409,11 @@
 		        	/**
 		        	 * 保存地址
 		        	 */
-		        	requestService("/xczh/set/updateIsAcquies",
-		        			{newId:newId}, function(data) {
+		        	requestService("/xczh/shop/receiver/setDefaultReceiver",
+		        		{
+		        			"receiverId":newId,
+		        			"isDefault":true
+		        		}, function(data) {
 		        		if (data.success) {
 		        			
 		        			addressList();
