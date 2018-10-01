@@ -1,15 +1,6 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
-import static com.xczhihui.bxg.online.web.controller.AbstractController.getCurrentUser;
-
-import com.xczhihui.course.model.Course;
-import com.xczhihui.course.service.ICourseService;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.common.support.service.AttachmentCenterService;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.medical.anchor.model.CourseApplyResource;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
@@ -17,8 +8,15 @@ import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
+import net.shopxx.merge.service.GoodsService;
+import net.shopxx.merge.vo.ProductVO;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static com.xczhihui.bxg.online.web.controller.AbstractController.getCurrentUser;
 
 /**
  * Description：医师控制器
@@ -39,6 +37,8 @@ public class MedicalDoctorPostsController {
     private IMedicalDoctorAccountService medicalDoctorAccountService;
     @Autowired
     private ICourseApplyService courseApplyService;
+    @Autowired
+    private GoodsService goodsService;
 
     /**
      * 医师动态列表
@@ -53,6 +53,18 @@ public class MedicalDoctorPostsController {
         page.setCurrent(pageNumber);
         page.setSize(pageSize);
         Page<MedicalDoctorPosts> list = medicalDoctorPostsService.selectMedicalDoctorPostsPage(page, type, doctorId, userId);
+        List<MedicalDoctorPosts> listMDP = list.getRecords();
+        for (int i=0;i<listMDP.size();i++){
+            if(listMDP.get(i).getProductId() != null){
+                ProductVO p = (ProductVO)goodsService.findProductById(listMDP.get(i).getProductId());
+                listMDP.get(i).setProductTitle(p.getName());
+                listMDP.get(i).setProductPrice(p.getPrice());
+                if(p.getProductImages() != null){
+                    listMDP.get(i).setProductImages(p.getProductImages().get(0).getThumbnail());
+                }
+            }
+        }
+        list.setRecords(listMDP);
         return ResponseObject.newSuccessResponseObject(list);
     }
 

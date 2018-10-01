@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.xczhihui.medical.common.bean.PictureSpecification;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -229,6 +230,21 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
      */
     @TableField(exist = false)
     private Integer treatmentStatus;
+    /**
+     * 商品价格
+     */
+    @TableField(exist = false)
+    private BigDecimal productPrice;
+    /**
+     * 商品标题
+     */
+    @TableField(exist = false)
+    private String productTitle;
+    /**
+     * 商品图片
+     */
+    @TableField(exist = false)
+    private String productImages;
 
     @Override
     protected Serializable pkVal() {
@@ -564,7 +580,31 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
 		this.level = level;
 	}
 
-	@Override
+    public BigDecimal getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(BigDecimal productPrice) {
+        this.productPrice = productPrice;
+    }
+
+    public String getProductTitle() {
+        return productTitle;
+    }
+
+    public void setProductTitle(String productTitle) {
+        this.productTitle = productTitle;
+    }
+
+    public String getProductImages() {
+        return productImages;
+    }
+
+    public void setProductImages(String productImages) {
+        this.productImages = productImages;
+    }
+
+    @Override
     public String toString() {
         return "MedicalDoctorPosts{" +
                 "id=" + id +
