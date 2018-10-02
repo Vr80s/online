@@ -679,12 +679,12 @@
 								<div class="save-class-wrap">
 										<a href="javascript:;" style="width: 100%;">
 										<div class="class-img-shopping z">
-											<img src="/web/images/teacher_big_pic.png" alt="课程封面" />
+											<img src="{{item.productImages}}" alt="课程封面" />
 										</div>
 										<div class="class-right-text-shopping y">
 											
-											<h5>这里有防护卵巢早衰的秘诀 | 余大夫小偏方</h5>	
-											<p class="shopping-price"><span>&yen;99</span></p>
+											<h5>{{item.productTitle}}</h5>	
+											<p class="shopping-price"><span>&yen;{{item.productPrice}}</span></p>
 											<p class="shopping-recommend">
 												<span>推荐指数：</span>
 												{{if item.level == 1}}
@@ -731,6 +731,9 @@
 											{{/if}}
 										{{/if}}
 								
+										{{if item.productId != null}}
+											<p>商品</p>
+										{{/if}}
 									</div>
 									<div class="operation-right y">
 										<ul>
