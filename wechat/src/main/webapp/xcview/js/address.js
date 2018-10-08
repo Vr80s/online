@@ -2,7 +2,7 @@
     /**
      * 可能是来自填写报名信息页面的
      */
-    var userId = localStorage.getItem("userId");
+    /*var userId = localStorage.getItem("userId");
     $(".address_return").click(function(){
     	var person = sessionStorage.getItem("address_back");
     	if(person=="personalfor.html"){
@@ -10,7 +10,37 @@
     	}else{
     		location.href ='persons.html';
     	}
-    })  
+    })*/
+   
+   /*可能来自确认订单页面*/
+  	/*var userId = localStorage.getItem("userId");
+    $(".address_return").click(function(){
+    	var person = sessionStorage.getItem("address_back");
+    	if(person=="confirm_order.html"){
+    		location.href ='confirm_order.html?cartItemIds='+userId;
+    	}else{
+    		location.href ='persons.html';
+    	}
+    })*/
+   	function isLoginJump() {
+	    var userId = localStorage.userId;
+	    if (isNotBlank(userId)) {
+	        /*
+	         * 判断这上个地址是否来自我们的浏览器啦。如果是的就返回上一页，如果不是的话，那么就返回首页吧。
+	         */
+	        var before_address = document.referrer;
+	        if (before_address.indexOf("page/index") != -1 ||
+	            before_address.indexOf("/xcview/html/shop/confirm_order.html") != -1 ||   //医师页面
+	            before_address.indexOf("persons.html") != -1) {  //主播页
+	
+	            window.history.back();
+	        }
+	    } else {
+	        //登录页面
+	        location.href = "home_page.html";
+	        
+	    }
+	}
 	/**
 	 * 新增地址或修改地址返回
 	 */
