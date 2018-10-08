@@ -18,8 +18,8 @@ if(isNotBlank(openId)){
   saveData.seller = 1;
 
   var saveDataAry=[];  
-  var data1={"id":1,"name":"gz","images":["111","222"]};  
-  var data2={"id":2,"name":"gr","images":["111","222"]};  
+  var data1={"score":1,"content":"啦啦啦","orderItemId":10701,"images":["111","222"]};  
+  var data2={"score":1,"content":"啦啦啦","orderItemId":10702,"images":["111","222"]};  
   saveDataAry.push(data1);  
   saveDataAry.push(data2);         
 
