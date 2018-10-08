@@ -64,7 +64,7 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
             "/xczh/wxlogin/**", "/xczh/weibo/**", "/xczh/third/**", "/xczh/wxpublic/**", "/xczh/alipay/alipayNotifyUrl",
             "/bxg/wxpay/wxNotify", "/xczh/alipay/pay", "/xczh/alipay/rechargePay", "/xczh/criticize/getCriticizeList",
             "/xczh/ccvideo/palyCode", "/xczh/wechatJssdk/certificationSign", "/xczh/manager/home",
-            "/xczh/common/getProblems", "/xczh/common/verifyLoginStatus", "/xczh/common/getProblemAnswer",
+            "/xczh/common/getProblems", "/xczh/common/verifyLoginStatus", "/xczh/common/getProblemAnswer","/xczh/common/richDetailes",
             "/xczh/common/checkUpdate", "/xczh/common/addOpinion", "/xczh/gift/rankingList", "/xczh/common/richTextDetails", "/xczh/common/getDomain",
             "/xczh/gift/list", "/xczh/common/checkToken", "/xczh/message", "/xczh/pay/pay_notify", "/xczh/set/isLogined",
             "/xczh/recommend/**", "/xczh/classify/**", "/xczh/bunch/**", "/xczh/live/**", "/xczh/host/**", "/xczh/host/doctor/v2", 
@@ -74,6 +74,7 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
             "/doctor/posts","/xczh/live/onlineLive","/xczh/share/courseShare",
             "/xczh/enrol/enrollmentRegulations/*","/page/*","/xczh/question/doctorQuestion",
             "/xczh/set/getAllProvinces","/imgProxy","/xczh/advertisement","/xczh/shop/goods/*");
+    
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private PathMatcher pathMatcher;

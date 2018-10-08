@@ -168,6 +168,10 @@ $(function () {
             oldSkuId = sid;
         });
     });
+//	点击遮盖的div显示后的选择框的背景图
+	$(".shopping_trolley_bg").click(function(){
+		$(".shopping_trolley").hide();
+	});
 
     $choiceProduct.on('click', '.include', function () {
         var index = $(this).data('index');
@@ -210,12 +214,16 @@ $(function () {
                     var $oldSkuId = $shopCartDiv.find('.product-sku-' + oldSkuId);
                     if (oldSkuId === updatedSkuId) {
                         $oldSkuId.find('.num').val(quantity);
+        				var spinnerExample = $(".spinnerExample").val();
+        				$(".shop-arithmetic .num").html(spinnerExample);
                     } else {
                         //判断新增的sku是否已经存在在购物车中
                         var $newSkuId = $shopCartDiv.find('.product-sku-' + updatedSkuId);
                         if ($newSkuId.length > 0) {
                             $newSkuId.find('.num').html(quantity);
                         } else {
+                        	var spinnerExample = $(".spinnerExample").val();
+        					$(".shop-arithmetic .num").html(spinnerExample);
                             $oldSkuId.addClass('product-sku-' + updatedSkuId);
                             $oldSkuId.find('.goodsCheck').data('sid', updatedSkuId);
                             $oldSkuId.find('.goodsCheck').data('cid', data.resultObject);
@@ -226,13 +234,14 @@ $(function () {
                             $oldSkuId.find('.price').html(updatedSku.price);
                             $oldSkuId.removeClass('product-sku-' + oldSkuId);
                         }
+                        
                     }
                     $('.shopping_trolley').hide();
                 }
             });
         }
     });
-
+    
     /**
      * 结算
      */

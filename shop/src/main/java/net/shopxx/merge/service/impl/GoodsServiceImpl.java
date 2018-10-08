@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,8 @@ import com.xczhihui.common.util.bean.ShareInfoVo;
 import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
+import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.vo.OeUserVO;
 
 import net.sf.json.JSONObject;
 import net.shopxx.dao.ProductCategoryDao;
@@ -36,10 +39,12 @@ import net.shopxx.entity.Sku;
 import net.shopxx.entity.SpecificationItem;
 import net.shopxx.entity.SpecificationItem.Entry;
 import net.shopxx.exception.ResourceNotFoundException;
+import net.shopxx.merge.entity.UsersRelation;
 import net.shopxx.merge.enums.OrderType;
 import net.shopxx.merge.page.Page;
 import net.shopxx.merge.page.Pageable;
 import net.shopxx.merge.service.GoodsService;
+import net.shopxx.merge.service.UsersRelationService;
 import net.shopxx.merge.vo.GoodsPageParams;
 import net.shopxx.merge.vo.ProductImageVO;
 import net.shopxx.merge.vo.ProductQueryParam;
@@ -72,8 +77,18 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Inject
     private ProductCategoryDao productCategoryDao;
+    
     @Autowired
     private StoreDao storeDao;
+    
+    @Inject
+	private UsersRelationService usersRelationService;
+    
+    @Autowired
+    private UserCenterService userCenterService;
+	
+	@Value("${defaultHead}")
+	private String defaultHead;
 
     @Override
     @Transactional
@@ -252,21 +267,42 @@ public class GoodsServiceImpl implements GoodsService {
         Set<Review> setReview = product.getReviews();
 
         if (setReview != null && setReview.iterator().hasNext()) {
-            ReviewVO reviewVo = new ReviewVO();
-            UsersVO usersVO = new UsersVO();
-            Review review = setReview.iterator().next();
 
-            BeanUtils.copyProperties(review, reviewVo);
-            if (review.getSpecifications().size() > 0) {
-                String specifications = review.getSpecifications().stream().collect(Collectors.joining(";"));
-                reviewVo.setSpecifications(specifications);
-            }
-
-            BeanUtils.copyProperties(review.getMember(),usersVO);
-            reviewVo.setUser(usersVO);
+        	Review review = setReview.iterator().next();
+        	 
+        	ReviewVO reviewVo = new ReviewVO();
+			UsersVO usersVO = new UsersVO();
+			BeanUtils.copyProperties(review,reviewVo);
+			if(review.getSpecifications().size()>0) {
+				String specifications = review.getSpecifications().stream().collect(Collectors.joining(";"));
+				reviewVo.setSpecifications(specifications);
+			}
+			BeanUtils.copyProperties(review.getMember(),usersVO);
+			usersVO.setId(review.getMember().getId());
+			
+			/**
+			 * 存放redis里面吧
+			 */
+			UsersRelation usersRelation =  usersRelationService.findByUserId(review.getMember().getId());
+			
+			if(usersRelation!=null) {
+				OeUserVO oeUserVO = redisCacheService.get(RedisCacheKey.OE_USER_INFO+RedisCacheKey.REDIS_SPLIT_CHAR
+			    		+usersRelation.getIpandatcmUserId());
+				if(oeUserVO==null) {
+					oeUserVO = userCenterService.getUserVOById(usersRelation.getIpandatcmUserId());
+					redisCacheService.set(RedisCacheKey.OE_USER_INFO+RedisCacheKey.REDIS_SPLIT_CHAR
+				    		+usersRelation.getIpandatcmUserId(), oeUserVO);
+				}
+				usersVO.setHeadPhoto(oeUserVO.getSmallHeadPhoto());
+			}else {
+				usersVO.setHeadPhoto(defaultHead);
+			}
+			reviewVo.setUser(usersVO);
+        	
             
             Set<ReviewVO> reviewVos = new HashSet<ReviewVO>();
             reviewVos.add(reviewVo);
+            
             return reviewVos;
         }
         return null;
@@ -324,4 +360,5 @@ public class GoodsServiceImpl implements GoodsService {
 	public ShareInfoVo findIdByShareInfo(String shareId) {
 		return productDao.findIdByShareInfo(Long.parseLong(shareId));
 	}
+	
 }

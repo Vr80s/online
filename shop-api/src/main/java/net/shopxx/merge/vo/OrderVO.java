@@ -295,4 +295,10 @@ public class OrderVO implements Serializable {
 	private List<String> promotionNames = new ArrayList<String>();
 
 	private StoreVO store;
+	private String doctorId;
+
+	private String doctorName;
+
+	private String doctorHeadPortrait;
+
 }

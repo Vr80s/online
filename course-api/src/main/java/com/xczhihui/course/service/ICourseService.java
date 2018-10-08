@@ -378,4 +378,13 @@ public interface ICourseService {
      * @return
      */
     String selectChannelIdByInavId(String inavId);
+
+
+	/**  
+	 * <p>Title: selectRichDetailes</p>  
+	 * <p>Description: </p>  
+	 * @param typeId
+	 * @return  
+	 */ 
+	Map<String,Object> selectRichDetailes(Integer typeId);
 }
