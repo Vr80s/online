@@ -7,16 +7,14 @@
 package net.shopxx.service.impl;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import net.shopxx.merge.vo.MemoJsonVO;
+import net.shopxx.util.JsonUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.BooleanUtils;
@@ -545,7 +543,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 	}
 
 	@Override
-	public List<Order> create(Order.Type type, final Cart cart, Receiver receiver, PaymentMethod paymentMethod, ShippingMethod shippingMethod, CouponCode couponCode, Invoice invoice, BigDecimal balance, String memo) {
+	public List<Order> create(Order.Type type, final Cart cart, Receiver receiver, PaymentMethod paymentMethod, ShippingMethod shippingMethod, CouponCode couponCode, Invoice invoice, BigDecimal balance, String memoJson) {
 		Assert.notNull(type, "[Assertion failed] - type is required; it must not be null");
 		Assert.notNull(cart, "[Assertion failed] - cart is required; it must not be null");
 		Assert.notNull(cart.getMember(), "[Assertion failed] - cart member is required; it must not be null");
@@ -566,10 +564,16 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 				throw new IllegalArgumentException();
 			}
 		}
-
+		List<LinkedHashMap> memoList = JsonUtils.toObject(memoJson,List.class);
 		List<Order> orders = new ArrayList<>();
 		for (Map.Entry<Store, Set<CartItem>> entry : cart.getCartItemGroup().entrySet()) {
 			Store store = entry.getKey();
+			String memo = null;
+			for (int i = 0; i < memoList.size(); i++) {
+				if(store.getId().toString().equals(memoList.get(i).get("id"))){
+					memo = (String) memoList.get(i).get("memo");
+				}
+			}
 			Set<CartItem> cartItems = entry.getValue();
 
 			for (Sku gift : cart.getGifts(store)) {

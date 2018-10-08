@@ -29,10 +29,26 @@ $(function() {
     $(".submit_order").click(function(){
         var skuId = getParam("skuId");
         var quantity = getParam("quantity");
+
+        var cartItemIds = getParam("cartItemIds");
+
+        var params;
+        if(isNotBlank(cartItemIds)){
+            params = "cartItemIds="+cartItemIds;
+        }else{
+            params = "skuId="+skuId + "&quantity="+quantity;
+        }
+
         var receiverId = $(".receiverId").val();
         var shippingMethodId = 1;
         var memo = "拒收到付";
-        requestService("/xczh/shop/order/create","skuId="+skuId+"&quantity="+quantity+"&shippingMethodId="+shippingMethodId+"&receiverId="+receiverId+"&memo="+memo,function(data){
+        var memoJson=[];
+        $(".memo").each(function(){
+            var mj = {id:$(this).attr("store-id"),memo:$(this).val()};
+            memoJson.push(mj);
+        });
+
+        requestService("/xczh/shop/order/create",params+"&shippingMethodId="+shippingMethodId+"&receiverId="+receiverId+"&memo="+memo+"&memoJson="+JSON.stringify(memoJson),function(data){
             if(data.success){
                 var orderSns = data.resultObject.orderSns.join(',');
                 window.location="/xcview/html/shop/method.html?orderSns="+orderSns;
@@ -41,14 +57,14 @@ $(function() {
             }
         });
     });
-
+    getOrderList();
     getDefaultReceiver();
 
 });
 
 var receiver;
 function getDefaultReceiver(){
-    requestService("/xczh/shop/receiver/list",null,function(data){
+    requestGetService("/xczh/shop/receiver/list",null,function(data){
         if(data.success){
             var receiverList = data.resultObject;
             if(receiverList.length > 0){
@@ -77,6 +93,80 @@ function createReceiverInfo(receiver){
     $(".phone").html(receiver.phone);
     $(".areaName").html(receiver.areaName);
     $(".address").html(receiver.address);
+}
+
+function getOrderList(){
+    var skuId = getParam("skuId");
+    var quantity = getParam("quantity");
+
+    var cartItemIds = getParam("cartItemIds");
+
+    var params;
+    if(isNotBlank(cartItemIds)){
+        params = "cartItemIds="+cartItemIds;
+    }else{
+        params = "skuId="+skuId + "&quantity="+quantity;
+    }
+    requestGetService("/xczh/shop/checkout",params,function(data){
+        if(data.success){
+            creatOrderList(data.resultObject.orders,data.resultObject.price,data.resultObject.freight);
+            $(".amountPayable").html(data.resultObject.amountPayable);
+        }else{
+            alert(data.errorMessage);
+        }
+    });
+}
+
+function creatOrderList(orders,price,freight){
+    var str = '';
+    for(var i=0;i<orders.length;i++){
+        str += '<div class="indent_list">' +
+            '<div class="tilte">' +
+            '<img src="'+ orders[i].store.logo +'" alt="" class="head_portrait" />' +
+            orders[i].store.name +
+            '</div>' +
+            '<div class="main_product_details">';
+        for(var j=0; j < orders[i].orderItems.length; j++){
+            str += '<div class="product_details">' +
+                '<img src="'+orders[i].orderItems[j].thumbnail+'" alt="" class="surface_plot" />' +
+                '<div class="product_details_center">' +
+                '<div class="title"><h4>' + orders[i].orderItems[j].name + '</h4></div>' +
+                '<div class="pack">' +
+                orders[i].orderItems[j].specifications.join(";") +
+                '</div>' +
+                '<div class="total_prices">' +
+                '<div class="price_yuan" >' +
+                '<div class="yuan">￥<span>'+orders[i].orderItems[j].price+'</span></div>' +
+                '<div class="number"><strong>x<span>'+orders[i].orderItems[j].quantity+'</span></strong></div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+        }
+        str += '</div>' +
+            '<div class="zongjia"></div>' +
+            '<div class="express">' +
+            '<div class="freight"><strong>运费</strong></div>' +
+            '<div class="express_price"><strong>￥<span>'+orders[i].freight+'</span></strong></div>' +
+            '</div>' +
+            '<div class="BBS">' +
+            '<div class="message"><strong>买家留言：</strong><input class="memo" store-id="'+orders[i].store.id+'" type="text" placeholder="给商家留言" /></div>' +
+            '</div>' +
+            '</div>';
+    }
+    str += '<div class="total_price">' +
+        '<div class="total_price_main">' +
+        '<div class="total last">' +
+        '<div class="totals">商品总价</div>' +
+        '<div class="totals_yuan">￥<span class="totals_yuan_rmb">'+price+'</span></div>' +
+        '</div>' +
+        '<div class="carriage last">' +
+        '<div class="carriages">运费</div>' +
+        '<div class="carriage_yuan">￥<span class="carriage_yuan_rmb">'+freight+'</span></div>' +
+        '</div>' +
+        '</div>' +
+        '</div>';
+    $(".indent").html(str);
 }
 
 
