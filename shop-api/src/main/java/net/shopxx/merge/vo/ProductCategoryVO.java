@@ -159,4 +159,16 @@ public class ProductCategoryVO implements Serializable {
 	public void setChildrenVOs(List<ProductCategoryVO> childrenVOs) {
 		this.childrenVOs = childrenVOs;
 	}
+
+	@Override
+	public String toString() {
+		return "ProductCategoryVO [id=" + id + ", createddate=" + createddate + ", lastmodifieddate=" + lastmodifieddate
+				+ ", version=" + version + ", orders=" + orders + ", generalrate=" + generalrate + ", grade=" + grade
+				+ ", name=" + name + ", selfrate=" + selfrate + ", seodescription=" + seodescription + ", seokeywords="
+				+ seokeywords + ", seotitle=" + seotitle + ", treepath=" + treepath + ", parentId=" + parentId
+				+ ", childrenVOs=" + childrenVOs + "]";
+	}
+	
+	
+	
 }

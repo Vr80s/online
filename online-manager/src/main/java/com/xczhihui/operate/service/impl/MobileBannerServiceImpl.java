@@ -1,8 +1,21 @@
 package com.xczhihui.operate.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.xczhihui.anchor.service.AnchorService;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.domain.*;
+import com.xczhihui.bxg.online.common.domain.Course;
+import com.xczhihui.bxg.online.common.domain.CourseAnchor;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
+import com.xczhihui.bxg.online.common.domain.MobileBanner;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.RouteTypeEnum;
 import com.xczhihui.course.dao.CourseDao;
@@ -15,14 +28,6 @@ import com.xczhihui.operate.vo.MobileBannerVo;
 import net.shopxx.merge.service.GoodsService;
 import net.shopxx.merge.vo.ProductCategoryVO;
 import net.shopxx.merge.vo.ProductVO;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Service
 public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
@@ -42,7 +47,7 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
     @Autowired
     private GoodsService goodsService;
     
-    
+    private static final Logger LOGGER = LoggerFactory.getLogger(MobileBannerServiceImpl.class);
     
 
     @Override
@@ -258,18 +263,27 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
                         map.put("linkDesc", medicalDoctor.getName());
                     }
                 } else if (routeType.equals(RouteTypeEnum.PRODUCT_DETAIL.name())) {
+                	
+                	
+                   LOGGER.warn("linkParam:"+linkParam);
+                	
                    ProductVO findProductById = (ProductVO) goodsService.findProductById(Long.valueOf(linkParam));
                    map.put("linkDesc", findProductById.getName());
                    
                    Long productcategoryId = findProductById.getProductcategoryId();
                    
-                   ProductCategoryVO productCategoryVO = (ProductCategoryVO) 
-                		   shopCategoryService.details(findProductById.getId());
+                   LOGGER.warn("productcategoryId:"+productcategoryId);
+                   
+                   ProductCategoryVO productCategoryVO = (ProductCategoryVO)shopCategoryService.details(productcategoryId);
+                   
+                   LOGGER.warn("productCategoryVO:"+productCategoryVO.toString());
+                   
                    String treepath = productCategoryVO.getTreepath();
                    String[] split = treepath.split(",");
                    if(split.length>2) {
                 	   productcategoryId = Long.parseLong(split[2]);
                    }
+                   
                    map.put("menuId", productcategoryId+"");
                 }else {
                     map.put("linkDesc", linkParam);
