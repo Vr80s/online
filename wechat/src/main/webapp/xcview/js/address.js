@@ -13,15 +13,6 @@
     })*/
    
    /*可能来自确认订单页面*/
-  	/*var userId = localStorage.getItem("userId");
-    $(".address_return").click(function(){
-    	var person = sessionStorage.getItem("address_back");
-    	if(person=="confirm_order.html"){
-    		location.href ='confirm_order.html?cartItemIds='+userId;
-    	}else{
-    		location.href ='persons.html';
-    	}
-    })*/
    	function isLoginJump() {
 	    var userId = localStorage.userId;
 	    if (isNotBlank(userId)) {
