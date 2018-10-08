@@ -183,7 +183,11 @@
                             <div class="shop-price">
                                 <div class="shop-pices">￥<b class="price">{{cartItem.sku.price}}</b></div>
                                 <div class="shop-arithmetic">
+                                    {{if cartItem.quantity > 1 }}
+                                    <a href="javascript:;" class="minus">-</a>
+                                    {{else}}
                                     <a href="javascript:;" class="minus minus-class">-</a>
+                                    {{/if}}
                                     <span class="num" data-sid="{{cartItem.sku.id}}">{{cartItem.quantity}}</span>
                                     <a href="javascript:;" class="plus">+</a>
                                 </div>
