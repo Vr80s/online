@@ -183,8 +183,8 @@
 	<script src="/xcview/weihoujs/jquery.min.js"></script>
 	<script type="text/javascript"
 		src="/xcview/js/common/mui.min.js?v=11111111"></script>
-	<script type="text/javascript"
-		src="/xcview/js/person_fragment.js?v=11111111111"></script>
+<!-- 	<script type="text/javascript"
+		src="/xcview/js/person_fragment.js?v=11111111111"></script> -->
 
 	<script type="text/javascript">
 		
@@ -249,24 +249,25 @@
 		if(data.success){
 			var result = data.resultObject;
 			
-			if(result.courseDetails!=null){
-				$(".wrap_synopsis").show();
-				$("#jieshao").show();
-				$("#no_referral").hide();
+			$(".wrap_synopsis").show();
+			$("#jieshao").show();
+			$(".wrap_speak").show();
+		    $("#jieshao1").show();
+			
+			if(result.courseDetails==null){
+				
+				$(".no_referral").hide();
+				$("#aaaaa").html(result.courseDetails);
 			}else{
-				$(".wrap_synopsis").hide();
-				$("#jieshao").hide();
-				$("#no_referral").show();
+				$(".no_referral").show();
 			}
 			
-			if(result.lecturerDetails!=null){
-				$(".wrap_speak").show();
-			    $("#jieshao1").show();
-				$("#no_referrals").hide();
+			if(result.lecturerDetails==null){
+			
+				$(".no_referrals").hide();
+				$("#aaaaa1").html(result.lecturerDetails);
 			}else{
-				$(".wrap_speak").hide();
-			    $("#jieshao1").hide();
-			    $("#no_referrals").show();
+			    $(".no_referrals").show();
 			}
 			
 			var aa= $("#jieshao").height()+$("#jieshao1").height();
