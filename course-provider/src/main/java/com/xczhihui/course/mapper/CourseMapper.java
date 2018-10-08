@@ -334,4 +334,12 @@ public interface CourseMapper extends BaseMapper<Course> {
 	 */ 
     @Select("select date from collection_course_apply_update_date where collection_id = #{collectionId}")
 	List<Integer> listDatesByCollectionId(Integer collectionId);
+    
+    
+    @Select({" select \r\n" + 
+    		"   oc.course_detail as courseDetails, " + 
+    		"	oc.lecturer_description as lecturerDetails " + 
+    		"from  oe_course as oc \r\n" + 
+    		"	where oc.id =  #{courseId} "})
+	Map<String,Object> selectCouseDetailAndTeacherDetail(@Param("courseId")Integer courseId);
 }
