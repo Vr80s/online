@@ -30,8 +30,8 @@
 	         */
 	        var before_address = document.referrer;
 	        if (before_address.indexOf("page/index") != -1 ||
-	            before_address.indexOf("/xcview/html/shop/confirm_order.html") != -1 ||   //医师页面
-	            before_address.indexOf("persons.html") != -1) {  //主播页
+	            before_address.indexOf("/xcview/html/shop/confirm_order.html") != -1 ||   //确认订单页
+	            before_address.indexOf("persons.html") != -1) {  //资料设置页
 	
 	            window.history.back();
 	        }
