@@ -148,9 +148,8 @@ public class ShopReviewServiceImpl implements ShopReviewService {
 			}
 			
 			
-			org.json.JSONObject json = new org.json.JSONObject(obj);
+			org.json.JSONObject json = new org.json.JSONObject(obj.toString());
 	    	
-			LOGGER.info("obj:"+obj);
 			LOGGER.info("json"+json);
 			
 			LOGGER.info("物流服务"+json.getInt("logistics"));
@@ -200,6 +199,9 @@ public class ShopReviewServiceImpl implements ShopReviewService {
 				pReview.setForReview(null);
 				pReview.setSpecifications(pOrderItem.getSpecifications());
 				pReview.setIsShow(setting.getIsReviewCheck() ? false : true);
+				pReview.setLogistics(json.getInt("logistics"));
+				pReview.setSeller(json.getInt("seller"));
+				
 				reviewDao.persist(pReview);
 				
 			}
