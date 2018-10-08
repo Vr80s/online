@@ -13,20 +13,21 @@ if(isNotBlank(openId)){
 }
 
 
-//  var   saveData = {};
-//  saveData.logistics = 1;
-//  saveData.seller = 1;
-//
-//  var saveDataAry=[];  
-//  var data1={"id":1,"name":"gz","images":["111","222"]};  
-//  var data2={"id":2,"name":"gr","images":["111","222"]};  
-//  saveDataAry.push(data1);  
-//  saveDataAry.push(data2);         
-//
-//  saveData.reviewEntryList=saveDataAry;
-//
-//  requestService("/xczh/shop/goods/addReview", {"postdata":JSON.stringify(saveData)}, function (data) {
-//  })
+  var   saveData = {};
+  saveData.logistics = 1;
+  saveData.seller = 1;
+
+  var saveDataAry=[];  
+  var data1={"id":1,"name":"gz","images":["111","222"]};  
+  var data2={"id":2,"name":"gr","images":["111","222"]};  
+  saveDataAry.push(data1);  
+  saveDataAry.push(data2);         
+
+  saveData.reviewEntryList=saveDataAry;
+
+  requestService("/xczh/shop/goods/addReview",
+  {"postdata":JSON.stringify(saveData),"orderId":10701}, function (data) {
+  })
 
 
 /**

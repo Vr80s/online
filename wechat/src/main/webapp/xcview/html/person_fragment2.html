@@ -153,33 +153,44 @@
 
 </head>
 <body style="background: #F8F8F8;">
+
+
 	<div id="wp">
 		<div class="no">暂无数据</div>
 
-		<div class="wrap_synopsis">
+		
+		<div id ="div1">
+			<div class="wrap_synopsis">
 			<div class="my_synopsis">
 				<ul>
 					<li class="border"></li>
 					<li>课程介绍</li>
 				</ul>
 			</div>
-		</div>
-		<div class="wrap_vedio" id="jieshao">
-			<div class="user_mywrite" id="aaaaa"></div>
-		</div>
-		<div class="no_referral" style="">暂无简介</div>
-
-		<div class="wrap_speak">
-			<div class="main_speak">
-				<p class="border"></p>
-				<p>主讲人</p>
 			</div>
+			<div class="wrap_vedio" id="jieshao">
+				<div class="user_mywrite" id="aaaaa"></div>
+			</div>
+			<div class="no_referral" style="">暂无简介</div>
 		</div>
-		<div class="wrap_vedio" id="jieshao1">
-			<div class="user_mywrite" id="aaaaa1"></div>
+		
+		<div id ="div2">
+			<div class="wrap_speak">
+				<div class="main_speak">
+					<p class="border"></p>
+					<p>主讲人</p>
+				</div>
+			</div>
+			<div class="wrap_vedio" id="jieshao1">
+				<div class="user_mywrite" id="aaaaa1"></div>
+			</div>
+			<div class="no_referrals" style="">暂无主讲人介绍</div>
 		</div>
-		<div class="no_referrals" style="">暂无主讲人介绍</div>
 	</div>
+	
+	
+	
+	
 	<script src="/xcview/weihoujs/jquery.min.js"></script>
 	<script type="text/javascript"
 		src="/xcview/js/common/mui.min.js?v=11111111"></script>
@@ -241,34 +252,40 @@
 	 *  2、主播介绍
 	 */
 	var type = getQueryString('type');
+	if(type == 2){
+		$("#div2").after($("#div1"))
+	}
 	var typeId = getQueryString('typeId');
-	
 	requestService("/xczh/common/richDetailes",{
 		typeId:typeId
 	},function(data) {
 		if(data.success){
 			var result = data.resultObject;
 			
+
+			
+			$(".wrap_synopsis").show();
 			$(".wrap_synopsis").show();
 			$("#jieshao").show();
 			$(".wrap_speak").show();
 		    $("#jieshao1").show();
 			
-			if(result.courseDetails==null){
-				
+			if(result.courseDetails!=null){
 				$(".no_referral").hide();
 				$("#aaaaa").html(result.courseDetails);
 			}else{
 				$(".no_referral").show();
 			}
 			
-			if(result.lecturerDetails==null){
-			
+			if(result.lecturerDetails!=null){
 				$(".no_referrals").hide();
 				$("#aaaaa1").html(result.lecturerDetails);
 			}else{
 			    $(".no_referrals").show();
 			}
+			
+			
+		
 			
 			var aa= $("#jieshao").height()+$("#jieshao1").height();
 			loadURL(aa);
