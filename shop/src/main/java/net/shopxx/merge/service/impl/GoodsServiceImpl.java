@@ -324,4 +324,5 @@ public class GoodsServiceImpl implements GoodsService {
 	public ShareInfoVo findIdByShareInfo(String shareId) {
 		return productDao.findIdByShareInfo(Long.parseLong(shareId));
 	}
+	
 }

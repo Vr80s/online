@@ -55,6 +55,10 @@ public class RedisCacheKey {
     
     public static final String STORE_DOCTOR_RELEVANCE  = "STORE:DOCTOR:RELEVANCE";
     
+    public static final String SHOP_USERS_RELATION = "SHOP:USERS:RELATION";
+    
+    public static final String OE_USER_INFO = "OE:USER:INFO";
+    
     
     
 

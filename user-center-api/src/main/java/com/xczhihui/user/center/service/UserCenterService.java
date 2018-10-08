@@ -3,7 +3,6 @@ package com.xczhihui.user.center.service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.common.util.enums.TokenExpires;
@@ -113,4 +112,12 @@ public interface UserCenterService {
     List<Map<String, Object>> findByIds(List<String> ids);
 
     Map<String, Object> findSimpleInfoByUserId(String id);
+
+	/**  
+	 * <p>Title: getUserVOById</p>  
+	 * <p>Description: </p>  
+	 * @param id
+	 * @return  
+	 */ 
+	OeUserVO getUserVOById(String id);
 }

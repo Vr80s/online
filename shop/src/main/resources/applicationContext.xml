@@ -271,4 +271,7 @@
       id="medicalDoctorAccountServiceImpl" timeout="${dubbo.consumer.timeout}"/>                 
 	<dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService" id="medicalDoctorBusinessService" timeout="${dubbo.provider.timeout}"/>
 
+	<dubbo:reference id="userCenterService" interface="com.xczhihui.user.center.service.UserCenterService"
+                     timeout="${dubbo.consumer.timeout}"/>
+
 </beans>

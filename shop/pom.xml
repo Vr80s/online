@@ -155,6 +155,12 @@
             <artifactId>medical-api</artifactId>
             <version>3.0.0-SNAPSHOT</version>
         </dependency>
+        
+        <dependency>
+            <groupId>com.xczhihui</groupId>
+            <artifactId>user-center-api</artifactId>
+            <version>3.0.0-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>com.alibaba</groupId>
