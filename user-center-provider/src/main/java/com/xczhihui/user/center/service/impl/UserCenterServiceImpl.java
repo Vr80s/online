@@ -1,7 +1,10 @@
 package com.xczhihui.user.center.service.impl;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -334,4 +337,11 @@ public class UserCenterServiceImpl implements UserCenterService {
         info.put("avatar", oeUser.getSmallHeadPhoto());
         return info;
     }
+    
+    @Override
+    public OeUserVO getUserVOById(String id) {
+        return this.oeUserMapper.getUserVOById(id);
+    }
+
+    
 }

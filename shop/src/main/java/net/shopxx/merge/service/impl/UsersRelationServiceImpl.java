@@ -8,9 +8,16 @@ import net.shopxx.merge.service.UsersRelationService;
 import net.shopxx.merge.service.UsersService;
 import net.shopxx.service.UserService;
 import net.shopxx.service.impl.BaseServiceImpl;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.xczhihui.common.support.service.CacheService;
+import com.xczhihui.common.util.redis.key.RedisCacheKey;
 
 import javax.inject.Inject;
 
@@ -20,6 +27,8 @@ import javax.inject.Inject;
 @Service
 public class UsersRelationServiceImpl extends BaseServiceImpl<UsersRelation, Long> implements UsersRelationService {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(UsersRelationServiceImpl.class);
+	 
 	@Inject
 	private UsersRelationDao usersRelationDao;
 	@Inject
@@ -28,13 +37,32 @@ public class UsersRelationServiceImpl extends BaseServiceImpl<UsersRelation, Lon
 	private UsersService usersService;
 
 
+	@Autowired
+	private CacheService redisCacheService;
+	
 	@Override
 	@Transactional
 	public UsersRelation findByIpandatcmUserId(String ipandatcmUserId) {
-		UsersRelation usersRelation = usersRelationDao.findByIpandatcmUserId(ipandatcmUserId);
+		
+		UsersRelation usersRelation = redisCacheService.get(RedisCacheKey.SHOP_USERS_RELATION
+	    		+RedisCacheKey.REDIS_SPLIT_CHAR
+	    		+ipandatcmUserId);
+		
+		LOGGER.info("ipandatcmUserId:"+ipandatcmUserId);
+		LOGGER.info("usersRelation:"+usersRelation);
 		if(usersRelation == null){
-			usersRelation = saveUserRelation(ipandatcmUserId);
-//			throw new RuntimeException("用户不存在");
+		    usersRelation = usersRelationDao.findByIpandatcmUserId(ipandatcmUserId);
+		    if(usersRelation == null) {
+		    	usersRelation = saveUserRelation(ipandatcmUserId);
+		    }
+		    
+		    redisCacheService.set(RedisCacheKey.SHOP_USERS_RELATION
+		    		+RedisCacheKey.REDIS_SPLIT_CHAR
+		    		+ipandatcmUserId, usersRelation);
+		    
+		    redisCacheService.set(RedisCacheKey.SHOP_USERS_RELATION
+		    		+RedisCacheKey.REDIS_SPLIT_CHAR
+		    		+usersRelation.getUserId(), usersRelation);
 		}
 		return usersRelation;
 	}
@@ -51,7 +79,18 @@ public class UsersRelationServiceImpl extends BaseServiceImpl<UsersRelation, Lon
 
 	@Override
 	public UsersRelation findByUserId(Long userId) {
-		return usersRelationDao.findByUserId(userId);
+		
+		UsersRelation usersRelation = redisCacheService.get(RedisCacheKey.SHOP_USERS_RELATION
+	    		+RedisCacheKey.REDIS_SPLIT_CHAR
+	    		+userId);
+		if(usersRelation == null){
+		    usersRelation = usersRelationDao.findByUserId(userId);
+		    
+		    redisCacheService.set(RedisCacheKey.SHOP_USERS_RELATION
+		    		+RedisCacheKey.REDIS_SPLIT_CHAR
+		    		+userId, usersRelation);
+		}
+		return usersRelation;
 	}
 
 	@Override

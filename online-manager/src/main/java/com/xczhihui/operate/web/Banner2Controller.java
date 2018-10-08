@@ -91,6 +91,8 @@ public class Banner2Controller {
         if (!list.isEmpty()) {
         	//Object products = goodsService.findIdByCategoryId(list.get(0).getId());
 
+        	LOGGER.warn("list.get(0).getId():"+list.get(0).getId());
+        	
         	@SuppressWarnings("unchecked")
         	List<Map<String,Object>> listMap  =  (List<Map<String,Object>>) goodsService.findIdByCategoryId(list.get(0).getId());
         	

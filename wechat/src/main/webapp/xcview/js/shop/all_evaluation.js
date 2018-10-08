@@ -7,7 +7,7 @@ $(function () {
 var productId = getQueryString("productId");
 function appointmentList(pageNumber, downOrUp) {
 	requestService("/xczh/shop/goods/review",{
-		productId:10152,
+		productId:productId,
 		pageNumber:pageNumber,
 		pageSize:10
 	},function (data) {

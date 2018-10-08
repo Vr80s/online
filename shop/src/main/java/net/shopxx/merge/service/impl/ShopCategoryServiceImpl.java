@@ -40,18 +40,18 @@ public class ShopCategoryServiceImpl implements ShopCategoryService {
 			ProductCategoryVO pv = new ProductCategoryVO();
 			
 			BeanUtils.copyProperties( productCategory,pv );
-			
+			pv.setId(productCategory.getId());
 			if (productCategory.getChildren().size() > 0) {
 
 				List<ProductCategoryVO> childrenVOsC = new ArrayList<ProductCategoryVO>();
 				
 				for (ProductCategory productCategoryc : productCategory.getChildren()) {
 					ProductCategoryVO pvC = new ProductCategoryVO();
-					BeanUtils.copyProperties( productCategoryc, pvC);
-					pvC.setId(productCategory.getId());
+					BeanUtils.copyProperties(productCategoryc, pvC);
+					
+					pvC.setId(productCategoryc.getId());
 					childrenVOsC.add(pvC);
 				}
-				
 				pv.setChildrenVOs(childrenVOsC);
 			}
 			childrenVOs.add(pv);
@@ -66,6 +66,7 @@ public class ShopCategoryServiceImpl implements ShopCategoryService {
 		ProductCategoryVO pv = new ProductCategoryVO();
 		BeanUtils.copyProperties(productCategory,pv);
 		pv.setId(productCategory.getId());
+		pv.setTreepath(productCategory.getTreePath());
 		return pv;
 	}	
 
