@@ -473,4 +473,7 @@ center .spinner .increase{
 }
 /*购物车空的状态结束*/
 
-
+ /*底部结算区域隐藏*/
+.payment-bar{
+	display: none;
+}

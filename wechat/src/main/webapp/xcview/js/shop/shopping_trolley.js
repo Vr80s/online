@@ -301,8 +301,10 @@ function choiceSku(skuId) {
 function initCart() {
     requestGetService("/xczh/shop/cart", null, function (data) {
         if (data.resultObject.storeCartItems.length < 1) {
+        	$(".payment-bar").hide();
             $('.vacancy-main').show();
         } else {
+        	$(".payment-bar").show();
             $('#shop_cart_div').html(template('shop_cart_tmpl', data.resultObject));
         }
     });
