@@ -84,6 +84,20 @@ public class XzCommonController {
         return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectCourseDescription(type, typeId));
     }
 
+    /**
+     * 查询课程与教师详情
+     *
+     * @param type
+     * @throws Exception
+     */
+    @RequestMapping(value = "/richDetailes")
+    @ResponseBody
+    public ResponseObject richDetailes(@RequestParam("typeId") Integer typeId) throws Exception {
+
+        return ResponseObject.newSuccessResponseObject(
+        		courseServiceImpl.selectRichDetailes(typeId));
+    }
+
 
     /**
      * 请求转发用于验证用户的登录状态
