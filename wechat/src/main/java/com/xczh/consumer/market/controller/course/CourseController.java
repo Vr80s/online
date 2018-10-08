@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.*;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.auth.Account;
+import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.CourseUtil;
 import com.xczhihui.common.util.XzStringUtils;
+import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.common.util.enums.UserUnitedStateType;
 import com.xczhihui.common.util.enums.WatchStateType;
 import com.xczhihui.common.util.enums.WechatShareLinkType;
@@ -128,6 +130,8 @@ public class CourseController {
     public ResponseObject liveDetails(@Account String accountId, @RequestParam("courseId") Integer courseId,
                                       HttpServletRequest request) throws Exception {
 
+    	
+    	
         CourseLecturVo cv = courseServiceImpl.selectCourseDetailsById(accountId, courseId);
         
         if (cv == null) {
@@ -296,8 +300,10 @@ public class CourseController {
 
         //设置星星级别
         cv.setStartLevel(CourseUtil.criticizeStartLevel(cv.getStartLevel()));
+        
         cv.setRichCourseDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=1&typeId=" + courseId);
         cv.setRichHostDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=3&typeId=" + courseId);
+        cv.setHostCourseDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment2.html?typeId=" + courseId);
 
         //专辑查看更新时间
         if (cv.getCollection()) {

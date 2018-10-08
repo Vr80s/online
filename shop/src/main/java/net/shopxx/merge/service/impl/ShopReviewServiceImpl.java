@@ -1,20 +1,26 @@
 package net.shopxx.merge.service.impl;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
-import org.springframework.beans.BeanUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.xczhihui.common.support.service.CacheService;
+import com.xczhihui.common.util.redis.key.RedisCacheKey;
+import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.vo.OeUserVO;
 
 import net.shopxx.Pageable;
 import net.shopxx.Results;
@@ -27,7 +33,6 @@ import net.shopxx.entity.OrderItem;
 import net.shopxx.entity.Product;
 import net.shopxx.entity.Review;
 import net.shopxx.entity.Sku;
-import net.shopxx.entity.Review.Entry;
 import net.shopxx.merge.entity.UsersRelation;
 import net.shopxx.merge.service.ShopReviewService;
 import net.shopxx.merge.service.UsersRelationService;
@@ -61,7 +66,15 @@ public class ShopReviewServiceImpl implements ShopReviewService {
 	@Inject
 	private OrderItemService orderItemService;
 
+    @Autowired
+    private CacheService redisCacheService;
+    
+    @Autowired
+    private UserCenterService userCenterService;
 	
+	@Value("${defaultHead}")
+	private String defaultHead;
+    
 	@Override
 	@Transactional
 	public Object list(Long productId, Integer pageNumber, Integer pageSize) {
@@ -84,16 +97,33 @@ public class ShopReviewServiceImpl implements ShopReviewService {
 					reviewVo.setSpecifications(specifications);
 				}
 				BeanUtils.copyProperties(review.getMember(),usersVO);
+				usersVO.setId(review.getMember().getId());
 				
+				/**
+				 * 存放redis里面吧
+				 */
+				UsersRelation usersRelation =  usersRelationService.findByUserId(review.getMember().getId());
+				
+				if(usersRelation!=null) {
+					OeUserVO oeUserVO = redisCacheService.get(RedisCacheKey.OE_USER_INFO+RedisCacheKey.REDIS_SPLIT_CHAR
+				    		+usersRelation.getIpandatcmUserId());
+					if(oeUserVO==null) {
+						oeUserVO = userCenterService.getUserVOById(usersRelation.getIpandatcmUserId());
+						redisCacheService.set(RedisCacheKey.OE_USER_INFO+RedisCacheKey.REDIS_SPLIT_CHAR
+					    		+usersRelation.getIpandatcmUserId(), oeUserVO);
+					}
+					usersVO.setHeadPhoto(oeUserVO.getSmallHeadPhoto());
+				}else {
+					usersVO.setHeadPhoto(defaultHead);
+				}
 				reviewVo.setUser(usersVO);
-				
 				reviewVos.add(reviewVo);
 			}
 			return reviewVos;
 		}
 		return null;
 	}
-
+	
 	@Override
 	@Transactional
 	public Object addReview(Long orderId,Object obj,String accountId,String ip) throws Exception{

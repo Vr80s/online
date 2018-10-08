@@ -276,8 +276,15 @@ public class GoodsServiceImpl implements GoodsService {
     @Transactional
     public Object findIdByCategoryId(Long categoryId) {
         ProductCategory find = productCategoryDao.find(categoryId);
-        List<Map<String, Object>> list = productDao.findIdByCategoryId(find);
-        return list;
+        try {
+        	List<Map<String, Object>> list = productDao.findIdByCategoryId(find);
+        	return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+      
+       
     }
 
     @Override
@@ -317,4 +324,5 @@ public class GoodsServiceImpl implements GoodsService {
 	public ShareInfoVo findIdByShareInfo(String shareId) {
 		return productDao.findIdByShareInfo(Long.parseLong(shareId));
 	}
+	
 }

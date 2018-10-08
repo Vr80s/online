@@ -39,4 +39,7 @@ public interface OeUserMapper extends BaseMapper<OeUser> {
             "    </foreach>" +
             " </script>"})
     List<Map<String, Object>> findByIds(@Param("ids") List<String> ids);
+
+    @Select("SELECT * FROM `oe_user` where id = #{id}")
+    OeUserVO getUserVOById(String id);
 }
