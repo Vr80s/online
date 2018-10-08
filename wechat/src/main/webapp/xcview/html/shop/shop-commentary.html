@@ -20,7 +20,9 @@
 		<div class="wp">
 			<div class="header-wrap">			
 				<div class="header">
-					<img class="return-img" src="/xcview/images/screen_close.png" alt="返回" />
+					<a href="javascript :;" onClick="javascript :history.back(-1);">
+						<img class="return-img" src="/xcview/images/screen_close.png" alt="返回" />
+					</a>
 					<h3>发布评价</h3>
 					<div class="news-wrap">
 						<p>发布</p>
@@ -134,7 +136,8 @@
 //			上传照片部分JS
 			var img=$(".img");
 			var callBack=function(album,img,save){
-				album.forEach(function(val,idx){ 				
+				album.forEach(function(val,idx){ 
+					debugger
 					var div=$('<li><p><img src="/xcview/images/select_close.png" style="width:0.3rem;"></p></li>');
 					var img=$("<img/>");
 					img.attr("src",val.data);
