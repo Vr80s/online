@@ -48,7 +48,8 @@
 <!-- 头部区域开始 -->
 <header>
     <div class="header">
-        <div class="return" onclick="location.href ='/xcview/html/shop/commodity_details.html'">
+        <!--<div class="return" onclick="location.href ='/xcview/html/shop/commodity_details.html?productId=' + id +'">-->
+        <div class="return" onclick="javascript:history.go(-1);">
             <img src="/xcview/images/backicon.png" alt="" class="">
         </div>
         <div class="title">购物车</div>
@@ -182,7 +183,11 @@
                             <div class="shop-price">
                                 <div class="shop-pices">￥<b class="price">{{cartItem.sku.price}}</b></div>
                                 <div class="shop-arithmetic">
+                                    {{if cartItem.quantity > 1 }}
+                                    <a href="javascript:;" class="minus">-</a>
+                                    {{else}}
                                     <a href="javascript:;" class="minus minus-class">-</a>
+                                    {{/if}}
                                     <span class="num" data-sid="{{cartItem.sku.id}}">{{cartItem.quantity}}</span>
                                     <a href="javascript:;" class="plus">+</a>
                                 </div>

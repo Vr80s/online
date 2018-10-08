@@ -2,6 +2,7 @@ package com.xczh.consumer.market.controller.shop;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -69,7 +70,8 @@ public class ShopGoodsController {
     }
 
     @RequestMapping("details")
-    public ResponseObject details(Long productId) {
+    public ResponseObject details(Long productId, @Account(optional = true) Optional<String> accountIdOpt) {
+        goodsService.updateClick(accountIdOpt.orElse(null), productId);
         return ResponseObject.newSuccessResponseObject(goodsService.findProductById(productId));
     }
 

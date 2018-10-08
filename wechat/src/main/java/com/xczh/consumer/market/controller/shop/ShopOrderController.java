@@ -155,6 +155,12 @@ public class ShopOrderController {
     @RequestMapping(value = "/order/detail",method = RequestMethod.GET)
     public ResponseObject detail( @RequestParam String sn){
         OrderVO order = orderOperService.findBySn(sn);
+        String doctorId = order.getDoctorId();
+        if(doctorId != null){
+            MedicalDoctorVO medicalDoctor = iMedicalDoctorBusinessService.findSimpleById(doctorId);
+            order.setDoctorName(medicalDoctor.getName());
+            order.setDoctorHeadPortrait(medicalDoctor.getHeadPortrait());
+        }
         return ResponseObject.newSuccessResponseObject(order);
     }
 
@@ -180,8 +186,8 @@ public class ShopOrderController {
     }
 
     @RequestMapping(value = "/order/transitStep",method = RequestMethod.GET)
-    public ResponseObject transitStep( @RequestParam Long sn){
-        return ResponseObject.newSuccessResponseObject(orderOperService.getTransitSteps(sn));
+    public ResponseObject transitStep( @RequestParam Long shippingId){
+        return ResponseObject.newSuccessResponseObject(orderOperService.getTransitSteps(shippingId));
     }
 
 }

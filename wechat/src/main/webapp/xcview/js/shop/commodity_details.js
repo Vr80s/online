@@ -26,7 +26,7 @@ requestGetService("/xczh/shop/goods/details",{
         };
 
         // 医师推荐
-        if (obj.posts !=null) {
+        if (obj.posts.length>0) {
             $(".physician_recommend").show();
             $(".recommend_main").html(template('recommend_main', {items: obj.posts}));
         }else{
@@ -34,7 +34,8 @@ requestGetService("/xczh/shop/goods/details",{
         };
 
         // 评价
-        if (obj.posts !=null) {
+//      if (obj.posts !=null) {
+        if (obj.posts.length>0) {
             $(".evaluate").show();
             $(".evaluate_main").html(template('evaluate_main', {items: obj.reviewvs}));
         }else{
