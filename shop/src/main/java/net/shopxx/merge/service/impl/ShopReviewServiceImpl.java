@@ -60,7 +60,7 @@ public class ShopReviewServiceImpl implements ShopReviewService {
 	@Inject
 	private OrderService orderService;
 	
-	@Inject
+	  @Autowired
 	private UsersRelationService usersRelationService;
 	
 	@Inject
@@ -138,19 +138,21 @@ public class ShopReviewServiceImpl implements ShopReviewService {
 				return Results.unprocessableEntity("member.review.disabled");
 			}
 			Order order = orderService.find(orderId);
-			
 			Member currentUser = usersRelationService.getMemberByIpandatcmUserId(accountId);
 			
 			if (order == null || !currentUser.equals(order.getMember()) || order.getIsReviewed() || CollectionUtils.isEmpty(order.getOrderItems())) {
-				return Results.UNPROCESSABLE_ENTITY;
+				throw new Exception("订单信息有误");
 			}
 			if (!Order.Status.RECEIVED.equals(order.getStatus()) && !Order.Status.COMPLETED.equals(order.getStatus())) {
-				return Results.UNPROCESSABLE_ENTITY;
+				throw new Exception("订单状态有误");
 			}
 			
 			
 			org.json.JSONObject json = new org.json.JSONObject(obj);
 	    	
+			LOGGER.info("obj:"+obj);
+			LOGGER.info("json"+json);
+			
 			LOGGER.info("物流服务"+json.getInt("logistics"));
 			LOGGER.info("卖家服务"+json.getInt("seller"));
 			
@@ -171,20 +173,20 @@ public class ShopReviewServiceImpl implements ShopReviewService {
 				Object int1 = jsonI.get("score");
 				Object string = jsonI.get("content");
 				
-				if(long1==null || int1 ==null || string ==null) {
+				if(long1==null || int1 ==null) {
 					throw new Exception("请填写必要的评价信息");
 				}
 				
 				OrderItem pOrderItem = orderItemService.find(jsonI.getLong("orderItemId"));
 				if (pOrderItem == null || pOrderItem == null) {
-					throw new Exception("评论条目有误");
+					throw new Exception("订单条目有误");
 				}
 				Sku sku = pOrderItem.getSku();
 				if (sku == null) {
 					continue;
 				}
 				if (!order.equals(pOrderItem.getOrder())) {
-					return Results.UNPROCESSABLE_ENTITY;
+					throw new Exception("订单条目有误");
 				}
 				
 				Review pReview = new Review();
@@ -205,7 +207,7 @@ public class ShopReviewServiceImpl implements ShopReviewService {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("保存课程信息有误");
+			throw new Exception(e.getMessage());
 		}
 		return null;
 	}

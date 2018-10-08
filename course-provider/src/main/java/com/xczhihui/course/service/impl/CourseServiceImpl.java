@@ -838,4 +838,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         }
         return null;
     }
+
+	@Override
+	public Map<String, Object> selectRichDetailes(Integer typeId) {
+		return iCourseMapper.selectCouseDetailAndTeacherDetail(typeId);
+	}
 }

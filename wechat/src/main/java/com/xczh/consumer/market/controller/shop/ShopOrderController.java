@@ -2,6 +2,8 @@ package com.xczh.consumer.market.controller.shop;
 
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import net.shopxx.merge.service.OrderOperService;
 import net.shopxx.merge.vo.OrderVO;
 import net.shopxx.merge.vo.ReceiverVO;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +31,8 @@ public class ShopOrderController {
     
     @Autowired
     public OrderOperService orderOperService;
+    @Autowired
+    public IMedicalDoctorBusinessService iMedicalDoctorBusinessService;
     @Value("${shop.url}")
     private String shopUrl;
 
@@ -131,9 +136,18 @@ public class ShopOrderController {
     public ResponseObject list(@Account String accountId, @RequestParam(required = false) OrderVO.Type type, @RequestParam(required = false) OrderVO.Status status, @RequestParam(required = false) Boolean isPendingReceive
             , @RequestParam(required = false) Boolean isPendingRefunds, @RequestParam(required = false) Boolean isUseCouponCode, @RequestParam(required = false) Boolean isExchangePoint
             , @RequestParam(required = false) Boolean isAllocatedStock, @RequestParam(required = false) Boolean hasExpired
-            , @RequestParam(defaultValue = "1") int pageNumber, @RequestParam(defaultValue = "10") int pageSize){
+            , @RequestParam(defaultValue = "1") int pageNumber, @RequestParam(defaultValue = "10") int pageSize) throws SQLException {
         List<OrderVO> list = orderOperService.findPage(type, status, null, accountId, null, isPendingReceive,
                 isPendingRefunds, isUseCouponCode, isExchangePoint, isAllocatedStock, hasExpired, pageNumber, pageSize);
+        for(int i=0;i<list.size();i++){
+            String doctorId = list.get(i).getDoctorId();
+            if(doctorId != null){
+                MedicalDoctorVO medicalDoctor = iMedicalDoctorBusinessService.findSimpleById(doctorId);
+                list.get(i).setDoctorName(medicalDoctor.getName());
+                list.get(i).setDoctorHeadPortrait(medicalDoctor.getHeadPortrait());
+            }
+
+        }
         return ResponseObject.newSuccessResponseObject(list);
     }
 
@@ -162,6 +176,11 @@ public class ShopOrderController {
         payment.put("ipandatcmUserId",accountId);
         payment.put("shopUrl",shopUrl);
         return ResponseObject.newSuccessResponseObject(payment);
+    }
+
+    @RequestMapping(value = "/order/transitStep",method = RequestMethod.GET)
+    public ResponseObject transitStep( @RequestParam Long sn){
+        return ResponseObject.newSuccessResponseObject(orderOperService.getTransitSteps(sn));
     }
 
 }
