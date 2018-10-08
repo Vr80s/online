@@ -212,6 +212,10 @@ public class OrderOperServiceImpl implements OrderOperService {
 				orderItemVOList.add(orderItemVO);
 			}
 			orderVO.setOrderItems(orderItemVOList);
+			StoreVO storeVO = new StoreVO();
+			BeanUtils.copyProperties(order.getStore(),storeVO);
+			storeVO.setId(order.getStore().getId());
+			orderVO.setStore(storeVO);
 			orderVOs.add(orderVO);
 		}
 		/*====数据处理结束====*/
