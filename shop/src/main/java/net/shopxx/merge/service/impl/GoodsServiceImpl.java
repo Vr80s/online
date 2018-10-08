@@ -265,49 +265,61 @@ public class GoodsServiceImpl implements GoodsService {
 
     public Set<ReviewVO> convertReview(Product product) {
         Set<Review> setReview = product.getReviews();
-
-        if (setReview != null && setReview.iterator().hasNext()) {
-
-        	Review review = setReview.iterator().next();
-        	 
-        	ReviewVO reviewVo = new ReviewVO();
-			UsersVO usersVO = new UsersVO();
-			BeanUtils.copyProperties(review,reviewVo);
-			if(review.getSpecifications().size()>0) {
-				String specifications = review.getSpecifications().stream().collect(Collectors.joining(";"));
-				reviewVo.setSpecifications(specifications);
-			}
-			BeanUtils.copyProperties(review.getMember(),usersVO);
-			usersVO.setId(review.getMember().getId());
-			
-			/**
-			 * 存放redis里面吧
-			 */
-			UsersRelation usersRelation =  usersRelationService.findByUserId(review.getMember().getId());
-			
-			if(usersRelation!=null) {
-				OeUserVO oeUserVO = redisCacheService.get(RedisCacheKey.OE_USER_INFO+RedisCacheKey.REDIS_SPLIT_CHAR
-			    		+usersRelation.getIpandatcmUserId());
-				if(oeUserVO==null) {
-					oeUserVO = userCenterService.getUserVOById(usersRelation.getIpandatcmUserId());
-					redisCacheService.set(RedisCacheKey.OE_USER_INFO+RedisCacheKey.REDIS_SPLIT_CHAR
-				    		+usersRelation.getIpandatcmUserId(), oeUserVO);
-				}
-				usersVO.setHeadPhoto(oeUserVO.getSmallHeadPhoto());
-			}else {
-				usersVO.setHeadPhoto(defaultHead);
-			}
-			reviewVo.setUser(usersVO);
-        	
-            
-            Set<ReviewVO> reviewVos = new HashSet<ReviewVO>();
-            reviewVos.add(reviewVo);
-            
-            return reviewVos;
-        }
+        
+        for (Review review : setReview) {
+        	if(review.getIsShow()) {
+            	
+        		ReviewVO reviewVo = new ReviewVO();
+    			UsersVO usersVO = new UsersVO();
+    			BeanUtils.copyProperties(review,reviewVo);
+    			if(review.getSpecifications().size()>0) {
+    				String specifications = review.getSpecifications().stream().collect(Collectors.joining(";"));
+    				reviewVo.setSpecifications(specifications);
+    			}
+    			BeanUtils.copyProperties(review.getMember(),usersVO);
+    			usersVO.setId(review.getMember().getId());
+    			
+    			/**
+    			 * 存放redis里面吧
+    			 */
+    			UsersRelation usersRelation =  usersRelationService.findByUserId(review.getMember().getId());
+    			
+    			LOGGER.warn("usersRelation:"+usersRelation);
+    			
+    			if(usersRelation!=null) {
+    				OeUserVO oeUserVO = redisCacheService.get(RedisCacheKey.OE_USER_INFO+RedisCacheKey.REDIS_SPLIT_CHAR
+    			    		+usersRelation.getIpandatcmUserId());
+    				
+    				LOGGER.warn("oeUserVO:"+oeUserVO);
+    				
+    				if(oeUserVO==null) {
+    					oeUserVO = userCenterService.getUserVOById(usersRelation.getIpandatcmUserId());
+    					redisCacheService.set(RedisCacheKey.OE_USER_INFO+RedisCacheKey.REDIS_SPLIT_CHAR
+    				    		+usersRelation.getIpandatcmUserId(), oeUserVO);
+    				}
+    				LOGGER.warn("oeUserVO:"+oeUserVO.getSmallHeadPhoto());
+    				usersVO.setHeadPhoto(oeUserVO.getSmallHeadPhoto());
+    			}else {
+    				usersVO.setHeadPhoto(defaultHead);
+    			}
+    			
+    			
+    			
+    			reviewVo.setUser(usersVO);
+                
+                Set<ReviewVO> reviewVos = new HashSet<ReviewVO>();
+                reviewVos.add(reviewVo);
+                return reviewVos;
+        	}
+		}
         return null;
     }
 
+    
+    
+    
+    
+    
     @Override
     @Transactional
     public Object findIdByCategoryId(Long categoryId) {
