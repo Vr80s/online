@@ -477,3 +477,11 @@ center .spinner .increase{
 .payment-bar{
 	display: none;
 }
+
+
+/*给确定添加固定底部*/
+.bottom_fiexd{
+ 	width: 7.5rem;
+ 	position: fixed;
+ 	bottom: .2rem;
+}

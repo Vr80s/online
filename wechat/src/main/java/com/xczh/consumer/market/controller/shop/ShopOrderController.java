@@ -69,8 +69,9 @@ public class ShopOrderController {
      */
     @RequestMapping("/order/create")
     public ResponseObject createOrder(@Account String accountId,String cartItemIds,Long skuId, Integer quantity, String cartTag, Long receiverId, Long shippingMethodId,
-                                         String code, String invoiceTitle, String invoiceTaxNumber, BigDecimal balance, String memo ){
-        Map<String, Object> map = orderOperService.create(cartItemIds,skuId, quantity, cartTag, receiverId, shippingMethodId, code, invoiceTitle, invoiceTaxNumber, balance, memo, accountId);
+                                         String code, String invoiceTitle, String invoiceTaxNumber, BigDecimal balance, String memo ,String memoJson){
+
+        Map<String, Object> map = orderOperService.create(cartItemIds,skuId, quantity, cartTag, receiverId, shippingMethodId, code, invoiceTitle, invoiceTaxNumber, balance, memoJson, accountId);
         return ResponseObject.newSuccessResponseObject(map);
     }
 
