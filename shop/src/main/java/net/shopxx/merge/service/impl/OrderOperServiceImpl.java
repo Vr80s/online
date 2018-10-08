@@ -394,11 +394,8 @@ public class OrderOperServiceImpl implements OrderOperService {
 		
 		for(Order order : orderList){
 			OrderVO o = new OrderVO();
-			Long userId = order.getMember().getId();
-			Long ssssss = order.getStore().getBusiness().getId();
 			String name = order.getStore().getBusiness().getUsername();
 			Business business = businessService.findByUsername(name);
-			UsersRelation usersRelation= usersRelationService.findByUserId(userId);
 			o.setDoctorId(business.getDoctorId());
 			BeanUtils.copyProperties(order,o);
 			o.setId(order.getId());
@@ -417,7 +414,6 @@ public class OrderOperServiceImpl implements OrderOperService {
 				BeanUtils.copyProperties(orderItem.getSku(),sku);
 				orderItemVO.setSku(sku);
 				orderItemVOList.add(orderItemVO);
-
 			}
 			o.setOrderItems(orderItemVOList);
 			list.add(o);
@@ -432,6 +428,9 @@ public class OrderOperServiceImpl implements OrderOperService {
 		Order order = orderService.findBySn(sn);
 		OrderVO o = new OrderVO();
 		if(order != null){
+			String name = order.getStore().getBusiness().getUsername();
+			Business business = businessService.findByUsername(name);
+			o.setDoctorId(business.getDoctorId());
 			BeanUtils.copyProperties(order,o);
 			o.setId(order.getId());
 			o.setStatus(OrderVO.Status.valueOf(order.getStatus().toString()));
@@ -441,6 +440,11 @@ public class OrderOperServiceImpl implements OrderOperService {
 				BeanUtils.copyProperties(orderItem,orderItemVO);
 				//获取库存
 				SkuVO sku = new SkuVO();
+				List<String> specification = orderItem.getSku().getSpecifications();
+				if(specification.size()>0){
+					String citiesCommaSeparated = String.join(";", specification);
+					sku.setSpecifications(citiesCommaSeparated);
+				}
 				BeanUtils.copyProperties(orderItem.getSku(),sku);
 				orderItemVO.setSku(sku);
 				orderItemVOList.add(orderItemVO);

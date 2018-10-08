@@ -98,15 +98,15 @@
 		<div class="indent_list">
 			<div class="indent_list_title">
 				<div class="tilte">
-					<img src="/xcview/images/touxiang.png" alt="" class="head_portrait" />
-					林超岱医师推荐
+					<img src="{{doctorHeadPortrait}}" alt="" class="head_portrait" />
+					{{doctorName}}医师推荐
 				</div>
 				<!-- 多种状态 -->
-				<div class="payment_operation">等待买家付款</div>
+				<!--<div class="payment_operation">等待买家付款</div>
 				<div class="payment_operation" style="display: none;">买家已付款</div>
 				<div class="payment_operation" style="display: none;">卖家已发货</div>
 				<div class="payment_operation" style="display: none;">交易成功</div>
-				<div class="payment_operation" style="display: none;">交易关闭</div>
+				<div class="payment_operation" style="display: none;">交易关闭</div>-->
 			</div>
 			<div class="main_product_details">
 				{{each orderItems as orderItem }}
@@ -115,7 +115,7 @@
 					<div class="product_details_center">
 						<div class="title"><span>{{orderItem.name}}</span></div>
 						<div class="pack">
-							1盒10包装；白色（库存{{orderItem.sku.stock}}件）
+							{{orderItem.sku.specifications}}（库存{{orderItem.sku.stock}}件）
 						</div>
 						<div class="total_prices">
 							<div class="price_yuan" >
