@@ -49,11 +49,19 @@ public interface GoodsService {
      */
     ProductVO getProductById(Long id);
 
-	/**  
-	 * <p>Title: findIdByShareInfo</p>  
-	 * <p>Description: </p>  
-	 * @param shareId
-	 * @return  
-	 */ 
-	ShareInfoVo findIdByShareInfo(String shareId);
+    /**
+     * <p>Title: findIdByShareInfo</p>
+     * <p>Description: </p>
+     *
+     * @param shareId
+     * @return
+     */
+    ShareInfoVo findIdByShareInfo(String shareId);
+
+    /**
+     * pv 与 uv的统计
+     * @param userId userId
+     * @param id id
+     */
+    void updateClick(String userId, Long id);
 }

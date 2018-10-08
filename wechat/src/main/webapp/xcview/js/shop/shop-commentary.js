@@ -7,7 +7,6 @@ $(function(){
         index = index%5;
         this.id=index;      //遍历img元素，设置单独的id
         $(this).on("mouseover click",function(){    //设置鼠标滑动和点击都会触发事件  
-         console.log($(this))
            $(this).siblings('img').attr('src',star)
 //         $('.select-impress img').attr('src',star);//当“回滚”、“改变主意”时，先复位所有图片为木有打星的图片颜色
             $(this).attr('src',starRed);        //设置鼠标当前所在图片为打星颜色图  
@@ -30,4 +29,17 @@ $(function(){
 		})		
 		that.parent().remove();
 	});
+	
+//	点击发布评论
+	$(".news-wrap").click(function(){
+		var evaluateDate=({
+			
+		})
+	})
+	function checkEvaluate(){
+		if(){
+			
+		}
+	}
+	
 })

@@ -10,9 +10,7 @@ $(function() {
     });
 
     orderList(1,"down");
-
 });
-
 
 function orderList(pageNumber,downOrUp) {
     requestGetService("/xczh/shop/order/list", {

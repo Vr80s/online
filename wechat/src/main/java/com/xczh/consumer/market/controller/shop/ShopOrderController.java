@@ -69,8 +69,9 @@ public class ShopOrderController {
      */
     @RequestMapping("/order/create")
     public ResponseObject createOrder(@Account String accountId,String cartItemIds,Long skuId, Integer quantity, String cartTag, Long receiverId, Long shippingMethodId,
-                                         String code, String invoiceTitle, String invoiceTaxNumber, BigDecimal balance, String memo ){
-        Map<String, Object> map = orderOperService.create(cartItemIds,skuId, quantity, cartTag, receiverId, shippingMethodId, code, invoiceTitle, invoiceTaxNumber, balance, memo, accountId);
+                                         String code, String invoiceTitle, String invoiceTaxNumber, BigDecimal balance, String memo ,String memoJson){
+
+        Map<String, Object> map = orderOperService.create(cartItemIds,skuId, quantity, cartTag, receiverId, shippingMethodId, code, invoiceTitle, invoiceTaxNumber, balance, memoJson, accountId);
         return ResponseObject.newSuccessResponseObject(map);
     }
 
@@ -154,6 +155,12 @@ public class ShopOrderController {
     @RequestMapping(value = "/order/detail",method = RequestMethod.GET)
     public ResponseObject detail( @RequestParam String sn){
         OrderVO order = orderOperService.findBySn(sn);
+        String doctorId = order.getDoctorId();
+        if(doctorId != null){
+            MedicalDoctorVO medicalDoctor = iMedicalDoctorBusinessService.findSimpleById(doctorId);
+            order.setDoctorName(medicalDoctor.getName());
+            order.setDoctorHeadPortrait(medicalDoctor.getHeadPortrait());
+        }
         return ResponseObject.newSuccessResponseObject(order);
     }
 
@@ -179,8 +186,8 @@ public class ShopOrderController {
     }
 
     @RequestMapping(value = "/order/transitStep",method = RequestMethod.GET)
-    public ResponseObject transitStep( @RequestParam Long sn){
-        return ResponseObject.newSuccessResponseObject(orderOperService.getTransitSteps(sn));
+    public ResponseObject transitStep( @RequestParam Long shippingId){
+        return ResponseObject.newSuccessResponseObject(orderOperService.getTransitSteps(shippingId));
     }
 
 }

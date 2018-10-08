@@ -860,7 +860,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
         	sinfo.setName(cells[1].toString());
         	String img = getShareImg(cells[2].toString());
         	sinfo.setHeadImg(img);
-        	sinfo.setDescription(cells[3].toString());
+//        	sinfo.setDescription(cells[3].toString());
         	return sinfo;
         }
         return null;

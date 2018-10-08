@@ -1,11 +1,6 @@
 package net.shopxx.merge.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -31,12 +26,7 @@ import net.sf.json.JSONObject;
 import net.shopxx.dao.ProductCategoryDao;
 import net.shopxx.dao.ProductDao;
 import net.shopxx.dao.StoreDao;
-import net.shopxx.entity.Product;
-import net.shopxx.entity.ProductCategory;
-import net.shopxx.entity.ProductImage;
-import net.shopxx.entity.Review;
-import net.shopxx.entity.Sku;
-import net.shopxx.entity.SpecificationItem;
+import net.shopxx.entity.*;
 import net.shopxx.entity.SpecificationItem.Entry;
 import net.shopxx.exception.ResourceNotFoundException;
 import net.shopxx.merge.entity.UsersRelation;
@@ -45,14 +35,8 @@ import net.shopxx.merge.page.Page;
 import net.shopxx.merge.page.Pageable;
 import net.shopxx.merge.service.GoodsService;
 import net.shopxx.merge.service.UsersRelationService;
-import net.shopxx.merge.vo.GoodsPageParams;
-import net.shopxx.merge.vo.ProductImageVO;
-import net.shopxx.merge.vo.ProductQueryParam;
-import net.shopxx.merge.vo.ProductVO;
-import net.shopxx.merge.vo.ReviewVO;
-import net.shopxx.merge.vo.SkuVO;
-import net.shopxx.merge.vo.SpecificationItemVO;
-import net.shopxx.merge.vo.UsersVO;
+import net.shopxx.merge.vo.*;
+import net.shopxx.service.ProductService;
 
 /**
  * 熊猫中医与shop用户关系
@@ -77,18 +61,20 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Inject
     private ProductCategoryDao productCategoryDao;
-    
+
     @Autowired
     private StoreDao storeDao;
-    
+
     @Inject
-	private UsersRelationService usersRelationService;
-    
+    private UsersRelationService usersRelationService;
+
     @Autowired
     private UserCenterService userCenterService;
-	
-	@Value("${defaultHead}")
-	private String defaultHead;
+    @Autowired
+    private ProductService productService;
+
+    @Value("${defaultHead}")
+    private String defaultHead;
 
     @Override
     @Transactional
@@ -101,11 +87,11 @@ public class GoodsServiceImpl implements GoodsService {
 
         for (Product product : list) {
             ProductVO pro = new ProductVO();
-                //普通属性
-            BeanUtils.copyProperties(product,pro);
+            //普通属性
+            BeanUtils.copyProperties(product, pro);
 
             pro.setId(product.getId());
-            
+
             //医师推荐信息
             LOGGER.info("product.getStore().getBusiness().getDoctorId() " + product.getStore().getBusiness().getDoctorId());
 
@@ -119,7 +105,7 @@ public class GoodsServiceImpl implements GoodsService {
                 pro.setDoctor((Map) jasonObject);
             } else {
 
-            	String doctorId = product.getStore().getBusiness().getDoctorId();
+                String doctorId = product.getStore().getBusiness().getDoctorId();
 
                 if (doctorId != null) {
 
@@ -153,10 +139,10 @@ public class GoodsServiceImpl implements GoodsService {
         }
         ProductVO pv = new ProductVO();
 
-        org.springframework.beans.BeanUtils.copyProperties(product,pv);
+        org.springframework.beans.BeanUtils.copyProperties(product, pv);
 
         pv.setId(product.getId());
-        
+
         //医师推荐
         Set<Map<String, Object>> posts = medicalDoctorPostsService.getProductPostsByProductId(productId, 0, 1);
         pv.setPosts(posts);
@@ -181,37 +167,38 @@ public class GoodsServiceImpl implements GoodsService {
 
         //库存转换
         pv.setSkuVOs(convertProductSku(product));
-        
+
         return pv;
     }
 
 
     /**
-	 * <p>Title: convertProductSku</p>
-	 * <p>Description: </p>
-	 * @param product
-	 * @return
-	 */
-	private Set<SkuVO> convertProductSku(Product product) {
-		if(product.getSkus().size()>0) {
-			Set<Sku> skus = product.getSkus();
-			Set<SkuVO> skuVos = new HashSet<SkuVO>();
-			for (Sku sku : skus) {
-				SkuVO skuVo = new SkuVO();
-				org.springframework.beans.BeanUtils.copyProperties(sku,skuVo);
-				skuVo.setSpecificationValueIds(sku.getSpecificationValueIds());
-				skuVo.setIsOutOfStock(sku.getIsOutOfStock());
-				skuVo.setId(sku.getId());
-				skuVos.add(skuVo);
-			}
-			return skuVos;
-		}
-		return null;
+     * <p>Title: convertProductSku</p>
+     * <p>Description: </p>
+     *
+     * @param product
+     * @return
+     */
+    private Set<SkuVO> convertProductSku(Product product) {
+        if (product.getSkus().size() > 0) {
+            Set<Sku> skus = product.getSkus();
+            Set<SkuVO> skuVos = new HashSet<SkuVO>();
+            for (Sku sku : skus) {
+                SkuVO skuVo = new SkuVO();
+                org.springframework.beans.BeanUtils.copyProperties(sku, skuVo);
+                skuVo.setSpecificationValueIds(sku.getSpecificationValueIds());
+                skuVo.setIsOutOfStock(sku.getIsOutOfStock());
+                skuVo.setId(sku.getId());
+                skuVos.add(skuVo);
+            }
+            return skuVos;
+        }
+        return null;
 
-	}
+    }
 
 
-	/**
+    /**
      * <p>Title: convertProductimages</p>
      * <p>Description: 图片转换</p>
      *
@@ -224,7 +211,7 @@ public class GoodsServiceImpl implements GoodsService {
             List<ProductImage> productImages = product.getProductImages();
             for (ProductImage productImage : productImages) {
                 ProductImageVO piv = new ProductImageVO();
-                BeanUtils.copyProperties(productImage,piv);
+                BeanUtils.copyProperties(productImage, piv);
                 productVoImages.add(piv);
             }
             return productVoImages;
@@ -250,7 +237,7 @@ public class GoodsServiceImpl implements GoodsService {
                 List<Entry> entries = specificationItem.getEntries();
                 for (Entry entry : entries) {
                     SpecificationItemVO.Entry entryVO = new SpecificationItemVO.Entry();
-                    BeanUtils.copyProperties(entry,entryVO);
+                    BeanUtils.copyProperties(entry, entryVO);
                     entrieVOs.add(entryVO);
                 }
                 specificationItemVO.setName(specificationItem.getName());
@@ -314,10 +301,6 @@ public class GoodsServiceImpl implements GoodsService {
 		}
         return null;
     }
-
-    
-    
-    
     
     
     @Override
@@ -325,14 +308,14 @@ public class GoodsServiceImpl implements GoodsService {
     public Object findIdByCategoryId(Long categoryId) {
         ProductCategory find = productCategoryDao.find(categoryId);
         try {
-        	List<Map<String, Object>> list = productDao.findIdByCategoryId(find);
-        	return list;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-      
-       
+            List<Map<String, Object>> list = productDao.findIdByCategoryId(find);
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
     }
 
     @Override
@@ -368,9 +351,20 @@ public class GoodsServiceImpl implements GoodsService {
         return productVO;
     }
 
-	@Override
-	public ShareInfoVo findIdByShareInfo(String shareId) {
-		return productDao.findIdByShareInfo(Long.parseLong(shareId));
-	}
-	
+    @Override
+    public ShareInfoVo findIdByShareInfo(String shareId) {
+        return productDao.findIdByShareInfo(Long.parseLong(shareId));
+    }
+
+    @Transactional
+    @Override
+    public void updateClick(String userId, Long id) {
+        try {
+            Product product = productDao.find(id);
+            product.setHits(product.getHits() + 1);
+            productDao.persist(product);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
