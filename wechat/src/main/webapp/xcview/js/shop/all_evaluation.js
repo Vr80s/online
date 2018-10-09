@@ -13,6 +13,13 @@ function appointmentList(pageNumber, downOrUp) {
 	},function (data) {
 	    if (data.success == true) {
 	    	var obj = data.resultObject;
+	    	var recommendsHide = $(".recommends").html();
+			if (recommendsHide==null || recommendsHide=="") {
+//			    alert(1);
+				$("#minirefresh").hide();
+			    $(".quie_pic").show();
+			};
+			
 			if(downOrUp=='down'){
 	            // 评价列表
 	            $(".recommends").html(template('shop_recommend', {items: obj}));
@@ -23,6 +30,7 @@ function appointmentList(pageNumber, downOrUp) {
 	           	$(".recommends").append(template('shop_recommend', {items: obj}));
 	            miniRefresh.endUpLoading(false);
 	        }
+	        
 //	       $(".recommends").html(template('shop_recommend', {items: obj}));
 	    }else{
 	        jqtoast(data.errorMessage);
@@ -52,7 +60,6 @@ var miniRefresh = new MiniRefresh({
         }
     }
 });
-
 
 //底部--购物车数量
 requestGetService("/xczh/shop/cart/quantity",null,function (data) {
