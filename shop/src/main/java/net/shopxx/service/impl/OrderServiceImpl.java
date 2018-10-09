@@ -7,14 +7,17 @@
 package net.shopxx.service.impl;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import net.shopxx.merge.vo.MemoJsonVO;
-import net.shopxx.util.JsonUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.BooleanUtils;
@@ -62,7 +65,6 @@ import net.shopxx.entity.Order;
 import net.shopxx.entity.Order.CommissionType;
 import net.shopxx.entity.Order.Status;
 import net.shopxx.entity.Order.Type;
-import net.shopxx.merge.vo.OrderPageParams;
 import net.shopxx.entity.OrderItem;
 import net.shopxx.entity.OrderLog;
 import net.shopxx.entity.OrderPayment;
@@ -91,6 +93,7 @@ import net.shopxx.service.ShippingMethodService;
 import net.shopxx.service.SkuService;
 import net.shopxx.service.SmsService;
 import net.shopxx.service.UserService;
+import net.shopxx.util.JsonUtils;
 import net.shopxx.util.SystemUtils;
 
 /**

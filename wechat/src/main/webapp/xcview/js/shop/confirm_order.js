@@ -53,7 +53,7 @@ $(function() {
                 var orderSns = data.resultObject.orderSns.join(',');
                 window.location="/xcview/html/shop/method.html?orderSns="+orderSns;
             }else{
-                alert(data.errorMessage);
+                jqtoast(data.errorMessage);
             }
         });
     });
@@ -82,7 +82,7 @@ function getDefaultReceiver(){
                 $(".no_address").show();
             }
         }else{
-            alert(data.errorMessage);
+            jqtoast(data.errorMessage);
         }
     },false);
 }
@@ -112,7 +112,7 @@ function getOrderList(){
             creatOrderList(data.resultObject.orders,data.resultObject.price,data.resultObject.freight);
             $(".amountPayable").html(data.resultObject.amountPayable);
         }else{
-            alert(data.errorMessage);
+            jqtoast(data.errorMessage);
         }
     });
 }

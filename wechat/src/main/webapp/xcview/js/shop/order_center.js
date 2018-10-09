@@ -38,12 +38,23 @@ function orderList(pageNumber,downOrUp) {
             $(".cancel_order").off("click");
             $(".cancel_order").click(function(){
                 data_sn = $(this).attr('data-sn');
-                $(".removeitem").show();
+                $(".cancelOrder").show();
             });
             // 点击取消隐藏奇效订单提示
-            $(".countermand").off("click");
-            $(".countermand").click(function(){
-                $(".removeitem").hide();
+            $(".countermandCancel").off("click");
+            $(".countermandCancel").click(function(){
+                $(".cancelOrder").hide();
+            });
+            // 点击删除订单提示
+            $(".delete_order").off("click");
+            $(".delete_order").click(function(){
+                data_sn = $(this).attr('data-sn');
+                $(".deleteOrder").show();
+            });
+            // 点击取消隐藏奇效订单提示
+            $(".countermandDelete").off("click");
+            $(".countermandDelete").click(function(){
+                $(".deleteOrder").hide();
             });
         }
     });
@@ -52,6 +63,17 @@ function orderList(pageNumber,downOrUp) {
 //取消订单
 function cancelOrder() {
     requestPostService("/xczh/shop/order/cancel", {
+        sn: data_sn
+    }, function (data) {
+        if(data.success ){
+            orderList(1,"down");
+        }
+    });
+}
+
+//删除订单
+function deleteOrder() {
+    requestPostService("/xczh/shop/order/delete", {
         sn: data_sn
     }, function (data) {
         if(data.success ){

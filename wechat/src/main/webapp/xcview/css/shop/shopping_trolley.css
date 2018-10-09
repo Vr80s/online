@@ -481,7 +481,7 @@ center .spinner .increase{
 
 /*给确定添加固定底部*/
 .bottom_fiexd{
- 	width: 7.5rem;
- 	position: fixed;
- 	bottom: .2rem;
+ 	width:7.5rem;
+ 	position:fixed;
+ 	bottom:.2rem;
 }
