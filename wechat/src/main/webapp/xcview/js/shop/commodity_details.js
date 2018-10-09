@@ -215,6 +215,13 @@ requestGetService("/xczh/shop/cart/quantity",null,function (data) {
        		$(".shopping_quantity").html(quantity);	
        		$(".shopping_quantity").show();
         };
+        /*var shoppimgNumber = $(".shopping_quantity").html();
+        if(shoppimgNumber = "0"){
+       		$(".shopping_quantity").hide();
+        }else{
+       		$(".shopping_quantity").html(quantity);	
+       		$(".shopping_quantity").show();
+        };*/
         
     }
 });
