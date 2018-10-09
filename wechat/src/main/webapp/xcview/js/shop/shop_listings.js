@@ -1,6 +1,6 @@
 $(function () {
 
-    listData(1,'down');  /*定义一个方法*/
+    //listData(1,'down');  /*定义一个方法*/
 
 })
 
@@ -130,7 +130,7 @@ $(".option_price").click(function(){
 
  $(".low_to_high").click(function(){
     // 商品列表--价格降序
-    var descending = 'PRICE_ASC';
+    var descending = 'PRICE_DESC';
     requestGetService("/xczh/shop/goods/list",{
         pageNumber:1,
         pageSize:10,
@@ -192,15 +192,53 @@ var miniRefresh = new MiniRefresh({
         //isLock: true,//是否禁用下拉刷新
         callback: function () {
             page = 1;
-            listData(page,'down');
+            //listData(page,'down');
 
+		    refurbish(page,'down');          
         }
     },
     up: {
         isAuto: false,
         callback: function () {
             page++;
-            listData(page,'up');
+            //listData(page,'up');
+            
+            refurbish(page,'up');
         }
     }
 });
+
+
+function refurbish(page,downUp){
+	
+	 /*
+     * 获取当前排序规则
+     */
+    var orderType = "RECOMMEND_DESC";
+    var defaultClick = 
+    	$("#mainMenuBar li[class*='default_click']");
+    
+    if(defaultClick!=null && defaultClick.length>0){
+    	if(defaultClick.hasClass("option_recommend")){
+    		orderType =  "RECOMMEND_DESC";
+    	}else if(defaultClick.hasClass("option_newest")){
+    	    orderType =  "DATE_DESC";
+    	}else if(defaultClick.hasClass("option_hottest")){
+    	    orderType =  "SALES_DESC";
+    	}
+    	
+    }else{
+		var display1 = $(".low_to_high").css("display");
+		if(display1 == "list-item"){
+			orderType = "PRICE_DESC";
+		}
+    	var display2 = $(".down").css("display"); 
+        if(display2 == "list-item"){
+        	orderType = "PRICE_ASC";
+		}
+    } 	
+    listData(page,downUp,orderType,keyWord);
+}
+
+
+
