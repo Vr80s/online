@@ -139,7 +139,7 @@
     <div class="hot_sale">猜你喜欢</div>
     <ul class="list">
         {{ each resultObject as product i }}
-        <li>
+        <li data-id="{{product.id}}">
             <img src="{{product.picture}}" alt="" class="surface_plots">
             <div class="title">{{product.name}}</div>
             <div class="price">{{product.price}}</div>
