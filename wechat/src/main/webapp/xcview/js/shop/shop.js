@@ -18,7 +18,7 @@ $(function () {
                 autoplay:1500,
                 visibilityFullFit : true,
                 loop:true,
-                pagination : '.pagination',
+                pagination : '.pagination'
             });
 
             var a = $(".swiper-slide").css("display");
@@ -336,27 +336,52 @@ function recommends(pageNumber, downOrUp){
             //isLock: true,//是否禁用下拉刷新
             callback: function () {
                 page = 1;
-                recommends(page,'down');
-                newests(page,'down');
-                hottests(page,'down');
-                ascendings(page,'down');
-                descendings(page,'down');
+                
+                refurbish(page,'down');
             }
         },
         up: {
             isAuto: false,
             callback: function () {
                 page++;
-                recommends(page,'up');
-                newests(page,'up');
-                hottests(page,'up');
-                ascendings(page,'up');
-                descendings(page,'up');
+                
+                refurbish(page,'up');
             }
         }
     });
 
-
+function refurbish(page,downUp){
+	
+	 /*
+     * 获取当前排序规则
+     */
+    
+    var defaultClick = 
+    	$("#mainMenuBar li[class*='default_click']");
+    
+    if(defaultClick!=null && defaultClick.length>0){
+    			
+    	if(defaultClick.hasClass("option_recommend")){
+    		
+    		  recommends(page,downUp);
+    	}else if(defaultClick.hasClass("option_newest")){
+    		
+    		  newests(page,downUp);
+    	}else if(defaultClick.hasClass("option_hottest")){
+    		
+    		  hottests(page,downUp);
+    	}
+    }else{
+		var display1 = $(".low_to_high").css("display");
+		if(display1 == "list-item"){
+			 ascendings(page,downUp);
+		}
+    	var display2 = $(".down").css("display"); 
+        if(display2 == "list-item"){
+			 descendings(page,downUp);
+		}
+    } 	
+}
 
 
 
