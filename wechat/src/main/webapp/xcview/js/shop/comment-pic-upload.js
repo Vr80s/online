@@ -34,7 +34,6 @@ $.Pgater.prototype.bindFuc=function(ele,callBack){
 		var i=0;
 		var recur=function(){
 			console.log(all[i]);
-			debugger
 			reader.readAsDataURL(all[i]);
 			var One=all[i];
 			reader.onload=function(e){
