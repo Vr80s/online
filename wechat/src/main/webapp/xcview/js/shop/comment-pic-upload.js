@@ -25,7 +25,6 @@ function getFileDom(index){
 var save;
 $.Pgater.prototype.bindFuc=function(ele,callBack){
 	ele.on("change",function(){		
-		console.log(ele[0].files);
 		 save=$(this).parent().parent().find("ul");
 		var all=ele[0].files;
 		var reader = new FileReader();
@@ -35,6 +34,7 @@ $.Pgater.prototype.bindFuc=function(ele,callBack){
 		var i=0;
 		var recur=function(){
 			console.log(all[i]);
+			debugger
 			reader.readAsDataURL(all[i]);
 			var One=all[i];
 			reader.onload=function(e){
@@ -47,7 +47,6 @@ $.Pgater.prototype.bindFuc=function(ele,callBack){
 					recur();
 				}else{
 					ele.value = '';
-					//alert(i);
 					callBack(album,img,save);
 				};
 			};
@@ -60,3 +59,13 @@ $.Pgater.prototype.bindClk=function(ele,tar){
 		tar.click();
 	});
 };
+	
+
+
+
+
+
+
+
+
+      

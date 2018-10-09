@@ -74,9 +74,10 @@ $(function(){
 	 
 	 
 //	 生成二维码
+	var linkUrl="/xczh/shop/detail/url/"+productId
 	$(".wechat-data").qrcode({
 		render : "canvas",    //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
-		text : "http://www.baidu.com",    //扫描了二维码后的内容显示,在这里也可以直接填一个网址，扫描二维码后
+		text : linkUrl,    //扫描了二维码后的内容显示,在这里也可以直接填一个网址，扫描二维码后
 		width : "158",               //二维码的宽度
 		height : "158",              //二维码的高度
 		background : "#ffffff",       //二维码的后景色
