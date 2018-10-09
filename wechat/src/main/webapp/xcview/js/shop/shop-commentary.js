@@ -48,7 +48,7 @@ $(function(){
 //	点击发布评论
 	var sellerStart, //卖家印象
 		logisticsStart, //物流服务
-		myReviewEntryList=[]; //评价的整体
+		myReviewEntryList=[], //评价的整体
 		myScore,	//描述相符
 		myOrderItemId,  //商品ID
 		myContent,	//商品内容
