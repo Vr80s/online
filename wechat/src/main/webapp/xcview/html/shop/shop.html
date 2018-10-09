@@ -205,7 +205,7 @@
 	
 	<!-- 底部开始 -->
 	<div class="hidden_field"></div>
-	<div class="footer">
+	<div class="footer" style="display: none">
 		<ul>
 			<li>
 				<a href="/xcview/html/physician/index.html" class="physician" style="width: 0.42rem;height: 0.42rem;background: url(/xcview/images/physicians_nav.png) no-repeat center;background-size: 0.42rem 0.42rem;margin-top: 0.14rem;"></a>
@@ -237,6 +237,51 @@
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script>
+    var getParam = function(name) {
+        var search = document.location.search;
+        //alert(search);
+        var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
+        var matcher = pattern.exec(search);
+        var items = null;
+        if(null != matcher) {
+            try {
+                items = decodeURIComponent(decodeURIComponent(matcher[1]));
+            } catch(e) {
+                try {
+                    items = decodeURIComponent(matcher[1]);
+                } catch(e) {
+                    items = matcher[1];
+                }
+            }
+        }
+        return items;
+    };
+
+    var wv = getParam("wv");
+	if(wv == null){
+		wv = localStorage.getItem("wv");
+	}else{
+		localStorage.setItem("wv",wv);
+	}
+	if(wv==null){
+		$(".footer").show();
+	}else{
+		$(".footer").hide();
+	}
+
+	var token = getParam("token");
+	var appUniqueId = getParam("appUniqueId");
+    var APP_TOKEN = "app.token";
+    var APP_AppUniqueId = "app.appUniqueId";
+	if(token != null && appUniqueId != null){
+		localStorage.setItem(APP_TOKEN,token);
+		localStorage.setItem(APP_AppUniqueId,appUniqueId);
+	}else{
+		localStorage.removeItem(APP_TOKEN);
+		localStorage.removeItem(APP_AppUniqueId);
+	}
+</script>
 <script type="text/javascript" src="/xcview/js/common/common.js"></script>
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>   <!--模板引入-->
 <script src="/xcview/js/shop/shop.js"></script><!-- 数据渲染 -->

@@ -42,13 +42,13 @@
 			<!--物流信息-->
 			<div class="logistics-wrap">
 				<!--收货地址-->
-				<div class="ware-address y">
+				<!--<div class="ware-address y">
 					<img src="/xcview/images/success.png" alt="成功" />
 					<span class="address-line z"></span>
 					<p>[收货地址]海南省海口市美兰区 演丰镇瑶城一路D栋心承智慧大厦</p>
-				</div>
+				</div>-->
 				<!--时间-->
-				<div class="logistics-left-time z">
+				<!--<div class="logistics-left-time z">
 					<ul>
 						<li>
 							<p>9-1</p>
@@ -67,10 +67,10 @@
 							<p>02:43</p>
 						</li>
 					</ul>
-				</div>
+				</div>-->
 				
 				<!--物流地址-->
-				<div class="logistics-right-address y">
+				<!--<div class="logistics-right-address y">
 					<ul>
 						<li>
 							<span class="location-line z"></span>
@@ -93,7 +93,25 @@
 							<span class="location-icon"></span>
 						</li>
 					</ul>
+				</div>-->
+				
+				<div class="logistics_address">
+					<ul class="logistics_address_ul">
+						<script type="text/html" id="logistics_address_ul">
+						{{each items as item i}}
+						<li>
+							<div class="time">
+								<p>{{item.ftime.slice(5,10)}}</p>
+								<p>{{item.time.slice(11,16)}}</p>
+							</div>
+							<!--<div class="border"></div>-->
+							<div class="center">{{item.context}}</div>
+							<span class="location_icon"></span>
+						</li>
+						{{/each}}
+       	 				</script>
 				</div>
+				
 			</div>
 		</div>
 	

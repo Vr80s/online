@@ -186,7 +186,8 @@
 			$(".down").removeClass("down_width");
 			$(".option_price").removeClass("option_newest_width");
 			
-			listData(0,null,"DATE_DESC ",keyWord);  
+			page=1;
+			listData(page,"down","DATE_DESC ",keyWord);  
 		});
 		//推荐
 		$(".option_recommend").click(function(){
@@ -206,7 +207,8 @@
 			$(".down").removeClass("down_width");
 			$(".option_price").removeClass("option_newest_width");
 			
-			listData(0,null,"RECOMMEND_DESC  ",keyWord);  
+			page=1;
+			listData(page,"down","RECOMMEND_DESC  ",keyWord);  
 		});
 		//最热
 		$(".option_hottest").click(function(){
@@ -226,7 +228,8 @@
 			$(".down").removeClass("down_width");
 			$(".option_price").removeClass("option_newest_width");
 			
-			listData(0,null,"SALES_DESC",keyWord);  
+			page=1;
+			listData(page,"down","SALES_DESC",keyWord);  
 		});
 		//价格
 		$(".option_price").click(function(){
@@ -244,6 +247,9 @@
 			$(".option_recommend").addClass("option_recommend_width");
 			$(".option_hottest").addClass("option_hottest_width");
 			$(".low_to_high").addClass("low_to_high_width");
+			
+			page=1;
+			listData(page,"down","PRICE_DESC",keyWord);
 		});
 		//由低到高
 		$(".low_to_high").click(function(){
@@ -263,7 +269,8 @@
 			$(".option_price").addClass("option_newest_width");
 			$(".down").addClass("down_width");
 			
-			listData(0,null,"PRICE_ASC",keyWord);
+			page=1;
+			listData(page,"down","PRICE_ASC",keyWord);
 		});
 		//由高到低
 		$(".down").click(function(){
@@ -282,7 +289,8 @@
 			$(".option_hottest").addClass("option_hottest_width");
 			$(".low_to_high").addClass("option_newest_width");
 			
-			listData(0,null,"PRICE_DESC",keyWord);
+			page=1;
+			listData(page,"down","PRICE_DESC",keyWord);
 		});
 		// 点击头部区域客服消息
 		$(".advices").click(function(){

@@ -5,6 +5,8 @@
 		<title></title>
 		<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 		<link rel="stylesheet" href="/xcview/css/shop/shop-comment.css">
+		<!--提示-->
+		<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
 		<link rel="stylesheet" href="/xcview/css/shop/shop-commentary.css">
 		<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 		<script>
@@ -30,38 +32,46 @@
 				</div>				
 			</div>
 			<!--一-->
-			<div class="commentary-wrap">
-				<div class="commentary-top">
-					<div class="ware-img z">
-						<img src="/xcview/images/banner01.png" alt="商品" />
-					</div>
-					<p class="ware-describe">描述相符</p>
-					<div class="select-impress y">  
-				        <img src="/xcview/images/xing1.png" alt="星星" />  
-				       	<img src="/xcview/images/xing1.png" alt="星星" />
-				       	<img src="/xcview/images/xing1.png" alt="星星" />
-				       	<img src="/xcview/images/xing1.png" alt="星星" />
-				       	<img src="/xcview/images/xing1.png" alt="星星" />
-				        <span></span>  
-				    </div> 
-				</div>
-				<div class="commentary-text">
-					<textarea placeholder="大声说出你的爱~"></textarea>
-				</div>
-				<!--图片上传-->
-				<div class="upload-picture-wrap">
-					<p class="picture-top">上传凭证<span>（最多6张）</span></p>				
-					<div class="save-pic z">
-						<ul>
-						</ul>
-						<div class="btn-upload z">
-							<p>上传凭证</p>
+			<div class="evaluate-wrap">
+				<script type="text/template" id="evaluate-template">
+					{{each items as item i}}
+					<div class="commentary-wrap">
+						<div class="commentary-top">
+							<div class="ware-img z">
+								<img src="{{item.thumbnail}}" alt="商品" />
+							</div>
+							<p class="ware-describe">描述相符</p>
+							<div class="select-impress y">  
+						        <img src="/xcview/images/xing.png" alt="星星" class="active" />  
+						       	<img src="/xcview/images/xing.png" alt="星星" class="active" />
+						       	<img src="/xcview/images/xing.png" alt="星星" class="active" />
+						       	<img src="/xcview/images/xing.png" alt="星星" class="active" />
+						       	<img src="/xcview/images/xing.png" alt="星星" class="active" />
+						        <span>非常好</span>  
+						    </div> 
 						</div>
+						<div class="commentary-text">
+							<textarea placeholder="大声说出你的爱~"></textarea>
+						</div>
+						<!--图片上传-->
+						<div class="upload-picture-wrap">
+							<p class="picture-top">上传凭证<span>（最多6张）</span></p>				
+							<div class="save-pic z">
+								<ul>
+								</ul>
+								<div class="btn-upload z">
+									<p>上传凭证</p>
+								</div>
+							</div>
+						</div>
+
 					</div>
-				</div>
+					{{/each}}
+				</script>	
 			</div>
 			<!--二-->
-			<div class="commentary-wrap">
+			
+			<!--<div class="commentary-wrap">
 				<div class="commentary-top">
 					<div class="ware-img z">
 						<img src="/xcview/images/banner01.png" alt="商品" />
@@ -78,9 +88,9 @@
 				</div>
 				<div class="commentary-text">
 					<textarea placeholder="大声说出你的爱~"></textarea>
-				</div>
+				</div>-->
 				<!--图片上传-->
-				<div class="upload-picture-wrap">
+				<!--<div class="upload-picture-wrap">
 					<p class="picture-top">上传凭证<span>（最多6张）</span></p>				
 					<div class="save-pic z">
 						<ul>
@@ -91,11 +101,13 @@
 					</div>
 				</div>
 			</div>
+			-->
+			
 			<!--卖家服务、物流服务-->
 			<div class="seller-logistics">
 				<div class="seller-wrap">
 					<p>卖家服务</p>
-					<div class="select-impress z">  
+					<div class="select-impress seller-service z">  
 				        <img src="/xcview/images/xing1.png" alt="星星" />  
 				       	<img src="/xcview/images/xing1.png" alt="星星" />
 				       	<img src="/xcview/images/xing1.png" alt="星星" />
@@ -107,7 +119,7 @@
 				
 				<div class="seller-wrap">
 					<p>物流服务</p>
-					<div class="select-impress z">  
+					<div class="select-impress logistics-service z">  
 				        <img src="/xcview/images/xing1.png" alt="星星" />  
 				       	<img src="/xcview/images/xing1.png" alt="星星" />
 				       	<img src="/xcview/images/xing1.png" alt="星星" />
@@ -131,13 +143,14 @@
 		<script type="text/javascript" src="/xcview/js/common/template.js"></script> 
 		<!--上传照片JS-->
 		<script type="text/javascript" src="/xcview/js/shop/comment-pic-upload.js"></script>
+		<!--提示-->
+		<script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script> 
 		<script type="text/javascript" src="/xcview/js/shop/shop-commentary.js"></script>
 		<script type="text/javascript">
 //			上传照片部分JS
 			var img=$(".img");
 			var callBack=function(album,img,save){
 				album.forEach(function(val,idx){ 
-					debugger
 					var div=$('<li><p><img src="/xcview/images/select_close.png" style="width:0.3rem;"></p></li>');
 					var img=$("<img/>");
 					img.attr("src",val.data);
@@ -147,7 +160,7 @@
 					$(".btn-upload input").val("")
 				});
 			}
-			var carera=new $.Pgater($(".btn-upload"),callBack);
+//			var carera=new $.Pgater($(".btn-upload"),callBack);
 //			判断一共上传了多少张
 			function isPiclength() {
 				save.find("li").each(function(){					

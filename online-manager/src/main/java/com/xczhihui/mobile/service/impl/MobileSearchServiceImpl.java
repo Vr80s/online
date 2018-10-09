@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.common.exception.IpandaTcmException;
 import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.enums.SearchType;
 import com.xczhihui.mobile.dao.MobileSearchDao;
 import com.xczhihui.mobile.service.MobileSearchService;
 import com.xczhihui.mobile.vo.MobileSearchVo;
@@ -96,7 +97,9 @@ public class MobileSearchServiceImpl extends OnlineBaseServiceImpl implements
         if (scoreType.getStatus() != null && scoreType.getStatus() == 1) {  //禁用
             scoreType.setStatus(0);
         } else {                      //启用
-            if(scoreType.getSearchType().equals(1) || scoreType.getSearchType().equals(3)) {
+            if(scoreType.getSearchType().equals(SearchType.SCHOOL_DEFAULT_SEARCH.getCode()) 
+            		|| scoreType.getSearchType().equals(SearchType.DOCTOR_DEFAULT_SEARCH.getCode()) 
+            		|| scoreType.getSearchType().equals(SearchType.PRODUCT_DEFAULT_SEARCH.getCode())) {
                 //查看下是否已经有启用的啦
                 String hqlPre = "from MobileSearchVo where  searchType = ? and isDelete=0 and status = 1 and id != ?";
                 MobileSearchVo ms = dao.findByHQLOne(hqlPre,new Object[]{scoreType.getSearchType(),Integer.parseInt(id)});

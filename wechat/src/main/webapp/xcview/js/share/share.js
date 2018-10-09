@@ -260,7 +260,10 @@ if(is_weixn()){
 	
 	wx.ready(function () {
 		
-		 var d1 = shareDescription.replace(/&nbsp;/g,"");
+		var d1 = "熊猫中医是中医药的学习传承平台:学中医、懂中医、用中医,让中医服务于家庭、个人,让中国古代科学瑰宝为现代人类的健康保驾护航。";
+		if(shareDescription!=null){
+			d1 = shareDescription.replace(/&nbsp;/g,"");
+		}
 		 
 		 //如果聊天记录里面点击过来的话，点击返回--》回调聊天窗口
 		if(shareBack == 1){

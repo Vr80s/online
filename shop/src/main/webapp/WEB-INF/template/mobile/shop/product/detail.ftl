@@ -366,6 +366,7 @@
 				
 				// 锁定规格值
 				function lockSpecificationValue() {
+					
 					var activeSpecificationValueIds = $specificationItem.map(function() {
 						var $active = $(this).find("a.active");
 						return $active.length > 0 ? $active.data("specification-item-entry-id") : [null];

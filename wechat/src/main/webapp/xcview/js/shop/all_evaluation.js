@@ -5,6 +5,7 @@ $(function () {
 })
 
 var productId = getQueryString("productId");
+var currentSku = null;
 function appointmentList(pageNumber, downOrUp) {
 	requestService("/xczh/shop/goods/review",{
 		productId:productId,
@@ -13,6 +14,13 @@ function appointmentList(pageNumber, downOrUp) {
 	},function (data) {
 	    if (data.success == true) {
 	    	var obj = data.resultObject;
+	    	var recommendsHide = $(".recommends").html();
+			if (recommendsHide==null || recommendsHide=="") {
+//			    alert(1);
+				$("#minirefresh").hide();
+			    $(".quie_pic").show();
+			};
+			
 			if(downOrUp=='down'){
 	            // 评价列表
 	            $(".recommends").html(template('shop_recommend', {items: obj}));
@@ -23,6 +31,7 @@ function appointmentList(pageNumber, downOrUp) {
 	           	$(".recommends").append(template('shop_recommend', {items: obj}));
 	            miniRefresh.endUpLoading(false);
 	        }
+	        
 //	       $(".recommends").html(template('shop_recommend', {items: obj}));
 	    }else{
 	        jqtoast(data.errorMessage);
@@ -52,7 +61,6 @@ var miniRefresh = new MiniRefresh({
         }
     }
 });
-
 
 //底部--购物车数量
 requestGetService("/xczh/shop/cart/quantity",null,function (data) {
@@ -114,6 +122,7 @@ requestGetService("/xczh/shop/goods/details",{
         if(defaultSkus!=null){
          	$(".information .price").html("￥"+defaultSkus.price);
        	    $(".information .repertory").html("库存"+defaultSkus.stock+"件");
+        	currentSku = defaultSkus;
         }
         
 		//默认选中
@@ -161,7 +170,11 @@ requestGetService("/xczh/shop/goods/details",{
 		        })
             })
             
-            var currentSku = {};
+            if(lalala!=null){
+             	lalala.sort();
+            }
+           
+           
             for (var i = 0; i < skus.length; i++) {
             	if(skus[i].specificationIdsStr == lalala.join(",")){
             		currentSku = skus[i];

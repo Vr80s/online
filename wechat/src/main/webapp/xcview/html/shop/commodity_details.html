@@ -55,7 +55,8 @@
 	<!-- 头部区域开始 -->
 	<header>
 		<div class="header" id="header">
-			<img src="/xcview/images/salon_return.png" alt="" class="return" onclick="location.href ='/xcview/html/shop/shop.html'" />
+			<!--<img src="/xcview/images/salon_return.png" alt="" class="return" onclick="location.href ='/xcview/html/shop/shop.html'" />-->
+			<img src="/xcview/images/salon_return.png" alt="" class="return" onclick="javascript:history.go(-1);" />
 			<div class="header_tab">
 				<ul>
 					<li class="tba_intro li_btn" data-to="li_btn0"><a href="javascript:void(0)">简介</a><div class="border_a"></li>
@@ -185,6 +186,7 @@
 			{{/each}}
 			</script>
 		</div>
+		
 	</div>
 	<!-- 医师推荐结束 -->
 
@@ -296,6 +298,7 @@
 
 	    </div>
 	</div>
+	<div class="no_evaluation">暂无评价</div>
 	</div>
 	<!-- 评价结束 -->
 
@@ -344,7 +347,7 @@
 			<div class="shopping_cart" onclick="location.href ='/xcview/html/shop/shopping_trolley.html '">
 				<img src="/xcview/images/shop/shopping_cart.png" alt="" />
 				购物车
-				<span class="shopping_quantity">0</span>
+				<span class="shopping_quantity"></span>
 			</div>
 			<div class="deal">
 				<div class="add_cart">加入购物车</div>
@@ -436,6 +439,7 @@
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script> 
+<script type="text/JavaScript" src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js?version=ed749a7870&version=276907c86a"></script> 
 
 <script type="text/javascript" src="/xcview/js/common/template.js?version=dd622e58c9"></script>   <!--模板引入-->
@@ -528,7 +532,11 @@
 					} else {
 					    cartQuantity = parseInt(cartQuantity) + quantity;
 					}
-                    $('.shopping_quantity').html(cartQuantity);
+					
+					var preNumber = $(".shopping_quantity").html();
+					totalQuantity = Number(cartQuantity) + Number(preNumber);
+                    $('.shopping_quantity').html(totalQuantity);
+                    
 				}
 			});
 		}else{

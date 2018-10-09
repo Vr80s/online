@@ -25,8 +25,7 @@ function getFileDom(index){
 var save;
 $.Pgater.prototype.bindFuc=function(ele,callBack){
 	ele.on("change",function(){		
-		console.log(ele[0].files);
-		 save=$(this).parent().parent().find("ul");
+		 save=$(this).parent().parent().find("ul");   //图片插入到当前UL里面
 		var all=ele[0].files;
 		var reader = new FileReader();
 		var album=[];
@@ -47,7 +46,6 @@ $.Pgater.prototype.bindFuc=function(ele,callBack){
 					recur();
 				}else{
 					ele.value = '';
-					//alert(i);
 					callBack(album,img,save);
 				};
 			};
@@ -60,3 +58,13 @@ $.Pgater.prototype.bindClk=function(ele,tar){
 		tar.click();
 	});
 };
+	
+
+
+
+
+
+
+
+
+      
