@@ -238,7 +238,7 @@ function recommends(pageNumber, downOrUp){
     }
     $(".option_price").click(function(){
         // 商品列表--价格升序
-        var ascending = 'PRICE_ASC';
+        var ascending = 'PRICE_DESC';
         requestGetService("/xczh/shop/goods/list",{
             pageNumber:1,
             pageSize:10,
@@ -257,7 +257,7 @@ function recommends(pageNumber, downOrUp){
     });
     $(".down").click(function(){
         // 商品列表--价格升序
-        var ascending = 'PRICE_ASC';
+        var ascending = 'PRICE_DESC';
         requestGetService("/xczh/shop/goods/list",{
             pageNumber:1,
             pageSize:10,
@@ -278,7 +278,7 @@ function recommends(pageNumber, downOrUp){
     
     function descendings(pageNumber, downOrUp){
         // 商品列表--价格降序
-        var descendings = 'PRICE_ASC';
+        var descendings = 'PRICE_DESC';
         requestGetService("/xczh/shop/goods/list",{
             pageNumber:pageNumber,
             pageSize:6,
