@@ -132,54 +132,13 @@
 	</header>
 	<main>
 		<div class="container-fluid">
+
 			<div class="list-group">
-				[#list orders as order]
-					<div class="list-group-item small">
-						${message("Order.sn")}: ${order.sn}
-						<a class="pull-right text-gray" href="${base}/member/order/view?orderSn=${order.sn}">[${message("shop.order.view")}]</a>
-					</div>
-				[/#list]
-			</div>
-			<div class="list-group">
-				<div class="list-group-item small">
-					[#if order.status == "PENDING_PAYMENT"]
-						${message("shop.order.pendingPayment")}
-					[#elseif order.status == "PENDING_REVIEW"]
-						${message("shop.order.pendingReview")}
-					[#else]
-						${message("shop.order.pending")}
-					[/#if]
-				</div>
-				[#if expireDate?has_content]
-					<div class="list-group-item small">
-						<p class="text-orange">[#noautoesc]${message("shop.order.expireTips", expireDate?string("yyyy-MM-dd HH:mm:ss"))}[/#noautoesc]</p>
-					</div>
-				[/#if]
-			</div>
-			<div class="list-group">
-				[#if online]
 					<div class="list-group-item">
-						${message("Order.amountPayable")}
+							应付金额
 						<strong id="amountPayable" class="pull-right text-red"></strong>
 					</div>
-					<div id="feeItem" class="fee-item list-group-item">
-						${message("Order.fee")}
-						<strong id="fee" class="pull-right text-red"></strong>
-					</div>
-				[#else]
-					<div class="list-group-item">
-						${message("Order.amountPayable")}
-						<strong id="amountPayable" class="pull-right text-red">${currency(amount, true, true)}</strong>
-					</div>
-				[/#if]
-				<div class="list-group-item">
-					${message("Order.shippingMethod")}
-					<span class="pull-right">${shippingMethodName!"-"}</span>
-				</div>
-				<div class="list-group-item">
-					${message("Order.paymentMethod")}
-					<span class="pull-right">${paymentMethodName!"-"}</span>
-				</div>
+
 			</div>
 			[#if online]
 				[#if paymentPlugins?has_content]
