@@ -142,7 +142,7 @@
 				<div class="waiting_payment">
 					<!-- 等待买家付款 -->
 					{{if item.status == 'PENDING_PAYMENT'}}
-					<div class="immediate_payment">立即付款</div>
+					<div class="immediate_payment" data-sn="{{item.sn}}" onclick='payment("{{item.sn}}")'\>立即付款</div>
 					<div class="cancel_order" data-sn="{{item.sn}}">取消订单</div>
 					
 					<!-- 买家已付款 -->

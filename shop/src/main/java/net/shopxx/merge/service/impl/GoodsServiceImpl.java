@@ -1,6 +1,11 @@
 package net.shopxx.merge.service.impl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -26,7 +31,12 @@ import net.sf.json.JSONObject;
 import net.shopxx.dao.ProductCategoryDao;
 import net.shopxx.dao.ProductDao;
 import net.shopxx.dao.StoreDao;
-import net.shopxx.entity.*;
+import net.shopxx.entity.Product;
+import net.shopxx.entity.ProductCategory;
+import net.shopxx.entity.ProductImage;
+import net.shopxx.entity.Review;
+import net.shopxx.entity.Sku;
+import net.shopxx.entity.SpecificationItem;
 import net.shopxx.entity.SpecificationItem.Entry;
 import net.shopxx.exception.ResourceNotFoundException;
 import net.shopxx.merge.entity.UsersRelation;
@@ -35,8 +45,14 @@ import net.shopxx.merge.page.Page;
 import net.shopxx.merge.page.Pageable;
 import net.shopxx.merge.service.GoodsService;
 import net.shopxx.merge.service.UsersRelationService;
-import net.shopxx.merge.vo.*;
-import net.shopxx.service.ProductService;
+import net.shopxx.merge.vo.GoodsPageParams;
+import net.shopxx.merge.vo.ProductImageVO;
+import net.shopxx.merge.vo.ProductQueryParam;
+import net.shopxx.merge.vo.ProductVO;
+import net.shopxx.merge.vo.ReviewVO;
+import net.shopxx.merge.vo.SkuVO;
+import net.shopxx.merge.vo.SpecificationItemVO;
+import net.shopxx.merge.vo.UsersVO;
 
 /**
  * 熊猫中医与shop用户关系
@@ -70,8 +86,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Autowired
     private UserCenterService userCenterService;
-    @Autowired
-    private ProductService productService;
+
 
     @Value("${defaultHead}")
     private String defaultHead;
