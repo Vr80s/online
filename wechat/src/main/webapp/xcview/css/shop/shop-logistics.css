@@ -1,6 +1,7 @@
 .header-wrap{
 	width: 7.5rem;
-	height: 0.88rem;	
+	height: 0.88rem;
+    border-bottom: 1px solid rgb(240, 240, 240);
 }
 .header{
 	width: 7.5rem;
@@ -162,4 +163,75 @@
 }
 .logistics-right-address ul li .active-icon{
 	background: #F97215;
+}
+
+/*重新编写物流地址*/
+.both{
+	clear: both;
+}
+.logistics_address{
+	width: 6.78rem;
+	height: 100%;
+	margin: 0 auto;
+	/*background: #ccc;*/
+}
+.logistics_address ul{
+	overflow: hidden;
+}
+.logistics_address ul li{
+	width: 100%;
+    min-height: 1.41rem;
+    position: relative;
+}
+.logistics_address ul li:last-child{
+    max-height: .8rem;
+    min-height: .8rem;
+}
+.logistics_address ul li .time{
+	font-size: .26rem;
+	color: #999999;
+	float: left;
+	margin-right: .27rem;
+}
+.logistics_address ul li .time p{
+	margin-bottom: .06rem;
+}
+.logistics_address ul li .border{
+	width: 1px;
+	min-height: 1.41rem;
+	border-left: 1px solid #DEDEDE;
+	float: left;
+	margin-right: .31rem;
+}
+.logistics_address ul li .center{
+	float: left;
+    font-size: .24rem;
+    color: #999999;
+    width: 5.45rem;
+    min-height: 1.41rem;
+    border-left: 1px solid #DEDEDE;
+    /*background: azure;*/
+    /* text-indent: 0.31rem; */
+    padding-left: .31rem;
+    /* padding-bottom: .2rem; */
+}
+.logistics_address ul li .location_icon{
+	width: 0.2rem;
+    height: 0.2rem;
+    background: #DEDEDE;
+    border-radius: 50%;
+    position: absolute;
+    left: 0.91rem;
+    top: 0;
+}
+.logistics_address ul li:first-child .location_icon{
+	background: #F97215;
+}
+.logistics_address ul li:first-child .time{
+	color: #333333;
+}
+.logistics_address ul li:last-child .center{
+    border-left: none;
+    max-height: .8rem;
+    min-height: .8rem;
 }

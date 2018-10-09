@@ -1,7 +1,8 @@
 
-//requestPostService('xczh/shop/order/transitStep',{OrderId:180914-321011712891119}, function (data) {
-requestGetService('/xczh/shop/order/transitStep',{OrderId:10102}, function (data) {
-    if (data.success === true) {
-        alert(9893104634032);
+requestGetService("/xczh/shop/order/transitStep", {
+    shippingId: 10102
+}, function (data) {
+    if(data.success ){
+    	$(".logistics_address_ul").html(template('logistics_address_ul', {items: data.resultObject.transitSteps}));
     }
 });

@@ -66,8 +66,8 @@
 	<setting name="taxRate" value="0.06" />
 	<setting name="cookiePath" value="/" />
 	<setting name="cookieDomain" value="" />
-	<setting name="kuaidi100Customer" value="" />
-	<setting name="kuaidi100Key" value="" />
+	<setting name="kuaidi100Customer" value="7883E9508B81A36ADB96DB4ABFC87109" />
+	<setting name="kuaidi100Key" value="vaOspYSU7014" />
 	<setting name="isCnzzEnabled" value="false" />
 	<setting name="cnzzSiteId" value="" />
 	<setting name="cnzzPassword" value="" />

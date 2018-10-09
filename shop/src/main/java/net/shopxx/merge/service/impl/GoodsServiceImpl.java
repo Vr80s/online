@@ -77,18 +77,19 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Inject
     private ProductCategoryDao productCategoryDao;
-    
+
     @Autowired
     private StoreDao storeDao;
-    
+
     @Inject
-	private UsersRelationService usersRelationService;
-    
+    private UsersRelationService usersRelationService;
+
     @Autowired
     private UserCenterService userCenterService;
-	
-	@Value("${defaultHead}")
-	private String defaultHead;
+
+
+    @Value("${defaultHead}")
+    private String defaultHead;
 
     @Override
     @Transactional
@@ -101,11 +102,11 @@ public class GoodsServiceImpl implements GoodsService {
 
         for (Product product : list) {
             ProductVO pro = new ProductVO();
-                //普通属性
-            BeanUtils.copyProperties(product,pro);
+            //普通属性
+            BeanUtils.copyProperties(product, pro);
 
             pro.setId(product.getId());
-            
+
             //医师推荐信息
             LOGGER.info("product.getStore().getBusiness().getDoctorId() " + product.getStore().getBusiness().getDoctorId());
 
@@ -119,7 +120,7 @@ public class GoodsServiceImpl implements GoodsService {
                 pro.setDoctor((Map) jasonObject);
             } else {
 
-            	String doctorId = product.getStore().getBusiness().getDoctorId();
+                String doctorId = product.getStore().getBusiness().getDoctorId();
 
                 if (doctorId != null) {
 
@@ -153,10 +154,10 @@ public class GoodsServiceImpl implements GoodsService {
         }
         ProductVO pv = new ProductVO();
 
-        org.springframework.beans.BeanUtils.copyProperties(product,pv);
+        org.springframework.beans.BeanUtils.copyProperties(product, pv);
 
         pv.setId(product.getId());
-        
+
         //医师推荐
         Set<Map<String, Object>> posts = medicalDoctorPostsService.getProductPostsByProductId(productId, 0, 1);
         pv.setPosts(posts);
@@ -181,37 +182,38 @@ public class GoodsServiceImpl implements GoodsService {
 
         //库存转换
         pv.setSkuVOs(convertProductSku(product));
-        
+
         return pv;
     }
 
 
     /**
-	 * <p>Title: convertProductSku</p>
-	 * <p>Description: </p>
-	 * @param product
-	 * @return
-	 */
-	private Set<SkuVO> convertProductSku(Product product) {
-		if(product.getSkus().size()>0) {
-			Set<Sku> skus = product.getSkus();
-			Set<SkuVO> skuVos = new HashSet<SkuVO>();
-			for (Sku sku : skus) {
-				SkuVO skuVo = new SkuVO();
-				org.springframework.beans.BeanUtils.copyProperties(sku,skuVo);
-				skuVo.setSpecificationValueIds(sku.getSpecificationValueIds());
-				skuVo.setIsOutOfStock(sku.getIsOutOfStock());
-				skuVo.setId(sku.getId());
-				skuVos.add(skuVo);
-			}
-			return skuVos;
-		}
-		return null;
+     * <p>Title: convertProductSku</p>
+     * <p>Description: </p>
+     *
+     * @param product
+     * @return
+     */
+    private Set<SkuVO> convertProductSku(Product product) {
+        if (product.getSkus().size() > 0) {
+            Set<Sku> skus = product.getSkus();
+            Set<SkuVO> skuVos = new HashSet<SkuVO>();
+            for (Sku sku : skus) {
+                SkuVO skuVo = new SkuVO();
+                org.springframework.beans.BeanUtils.copyProperties(sku, skuVo);
+                skuVo.setSpecificationValueIds(sku.getSpecificationValueIds());
+                skuVo.setIsOutOfStock(sku.getIsOutOfStock());
+                skuVo.setId(sku.getId());
+                skuVos.add(skuVo);
+            }
+            return skuVos;
+        }
+        return null;
 
-	}
+    }
 
 
-	/**
+    /**
      * <p>Title: convertProductimages</p>
      * <p>Description: 图片转换</p>
      *
@@ -224,7 +226,7 @@ public class GoodsServiceImpl implements GoodsService {
             List<ProductImage> productImages = product.getProductImages();
             for (ProductImage productImage : productImages) {
                 ProductImageVO piv = new ProductImageVO();
-                BeanUtils.copyProperties(productImage,piv);
+                BeanUtils.copyProperties(productImage, piv);
                 productVoImages.add(piv);
             }
             return productVoImages;
@@ -250,7 +252,7 @@ public class GoodsServiceImpl implements GoodsService {
                 List<Entry> entries = specificationItem.getEntries();
                 for (Entry entry : entries) {
                     SpecificationItemVO.Entry entryVO = new SpecificationItemVO.Entry();
-                    BeanUtils.copyProperties(entry,entryVO);
+                    BeanUtils.copyProperties(entry, entryVO);
                     entrieVOs.add(entryVO);
                 }
                 specificationItemVO.setName(specificationItem.getName());
@@ -265,62 +267,70 @@ public class GoodsServiceImpl implements GoodsService {
 
     public Set<ReviewVO> convertReview(Product product) {
         Set<Review> setReview = product.getReviews();
-
-        if (setReview != null && setReview.iterator().hasNext()) {
-
-        	Review review = setReview.iterator().next();
-        	 
-        	ReviewVO reviewVo = new ReviewVO();
-			UsersVO usersVO = new UsersVO();
-			BeanUtils.copyProperties(review,reviewVo);
-			if(review.getSpecifications().size()>0) {
-				String specifications = review.getSpecifications().stream().collect(Collectors.joining(";"));
-				reviewVo.setSpecifications(specifications);
-			}
-			BeanUtils.copyProperties(review.getMember(),usersVO);
-			usersVO.setId(review.getMember().getId());
-			
-			/**
-			 * 存放redis里面吧
-			 */
-			UsersRelation usersRelation =  usersRelationService.findByUserId(review.getMember().getId());
-			
-			if(usersRelation!=null) {
-				OeUserVO oeUserVO = redisCacheService.get(RedisCacheKey.OE_USER_INFO+RedisCacheKey.REDIS_SPLIT_CHAR
-			    		+usersRelation.getIpandatcmUserId());
-				if(oeUserVO==null) {
-					oeUserVO = userCenterService.getUserVOById(usersRelation.getIpandatcmUserId());
-					redisCacheService.set(RedisCacheKey.OE_USER_INFO+RedisCacheKey.REDIS_SPLIT_CHAR
-				    		+usersRelation.getIpandatcmUserId(), oeUserVO);
-				}
-				usersVO.setHeadPhoto(oeUserVO.getSmallHeadPhoto());
-			}else {
-				usersVO.setHeadPhoto(defaultHead);
-			}
-			reviewVo.setUser(usersVO);
-        	
-            
-            Set<ReviewVO> reviewVos = new HashSet<ReviewVO>();
-            reviewVos.add(reviewVo);
-            
-            return reviewVos;
-        }
+        
+        for (Review review : setReview) {
+        	if(review.getIsShow()) {
+            	
+        		ReviewVO reviewVo = new ReviewVO();
+    			UsersVO usersVO = new UsersVO();
+    			BeanUtils.copyProperties(review,reviewVo);
+    			if(review.getSpecifications().size()>0) {
+    				String specifications = review.getSpecifications().stream().collect(Collectors.joining(";"));
+    				reviewVo.setSpecifications(specifications);
+    			}
+    			BeanUtils.copyProperties(review.getMember(),usersVO);
+    			usersVO.setId(review.getMember().getId());
+    			
+    			/**
+    			 * 存放redis里面吧
+    			 */
+    			UsersRelation usersRelation =  usersRelationService.findByUserId(review.getMember().getId());
+    			
+    			LOGGER.warn("usersRelation:"+usersRelation);
+    			
+    			if(usersRelation!=null) {
+    				OeUserVO oeUserVO = redisCacheService.get(RedisCacheKey.OE_USER_INFO+RedisCacheKey.REDIS_SPLIT_CHAR
+    			    		+usersRelation.getIpandatcmUserId());
+    				
+    				LOGGER.warn("oeUserVO:"+oeUserVO);
+    				
+    				if(oeUserVO==null) {
+    					oeUserVO = userCenterService.getUserVOById(usersRelation.getIpandatcmUserId());
+    					redisCacheService.set(RedisCacheKey.OE_USER_INFO+RedisCacheKey.REDIS_SPLIT_CHAR
+    				    		+usersRelation.getIpandatcmUserId(), oeUserVO);
+    				}
+    				LOGGER.warn("oeUserVO:"+oeUserVO.getSmallHeadPhoto());
+    				usersVO.setHeadPhoto(oeUserVO.getSmallHeadPhoto());
+    			}else {
+    				usersVO.setHeadPhoto(defaultHead);
+    			}
+    			
+    			
+    			
+    			reviewVo.setUser(usersVO);
+                
+                Set<ReviewVO> reviewVos = new HashSet<ReviewVO>();
+                reviewVos.add(reviewVo);
+                return reviewVos;
+        	}
+		}
         return null;
     }
-
+    
+    
     @Override
     @Transactional
     public Object findIdByCategoryId(Long categoryId) {
         ProductCategory find = productCategoryDao.find(categoryId);
         try {
-        	List<Map<String, Object>> list = productDao.findIdByCategoryId(find);
-        	return list;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-      
-       
+            List<Map<String, Object>> list = productDao.findIdByCategoryId(find);
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
     }
 
     @Override
@@ -356,9 +366,20 @@ public class GoodsServiceImpl implements GoodsService {
         return productVO;
     }
 
-	@Override
-	public ShareInfoVo findIdByShareInfo(String shareId) {
-		return productDao.findIdByShareInfo(Long.parseLong(shareId));
-	}
-	
+    @Override
+    public ShareInfoVo findIdByShareInfo(String shareId) {
+        return productDao.findIdByShareInfo(Long.parseLong(shareId));
+    }
+
+    @Transactional
+    @Override
+    public void updateClick(String userId, Long id) {
+        try {
+            Product product = productDao.find(id);
+            product.setHits(product.getHits() + 1);
+            productDao.persist(product);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

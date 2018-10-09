@@ -78,9 +78,10 @@
 	<!-- 头部区域结束 -->
 	
 	<!-- 中间内容开始 -->
+	<div id="minirefresh" class="minirefresh-wrap">
+		<div class="minirefresh-scroll">
 	<div class="indent">
-		<div id="minirefresh" class="minirefresh-wrap">
-			<div class="minirefresh-scroll">
+
 		<script type="text/html" id="order_list">
 			{{each items as item i}}
 		<div class="indent_list">
@@ -130,21 +131,6 @@
 					</div>
 				</div>
 				{{/each}}
-				<!--<div class="product_details">
-					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-					<div class="product_details_center">
-						<div class="title"><span>正宗老北京足贴买2送1买3送2一盒50贴老北京足贴</span></div>
-						<div class="pack">
-							1盒10包装；白色（库存10件）
-						</div>
-						<div class="total_prices">
-							<div class="price_yuan" >
-								<div class="yuan">￥<span>100.01</span></div>
-								<div class="number">x<span>2</span></div>
-							</div>
-						</div>
-					</div>
-				</div>-->
 			</div>
 			<div class="zongjia"></div>
 
@@ -156,7 +142,7 @@
 				<div class="waiting_payment">
 					<!-- 等待买家付款 -->
 					{{if item.status == 'PENDING_PAYMENT'}}
-					<div class="immediate_payment">立即付款</div>
+					<div class="immediate_payment" data-sn="{{item.sn}}" onclick='payment("{{item.sn}}")'\>立即付款</div>
 					<div class="cancel_order" data-sn="{{item.sn}}">取消订单</div>
 					
 					<!-- 买家已付款 -->
@@ -185,82 +171,6 @@
 		</div>
 			{{/each}}
 		</script>
-		<!--<div class="indent_list">
-			<div class="indent_list_title">
-				<div class="tilte">
-					<img src="/xcview/images/touxiang.png" alt="" class="head_portrait" />
-					林超岱医师推荐
-				</div>
-				&lt;!&ndash; 多种状态 &ndash;&gt;
-				<div class="payment_operation">等待买家付款</div>
-				<div class="payment_operation" style="display: none;">买家已付款</div>
-				<div class="payment_operation" style="display: none;">卖家已发货</div>
-				<div class="payment_operation" style="display: none;">交易成功</div>
-				<div class="payment_operation" style="display: none;">交易关闭</div>
-			</div>
-			<div class="main_product_details">
-				<div class="product_details">
-					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-					<div class="product_details_center">
-						<div class="title"><span>正宗老北京足贴买2送1买3送2一盒50贴老北京足贴</span></div>
-						<div class="pack">
-							1盒10包装；白色（库存10件）
-						</div>
-						<div class="total_prices">
-							<div class="price_yuan" >
-								<div class="yuan">￥<span>110.01</span></div>
-								<div class="number">x<span>3</span></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="product_details">
-					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-					<div class="product_details_center">
-						<div class="title"><span>正宗老北京足贴买2送1买3送2一盒50贴老北京足贴</span></div>
-						<div class="pack">
-							1盒10包装；白色（库存10件）
-						</div>
-						<div class="total_prices">
-							<div class="price_yuan" >
-								<div class="yuan">￥<span>100.01</span></div>
-								<div class="number">x<span>2</span></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="zongjia"></div>
-
-			<div class="express">
-				<div class="express_price">共2件商品&nbsp;&nbsp;&nbsp;&nbsp;需付款&nbsp;<span>￥2348.00</span></div>
-			</div>
-
-			<div class="payment_method">
-				<div class="waiting_payment">
-					&lt;!&ndash; 等待买家付款 &ndash;&gt;
-					<div class="immediate_payment">立即付款</div>
-					<div class="cancel_order">取消订单</div>
-					
-					&lt;!&ndash; 买家已付款 &ndash;&gt;
-					<div class="buy_again" style="display: none;">再次购买</div>
-
-					&lt;!&ndash; 卖家已发货 &ndash;&gt;
-					<div class="check_logistics" style="display: none;">查看物流</div>
-					<div class="shipped_cancel_order" style="display: none;">再次购买</div>
-					<div class="confirm_receipt" style="display: none;">确认收货</div>
-
-					&lt;!&ndash; 交易成功 &ndash;&gt;
-					<div class="win_check_logistics" style="display: none;">查看物流</div>
-					<div class="win_shipped_cancel_order" style="display: none;">再次购买</div>
-					<div class="win_evaluate" style="display: none;">评价</div>   &lt;!&ndash; 交易成功后评价后-评价按钮隐藏 &ndash;&gt;
-					
-					&lt;!&ndash; 交易关闭 &ndash;&gt;
-					<div class="delete_order" style="display: none;">删除订单</div>
-					<div class="fack_shipped_cancel_order" style="display: none;">再次购买</div>
-				</div>
-			</div>
-		</div>-->
 			</div>
 		</div>
 	</div>

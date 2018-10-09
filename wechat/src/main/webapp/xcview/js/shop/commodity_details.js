@@ -26,19 +26,26 @@ requestGetService("/xczh/shop/goods/details",{
         };
 
         // 医师推荐
-        if (obj.posts !=null) {
+        if (obj.posts.length>0) {
             $(".physician_recommend").show();
             $(".recommend_main").html(template('recommend_main', {items: obj.posts}));
+            $(".no_recommendation").hide();
         }else{
             $(".physician_recommend").hide();
+//          $(".recommend_main").html(template('recommend_main', {items: obj.posts}));
+//          $(".no_recommendation").show();
         };
 
         // 评价
-        if (obj.posts !=null) {
+//      if (obj.posts !=null) {
+        if (obj.posts.length>0) {
             $(".evaluate").show();
             $(".evaluate_main").html(template('evaluate_main', {items: obj.reviewvs}));
+            $(".no_evaluation").hide();
         }else{
-            $(".evaluate").hide();
+            $(".evaluate").show();
+            $(".evaluate_main").html(template('evaluate_main', {items: obj.reviewvs}));
+            $(".no_evaluation").show();
         };
         
         // 商品详情

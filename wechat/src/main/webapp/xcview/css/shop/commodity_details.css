@@ -800,3 +800,21 @@ header{
 	height: 1.2rem !important;
 }
 /*评价查看大图开始*/
+
+/*暂无推荐*/
+/*.no_recommendation{
+	width: 100%;
+	font-size: .26rem;
+	color: #666666;
+	text-align: center;
+	display: none;
+}*/
+/*暂无评价*/
+.no_evaluation{
+	width: 100%;
+	font-size: .26rem;
+	color: #666666;
+	text-align: left;
+    text-indent: .26rem;
+	display: none;
+}

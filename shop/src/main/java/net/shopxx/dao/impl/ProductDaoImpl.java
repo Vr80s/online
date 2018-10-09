@@ -848,7 +848,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
     @Override
     public ShareInfoVo findIdByShareInfo(Long productId) {
 
-        String jpq = " SELECT p.id,p.name,p.productImages,p.introduction FROM product AS p "
+        String jpq = " SELECT p.id,p.name,p.productImages,p.introduction  FROM product AS p "
         		+ " WHERE p.id =:categoryIds";
         
         Object singleResult = entityManager.createNativeQuery(jpq).setParameter("categoryIds", productId).getSingleResult();
@@ -857,30 +857,37 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
         	LOGGER.info(cells.toString());
         	ShareInfoVo sinfo = new ShareInfoVo();
         	sinfo.setShareId(cells[0].toString());
-        	sinfo.setName(cells[1].toString());
-        	String img = getShareImg(cells[2].toString());
+        	sinfo.setName(cells[1]!=null ? cells[1].toString() : null);
+        	String img = getShareImg(cells[2]!=null ? cells[2].toString() : null);
         	sinfo.setHeadImg(img);
-        	sinfo.setDescription(cells[3].toString());
+        	sinfo.setDescription(cells[3]!=null ? cells[3].toString() : null);
         	return sinfo;
         }
         return null;
     }
     
     public String getShareImg(String imgs) {
-    	try {
-    		JSONArray jsonArray = (JSONArray) JSONObject.parse(imgs);
-    		String img = null;
-    		for (Object object : jsonArray) {
-    			JSONObject jsonObj =  (JSONObject) object;
-    			if(jsonObj!=null && jsonObj.get("thumbnail")!=null) {
-    				img = jsonObj.get("thumbnail").toString();
-    				break;
+    	
+    	if(imgs!=null){
+    		try {
+        		JSONArray jsonArray = (JSONArray) JSONObject.parse(imgs);
+        		String img = null;
+        		for (Object object : jsonArray) {
+        			JSONObject jsonObj =  (JSONObject) object;
+        			if(jsonObj!=null && jsonObj.get("thumbnail")!=null) {
+        				img = jsonObj.get("thumbnail").toString();
+        				break;
+        			}
     			}
-			}
-    		return img;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+        		return img;
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    			return null;
+    		}
+    	}else {
+    		return null;
+    	}
+    	
+    	
     }
 }

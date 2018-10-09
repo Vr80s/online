@@ -10,9 +10,11 @@ $(function() {
     });
 
     orderList(1,"down");
-
 });
 
+function payment(orderSns) {
+    location.href = "/xcview/html/shop/method.html?orderSns=" + orderSns;
+}
 
 function orderList(pageNumber,downOrUp) {
     requestGetService("/xczh/shop/order/list", {
