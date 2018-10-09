@@ -265,6 +265,7 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
             Token tokenData = UCCookieUtil.readTokenCookie(request);
             token = tokenData != null ? tokenData.getTicket() : null;
         }
+        System.out.println(request.getRequestURI()+";;;;;token="+token);
         Account annotation = parameter.getParameterAnnotation(Account.class);
         Class<?> clazz = parameter.getParameterType();
 

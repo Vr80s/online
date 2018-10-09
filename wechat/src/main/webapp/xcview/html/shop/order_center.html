@@ -18,6 +18,52 @@
 
 <script type="text/javascript" src="/xcview/js/common/jquery.min-2.1.1.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+
+<script>
+	var getParam = function(name) {
+		var search = document.location.search;
+		//alert(search);
+		var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
+		var matcher = pattern.exec(search);
+		var items = null;
+		if(null != matcher) {
+			try {
+				items = decodeURIComponent(decodeURIComponent(matcher[1]));
+			} catch(e) {
+				try {
+					items = decodeURIComponent(matcher[1]);
+				} catch(e) {
+					items = matcher[1];
+				}
+			}
+		}
+		return items;
+	};
+
+	var wv = getParam("wv");
+	if(wv == null){
+		wv = localStorage.getItem("wv");
+	}else{
+		localStorage.setItem("wv",wv);
+	}
+//	if(wv==null){
+//		$(".footer").show();
+//	}else{
+//		$(".footer").hide();
+//	}
+
+	var token = getParam("token");
+	var appUniqueId = getParam("appUniqueId");
+	var APP_TOKEN = "app.token";
+	var APP_AppUniqueId = "app.appUniqueId";
+	if(token != null && appUniqueId != null){
+		localStorage.setItem(APP_TOKEN,token);
+		localStorage.setItem(APP_AppUniqueId,appUniqueId);
+	}else{
+		localStorage.removeItem(APP_TOKEN);
+		localStorage.removeItem(APP_AppUniqueId);
+	}
+</script>
 <script type="text/javascript" src="/xcview/js/common/common.js"></script>
 <!--刷新 -->
 <link rel="stylesheet" href="/xcview/css/minirefresh/minirefresh.css">
@@ -146,7 +192,7 @@
 					<div class="cancel_order" data-sn="{{item.sn}}">取消订单</div>
 					
 					<!-- 买家已付款 -->
-					{{else if item.status == 'PENDING_REVIEW'}}
+					{{else if item.status == 'PENDING_REVIEW' || item.status == 'PENDING_SHIPMENT'}}
 					<div class="buy_again">再次购买</div>
 
 					<!-- 卖家已发货 -->
@@ -156,14 +202,14 @@
 					<div class="confirm_receipt" >确认收货</div>
 
 					<!-- 交易成功 -->
-					{{else if item.status == 'COMPLETED'}}
+					{{else if item.status == 'COMPLETED' || item.status == 'RECEIVED'}}
 					<div class="win_check_logistics" >查看物流</div>
 					<div class="win_shipped_cancel_order" >再次购买</div>
 					<div class="win_evaluate" >评价</div>   <!-- 交易成功后评价后-评价按钮隐藏 -->
 					
 					<!-- 交易关闭 -->
-					{{else if item.status == 'CANCELED'}}
-					<div class="delete_order" >删除订单</div>
+					{{else if item.status == 'CANCELED' || item.status == 'FAILED' || item.status == 'DENIED'}}
+					<div class="delete_order" data-sn="{{item.sn}}">删除订单</div>
 					<div class="fack_shipped_cancel_order" >再次购买</div>
 					{{/if}}
 				</div>
@@ -177,24 +223,37 @@
 	<!-- 中间内容结束 -->
 
 	<!-- 取消订单提示开始 -->
-	<div class="removeitem">
+	<div class="removeitem cancelOrder">
 		<div class="removeitembg"></div>
 		<div class="removeitem-main">
 			<div class="reminder"><strong>提示</strong></div>
-			<div class="reminder-main">确认删除该订单？</div>
+			<div class="reminder-main">确认取消该订单？</div>
 			<div class="removeitem-choice">
-				<div class="countermand">取消</div>
+				<div class="countermand countermandCancel">取消</div>
 				<div class="affirm" onclick="cancelOrder()">确认</div>
 			</div>
 		</div>
 	</div>
 	<!-- 取消订单提示结束 -->
 
+	<!-- 删除订单提示开始 -->
+	<div class="removeitem deleteOrder">
+		<div class="removeitembg"></div>
+		<div class="removeitem-main">
+			<div class="reminder"><strong>提示</strong></div>
+			<div class="reminder-main">确认删除该订单？</div>
+			<div class="removeitem-choice">
+				<div class="countermand countermandDelete">取消</div>
+				<div class="affirm" onclick="deleteOrder()">确认</div>
+			</div>
+		</div>
+	</div>
+	<!-- 删除订单提示结束 -->
+
 	
 </body>
 
 
-<script type="text/javascript" src="/xcview/js/shop/confirm_order.js"></script>
 <script type="text/javascript" src="/xcview/js/shop/order_center.js"></script>
 
 

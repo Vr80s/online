@@ -5,7 +5,7 @@ $(function () {
 })
 
 var productId = getQueryString("productId");
-
+var currentSku = null;
 function appointmentList(pageNumber, downOrUp) {
 
 	requestService("/xczh/shop/goods/recommends",{
@@ -116,6 +116,7 @@ requestGetService("/xczh/shop/goods/details",{
         if(defaultSkus!=null){
          	$(".information .price").html("￥"+defaultSkus.price);
        	    $(".information .repertory").html("库存"+defaultSkus.stock+"件");
+        	currentSku = defaultSkus;
         }
         
 		//默认选中
@@ -163,7 +164,17 @@ requestGetService("/xczh/shop/goods/details",{
 		        })
             })
             
-            var currentSku = {};
+            /*var currentSku = {};
+            for (var i = 0; i < skus.length; i++) {
+            	if(skus[i].specificationIdsStr == lalala.join(",")){
+            		currentSku = skus[i];
+            	}
+            }*/
+           	if(lalala!=null){
+             	lalala.sort();
+            }
+           
+           
             for (var i = 0; i < skus.length; i++) {
             	if(skus[i].specificationIdsStr == lalala.join(",")){
             		currentSku = skus[i];
