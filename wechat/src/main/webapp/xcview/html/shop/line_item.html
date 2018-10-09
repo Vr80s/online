@@ -51,16 +51,25 @@
 	<!-- 交易状态开始 -->
 	<div class="trading_status">
 		{{if status == 'PENDING_PAYMENT'}}
-		<div class="payment_status">等待买家付款</div>
+		<div class="payment_status">等待付款</div>
 		{{else if status == 'PENDING_REVIEW'}}
-		<div class="payment_status">买家已付款</div>
+		<div class="payment_status">等待审核</div>
+		{{else if status == 'PENDING_SHIPMENT'}}
+		<div class="payment_status">等待发货</div>
 		{{else if status == 'SHIPPED'}}
-		<div class="payment_status">卖家已发货</div>
+		<div class="payment_status">已发货</div>
+		{{else if status == 'RECEIVED'}}
+		<div class="payment_status">已收货</div>
 		{{else if status == 'COMPLETED'}}
-		<div class="payment_status">交易成功</div>
+		<div class="payment_status">已完成</div>
+		{{else if status == 'FAILED'}}
+		<div class="payment_status">已失败</div>
 		{{else if status == 'CANCELED'}}
-		<div class="payment_status">交易关闭</div>
+		<div class="payment_status">已取消</div>
+		{{else if status == 'DENIED'}}
+		<div class="payment_status">已拒绝</div>
 		{{/if}}
+
 		<div class="orderid">订单编号：{{sn}}</div>
 		<div class="orderid">下单时间：{{createdDate}}</div>
 	</div>
@@ -126,21 +135,6 @@
 					</div>
 				</div>
 				{{/each}}
-				<!--<div class="product_details">
-					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-					<div class="product_details_center">
-						<div class="title"><span>正宗老北京足贴买2送1买3送2一盒50贴老北京足贴</span></div>
-						<div class="pack">
-							1盒10包装；白色（库存10件）
-						</div>
-						<div class="total_prices">
-							<div class="price_yuan" >
-								<div class="yuan">￥<span>100.01</span></div>
-								<div class="number">x<span>2</span></div>
-							</div>
-						</div>
-					</div>
-				</div>-->
 			</div>
 			<!-- <div class="zongjia"></div> -->
 			<div class="fund">
@@ -159,7 +153,7 @@
 					</div>
 					<div class="payment_details">
 						<div class="fund_title">需付款（含运费）</div>
-						<div class="yuans">￥10.00</div>
+						<div class="yuans">￥20.00</div>
 					</div>
 				</div>
 			</div>
@@ -176,7 +170,7 @@
 					<div class="cancel_order">取消订单</div>
 					
 					<!-- 买家已付款 -->
-					{{else if status == 'PENDING_PAYMENT'}}
+					{{else if status == 'PENDING_PAYMENT' || status == 'PENDING_SHIPMENT'}}
 					<div class="buy_again">再次购买</div>
 
 					<!-- 卖家已发货 -->
@@ -186,13 +180,13 @@
 					<div class="confirm_receipt">确认收货</div>
 
 					<!-- 交易成功 -->
-					{{else if status == 'COMPLETED'}}
+					{{else if status == 'COMPLETED'  || status == 'RECEIVED'}}
 					<div class="win_check_logistics">查看物流</div>
 					<div class="win_shipped_cancel_order">再次购买</div>
 					<div class="win_evaluate">评价</div>   <!-- 交易成功后评价后-评价按钮隐藏 -->
 					
 					<!-- 交易关闭 -->
-					{{else if status == 'CANCELED'}}
+					{{else if status == 'CANCELED' || status == 'FAILED' || status == 'DENIED'}}
 					<div class="delete_order">删除订单</div>
 					<div class="fack_shipped_cancel_order">再次购买</div>
 					{{/if}}

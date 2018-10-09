@@ -517,6 +517,8 @@
         requestGetService("/xczh/shop/checkSku?skuId="+skuId+"&quantity="+quantity,null,function(data){
 			if(data.success){
 				flag = true;
+			}else{
+				jqtoast(data.errorMessage);
 			}
 		},false);
         if(!flag){
