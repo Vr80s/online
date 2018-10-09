@@ -17,6 +17,10 @@ var USER_UN_BIND = 1005;//用户用微信登录的但是没有绑定注册信息
 var USER_NORMAL = 1000;
 var USER_WEIXIN_AUTH = 1006;//需要去微信授权
 
+var APP_TOKEN = "app.token";
+var APP_AppUniqueId = "app.appUniqueId";
+var headers = {"clientType":"2"};
+
 // QA_quiz
 
 /*$(".QA_quiz").click(function(){
@@ -205,13 +209,22 @@ function ajaxRequest(url, param,type, callback, ac) {
     if(document.location.host.indexOf('dev.ixincheng.com')!=-1){
        // url = "/apis"+url;
     }
-    //mui.ajax({
-    // jQuery.ajax({
+    var appToken = localStorage.getItem(APP_TOKEN);
+    var appUniqueId = localStorage.getItem(APP_AppUniqueId);
+    if(appToken!=null && appUniqueId!=null){
+        var wv = localStorage.getItem(wv);
+        if(wv=="ios"){
+            wv = 4;
+        }else{
+            wv = 3;
+        }
+        headers = {token:appToken,appUniqueId:appUniqueId,clientType:wv};
+    }
     $.ajax({
         url: url,
         type: type,
         data: param,
-        headers: {"clientType":"2"},
+        headers: headers,
         async: ac,
         success: function (msg) {
             var rd = getCurrentRelativeUrl();
@@ -753,17 +766,3 @@ var getParam = function(name) {
     }
     return items;
 };
-
-$(function(){
-      var wv = getParam("wv");
-      if(wv == null){
-          wv = localStorage.getItem("wv");
-      }else{
-          localStorage.setItem("wv",wv);
-      }
-      if(wv==null){
-          $(".footer").show();
-      }else{
-          $(".footer").hide();
-      }
-})

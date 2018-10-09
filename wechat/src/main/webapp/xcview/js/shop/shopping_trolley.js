@@ -310,9 +310,13 @@ function choiceSku(skuId) {
 function initCart() {
     requestGetService("/xczh/shop/cart", null, function (data) {
         if (data.resultObject.storeCartItems.length < 1) {
+        	$(".compile").hide();  //编辑隐藏
+        	$(".finish").hide();   //完成
         	$(".payment-bar").hide();
             $('.vacancy-main').show();
         } else {
+        	//$(".finish").show();   //完成
+        	$(".compile").show();  //编辑显示
         	$(".payment-bar").show();
             $('#shop_cart_div').html(template('shop_cart_tmpl', data.resultObject));
         }
@@ -337,6 +341,10 @@ function initRecommendProduct() {
     }, function (data) {
         if (data.success) {
             $('#shop_recommend_product_ul').html(template('shop_recommend_product_tmpl', data));
+            $(".list li").click(function(){
+			    var id = $(this).attr("data-id");
+			    window.location.href = "/xcview/html/shop/commodity_details.html?productId=" + id + "";
+			})
         }
     });
 }
@@ -394,9 +402,11 @@ $('.affirm').click(function () {
         $(".vacancy-main").hide();   //隐藏猜你喜欢
     } else {
         $(".hidden_field").css("display", "none");
+        $(".compile").hide();  //编辑隐藏
         $(".vacancy-main").show();   //显示猜你喜欢
     }
     deleteCartProduct(skuIds);
+    initCart();
 });
 
 $(".foot_del").click(function () {
@@ -428,8 +438,6 @@ $('.itemdelete').click(function () {
 $('.countermand').click(function () {
     $('.removeitem').hide();
 });
-
-
 
 
 
