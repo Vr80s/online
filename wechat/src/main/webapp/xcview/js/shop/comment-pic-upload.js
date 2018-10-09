@@ -25,7 +25,7 @@ function getFileDom(index){
 var save;
 $.Pgater.prototype.bindFuc=function(ele,callBack){
 	ele.on("change",function(){		
-		 save=$(this).parent().parent().find("ul");
+		 save=$(this).parent().parent().find("ul");   //图片插入到当前UL里面
 		var all=ele[0].files;
 		var reader = new FileReader();
 		var album=[];

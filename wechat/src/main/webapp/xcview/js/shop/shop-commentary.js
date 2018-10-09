@@ -1,5 +1,6 @@
 $(function(){
-	 var orderNum = getQueryString("orderId");//201809141010104
+	 var orderNum = getQueryString("orderId");//201809141010104  一个订单 201809251011414多个订单
+	 
 
 //	评论订单列表
 	   requestGetService("/xczh/shop/order/detail", {
