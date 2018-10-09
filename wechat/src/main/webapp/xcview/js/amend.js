@@ -54,7 +54,8 @@ function submit() {
             }*/
             // webToast(data.errorMessage,"middle",1500);
 
-            webToast("格式错误，密码为6-18位英文大小写字母或者阿拉伯数字","middle",1500);
+//          webToast("格式错误，密码为6-18位英文大小写字母或者阿拉伯数字","middle",1500);
+            webToast("您输入的旧密码不正确","middle",1500);
             $(".web_toast").addClass("web_toasts");
            /* $(".web_toast").css("left","50%");
             $(".web_toast").css("margin-left","-2.9rem");*/
