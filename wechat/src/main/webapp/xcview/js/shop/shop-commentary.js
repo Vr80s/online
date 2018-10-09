@@ -22,10 +22,10 @@ $(function(){
 	        index = index%5;
 	        this.id=index;      //遍历img元素，设置单独的id
 	        $(this).on("mouseover click",function(){    //设置鼠标滑动和点击都会触发事件  
-	           $(this).siblings('img').attr('src',star)
+	           $(this).siblings('img').attr('src',star).removeClass("active");
 	//         $('.select-impress img').attr('src',star);//当“回滚”、“改变主意”时，先复位所有图片为木有打星的图片颜色
-	            $(this).attr('src',starRed);        //设置鼠标当前所在图片为打星颜色图  
-	            $(this).prevAll().attr('src',starRed);  //设置鼠标当前的前面星星图片为打星颜色图  
+	            $(this).attr('src',starRed).addClass("active");        //设置鼠标当前所在图片为打星颜色图  
+	            $(this).prevAll().attr('src',starRed).addClass("active");  //设置鼠标当前的前面星星图片为打星颜色图  
 	            $(this).siblings('span').text(prompt[this.id]);     //根据id的索引值作为数组的索引值  
 	        });
 	    }); 
@@ -46,15 +46,51 @@ $(function(){
 	}
  
 //	点击发布评论
+	var sellerStart, //卖家印象
+		logisticsStart, //物流服务
+		myReviewEntryList=[]; //评价的整体
+		myScore,	//描述相符
+		myOrderItemId,  //商品ID
+		myContent,	//商品内容
+		myImages=[]; 	//图片数组
 	$(".news-wrap").click(function(){
-		var evaluateDate=({
-			
+		arrangeData()
+		var data=({
+			"postdata":{"logistics":logisticsStart,"seller":sellerStart,"reviewEntryList":myImages}
 		})
+		if(checkEvaluate()){
+			console.log("通过啦")
+		}
+
 	})
-//	function checkEvaluate(){
-//		if(){
-//			
-//		}
-//	}
+//传参处理
+	function arrangeData(){
+		
+	}
+	
+	
+	
+//	验证卖家服务、物流服务
+	function checkEvaluate(){
+		var sellerLength=$(".seller-service img");
+		var logisticsLength=$(".logistics-service img");
+
+		if(sellerLength.hasClass("active")){
+			sellerStart=$(".seller-service .active").length;
+		}else{
+			webToast("请评价卖家服务","middle",1500);
+			return false;
+		}
+
+		if(logisticsLength.hasClass("active")){
+			logisticsStart=$(".logistics-service .active").length;
+		}else{
+			webToast("请评价物流服务","middle",1500);
+			return false;
+		}
+		return true;
+	}
+
+
 	
 })
