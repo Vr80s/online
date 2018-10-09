@@ -337,6 +337,10 @@ function initRecommendProduct() {
     }, function (data) {
         if (data.success) {
             $('#shop_recommend_product_ul').html(template('shop_recommend_product_tmpl', data));
+            $(".list li").click(function(){
+			    var id = $(this).attr("data-id");
+			    window.location.href = "/xcview/html/shop/commodity_details.html?productId=" + id + "";
+			})
         }
     });
 }
@@ -428,8 +432,6 @@ $('.itemdelete').click(function () {
 $('.countermand').click(function () {
     $('.removeitem').hide();
 });
-
-
 
 
 
