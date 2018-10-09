@@ -35,7 +35,7 @@
 			<div class="evaluate-wrap">
 				<script type="text/template" id="evaluate-template">
 					{{each items as item i}}
-					<div class="commentary-wrap">
+					<div class="commentary-wrap" data-type="{{item.id}}">
 						<div class="commentary-top">
 							<div class="ware-img z">
 								<img src="{{item.thumbnail}}" alt="商品" />
@@ -152,7 +152,7 @@
 			var callBack=function(album,img,save){
 				album.forEach(function(val,idx){ 
 					var div=$('<li><p><img src="/xcview/images/select_close.png" style="width:0.3rem;"></p></li>');
-					var img=$("<img/>");
+					var img=$("<img />");
 					img.attr("src",val.data);
 					div.append(img);
 					save.append(div);

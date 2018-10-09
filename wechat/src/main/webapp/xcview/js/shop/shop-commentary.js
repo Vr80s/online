@@ -49,23 +49,51 @@ $(function(){
 	var sellerStart, //卖家印象
 		logisticsStart, //物流服务
 		myReviewEntryList=[], //评价的整体
-		myScore,	//描述相符
+		myScore={},	//描述相符
 		myOrderItemId,  //商品ID
 		myContent,	//商品内容
 		myImages=[]; 	//图片数组
 	$(".news-wrap").click(function(){
-		arrangeData()
-		var data=({
-			"postdata":{"logistics":logisticsStart,"seller":sellerStart,"reviewEntryList":myImages}
-		})
+		arrangeData()	
+		
 		if(checkEvaluate()){
-			console.log("通过啦")
+			var dataNum=({
+				"postdata":{"logistics":logisticsStart,"seller":sellerStart,"reviewEntryList":myReviewEntryList}
+			})
+			
+		   requestPostService("/xczh/shop/goods/addReview",dataNum, function (data) {
+		        if(data.success==true){
+		            
+		        }
+		    });
+			
 		}
 
 	})
 //传参处理
 	function arrangeData(){
+		$(".commentary-wrap").each(function(index){
+			var that=$(this);
+			var imgSrc;
+			myOrderItemId=that.attr("data-type");
+			myScore=that.find(".select-impress").find(".active").length;
+			myContent=that.find(".commentary-text").find("textarea").val();
+			if (that.find(".save-pic").find("img").length != 0) {
+				imgSrc=that.children("img:last-child").attr("src").join(',');
+			} else{
+				imgSrc="";
+			}
 		
+				myImages.push(imgSrc);	
+			
+			var obj={
+				"orderItemId":myOrderItemId,
+				"score":myScore,
+				"content":myContent,
+				"images":myImages
+			}	
+			myReviewEntryList.push(obj)
+		})
 	}
 	
 	
