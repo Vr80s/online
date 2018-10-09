@@ -753,17 +753,3 @@ var getParam = function(name) {
     }
     return items;
 };
-
-$(function(){
-      var wv = getParam("wv");
-      if(wv == null){
-          wv = localStorage.getItem("wv");
-      }else{
-          localStorage.setItem("wv",wv);
-      }
-      if(wv==null){
-          $(".footer").show();
-      }else{
-          $(".footer").hide();
-      }
-})
