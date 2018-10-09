@@ -6,12 +6,10 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.common.support.domain.BxgUser;
@@ -40,6 +38,8 @@ public class ShopOrderController {
 	
 	@Autowired
 	public OrderOperService orderOperService;
+    @Value("${m.web.url}")
+    private String mwebUrl;
 	
     @RequestMapping(value = "/order/list")
     @ResponseBody
@@ -54,6 +54,12 @@ public class ShopOrderController {
     	LOGGER.info("status : "+ status);
         return ResponseObject.newSuccessResponseObject(orderOperService.findPageXc(orderPageParams, status, null,
         		"c5f315df48c54110a8ae85ccb2e06c7b",null, UsersType.BUSINESS,orderType));
+    }
+
+    @RequestMapping(value = "/detail/url/{id}")
+    @ResponseBody
+    public ResponseObject getDetailUrl(@PathVariable String id){
+        return ResponseObject.newSuccessResponseObject(mwebUrl+"/xcview/html/shop/commodity_details.html?productId="+id);
     }
     
     @InitBinder
