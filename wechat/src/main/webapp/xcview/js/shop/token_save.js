@@ -25,9 +25,9 @@ if(wv == null){
     localStorage.setItem("wv",wv);
 }
 if(wv==null){
-    $(".footer").show();
+    $(".footer .shop").show();
 }else{
-    $(".footer").hide();
+    $(".footer .shop").hide();
 }
 
 var token = getParam("token");
