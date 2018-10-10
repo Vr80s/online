@@ -30,6 +30,7 @@ import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.*;
 
+
 /**
  * 熊猫中医与shop用户关系
  */
@@ -446,6 +447,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 			for(OrderItem orderItem : order.getOrderItems()){
 				OrderItemVO orderItemVO = new OrderItemVO();
 				BeanUtils.copyProperties(orderItem,orderItemVO);
+				orderItemVO.setId(orderItem.getId());
 				//获取库存
 				SkuVO sku = new SkuVO();
 				List<String> specification = orderItem.getSku().getSpecifications();
