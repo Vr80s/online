@@ -33,6 +33,7 @@ function refresh(pageNumber,pageSize,downOrUp){
         if(downOrUp=='down'){
             //  	判断有无评价显示默认图片
             if(data.resultObject.items.length==0){
+            	$("#refreshContainer").hide();  //刷新隐藏
                 $(".quie_pic").show()
             }else{
                 $(".quie_pic").hide()
