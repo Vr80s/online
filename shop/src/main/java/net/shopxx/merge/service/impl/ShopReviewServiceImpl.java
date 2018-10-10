@@ -100,23 +100,23 @@ public class ShopReviewServiceImpl implements ShopReviewService {
 				BeanUtils.copyProperties(review.getMember(),usersVO);
 				usersVO.setId(review.getMember().getId());
 				
-				/**
-				 * 存放redis里面吧
-				 */
+				//评论者用户头像
 				UsersRelation usersRelation =  usersRelationService.findByUserId(review.getMember().getId());
-				
 				if(usersRelation!=null) {
 					OeUserVO oeUserVO = redisCacheService.get(RedisCacheKey.OE_USER_INFO+RedisCacheKey.REDIS_SPLIT_CHAR
 				    		+usersRelation.getIpandatcmUserId());
 					if(oeUserVO==null) {
 						oeUserVO = userCenterService.getUserVOById(usersRelation.getIpandatcmUserId());
 						redisCacheService.set(RedisCacheKey.OE_USER_INFO+RedisCacheKey.REDIS_SPLIT_CHAR
-					    		+usersRelation.getIpandatcmUserId(), oeUserVO);
+					    		+usersRelation.getIpandatcmUserId(), oeUserVO,CacheService.ONE_DAY);
 					}
 					usersVO.setHeadPhoto(oeUserVO.getSmallHeadPhoto());
 				}else {
 					usersVO.setHeadPhoto(defaultHead);
 				}
+				
+				
+				
 				reviewVo.setUser(usersVO);
 				reviewVos.add(reviewVo);
 			}

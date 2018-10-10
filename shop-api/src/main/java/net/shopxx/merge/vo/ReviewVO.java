@@ -2,6 +2,7 @@ package net.shopxx.merge.vo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 
@@ -41,6 +42,8 @@ public class ReviewVO implements Serializable {
     private Long storeId;
     
     private UsersVO user;
+    
+    private List<String> reviewImage;
     
     private static final long serialVersionUID = 1L;
 
@@ -154,6 +157,14 @@ public class ReviewVO implements Serializable {
 
 	public void setUser(UsersVO user) {
 		this.user = user;
+	}
+
+	public List<String> getReviewImage() {
+		return reviewImage;
+	}
+
+	public void setReviewImage(List<String> reviewImage) {
+		this.reviewImage = reviewImage;
 	}
 
 	@Override
