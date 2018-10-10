@@ -957,4 +957,10 @@ public class OrderOperServiceImpl implements OrderOperService {
 		return osvo;
 	}
 
+	@Override
+	@Transactional
+	public void delete(Long orderId) {
+		orderService.delete(orderId);
+	}
+
 }

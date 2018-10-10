@@ -753,3 +753,12 @@ var getParam = function(name) {
     }
     return items;
 };
+
+var defaultHistory = "/xcview/html/shop/shop.html";
+var goHistory = function(){
+    if(history.length<=1){
+        location.href = defaultHistory;
+    }else{
+        location.href='javascript:history.go(-1)';
+    }
+}

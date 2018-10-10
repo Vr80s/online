@@ -197,19 +197,19 @@
 
 					<!-- 卖家已发货 -->
 					{{else if item.status == 'SHIPPED'}}
-					<div class="check_logistics" >查看物流</div>
+					<div class="check_logistics" onclick='getTransitSteps("{{item.sn}}")'>查看物流</div>
 					<div class="shipped_cancel_order" >再次购买</div>
-					<div class="confirm_receipt" >确认收货</div>
+					<div class="confirm_receipt" onclick='confirmReceipt("{{item.sn}}")'>确认收货</div>
 
 					<!-- 交易成功 -->
 					{{else if item.status == 'COMPLETED' || item.status == 'RECEIVED'}}
-					<div class="win_check_logistics" >查看物流</div>
+					<div class="win_check_logistics" onclick='getTransitSteps("{{item.sn}}")'>查看物流</div>
 					<div class="win_shipped_cancel_order" >再次购买</div>
 					<div class="win_evaluate" >评价</div>   <!-- 交易成功后评价后-评价按钮隐藏 -->
 					
 					<!-- 交易关闭 -->
 					{{else if item.status == 'CANCELED' || item.status == 'FAILED' || item.status == 'DENIED'}}
-					<div class="delete_order" data-sn="{{item.sn}}">删除订单</div>
+					<div class="delete_order" data-id="{{item.id}}">删除订单</div>
 					<div class="fack_shipped_cancel_order" >再次购买</div>
 					{{/if}}
 				</div>
