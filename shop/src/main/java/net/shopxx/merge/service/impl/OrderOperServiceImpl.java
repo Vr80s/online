@@ -852,12 +852,16 @@ public class OrderOperServiceImpl implements OrderOperService {
 			String ipandatcmUserId, ProductVO product,UsersType usersType,OrderType orderType) {
 		
 		Store ss = null;Member member = null;
-		if(UsersType.BUSINESS.equals(usersType)) {  //商家
-			UsersRelation usersRelation = usersRelationService.findByIpandatcmUserId(ipandatcmUserId);
-			LOGGER.info("usersRelation.getUserId() "+usersRelation.getUserId());
-			ss = storeService.findByBusinessId(10101L); //TOTO 1010L测试使用
-		}else{
-			member = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
+		try {
+			if(UsersType.BUSINESS.equals(usersType)) {  //商家
+				UsersRelation usersRelation = usersRelationService.findByIpandatcmUserId(ipandatcmUserId);
+				LOGGER.info("usersRelation.getUserId() "+usersRelation.getUserId());
+				ss = storeService.findByBusinessId(usersRelation.getUserId());
+			}else{
+				member = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException("获取商家信息有误");
 		}
 		
 		Pageable pageable = new Pageable(orderPageParams.getPageNumber(), orderPageParams.getPageSize());
