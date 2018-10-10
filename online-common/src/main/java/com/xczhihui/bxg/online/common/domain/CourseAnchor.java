@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -66,7 +67,7 @@ public class CourseAnchor implements java.io.Serializable {
     private boolean relationShop;
 
     @Transient
-    private String businessName;
+    private List<String> businessNames;
 
     @Transient
     private String refId;
@@ -371,11 +372,11 @@ public class CourseAnchor implements java.io.Serializable {
     }
 
     @Transient
-    public String getBusinessName() {
-        return businessName;
+    public List<String> getBusinessNames() {
+        return businessNames;
     }
 
-    public void setBusinessName(String businessName) {
-        this.businessName = businessName;
+    public void setBusinessNames(List<String> businessNames) {
+        this.businessNames = businessNames;
     }
 }

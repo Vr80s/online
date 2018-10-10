@@ -4,6 +4,7 @@ import static net.shopxx.entity.User.FREE_SECRET_NAME;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -40,7 +41,7 @@ public class UsersServiceImpl implements UsersService {
     private CacheManager cacheManager;
 
     @Override
-    public String getBusinessUsernameByDoctorId(String doctorId) {
+    public List<String> getBusinessUsernameByDoctorId(String doctorId) {
         return businessDao.findUsernameByDoctorId(doctorId);
     }
 

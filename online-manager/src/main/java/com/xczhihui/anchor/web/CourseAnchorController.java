@@ -1,24 +1,13 @@
 package com.xczhihui.anchor.web;
 
-import com.google.common.collect.ImmutableMap;
-import com.xczhihui.anchor.service.AnchorService;
-import com.xczhihui.bxg.online.common.domain.CourseAnchor;
-import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
-import com.xczhihui.bxg.online.common.domain.Menu;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.common.util.DateUtil;
-import com.xczhihui.common.util.HttpUtil;
-import com.xczhihui.common.util.Md5Encrypt;
-import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.web.controller.AbstractController;
-import com.xczhihui.course.service.ManagerCourseApplyService;
-import com.xczhihui.course.service.CourseService;
-import com.xczhihui.user.service.OnlineUserService;
-import com.xczhihui.utils.Group;
-import com.xczhihui.utils.Groups;
-import com.xczhihui.utils.TableVo;
-import com.xczhihui.utils.Tools;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,12 +17,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.List;
+import com.xczhihui.anchor.service.AnchorService;
+import com.xczhihui.bxg.online.common.domain.CourseAnchor;
+import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
+import com.xczhihui.bxg.online.common.domain.Menu;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.common.util.DateUtil;
+import com.xczhihui.common.util.Md5Encrypt;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.controller.AbstractController;
+import com.xczhihui.course.service.CourseService;
+import com.xczhihui.course.service.ManagerCourseApplyService;
+import com.xczhihui.user.service.OnlineUserService;
+import com.xczhihui.utils.Group;
+import com.xczhihui.utils.Groups;
+import com.xczhihui.utils.TableVo;
+import com.xczhihui.utils.Tools;
 
 import net.shopxx.merge.service.UsersService;
 
@@ -52,7 +52,7 @@ public class CourseAnchorController extends AbstractController {
     private AnchorService anchorService;
 
     @Autowired
-    
+
     private ManagerCourseApplyService courseApplyService;
     @Autowired
     private CourseService courseService;
@@ -116,10 +116,10 @@ public class CourseAnchorController extends AbstractController {
             if (item.getType() == 1) {
                 String doctorId = anchorService.findDoctorIdByUserId(item.getUserId());
                 if (doctorId != null) {
-                    String username = usersService.getBusinessUsernameByDoctorId(doctorId);
-                    if (username != null) {
+                    List<String> usernames = usersService.getBusinessUsernameByDoctorId(doctorId);
+                    if (usernames != null && !usernames.isEmpty()) {
                         item.setRelationShop(true);
-                        item.setBusinessName(username);
+                        item.setBusinessNames(usernames);
                     }
                 }
             }
