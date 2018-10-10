@@ -67,6 +67,7 @@ $(function () {
     }
 
 function recommends(pageNumber, downOrUp){
+	
     // 商品列表--推荐
     var recommend = "RECOMMEND_DESC";
     requestGetService("/xczh/shop/goods/list",{
@@ -100,6 +101,8 @@ function recommends(pageNumber, downOrUp){
     
 
     $(".default_click").click(function(){
+    	
+    	page = 1;
         // 商品列表--推荐
         var recommend = 'RECOMMEND_DESC';
         requestGetService("/xczh/shop/goods/list",{
@@ -145,6 +148,8 @@ function recommends(pageNumber, downOrUp){
         });
     }
     $(".option_newest").click(function(){
+    	
+    	page = 1;
         // 商品列表--最新
         var newest = 'DATE_DESC';
         requestGetService("/xczh/shop/goods/list",{
@@ -166,6 +171,7 @@ function recommends(pageNumber, downOrUp){
     
 
     function hottests(pageNumber, downOrUp){
+    	
         // 商品列表--最热
         var hottest = 'SALES_DESC';
         requestGetService("/xczh/shop/goods/list",{
@@ -191,6 +197,8 @@ function recommends(pageNumber, downOrUp){
         });
     }
     $(".option_hottest").click(function(){
+    	
+    	page = 1;
         // 商品列表--最热
         var hottest = 'SALES_DESC';
         requestGetService("/xczh/shop/goods/list",{
@@ -237,6 +245,8 @@ function recommends(pageNumber, downOrUp){
         });
     }
     $(".option_price").click(function(){
+    	
+    	page = 1;
         // 商品列表--价格升序
         var ascending = 'PRICE_DESC';
         requestGetService("/xczh/shop/goods/list",{
@@ -256,6 +266,8 @@ function recommends(pageNumber, downOrUp){
         });
     });
     $(".down").click(function(){
+    	
+    	page = 1;
         // 商品列表--价格升序
         var ascending = 'PRICE_DESC';
         requestGetService("/xczh/shop/goods/list",{
@@ -277,6 +289,7 @@ function recommends(pageNumber, downOrUp){
 
     
     function descendings(pageNumber, downOrUp){
+    	
         // 商品列表--价格降序
         var descendings = 'PRICE_DESC';
         requestGetService("/xczh/shop/goods/list",{
@@ -302,6 +315,9 @@ function recommends(pageNumber, downOrUp){
         });
     }
     $(".low_to_high").click(function(){
+    	
+    	page = 1;
+    	
         // 商品列表--价格降序
         var descending = 'PRICE_ASC';
         requestGetService("/xczh/shop/goods/list",{
@@ -365,20 +381,18 @@ function refurbish(page,downUp){
     		
     		  recommends(page,downUp);
     	}else if(defaultClick.hasClass("option_newest")){
-    		
     		  newests(page,downUp);
     	}else if(defaultClick.hasClass("option_hottest")){
-    		
     		  hottests(page,downUp);
     	}
     }else{
 		var display1 = $(".low_to_high").css("display");
 		if(display1 == "list-item"){
-			 ascendings(page,downUp);
+			descendings(page,downUp);
 		}
     	var display2 = $(".down").css("display"); 
         if(display2 == "list-item"){
-			 descendings(page,downUp);
+			ascendings(page,downUp);
 		}
     } 	
 }
