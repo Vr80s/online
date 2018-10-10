@@ -1,6 +1,7 @@
 package net.shopxx.merge.service.impl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -171,6 +172,12 @@ public class ShopReviewServiceImpl implements ShopReviewService {
 				Object long1 = jsonI.get("orderItemId");
 				Object int1 = jsonI.get("score");
 				Object string = jsonI.get("content");
+				JSONArray arrayImg = (JSONArray) jsonI.get("images");
+				List<String> images = new ArrayList<String>();
+				
+				for(int j=0;j<arrayImg.length();j++){  
+                    images.add(arrayImg.get(j).toString());  
+	            }  
 				
 				if(long1==null || int1 ==null) {
 					throw new Exception("请填写必要的评价信息");
@@ -201,9 +208,9 @@ public class ShopReviewServiceImpl implements ShopReviewService {
 				pReview.setIsShow(setting.getIsReviewCheck() ? false : true);
 				pReview.setLogistics(json.getInt("logistics"));
 				pReview.setSeller(json.getInt("seller"));
+				pReview.setReviewImage(images);
 				
 				reviewDao.persist(pReview);
-				
 			}
 			order.setIsReviewed(true);
 			
