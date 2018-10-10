@@ -1,5 +1,9 @@
+/*定义一个方法*/
+/*$(function () {
 
+    refurbish(1,'down');  
 
+})*/
 var keyWord = getQueryString("queryKey");
 
 /**
@@ -67,7 +71,7 @@ var miniRefresh = new MiniRefresh({
         //isLock: true,//是否禁用下拉刷新
         callback: function () {
             page = 1;
-            //listData(page,'down');
+            listData(page,'down');
 
 		    refurbish(page,'down');          
         }
@@ -76,7 +80,7 @@ var miniRefresh = new MiniRefresh({
         isAuto: false,
         callback: function () {
             page++;
-            //listData(page,'up');
+            listData(page,'up');
             
             refurbish(page,'up');
         }

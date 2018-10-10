@@ -140,7 +140,7 @@ public class ShopOrderController {
             , @RequestParam(defaultValue = "1") int pageNumber, @RequestParam(defaultValue = "10") int pageSize) throws SQLException {
         List<OrderVO> list = orderOperService.findPage(type, status, null, accountId, null, isPendingReceive,
                 isPendingRefunds, isUseCouponCode, isExchangePoint, isAllocatedStock, hasExpired, pageNumber, pageSize);
-        for(int i=0;i<list.size();i++){
+        /*for(int i=0;i<list.size();i++){
             String doctorId = list.get(i).getDoctorId();
             if(doctorId != null){
                 MedicalDoctorVO medicalDoctor = iMedicalDoctorBusinessService.findSimpleById(doctorId);
@@ -148,13 +148,14 @@ public class ShopOrderController {
                 list.get(i).setDoctorHeadPortrait(medicalDoctor.getHeadPortrait());
             }
 
-        }
+        }*/
         return ResponseObject.newSuccessResponseObject(list);
     }
 
     @RequestMapping(value = "/order/detail",method = RequestMethod.GET)
     public ResponseObject detail( @RequestParam String sn){
         OrderVO order = orderOperService.findBySn(sn);
+        order.setPreferentialAmount(order.getPromotionDiscount().add(order.getCouponDiscount()));
         String doctorId = order.getDoctorId();
         if(doctorId != null){
             MedicalDoctorVO medicalDoctor = iMedicalDoctorBusinessService.findSimpleById(doctorId);
@@ -193,6 +194,12 @@ public class ShopOrderController {
     @RequestMapping(value = "/order/shipping",method = RequestMethod.GET)
     public ResponseObject shipping( @RequestParam String sn){
         return ResponseObject.newSuccessResponseObject(orderOperService.findOrderShippingBySn(sn));
+    }
+
+    @RequestMapping(value = "/order/delete",method = RequestMethod.POST)
+    public ResponseObject delete( @RequestParam Long orderId){
+        orderOperService.delete(orderId);
+        return ResponseObject.newSuccessResponseObject("删除成功");
     }
 
 }

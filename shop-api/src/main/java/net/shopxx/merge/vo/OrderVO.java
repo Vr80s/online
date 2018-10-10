@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Entity - 订单
@@ -300,5 +301,9 @@ public class OrderVO implements Serializable {
 	private String doctorName;
 
 	private String doctorHeadPortrait;
+
+	private BigDecimal preferentialAmount;
+
+	private Map<String, Object> doctor;
 
 }

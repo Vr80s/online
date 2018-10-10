@@ -56,7 +56,7 @@
 	<header>
 		<div class="header" id="header">
 			<!--<img src="/xcview/images/salon_return.png" alt="" class="return" onclick="location.href ='/xcview/html/shop/shop.html'" />-->
-			<img src="/xcview/images/salon_return.png" alt="" class="return" onclick="javascript:history.go(-1);" />
+			<img src="/xcview/images/salon_return.png" alt="" class="return" onclick="goHistory()" />
 			<div class="header_tab">
 				<ul>
 					<li class="tba_intro li_btn" data-to="li_btn0"><a href="javascript:void(0)">简介</a><div class="border_a"></li>
@@ -440,6 +440,8 @@
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script> 
 <script type="text/JavaScript" src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+
+<script type="text/javascript" src="/xcview/js/shop/token_save.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js?version=ed749a7870&version=276907c86a"></script> 
 
 <script type="text/javascript" src="/xcview/js/common/template.js?version=dd622e58c9"></script>   <!--模板引入-->
@@ -509,6 +511,11 @@
         var quantity = 1;
         var flag = false;
         
+
+        //当前库存不足
+        if(currentSku.isOutOfStock){
+        	return;
+        }
         //库存id
         skuId =  currentSku.id;
         //数量

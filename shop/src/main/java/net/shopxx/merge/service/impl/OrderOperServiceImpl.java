@@ -1,5 +1,9 @@
 package net.shopxx.merge.service.impl;
 
+import com.xczhihui.common.support.service.CacheService;
+import com.xczhihui.common.util.redis.key.RedisCacheKey;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import net.sf.json.JSONObject;
 import net.shopxx.Page;
 import net.shopxx.Pageable;
 import net.shopxx.Setting;
@@ -22,6 +26,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -68,6 +73,10 @@ public class OrderOperServiceImpl implements OrderOperService {
 	private PluginService pluginService;
 	@Inject
 	private BusinessService businessService;
+	@Autowired
+	private CacheService redisCacheService;
+	@Autowired
+	private IMedicalDoctorBusinessService medicalDoctorBusinessService;
 
 
 	@Override
@@ -403,9 +412,9 @@ public class OrderOperServiceImpl implements OrderOperService {
 		
 		for(Order order : orderList){
 			OrderVO o = new OrderVO();
-			String name = order.getStore().getBusiness().getUsername();
+			/*String name = order.getStore().getBusiness().getUsername();
 			Business business = businessService.findByUsername(name);
-			o.setDoctorId(business.getDoctorId());
+			o.setDoctorId(business.getDoctorId());*/
 			BeanUtils.copyProperties(order,o);
 			o.setId(order.getId());
 			o.setStatus(OrderVO.Status.valueOf(order.getStatus().toString()));
@@ -421,10 +430,30 @@ public class OrderOperServiceImpl implements OrderOperService {
 					sku.setSpecifications(citiesCommaSeparated);
 				}
 				BeanUtils.copyProperties(orderItem.getSku(),sku);
+				sku.setId(orderItem.getSku().getId());
 				orderItemVO.setSku(sku);
 				orderItemVOList.add(orderItemVO);
 			}
 			o.setOrderItems(orderItemVOList);
+			//医师推荐信息
+			String key = RedisCacheKey.STORE_DOCTOR_RELEVANCE +
+					RedisCacheKey.REDIS_SPLIT_CHAR + order.getStore().getId();
+
+			String value = redisCacheService.get(key);
+			if (value != null) {
+				LOGGER.info("value :" + value);
+				JSONObject jasonObject = JSONObject.fromObject(value);
+				o.setDoctor((Map) jasonObject);
+			} else {
+				String doctorId = order.getStore().getBusiness().getDoctorId();
+				if (doctorId != null) {
+					Map<String, Object> map = medicalDoctorBusinessService.getDoctorInfoByDoctorId(doctorId);
+					LOGGER.info("map tostring " + (map != null ? map.toString() : null));
+					JSONObject jasonObject = JSONObject.fromObject(map);
+					redisCacheService.set(key, jasonObject.toString());
+					o.setDoctor(jasonObject);
+				}
+			}
 			list.add(o);
 		}
 		
@@ -437,9 +466,9 @@ public class OrderOperServiceImpl implements OrderOperService {
 		Order order = orderService.findBySn(sn);
 		OrderVO o = new OrderVO();
 		if(order != null){
-			String name = order.getStore().getBusiness().getUsername();
+			/*String name = order.getStore().getBusiness().getUsername();
 			Business business = businessService.findByUsername(name);
-			o.setDoctorId(business.getDoctorId());
+			o.setDoctorId(business.getDoctorId());*/
 			BeanUtils.copyProperties(order,o);
 			o.setId(order.getId());
 			o.setStatus(OrderVO.Status.valueOf(order.getStatus().toString()));
@@ -456,10 +485,30 @@ public class OrderOperServiceImpl implements OrderOperService {
 					sku.setSpecifications(citiesCommaSeparated);
 				}
 				BeanUtils.copyProperties(orderItem.getSku(),sku);
+				sku.setId(orderItem.getSku().getId());
 				orderItemVO.setSku(sku);
 				orderItemVOList.add(orderItemVO);
 			}
 			o.setOrderItems(orderItemVOList);
+			//医师推荐信息
+			String key = RedisCacheKey.STORE_DOCTOR_RELEVANCE +
+					RedisCacheKey.REDIS_SPLIT_CHAR + order.getStore().getId();
+
+			String value = redisCacheService.get(key);
+			if (value != null) {
+				LOGGER.info("value :" + value);
+				JSONObject jasonObject = JSONObject.fromObject(value);
+				o.setDoctor((Map) jasonObject);
+			} else {
+				String doctorId = order.getStore().getBusiness().getDoctorId();
+				if (doctorId != null) {
+					Map<String, Object> map = medicalDoctorBusinessService.getDoctorInfoByDoctorId(doctorId);
+					LOGGER.info("map tostring " + (map != null ? map.toString() : null));
+					JSONObject jasonObject = JSONObject.fromObject(map);
+					redisCacheService.set(key, jasonObject.toString());
+					o.setDoctor(jasonObject);
+				}
+			}
 		}
 		return o;
 	}
@@ -852,12 +901,16 @@ public class OrderOperServiceImpl implements OrderOperService {
 			String ipandatcmUserId, ProductVO product,UsersType usersType,OrderType orderType) {
 		
 		Store ss = null;Member member = null;
-		if(UsersType.BUSINESS.equals(usersType)) {  //商家
-			UsersRelation usersRelation = usersRelationService.findByIpandatcmUserId(ipandatcmUserId);
-			LOGGER.info("usersRelation.getUserId() "+usersRelation.getUserId());
-			ss = storeService.findByBusinessId(10101L); //TOTO 1010L测试使用
-		}else{
-			member = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
+		try {
+			if(UsersType.BUSINESS.equals(usersType)) {  //商家
+				UsersRelation usersRelation = usersRelationService.findByIpandatcmUserId(ipandatcmUserId);
+				LOGGER.info("usersRelation.getUserId() "+usersRelation.getUserId());
+				ss = storeService.findByBusinessId(usersRelation.getUserId());
+			}else{
+				member = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException("获取商家信息有误");
 		}
 		
 		Pageable pageable = new Pageable(orderPageParams.getPageNumber(), orderPageParams.getPageSize());
@@ -951,6 +1004,12 @@ public class OrderOperServiceImpl implements OrderOperService {
 			osvo.setId(os.getId());
 		}
 		return osvo;
+	}
+
+	@Override
+	@Transactional
+	public void delete(Long orderId) {
+		orderService.delete(orderId);
 	}
 
 }

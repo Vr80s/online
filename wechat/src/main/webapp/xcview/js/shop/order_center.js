@@ -1,4 +1,5 @@
 var data_sn="";
+var data_id="";
 $(function() {
 
     $(".affirm").click(function(){
@@ -15,6 +16,11 @@ $(function() {
 function payment(orderSns) {
     location.href = "/xcview/html/shop/method.html?orderSns=" + orderSns;
 }
+function getTransitSteps(orderSn) {
+    location.href = "/xcview/html/shop/shop-logistics.html?orderSn=" + orderSn;
+}
+
+
 
 function orderList(pageNumber,downOrUp) {
     requestGetService("/xczh/shop/order/list", {
@@ -48,7 +54,7 @@ function orderList(pageNumber,downOrUp) {
             // 点击删除订单提示
             $(".delete_order").off("click");
             $(".delete_order").click(function(){
-                data_sn = $(this).attr('data-sn');
+                data_id = $(this).attr('data-id');
                 $(".deleteOrder").show();
             });
             // 点击取消隐藏奇效订单提示
@@ -76,6 +82,7 @@ function cancelOrder() {
         sn: data_sn
     }, function (data) {
         if(data.success ){
+            $(".cancelOrder").hide();
             orderList(1,"down");
         }
     });
@@ -84,12 +91,53 @@ function cancelOrder() {
 //删除订单
 function deleteOrder() {
     requestPostService("/xczh/shop/order/delete", {
-        sn: data_sn
+        orderId: data_id
+    }, function (data) {
+        if(data.success ){
+            $(".deleteOrder").hide();
+            orderList(1,"down");
+        }
+    });
+}
+
+//确认收货
+function confirmReceipt(orderSn) {
+    requestPostService("/xczh/shop/order/receive", {
+        sn: orderSn
     }, function (data) {
         if(data.success ){
             orderList(1,"down");
         }
     });
+}
+
+//再次购买
+function againBuy(orderSn) {
+    requestGetService("/xczh/shop/order/detail", {
+        sn: orderSn
+    }, function (data) {
+        if(data.success ){
+            var orderItems=data.resultObject.orderItems;
+            for(var i=0;i<orderItems.length;i++){
+                var skuId = orderItems[i].sku.id;
+                var quantity = orderItems[i].quantity;
+                addCart(skuId,quantity);
+            }
+            location.href="/xcview/html/shop/shopping_trolley.html";
+        }
+    });
+}
+
+//再次购买
+function addCart(skuId,quantity) {
+    requestPostService("/xczh/shop/cart", {
+        skuId: skuId,
+        quantity:quantity
+    }, function (data) {
+        if(data.success ){
+
+        }
+    },false);
 }
 
 

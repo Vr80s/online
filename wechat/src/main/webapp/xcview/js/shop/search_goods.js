@@ -35,7 +35,10 @@ $(function() {
 					}))
 
 				};
-
+				
+				$(".header_seeks").html(template('header_seeks', {
+					items: data.resultObject.defaultSearch
+				}))
 				// 	    	<!--给inpiu默认值-->
 				$(".div_span_input").html(template('shipin', {
 					items: data.resultObject.defaultSearch

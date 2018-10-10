@@ -416,6 +416,7 @@ header{
 .commodity_details_main{
 	width: 6.98rem;
 	margin: 0 auto;
+	overflow: hidden;
 }
 .commodity_details_main .title{
 	font-size: .28rem;
