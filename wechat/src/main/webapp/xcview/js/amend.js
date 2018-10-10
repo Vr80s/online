@@ -8,17 +8,17 @@ $(function(){
 function submit() {
     //验证
     if($.trim($("#oldPassword").val())==''){
-        webToast("请输入旧密码","middle",1500);
+    	jqtoast("请输入旧密码");
         $(".web_toast").removeClass("web_toasts");
         return false;
     }
     if($.trim($("#newPassword").val())==''||$.trim($("#confirmPassword").val())==''){
-        webToast("请输入新密码","middle",1500);
+    	jqtoast("请输入新密码");
         $(".web_toast").removeClass("web_toasts");
         return false;
     }
     if($.trim($("#newPassword").val())!=$.trim($("#confirmPassword").val())){
-        webToast("两次密码不一致","middle",1500);
+    	jqtoast("两次密码不一致");
         $(".web_toast").removeClass("web_toasts");
         return false;
     }
@@ -33,7 +33,7 @@ function submit() {
         username:mobile
     },function(data) {
         if(data.success==true){
-            webToast("修改成功","middle",1500);
+        	jqtoast("修改成功");
             setTimeout(function(){
 //            	 requestService("/xczh/set/logout",{},function(data) {
 // 	                if (data.success) {
@@ -55,7 +55,7 @@ function submit() {
             // webToast(data.errorMessage,"middle",1500);
 
 //          webToast("格式错误，密码为6-18位英文大小写字母或者阿拉伯数字","middle",1500);
-            webToast("您输入的旧密码不正确","middle",1500);
+			jqtoast("您输入的旧密码不正确");
             $(".web_toast").addClass("web_toasts");
            /* $(".web_toast").css("left","50%");
             $(".web_toast").css("margin-left","-2.9rem");*/
