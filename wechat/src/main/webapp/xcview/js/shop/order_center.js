@@ -56,6 +56,16 @@ function orderList(pageNumber,downOrUp) {
             $(".countermandDelete").click(function(){
                 $(".deleteOrder").hide();
             });
+
+            // 点击订单跳转
+            $(".main_product_details").off("click");
+            $(".main_product_details").click(function(){
+                var sn  = $(this).attr('data-sn');
+                location.href="/xcview/html/shop/line_item.html?sn="+sn;
+                $(".deleteOrder").hide();
+            });
+
+
         }
     });
 }

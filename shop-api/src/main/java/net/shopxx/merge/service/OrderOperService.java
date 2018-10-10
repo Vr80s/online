@@ -3,16 +3,9 @@ package net.shopxx.merge.service;
 
 import net.shopxx.merge.enums.OrderType;
 import net.shopxx.merge.enums.Status;
-import net.shopxx.merge.enums.Type;
 import net.shopxx.merge.enums.UsersType;
-import net.shopxx.merge.vo.OrderPageParams;
-import net.shopxx.merge.vo.OrderVO;
-import net.shopxx.merge.vo.OrdersVO;
-import net.shopxx.merge.vo.ProductVO;
-import net.shopxx.merge.vo.ReceiverVO;
-import net.shopxx.merge.vo.ScoreVO;
+import net.shopxx.merge.vo.*;
 
-import javax.persistence.criteria.Order;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -140,4 +133,13 @@ public interface OrderOperService {
 			String ipandatcmUserId, ProductVO product,UsersType usersType,OrderType orderType);
 
     Map payment(String orderSnsStr);
+
+	/**
+	 * 根据编号查找订单发货
+	 *
+	 * @param sn
+	 *            编号(忽略大小写)
+	 * @return 订单发货，若不存在则返回null
+	 */
+	OrderShippingVO findOrderShippingBySn(String sn);
 }
