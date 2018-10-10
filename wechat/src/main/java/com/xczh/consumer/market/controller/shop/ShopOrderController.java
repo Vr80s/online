@@ -190,4 +190,9 @@ public class ShopOrderController {
         return ResponseObject.newSuccessResponseObject(orderOperService.getTransitSteps(shippingId));
     }
 
+    @RequestMapping(value = "/order/shipping",method = RequestMethod.GET)
+    public ResponseObject shipping( @RequestParam String sn){
+        return ResponseObject.newSuccessResponseObject(orderOperService.findOrderShippingBySn(sn));
+    }
+
 }
