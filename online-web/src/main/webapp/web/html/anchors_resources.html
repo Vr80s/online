@@ -535,7 +535,7 @@
 														<td>
 															<img class="shopping-fengmian" src="{{item.picture}}"/>
 														</td>
-														<td>{{item.name}}</td>
+														<td><a href="/web/html/anchors_preview.html?productId={{item.id}}" target="_blank">{{item.name}}</a></td>
 														<td>
 															<div class="select-ware-img" data-id="{{item.id}}">
 															
@@ -677,7 +677,7 @@
 								<!--商品-->
 								{{if item.type==7}}
 								<div class="save-class-wrap">
-										<a href="javascript:;" style="width: 100%;">
+										<a href="/web/html/anchors_preview.html?productId={{item.productId}}" style="width: 100%;" target="_blank">
 										<div class="class-img-shopping z">
 											<img src="{{item.productImages}}" alt="课程封面" />
 										</div>
@@ -2197,7 +2197,7 @@
 									</li>
 									<li>
 										<p class="select-sort">
-											<span>编号</span>
+											<span>商品编码</span>
 										</p>
 									</li>
 								</ul>
@@ -2215,8 +2215,8 @@
 												<p class="ware-price">&yen; {{item.price}}</p>
 											</div>
 											<div class="page-view z">
-												<p>访问量：{{item.uv}}</p>
-												<p>浏览数：{{item.hits}}</p>
+												<p>访问量：{{item.hits}}</p>
+												<p>浏览数：{{item.uv}}</p>
 											</div>
 											<div class="ware-stock z">
 												<span>{{item.inventory}}</span>

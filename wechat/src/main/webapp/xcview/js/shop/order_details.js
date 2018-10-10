@@ -20,7 +20,7 @@ $(function() {
     
 //  点击评价
 	$(".orderDetails").on('click','.win_evaluate',function(){
-		location.href="/xcview/html/shop/shop-commentary.html?orderId="+order_Id;
+		location.href="/xcview/html/shop/shop-commentary.html?sn="+order_Id;
 	})
 //获取物流信息
     function transitStep(shipping) {
