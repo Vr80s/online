@@ -301,4 +301,6 @@ public class OrderVO implements Serializable {
 
 	private String doctorHeadPortrait;
 
+	private BigDecimal preferentialAmount;
+
 }

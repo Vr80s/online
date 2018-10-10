@@ -142,4 +142,12 @@ public interface OrderOperService {
 	 * @return 订单发货，若不存在则返回null
 	 */
 	OrderShippingVO findOrderShippingBySn(String sn);
+
+	/**
+	 * 订单删除
+	 *
+	 * @param orderId
+	 *            订单id
+	 */
+	void delete(Long orderId);
 }
