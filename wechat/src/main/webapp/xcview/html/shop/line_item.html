@@ -105,10 +105,11 @@
 	<div class="indent">
 
 		<div class="indent_list">
+			{{if doctor !=null}}
 			<div class="indent_list_title">
 				<div class="tilte">
-					<img src="{{doctorHeadPortrait}}" alt="" class="head_portrait" />
-					{{doctorName}}医师推荐
+					<img src="{{doctor.avatar}}" alt="" class="head_portrait" />
+					{{doctor.name}}医师推荐
 				</div>
 				<!-- 多种状态 -->
 				<!--<div class="payment_operation">等待买家付款</div>
@@ -117,6 +118,7 @@
 				<div class="payment_operation" style="display: none;">交易成功</div>
 				<div class="payment_operation" style="display: none;">交易关闭</div>-->
 			</div>
+			{{/if}}
 			<div class="main_product_details">
 				{{each orderItems as orderItem }}
 				<div class="product_details">
@@ -167,28 +169,28 @@
 					<!-- 等待买家付款 -->
 					{{if status == 'PENDING_PAYMENT'}}
 					<div class="immediate_payment">立即付款</div>
-					<div class="cancel_order">取消订单</div>
+					<div class="cancel_order" data-sn="{{sn}}">取消订单</div>
 					
 					<!-- 买家已付款 -->
 					{{else if status == 'PENDING_PAYMENT' || status == 'PENDING_SHIPMENT'}}
-					<div class="buy_again">再次购买</div>
+					<div class="buy_again" onclick='againBuy("{{item.sn}}")'>再次购买</div>
 
 					<!-- 卖家已发货 -->
 					{{else if status == 'SHIPPED'}}
-					<div class="check_logistics">查看物流</div>
-					<div class="shipped_cancel_order">再次购买</div>
-					<div class="confirm_receipt">确认收货</div>
+					<div class="check_logistics" onclick='getTransitSteps("{{sn}}")'>查看物流</div>
+					<div class="shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
+					<div class="confirm_receipt" onclick='confirmReceipt("{{sn}}")'>确认收货</div>
 
 					<!-- 交易成功 -->
 					{{else if status == 'COMPLETED'  || status == 'RECEIVED'}}
-					<div class="win_check_logistics">查看物流</div>
-					<div class="win_shipped_cancel_order">再次购买</div>
+					<div class="win_check_logistics" onclick='getTransitSteps("{{sn}}")'>查看物流</div>
+					<div class="win_shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
 					<div class="win_evaluate">评价</div>   <!-- 交易成功后评价后-评价按钮隐藏 -->
 					
 					<!-- 交易关闭 -->
 					{{else if status == 'CANCELED' || status == 'FAILED' || status == 'DENIED'}}
-					<div class="delete_order">删除订单</div>
-					<div class="fack_shipped_cancel_order">再次购买</div>
+					<div class="delete_order" data-id="{{id}}">删除订单</div>
+					<div class="fack_shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
 					{{/if}}
 				</div>
 			</div>
@@ -201,14 +203,28 @@
 	<div class="main_height"></div>
 
 	<!-- 取消订单提示开始 -->
-	<div class="removeitem">
+	<div class="removeitem cancelOrder">
+		<div class="removeitembg"></div>
+		<div class="removeitem-main">
+			<div class="reminder"><strong>提示</strong></div>
+			<div class="reminder-main">确认取消该订单？</div>
+			<div class="removeitem-choice">
+				<div class="countermand countermandCancel">取消</div>
+				<div class="affirm" onclick="cancelOrder()">确认</div>
+			</div>
+		</div>
+	</div>
+	<!-- 取消订单提示结束 -->
+
+	<!-- 取消订单提示开始 -->
+	<div class="removeitem deleteOrder" >
 		<div class="removeitembg"></div>
 		<div class="removeitem-main">
 			<div class="reminder"><strong>提示</strong></div>
 			<div class="reminder-main">确认删除该订单？</div>
 			<div class="removeitem-choice">
-				<div class="countermand">取消</div>
-				<div class="affirm">确认</div>
+				<div class="countermand countermandDelete">取消</div>
+				<div class="affirm" onclick="deleteOrder()">确认</div>
 			</div>
 		</div>
 	</div>
@@ -225,14 +241,7 @@
 <script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
 
 <script>
-	// 点击取消订单提示 
-	$(".cancel_order").click(function(){
-		$(".removeitem").show();
-	});
-	// 点击取消隐藏奇效订单提示
-	$(".countermand").click(function(){
-		$(".removeitem").hide();
-	});
+
 	// 点击客服
 	$(".notescontact").click(function(){
 		jqtoast("熊猫客服休息中，稍后报道！");
