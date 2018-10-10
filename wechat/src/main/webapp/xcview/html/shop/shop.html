@@ -149,7 +149,7 @@
 					{{if item.productImages != null}}
 					<img src="{{item.productImages[0].source}}" alt="" class="surface_plot" />
 					{{else}}
-					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
+					<img src="/xcview/images/defaults.png" alt="" class="surface_plot" />
 					{{/if}}
 
 					<div class="title">{{item.name}}</div>
@@ -159,47 +159,16 @@
 
 						{{if item.doctor != null}}
 						<img src="{{item.doctor.avatar}}" alt="" />
-						<span>{{item.doctor.name}}</span>
+						<span>{{item.doctor.name}}医师 推荐</span>
 						{{else}}
 						<img src="/xcview/images/touxiang.png" alt="" />
-						<span>11111</span>
+						<span>医师 推荐</span>
 						{{/if}}
 
-						医师 推荐
+						
 					</div>
 				</li>
-				<!--<li onclick="location.href ='/xcview/html/shop/commodity_details.html'">
-					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-					<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
-					<div class="price">￥188.00</div>
-					<div class="referrer">
-						<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
-					</div>
-				</li>
-				<li>
-					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-					<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
-					<div class="price">￥188.00</div>
-					<div class="referrer">
-						<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
-					</div>
-				</li>
-				<li>
-					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-					<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
-					<div class="price">￥188.00</div>
-					<div class="referrer">
-						<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
-					</div>
-				</li>
-				<li>
-					<img src="/xcview/images/xianxia_03.jpg" alt="" class="surface_plot" />
-					<div class="title">红豆薏米茶去湿气排毒祛湿茶正品除去湿茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清茶健脾清</div>
-					<div class="price">￥188.00</div>
-					<div class="referrer">
-						<img src="/xcview/images/touxiang.png" alt="" />林超岱医师 推荐
-					</div>
-				</li>-->
+				
 				{{/each}}
 				</script>
 			</ul>
@@ -211,7 +180,7 @@
 	
 	<!-- 底部开始 -->
 	<div class="hidden_field"></div>
-	<div class="footer" style="display: none">
+	<div class="footer shop" style="display: none">
 		<ul>
 			<li>
 				<a href="/xcview/html/physician/index.html" class="physician" style="width: 0.42rem;height: 0.42rem;background: url(/xcview/images/physicians_nav.png) no-repeat center;background-size: 0.42rem 0.42rem;margin-top: 0.14rem;"></a>
@@ -243,51 +212,8 @@
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
-<script>
-    var getParam = function(name) {
-        var search = document.location.search;
-        //alert(search);
-        var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
-        var matcher = pattern.exec(search);
-        var items = null;
-        if(null != matcher) {
-            try {
-                items = decodeURIComponent(decodeURIComponent(matcher[1]));
-            } catch(e) {
-                try {
-                    items = decodeURIComponent(matcher[1]);
-                } catch(e) {
-                    items = matcher[1];
-                }
-            }
-        }
-        return items;
-    };
 
-    var wv = getParam("wv");
-	if(wv == null){
-		wv = localStorage.getItem("wv");
-	}else{
-		localStorage.setItem("wv",wv);
-	}
-	if(wv==null){
-		$(".footer").show();
-	}else{
-		$(".footer").hide();
-	}
-
-	var token = getParam("token");
-	var appUniqueId = getParam("appUniqueId");
-    var APP_TOKEN = "app.token";
-    var APP_AppUniqueId = "app.appUniqueId";
-	if(token != null && appUniqueId != null){
-		localStorage.setItem(APP_TOKEN,token);
-		localStorage.setItem(APP_AppUniqueId,appUniqueId);
-	}else{
-		localStorage.removeItem(APP_TOKEN);
-		localStorage.removeItem(APP_AppUniqueId);
-	}
-</script>
+<script type="text/javascript" src="/xcview/js/shop/token_save.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js"></script>
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>   <!--模板引入-->
 <script src="/xcview/js/shop/shop.js"></script><!-- 数据渲染 -->

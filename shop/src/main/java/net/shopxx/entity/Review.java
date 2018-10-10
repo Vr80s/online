@@ -167,6 +167,17 @@ public class Review extends BaseEntity<Long> {
 	@Column(updatable = false, length = 4000)
 	@Convert(converter = SpecificationConverter.class)
 	private List<String> specifications = new ArrayList<>();
+	
+	
+	/**
+	 * 规格
+	 */
+	@JsonView(BaseView.class)
+	@Column(updatable = false, length = 4000)
+	@Convert(converter = ReviewImgConverter.class)
+	private List<String> reviewImage = new ArrayList<>();
+	
+	
 
 	/**
 	 * 获取评分
@@ -359,6 +370,14 @@ public class Review extends BaseEntity<Long> {
 	}
 
 	
+	public List<String> getReviewImage() {
+		return reviewImage;
+	}
+
+	public void setReviewImage(List<String> reviewImage) {
+		this.reviewImage = reviewImage;
+	}
+
 	public Integer getSeller() {
 		return seller;
 	}
@@ -396,6 +415,16 @@ public class Review extends BaseEntity<Long> {
 	public static class SpecificationConverter extends BaseAttributeConverter<ArrayList<String>> {
 	}
 
+	/**
+	 * 图片转换
+	 * @author SHOP++ Team
+	 * @version 6.1
+	 */
+	@Converter
+	public static class ReviewImgConverter extends BaseAttributeConverter<ArrayList<String>> {
+	}
+
+	
 	/**
 	 * Entity - 条目
 	 * 
