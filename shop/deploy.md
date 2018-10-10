@@ -19,4 +19,6 @@
 	ALTER TABLE `review` ADD `seller` int(11) DEFAULT NULL COMMENT '卖家服务'  AFTER `score`;
 	
 	ALTER TABLE `review` ADD `logistics` int(11) DEFAULT NULL COMMENT '物流服务'  AFTER `score`;    
+	
+    ALTER TABLE `review` ADD `reviewImage` VARCHAR(4000) DEFAULT NULL COMMENT '评价的图片'  AFTER `content`;    
 
