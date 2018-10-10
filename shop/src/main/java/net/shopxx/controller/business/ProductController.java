@@ -326,8 +326,11 @@ public class ProductController extends BaseController {
 		LOGGER.info("product.getId():"+(product!=null ? product.getId() : null)+"recommentContent:"+recommentContent);
 		if(StringUtils.isNotBlank(recommentContent) && product!=null) {
 			UsersRelation usersRelation = usersRelationService.findByUserId(currentUser.getId());
-			medicalDoctorPostsService.addDoctorPosts(usersRelation.getIpandatcmUserId(),
-					recommentContent, product.getId(), level);
+			if(recommentContent != null){
+				medicalDoctorPostsService.addDoctorPosts(usersRelation.getIpandatcmUserId(),
+						recommentContent, product.getId(), level);
+			}
+
 		}
 		return Results.OK;
 	}
