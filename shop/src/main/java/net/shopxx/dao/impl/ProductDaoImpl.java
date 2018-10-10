@@ -747,7 +747,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
     @Override
     public net.shopxx.merge.page.Page<ProductVO> listByStoreId(List<Long> storeIds, ProductQueryParam productQueryParam) {
         String selectField = "SELECT p.id, p.name, p.createdDate, p.hits, p.sales, p.productImages, p.sn,p.price, " +
-                "skuSum.productStock AS inventory, 0 as uhits";
+                "skuSum.productStock AS inventory, p.uv ";
         String countField = "select count(p.id) ";
         StringBuilder sqlBuilder = new StringBuilder("                FROM Product p " +
                 "                 LEFT JOIN " +
