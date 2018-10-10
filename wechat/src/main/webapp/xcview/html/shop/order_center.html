@@ -159,7 +159,7 @@
 				<div class="payment_operation">已拒绝</div>
 				{{/if}}
 			</div>
-			<div class="main_product_details">
+			<div class="main_product_details" data-sn="{{item.sn}}">
 				{{each item.orderItems as orderItem }}
 				<div class="product_details">
 					<img src="{{orderItem.thumbnail}}" alt="" class="surface_plot" />
