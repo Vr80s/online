@@ -333,6 +333,8 @@ function recommends(pageNumber, downOrUp){
 			        window.location.href = "/xcview/html/shop/commodity_details.html?productId=" + id + "";
 			    })
 //              listClick();
+            }else{
+            	
             }
         });
     });
@@ -372,8 +374,7 @@ function refurbish(page,downUp){
      * 获取当前排序规则
      */
     
-    var defaultClick = 
-    	$("#mainMenuBar li[class*='default_click']");
+    var defaultClick = $("#mainMenuBar li[class*='default_click']");
     
     if(defaultClick!=null && defaultClick.length>0){
     			

@@ -1,5 +1,6 @@
 package com.xczh.consumer.market.controller.common;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -12,9 +13,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.bean.OnlineUser;
@@ -22,6 +26,9 @@ import com.xczh.consumer.market.service.VersionService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.VersionCompareUtil;
 import com.xczh.consumer.market.vo.VersionInfoVo;
+import com.xczhihui.common.support.domain.Attachment;
+import com.xczhihui.common.support.service.AttachmentCenterService;
+import com.xczhihui.common.support.service.AttachmentType;
 import com.xczhihui.common.util.enums.MessageTypeEnum;
 import com.xczhihui.common.util.enums.RouteTypeEnum;
 import com.xczhihui.course.params.BaseMessage;
@@ -278,5 +285,28 @@ public class XzCommonController {
     @ResponseBody
     public ResponseObject getProblemAnswer(@RequestParam("id") String id) throws Exception {
         return ResponseObject.newSuccessResponseObject(commonApiService.getProblemAnswer(id));
+    }
+
+
+    @Autowired
+    private AttachmentCenterService attachmentCenterService;
+    
+    /**
+     * 上传图片
+     */
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject upload(HttpServletRequest request,  @Account String accountId,
+    		@RequestParam("image")MultipartFile file) throws ServletRequestBindingException, IOException {
+
+        byte[] bs = file.getBytes();
+
+        Attachment attachment = attachmentCenterService.addAttachment(accountId,
+                AttachmentType.ONLINE,
+                accountId + System.currentTimeMillis() + ".png", bs,
+                org.springframework.util.StringUtils.getFilenameExtension(accountId + System.currentTimeMillis() + ".png"));
+
+        return ResponseObject.newSuccessResponseObject(attachment.getUrl());
+
     }
 }

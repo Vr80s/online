@@ -16,39 +16,32 @@
         {
           "type": "view",
           "name": "学习中心",
-          "url": "https://cs.m.xczhihui.com/xcview/html/my_study.html"
-        },
+          "url": "https://cs.m.xczhihui.com/xcview/html/my_study.html?shareBack=1"
+        }
+      ]
+    },
+    
+    {
+      "type": "view",
+      "name": "好货",
+      "url": "https://cs.m.xczhihui.com/xcview/html/shop/shop.html"
+    },
+    
+    
+    {
+      "name": "我的",
+      "sub_button": [
         {
           "type": "view",
           "name": "个人中心",
           "url": "https://cs.m.xczhihui.com/xcview/html/my_homepage.html"
-        }
-      ]
-    },
-    {
-      "name": "特色课程",
-      "sub_button": [
-        {
-          "type": "view",
-          "name": "脉诊大全",
-          "url": "https://cs.m.xczhihui.com/xcview/html/curriculum_table.html?menuType=200"
         },
         {
           "type": "view",
-          "name": "古籍经典",
-          "url": "https://cs.m.xczhihui.com/xcview/html/curriculum_table.html?menuType=205"
-        },
-        {
-          "type": "view",
-          "name": "针灸课程",
-          "url": "https://cs.m.xczhihui.com/xcview/html/curriculum_table.html?menuType=201"
+          "name": "我的订单",
+          "url": "https://cs.m.xczhihui.com/xcview/html/shop/order_center.html"
         }
       ]
-    },
-    {
-      "type": "view",
-      "name": "健康好文",
-      "url": "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzUzNDI3NTAzOA==&scene=124#wechat_redirect"
     }
   ]
 }

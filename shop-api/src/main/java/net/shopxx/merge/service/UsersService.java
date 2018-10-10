@@ -1,5 +1,7 @@
 package net.shopxx.merge.service;
 
+import java.util.List;
+
 public interface UsersService {
 
     /**
@@ -8,7 +10,7 @@ public interface UsersService {
      * @param doctorId 医师id
      * @return
      */
-    String getBusinessUsernameByDoctorId(String doctorId);
+    List<String> getBusinessUsernameByDoctorId(String doctorId);
 
     /**
      * 生成免密登录秘钥
