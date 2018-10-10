@@ -428,3 +428,16 @@ requestService("/xczh/shop/goods/hotSearch", null,
 		}
 },false)
 
+/*is_weixn();
+function is_weixn(){
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.match(/MicroMessenger/i)=="micromessenger") {
+        alert("微信打开");
+		console.log(111);
+		$(".minirefresh-wrap").css("bottom",".98rem");
+    } else {
+//      alert("app打开");
+		$(".minirefresh-wrap").css("bottom","0");
+		console.log(222);
+    }
+}*/
