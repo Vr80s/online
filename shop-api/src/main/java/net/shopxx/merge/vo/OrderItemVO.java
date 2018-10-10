@@ -21,8 +21,10 @@ import java.util.List;
  */
 @Data
 public class OrderItemVO implements Serializable {
-
-
+	
+	
+	private Long id; 
+	
 	/**
 	 * 编号
 	 */

@@ -258,48 +258,38 @@ function go_study() {
 /**
  * 现在的入口有两个呢，一个是
  */
-function isLoginJump() {
-
-    var userId = localStorage.userId;
-    if (isNotBlank(userId)) {
-        /*
-         * 判断这上个地址是否来自我们的浏览器啦。如果是的就返回上一页，如果不是的话，那么就返回首页吧。
-         */
-        var before_address = document.referrer;
-        if (before_address.indexOf("page/index") != -1 ||
-            before_address.indexOf("bought.html") != -1 ||   //购买
-            before_address.indexOf("home_page.html") != -1 ||   //学堂
-            before_address.indexOf("my_study.html") != -1 ||   //学习
-            before_address.indexOf("live_play.html") != -1 ||   //直播展示页后面播放页
-            before_address.indexOf("/xcview/html/physician/physicians_page.html") != -1 ||   //医师页面
-            before_address.indexOf("live_personal.html") != -1) {  //主播页
-
-            window.history.back();
-        } else {
-            location.href = "home_page.html";
-        }
-    } else {
-        //登录页面
-        location.href = "home_page.html";
-        
-    }
-}
+//function isLoginJump() {
+//
+//    var userId = localStorage.userId;
+//    if (isNotBlank(userId)) {
+//        /*
+//         * 判断这上个地址是否来自我们的浏览器啦。如果是的就返回上一页，如果不是的话，那么就返回首页吧。
+//         */
+//        var before_address = document.referrer;
+//        if (before_address.indexOf("page/index") != -1 ||
+//            before_address.indexOf("bought.html") != -1 ||   //购买
+//            before_address.indexOf("home_page.html") != -1 ||   //学堂
+//            before_address.indexOf("my_study.html") != -1 ||   //学习
+//            before_address.indexOf("live_play.html") != -1 ||   //直播展示页后面播放页
+//            before_address.indexOf("/xcview/html/physician/physicians_page.html") != -1 ||   //医师页面
+//            before_address.indexOf("live_personal.html") != -1) {  //主播页
+//
+//            window.history.back();
+//        } else {
+//            location.href = "home_page.html";
+//        }
+//    } else {
+//        //登录页面
+//        location.href = "home_page.html";
+//        
+//    }
+//}
 
 function common_share_back() {
     var back = document.referrer;
-    /*if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
-          window.history.back();
-          alert(1111);
-    } else {
-          window.location.href = "/xcview/html/physician/index.html";
-          alert(2222);
-    }*/
-
     var shareBack = getQueryString("shareBack");
-    
     if(isNotBlank(shareBack)){
         if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
-        	
             window.history.back();
         } else {
             window.location.href = "/xcview/html/physician/index.html";
@@ -307,14 +297,11 @@ function common_share_back() {
     }else{
         window.history.back();
     }
-
-    
 }
 
 function common_share_backs() {
     var back = document.referrer;
    	var shareBack = getQueryString("shareBack");
-   	     
     if(isNotBlank(shareBack)){
         if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
             window.history.back();

@@ -7,9 +7,11 @@
 package net.shopxx.dao.impl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -67,7 +69,7 @@ public class BusinessDaoImpl extends BaseDaoImpl<Business, Long> implements Busi
     }
 
     @Override
-    public String findUsernameByDoctorId(String doctorId) {
+    public List<String> findUsernameByDoctorId(String doctorId) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Business> query = criteriaBuilder.createQuery(Business.class);
         Root<Business> root = query.from(Business.class);
@@ -75,7 +77,7 @@ public class BusinessDaoImpl extends BaseDaoImpl<Business, Long> implements Busi
         query.where(criteriaBuilder.equal(root.get("doctorId"), doctorId));
         List<Business> businessList = entityManager.createQuery(query).getResultList();
         if (businessList != null && !businessList.isEmpty()) {
-            return businessList.get(0).getUsername();
+            return businessList.stream().map(Business::getUsername).collect(Collectors.toList());
         }
         return null;
     }

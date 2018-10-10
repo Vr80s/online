@@ -291,16 +291,39 @@
 	        var skuId = 10001;
 	        var quantity = 1;
 	        var flag = false;
+	        
+	        //库存id
+	        skuId =  currentSku.id;
+	        //数量
+	        quantity = $(".spinnerExample").val();
+	        
 	        requestGetService("/xczh/shop/checkout?skuId="+skuId+"&quantity="+quantity,null,function(data){
 				if(data.success){
 					flag = true;
+				}else{
+					jqtoast(data.errorMessage);
 				}
 			},false);
 	        if(!flag){
 	            return;
 			}
 			if(shoppingFlag == 1){
-			    alert("购物车添加逻辑");
+			    requestPostService("/xczh/shop/cart", {'skuId': skuId, 'quantity' : quantity}, function(data){
+					if (data.success) {
+						$('.shopping_trolley').hide();
+						var cartQuantity = $('.shopping_quantity').val();
+						if (!cartQuantity) {
+						    cartQuantity = quantity;
+						} else {
+						    cartQuantity = parseInt(cartQuantity) + quantity;
+						}
+						
+						var preNumber = $(".shopping_quantity").html();
+						totalQuantity = Number(cartQuantity) + Number(preNumber);
+	                    $('.shopping_quantity').html(totalQuantity);
+	                    
+					}
+				});
 			}else{
 				window.location = "/xcview/html/shop/confirm_order.html?skuId="+skuId+"&quantity="+quantity;
 			}

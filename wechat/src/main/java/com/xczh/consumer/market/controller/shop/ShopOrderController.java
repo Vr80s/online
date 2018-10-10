@@ -155,6 +155,7 @@ public class ShopOrderController {
     @RequestMapping(value = "/order/detail",method = RequestMethod.GET)
     public ResponseObject detail( @RequestParam String sn){
         OrderVO order = orderOperService.findBySn(sn);
+        order.setPreferentialAmount(order.getPromotionDiscount().add(order.getCouponDiscount()));
         String doctorId = order.getDoctorId();
         if(doctorId != null){
             MedicalDoctorVO medicalDoctor = iMedicalDoctorBusinessService.findSimpleById(doctorId);
@@ -188,6 +189,17 @@ public class ShopOrderController {
     @RequestMapping(value = "/order/transitStep",method = RequestMethod.GET)
     public ResponseObject transitStep( @RequestParam Long shippingId){
         return ResponseObject.newSuccessResponseObject(orderOperService.getTransitSteps(shippingId));
+    }
+
+    @RequestMapping(value = "/order/shipping",method = RequestMethod.GET)
+    public ResponseObject shipping( @RequestParam String sn){
+        return ResponseObject.newSuccessResponseObject(orderOperService.findOrderShippingBySn(sn));
+    }
+
+    @RequestMapping(value = "/order/delete",method = RequestMethod.POST)
+    public ResponseObject delete( @RequestParam Long orderId){
+        orderOperService.delete(orderId);
+        return ResponseObject.newSuccessResponseObject("删除成功");
     }
 
 }

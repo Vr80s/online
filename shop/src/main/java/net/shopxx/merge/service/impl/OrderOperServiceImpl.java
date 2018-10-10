@@ -30,6 +30,7 @@ import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.*;
 
+
 /**
  * 熊猫中医与shop用户关系
  */
@@ -67,6 +68,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 	private PluginService pluginService;
 	@Inject
 	private BusinessService businessService;
+
 
 	@Override
 	@Transactional
@@ -445,6 +447,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 			for(OrderItem orderItem : order.getOrderItems()){
 				OrderItemVO orderItemVO = new OrderItemVO();
 				BeanUtils.copyProperties(orderItem,orderItemVO);
+				orderItemVO.setId(orderItem.getId());
 				//获取库存
 				SkuVO sku = new SkuVO();
 				List<String> specification = orderItem.getSku().getSpecifications();
@@ -849,12 +852,16 @@ public class OrderOperServiceImpl implements OrderOperService {
 			String ipandatcmUserId, ProductVO product,UsersType usersType,OrderType orderType) {
 		
 		Store ss = null;Member member = null;
-		if(UsersType.BUSINESS.equals(usersType)) {  //商家
-			UsersRelation usersRelation = usersRelationService.findByIpandatcmUserId(ipandatcmUserId);
-			LOGGER.info("usersRelation.getUserId() "+usersRelation.getUserId());
-			ss = storeService.findByBusinessId(10101L); //TOTO 1010L测试使用
-		}else{
-			member = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
+		try {
+			if(UsersType.BUSINESS.equals(usersType)) {  //商家
+				UsersRelation usersRelation = usersRelationService.findByIpandatcmUserId(ipandatcmUserId);
+				LOGGER.info("usersRelation.getUserId() "+usersRelation.getUserId());
+				ss = storeService.findByBusinessId(usersRelation.getUserId());
+			}else{
+				member = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException("获取商家信息有误");
 		}
 		
 		Pageable pageable = new Pageable(orderPageParams.getPageNumber(), orderPageParams.getPageSize());
@@ -937,4 +944,23 @@ public class OrderOperServiceImpl implements OrderOperService {
 		map.put("orderSns", Arrays.asList(orderSns));
 		return map;
 	}
+
+	@Override
+	@Transactional
+	public OrderShippingVO findOrderShippingBySn(String sn) {
+		OrderShippingVO osvo = new OrderShippingVO();
+		OrderShipping os = orderShippingService.findBySn(sn);
+		if(os != null){
+			BeanUtils.copyProperties(os,osvo);
+			osvo.setId(os.getId());
+		}
+		return osvo;
+	}
+
+	@Override
+	@Transactional
+	public void delete(Long orderId) {
+		orderService.delete(orderId);
+	}
+
 }
