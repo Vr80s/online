@@ -1,13 +1,6 @@
 package net.shopxx.merge.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import net.shopxx.dao.CartDao;
 import net.shopxx.dao.CartItemDao;
 import net.shopxx.dao.ProductDao;
-import net.shopxx.entity.Cart;
-import net.shopxx.entity.CartItem;
-import net.shopxx.entity.Member;
-import net.shopxx.entity.Product;
-import net.shopxx.entity.Sku;
-import net.shopxx.entity.Store;
+import net.shopxx.entity.*;
 import net.shopxx.event.CartModifiedEvent;
 import net.shopxx.event.CartRemovedEvent;
 import net.shopxx.merge.service.ShopCartService;
@@ -42,8 +30,8 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
     private static final Object CART_LOCK = new Object();
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ShopCartServiceImpl.class);
-    
-    
+
+
     @Autowired
     private CartDao cartDao;
     @Autowired
@@ -224,27 +212,38 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
         return cartVO;
     }
 
-	
-	@Override
-	@Transactional
-	public Integer getCartQuantity(String accountId) {
-		Member member = usersRelationService.getMemberByIpandatcmUserId(accountId);
+
+    @Override
+    @Transactional
+    public Integer getCartQuantity(String accountId) {
+        Member member = usersRelationService.getMemberByIpandatcmUserId(accountId);
         Cart cart = member.getCart();
         if (cart == null) {
-        	return 0;
-        }else {
-        	Set<CartItem> cartItems2 = cart.getCartItems();
-        	int quantity = 0;
-        	for (CartItem cartItem : cartItems2) {
-    			if (cartItem != null && cartItem.getQuantity() != null) {
-    				quantity += cartItem.getQuantity();
-    			}
-    		}
-        	//
-        	cart.getQuantity(false);
-        	
-        	LOGGER.info("quantity:"+quantity);
-        	return quantity;
+            return 0;
+        } else {
+            Set<CartItem> cartItems2 = cart.getCartItems();
+            int quantity = 0;
+            for (CartItem cartItem : cartItems2) {
+                if (cartItem != null && cartItem.getQuantity() != null) {
+                    quantity += cartItem.getQuantity();
+                }
+            }
+            //
+            cart.getQuantity(false);
+
+            LOGGER.info("quantity:" + quantity);
+            return quantity;
         }
-	}
+    }
+
+    @Override
+    public boolean checkInventory(List<Long> cartItemIds) {
+        for (Long id : cartItemIds) {
+            CartItem cartItem = cartItemDao.findFetchSku(id);
+            if (cartItem == null || cartItem.getSku() == null || cartItem.getSku().getAllocatedStock() < cartItem.getQuantity()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

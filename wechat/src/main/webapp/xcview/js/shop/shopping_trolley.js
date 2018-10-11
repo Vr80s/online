@@ -271,7 +271,7 @@ $(function () {
             jqtoast('请勾选商品');
             return false;
         }
-        requestPostService('/xczh/shop/checkSkus', {'skuIds': skuIds.join(',')}, function (resp) {
+        requestPostService('/xczh/shop/checkSkus', {'cartItemIds': ids.join(',')}, function (resp) {
             if (resp.success) {
                 window.location.href = '/xcview/html/shop/confirm_order.html?cartItemIds=' + ids.join(',');
             } else {
