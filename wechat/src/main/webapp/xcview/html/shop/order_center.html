@@ -71,6 +71,9 @@
 
 <link type="text/css" rel="stylesheet" href="/xcview/css/shop/order_center.css" />
 
+<script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
+<link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
+
 <script>
 	// 判断横屏展示时的状态
 	window.onorientationchange=function(){
@@ -103,6 +106,27 @@
 	.minirefresh-scroll{
 		background: none;
 	}
+	
+	/*暂无评价显示开始*/
+	.quie_pic{
+		width: 100%;
+	    /* height: 4rem; */
+	    margin-bottom: 1.2rem;
+	    text-align: center;
+	    display: none;
+	    padding-bottom: 0.5rem;
+	}
+	.quie_pic img {
+	    width: 2rem;
+	    display: inline-block;
+	    margin: 3rem 0 0.6rem;
+	}
+	.quie_pic p {
+	    color: #BBBBBB;
+	    font-size: 0.3rem;
+	    margin-top: -0.5rem;
+	}
+	/*暂无评价显示结束*/
 </style>
 </head>
 <body style="background: #f0f0f0;">
@@ -115,7 +139,7 @@
 			<div class="title">好货订单</div>
 			<div class="advices">
 				<img src="/xcview/images/shop/newsbg.png" alt="" class="news news_class">
-				<span class="advices_number">17</span>
+				<!--<span class="advices_number">17</span>-->
 			</div>
 		</div>
 	</header>
@@ -219,6 +243,11 @@
 			</div>
 		</div>
 	</div>
+	<div class="quie_pic">
+		<img src="/xcview/images/no_deal.png">	
+		<p>您还没有订单，先去挑选好货吧</p>
+	</div>
+		
 	<!-- 中间内容结束 -->
 
 	<!-- 取消订单提示开始 -->
@@ -255,5 +284,12 @@
 
 <script type="text/javascript" src="/xcview/js/shop/order_center.js"></script>
 
+<script>
+	window.onload = function(){
+		$(".advices").click(function(){
+			jqtoast("熊猫客服休息中，稍后报道！");
+		});
+	};
+</script>
 
 </html>
