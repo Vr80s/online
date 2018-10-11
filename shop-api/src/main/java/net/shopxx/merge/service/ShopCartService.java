@@ -51,7 +51,7 @@ public interface ShopCartService {
 	/**  
 	 * <p>Title: getCartQuantity</p>  
 	 * <p>Description: 获取用户购物车数量</p>  
-	 * @param accountId
+	 * @param accountId  熊猫平台账户id
 	 * @return  
 	 */ 
 	Integer getCartQuantity(String accountId);
