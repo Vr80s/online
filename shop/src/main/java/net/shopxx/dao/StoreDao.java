@@ -12,6 +12,7 @@ import java.util.List;
 
 import net.shopxx.Page;
 import net.shopxx.Pageable;
+import net.shopxx.entity.Business;
 import net.shopxx.entity.CategoryApplication;
 import net.shopxx.entity.ProductCategory;
 import net.shopxx.entity.Store;
@@ -92,4 +93,13 @@ public interface StoreDao extends BaseDao<Store, Long> {
      * @return
      */
     List<Long> findByDoctorId(String doctorId);
+    
+    
+    /**
+     * 通过医师id获取店铺
+     *
+     * @param doctorId doctorId
+     * @return
+     */
+    List<Store> findStoreByBusinesss(List<Business> businesss);
 }

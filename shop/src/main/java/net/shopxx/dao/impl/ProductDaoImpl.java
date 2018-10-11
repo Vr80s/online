@@ -886,7 +886,6 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
     }
     
     public String getShareImg(String imgs) {
-    	
     	if(imgs!=null){
     		try {
         		JSONArray jsonArray = (JSONArray) JSONObject.parse(imgs);
@@ -906,7 +905,5 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
     	}else {
     		return null;
     	}
-    	
-    	
     }
 }
