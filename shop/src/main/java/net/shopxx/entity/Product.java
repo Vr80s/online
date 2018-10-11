@@ -6,14 +6,9 @@
  */
 package net.shopxx.entity;
 
-import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
-import java.util.*;
-
-import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
-
+import com.fasterxml.jackson.annotation.JsonView;
+import net.shopxx.BaseAttributeConverter;
+import net.shopxx.BigDecimalNumericFieldBridge;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -24,10 +19,12 @@ import org.hibernate.search.annotations.Store;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonView;
-
-import net.shopxx.BaseAttributeConverter;
-import net.shopxx.BigDecimalNumericFieldBridge;
+import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
+import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * Entity - 商品
@@ -654,6 +651,11 @@ public class Product extends BaseEntity<Long> {
      */
     @Column
     private Integer recommends;
+    /**
+     * 医师推荐语
+     */
+    @Column
+    private String recommentContent;
 
     /**
      * 获取编号
@@ -1843,6 +1845,14 @@ public class Product extends BaseEntity<Long> {
 
     public void setUv(Long uv) {
         this.uv = uv;
+    }
+
+    public String getRecommentContent() {
+        return recommentContent;
+    }
+
+    public void setRecommentContent(String recommentContent) {
+        this.recommentContent = recommentContent;
     }
 
     /**

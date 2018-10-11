@@ -15,6 +15,7 @@ import javax.inject.Inject;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,6 +53,7 @@ import net.shopxx.entity.OrderItem;
 import net.shopxx.entity.OrderItemDelete;
 import net.shopxx.entity.OrderShipping;
 import net.shopxx.entity.PaymentMethod;
+import net.shopxx.entity.PaymentTransaction;
 import net.shopxx.entity.Product;
 import net.shopxx.entity.Receiver;
 import net.shopxx.entity.ShippingMethod;
@@ -82,6 +84,7 @@ import net.shopxx.service.CouponCodeService;
 import net.shopxx.service.OrderService;
 import net.shopxx.service.OrderShippingService;
 import net.shopxx.service.PaymentMethodService;
+import net.shopxx.service.PaymentTransactionService;
 import net.shopxx.service.PluginService;
 import net.shopxx.service.ReceiverService;
 import net.shopxx.service.ShippingMethodService;
@@ -135,6 +138,8 @@ public class OrderOperServiceImpl implements OrderOperService {
 	private OrderItemDeleteDao orderItemDeleteDao;
 	@Inject
 	private OrderDeleteDao orderDeleteDao;
+	@Inject
+	private PaymentTransactionService paymentTransactionService;
 
 
 	@Override
@@ -1126,5 +1131,12 @@ public class OrderOperServiceImpl implements OrderOperService {
 		orderService.delete(orderId);
 	}
 
-
+	@Override
+	@Transactional
+	public Map<String, Object> isPaySuccess(String paymentTransactionSn) {
+		Map<String, Object> data = new HashMap<>();
+		PaymentTransaction paymentTransaction = paymentTransactionService.findBySn(paymentTransactionSn);
+		data.put("isPaySuccess", paymentTransaction != null && BooleanUtils.isTrue(paymentTransaction.getIsSuccess()));
+		return data;
+	}
 }

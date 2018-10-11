@@ -587,6 +587,16 @@ header{
     background: #FFFFFF;
     border-radius: 16px 16px 0 0;
 }
+.shopping_trolley_main .close{
+	position: absolute;
+    top: .1rem;
+    right: 0;
+    font-size: .5rem;
+    color: #999;
+    width: 2rem;
+    text-align: right;
+    padding-right: .26rem;
+}
 .shopping_trolley_center{
 	width: 7.5rem;
     height: 100%;

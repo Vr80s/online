@@ -10,10 +10,7 @@ import net.shopxx.merge.vo.ReceiverVO;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -200,6 +197,11 @@ public class ShopOrderController {
     public ResponseObject delete( @RequestParam Long orderId){
         orderOperService.delete(orderId);
         return ResponseObject.newSuccessResponseObject("删除成功");
+    }
+
+    @RequestMapping(value = "/isPaySuccess/{paymentTransactionSn}")
+    public ResponseObject isPaySuccess(@PathVariable String paymentTransactionSn){
+        return ResponseObject.newSuccessResponseObject(orderOperService.isPaySuccess(paymentTransactionSn));
     }
 
 }

@@ -51,6 +51,7 @@
 	.spinner .value{
 		background: #fff;
 	}
+	.minirefresh-wrap::-webkit-scrollbar {display: none;}
 </style>
 </head>
 <body>
@@ -427,6 +428,7 @@
 					<div class="determine">确定</div>
 				</div>
 			</div>
+			<div class="close">×</div>
 		</div>
 	</div>
 	<!-- 点击购物车出现提示结束 -->
@@ -558,6 +560,11 @@
     });
 	// 点击详情背景色
 	$('.shopping_trolley_bg').click(function(){
+		$('.shopping_trolley').hide();
+	});
+
+	// 点击关闭按钮
+	$('.close').click(function(){
 		$('.shopping_trolley').hide();
 	});
 
