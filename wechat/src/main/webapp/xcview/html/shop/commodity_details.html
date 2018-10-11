@@ -48,7 +48,9 @@
 	.hide{
 		display: none!important;
 	}
-	
+	.spinner .value{
+		background: #fff;
+	}
 </style>
 </head>
 <body>
@@ -639,6 +641,7 @@
 	    	$(".tba_appraise").find("a").removeClass("li_a");
 	    	$(".tba_appraise").find(".border_a").hide();
 	    });
+	   
 
 	}); 
 </script>
@@ -881,6 +884,9 @@
 </script>
 
 <script>
+//	 $('.spinnerExample').addClass('disabled');
+	$('.spinnerExample').attr("disabled",true);
+	$('.spinnerExample').attr("disabled","disabled");
 	//点击简介、评价、详情定位到具体内容
     var lis = document.getElementsByClassName("li_btn");
     for(var i = 0; i < lis.length; i++) {
