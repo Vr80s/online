@@ -567,6 +567,7 @@
 					<li class="filtrate_course" value="2" onclick="postsType(this)">课程<span class="span">动态</span></li>
 					<li class="filtrate_consilia" value="3" onclick="postsType(this)">医案<span class="span">动态</span></li>
 					<li class="filtrate_essay"value="4" onclick="postsType(this)">文章<span class="span">动态</span></li>
+					<li class="filtrate_rests"value="7" onclick="postsType(this)">商品<span class="span">动态</span></li>
 					<li class="filtrate_rests"value="5" onclick="postsType(this)">其他<span class="span">动态</span></li>
 				</ul>
 			</div>
@@ -671,6 +672,25 @@
 					{{/if}}
 					<div class="both"></div>
 				</div>
+				{{else if item.type == 6}}
+				<!-- 商品-->
+				<div class="article_hide" data-id="{{item.productId}}" data-status="{{item.articleStatus}}"  style="margin-top: 0;">
+					<div class="article_nav_span comment_hide " style="overflow: hidden; ">{{if item.stick}}<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>{{/if}}<span class="title show-text">{{item.content}}</span><div class="both"></div>
+					</div>
+
+					{{if item.productIsMarketable}}
+					<div class="article_nav_cen comment_hide">
+						<img src="{{item.productImages}}?imageMogr2/thumbnail/!249x140r|imageMogr2/gravity/Center/crop/249x140" alt="" />
+						<div class="article_nav_cen_size">{{item.productTitle}}</div>
+					</div>
+					{{else}}
+					<div style="font-size: 0.26rem;width: 6.98rem;height: 0.57rem;line-height: 0.57rem;
+						background: #f0f0f0;margin: 0 auto;background: #FAFAFA;border: 1px solid #F0F0F0;
+						border-radius: 4px;text-indent: 0.1rem;">抱歉，此商品已被作者下架。</div>
+					{{/if}}
+					<div class="both"></div>
+				</div>
+
 				{{else if item.type == 5}}
 				<!-- 课程-->
 				<div class="course_hide" data-id="{{item.courseId}}" data-status="{{item.courseStatus}}" data-teaching="{{item.teaching}}" style="padding-bottom: 0;margin-top: 0;">
@@ -740,6 +760,8 @@
 						<span class="basis_tips">线下课</span>
 					{{else if item.courseId != null && item.courseType == 1 && item.multimediaType == 2}}
 						<span class="basis_tips">语音直播</span>
+					{{else if item.productId != null }}
+					<span class="basis_tips">商品</span>
 					{{/if}}
 					</span>
 
