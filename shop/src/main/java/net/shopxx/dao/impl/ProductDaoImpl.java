@@ -838,7 +838,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
         productVO.setProductImages(objects[5] != null ? JSONObject.parseArray((String) objects[5], ProductImageVO.class) : null);
         productVO.setSn((String) objects[6]);
         productVO.setPrice(objects[7] != null ? (BigDecimal) objects[7] : BigDecimal.ZERO);
-        productVO.setInventory(objects[8] != null ? ((BigInteger) objects[8]).intValue() : 0);
+        productVO.setInventory(objects[8] != null ? ((BigDecimal) objects[8]).intValue() : 0);
         productVO.setUv(objects[9] != null ? ((BigInteger) objects[9]).longValue() : 0);
         return productVO;
     }
