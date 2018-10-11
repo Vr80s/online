@@ -48,7 +48,9 @@
 	.hide{
 		display: none!important;
 	}
-	
+	.spinner .value{
+		background: #fff;
+	}
 </style>
 </head>
 <body>
@@ -425,6 +427,7 @@
 					<div class="determine">确定</div>
 				</div>
 			</div>
+			<div class="close">×</div>
 		</div>
 	</div>
 	<!-- 点击购物车出现提示结束 -->
@@ -559,6 +562,11 @@
 		$('.shopping_trolley').hide();
 	});
 
+	// 点击关闭按钮
+	$('.close').click(function(){
+		$('.shopping_trolley').hide();
+	});
+
 	// 点击分享按钮
 	$('.share').click(function(){
 		$('.weixin_ceng').show();
@@ -639,6 +647,7 @@
 	    	$(".tba_appraise").find("a").removeClass("li_a");
 	    	$(".tba_appraise").find(".border_a").hide();
 	    });
+	   
 
 	}); 
 </script>
@@ -881,6 +890,9 @@
 </script>
 
 <script>
+//	 $('.spinnerExample').addClass('disabled');
+	$('.spinnerExample').attr("disabled",true);
+	$('.spinnerExample').attr("disabled","disabled");
 	//点击简介、评价、详情定位到具体内容
     var lis = document.getElementsByClassName("li_btn");
     for(var i = 0; i < lis.length; i++) {
