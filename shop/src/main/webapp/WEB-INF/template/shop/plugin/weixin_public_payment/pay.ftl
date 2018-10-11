@@ -13,7 +13,8 @@
 		<script src="${base}/resources/common/js/html5shiv.js"></script>
 		<script src="${base}/resources/common/js/respond.js"></script>
 	<![endif]-->
-	<script src="${base}/resources/common/js/jweixin.js"></script>	[#noautoesc]
+	<script src="${base}/resources/common/js/jweixin.js"></script>
+	[#noautoesc]
 		[#escape x as x?js_string]
 			<script>
 				if (typeof WeixinJSBridge == "undefined") {
@@ -41,6 +42,8 @@
 						}
 					});
 				}
+//				alert("mxczh111")
+//                window.location.replace("https://cs.m.xczhihui.com/");
 			</script>
 		[/#escape]
 	[/#noautoesc]

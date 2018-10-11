@@ -76,9 +76,9 @@ function getFileDom(index){
 	var iswx=agent.indexOf('qqbrowser') >= 0;
 	var File
 	if(iswx){
-		File=$("<input type='file' class='csl_gater_file"+index+"' accept='image/*' capture='camera' multiple='multiple'>");
+		File=$("<input type='file' class='csl_gater_file"+index+"' accept='image/*' capture='camera'>");// multiple='multiple'
 	}else{
-		File=$("<input type='file' class='csl_gater_file"+index+"' accept='image/*' multiple='multiple'>");
+		File=$("<input type='file' class='csl_gater_file"+index+"' accept='image/*'>"); // multiple='multiple'
 	};
 	File.css('display','none');
 	return File;

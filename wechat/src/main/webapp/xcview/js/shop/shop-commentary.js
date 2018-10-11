@@ -1,13 +1,14 @@
 $(function(){
-	 var orderNum = getQueryString("orderId");//201809141010104  一个订单 201809251011414多个订单
+	 var orderNum = getQueryString("sn");//201809141010104  一个订单 201809251011414多个订单
 	 
-
+	var orderId;
 //	评论订单列表
 	   requestGetService("/xczh/shop/order/detail", {
 	        sn: orderNum
 	    }, function (data) {
 	        if(data.success ){
 	            var obj =  data.resultObject.orderItems;
+	            orderId=data.resultObject.id;
 	            $(".evaluate-wrap").html(template('evaluate-template',{items:obj}));
 	        }
 	        startEvaluate();
@@ -53,17 +54,23 @@ $(function(){
 		myOrderItemId,  //商品ID
 		myContent,	//商品内容
 		myImages=[]; 	//图片数组
-	$(".news-wrap").click(function(){
-		arrangeData()	
-		
+	$(".news-wrap").click(function(){		
 		if(checkEvaluate()){
+			arrangeData()
+			var postdata = {"logistics":logisticsStart,"seller":sellerStart,"reviewEntryList":myReviewEntryList};
 			var dataNum=({
-				"postdata":{"logistics":logisticsStart,"seller":sellerStart,"reviewEntryList":myReviewEntryList}
+				"orderId":orderId,
+				"postdata":JSON.stringify(postdata)
 			})
 			
 		   requestPostService("/xczh/shop/goods/addReview",dataNum, function (data) {
 		        if(data.success==true){
-		            
+		            webToast("评价成功","middle",1500);
+		            setTimeout(function(){
+		            	location.href="/xcview/html/shop/order_center.html"
+		            },1500)
+		        }else{
+		        	webToast("评价失败，请稍后重试","middle",1500);
 		        }
 		    });
 			
@@ -72,20 +79,23 @@ $(function(){
 	})
 //传参处理
 	function arrangeData(){
-		$(".commentary-wrap").each(function(index){
+		$(".commentary-wrap").each(function(){
 			var that=$(this);
 			var imgSrc;
+			myImages=[];
+			debugger
 			myOrderItemId=that.attr("data-type");
 			myScore=that.find(".select-impress").find(".active").length;
 			myContent=that.find(".commentary-text").find("textarea").val();
-			if (that.find(".save-pic").find("img").length != 0) {
-				imgSrc=that.children("img:last-child").attr("src").join(',');
+			if (that.find(".save-pic").find("img").hasClass("imgvoucher") == true) {
+				that.find(".save-pic").find(".imgvoucher").each(function(index){
+					imgSrc=that.find(".save-pic").find(".imgvoucher").eq(index).attr("src");
+					myImages.push(imgSrc);
+				})
+				
 			} else{
 				imgSrc="";
-			}
-		
-				myImages.push(imgSrc);	
-			
+			}		
 			var obj={
 				"orderItemId":myOrderItemId,
 				"score":myScore,

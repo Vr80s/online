@@ -53,7 +53,8 @@ $(function() {
                 var orderSns = data.resultObject.orderSns.join(',');
                 window.location="/xcview/html/shop/method.html?orderSns="+orderSns;
             }else{
-                jqtoast(data.errorMessage);
+//              jqtoast(data.errorMessage);
+                jqtoast("请填写收货地址");
             }
         });
     });

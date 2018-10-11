@@ -24,11 +24,6 @@ if(wv == null){
 }else{
     localStorage.setItem("wv",wv);
 }
-/*if(wv==null){
-    $(".footer").show();
-}else{
-    $(".footer").hide();
-}*/
 if(wv==null){
 	$(".footer").show();
 	$(".minirefresh-wrap").css("bottom","7.6rem");
@@ -38,7 +33,7 @@ if(wv==null){
 	$(".minirefresh-wrap").css("bottom","0");
 	$(".minirefresh-wrap").css("width","7.5rem");
 }
-	
+
 var token = getParam("token");
 var appUniqueId = getParam("appUniqueId");
 var APP_TOKEN = "app.token";

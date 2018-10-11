@@ -309,7 +309,7 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 	text-align: center;
 }
 .shopping_box .shopping-list-top ul li:nth-child(2){
-	width: 220px;
+	width: 210px;
 	position: relative;
 	color: #666666;
 	line-height: 40px;
@@ -344,7 +344,7 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 	text-align: center;
 }
 .shopping_box .shopping-list-top ul li:nth-child(7){
-	width: 120px;
+	width: 130px;
 	position: relative;
 	color: #666666;
 	line-height: 40px;
@@ -357,7 +357,7 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 	padding: 10px 0 10px 10px;
 }
 .shopping-list-content ul li .ware-menu-one{
-	width: 328px;
+	width: 318px;
 	height: 100%;
 	overflow: hidden;
 }
@@ -423,7 +423,7 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
     padding-top: 10px;
 }
 .order-number{
-	width: 120px;
+	width: 130px;
     height: 100%;
     text-align: center;
     line-height: 60px;

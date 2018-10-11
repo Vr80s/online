@@ -189,3 +189,12 @@ function clearAll() {
 
 
 }
+
+	/*$("#header_input").click();
+	   	$("#header_input").click(function() {
+			alert(111);
+			$("#header_input").trigger("click").focus();
+			$("#header_input").focus(); 
+		});*/
+//		$("#header_input").focus(); 
+
