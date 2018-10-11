@@ -251,6 +251,7 @@ $(function () {
                     }
                     $('.shopping_trolley').hide();
                 }
+                TotalPrice();
             });
         }
     });
