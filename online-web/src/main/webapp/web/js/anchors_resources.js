@@ -410,12 +410,6 @@ var activityType;
 		}
 //		商品
 		else if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==true && $(".consilia-wrap").hasClass("hide")==true && $(".shopping-wrap").hasClass("hide")==false){
-				if(imgLengthStart=="" || imgLengthStart.length==0){
-					$(".select-start-null").removeClass("hide");
-					return false;
-				}else{
-					$(".select-start-null").addClass("hide");
-				}
 				
 				if($(".shopping-list-wrap .select-ware-img img").length==0){
 					$(".select-ware-null").removeClass("hide");
@@ -423,7 +417,7 @@ var activityType;
 				}else{
 					$(".select-ware-null").addClass("hide");
 				}		
-			activityType=7;
+			activityType=6;
 		}
 		return true;
 	}
@@ -450,11 +444,15 @@ var activityType;
 		data.video = saveVideoId;
 		
 	//	专栏文章
-		data.articleId=$(".result-list .select-text img").parent().attr("data-id");
+		if($(".consilia-wrap").hasClass("hide")==false){
+			data.articleId=$(".result-list .select-text img").parent().attr("data-id");
+		}
 	//	商品id
-		data.productId=$("#shopping-list .select-ware-img img").parent().attr("data-id");
+		if($(".shopping-wrap").hasClass("hide")==false){
+			data.productId=$("#shopping-list .select-ware-img img").parent().attr("data-id");
+		}
 //	商品推荐星级
-		data.level=imgLengthStart;
+		data.level=$(".our-ratings .active").length;
 //		data.level=
 		return data;
 	}
@@ -622,7 +620,6 @@ var activityType;
 	$(".shopping-nav").click(function(){
 		$(".comment-wrong").addClass("hide");  //清除提示
 		$(".shopping-edit-box .add-myware").click();      //指向我的商品
-		imgLengthStart="";	//清空星星长度
 		if($(".photo-wrap").hasClass("hide")==false){
 	    		confirmBox.open("标题","确定放弃图片编辑吗？",function(closefn){
 	    			closeImages();
@@ -921,8 +918,7 @@ $(".shopping-edit-box li").click(function(){
 	orderListShop(1,shopDataStyle,"");	
 	$(".comment-wrong").addClass("hide")	//隐藏提示
 	$(".shopping-search-input input").val("")  //清空输入框条件
-	$(".our-ratings img").attr("src","/web/images/star-dim.png");
-	imgLengthStart="" //清空星星长度
+	$(".our-ratings img").attr("src","/web/images/star-light.png").addClass("active");
 })
 //	搜索商品
 var keyWordShop;
@@ -980,7 +976,6 @@ function orderListShop(pageNumber,dataStyle,keyWord){
 }
 
 //	五星好评
-	var imgLengthStart="";
 	$('.our-ratings img').each(function(index){  
         var star='/web/images/star-dim.png';    //普通灰色星星图片的存储路径  
         var starRed='/web/images/star-light.png';     //红色星星图片存储路径  
@@ -991,7 +986,6 @@ function orderListShop(pageNumber,dataStyle,keyWord){
             $(this).attr('src',starRed).addClass("active");        //设置鼠标当前所在图片为打星颜色图  
             $(this).prevAll().attr('src',starRed).addClass("active");  //设置鼠标当前的前面星星图片为打星颜色图  
 //          $(this).siblings('span').text(prompt[this.id]);     //根据id的索引值作为数组的索引值  		
-			imgLengthStart=$('.our-ratings .active').length;
         });
     });  
 //	选择要推荐的商品
