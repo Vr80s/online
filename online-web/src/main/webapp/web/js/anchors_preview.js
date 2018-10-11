@@ -20,7 +20,7 @@ $(function(){
 			var evaluateData=obj.reviewvs;
 	//  轮播图
 	 		
-			if(bannerData.length==0){
+			if(bannerData == null || bannerData.length==0){
 				$(".banner-wrap").addClass("hide");
 			}else{
 //				轮播图个数
