@@ -124,7 +124,8 @@ var shareSmallImgPath = "";
 try {
 	
 	if(isBlank(gradeName) || isBlank(description) ||
-			isBlank(smallImgPath) ){
+			isBlank(smallImgPath)){
+				
 		requestService("/xczh/share/courseShare", {shareType:shareType,shareId:shareId}, function(data) {
 			if (data.success) {
 				var shareInfo  = data.resultObject;
@@ -149,16 +150,18 @@ try {
 	}
 } catch (e) {
 	
-	requestService("/xczh/share/courseShare", {shareType:shareType,shareId:shareId}, function(data) {
-		if (data.success) {
-			var shareInfo  = data.resultObject;
-
-			title = shareInfo.name;
-			shareSmallImgPath = shareInfo.headImg;
-			shareDescription = shareInfo.description;
-			link = shareInfo.link;
-		}	
-	},false)
+	if(!isBlank(shareId)){
+		requestService("/xczh/share/courseShare", {shareType:shareType,shareId:shareId}, function(data) {
+			if (data.success) {
+				var shareInfo  = data.resultObject;
+	
+				title = shareInfo.name;
+				shareSmallImgPath = shareInfo.headImg;
+				shareDescription = shareInfo.description;
+				link = shareInfo.link;
+			}	
+		},false)
+	}
 }
 
 

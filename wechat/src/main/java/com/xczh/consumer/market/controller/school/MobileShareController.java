@@ -96,7 +96,7 @@ public class MobileShareController {
         	}else {
         		sv = courseServiceImpl.selectShareInfoByType(shareType, shareId);
         	}
-             
+            sv.setType(shareType);
             //构造下分享出去的参数
             if(sv != null){
                 sv.build(returnOpenidUri,webdomain);

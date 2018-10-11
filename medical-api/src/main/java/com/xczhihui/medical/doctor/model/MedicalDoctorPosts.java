@@ -246,9 +246,23 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
     @TableField(exist = false)
     private String productImages;
 
+    /**
+     * 商品是否上架
+     */
+    @TableField(exist = false)
+    private Boolean productIsMarketable;
+
     @Override
     protected Serializable pkVal() {
         return this.id;
+    }
+
+    public Boolean getProductIsMarketable() {
+        return productIsMarketable;
+    }
+
+    public void setProductIsMarketable(Boolean productIsMarketable) {
+        this.productIsMarketable = productIsMarketable;
     }
 
     public Integer getId() {
