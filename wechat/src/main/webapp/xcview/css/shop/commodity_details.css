@@ -589,7 +589,7 @@ header{
 }
 .shopping_trolley_main .close{
 	position: absolute;
-    top: .3rem;
+    top: .1rem;
     right: 0;
     font-size: .5rem;
     color: #999;
