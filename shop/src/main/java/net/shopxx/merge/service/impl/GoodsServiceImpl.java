@@ -307,11 +307,12 @@ public class GoodsServiceImpl implements GoodsService {
     				}
     				LOGGER.warn("oeUserVO:"+oeUserVO.getSmallHeadPhoto());
     				usersVO.setHeadPhoto(oeUserVO.getSmallHeadPhoto());
+    				usersVO.setName(oeUserVO.getName());
+    				usersVO.setUsername(oeUserVO.getName());
     			}else {
     				usersVO.setHeadPhoto(defaultHead);
+    				//usersVO.setName(oeUserVO.getName());
     			}
-    			
-    			
     			
     			reviewVo.setUser(usersVO);
                 
