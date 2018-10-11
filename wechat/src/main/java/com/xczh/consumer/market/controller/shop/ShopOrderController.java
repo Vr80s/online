@@ -140,7 +140,7 @@ public class ShopOrderController {
             , @RequestParam(defaultValue = "1") int pageNumber, @RequestParam(defaultValue = "10") int pageSize) throws SQLException {
         List<OrderVO> list = orderOperService.findPage(type, status, null, accountId, null, isPendingReceive,
                 isPendingRefunds, isUseCouponCode, isExchangePoint, isAllocatedStock, hasExpired, pageNumber, pageSize);
-        for(int i=0;i<list.size();i++){
+        /*for(int i=0;i<list.size();i++){
             String doctorId = list.get(i).getDoctorId();
             if(doctorId != null){
                 MedicalDoctorVO medicalDoctor = iMedicalDoctorBusinessService.findSimpleById(doctorId);
@@ -148,7 +148,7 @@ public class ShopOrderController {
                 list.get(i).setDoctorHeadPortrait(medicalDoctor.getHeadPortrait());
             }
 
-        }
+        }*/
         return ResponseObject.newSuccessResponseObject(list);
     }
 

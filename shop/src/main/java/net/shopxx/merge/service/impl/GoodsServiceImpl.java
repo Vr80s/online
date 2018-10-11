@@ -151,6 +151,7 @@ public class GoodsServiceImpl implements GoodsService {
         Product product = productDao.find(productId);
         if (product == null || BooleanUtils.isNotTrue(product.getIsActive()) || BooleanUtils.isNotTrue(product.getIsMarketable())) {
             throw new ResourceNotFoundException();
+            
         }
         ProductVO pv = new ProductVO();
 
@@ -377,6 +378,10 @@ public class GoodsServiceImpl implements GoodsService {
         try {
             Product product = productDao.find(id);
             product.setHits(product.getHits() + 1);
+            if (!redisCacheService.sismenber(Product.USER_VIEW_CACHE_NAME + ":" + id, userId)) {
+                redisCacheService.sadd(Product.USER_VIEW_CACHE_NAME + ":" + id, userId);
+                product.setUv(product.getUv() == null ? 1 : product.getUv() + 1);
+            }
             productDao.persist(product);
         } catch (Exception e) {
             e.printStackTrace();

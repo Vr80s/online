@@ -25,9 +25,13 @@ if(wv == null){
     localStorage.setItem("wv",wv);
 }
 if(wv==null){
-    $(".footer .shop").show();
+	$(".footer").show();
+	$(".minirefresh-wrap").css("bottom","7.6rem");
+	$(".minirefresh-wrap").css("bottom",".98rem");
 }else{
-    $(".footer .shop").hide();
+	$(".footer").hide();
+	$(".minirefresh-wrap").css("bottom","0");
+	$(".minirefresh-wrap").css("width","7.5rem");
 }
 
 var token = getParam("token");

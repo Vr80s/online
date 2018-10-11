@@ -35,7 +35,10 @@ $(function() {
 					}))
 
 				};
-
+				
+				$(".header_seeks").html(template('header_seeks', {
+					items: data.resultObject.defaultSearch
+				}))
 				// 	    	<!--给inpiu默认值-->
 				$(".div_span_input").html(template('shipin', {
 					items: data.resultObject.defaultSearch
@@ -186,3 +189,12 @@ function clearAll() {
 
 
 }
+
+	/*$("#header_input").click();
+	   	$("#header_input").click(function() {
+			alert(111);
+			$("#header_input").trigger("click").focus();
+			$("#header_input").focus(); 
+		});*/
+//		$("#header_input").focus(); 
+

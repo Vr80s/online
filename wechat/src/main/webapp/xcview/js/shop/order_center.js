@@ -111,6 +111,35 @@ function confirmReceipt(orderSn) {
     });
 }
 
+//再次购买
+function againBuy(orderSn) {
+    requestGetService("/xczh/shop/order/detail", {
+        sn: orderSn
+    }, function (data) {
+        if(data.success ){
+            var orderItems=data.resultObject.orderItems;
+            for(var i=0;i<orderItems.length;i++){
+                var skuId = orderItems[i].sku.id;
+                var quantity = orderItems[i].quantity;
+                addCart(skuId,quantity);
+            }
+            location.href="/xcview/html/shop/shopping_trolley.html";
+        }
+    });
+}
+
+//再次购买
+function addCart(skuId,quantity) {
+    requestPostService("/xczh/shop/cart", {
+        skuId: skuId,
+        quantity:quantity
+    }, function (data) {
+        if(data.success ){
+
+        }
+    },false);
+}
+
 
 //刷新
 // 初始化页码
