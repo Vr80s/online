@@ -98,16 +98,18 @@ body{
     text-indent: -999px;
     cursor: pointer;
     background-color: rgba(0,0,0,0);
-    border: 1px solid #fff;
+    border: 1px solid #b1b1b1;
     border-radius: 10px;
     width: 7px;
     height: 7px;
+    margin: 0 5px;
 }
 .banner-indicators .active{
 	width: 7px;
 	height: 7px;
-	background: white;
-	margin: 1px;
+	background: #00bc12;
+	border: 1px solid #00bc12;
+	margin: 0 5px;
 }
 /*轮播图结束*/
 .ware-title{
@@ -329,7 +331,6 @@ body{
 	width: 158px;
 	height: 158px;
 	margin: 0 auto;
-	background: skyblue;
 	overflow: hidden;
 }
 .section-detail .wechat-data img{

@@ -754,11 +754,10 @@ var getParam = function(name) {
     return items;
 };
 
-var defaultHistory = "/xcview/html/shop/shop.html";
-var goHistory = function(){
-    if(history.length<=1){
-        location.href = defaultHistory;
+var goHistory = function(url){
+    if(url != null){
+        location.href = url;
     }else{
-        location.href='javascript:history.go(-1)';
+        history.go(-1);
     }
 }

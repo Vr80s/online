@@ -1,27 +1,18 @@
 package net.shopxx.merge.service.impl;
 
-import com.xczhihui.common.support.service.CacheService;
-import com.xczhihui.common.util.redis.key.RedisCacheKey;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
-import net.sf.json.JSONObject;
-import net.shopxx.Page;
-import net.shopxx.Pageable;
-import net.shopxx.Setting;
-import net.shopxx.dao.OrderDao;
-import net.shopxx.dao.OrderDeleteDao;
-import net.shopxx.dao.OrderItemDeleteDao;
-import net.shopxx.entity.*;
-import net.shopxx.merge.entity.UsersRelation;
-import net.shopxx.merge.enums.OrderType;
-import net.shopxx.merge.enums.Status;
-import net.shopxx.merge.enums.UsersType;
-import net.shopxx.merge.service.OrderOperService;
-import net.shopxx.merge.service.UsersRelationService;
-import net.shopxx.merge.vo.*;
-import net.shopxx.plugin.PaymentPlugin;
-import net.shopxx.service.*;
-import net.shopxx.util.SystemUtils;
-import net.shopxx.util.WebUtils;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.inject.Inject;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.BooleanUtils;
@@ -30,14 +21,77 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import javax.inject.Inject;
-import java.math.BigDecimal;
-import java.util.*;
+import com.xczhihui.common.support.service.CacheService;
+import com.xczhihui.common.util.redis.key.RedisCacheKey;
+import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+
+import net.sf.json.JSONObject;
+import net.shopxx.Page;
+import net.shopxx.Pageable;
+import net.shopxx.Setting;
+import net.shopxx.dao.BusinessDao;
+import net.shopxx.dao.OrderDao;
+import net.shopxx.dao.OrderDeleteDao;
+import net.shopxx.dao.OrderItemDeleteDao;
+import net.shopxx.dao.StoreDao;
+import net.shopxx.entity.Area;
+import net.shopxx.entity.Business;
+import net.shopxx.entity.Cart;
+import net.shopxx.entity.CartItem;
+import net.shopxx.entity.CouponCode;
+import net.shopxx.entity.Invoice;
+import net.shopxx.entity.Member;
+import net.shopxx.entity.Order;
+import net.shopxx.entity.OrderDelete;
+import net.shopxx.entity.OrderItem;
+import net.shopxx.entity.OrderItemDelete;
+import net.shopxx.entity.OrderShipping;
+import net.shopxx.entity.PaymentMethod;
+import net.shopxx.entity.PaymentTransaction;
+import net.shopxx.entity.Product;
+import net.shopxx.entity.Receiver;
+import net.shopxx.entity.ShippingMethod;
+import net.shopxx.entity.Sku;
+import net.shopxx.entity.Store;
+import net.shopxx.merge.enums.OrderType;
+import net.shopxx.merge.enums.Status;
+import net.shopxx.merge.enums.UsersType;
+import net.shopxx.merge.service.OrderOperService;
+import net.shopxx.merge.service.UsersRelationService;
+import net.shopxx.merge.vo.AreaVO;
+import net.shopxx.merge.vo.CartItemVO;
+import net.shopxx.merge.vo.CartVO;
+import net.shopxx.merge.vo.OrderItemVO;
+import net.shopxx.merge.vo.OrderPageParams;
+import net.shopxx.merge.vo.OrderShippingVO;
+import net.shopxx.merge.vo.OrderVO;
+import net.shopxx.merge.vo.OrdersVO;
+import net.shopxx.merge.vo.ProductVO;
+import net.shopxx.merge.vo.ReceiverVO;
+import net.shopxx.merge.vo.ScoreVO;
+import net.shopxx.merge.vo.SkuVO;
+import net.shopxx.merge.vo.StoreVO;
+import net.shopxx.plugin.PaymentPlugin;
+import net.shopxx.service.AreaService;
+import net.shopxx.service.CartService;
+import net.shopxx.service.CouponCodeService;
+import net.shopxx.service.OrderService;
+import net.shopxx.service.OrderShippingService;
+import net.shopxx.service.PaymentMethodService;
+import net.shopxx.service.PaymentTransactionService;
+import net.shopxx.service.PluginService;
+import net.shopxx.service.ReceiverService;
+import net.shopxx.service.ShippingMethodService;
+import net.shopxx.service.SkuService;
+import net.shopxx.service.StoreService;
+import net.shopxx.util.SystemUtils;
+import net.shopxx.util.WebUtils;
 
 
 /**
@@ -903,31 +957,49 @@ public class OrderOperServiceImpl implements OrderOperService {
 		return o;
 	}
 	
+	@Autowired
+	private IMedicalDoctorAccountService medicalDoctorAccountService;
+	
+	@Autowired
+	private BusinessDao businessDao;
+	
+	@Autowired
+	private StoreDao storeDao;
 	
 	@Override
 	@Transactional
 	public Object findPageXc(OrderPageParams orderPageParams, Status status, ScoreVO store, 
 			String ipandatcmUserId, ProductVO product,UsersType usersType,OrderType orderType) {
 		
-		Store ss = null;Member member = null;
+		List<Store> stores =null;Member member = null;
 		try {
 			if(UsersType.BUSINESS.equals(usersType)) {  //商家
-				UsersRelation usersRelation = usersRelationService.findByIpandatcmUserId(ipandatcmUserId);
-				LOGGER.info("usersRelation.getUserId() "+usersRelation.getUserId());
-				ss = storeService.findByBusinessId(usersRelation.getUserId());
+				
+				MedicalDoctorAccount medicalDoctorAccount = medicalDoctorAccountService.getByUserId(ipandatcmUserId);
+				if(medicalDoctorAccount.getDoctorId()!=null) {
+					
+					String doctorId = medicalDoctorAccount.getDoctorId();
+					//医师得到商家、商家得到店铺
+					List<Business> businesss = businessDao.findBusinessByDoctorId(doctorId);
+					stores = storeDao.findStoreByBusinesss(businesss);
+				}
 			}else{
 				member = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RuntimeException("获取商家信息有误");
+		}
+
+		if(stores==null && member == null) {
+			return null;
 		}
 		
 		Pageable pageable = new Pageable(orderPageParams.getPageNumber(), orderPageParams.getPageSize());
-		
 		Page<Order> orderList = orderDao.findPageXc(orderPageParams,
 				Order.Type.GENERAL,
 				(status !=null ? Order.Status.valueOf(status.toString()) : null),
-				ss, member, null, pageable,orderType);
+				stores, member, null, pageable,orderType);
 		
 		//分页参数赋值
         net.shopxx.merge.page.Pageable pageableVo = new 
@@ -1014,6 +1086,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 		}
 		return osvo;
 	}
+
 
 	@Override
 	@Transactional

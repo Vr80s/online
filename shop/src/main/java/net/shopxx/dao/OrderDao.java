@@ -253,7 +253,7 @@ public interface OrderDao extends BaseDao<Order, Long> {
 	 * @param pageable
 	 * @return  
 	 */ 
-	Page<Order> findPageXc(OrderPageParams orderPageParams, Type type, Status status, Store store, Member member,
+	Page<Order> findPageXc(OrderPageParams orderPageParams, Type type, Status status, List<Store> store, Member member,
 			Product product,Pageable pageable,OrderType orderType);
 
 }
