@@ -24,11 +24,13 @@ import net.shopxx.util.SystemUtils;
 import net.shopxx.util.WebUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -82,6 +84,8 @@ public class OrderOperServiceImpl implements OrderOperService {
 	private OrderItemDeleteDao orderItemDeleteDao;
 	@Inject
 	private OrderDeleteDao orderDeleteDao;
+	@Inject
+	private PaymentTransactionService paymentTransactionService;
 
 
 	@Override
@@ -1054,5 +1058,12 @@ public class OrderOperServiceImpl implements OrderOperService {
 		orderService.delete(orderId);
 	}
 
-
+	@Override
+	@Transactional
+	public Map<String, Object> isPaySuccess(String paymentTransactionSn) {
+		Map<String, Object> data = new HashMap<>();
+		PaymentTransaction paymentTransaction = paymentTransactionService.findBySn(paymentTransactionSn);
+		data.put("isPaySuccess", paymentTransaction != null && BooleanUtils.isTrue(paymentTransaction.getIsSuccess()));
+		return data;
+	}
 }
