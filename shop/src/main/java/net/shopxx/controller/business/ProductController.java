@@ -33,7 +33,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
+import com.xczhihui.common.util.IStringUtil;
+import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
 
 import net.shopxx.FileType;
@@ -63,6 +65,7 @@ import net.shopxx.security.CurrentStore;
 import net.shopxx.security.CurrentUser;
 import net.shopxx.service.AttributeService;
 import net.shopxx.service.BrandService;
+import net.shopxx.service.BusinessService;
 import net.shopxx.service.FileService;
 import net.shopxx.service.ParameterValueService;
 import net.shopxx.service.ProductCategoryService;
@@ -125,7 +128,13 @@ public class ProductController extends BaseController {
 	
 	@Autowired
 	private IMedicalDoctorPostsService medicalDoctorPostsService;
+	
+	@Autowired
+	private BusinessService businessService;
 
+	@Autowired
+	private IMedicalDoctorBusinessService medicalDoctorBusinessService;
+	
 	/**
 	 * 添加属性
 	 */
@@ -335,12 +344,14 @@ public class ProductController extends BaseController {
 		
 		LOGGER.info("product.getId():"+(product!=null ? product.getId() : null)+"recommentContent:"+recommentContent);
 		if(product!=null) {
-			UsersRelation usersRelation = usersRelationService.findByUserId(currentUser.getId());
+			Long businessId = currentUser.getId();
+			Business business = businessService.find(businessId);
+			MedicalDoctorAccount medicalDoctorAccount = medicalDoctorBusinessService.getByDoctorId(business.getDoctorId());
+			
 			if(productForm.getIsMarketable()){
-				medicalDoctorPostsService.addDoctorPosts(usersRelation.getIpandatcmUserId(),
+				medicalDoctorPostsService.addDoctorPosts(medicalDoctorAccount.getAccountId(),
 						productForm.getRecommentContent(), product.getId(), productForm.getRecommends());
 			}
-
 
 		}
 		return Results.OK;
@@ -455,9 +466,11 @@ public class ProductController extends BaseController {
 		//修改动态 或者 增加动态
 		LOGGER.info("postsId:"+postsId+"product.getId():"+(product!=null ? product.getId() : null)+"recommentContent:"+recommentContent);
 		if(product!=null) {
-			UsersRelation usersRelation = usersRelationService.findByUserId(currentUser.getId());
+			Long businessId = currentUser.getId();
+			Business business = businessService.find(businessId);
+			MedicalDoctorAccount medicalDoctorAccount = medicalDoctorBusinessService.getByDoctorId(business.getDoctorId());
 			if(productForm.getIsMarketable()){
-				medicalDoctorPostsService.addDoctorPosts(usersRelation.getIpandatcmUserId(),
+				medicalDoctorPostsService.addDoctorPosts(medicalDoctorAccount.getAccountId(),
 						productForm.getRecommentContent(), product.getId(), productForm.getRecommends());
 			}
 		}
