@@ -228,7 +228,7 @@ $(function () {
                             $oldSkuId.find('.goodsCheck').data('sid', updatedSkuId);
                             $oldSkuId.find('.goodsCheck').data('cid', data.resultObject);
                             $oldSkuId.find('.packaging').html(updatedSku.specifications);
-                            $oldSkuId.find('.number_packages').html(updatedSku.stock);
+                            $oldSkuId.find('.number_packages').html(updatedSku.availableStock);
                             $oldSkuId.find('.select').data('sid', updatedSkuId);
                             $oldSkuId.find('.num').html(quantity);
                             $oldSkuId.find('.price').html(updatedSku.price);
@@ -287,7 +287,7 @@ function changeProductProp() {
         }
     }
     $choiceProduct.find('.price').html('￥' + skus[matchIndex].price);
-    $choiceProduct.find('.repertory').html('库存' + skus[matchIndex].stock + '件');
+    $choiceProduct.find('.repertory').html('库存' + skus[matchIndex].availableStock + '件');
     updatedSkuId = skus[matchIndex].id;
     updatedSku = skus[matchIndex];
 }

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -35,6 +36,8 @@ import net.shopxx.Pageable;
 import net.shopxx.Setting;
 import net.shopxx.dao.BusinessDao;
 import net.shopxx.dao.OrderDao;
+import net.shopxx.dao.OrderDeleteDao;
+import net.shopxx.dao.OrderItemDeleteDao;
 import net.shopxx.entity.Area;
 import net.shopxx.entity.Business;
 import net.shopxx.entity.Cart;
@@ -43,7 +46,9 @@ import net.shopxx.entity.CouponCode;
 import net.shopxx.entity.Invoice;
 import net.shopxx.entity.Member;
 import net.shopxx.entity.Order;
+import net.shopxx.entity.OrderDelete;
 import net.shopxx.entity.OrderItem;
+import net.shopxx.entity.OrderItemDelete;
 import net.shopxx.entity.OrderShipping;
 import net.shopxx.entity.PaymentMethod;
 import net.shopxx.entity.Product;
@@ -71,7 +76,6 @@ import net.shopxx.merge.vo.SkuVO;
 import net.shopxx.merge.vo.StoreVO;
 import net.shopxx.plugin.PaymentPlugin;
 import net.shopxx.service.AreaService;
-import net.shopxx.service.BusinessService;
 import net.shopxx.service.CartService;
 import net.shopxx.service.CouponCodeService;
 import net.shopxx.service.OrderService;
@@ -121,12 +125,15 @@ public class OrderOperServiceImpl implements OrderOperService {
 	private OrderDao orderDao;
 	@Inject
 	private PluginService pluginService;
-	@Inject
-	private BusinessService businessService;
 	@Autowired
 	private CacheService redisCacheService;
 	@Autowired
 	private IMedicalDoctorBusinessService medicalDoctorBusinessService;
+
+	@Inject
+	private OrderItemDeleteDao orderItemDeleteDao;
+	@Inject
+	private OrderDeleteDao orderDeleteDao;
 
 
 	@Override
@@ -1075,10 +1082,49 @@ public class OrderOperServiceImpl implements OrderOperService {
 		return osvo;
 	}
 
+
 	@Override
 	@Transactional
 	public void delete(Long orderId) {
+		Order o = orderService.find(orderId);
+		//备份order
+		OrderDelete od = new OrderDelete();
+		BeanUtils.copyProperties(o,od);
+		String type = null;
+		if(o.getType() != null){
+			type = o.getType().toString();
+		}
+		od.setType(OrderDelete.Type.valueOf(type.trim()));
+		String status = null;
+		if(o.getStatus() != null){
+			status = o.getStatus().toString();
+		}
+		od.setStatus(OrderDelete.Status.valueOf(status.trim()));
+		od.setOrderId(o.getId());
+		od.setDeleteDate(new Date());
+		orderDeleteDao.merge(od);
+		//备份orderitem
+		for(int i=0;i<o.getOrderItems().size();i++){
+			OrderItem oi =o.getOrderItems().get(i);
+			OrderItemDelete oid = new OrderItemDelete();
+			BeanUtils.copyProperties(oi,oid);
+			oid.setOrderItemId(oi.getId());
+			String orderItemType = null;
+			if(oi.getType() != null){
+				orderItemType = oi.getType().toString();
+			}
+			oid.setType(Product.Type.valueOf(orderItemType.trim()));
+			List<String> specifications = oi.getSpecifications();
+			List<String> newSpecifications = new ArrayList<>();
+			for(int j=0;j<specifications.size();j++){
+				newSpecifications.add(specifications.get(i));
+			}
+			oid.setSpecifications(newSpecifications);
+			orderItemDeleteDao.merge(oid);
+		}
+
 		orderService.delete(orderId);
 	}
+
 
 }

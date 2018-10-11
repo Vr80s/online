@@ -2,6 +2,7 @@ package com.xczh.consumer.market.controller.shop;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,7 +68,11 @@ public class ShopCartController {
     }
     
     @RequestMapping(value = "quantity",method = RequestMethod.GET)
-    public ResponseObject getCartQuantity(@Account String accountId) {
+    public ResponseObject getCartQuantity(@Account(optional = true) Optional<String> accountIdOpt) {
+        if(!accountIdOpt.isPresent()){
+            return ResponseObject.newSuccessResponseObject(0);
+        }
+        String accountId = accountIdOpt.get();
         return ResponseObject.newSuccessResponseObject(shopCartService.getCartQuantity(accountId));
     }
 

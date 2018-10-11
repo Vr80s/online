@@ -156,12 +156,12 @@ public class ShopOrderController {
     public ResponseObject detail( @RequestParam String sn){
         OrderVO order = orderOperService.findBySn(sn);
         order.setPreferentialAmount(order.getPromotionDiscount().add(order.getCouponDiscount()));
-        String doctorId = order.getDoctorId();
+        /*String doctorId = order.getDoctorId();
         if(doctorId != null){
             MedicalDoctorVO medicalDoctor = iMedicalDoctorBusinessService.findSimpleById(doctorId);
             order.setDoctorName(medicalDoctor.getName());
             order.setDoctorHeadPortrait(medicalDoctor.getHeadPortrait());
-        }
+        }*/
         return ResponseObject.newSuccessResponseObject(order);
     }
 
