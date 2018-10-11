@@ -91,4 +91,6 @@ public class SkuVO implements Serializable {
     private boolean IsOutOfStock;
 
     private Long productId;
+
+    private Integer availableStock;
 }

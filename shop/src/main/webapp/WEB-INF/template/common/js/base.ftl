@@ -2183,7 +2183,7 @@
 						var rounded_now = Math.round(now);
 						
 						if (now === tween.end) {
-							window.location.href = "${base}/"
+							[#--window.location.href = "${base}/"--]
 						} else {
 							$target.text(rounded_now);
 						}

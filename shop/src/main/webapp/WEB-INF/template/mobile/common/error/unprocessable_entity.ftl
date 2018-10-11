@@ -5,9 +5,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<meta name="format-detection" content="telephone=no">
-	<meta name="author" content="SHOP++ Team">
-	<meta name="copyright" content="SHOP++">
-	<title>${message("common.error.unprocessableEntity")}[#if showPowered] - Powered By SHOP++[/#if]</title>
+	<meta name="author" content="Team">
+	<meta name="copyright" content="SHOP">
+	<title>${message("common.error.unprocessableEntity")}</title>
 	<link href="${base}/favicon.ico" rel="icon">
 	<link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/base.css" rel="stylesheet">
@@ -28,7 +28,7 @@
 			<h3>${message("common.error.title")}</h3>
 			<p class="text-red-light">${errorMessage!message("common.error.unprocessableEntity")}</p>
 			[#noautoesc]
-				<p class="text-gray-dark">${message("common.error.delayMessage")}</p>
+				[#--<p class="text-gray-dark">${message("common.error.delayMessage")}</p>--]
 			[/#noautoesc]
 		</div>
 	</main>

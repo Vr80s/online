@@ -727,7 +727,8 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
         return entityManager.createQuery(criteriaQuery).getSingleResult();
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Map<String, Object>> findIdByCategoryId(ProductCategory productCategory) {
 
         String jpql = " SELECT id FROM productcategory WHERE treePath LIKE :categoryId";
@@ -737,11 +738,13 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
             resultList.add(new BigInteger(productCategory.getId().toString()));
         }else {
         	resultList = new ArrayList<BigInteger>();
-        	 resultList.add(new BigInteger(productCategory.getId().toString()));
+        	resultList.add(new BigInteger(productCategory.getId().toString()));
         }
         LOGGER.info("resultList size()" + resultList.size());	
         if (resultList != null && resultList.size() > 0) {
-            String jpq2 = " SELECT p.id,p.name FROM product AS p WHERE p.productCategory_id IN (:categoryIds)";
+            String jpq2 = " SELECT p.id,p.name FROM product AS p WHERE  "
+            		+ " p.isActive =1 and p.isList=1 and p.isMarketable =1 and  "
+            		+ " p.productCategory_id IN (:categoryIds)";
             List rows = entityManager.createNativeQuery(jpq2).setParameter("categoryIds", resultList).getResultList();
 
             List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();

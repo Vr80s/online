@@ -10,26 +10,31 @@ import net.shopxx.merge.vo.ProductVO;
 public interface GoodsService {
 
     /**
-     * 查询商品列表
      * <p>Title: list</p>
-     * <p>Description: </p>
+     * <p>Description:查询商品列表 </p>
      *
-     * @param goodsPageParams
-     * @param orderType
-     * @return
+     * @param goodsPageParams 条件参数
+     * @param orderType	排序类型
+     * @return list
      */
     Object list(GoodsPageParams goodsPageParams, OrderType orderType);
 
     /**
-     * 查找商品详情，根据商品id
      * <p>Title: findProductById</p>
-     * <p>Description: </p>
+     * <p>Description: 查找商品详情</p>
      *
-     * @param productId
-     * @return
+     * @param productId 商品id
+     * @return object
      */
     Object findProductById(Long productId);
 
+    /**
+     * 
+     * <p>Title: findIdByCategoryId</p>  
+     * <p>Description: 查询分类下所属的商品id和商品name</p>  
+     * @param categoryId  商品分类id
+     * @return list
+     */
     Object findIdByCategoryId(Long categoryId);
 
     /**
@@ -51,9 +56,9 @@ public interface GoodsService {
 
     /**
      * <p>Title: findIdByShareInfo</p>
-     * <p>Description: </p>
+     * <p>Description: 查询商品分享出去的数据</p>
      *
-     * @param shareId
+     * @param shareId 商品id
      * @return
      */
     ShareInfoVo findIdByShareInfo(String shareId);
