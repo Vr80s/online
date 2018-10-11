@@ -59,4 +59,12 @@ public interface BusinessDao extends BaseDao<Business, Long> {
      * @return
      */
     List<String> findUsernameByDoctorId(String doctorId);
+
+	/**  
+	 * <p>Title: findBusinessByDoctorId</p>  
+	 * <p>Description: </p>  
+	 * @param doctorId
+	 * @return  
+	 */ 
+	List<Business> findBusinessByDoctorId(String doctorId);
 }

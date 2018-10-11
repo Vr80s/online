@@ -7,6 +7,7 @@
 package net.shopxx.dao.impl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -407,7 +408,9 @@ public class OrderDaoImpl extends BaseDaoImpl<Order, Long> implements OrderDao {
 			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("status"), status));
 		}
 		if (store != null) {
-			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("store"), store));
+			
+			List<Store> list = new ArrayList<Store>();
+			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.in(root.get("store")).value(list));
 		}
 		if (member != null) {
 			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("member"), member));
