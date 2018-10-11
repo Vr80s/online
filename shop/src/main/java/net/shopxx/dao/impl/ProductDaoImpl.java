@@ -616,13 +616,19 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
             return findPageKayWordXc(goodsPageParams, orderType);
         }
 
-
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
 
         Root<Product> root = criteriaQuery.from(Product.class);
         criteriaQuery.select(root);
         Predicate restrictions = criteriaBuilder.conjunction();
+        
+        
+        restrictions = criteriaBuilder.and(restrictions,criteriaBuilder.equal(root.get("isMarketable"), true));
+        restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("isList"), true));
+        restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("isActive"), true));
+        
+        
         criteriaQuery.where(restrictions);
         if (orderType != null) {
             switch (orderType) {
@@ -664,14 +670,24 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
         QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory().buildQueryBuilder()
                 .forEntity(Product.class).get();
 
+        
         org.apache.lucene.search.Query snPhraseQuery = queryBuilder.phrase().onField("sn").sentence(goodsPageParams.getKeyWord()).createQuery();
         BooleanJunction<?> subJunction = queryBuilder.bool().should(snPhraseQuery);
 
         org.apache.lucene.search.Query namePhraseQuery = queryBuilder.phrase().withSlop(3).onField("name").sentence(goodsPageParams.getKeyWord()).createQuery();
         org.apache.lucene.search.Query keywordFuzzyQuery = queryBuilder.keyword().fuzzy().onField("keyword").matching(goodsPageParams.getKeyWord()).createQuery();
 
+        
+        org.apache.lucene.search.Query isMarketablePhraseQuery = queryBuilder.phrase().onField("isMarketable").sentence("true").createQuery();
+        org.apache.lucene.search.Query isListPhraseQuery = queryBuilder.phrase().onField("isList").sentence("true").createQuery();
+        org.apache.lucene.search.Query isActivePhraseQuery = queryBuilder.phrase().onField("isActive").sentence("true").createQuery();
+        
+        BooleanJunction<?> junction = queryBuilder.bool().must(isMarketablePhraseQuery).must(isListPhraseQuery).must(isActivePhraseQuery);
         subJunction.should(namePhraseQuery).should(keywordFuzzyQuery);
-        FullTextQuery fullTextQuery = fullTextEntityManager.createFullTextQuery(subJunction.createQuery(), Product.class);
+        junction.must(subJunction.createQuery());
+        
+        FullTextQuery fullTextQuery = fullTextEntityManager.createFullTextQuery(junction.createQuery(), Product.class);
+        
         SortField[] sortFields = null;
         if (orderType != null) {
             switch (orderType) {
@@ -711,7 +727,8 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
         return entityManager.createQuery(criteriaQuery).getSingleResult();
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Map<String, Object>> findIdByCategoryId(ProductCategory productCategory) {
 
         String jpql = " SELECT id FROM productcategory WHERE treePath LIKE :categoryId";
@@ -721,11 +738,13 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
             resultList.add(new BigInteger(productCategory.getId().toString()));
         }else {
         	resultList = new ArrayList<BigInteger>();
-        	 resultList.add(new BigInteger(productCategory.getId().toString()));
+        	resultList.add(new BigInteger(productCategory.getId().toString()));
         }
         LOGGER.info("resultList size()" + resultList.size());	
         if (resultList != null && resultList.size() > 0) {
-            String jpq2 = " SELECT p.id,p.name FROM product AS p WHERE p.productCategory_id IN (:categoryIds)";
+            String jpq2 = " SELECT p.id,p.name FROM product AS p WHERE  "
+            		+ " p.isActive =1 and p.isList=1 and p.isMarketable =1 and  "
+            		+ " p.productCategory_id IN (:categoryIds)";
             List rows = entityManager.createNativeQuery(jpq2).setParameter("categoryIds", resultList).getResultList();
 
             List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
@@ -838,7 +857,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
         productVO.setProductImages(objects[5] != null ? JSONObject.parseArray((String) objects[5], ProductImageVO.class) : null);
         productVO.setSn((String) objects[6]);
         productVO.setPrice(objects[7] != null ? (BigDecimal) objects[7] : BigDecimal.ZERO);
-        productVO.setInventory(objects[8] != null ? ((BigInteger) objects[8]).intValue() : 0);
+        productVO.setInventory(objects[8] != null ? ((BigDecimal) objects[8]).intValue() : 0);
         productVO.setUv(objects[9] != null ? ((BigInteger) objects[9]).longValue() : 0);
         return productVO;
     }
@@ -867,7 +886,6 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
     }
     
     public String getShareImg(String imgs) {
-    	
     	if(imgs!=null){
     		try {
         		JSONArray jsonArray = (JSONArray) JSONObject.parse(imgs);
@@ -887,7 +905,5 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
     	}else {
     		return null;
     	}
-    	
-    	
     }
 }

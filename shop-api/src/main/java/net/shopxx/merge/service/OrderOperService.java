@@ -5,6 +5,7 @@ import net.shopxx.merge.enums.OrderType;
 import net.shopxx.merge.enums.Status;
 import net.shopxx.merge.enums.UsersType;
 import net.shopxx.merge.vo.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -150,4 +151,6 @@ public interface OrderOperService {
 	 *            订单id
 	 */
 	void delete(Long orderId);
+
+    Map<String, Object> isPaySuccess(String paymentTransactionSn);
 }

@@ -36,7 +36,7 @@
 	/*处理刷新*/
 	.minirefresh-wrap{
 		width: 7.6rem;
-		top: 5rem;
+		top: 4.8rem !important;
 	}
 	.minirefresh-theme-default .minirefresh-downwrap{
 		height: 1rem;
@@ -53,6 +53,7 @@
 	}
 	.minirefresh-scroll{
 		background: none;
+		margin-top: .2rem;
 	}
 	.minirefresh-wrap{
 		bottom: .98rem;
@@ -224,6 +225,12 @@
 <script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
 
 
+<!--<script type="text/javascript">-->
+    <!--$(function(){-->
+        <!--var url = document.location.toString();-->
+        <!--$(".keyword").html(url.substring(40,url.length));-->
+    <!--})-->
+<!--</script>-->
 
 <!-- 选项卡固定头部 -->
 <script>
@@ -323,6 +330,7 @@
 			$(".option_recommend").addClass("option_recommend_width");
 			$(".option_hottest").addClass("option_hottest_width");
 			$(".low_to_high").addClass("low_to_high_width");
+			$(".low_to_high").addClass("default_click");
 		});
 		//由低到高
 		$(".low_to_high").click(function(){
@@ -341,6 +349,7 @@
 			$(".option_hottest").addClass("option_hottest_width");
 			$(".option_price").addClass("option_newest_width");
 			$(".down").addClass("down_width");
+			$(".down").addClass("default_click");
 		});
 		//由高到低
 		$(".down").click(function(){
@@ -363,6 +372,7 @@
 		$(".advices").click(function(){
 			jqtoast("熊猫客服休息中，稍后报道！");
 		});
+		
 	};
 </script>
 </html>

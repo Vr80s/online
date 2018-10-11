@@ -821,6 +821,7 @@ public class Sku extends BaseEntity<Long> {
         skuVO.setStock(this.stock);
         skuVO.setId(this.getId());
         skuVO.setSpecifications(StringUtils.join(this.getSpecifications(), ";"));
+        skuVO.setAvailableStock(this.getAvailableStock());
         if (this.getProduct() != null) {
             List<ProductImage> productImages = this.product.getProductImages();
             if (productImages != null && !productImages.isEmpty()) {

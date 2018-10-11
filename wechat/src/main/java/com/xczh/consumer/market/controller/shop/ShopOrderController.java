@@ -10,10 +10,7 @@ import net.shopxx.merge.vo.ReceiverVO;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -156,12 +153,12 @@ public class ShopOrderController {
     public ResponseObject detail( @RequestParam String sn){
         OrderVO order = orderOperService.findBySn(sn);
         order.setPreferentialAmount(order.getPromotionDiscount().add(order.getCouponDiscount()));
-        String doctorId = order.getDoctorId();
+        /*String doctorId = order.getDoctorId();
         if(doctorId != null){
             MedicalDoctorVO medicalDoctor = iMedicalDoctorBusinessService.findSimpleById(doctorId);
             order.setDoctorName(medicalDoctor.getName());
             order.setDoctorHeadPortrait(medicalDoctor.getHeadPortrait());
-        }
+        }*/
         return ResponseObject.newSuccessResponseObject(order);
     }
 
@@ -200,6 +197,11 @@ public class ShopOrderController {
     public ResponseObject delete( @RequestParam Long orderId){
         orderOperService.delete(orderId);
         return ResponseObject.newSuccessResponseObject("删除成功");
+    }
+
+    @RequestMapping(value = "/isPaySuccess/{paymentTransactionSn}")
+    public ResponseObject isPaySuccess(@PathVariable String paymentTransactionSn){
+        return ResponseObject.newSuccessResponseObject(orderOperService.isPaySuccess(paymentTransactionSn));
     }
 
 }

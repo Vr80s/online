@@ -48,7 +48,10 @@
 	.hide{
 		display: none!important;
 	}
-	
+	.spinner .value{
+		background: #fff;
+	}
+	.minirefresh-wrap::-webkit-scrollbar {display: none;}
 </style>
 </head>
 <body>
@@ -56,7 +59,7 @@
 	<header>
 		<div class="header" id="header">
 			<!--<img src="/xcview/images/salon_return.png" alt="" class="return" onclick="location.href ='/xcview/html/shop/shop.html'" />-->
-			<img src="/xcview/images/salon_return.png" alt="" class="return" onclick="goHistory()" />
+			<img src="/xcview/images/salon_return.png" alt="" class="return" onclick="goHistory('/xcview/html/shop/shop.html')" />
 			<div class="header_tab">
 				<ul>
 					<li class="tba_intro li_btn" data-to="li_btn0"><a href="javascript:void(0)">简介</a><div class="border_a"></li>
@@ -68,7 +71,7 @@
 				<img src="/xcview/images/shop/news.png" alt="" class="news" />
 				<!-- <span class="advices_number">17</span> -->
 			</div>
-			<img src="/xcview/images/shop/share.png" alt="" class="share" />
+			<img src="/xcview/images/shop/share.png" alt="" class="share" style="display:none;"/>
 		</div>	
 	</header>
 	<!-- 头部区域结束 -->
@@ -425,6 +428,7 @@
 					<div class="determine">确定</div>
 				</div>
 			</div>
+			<div class="close">×</div>
 		</div>
 	</div>
 	<!-- 点击购物车出现提示结束 -->
@@ -441,7 +445,7 @@
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script> 
 <script type="text/JavaScript" src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 
-<script type="text/javascript" src="/xcview/js/shop/token_save.js"></script>
+<!--<script type="text/javascript" src="/xcview/js/shop/token_save.js"></script>-->
 <script type="text/javascript" src="/xcview/js/common/common.js?version=ed749a7870&version=276907c86a"></script> 
 
 <script type="text/javascript" src="/xcview/js/common/template.js?version=dd622e58c9"></script>   <!--模板引入-->
@@ -545,7 +549,7 @@
 					var preNumber = $(".shopping_quantity").html();
 					totalQuantity = Number(cartQuantity) + Number(preNumber);
                     $('.shopping_quantity').html(totalQuantity);
-                    
+                    jqtoast("已加入购物车");
 				}
 			});
 		}else{
@@ -556,6 +560,11 @@
     });
 	// 点击详情背景色
 	$('.shopping_trolley_bg').click(function(){
+		$('.shopping_trolley').hide();
+	});
+
+	// 点击关闭按钮
+	$('.close').click(function(){
 		$('.shopping_trolley').hide();
 	});
 
@@ -639,6 +648,7 @@
 	    	$(".tba_appraise").find("a").removeClass("li_a");
 	    	$(".tba_appraise").find(".border_a").hide();
 	    });
+	   
 
 	}); 
 </script>
@@ -881,6 +891,9 @@
 </script>
 
 <script>
+//	 $('.spinnerExample').addClass('disabled');
+	$('.spinnerExample').attr("disabled",true);
+	$('.spinnerExample').attr("disabled","disabled");
 	//点击简介、评价、详情定位到具体内容
     var lis = document.getElementsByClassName("li_btn");
     for(var i = 0; i < lis.length; i++) {
@@ -891,6 +904,9 @@
             var div_top = document.getElementById(attr).offsetTop;
             window.scrollTo(0, div_top - 50);
         }
+    }
+    if(localStorage.getItem("wv") == null){
+        $(".share").show();
     }
 </script>
 </html>
