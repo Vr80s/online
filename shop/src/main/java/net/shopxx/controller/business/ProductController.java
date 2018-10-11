@@ -294,6 +294,16 @@ public class ProductController extends BaseController {
 		productForm.setPromotions(new HashSet<>(promotionService.findList(promotionIds)));
 		productForm.setProductTags(new HashSet<>(productTagService.findList(productTagIds)));
 		productForm.setStoreProductTags(new HashSet<>(storeProductTagService.findList(storeProductTagIds)));
+		if(level != null){
+			productForm.setRecommends(level);
+		} else {
+			productForm.setRecommends(5);
+		}
+		if(recommentContent != null){
+			productForm.setRecommentContent(recommentContent);
+		} else {
+			productForm.setRecommentContent("我为大家推荐一款商品，请查看");
+		}
 
 		productForm.removeAttributeValue();
 		for (Attribute attribute : productForm.getProductCategory().getAttributes()) {
@@ -324,12 +334,13 @@ public class ProductController extends BaseController {
 		}
 		
 		LOGGER.info("product.getId():"+(product!=null ? product.getId() : null)+"recommentContent:"+recommentContent);
-		if(StringUtils.isNotBlank(recommentContent) && product!=null) {
+		if(product!=null) {
 			UsersRelation usersRelation = usersRelationService.findByUserId(currentUser.getId());
-			if(recommentContent != null){
+			if(productForm.getIsMarketable()){
 				medicalDoctorPostsService.addDoctorPosts(usersRelation.getIpandatcmUserId(),
-						recommentContent, product.getId(), level);
+						productForm.getRecommentContent(), product.getId(), productForm.getRecommends());
 			}
+
 
 		}
 		return Results.OK;
@@ -378,6 +389,16 @@ public class ProductController extends BaseController {
 		parameterValueService.filter(productForm.getParameterValues());
 		specificationItemService.filter(productForm.getSpecificationItems());
 		skuService.filter(skuListForm.getSkuList());
+		if(level != null){
+			productForm.setRecommends(level);
+		} else {
+			productForm.setRecommends(5);
+		}
+		if(recommentContent != null){
+			productForm.setRecommentContent(recommentContent);
+		} else {
+			productForm.setRecommentContent("我为大家推荐一款商品，请查看");
+		}
 		if (product == null) {
 			return Results.UNPROCESSABLE_ENTITY;
 		}
@@ -433,21 +454,11 @@ public class ProductController extends BaseController {
 
 		//修改动态 或者 增加动态
 		LOGGER.info("postsId:"+postsId+"product.getId():"+(product!=null ? product.getId() : null)+"recommentContent:"+recommentContent);
-		if(StringUtils.isNotBlank(recommentContent) && product!=null) {
-			if(postsId !=null) {
-				MedicalDoctorPosts mdp = new MedicalDoctorPosts();
-				mdp.setId(postsId);
-				mdp.setContent(recommentContent);
-				mdp.setLevel(level);
-				medicalDoctorPostsService.updateMedicalDoctorPosts(mdp);
-			}else {
-				UsersRelation usersRelation = usersRelationService.findByUserId(currentUser.getId());
+		if(product!=null) {
+			UsersRelation usersRelation = usersRelationService.findByUserId(currentUser.getId());
+			if(productForm.getIsMarketable()){
 				medicalDoctorPostsService.addDoctorPosts(usersRelation.getIpandatcmUserId(),
-						recommentContent, product.getId(), level);
-				/**
-				 * 增加推荐值
-				 */
-				productService.modifyAddRecommends(product.getId());
+						productForm.getRecommentContent(), product.getId(), productForm.getRecommends());
 			}
 		}
 
@@ -523,7 +534,7 @@ public class ProductController extends BaseController {
 	 * 上架商品
 	 */
 	@PostMapping("/shelves")
-	public ResponseEntity<?> shelves(Long[] ids, @CurrentStore Store currentStore) {
+	public ResponseEntity<?> shelves(Long[] ids, @CurrentStore Store currentStore,@CurrentUser Business currentUser) {
 		if (ids != null) {
 			for (Long id : ids) {
 				Product product = productService.find(id);
@@ -533,6 +544,12 @@ public class ProductController extends BaseController {
 				if (!storeService.productCategoryExists(product.getStore(), product.getProductCategory())) {
 					return Results.unprocessableEntity("business.product.marketableNotExistCategoryNotAllowed", product.getName());
 				}
+				UsersRelation usersRelation = usersRelationService.findByUserId(currentUser.getId());
+
+				medicalDoctorPostsService.addDoctorPosts(usersRelation.getIpandatcmUserId(),
+						product.getRecommentContent(), product.getId(), product.getRecommends());
+
+
 			}
 			productService.shelves(ids);
 		}
