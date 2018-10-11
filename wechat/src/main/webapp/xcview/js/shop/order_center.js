@@ -29,6 +29,13 @@ function orderList(pageNumber,downOrUp) {
     }, function (data) {
         if(data.success ){
             var obj =  data.resultObject;
+            var recommendsHide = $(".indent").html();
+			if (recommendsHide==null || recommendsHide=="") {
+				$("#minirefresh").hide();
+			    $(".quie_pic").show();
+			    $("body").css("background","#fff");
+			};
+			
             if(downOrUp=='down'){
                 $(".indent").html(template('order_list',{items:obj}));
                 miniRefresh.endDownLoading(true);// 结束下拉刷新
