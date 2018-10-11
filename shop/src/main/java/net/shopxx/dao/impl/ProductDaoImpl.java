@@ -770,7 +770,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
         String countField = "select count(p.id) ";
         StringBuilder sqlBuilder = new StringBuilder("                FROM Product p " +
                 "                 LEFT JOIN " +
-                "                   (SELECT sum(sku.stock) AS productStock, sku.product_id" +
+                "                   (SELECT sum(sku.stock - sku.allocatedStock) AS productStock, sku.product_id" +
                 "                FROM Sku GROUP BY sku.product_id ) AS skuSum ON p.id = skuSum.product_id" +
                 "                   LEFT JOIN Store store ON p.`store_id` = store.`id` " +
                 "                 WHERE 1=1 ");

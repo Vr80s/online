@@ -21,7 +21,14 @@ $(function () {
     // 数量加
     $shopCartDiv.on('click', '.plus', function () {
         var t = $(this).parent().find('.num');
-        t.text(parseInt(t.text()) + 1);
+        var curQty = parseInt(t.text());
+        var sid = t.data('sid');
+        var inventory = parseInt($shopCartDiv.find('.product-sku-' + sid).find('.number_packages').text());
+        if (inventory <= curQty) {
+            jqtoast('商品库存不足');
+            return false;
+        }
+        t.text(curQty + 1);
         if (t.text() <= 1) {
             t.text(1);
         }
@@ -145,17 +152,21 @@ $(function () {
     });
 
     // 点击加号
-    $('.increase').click(function () {
-        $('.decrease').css("background", "#fff");
-    });
-    $('.decrease').click(function () {
-        if ($('.spinnerExample').val() == 1) {
-            $('.decrease').css("background", "#f0f0f0");
+    $choiceProduct.on('click', '.increase', function (e) {
+        var count = parseInt($('.spinnerExample').val());
+        if (count > updatedSku.availableStock) {
+            jqtoast('商品库存不足');
+            if (count > 1) {
+                $('.spinnerExample').val(count - 1);
+            }
+            return false;
         }
+    });
+    $choiceProduct.on('click', '.decrease', function (e) {
     });
 
     // 点击遮盖在select上的div
-    $shopCartDiv.on('click', '.select', function () {
+    $shopCartDiv.on('click', '.inventory', function () {
         var pid = $(this).data('pid');
         var sid = $(this).data('sid');
         requestGetService("/xczh/shop/cart/product", {"id": pid}, function (data) {
@@ -169,9 +180,9 @@ $(function () {
         });
     });
 //	点击遮盖的div显示后的选择框的背景图
-	$(".shopping_trolley_bg").click(function(){
-		$(".shopping_trolley").hide();
-	});
+    $(".shopping_trolley_bg").click(function () {
+        $(".shopping_trolley").hide();
+    });
 
     $choiceProduct.on('click', '.include', function () {
         var index = $(this).data('index');
@@ -213,50 +224,60 @@ $(function () {
                     //没有修改规格，更新数量
                     var $oldSkuId = $shopCartDiv.find('.product-sku-' + oldSkuId);
                     if (oldSkuId === updatedSkuId) {
-                        $oldSkuId.find('.num').val(quantity);
-        				var spinnerExample = $(".spinnerExample").val();
-        				$(".shop-arithmetic .num").html(spinnerExample);
+                        $oldSkuId.find('.num').text(quantity);
+                        // var spinnerExample = $(".spinnerExample").val();
+                        // $(".shop-arithmetic .num").html(spinnerExample);
                     } else {
                         //判断新增的sku是否已经存在在购物车中
                         var $newSkuId = $shopCartDiv.find('.product-sku-' + updatedSkuId);
                         if ($newSkuId.length > 0) {
                             $newSkuId.find('.num').html(quantity);
+                            $oldSkuId.removeClass('product-sku-' + oldSkuId);
                         } else {
-                        	var spinnerExample = $(".spinnerExample").val();
-        					$(".shop-arithmetic .num").html(spinnerExample);
+                            $oldSkuId.removeClass('product-sku-' + oldSkuId);
+                            // var spinnerExample = $(".spinnerExample").val();
+                            // $(".shop-arithmetic .num").html(spinnerExample);
                             $oldSkuId.addClass('product-sku-' + updatedSkuId);
+                            $oldSkuId = $shopCartDiv.find('.product-sku-' + updatedSkuId);
                             $oldSkuId.find('.goodsCheck').data('sid', updatedSkuId);
                             $oldSkuId.find('.goodsCheck').data('cid', data.resultObject);
                             $oldSkuId.find('.packaging').html(updatedSku.specifications);
                             $oldSkuId.find('.number_packages').html(updatedSku.availableStock);
-                            $oldSkuId.find('.select').data('sid', updatedSkuId);
+                            $oldSkuId.find('.inventory').data('sid', updatedSkuId);
                             $oldSkuId.find('.num').html(quantity);
                             $oldSkuId.find('.price').html(updatedSku.price);
-                            $oldSkuId.removeClass('product-sku-' + oldSkuId);
                         }
-                        
+
                     }
                     $('.shopping_trolley').hide();
                 }
             });
         }
     });
-    
+
     /**
      * 结算
      */
     $('.settlement').on('click', function () {
         var ids = [];
-        $shopCartDiv.find('.goodsCheck').each(function() {
+        var skuIds = [];
+        $shopCartDiv.find('.goodsCheck').each(function () {
             if ($(this).is(":checked")) {
                 ids.push($(this).data('cid'));
+                skuIds.push($(this).data('sid'));
             }
         });
         if (ids.length < 1) {
             jqtoast('请勾选商品');
             return false;
         }
-        window.location.href='/xcview/html/shop/confirm_order.html?cartItemIds=' + ids.join(',');
+        requestPostService('/xczh/shop/order/checkSkus', {'skuIds': skuIds.join(',')}, function (resp) {
+            if (resp.success) {
+                window.location.href = '/xcview/html/shop/confirm_order.html?cartItemIds=' + ids.join(',');
+            } else {
+                jqtoast(resp.errorMessage);
+            }
+        });
     });
 
     $('.message').on('click', function () {
@@ -310,14 +331,14 @@ function choiceSku(skuId) {
 function initCart() {
     requestGetService("/xczh/shop/cart", null, function (data) {
         if (data.resultObject.storeCartItems.length < 1) {
-        	$(".compile").hide();  //编辑隐藏
-        	$(".finish").hide();   //完成
-        	$(".payment-bar").hide();
+            $(".compile").hide();  //编辑隐藏
+            $(".finish").hide();   //完成
+            $(".payment-bar").hide();
             $('.vacancy-main').show();
         } else {
-        	//$(".finish").show();   //完成
-        	$(".compile").show();  //编辑显示
-        	$(".payment-bar").show();
+            //$(".finish").show();   //完成
+            $(".compile").show();  //编辑显示
+            $(".payment-bar").show();
             $('#shop_cart_div').html(template('shop_cart_tmpl', data.resultObject));
         }
     });
@@ -330,6 +351,7 @@ function modifyCartQuantity(skuId, quantity) {
 
 function deleteCartProduct(skuIds) {
     requestPostService('/xczh/shop/cart/sku/delete', {'skuIds': skuIds.join(",")}, function (data) {
+        location.reload();
     });
 }
 
@@ -341,10 +363,10 @@ function initRecommendProduct() {
     }, function (data) {
         if (data.success) {
             $('#shop_recommend_product_ul').html(template('shop_recommend_product_tmpl', data));
-            $(".list li").click(function(){
-			    var id = $(this).attr("data-id");
-			    window.location.href = "/xcview/html/shop/commodity_details.html?productId=" + id + "";
-			})
+            $(".list li").click(function () {
+                var id = $(this).attr("data-id");
+                window.location.href = "/xcview/html/shop/commodity_details.html?productId=" + id + "";
+            })
         }
     });
 }
@@ -406,7 +428,6 @@ $('.affirm').click(function () {
         $(".vacancy-main").show();   //显示猜你喜欢
     }
     deleteCartProduct(skuIds);
-    initCart();
 });
 
 $(".foot_del").click(function () {

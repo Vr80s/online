@@ -90,6 +90,7 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
     }
 
     @Override
+    @Transactional
     public void add(String ipandatcmUserId, Long skuId, int quantity) {
         Member member = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
         Cart cart = member.getCart();
@@ -116,6 +117,7 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
     }
 
     @Override
+    @Transactional
     public Long modify(String ipandatcmUserId, Long skuId, int quantity) {
         Member member = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
         Cart cart = member.getCart();
@@ -149,6 +151,7 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
     }
 
     @Override
+    @Transactional
     public void remove(String ipandatcmUserId, List<Long> skuIds) {
         Member member = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
         Cart cart = member.getCart();
@@ -171,6 +174,7 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
     }
 
     @Override
+    @Transactional
     public void clear(String ipandatcmUserId) {
         Member member = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
         cartService.clear(member.getCart());
