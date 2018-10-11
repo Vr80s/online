@@ -938,6 +938,9 @@
 							<li>
 								<a href="#specification" data-toggle="tab">${message("business.product.specification")}</a>
 							</li>
+                            <li>
+                                <a href="#doctor" data-toggle="tab">医师推荐</a>
+                            </li>
 						</ul>
 						<div class="tab-content">
 							<div id="base" class="tab-pane active">
@@ -1284,6 +1287,42 @@
 								</div>
 								<div id="sku"></div>
 							</div>
+                            <div id="doctor" class="tab-pane">
+								[#list product as product]
+                                <div class="form-group">
+                                    <label class="col-xs-3 col-sm-2 control-label">星级:</label>
+                                    <div class="col-xs-9 col-sm-4">
+                                        <div class="radio radio-inline">
+                                            <input name="level"  type="radio" [#if product.recommends == 1] checked[/#if] value="1">
+                                            <label for="isMarketable">1</label>
+                                        </div>
+                                        <div class="radio radio-inline">
+                                            <input name="level" type="radio"  [#if product.recommends == 2] checked[/#if] value="2">
+                                            <label for="isList">2</label>
+                                        </div>
+                                        <div class="radio radio-inline">
+                                            <input name="level" type="radio" [#if product.recommends == 3] checked[/#if] value="3">
+                                            <label for="isTop">3</label>
+                                        </div>
+                                        <div class="radio radio-inline">
+                                            <input name="level"  type="radio" [#if product.recommends == 4] checked[/#if] value="4">
+                                            <label for="isDelivery">4</label>
+                                        </div>
+                                        <div class="radio radio-inline">
+                                            <input name="level" type="radio" [#if product.recommends == 5] checked[/#if] value="5">
+                                            <label for="isDelivery">5</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-xs-3 col-sm-2 control-label" for="sn">推荐内容:</label>
+                                    <div class="col-xs-9 col-sm-4" title="" data-toggle="tooltip" data-original-title="若留空则由系统自动生成">
+                                        <input id="doctorRecommentContent" name="recommentContent" class="form-control" type="text" maxlength="100" value="${product.recommentContent}">
+                                    </div>
+                                </div>
+								[/#list]
+                            </div>
 						</div>
 					</div>
 					<div class="panel-footer">

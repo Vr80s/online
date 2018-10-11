@@ -126,7 +126,7 @@ header{
 	background: #00bc12;
     width: 0.22rem;
     height: .06rem;
-    border-radius: 100px;
+    border-radius: 10px;
 }
 .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction{
 	bottom: 0;
@@ -134,7 +134,7 @@ header{
 .pagination {
 	position: absolute;
 	z-index: 20;
-	bottom: 0;
+	bottom: -.1rem;
 	text-align: center;
 	width: 3rem;
 	left: 50%;
