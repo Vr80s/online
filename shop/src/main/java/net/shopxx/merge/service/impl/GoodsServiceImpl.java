@@ -144,15 +144,18 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     @Transactional
-    public Object findProductById(Long productId) {
+    public Object findProductById(Long productId){
 
         LOGGER.info("productId:" + productId);
 
         Product product = productDao.find(productId);
-        if (product == null || BooleanUtils.isNotTrue(product.getIsActive()) || BooleanUtils.isNotTrue(product.getIsMarketable())) {
-            throw new ResourceNotFoundException();
-            
+        if (product == null) {
+            throw new RuntimeException("商品找不到");
         }
+        if(BooleanUtils.isNotTrue(product.getIsActive()) || BooleanUtils.isNotTrue(product.getIsMarketable())) {
+        	throw new RuntimeException("商品没有上架或没有列出");
+        }
+        
         ProductVO pv = new ProductVO();
 
         org.springframework.beans.BeanUtils.copyProperties(product, pv);

@@ -7,6 +7,8 @@
 		<link rel="stylesheet" href="/xcview/css/shop/shop-comment.css">
 		<link rel="stylesheet" href="/xcview/css/shop/shop-logistics.css">
 		<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
+		<link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
 		<script>
 		// rem响应式处理
 			var kk=document.documentElement.clientWidth;
@@ -21,12 +23,12 @@
 		<div class="wp">
 			<div class="header-wrap">			
 				<div class="header">
-					<img class="return-img" src="/xcview/images/screen_close.png" alt="返回" />
+					<img class="return-img" src="/xcview/images/screen_close.png" alt="返回" onclick="javascript:history.go(-1);" />
 					<h3>物流信息</h3>
 					<div class="news-wrap">
 						<a href="">
 							<img class="news-img" src="/xcview/images/xiaoxi.png" alt="消息" />
-							<p class="news-num">12</p>
+							<!--<p class="news-num">12</p>-->
 						</a>
 					</div>
 				</div>				
@@ -121,4 +123,10 @@
 	<script type="text/javascript" src="/xcview/js/common/common.js"></script>
 	<script type="text/javascript" src="/xcview/js/common/template.js"></script>   <!--模板引入-->
 	<script type="text/javascript" src="/xcview/js/shop/shop-logistics.js"></script>
+	
+	<script type="text/javascript">
+		$(".news-wrap").click(function(){
+			jqtoast("熊猫客服休息中，稍后报道！");
+		});
+	</script>
 </html>
