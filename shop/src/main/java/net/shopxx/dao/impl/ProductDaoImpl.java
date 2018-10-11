@@ -616,13 +616,19 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
             return findPageKayWordXc(goodsPageParams, orderType);
         }
 
-
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
 
         Root<Product> root = criteriaQuery.from(Product.class);
         criteriaQuery.select(root);
         Predicate restrictions = criteriaBuilder.conjunction();
+        
+        
+        restrictions = criteriaBuilder.and(restrictions,criteriaBuilder.equal(root.get("isMarketable"), true));
+        restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("isList"), true));
+        restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("isActive"), true));
+        
+        
         criteriaQuery.where(restrictions);
         if (orderType != null) {
             switch (orderType) {
@@ -664,14 +670,24 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
         QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory().buildQueryBuilder()
                 .forEntity(Product.class).get();
 
+        
         org.apache.lucene.search.Query snPhraseQuery = queryBuilder.phrase().onField("sn").sentence(goodsPageParams.getKeyWord()).createQuery();
         BooleanJunction<?> subJunction = queryBuilder.bool().should(snPhraseQuery);
 
         org.apache.lucene.search.Query namePhraseQuery = queryBuilder.phrase().withSlop(3).onField("name").sentence(goodsPageParams.getKeyWord()).createQuery();
         org.apache.lucene.search.Query keywordFuzzyQuery = queryBuilder.keyword().fuzzy().onField("keyword").matching(goodsPageParams.getKeyWord()).createQuery();
 
+        
+        org.apache.lucene.search.Query isMarketablePhraseQuery = queryBuilder.phrase().onField("isMarketable").sentence("true").createQuery();
+        org.apache.lucene.search.Query isListPhraseQuery = queryBuilder.phrase().onField("isList").sentence("true").createQuery();
+        org.apache.lucene.search.Query isActivePhraseQuery = queryBuilder.phrase().onField("isActive").sentence("true").createQuery();
+        
+        BooleanJunction<?> junction = queryBuilder.bool().must(isMarketablePhraseQuery).must(isListPhraseQuery).must(isActivePhraseQuery);
         subJunction.should(namePhraseQuery).should(keywordFuzzyQuery);
-        FullTextQuery fullTextQuery = fullTextEntityManager.createFullTextQuery(subJunction.createQuery(), Product.class);
+        junction.must(subJunction.createQuery());
+        
+        FullTextQuery fullTextQuery = fullTextEntityManager.createFullTextQuery(junction.createQuery(), Product.class);
+        
         SortField[] sortFields = null;
         if (orderType != null) {
             switch (orderType) {

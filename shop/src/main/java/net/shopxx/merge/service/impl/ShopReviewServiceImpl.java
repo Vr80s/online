@@ -115,8 +115,6 @@ public class ShopReviewServiceImpl implements ShopReviewService {
 					usersVO.setHeadPhoto(defaultHead);
 				}
 				
-				
-				
 				reviewVo.setUser(usersVO);
 				reviewVos.add(reviewVo);
 			}
