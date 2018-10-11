@@ -38,6 +38,7 @@ import net.shopxx.dao.BusinessDao;
 import net.shopxx.dao.OrderDao;
 import net.shopxx.dao.OrderDeleteDao;
 import net.shopxx.dao.OrderItemDeleteDao;
+import net.shopxx.dao.StoreDao;
 import net.shopxx.entity.Area;
 import net.shopxx.entity.Business;
 import net.shopxx.entity.Cart;
@@ -957,27 +958,26 @@ public class OrderOperServiceImpl implements OrderOperService {
 	@Autowired
 	private BusinessDao businessDao;
 	
+	@Autowired
+	private StoreDao storeDao;
+	
 	@Override
 	@Transactional
 	public Object findPageXc(OrderPageParams orderPageParams, Status status, ScoreVO store, 
 			String ipandatcmUserId, ProductVO product,UsersType usersType,OrderType orderType) {
 		
-		Store ss = null;Member member = null;
+		List<Store> stores =null;Member member = null;
 		try {
 			if(UsersType.BUSINESS.equals(usersType)) {  //商家
 				
 				MedicalDoctorAccount medicalDoctorAccount = medicalDoctorAccountService.getByUserId(ipandatcmUserId);
-				String doctorId = medicalDoctorAccount.getDoctorId();
-				
-				//医师得到商家、商家得到店铺
-				List<Business> businesss = businessDao.findBusinessByDoctorId(doctorId);
-				
-				List<Store> list = new ArrayList<Store>();
-				
-				//ss = storeService.findByBusinessId(usersRelation.getUserId());
-				//这个医师可能是多个店铺了
-				//storeService
-				
+				if(medicalDoctorAccount.getDoctorId()!=null) {
+					
+					String doctorId = medicalDoctorAccount.getDoctorId();
+					//医师得到商家、商家得到店铺
+					List<Business> businesss = businessDao.findBusinessByDoctorId(doctorId);
+					stores = storeDao.findStoreByBusinesss(businesss);
+				}
 			}else{
 				member = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
 			}
@@ -986,7 +986,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 			throw new RuntimeException("获取商家信息有误");
 		}
 
-		if(ss==null && member == null) {
+		if(stores==null && member == null) {
 			return null;
 		}
 		
@@ -994,7 +994,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 		Page<Order> orderList = orderDao.findPageXc(orderPageParams,
 				Order.Type.GENERAL,
 				(status !=null ? Order.Status.valueOf(status.toString()) : null),
-				ss, member, null, pageable,orderType);
+				stores, member, null, pageable,orderType);
 		
 		//分页参数赋值
         net.shopxx.merge.page.Pageable pageableVo = new 

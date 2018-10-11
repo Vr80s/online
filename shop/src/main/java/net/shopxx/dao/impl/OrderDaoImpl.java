@@ -393,7 +393,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Order, Long> implements OrderDao {
 	}
 
 	@Override
-	public Page<Order> findPageXc(OrderPageParams orderPageParams,Type type, Status status, Store store, Member member,
+	public Page<Order> findPageXc(OrderPageParams orderPageParams,Type type, Status status, List<Store> stores, Member member,
 			Product product,Pageable pageable,OrderType orderType) {
 		
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -407,10 +407,9 @@ public class OrderDaoImpl extends BaseDaoImpl<Order, Long> implements OrderDao {
 		if (status != null) {
 			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("status"), status));
 		}
-		if (store != null) {
+		if (stores != null && stores.size()>0) {
 			
-			List<Store> list = new ArrayList<Store>();
-			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.in(root.get("store")).value(list));
+			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.in(root.get("store")).value(stores));
 		}
 		if (member != null) {
 			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("member"), member));
