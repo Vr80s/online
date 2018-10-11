@@ -98,5 +98,16 @@ public class BusinessDaoImpl extends BaseDaoImpl<Business, Long> implements Busi
         criteriaQuery.where(restrictions);
         return super.count(criteriaQuery, null);
     }
+    
+    @Override
+    public List<Business> findBusinessByDoctorId(String doctorId) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Business> query = criteriaBuilder.createQuery(Business.class);
+        Root<Business> root = query.from(Business.class);
+        query.select(root);
+        query.where(criteriaBuilder.equal(root.get("doctorId"), doctorId));
+        List<Business> businessList = entityManager.createQuery(query).getResultList();
+        return businessList;
+    }
 
 }

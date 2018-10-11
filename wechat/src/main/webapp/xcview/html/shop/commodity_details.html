@@ -52,6 +52,9 @@
 		background: #fff;
 	}
 	.minirefresh-wrap::-webkit-scrollbar {display: none;}
+	.spinner input{
+		color: #333 !important;
+	}
 </style>
 </head>
 <body>
@@ -59,7 +62,7 @@
 	<header>
 		<div class="header" id="header">
 			<!--<img src="/xcview/images/salon_return.png" alt="" class="return" onclick="location.href ='/xcview/html/shop/shop.html'" />-->
-			<img src="/xcview/images/salon_return.png" alt="" class="return" onclick="goHistory()" />
+			<img src="/xcview/images/salon_return.png" alt="" class="return" onclick="common_share_backs()" />
 			<div class="header_tab">
 				<ul>
 					<li class="tba_intro li_btn" data-to="li_btn0"><a href="javascript:void(0)">简介</a><div class="border_a"></li>
@@ -71,7 +74,7 @@
 				<img src="/xcview/images/shop/news.png" alt="" class="news" />
 				<!-- <span class="advices_number">17</span> -->
 			</div>
-			<img src="/xcview/images/shop/share.png" alt="" class="share" />
+			<img src="/xcview/images/shop/share.png" alt="" class="share" style="display:none;"/>
 		</div>	
 	</header>
 	<!-- 头部区域结束 -->
@@ -584,6 +587,18 @@
 	$(".advices").click(function(){
 		jqtoast("熊猫客服休息中，稍后报道！");
 	});
+
+    // 点击加号
+    $('.increase').on('click',function (e) {
+        var count = parseInt($('.spinnerExample').val());
+        if (count > currentSku.availableStock) {
+            jqtoast('商品库存不足');
+            if (count > 1) {
+                $('.spinnerExample').val(count - 1);
+            }
+            return false;
+        }
+    });
 </script>
 
 <!-- 简介、评价、详情固定头部区域 -->
@@ -904,6 +919,9 @@
             var div_top = document.getElementById(attr).offsetTop;
             window.scrollTo(0, div_top - 50);
         }
+    }
+    if(localStorage.getItem("wv") == null){
+        $(".share").show();
     }
 </script>
 </html>

@@ -7,6 +7,7 @@
 package net.shopxx.dao.impl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -392,7 +393,7 @@ public class OrderDaoImpl extends BaseDaoImpl<Order, Long> implements OrderDao {
 	}
 
 	@Override
-	public Page<Order> findPageXc(OrderPageParams orderPageParams,Type type, Status status, Store store, Member member,
+	public Page<Order> findPageXc(OrderPageParams orderPageParams,Type type, Status status, List<Store> stores, Member member,
 			Product product,Pageable pageable,OrderType orderType) {
 		
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -406,8 +407,9 @@ public class OrderDaoImpl extends BaseDaoImpl<Order, Long> implements OrderDao {
 		if (status != null) {
 			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("status"), status));
 		}
-		if (store != null) {
-			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("store"), store));
+		if (stores != null && stores.size()>0) {
+			
+			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.in(root.get("store")).value(stores));
 		}
 		if (member != null) {
 			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("member"), member));

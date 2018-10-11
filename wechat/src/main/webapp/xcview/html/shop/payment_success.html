@@ -28,7 +28,7 @@
 </script>
 </head>
 <style>
-	finished{
+	.finished{
 		display: none;
 	}
 </style>
@@ -82,12 +82,22 @@
     var paymentPluginName = getParam("paymentPluginName");
     $(".paymentPluginName").html(paymentPluginName);
     var sn = getParam("sn");
-    requestGetService("/xczh/shop/isPaySuccess/"+sn, null, function (data) {
-        if(data.resultObject.isPaySuccess){
-			$(".ongoing").hide();
-			$(".finished").show();
-		}
-    });
+    var paySuccess = false;
+    function checkIsPaySuccess(){
+        requestGetService("/xczh/shop/isPaySuccess/"+sn, null, function (data) {
+            if(data.resultObject.isPaySuccess){
+                paySuccess = true;
+                $(".ongoing").hide();
+                $(".finished").show();
+            }
+        });
+    }
+    checkIsPaySuccess();
+    setInterval(function() {
+        if(!paySuccess){
+            checkIsPaySuccess();
+        }
+    }, 3000);
 </script>
 
 </html>

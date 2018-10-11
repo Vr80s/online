@@ -171,4 +171,33 @@ public class StoreDaoImpl extends BaseDaoImpl<Store, Long> implements StoreDao {
         List<Long> resultList = (List<Long>)nativeQuery.getResultList();
         return resultList;
     }
+
+
+	@Override
+	public List<Store> findStoreByBusinesss(List<Business> businesss) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Store> criteriaQuery = criteriaBuilder.createQuery(Store.class);
+        Root<Store> root = criteriaQuery.from(Store.class);
+        criteriaQuery.select(root);
+        Predicate restrictions = criteriaBuilder.conjunction();
+  
+//        if (status != null) {
+//            restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("status"), status));
+//        }
+//        if (isEnabled != null) {
+//            restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("isEnabled"), isEnabled));
+//        }
+//        if (hasExpired != null) {
+//            if (hasExpired) {
+//                restrictions = criteriaBuilder.and(restrictions, root.get("endDate").isNotNull(), criteriaBuilder.lessThanOrEqualTo(root.<Date>get("endDate"), new Date()));
+//            } else {
+//                restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.or(root.get("endDate").isNull(), criteriaBuilder.greaterThan(root.<Date>get("endDate"), new Date())));
+//            }
+//        }
+        //restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.in(root.get("store")).value(list));
+        
+        restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.in(root.get("business")).value(businesss));
+        criteriaQuery.where(restrictions);
+        return findList(criteriaQuery);
+	}
 }
