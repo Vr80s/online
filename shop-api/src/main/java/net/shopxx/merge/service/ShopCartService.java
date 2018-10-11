@@ -37,7 +37,7 @@ public interface ShopCartService {
      * 移除购物车SKU
      *
      * @param ipandatcmUserId 熊猫中医用户id
-     * @param skuIds           SKU
+     * @param skuIds          SKU
      */
     void remove(String ipandatcmUserId, List<Long> skuIds);
 
@@ -48,13 +48,21 @@ public interface ShopCartService {
      */
     void clear(String ipandatcmUserId);
 
-	/**  
-	 * <p>Title: getCartQuantity</p>  
-	 * <p>Description: 获取用户购物车数量</p>  
-	 * @param accountId  熊猫平台账户id
-	 * @return  
-	 */ 
-	Integer getCartQuantity(String accountId);
+    /**
+     * <p>Title: getCartQuantity</p>
+     * <p>Description: 获取用户购物车数量</p>
+     *
+     * @param accountId 熊猫平台账户id
+     * @return
+     */
+    Integer getCartQuantity(String accountId);
+
+    /**
+     * 校验所勾选的购物车的库存有效性
+     *
+     * @param cartItemIds cartItemIds
+     */
+    boolean checkInventory(List<Long> cartItemIds);
 
 //    /**
 //     * 合并购物车

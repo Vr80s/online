@@ -587,6 +587,18 @@
 	$(".advices").click(function(){
 		jqtoast("熊猫客服休息中，稍后报道！");
 	});
+
+    // 点击加号
+    $('.increase').on('click',function (e) {
+        var count = parseInt($('.spinnerExample').val());
+        if (count > currentSku.availableStock) {
+            jqtoast('商品库存不足');
+            if (count > 1) {
+                $('.spinnerExample').val(count - 1);
+            }
+            return false;
+        }
+    });
 </script>
 
 <!-- 简介、评价、详情固定头部区域 -->
