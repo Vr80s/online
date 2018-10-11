@@ -58,7 +58,7 @@
 	<header>
 		<div class="header" id="header">
 			<!--<img src="/xcview/images/salon_return.png" alt="" class="return" onclick="location.href ='/xcview/html/shop/shop.html'" />-->
-			<img src="/xcview/images/salon_return.png" alt="" class="return" onclick="goHistory()" />
+			<img src="/xcview/images/salon_return.png" alt="" class="return" onclick="goHistory('/xcview/html/shop/shop.html')" />
 			<div class="header_tab">
 				<ul>
 					<li class="tba_intro li_btn" data-to="li_btn0"><a href="javascript:void(0)">简介</a><div class="border_a"></li>
@@ -70,7 +70,7 @@
 				<img src="/xcview/images/shop/news.png" alt="" class="news" />
 				<!-- <span class="advices_number">17</span> -->
 			</div>
-			<img src="/xcview/images/shop/share.png" alt="" class="share" />
+			<img src="/xcview/images/shop/share.png" alt="" class="share" style="display:none;"/>
 		</div>	
 	</header>
 	<!-- 头部区域结束 -->
@@ -903,6 +903,9 @@
             var div_top = document.getElementById(attr).offsetTop;
             window.scrollTo(0, div_top - 50);
         }
+    }
+    if(localStorage.getItem("wv") == null){
+        $(".share").show();
     }
 </script>
 </html>
