@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 
 import net.shopxx.merge.service.OrderOperService;
+import net.shopxx.merge.service.ShopCartService;
 import net.shopxx.merge.vo.OrderVO;
 import net.shopxx.merge.vo.ReceiverVO;
 
@@ -32,6 +32,8 @@ public class ShopOrderController {
     public OrderOperService orderOperService;
     @Autowired
     public IMedicalDoctorBusinessService iMedicalDoctorBusinessService;
+    @Autowired
+    private ShopCartService shopCartService;
     @Value("${shop.url}")
     private String shopUrl;
 
@@ -42,9 +44,9 @@ public class ShopOrderController {
     }
 
     @RequestMapping("checkSkus")
-    public ResponseObject checkSkus(List<Long> skuIds, Integer quantity) {
-        for (Long skuId : skuIds) {
-            orderOperService.checkSku(skuId, quantity);
+    public ResponseObject checkSkus(@RequestParam List<Long> cartItemIds) {
+        if (!shopCartService.checkInventory(cartItemIds)) {
+            return ResponseObject.newSuccessResponseObject("商品库存不足");
         }
         return ResponseObject.newSuccessResponseObject(null);
     }
@@ -210,7 +212,7 @@ public class ShopOrderController {
     }
 
     @RequestMapping(value = "/isPaySuccess/{paymentTransactionSn}")
-    public ResponseObject isPaySuccess(@PathVariable String paymentTransactionSn){
+    public ResponseObject isPaySuccess(@PathVariable String paymentTransactionSn) {
         return ResponseObject.newSuccessResponseObject(orderOperService.isPaySuccess(paymentTransactionSn));
     }
 

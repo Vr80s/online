@@ -162,6 +162,8 @@ public class GoodsServiceImpl implements GoodsService {
 
         pv.setId(product.getId());
 
+        pv.setIsmarketable(product.getIsMarketable());
+
         //医师推荐
         Set<Map<String, Object>> posts = medicalDoctorPostsService.getProductPostsByProductId(productId, 0, 1);
         pv.setPosts(posts);
