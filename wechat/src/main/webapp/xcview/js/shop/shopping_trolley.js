@@ -272,10 +272,10 @@ $(function () {
             return false;
         }
         requestPostService('/xczh/shop/checkSkus', {'cartItemIds': ids.join(',')}, function (resp) {
-            if (resp.success) {
+            if (!resp.resultObject) {
                 window.location.href = '/xcview/html/shop/confirm_order.html?cartItemIds=' + ids.join(',');
             } else {
-                jqtoast(resp.errorMessage);
+                jqtoast(resp.resultObject);
             }
         });
     });
