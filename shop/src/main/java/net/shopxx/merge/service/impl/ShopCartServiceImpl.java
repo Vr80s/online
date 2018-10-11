@@ -240,7 +240,7 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
     public boolean checkInventory(List<Long> cartItemIds) {
         for (Long id : cartItemIds) {
             CartItem cartItem = cartItemDao.findFetchSku(id);
-            if (cartItem == null || cartItem.getSku() == null || cartItem.getSku().getAllocatedStock() < cartItem.getQuantity()) {
+            if (cartItem == null || cartItem.getSku() == null || cartItem.getSku().getAvailableStock() < cartItem.getQuantity()) {
                 return false;
             }
         }
