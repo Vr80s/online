@@ -151,6 +151,7 @@ public class GoodsServiceImpl implements GoodsService {
         Product product = productDao.find(productId);
         if (product == null || BooleanUtils.isNotTrue(product.getIsActive()) || BooleanUtils.isNotTrue(product.getIsMarketable())) {
             throw new ResourceNotFoundException();
+            
         }
         ProductVO pv = new ProductVO();
 
