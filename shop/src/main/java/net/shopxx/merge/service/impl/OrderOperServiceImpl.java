@@ -8,6 +8,8 @@ import net.shopxx.Page;
 import net.shopxx.Pageable;
 import net.shopxx.Setting;
 import net.shopxx.dao.OrderDao;
+import net.shopxx.dao.OrderDeleteDao;
+import net.shopxx.dao.OrderItemDeleteDao;
 import net.shopxx.entity.*;
 import net.shopxx.merge.entity.UsersRelation;
 import net.shopxx.merge.enums.OrderType;
@@ -71,12 +73,15 @@ public class OrderOperServiceImpl implements OrderOperService {
 	private OrderDao orderDao;
 	@Inject
 	private PluginService pluginService;
-	@Inject
-	private BusinessService businessService;
 	@Autowired
 	private CacheService redisCacheService;
 	@Autowired
 	private IMedicalDoctorBusinessService medicalDoctorBusinessService;
+
+	@Inject
+	private OrderItemDeleteDao orderItemDeleteDao;
+	@Inject
+	private OrderDeleteDao orderDeleteDao;
 
 
 	@Override
@@ -1009,7 +1014,45 @@ public class OrderOperServiceImpl implements OrderOperService {
 	@Override
 	@Transactional
 	public void delete(Long orderId) {
+		Order o = orderService.find(orderId);
+		//备份order
+		OrderDelete od = new OrderDelete();
+		BeanUtils.copyProperties(o,od);
+		String type = null;
+		if(o.getType() != null){
+			type = o.getType().toString();
+		}
+		od.setType(OrderDelete.Type.valueOf(type.trim()));
+		String status = null;
+		if(o.getStatus() != null){
+			status = o.getStatus().toString();
+		}
+		od.setStatus(OrderDelete.Status.valueOf(status.trim()));
+		od.setOrderId(o.getId());
+		od.setDeleteDate(new Date());
+		orderDeleteDao.merge(od);
+		//备份orderitem
+		for(int i=0;i<o.getOrderItems().size();i++){
+			OrderItem oi =o.getOrderItems().get(i);
+			OrderItemDelete oid = new OrderItemDelete();
+			BeanUtils.copyProperties(oi,oid);
+			oid.setOrderItemId(oi.getId());
+			String orderItemType = null;
+			if(oi.getType() != null){
+				orderItemType = oi.getType().toString();
+			}
+			oid.setType(Product.Type.valueOf(orderItemType.trim()));
+			List<String> specifications = oi.getSpecifications();
+			List<String> newSpecifications = new ArrayList<>();
+			for(int j=0;j<specifications.size();j++){
+				newSpecifications.add(specifications.get(i));
+			}
+			oid.setSpecifications(newSpecifications);
+			orderItemDeleteDao.merge(oid);
+		}
+
 		orderService.delete(orderId);
 	}
+
 
 }
