@@ -4,7 +4,7 @@ $(function() {
     orderDetails();
 
     requestGetService("/xczh/shop/order/shipping", {
-        sn: '201809201010304'
+        sn: sn
     }, function (data) {
         if(data.success ){
             var shippingId = data.resultObject.id;
@@ -30,7 +30,7 @@ function transitStep(shippingId) {
 //订单详情
 function orderDetails() {
     requestGetService("/xczh/shop/order/detail", {
-        sn: '201809281011313'
+        sn: sn
     }, function (data) {
         if(data.success ){
             var obj =  data.resultObject;
