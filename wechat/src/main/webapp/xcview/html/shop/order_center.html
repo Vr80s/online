@@ -163,23 +163,23 @@
 				{{/if}}
 				<!-- 多种状态 -->
 				{{if item.status == 'PENDING_PAYMENT'}}
-				<div class="payment_operation">等待付款</div>
+				<div class="payment_operation">等待买家付款</div>
 				{{else if item.status == 'PENDING_REVIEW'}}
-				<div class="payment_operation">等待审核</div>
+				<div class="payment_operation">买家已付款</div>
 				{{else if item.status == 'PENDING_SHIPMENT'}}
-				<div class="payment_operation">等待发货</div>
+				<div class="payment_operation">买家已付款</div>
 				{{else if item.status == 'SHIPPED'}}
-				<div class="payment_operation">已发货</div>
+				<div class="payment_operation">卖家已发货</div>
 				{{else if item.status == 'RECEIVED'}}
-				<div class="payment_operation">已收货</div>
+				<div class="payment_operation">交易成功</div>
 				{{else if item.status == 'COMPLETED'}}
-				<div class="payment_operation">已完成</div>
+				<div class="payment_operation">交易成功</div>
 				{{else if item.status == 'FAILED'}}
-				<div class="payment_operation">已失败</div>
+				<div class="payment_operation">关闭交易</div>
 				{{else if item.status == 'CANCELED'}}
-				<div class="payment_operation">已取消</div>
+				<div class="payment_operation">关闭交易</div>
 				{{else if item.status == 'DENIED'}}
-				<div class="payment_operation">已拒绝</div>
+				<div class="payment_operation">关闭交易</div>
 				{{/if}}
 			</div>
 			<div class="main_product_details" data-sn="{{item.sn}}">
@@ -189,7 +189,9 @@
 					<div class="product_details_center">
 						<div class="title"><span>{{orderItem.name}}</span></div>
 						<div class="pack">
+							{{if orderItem.sku != null}}
 							{{orderItem.sku.specifications}}（库存{{orderItem.sku.stock}}件）
+							{{/if}}
 						</div>
 						<div class="total_prices">
 							<div class="price_yuan" >
@@ -220,16 +222,19 @@
 
 					<!-- 卖家已发货 -->
 					{{else if item.status == 'SHIPPED'}}
-					<div class="check_logistics" onclick='getTransitSteps("{{item.sn}}")'>查看物流</div>
-					<div class="shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
 					<div class="confirm_receipt" onclick='confirmReceipt("{{item.sn}}")'>确认收货</div>
+					<div class="shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
+					<div class="check_logistics" onclick='getTransitSteps("{{item.sn}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
 
 					<!-- 交易成功 -->
 					{{else if item.status == 'COMPLETED' || item.status == 'RECEIVED'}}
-					<div class="win_check_logistics" onclick='getTransitSteps("{{item.sn}}")'>查看物流</div>
+					{{if !item.isReviewed}}	
+						<div class="win_evaluate" onclick='review("{{item.sn}}")'>评价</div>   <!-- 交易成功后评价后-评价按钮隐藏 -->
+					{{/if}}	
+				  
 					<div class="win_shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
-					<div class="win_evaluate" >评价</div>   <!-- 交易成功后评价后-评价按钮隐藏 -->
-					
+					<div class="win_check_logistics" onclick='getTransitSteps("{{item.sn}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
+
 					<!-- 交易关闭 -->
 					{{else if item.status == 'CANCELED' || item.status == 'FAILED' || item.status == 'DENIED'}}
 					<div class="delete_order" data-id="{{item.id}}">删除订单</div>

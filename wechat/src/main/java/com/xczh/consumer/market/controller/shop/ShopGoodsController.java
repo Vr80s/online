@@ -135,7 +135,7 @@ public class ShopGoodsController {
         pageSize = pageSize == null ? 10 : pageSize;
     	
         return ResponseObject.newSuccessResponseObject(medicalDoctorPostsService.
-        		getProductPostsByProductId(productId, pageNumber, pageSize));
+        		getProductPostsByProductIdAndDoctorId(productId,null,pageNumber, pageSize));
     }
     
     @RequestMapping("addReview")

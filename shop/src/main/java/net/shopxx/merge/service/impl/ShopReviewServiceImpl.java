@@ -111,6 +111,8 @@ public class ShopReviewServiceImpl implements ShopReviewService {
 					    		+usersRelation.getIpandatcmUserId(), oeUserVO,CacheService.ONE_DAY);
 					}
 					usersVO.setHeadPhoto(oeUserVO.getSmallHeadPhoto());
+					usersVO.setName(oeUserVO.getName());
+					usersVO.setUsername(oeUserVO.getName());
 				}else {
 					usersVO.setHeadPhoto(defaultHead);
 				}

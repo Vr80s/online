@@ -52,13 +52,13 @@
 			<div class="win ongoing">
 				<img src="/xcview/images/shop/win.png" alt="" />等待支付完成
 			</div>
-			<div class="win finished">
+			<div class="win finished" style="width: 2.1rem;">
 				<img src="/xcview/images/shop/win.png" alt="" />支付成功
 			</div>
 			<div class="actual_payment finished">实付款<span class="amount"></span></div>
 			<div class="button">
 				<div class="index" onclick="location.href ='/xcview/html/shop/shop.html'">商城首页</div>
-				<div class="details" onclick="location.href ='/xcview/html/shop/order_center.html'">订单列表</div>
+				<div class="details" onclick="gotoLineItem()">订单详情</div>
 			</div>
 		</div>
 
@@ -98,6 +98,11 @@
             checkIsPaySuccess();
         }
     }, 3000);
+    
+    function gotoLineItem(){
+    	location.href ='/xcview/html/shop/line_item.html?sn='+sn;
+    }
+    
 </script>
 
 </html>

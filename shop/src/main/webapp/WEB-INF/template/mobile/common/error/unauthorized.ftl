@@ -7,7 +7,7 @@
 	<meta name="format-detection" content="telephone=no">
 	<meta name="author" content="SHOP++ Team">
 	<meta name="copyright" content="SHOP++">
-	<title>${message("common.error.unauthorized")}[#if showPowered] - Powered By SHOP++[/#if]</title>
+	<title>${message("common.error.unauthorized")}</title>
 	<link href="${base}/favicon.ico" rel="icon">
 	<link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/base.css" rel="stylesheet">

@@ -7,7 +7,7 @@
 	<meta name="format-detection" content="telephone=no">
 	<meta name="author" content="SHOP++ Team">
 	<meta name="copyright" content="SHOP++">
-	<title>${message("shop.socialUserLogin.signIn")}[#if showPowered] - Powered By SHOP++[/#if]</title>
+	<title>${message("shop.socialUserLogin.signIn")}</title>
 	<link href="${base}/favicon.ico" rel="icon">
 	<!--[if lt IE 9]>
 		<script src="${base}/resources/common/js/html5shiv.js"></script>

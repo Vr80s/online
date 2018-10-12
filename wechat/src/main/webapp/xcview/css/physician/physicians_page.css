@@ -1500,14 +1500,15 @@ p{
 }
 .article_nav_cen_size{
 	font-size: 0.26rem;
-	color: #333333;
-	float: left;
-	width: 4.29rem;
-	display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    color: #333333;
+    float: left;
+    width: 4.29rem;
+    display: -webkit-box; 
+    -webkit-box-orient: vertical; 
+    -webkit-line-clamp: 2; 
     overflow: hidden;
     margin-top: 0.1rem;
+    
 }
 .article_nav_cen_sizes{
 	font-size: 0.26rem;

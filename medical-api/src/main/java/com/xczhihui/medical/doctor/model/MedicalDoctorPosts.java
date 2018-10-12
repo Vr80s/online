@@ -251,6 +251,11 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
      */
     @TableField(exist = false)
     private Boolean productIsMarketable;
+    /**
+     * 详情地址
+     */
+    @TableField(exist = false)
+    private String detailsUrl;
 
     @Override
     protected Serializable pkVal() {
@@ -616,6 +621,14 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
 
     public void setProductImages(String productImages) {
         this.productImages = productImages;
+    }
+
+    public String getDetailsUrl() {
+        return detailsUrl;
+    }
+
+    public void setDetailsUrl(String detailsUrl) {
+        this.detailsUrl = detailsUrl;
     }
 
     @Override

@@ -35,7 +35,8 @@
 <style>
 	/*处理刷新*/
 	.minirefresh-wrap{
-		width: 7.6rem;
+		/*width: 7.6rem;*/
+		width: 7.5rem;
 		top: 4.8rem !important;
 	}
 	.minirefresh-theme-default .minirefresh-downwrap{
@@ -62,6 +63,34 @@
 	.product_list{
 		background: #F0F0F0;
     	overflow: hidden;
+	}
+	.footer{
+		z-index: 1;
+	}
+	.minirefresh-totop{
+		z-index: 2;
+	}
+	.shopping_carts{
+		width: .8rem;
+		height: .8rem;
+		position: fixed;
+		bottom: 2rem;
+		right: .26rem;
+		z-index: 9999;
+	}
+	.shopping_carts img{
+		width: .8rem;
+		height: .8rem;
+	}
+	.shopping_carts span{
+		position: absolute;
+	    top: .35rem;
+	    font-size: .22rem;
+	    color: #FFFFFF;
+	    background: #F97215;
+	    right: 0;
+	    border-radius: 100px;
+	    padding: .01rem .04rem;
 	}
 </style>
 </head>
@@ -154,7 +183,7 @@
 					{{/if}}
 
 					<div class="title">{{item.name}}</div>
-					<div class="price">￥{{item.price}}</div>
+					<div class="price">￥<span>{{item.price}}</span></div>
 					<div class="referrer">
 						
 
@@ -162,7 +191,7 @@
 						<img src="{{item.doctor.avatar}}" alt="" />
 						<span>{{item.doctor.name}}医师 推荐</span>
 						{{else}}
-						<img src="/xcview/images/touxiang.png" alt="" />
+						<img src="/xcview/images/regards.png" alt="" />
 						<span>医师 推荐</span>
 						{{/if}}
 
@@ -210,6 +239,12 @@
 		</ul>
 	</div>
 	<!-- 底部结束 -->
+	
+	<!--购物车-->
+	<div class="shopping_carts">
+		<img src="/xcview/images/shop/shopping_carts.png" />
+		<span></span>
+	</div>
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>

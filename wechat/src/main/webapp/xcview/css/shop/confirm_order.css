@@ -74,8 +74,9 @@ header{
 .select_address_main{
 	width: 7.5rem;
 	min-height: 1rem;
-	background: url(/xcview/images/shop/confirm_orders.png) bottom;
-    background-repeat-y: no-repeat;
+	/*background: url(/xcview/images/shop/confirm_orders.png) bottom;*/
+	background: url(/xcview/images/shop/confirm_orders.png) bottom no-repeat;
+    /*background-repeat-y: no-repeat;*/
     /*background-size: .89rem .11rem;*/
     padding: .3rem 0;
 }

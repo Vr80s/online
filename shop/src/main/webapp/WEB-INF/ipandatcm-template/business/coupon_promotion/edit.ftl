@@ -7,7 +7,7 @@
 	<meta name="format-detection" content="telephone=no">
 	<meta name="author" content="SHOP++ Team">
 	<meta name="copyright" content="SHOP++">
-	<title>${message("business.couponPromotionPlugin.edit")} - Powered By SHOP++</title>
+	<title>${message("business.couponPromotionPlugin.edit")}</title>
 	<link href="${base}/favicon.ico" rel="icon">
 	<link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">

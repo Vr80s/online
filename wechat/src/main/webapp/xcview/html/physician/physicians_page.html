@@ -402,7 +402,6 @@
 	.opens{
 		font-size: 0.28rem;
 	}
-
 	.swiper-pagination-bullet{
 		border: none !important;
 	    width: 0.22rem !important;
@@ -447,6 +446,31 @@
 	    width: 100%;
 	    color: #999;
 	    display: none;
+	}
+	.nature_made{
+		font-size: .24rem;
+	    color: #999999;
+	    margin-left: .26rem;
+	    margin-bottom: .2rem;
+	}
+	.nature_made img{
+		width: 1.62rem;
+    	height: .24rem;
+    	vertical-align:middle;
+	}
+	.buy_goods{
+		font-size: .24rem;
+	    color: #F97215;
+	    /* width: 1rem; */
+	    border: 1px solid #f97215;
+	    width: 1rem;
+	    float: right;
+	    text-align: center;
+	    height: .5rem;
+	    line-height: .5rem;
+	    border-radius: 100px;
+	    margin-right: .2rem;
+	    margin-top: -.28rem;
 	}
 </style>
 
@@ -675,13 +699,29 @@
 				{{else if item.type == 6}}
 				<!-- 商品-->
 				<div class="article_hide" data-id="{{item.productId}}" data-status="{{item.articleStatus}}"  style="margin-top: 0;">
+					<div class="nature_made">
+						医师推荐
+						{{if item.level == 1}}
+						<img src="/xcview/images/xing1_0.png" alt="" class="xingxing" />
+						{{else if item.level == 2}}
+						<img src="/xcview/images/xing2.png" alt="" class="xingxing" />
+						{{else if item.level == 3}}
+						<img src="/xcview/images/xing3.png" alt="" class="xingxing" />
+						{{else if item.level == 4}}
+						<img src="/xcview/images/xing4_0.png" alt="" class="xingxing" />
+						{{else if item.level == 5}}
+						<img src="/xcview/images/xing5.png" alt="" class="xingxing" />
+						{{/if}}
+					</div>
 					<div class="article_nav_span comment_hide " style="overflow: hidden; ">{{if item.stick}}<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>{{/if}}<span class="title show-text">{{item.content}}</span><div class="both"></div>
 					</div>
 
 					{{if item.productIsMarketable}}
 					<div class="article_nav_cen comment_hide">
 						<img src="{{item.productImages}}?imageMogr2/thumbnail/!249x140r|imageMogr2/gravity/Center/crop/249x140" alt="" />
-						<div class="article_nav_cen_size">{{item.productTitle}}</div>
+						<div class="article_nav_cen_size" style="width: 3.29rem;-webkit-line-clamp: 1;">{{item.productTitle}}</div>
+						<div class="" style="font-size: .26rem;color: #F97215;float: left;width: 2rem;margin-top: 0.1rem;">￥{{item.productPrice}}</div>
+						<div class="buy_goods" data-productId={{item.productId}}>购买</div>
 					</div>
 					{{else}}
 					<div style="font-size: 0.26rem;width: 6.98rem;height: 0.57rem;line-height: 0.57rem;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <shopxx>
-	<setting name="siteName" value="SHOP++商城" />
+	<setting name="siteName" value="商城" />
 	<!--暂时改为根目录地址-->
 	<setting name="siteUrl" value="/" />
 	<setting name="logo" value="/upload/image/logos.png" />

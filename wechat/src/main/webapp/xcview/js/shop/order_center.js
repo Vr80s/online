@@ -114,6 +114,8 @@ function confirmReceipt(orderSn) {
     }, function (data) {
         if(data.success ){
             orderList(1,"down");
+        }else{
+        	jqtoast(data.errorMessage);
         }
     });
 }
@@ -147,6 +149,13 @@ function addCart(skuId,quantity) {
     },false);
 }
 
+//  点击评价
+$(".orderDetails").on('click','.win_evaluate',function(){
+	
+})
+function review(sn){
+	location.href="/xcview/html/shop/shop-commentary.html?sn="+sn;
+}
 
 //刷新
 // 初始化页码

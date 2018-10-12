@@ -25,19 +25,22 @@ function listData(pageNumber, downOrUp,orderType,keyWord){
             var obj = data.resultObject;
             /*$(".product_list").html(template('product_list',{items: obj}));*/
             
-            if(downOrUp=='down'){
-	            // 评价列表
+            if(downOrUp=='down' && obj!=null && obj.length<=0){
+				$(".main_center").hide();
+				//TODO  这里搞个默认图片            	
+//          	$(".product_list").html("额,没有商品哎~"); 
+				$(".no_class").show();
+            	
+	        }else if(downOrUp=='down' && obj!=null && obj.length>0){
 	            $(".product_list").html(template('product_list',{items: obj}));
-	            miniRefresh.endDownLoading(true);// 结束下拉刷新
-	        } else if(obj==null){
+	        	miniRefresh.endDownLoading(true);// 结束下拉刷新
+	        } else if(downOrUp=='up' && obj!=null && obj.length<=0){
 	            miniRefresh.endUpLoading(true);// 结束上拉加载
-	        } else {
+	        } else if(downOrUp=='up' && obj!=null && obj.length>0){
 //	           	$(".recommends").append(template('shop_recommend', {items: obj}));
 	           	$(".product_list").append(template('product_list',{items: obj}));
 	            miniRefresh.endUpLoading(false);
 	        }
-	        
-	        
         }
     });
 }
@@ -71,7 +74,7 @@ var miniRefresh = new MiniRefresh({
         //isLock: true,//是否禁用下拉刷新
         callback: function () {
             page = 1;
-            listData(page,'down');
+            //listData(page,'down');
 
 		    refurbish(page,'down');          
         }
@@ -80,7 +83,7 @@ var miniRefresh = new MiniRefresh({
         isAuto: false,
         callback: function () {
             page++;
-            listData(page,'up');
+            //listData(page,'up');
             
             refurbish(page,'up');
         }

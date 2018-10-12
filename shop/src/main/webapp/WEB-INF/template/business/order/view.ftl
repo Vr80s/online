@@ -7,7 +7,7 @@
 	<meta name="format-detection" content="telephone=no">
 	<meta name="author" content="SHOP++ Team">
 	<meta name="copyright" content="SHOP++">
-	<title>${message("business.order.view")} - Powered By SHOP++</title>
+	<title>${message("business.order.view")}</title>
 	<link href="${base}/favicon.ico" rel="icon">
 	<link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">
 	<link href="${base}/resources/common/css/iconfont.css" rel="stylesheet">
@@ -644,7 +644,7 @@
 										</div>
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
-												<label class="col-xs-4 control-label" for="shippingTrackingNo">${message("OrderShipping.trackingNo")}:</label>
+												<label class="col-xs-4 control-label item-required" for="shippingTrackingNo">${message("OrderShipping.trackingNo")}:</label>
 												<div class="col-xs-8">
 													<input id="shippingTrackingNo" name="trackingNo" class="form-control" type="text" maxlength="200">
 												</div>

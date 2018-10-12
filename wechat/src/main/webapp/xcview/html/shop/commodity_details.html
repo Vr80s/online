@@ -55,6 +55,13 @@
 	.spinner input{
 		color: #333 !important;
 	}
+	.it_over{
+		font-size: .24rem;
+		text-align: center;
+		color: #868080;
+		margin-bottom: .2rem;
+		display: none;
+	}
 </style>
 </head>
 <body>
@@ -62,7 +69,7 @@
 	<header>
 		<div class="header" id="header">
 			<!--<img src="/xcview/images/salon_return.png" alt="" class="return" onclick="location.href ='/xcview/html/shop/shop.html'" />-->
-			<img src="/xcview/images/salon_return.png" alt="" class="return" onclick="common_share_backs()" />
+			<img src="/xcview/images/salon_return.png" alt="" class="return" onclick="common_share_backs('/xcview/html/shop/shop.html')" />
 			<div class="header_tab">
 				<ul>
 					<li class="tba_intro li_btn" data-to="li_btn0"><a href="javascript:void(0)">简介</a><div class="border_a"></li>
@@ -149,7 +156,9 @@
 			</div>
 			<div class="price">
 				<span class="ruling_price">￥{{items.price}}</span>
-				<span class="original_price">￥{{items.marketprice}}</span>
+				{{if items.marketprice > items.price}}
+					<span class="original_price">￥{{items.marketprice}}</span>
+				{{/if}}
 				<span class="sold_out">已售{{items.sales}}件</span>
 				<div class="both"></div>
 			</div>
@@ -319,6 +328,7 @@
 		</div>
 	</div>
 	<!-- 商品详情结束 -->
+	<div class="it_over">已经到底了</div>
 
 	<!-- 常见问题开始 -->
 	<!-- <div class="FAQ">
@@ -392,8 +402,9 @@
 					<script type="text/html" id="category">
 					<span class="choice">选择</span>
 					{{each item as items i}}
+						<span class="specification_name"  title="{{items.name}}">{{items.name}}</span>	
   						{{each items.entries as itemss i}}
-						   <span class=" specification hide"  title="{{items.name}}" data-id="{{itemss.id}}" >{{itemss.value}}</span>
+						   <span class="specification hide"  title="{{items.name}}" data-id="{{itemss.id}}" >{{itemss.value}}</span>
 						{{/each}}
 					{{/each}}
 					</script>
@@ -421,13 +432,14 @@
 						<li class="hue include">黄色</li>
 					</ul>
 				</div> -->
+				<div class="buy">
+					<div class="purchase_quantity">购买数量</div>
+					<center>
+						<input type="text" class="spinnerExample"/>
+					</center>
+				</div>
 				<div class="bottom_fiexd">
-					<div class="buy">
-						<div class="purchase_quantity">购买数量</div>
-						<center>
-							<input type="text" class="spinnerExample"/>
-						</center>
-					</div>
+					
 					<div class="determine">确定</div>
 				</div>
 			</div>
@@ -505,22 +517,43 @@
     // 点击加入购物车
     $('.add_cart').click(function(){
         shoppingFlag = 1;
+        emptySpecification();
         $('.shopping_trolley').show();
     });
     // 点击立即购买
     $('.buy_now').click(function(){
         shoppingFlag = 2;
+        emptySpecification();
         $('.shopping_trolley').show();
     });
+    
+    //清空选中的项
+    function emptySpecification(){
+       
+    	$(".choice").html("选择");
+    	
+    	if(specificationsResutl!=null && specificationsResutl.length>0){
+    		currentSku = null;
+        	$(".shopping_trolley_center .determine").css("background","#aaaaaa");
+    	}
+        
+    	$('.specifications_ul .casing').removeClass('public');
+        $(".specification").removeClass("showfalg");
+        $(".specification").addClass("hide");
+        $(".specification_name").removeClass("hide");
+    }
+    
+    
 	//选择商品后，点击确定
     $('.determine').click(function () {
         var skuId = 10001;
         var quantity = 1;
         var flag = false;
         
+        
 
         //当前库存不足
-        if(currentSku.isOutOfStock){
+        if(currentSku==null || currentSku.isOutOfStock){
         	return;
         }
         //库存id
@@ -551,6 +584,9 @@
 					
 					var preNumber = $(".shopping_quantity").html();
 					totalQuantity = Number(cartQuantity) + Number(preNumber);
+					if(totalQuantity>0){
+						$(".shopping_quantity").show();
+					}
                     $('.shopping_quantity').html(totalQuantity);
                     jqtoast("已加入购物车");
 				}
@@ -599,6 +635,11 @@
             return false;
         }
     });
+    
+    setTimeout(function(){
+    	$(".it_over").show();
+    }, 2000);
+    
 </script>
 
 <!-- 简介、评价、详情固定头部区域 -->

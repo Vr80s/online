@@ -105,6 +105,6 @@ public interface IMedicalDoctorPostsService {
 	 * @param pageSize
 	 * @return  
 	 */ 
-    Set<Map<String,Object>> getProductPostsByProductId(Long productId, Integer pageNumber, Integer pageSize);
+    List<Map<String,Object>> getProductPostsByProductIdAndDoctorId(Long productId,String doctorId, Integer pageNumber, Integer pageSize);
 
 }

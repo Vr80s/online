@@ -8,7 +8,11 @@ import java.util.Map;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.utils.ResponseObject;
@@ -53,11 +57,11 @@ public class ShopOrderController {
 
     @RequestMapping("checkout")
     public ResponseObject checkout(@Account String accountId, Long skuId,
-                                   Integer quantity, String cartItemIds) {
+                                   Integer quantity, String cartItemIds, Long shippingMethodId) {
 
         LOGGER.info("accountId:" + accountId + ",skuId:" + skuId + ",quantity:" + quantity + ",cartItemIds:" + cartItemIds);
 
-        Map<String, Object> map = orderOperService.checkout(skuId, quantity, cartItemIds, accountId);
+        Map<String, Object> map = orderOperService.checkout(skuId, quantity, cartItemIds, accountId, shippingMethodId);
         return ResponseObject.newSuccessResponseObject(map);
     }
 
@@ -164,7 +168,6 @@ public class ShopOrderController {
     @RequestMapping(value = "/order/detail", method = RequestMethod.GET)
     public ResponseObject detail(@RequestParam String sn) {
         OrderVO order = orderOperService.findBySn(sn);
-        order.setPreferentialAmount(order.getPromotionDiscount().add(order.getCouponDiscount()));
         /*String doctorId = order.getDoctorId();
         if(doctorId != null){
             MedicalDoctorVO medicalDoctor = iMedicalDoctorBusinessService.findSimpleById(doctorId);

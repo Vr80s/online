@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Controller - 商家中心
- * 
+ *
  * @author SHOP++ Team
  * @version 6.1
  */
@@ -20,12 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/business/index")
 public class IndexController extends BaseController {
 
-	/**
-	 * 首页
-	 */
-	@GetMapping
-	public String index() {
-		return "/business/index";
-	}
-
+    /**
+     * 首页
+     */
+    @GetMapping
+    public String index() {
+        return "/business/index";
+    }
 }

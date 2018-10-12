@@ -2,6 +2,7 @@
 
 var productId = getQueryString("productId");
 var currentSku = null;
+var specificationsResutl  = [];
 requestGetService("/xczh/shop/goods/details",{
     productId:productId
 },function (data) {
@@ -38,7 +39,7 @@ requestGetService("/xczh/shop/goods/details",{
 
         // 评价
 //      if (obj.posts !=null) {
-        if (obj.posts.length>0) {
+        if (isNotBlank(obj.reviewvs)) {
             $(".evaluate").show();
             $(".evaluate_main").html(template('evaluate_main', {items: obj.reviewvs}));
             $(".no_evaluation").hide();
@@ -55,48 +56,26 @@ requestGetService("/xczh/shop/goods/details",{
             $(".commodity_details").show();
             $(".commodity_details_center").html(obj.introduction);
         };
+        
+//      选择空--无规格
+		if (data.resultObject.specificationItemvs == null) {
+			$(".specifications").hide();
+			$(".category").hide();
+		}
 
         // 点击加入购物车-封面图
         $(".message").html(template('message', {items: obj}));
         // 选择规格
         
-        
+        specificationsResutl =  obj.specificationItemvs;
         $(".specifications").html(template('specifications', {item: obj.specificationItemvs}));
-       
-        // $(".specificationsss").html(template('specificationsss', {item: obj.specificationItemvs}));
         
         $(".category").html(template('category', {item: obj.specificationItemvs}));
         
 
-        // 点击规格
-        /*var aBtn=$('.specifications_ul .casing');
-        for(i=0;i<aBtn.length;i++){
-            $(aBtn[i]).click(function(){
-                var specification = document.querySelector(".specification");  //规格
-                specification.style.display="none";
-                // 判断显示已选择
-                if ($(".include").hasClass("public")) {
-                    $(".kind").show();
-                    $(".specification").show();
-                    $(".choice").html("已选择");
-                };
-                for(i=0;i<aBtn.length;i++){
-                    $(aBtn[i]).siblings().removeClass('public');
-                }
-                $(this).addClass('public');
-                // var detaId = $(this).attr("data-id");
-                alert(detaId);
-                var publicHtml = $(this).html();
-                $(".specification").html(publicHtml);
-            })
-        };*/
-
-       
-
         var skus = obj.skuVOs;
         var specificationIds = [];
         var defaultSkus = {};
-        //var skuData = [];
         
         for (var i = 0; i < skus.length; i++) {
         	if(skus[i].isDefault){
@@ -120,7 +99,7 @@ requestGetService("/xczh/shop/goods/details",{
         		 $(".information .repertory").html("该商品库存不足");
         		 $(".shopping_trolley_center .determine").css("background","#aaaaaa");
         	}else{
-        		 $(".information .repertory").html("库存"+defaultSkus.stock+"件");
+        		 $(".information .repertory").html("库存"+defaultSkus.availableStock+"件");
         		 $(".shopping_trolley_center .determine").css("background","#F97215");
         	}
          	$(".information .price").html("￥"+defaultSkus.price);
@@ -128,23 +107,23 @@ requestGetService("/xczh/shop/goods/details",{
         }
         
 		//默认选中
-        $(".specification").each(function(index,obj){
-        	 var dataId = $(obj).attr("data-id");
-        	 for (var i = 0; i < specificationIds.length; i++) {
-	        	 if(dataId == specificationIds[i]){
-	        	 	$(obj).removeClass("hide");
-	        	 }
-        	 }
-        })
+//        $(".specification").each(function(index,obj){
+//        	 var dataId = $(obj).attr("data-id");
+//        	 for (var i = 0; i < specificationIds.length; i++) {
+//	        	 if(dataId == specificationIds[i]){
+//	        	 	$(obj).removeClass("hide");
+//	        	 }
+//        	 }
+//        })
         
-        $('.specifications_ul .casing').each(function(index,obj){
-        	 var dataId = $(obj).attr("data-id");
-        	 for (var i = 0; i < specificationIds.length; i++) {
-	        	 if(dataId == specificationIds[i]){
-	        	 	$(obj).addClass("public");
-	        	 }
-        	 }
-        })
+//        $('.specifications_ul .casing').each(function(index,obj){
+//        	 var dataId = $(obj).attr("data-id");
+//        	 for (var i = 0; i < specificationIds.length; i++) {
+//	        	 if(dataId == specificationIds[i]){
+//	        	 	$(obj).addClass("public");
+//	        	 }
+//        	 }
+//        })
         
 //     	 点击规格li
          $('.specifications_ul .casing').click(function(){
@@ -152,47 +131,67 @@ requestGetService("/xczh/shop/goods/details",{
             if ($(".include").hasClass("public")) {
                 $(".kind").show();
                 $(".specification").show();
-                $(".choice").html("已选择");
             };
             $(this).addClass('public');
             $(this).siblings().removeClass('public');
             
             $(".specification").addClass("hide");
+            $(".specification").removeClass("showfalg");
             
             var lalala = [];
             $('.specifications_ul .casing[class*="public"]').each(function(index,obj){
+            	 
             	 var dataId = $(obj).attr("data-id");
             	 $(".specification").each(function(index,objs){
             	 	 var dataIds = $(objs).attr("data-id");
+            	 	 var dataName = $(objs).attr("title");
 		        	 if(dataId == dataIds){
-		        	 	$(objs).removeClass("hide");
-						
+		        	 	$(objs).addClass("showfalg");
 		        	 	lalala.push(dataIds);
+		        	 	 $(".specification_name").each(function(index,obj){
+		        	 		var title = $(obj).attr("title");
+		        	 		if(dataName == title){
+		        	 			$(obj).addClass("hide");
+		        	 		}
+		        	 	})
 		        	 }
 		        })
             })
             
-            if(lalala!=null){
-             	lalala.sort();
-            }
-            
-            for (var i = 0; i < skus.length; i++) {
-            	if(skus[i].specificationIdsStr == lalala.join(",")){
-            		currentSku = skus[i];
-            	}
-            }
-            
-            if(currentSku!=null){
-            	if(currentSku.isOutOfStock){
-	        		 $(".information .repertory").html("该商品库存不足");
-	        		 $(".shopping_trolley_center .determine").css("background","#aaaaaa");
-	        	}else{
-	        		 $(".information .repertory").html("库存"+currentSku.stock+"件");
-	        		  $(".shopping_trolley_center .determine").css("background","#F97215");
+		    var specificationNames = $(".specification_name[class*='hide']");
+    	 	if(specificationNames!=null
+    	 		    && specificationNames.length == specificationsResutl.length){
+    	 			
+    	 		 $(".shopping_trolley_center .determine").css("background","#F97215");   	
+    	 		 $(".showfalg").removeClass("hide");
+    	 		 $(".choice").html("已选择");
+    	 		 
+    	 		 
+	 		    if(lalala!=null){
+	             	lalala.sort();
+	            }
+	            
+	            for (var i = 0; i < skus.length; i++) {
+	            	if(skus[i].specificationIdsStr == lalala.join(",")){
+	            		currentSku = skus[i];
+	            	}
+	            }
+	            
+	            if(currentSku!=null){
+	            	if(currentSku.isOutOfStock){
+		        		 $(".information .repertory").html("该商品库存不足");
+		        		 $(".shopping_trolley_center .determine").css("background","#aaaaaa");
+		        	}else{
+		        		 $(".information .repertory").html("库存"+currentSku.availableStock+"件");
+		        		  $(".shopping_trolley_center .determine").css("background","#F97215");
+		        	}
+		         	$(".information .price").html("￥"+currentSku.price);
+		       	    
 	        	}
-	         	$(".information .price").html("￥"+currentSku.price);
-	       	    
-        	}
+    	 	}else{
+    	 		$(".shopping_trolley_center .determine").css("background","#aaaaaa");
+    	 	}
+            
         });
         
     }
@@ -221,7 +220,7 @@ requestGetService("/xczh/shop/cart/quantity",null,function (data) {
     	
 //  	$(".shopping_quantity").html(quantity);
        
-        if(quantity == null){
+        if(quantity == null || quantity == 0){
        		$(".shopping_quantity").hide();
         }else{
        		$(".shopping_quantity").html(quantity);	
