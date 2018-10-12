@@ -490,13 +490,15 @@ public class OrderOperServiceImpl implements OrderOperService {
 				orderItemVO.setId(orderItem.getId());
 				//获取库存
 				SkuVO sku = new SkuVO();
-				List<String> specification = orderItem.getSku().getSpecifications();
-				if(specification.size()>0){
-					String citiesCommaSeparated = String.join(";", specification);
-					sku.setSpecifications(citiesCommaSeparated);
+				if(orderItem.getSku() != null){
+					List<String> specification = orderItem.getSku().getSpecifications();
+					if(specification.size()>0){
+						String citiesCommaSeparated = String.join(";", specification);
+						sku.setSpecifications(citiesCommaSeparated);
+					}
+					BeanUtils.copyProperties(orderItem.getSku(),sku);
+					sku.setId(orderItem.getSku().getId());
 				}
-				BeanUtils.copyProperties(orderItem.getSku(),sku);
-				sku.setId(orderItem.getSku().getId());
 				orderItemVO.setSku(sku);
 				orderItemVOList.add(orderItemVO);
 			}

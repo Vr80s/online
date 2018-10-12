@@ -175,24 +175,24 @@
 					
 					<!-- 买家已付款 -->
 					{{else if status == 'PENDING_REVIEW' || status == 'PENDING_SHIPMENT'}}
-					<div class="buy_again" onclick='againBuy("{{item.sn}}")'>再次购买</div>
+					<div class="buy_again" onclick='againBuy("{{sn}}")'>再次购买</div>
 
 					<!-- 卖家已发货 -->
 					{{else if status == 'SHIPPED'}}
 					<div class="check_logistics" onclick='getTransitSteps("{{sn}}")'>查看物流</div>
-					<div class="shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
+					<div class="shipped_cancel_order" onclick='againBuy("{{sn}}")'>再次购买</div>
 					<div class="confirm_receipt" onclick='confirmReceipt("{{sn}}")'>确认收货</div>
 
 					<!-- 交易成功 -->
 					{{else if status == 'COMPLETED'  || status == 'RECEIVED'}}
 					<div class="win_check_logistics" onclick='getTransitSteps("{{sn}}")'>查看物流</div>
-					<div class="win_shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
+					<div class="win_shipped_cancel_order" onclick='againBuy("{{sn}}")'>再次购买</div>
 					<div class="win_evaluate">评价</div>   <!-- 交易成功后评价后-评价按钮隐藏 -->
 					
 					<!-- 交易关闭 -->
 					{{else if status == 'CANCELED' || status == 'FAILED' || status == 'DENIED'}}
 					<div class="delete_order" data-id="{{id}}">删除订单</div>
-					<div class="fack_shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
+					<div class="fack_shipped_cancel_order" onclick='againBuy("{{sn}}")'>再次购买</div>
 					{{/if}}
 				</div>
 			</div>
