@@ -70,10 +70,42 @@
 		overflow: hidden;
 		background:#f0f0f0;
 	}
+	/*.product_lists{
+		width: 100%;
+	    text-align: center;
+	    font-size: .3rem;
+	    margin-top: 4rem;
+	    color: #9f9b9b;
+	}*/
+	.no_class {
+	    /* margin-top: -6.5rem; */
+	    position: fixed;
+	    top: 50%;
+	    left: 50%;
+	    margin-top: -8rem;
+	    z-index: -1;
+	    width: 5rem;
+	    height: 3.5rem;
+	    /* background: red; */
+	    margin-top: -2.5rem;
+	    margin-left: -2.5rem;
+	    display: none;
+	}
+	.no_class img {
+	    width: 2.1rem;
+	    margin: 0 auto;
+    	display: block;
+	}
+	.no_class p {
+	    color: #999;
+	    font-size: 0.28rem;
+	    text-align: center;
+	    padding: 0.5rem 0;
+	}
 </style>
 </head>
 
-<body>
+<body style="background: rgb(248, 248, 248);">
 	<!-- 头部区域开始 -->
 	<header>
 		<div class="return" onclick="location.href ='/xcview/html/shop/shop.html'">
@@ -155,6 +187,9 @@
 		</div>
 		<!--<div class=""></div>-->
 	</div>
+	
+	<!--默认图-->
+	<div class="no_class"><img src="/xcview/images/no_class.png"><p>额,没有商品哎~</p></div>
 	<!-- 中间内容结束 -->
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
