@@ -80,7 +80,10 @@ requestGetService("/xczh/shop/goods/details",{
 },function (data) {
     if (data.success == true) {
         var obj = data.resultObject;
-
+		if (data.resultObject.specificationItemvs == null) {
+			$(".specifications").hide();
+			$(".category").hide();
+		}
         // 点击加入购物车-封面图
         $(".message").html(template('message', {items: obj}));
         // 选择规格
