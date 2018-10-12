@@ -220,14 +220,15 @@
 
 					<!-- 卖家已发货 -->
 					{{else if item.status == 'SHIPPED'}}
-					<div class="check_logistics" onclick='getTransitSteps("{{item.sn}}")'>查看物流</div>
-					<div class="shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
 					<div class="confirm_receipt" onclick='confirmReceipt("{{item.sn}}")'>确认收货</div>
+					<div class="shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
+					<div class="check_logistics" onclick='getTransitSteps("{{item.sn}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
 
 					<!-- 交易成功 -->
 					{{else if item.status == 'COMPLETED' || item.status == 'RECEIVED'}}
-					<div class="win_check_logistics" onclick='getTransitSteps("{{item.sn}}")'>查看物流</div>
 					<div class="win_shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
+					<div class="win_check_logistics" onclick='getTransitSteps("{{item.sn}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
+					
 
 					  {{if !item.isReviewed}}	
 						<div class="win_evaluate" onclick='review("{{item.sn}}")'>评价</div>   <!-- 交易成功后评价后-评价按钮隐藏 -->
