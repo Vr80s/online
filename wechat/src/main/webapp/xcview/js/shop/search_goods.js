@@ -1,26 +1,10 @@
 var curriculum_blck = getQueryString("search_back");
 sessionStorage.setItem("search_back", curriculum_blck);
 
-/**
- *
- */
-
-function goto_back() {
-	var back_falg = sessionStorage.getItem("search_back");
-	if (back_falg == 1) {
-		location.href = 'home_page.html';
-	} else if (back_falg == 2) {
-		location.href = 'search_listings.html';
-	}
-}
-
-
 
 $(function() {
 
-
 	//搜索历史开始
-
 	requestService("/xczh/shop/goods/hotSearch", null,
 		function(data) {
 
@@ -49,9 +33,7 @@ $(function() {
 
 				// 点击搜索按钮
 				$(".header_cancel").click(function() {
-
 					if ($(".div_span_input").html() == "" && $("#header_input").val() == "") {
-						// if ($("#header_input").val() == "" && $(".keyword").html() == "") {
 						jqtoast("请输入搜索关键字");
 					} else {
 						var search_val = $("#header_input").val();
@@ -186,15 +168,6 @@ function clearAll() {
 		$(".search_history").hide();
 		arr = [];
 	}
-
-
 }
 
-	/*$("#header_input").click();
-	   	$("#header_input").click(function() {
-			alert(111);
-			$("#header_input").trigger("click").focus();
-			$("#header_input").focus(); 
-		});*/
-//		$("#header_input").focus(); 
 
