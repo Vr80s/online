@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,6 +38,9 @@ public class MedicalDoctorPostsController {
     private IMedicalDoctorPostsService medicalDoctorPostsService;
     @Autowired
     private GoodsService goodsService;
+    @Value("${returnOpenidUri}")
+    private String returnOpenidUri;
+    private static String order_Details_Url = "/xcview/html/shop/line_item.html?sn=";
 
     /**
      * 医师动态列表
@@ -63,6 +67,7 @@ public class MedicalDoctorPostsController {
                      if(p.getProductImages() != null){
                          listMDP.get(i).setProductImages(p.getProductImages().get(0).getThumbnail());
                      }
+                    listMDP.get(i).setDetailsUrl(returnOpenidUri+order_Details_Url+listMDP.get(i).getProductId());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
