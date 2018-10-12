@@ -56,6 +56,12 @@ requestGetService("/xczh/shop/goods/details",{
             $(".commodity_details").show();
             $(".commodity_details_center").html(obj.introduction);
         };
+        
+//      选择空--无规格
+		if (data.resultObject.specificationItemvs == null) {
+			$(".specifications").hide();
+			$(".category").hide();
+		}
 
         // 点击加入购物车-封面图
         $(".message").html(template('message', {items: obj}));

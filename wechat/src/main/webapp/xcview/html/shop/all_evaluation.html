@@ -152,7 +152,7 @@
 			<div class="shopping_trolley_center">
 				<div class="message">
 					<script type="text/html" id="message">
-					<img src="{{items.productImages[0].source}}" alt="" class="surface_plot" />
+					<img src="{{items.picture}}" alt="" class="surface_plot" />
 					
 					<div class="information">
 						<div class="price">￥{{items.sales}}</div>
@@ -169,8 +169,9 @@
 					<script type="text/html" id="category">
 					<span class="choice">选择</span>
 					{{each item as items i}}
+						<span class="specification_name"  title="{{items.name}}">{{items.name}}</span>	
   						{{each items.entries as itemss i}}
-						   <span class="hide specification" title="{{items.name}}" data-id="{{itemss.id}}" >{{itemss.value}}</span>
+						   <span class="specification hide"  title="{{items.name}}" data-id="{{itemss.id}}" >{{itemss.value}}</span>
 						{{/each}}
 					{{/each}}
 					</script>
@@ -198,13 +199,14 @@
 						<li class="hue include">黄色</li>
 					</ul>
 				</div> -->
+				<div class="buy">
+					<div class="purchase_quantity">购买数量</div>
+					<center>
+						<input type="text" class="spinnerExample"/>
+					</center>
+				</div>
 				<div class="bottom_fiexd">
-					<div class="buy">
-						<div class="purchase_quantity">购买数量</div>
-						<center>
-							<input type="text" class="spinnerExample"/>
-						</center>
-					</div>
+					
 					<div class="determine">确定</div>
 				</div>
 			</div>
@@ -231,104 +233,112 @@
 		// 点击数量加减
 		$('.spinnerExample').spinner({});
 		
-		// 点击规格
-		/*var aBtn=$('.specifications_ul .casing');
-	  	for(i=0;i<aBtn.length;i++){
-		    $(aBtn[i]).click(function(){
-		    	var specification = document.querySelector(".specification");  //规格
-				specification.style.display="none";
-				// 判断显示已选择
-		    	if ($(".include").hasClass("public")) {
-					$(".kind").show();
-					$(".specification").show();
-					$(".choice").html("已选择");
-				};
-		    	
-			    for(i=0;i<aBtn.length;i++){
-			        $(aBtn[i]).removeClass('public');
-			    }
-			    $(this).addClass('public');
-
-			    var publicHtml = $(this).html();
-			    $(".specification").html(publicHtml);
-			})
-		};*/
 		// 点击分类
-		/*var aBtnHue=$('.classify_ul .hue');
-	  	for(i=0;i<aBtnHue.length;i++){
-		    $(aBtnHue[i]).click(function(){
-		    	var kind = document.querySelector(".kind");  //分类
-				kind.style.display="none";
-				// 判断显示已选择
-		    	if ($(".include").hasClass("public")) {
-					$(".kind").show();
-					$(".specification").show();
-					$(".choice").html("已选择");
-				};
-		    	
-			    for(i=0;i<aBtnHue.length;i++){
-			        $(aBtnHue[i]).removeClass('public');
-			    }
-			    $(this).addClass('public');
-			    var publicHtml = $(this).html();
-			    $(".kind").html(publicHtml);
-			})
-		}*/
-		
-		//1.选择商品放入购物车，2.选择商品立即购买.默认立即购买
-		var shoppingFlag = 2;
-	    // 点击加入购物车
-	    $('.add_cart').click(function(){
-	        shoppingFlag = 1;
-	        $('.shopping_trolley').show();
-	    });
-	    // 点击立即购买
-	    $('.buy_now').click(function(){
-	        shoppingFlag = 2;
-	        $('.shopping_trolley').show();
-	    });
-		//选择商品后，点击确定
-	    $('.determine').click(function () {
-	        var skuId = 10001;
-	        var quantity = 1;
-	        var flag = false;
-	        
-	        //库存id
-	        skuId =  currentSku.id;
-	        //数量
-	        quantity = $(".spinnerExample").val();
-	        
-	        requestGetService("/xczh/shop/checkout?skuId="+skuId+"&quantity="+quantity,null,function(data){
-				if(data.success){
-					flag = true;
-				}else{
-					jqtoast(data.errorMessage);
-				}
-			},false);
-	        if(!flag){
-	            return;
-			}
-			if(shoppingFlag == 1){
-			    requestPostService("/xczh/shop/cart", {'skuId': skuId, 'quantity' : quantity}, function(data){
-					if (data.success) {
-						$('.shopping_trolley').hide();
-						var cartQuantity = $('.shopping_quantity').val();
-						if (!cartQuantity) {
-						    cartQuantity = quantity;
-						} else {
-						    cartQuantity = parseInt(cartQuantity) + quantity;
-						}
-						
-						var preNumber = $(".shopping_quantity").html();
-						totalQuantity = Number(cartQuantity) + Number(preNumber);
-	                    $('.shopping_quantity').html(totalQuantity);
-	                    
-					}
-				});
+	var aBtnHue=$('.classify_ul .hue');
+  	for(i=0;i<aBtnHue.length;i++){
+	    $(aBtnHue[i]).click(function(){
+	    	var kind = document.querySelector(".kind");  //分类
+			kind.style.display="none";
+			// 判断显示已选择
+	    	if ($(".include").hasClass("public")) {
+				$(".kind").show();
+				$(".specification").show();
+				$(".choice").html("已选择");
+			};
+	    	
+		    for(i=0;i<aBtnHue.length;i++){
+		        $(aBtnHue[i]).removeClass('public');
+		    }
+		    $(this).addClass('public');
+		    var publicHtml = $(this).html();
+		    $(".kind").html(publicHtml);
+		})
+	}
+	//1.选择商品放入购物车，2.选择商品立即购买.默认立即购买
+	var shoppingFlag = 2;
+    // 点击加入购物车
+    $('.add_cart').click(function(){
+        shoppingFlag = 1;
+        emptySpecification();
+        $('.shopping_trolley').show();
+    });
+    // 点击立即购买
+    $('.buy_now').click(function(){
+        shoppingFlag = 2;
+        emptySpecification();
+        $('.shopping_trolley').show();
+    });
+    
+    //清空选中的项
+    function emptySpecification(){
+       
+    	$(".choice").html("选择");
+    	
+    	if(specificationsResutl!=null && specificationsResutl.length>0){
+    		currentSku = null;
+        	$(".shopping_trolley_center .determine").css("background","#aaaaaa");
+    	}
+        
+    	$('.specifications_ul .casing').removeClass('public');
+        $(".specification").removeClass("showfalg");
+        $(".specification").addClass("hide");
+        $(".specification_name").removeClass("hide");
+    }
+    
+    
+	//选择商品后，点击确定
+    $('.determine').click(function () {
+        var skuId = 10001;
+        var quantity = 1;
+        var flag = false;
+        
+        
+
+        //当前库存不足
+        if(currentSku==null || currentSku.isOutOfStock){
+        	return;
+        }
+        //库存id
+        skuId =  currentSku.id;
+        //数量
+        quantity = $(".spinnerExample").val();
+        
+        requestGetService("/xczh/shop/checkSku?skuId="+skuId+"&quantity="+quantity,null,function(data){
+			if(data.success){
+				flag = true;
 			}else{
-				window.location = "/xcview/html/shop/confirm_order.html?skuId="+skuId+"&quantity="+quantity;
+				jqtoast(data.errorMessage);
 			}
-	    });
+		},false);
+        if(!flag){
+            return;
+		}
+		if(shoppingFlag == 1){
+		    requestPostService("/xczh/shop/cart", {'skuId': skuId, 'quantity' : quantity}, function(data){
+				if (data.success) {
+					$('.shopping_trolley').hide();
+					var cartQuantity = $('.shopping_quantity').val();
+					if (!cartQuantity) {
+					    cartQuantity = quantity;
+					} else {
+					    cartQuantity = parseInt(cartQuantity) + quantity;
+					}
+					
+					var preNumber = $(".shopping_quantity").html();
+					totalQuantity = Number(cartQuantity) + Number(preNumber);
+					if(totalQuantity>0){
+						$(".shopping_quantity").show();
+					}
+                    $('.shopping_quantity').html(totalQuantity);
+                    jqtoast("已加入购物车");
+				}
+			});
+		}else{
+			//确认下单逻辑
+			
+			window.location = "/xcview/html/shop/confirm_order.html?skuId="+skuId+"&quantity="+quantity+"&productId="+productId;
+		}
+    });
 
 		// 点击加入购物车 
 		$('.add_cart').click(function(){

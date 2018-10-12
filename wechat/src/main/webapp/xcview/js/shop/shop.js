@@ -77,11 +77,27 @@ function recommends(pageNumber, downOrUp){
     },function (data) {
         if (data.success == true) {
             var obj = data.resultObject;
-            //downOrUp为down时为下拉刷新等于up时为上拉操作
+			for(i=0;i<obj.length;i++){
+				var price = obj[i].price;
+			    if(/^\d+$/.test(price)){
+					price = price + ".00";
+				}else if(/^(\d+\.)(\d+)$/.test(price)){
+					var j = RegExp.$1;
+					var t = RegExp.$2;
+					if(t.length == 1)
+					price = price + "0";
+					else if(t.length > 2)
+					price = j + t.substring(0,2);
+				}
+				obj[i].price=price;
+			}
+
+            
             if(downOrUp=='down'){
                 $(".product_list").html(template('product_list', {items: obj}));
 //              listClick();
                 miniRefresh.endDownLoading(true);// 结束下拉刷新
+                
             } else if(obj.length==0){
                 miniRefresh.endUpLoading(true);// 结束上拉加载
             } else {
@@ -398,15 +414,6 @@ function refurbish(page,downUp){
     } 	
 }
 
-
-
-/*function listClick(){
-    // 点击进入详情
-    $(".product_list li").click(function(){
-        var id = $(this).attr("data-id");
-        window.location.href = "/xcview/html/shop/commodity_details.html?productId=" + id + "";
-    })
-};*/
 // 点击进入详情
     $(".product_list li").click(function(){
         var id = $(this).attr("data-id");
@@ -428,40 +435,19 @@ requestService("/xczh/shop/goods/hotSearch", null,
 		}
 },false)
 
-/*is_weixn();
-function is_weixn(){
-    var ua = navigator.userAgent.toLowerCase();
-    if(ua.match(/MicroMessenger/i)=="micromessenger") {
-        alert("微信打开");
-		console.log(111);
-		$(".minirefresh-wrap").css("bottom",".98rem");
-    } else {
-//      alert("app打开");
-		$(".minirefresh-wrap").css("bottom","0");
-		console.log(222);
-    }
-}*/
 
 //底部--购物车数量
 requestGetService("/xczh/shop/cart/quantity",null,function (data) {
     if (data.success == true) {
     	var quantity = data.resultObject;
-    	
-//  	$(".shopping_quantity").html(quantity);
-       
         if(quantity == null || quantity == 0){
        		$(".shopping_carts span").hide();
         }else{
        		$(".shopping_carts span").html(quantity);	
        		$(".shopping_carts span").show();
         };
-        /*var shoppimgNumber = $(".shopping_quantity").html();
-        if(shoppimgNumber = "0"){
-       		$(".shopping_quantity").hide();
-        }else{
-       		$(".shopping_quantity").html(quantity);	
-       		$(".shopping_quantity").show();
-        };*/
         
     }
 });
+
+

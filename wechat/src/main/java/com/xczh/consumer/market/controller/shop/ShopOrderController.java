@@ -168,7 +168,6 @@ public class ShopOrderController {
     @RequestMapping(value = "/order/detail", method = RequestMethod.GET)
     public ResponseObject detail(@RequestParam String sn) {
         OrderVO order = orderOperService.findBySn(sn);
-        order.setPreferentialAmount(order.getPromotionDiscount().add(order.getCouponDiscount()));
         /*String doctorId = order.getDoctorId();
         if(doctorId != null){
             MedicalDoctorVO medicalDoctor = iMedicalDoctorBusinessService.findSimpleById(doctorId);
