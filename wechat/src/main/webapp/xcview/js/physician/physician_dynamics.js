@@ -377,6 +377,12 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
             var data_id = $(this).attr("data-id");
             $(".ccvideo"+data_id).hide();
         });
+        
+//      点击购买 跳转
+        $(".buy_goods").click(function(){
+	        var id = $(this).attr("data-productId");
+	        window.location.href = "/xcview/html/shop/commodity_details.html?productId=" + id + "";
+	    })
 
     });
 }
