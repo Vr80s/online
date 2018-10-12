@@ -1,0 +1,166 @@
+.hide{
+	display: none;
+}
+body{
+	background: #A5CDFF;
+}
+.wrap-header{
+	width: 100%;
+	height: 0.88rem;	
+
+}
+.header{
+	width: 7.5rem;
+	height: 0.88rem;	
+	text-align: center;
+	line-height: 0.88rem;
+	overflow: hidden;
+	position: fixed;
+	border-bottom: 1px solid #D8DDE6;	
+	background: white;
+	z-index: 999999;
+}
+.header p{
+	font-size: 0.36rem;
+	color: #333333;
+	
+}
+.header_news{
+	width: 0.42rem;
+	height:0.43rem;
+	position: absolute;
+	z-index: 10;
+	top: 0.25rem;
+	right:0.26rem;
+}
+.header_news img{
+	width: 0.42rem;
+	height:0.43rem;
+}
+.arror_return{
+	width: 0.24rem;
+	height: 0.42rem;
+	position: absolute;
+	left: 0.26rem;
+	top: 0.23rem;
+}
+.arror_return img{
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+.healthy-top{
+	width: 4.41rem;
+	margin: 1.05rem auto 0.5rem;
+	overflow: hidden;
+}
+.healthy-top .left-icon{
+	width: 0.47rem;
+	height: 0.58rem;
+	margin-top: 0.1rem;
+}
+.healthy-top .right-icon{
+	width: 3.73rem;
+	height: 0.7rem;
+}
+.healthy-title{
+	font-size: 0.36rem;
+	color: #FFFFFF;
+	text-align: center;
+	padding-bottom: 0.4rem;
+}
+.diantu{
+	display: block;
+	margin: 0 auto;
+	width: 5.57rem;
+	margin-bottom: 1.37rem;
+}
+.content-inf{
+	width: 100%;
+	padding: 0 0.25rem;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+.write-title{
+	overflow: hidden;
+}
+.write-title img{
+	float: left;
+	width: 0.4rem;
+	margin-right: 0.2rem;
+}
+.write-title  span{
+	float: left;
+	font-size: 0.3rem;
+	color: #5487C7;
+}
+.write-content{
+	margin-top: 0.3rem;
+	width: 100%;
+	height: 2.45rem;
+	background: white;
+	border-radius: 0.16rem;
+}
+/*您的性别*/
+.sex-wrap{
+	padding: 0.4rem 0.2rem;
+	border-bottom: 1px solid #D5E9F8;
+	overflow: hidden;
+}
+.sex-wrap .left-tip{
+	font-size: 0.3rem;
+	color: #5487C7;
+}
+.sex-wrap .sex-ul{
+	overflow: hidden;
+}
+.sex-wrap .sex-ul li{
+	float: left;
+}
+.sex-wrap .sex-ul .comment-p{
+	width: 0.4rem;
+	height: 0.4rem;
+	background: #dedede;
+}
+.sex-wrap .sex-ul .comment-p {
+	border-radius: 50%;
+}
+.sex-wrap .sex-ul .comment-p img{
+	width: 100%;
+	height: 100%;	
+	display: none;
+}
+.sex-wrap .sex-ul .comment-p .active{
+	display: block;
+}
+.sex-wrap .sex-ul span{
+	font-size: 0.3rem;
+	color: #333;
+}
+.sex-wrap .sex-ul .select-man{
+	margin: 0 0.1rem 0 0.4rem;
+}
+.sex-wrap .sex-ul .select-woman{
+	margin: 0 0.1rem 0 0.6rem;
+}
+/*出生日期*/
+.birth-wrap{
+	padding: 0.4rem 0.2rem;
+	overflow: hidden;
+}
+.birth-wrap .left-tip{
+	font-size: 0.3rem;
+	color: #5487C7;
+}
+.birth-wrap .birth-date select{
+	background: transparent;
+	border: 0;
+	appearance:none;
+	-moz-appearance:none;
+	-webkit-appearance:none;
+	color: 0.3rem;
+	margin-top: 0.08rem;
+    line-height: 1;
+    color: #999;
+    margin-left: 0.4rem;
+}

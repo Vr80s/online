@@ -78,7 +78,7 @@ function getFileDom(index){
 	if(iswx){
 		File=$("<input type='file' class='csl_gater_file"+index+"' accept='image/*' capture='camera'>");// multiple='multiple'
 	}else{
-		File=$("<input type='file' class='csl_gater_file"+index+"' accept='image/*'>"); // multiple='multiple'
+		File=$("<input type='file' class='csl_gater_file"+index+"' accept='image/*' capture='camera'>"); // multiple='multiple'
 	};
 	File.css('display','none');
 	return File;
