@@ -114,6 +114,8 @@ function confirmReceipt(orderSn) {
     }, function (data) {
         if(data.success ){
             orderList(1,"down");
+        }else{
+        	jqtoast(data.errorMessage);
         }
     });
 }

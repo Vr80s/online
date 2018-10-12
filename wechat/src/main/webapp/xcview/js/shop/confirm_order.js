@@ -108,6 +108,7 @@ function getOrderList(){
     }else{
         params = "skuId="+skuId + "&quantity="+quantity;
     }
+    params += "&shippingMethodId=1"
     requestGetService("/xczh/shop/checkout",params,function(data){
         if(data.success){
             creatOrderList(data.resultObject.orders,data.resultObject.price,data.resultObject.freight);

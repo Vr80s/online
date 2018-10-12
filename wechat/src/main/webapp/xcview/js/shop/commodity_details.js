@@ -120,7 +120,7 @@ requestGetService("/xczh/shop/goods/details",{
         		 $(".information .repertory").html("该商品库存不足");
         		 $(".shopping_trolley_center .determine").css("background","#aaaaaa");
         	}else{
-        		 $(".information .repertory").html("库存"+defaultSkus.stock+"件");
+        		 $(".information .repertory").html("库存"+defaultSkus.availableStock+"件");
         		 $(".shopping_trolley_center .determine").css("background","#F97215");
         	}
          	$(".information .price").html("￥"+defaultSkus.price);
@@ -187,7 +187,7 @@ requestGetService("/xczh/shop/goods/details",{
 	        		 $(".information .repertory").html("该商品库存不足");
 	        		 $(".shopping_trolley_center .determine").css("background","#aaaaaa");
 	        	}else{
-	        		 $(".information .repertory").html("库存"+currentSku.stock+"件");
+	        		 $(".information .repertory").html("库存"+currentSku.availableStock+"件");
 	        		  $(".shopping_trolley_center .determine").css("background","#F97215");
 	        	}
 	         	$(".information .price").html("￥"+currentSku.price);
@@ -221,7 +221,7 @@ requestGetService("/xczh/shop/cart/quantity",null,function (data) {
     	
 //  	$(".shopping_quantity").html(quantity);
        
-        if(quantity == null){
+        if(quantity == null || quantity == 0){
        		$(".shopping_quantity").hide();
         }else{
        		$(".shopping_quantity").html(quantity);	
