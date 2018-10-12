@@ -26,9 +26,10 @@ function listData(pageNumber, downOrUp,orderType,keyWord){
             /*$(".product_list").html(template('product_list',{items: obj}));*/
             
             if(downOrUp=='down' && obj!=null && obj.length<=0){
-
+				$(".main_center").hide();
 				//TODO  这里搞个默认图片            	
-            	$(".product_list").html("额,没有商品哎~");
+//          	$(".product_list").html("额,没有商品哎~"); 
+				$(".no_class").show();
             	
 	        }else if(downOrUp=='down' && obj!=null && obj.length>0){
 	            $(".product_list").html(template('product_list',{items: obj}));
@@ -40,8 +41,6 @@ function listData(pageNumber, downOrUp,orderType,keyWord){
 	           	$(".product_list").append(template('product_list',{items: obj}));
 	            miniRefresh.endUpLoading(false);
 	        }
-	        
-	        
         }
     });
 }
