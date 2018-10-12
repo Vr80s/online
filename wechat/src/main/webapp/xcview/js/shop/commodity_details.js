@@ -39,7 +39,7 @@ requestGetService("/xczh/shop/goods/details",{
 
         // 评价
 //      if (obj.posts !=null) {
-        if (obj.posts.length>0) {
+        if (isNotBlank(obj.reviewvs)) {
             $(".evaluate").show();
             $(".evaluate_main").html(template('evaluate_main', {items: obj.reviewvs}));
             $(".no_evaluation").hide();
