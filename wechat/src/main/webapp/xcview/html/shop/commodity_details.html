@@ -55,6 +55,13 @@
 	.spinner input{
 		color: #333 !important;
 	}
+	.it_over{
+		font-size: .24rem;
+		text-align: center;
+		color: #868080;
+		margin-bottom: .2rem;
+		display: none;
+	}
 </style>
 </head>
 <body>
@@ -319,6 +326,7 @@
 		</div>
 	</div>
 	<!-- 商品详情结束 -->
+	<div class="it_over">已经到底了</div>
 
 	<!-- 常见问题开始 -->
 	<!-- <div class="FAQ">
@@ -617,6 +625,11 @@
             return false;
         }
     });
+    
+    setTimeout(function(){
+    	$(".it_over").show();
+    }, 2000);
+    
 </script>
 
 <!-- 简介、评价、详情固定头部区域 -->
