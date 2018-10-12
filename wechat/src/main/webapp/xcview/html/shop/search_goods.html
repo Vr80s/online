@@ -41,7 +41,7 @@
 	<!--头部搜索开始-->
 	<header>
 		<div class="header">
-			<div class="return" onclick="common_share_back()"><img src="/xcview/images/back icon.png"></div>
+			<div class="return" onclick="common_share_back('/xcview/html/shop/shop.html')"><img src="/xcview/images/back icon.png"></div>
 			<div class="header_seek"> 
 				<div class="header_seeks">
 					<script type="text/html" id="header_seeks">
@@ -121,7 +121,8 @@
 <script src="/xcview/js/shop/search_goods.js"></script>
 <script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
 <script type="text/javascript">
-	hisArr="hisArr_goods";
+
+	var hisArr="hisArr_goods";
 	if(localStorage.token!=null){
 		var token = JSON.parse(localStorage.token);
 		hisArr = token.userId + "hisArr_goods";
@@ -179,7 +180,8 @@
 		}else{
 			arr = [];
 		}
-   		initHistoryList();
+		
+		
 
 		//删除指定数组中的元素
         function removeByValue(arr, val) {
@@ -194,13 +196,15 @@
 			if(arr.length >= 10){
 				arr.splice(9,1);
 			}
-
 			var historyInf = '';
 			if(localStorage.getItem(hisArr)!=undefined){
+				
                 localStorage.getItem(hisArr).split(',').forEach(function(v,i){
+                	
                     if(v.split($("#header_input").val()).length>1||$("#header_input").val()==''){
 
                     	$(".search_history_title").show();
+                    	
                         historyInf += '<div class="search_history_list_one" onclick="queryKeyToList(this)"><div class="div0">'+v+'</div><div class="div1"  onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
                     }else{
                     	$(".search_history_title").hide();
@@ -212,39 +216,5 @@
 		//
 		}
 		
-		/*$("#header_input").click(function(){
-			$(".header_seek_main").css("display","none");
-		});*/
-		
-		/*$("#header_input").focus();
-		$("#header_input").click();
-		setTimeout(function(){
-	        $("#header_input").trigger("click").focus();
-	        alert(111);
-	    },2000);
-	    $("#header_input").trigger("click").focus();*/
-	   	
-		
 </script>
-<script>
-	window.onload = function(){
-		/*$("#header_input").click();
-	   	$("#header_input").click(function() {
-			alert(111);
-			$("#header_input").trigger("click").focus();
-			$("#header_input").focus(); 
-		});*/
-		
-		/*$(".aaa").click();
-		$(".aaa").focus(); */
-		
-		/*setTimeout(function(){
-        	$(".aaa").trigger("click").focus();
-        	$(".aaa").click();
-	        alert(23);
-	        $(".aaa").focus();
-	    },200);*/
-	};
-</script>
-
 </html>
