@@ -221,7 +221,7 @@ requestGetService("/xczh/shop/cart/quantity",null,function (data) {
     	
 //  	$(".shopping_quantity").html(quantity);
        
-        if(quantity == null){
+        if(quantity == null || quantity == 0){
        		$(".shopping_quantity").hide();
         }else{
        		$(".shopping_quantity").html(quantity);	
