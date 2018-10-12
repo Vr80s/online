@@ -7,7 +7,7 @@
 	<meta name="format-detection" content="telephone=no">
 	<meta name="author" content="SHOP++ Team">
 	<meta name="copyright" content="SHOP++">
-	<title>${message("shop.payment.prePay")} - Powered By SHOP++</title>
+	<title>${message("shop.payment.prePay")}</title>
 	<link href="${base}/favicon.ico" rel="icon">
 	<link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">
 	<!--[if lt IE 9]>

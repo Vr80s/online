@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>SHOP++安装程序 - Powered By SHOP++</title>
+<title>SHOP++安装程序</title>
 <meta name="author" content="SHOP++ Team" />
 <meta name="copyright" content="SHOP++" />
 <link href="css/install.css" rel="stylesheet" type="text/css" />

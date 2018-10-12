@@ -13,7 +13,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>系统配置 - Powered By SHOP++</title>
+<title>系统配置</title>
 <meta name="author" content="SHOP++ Team" />
 <meta name="copyright" content="SHOP++" />
 <link href="css/install.css" rel="stylesheet" type="text/css" />
