@@ -528,9 +528,13 @@
     function emptySpecification(){
        
     	$(".choice").html("选择");
-    	currentSku = null;
-    	$(".shopping_trolley_center .determine").css("background","#aaaaaa");
-        $('.specifications_ul .casing').removeClass('public');
+    	
+    	if(specificationsResutl!=null && specificationsResutl.length>0){
+    		currentSku = null;
+        	$(".shopping_trolley_center .determine").css("background","#aaaaaa");
+    	}
+        
+    	$('.specifications_ul .casing').removeClass('public');
         $(".specification").removeClass("showfalg");
         $(".specification").addClass("hide");
         $(".specification_name").removeClass("hide");
@@ -577,6 +581,9 @@
 					
 					var preNumber = $(".shopping_quantity").html();
 					totalQuantity = Number(cartQuantity) + Number(preNumber);
+					if(totalQuantity>0){
+						$(".shopping_quantity").show();
+					}
                     $('.shopping_quantity').html(totalQuantity);
                     jqtoast("已加入购物车");
 				}
