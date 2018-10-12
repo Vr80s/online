@@ -154,7 +154,7 @@ public class ProductVO implements Serializable {
     /**
      * 医师推荐
      */
-    private Set<Map<String, Object>> posts;
+    private List<Map<String, Object>> posts;
 
 
     private Map<String, Object> doctor;
@@ -682,15 +682,15 @@ public class ProductVO implements Serializable {
     }
 
 
-    public Set<Map<String, Object>> getPosts() {
-        return posts;
-    }
+    public List<Map<String, Object>> getPosts() {
+		return posts;
+	}
 
-    public void setPosts(Set<Map<String, Object>> posts) {
-        this.posts = posts;
-    }
+	public void setPosts(List<Map<String, Object>> posts) {
+		this.posts = posts;
+	}
 
-    public Map<String, Object> getDoctor() {
+	public Map<String, Object> getDoctor() {
         return doctor;
     }
 

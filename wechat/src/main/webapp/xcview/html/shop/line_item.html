@@ -128,7 +128,9 @@
 					<div class="product_details_center">
 						<div class="title"><span>{{orderItem.name}}</span></div>
 						<div class="pack">
+							{{if orderItem.sku != null}}
 							{{orderItem.sku.specifications}}（库存{{orderItem.sku.stock}}件）
+							{{/if}}
 						</div>
 						<div class="total_prices">
 							<div class="price_yuan" >

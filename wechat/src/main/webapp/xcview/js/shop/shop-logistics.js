@@ -22,6 +22,7 @@ function transitStep(shippingId) {
         shippingId: shippingId
     }, function (data) {
         if(data.success ){
+            
             $(".logistics_address_ul").html(template('logistics_address_ul', {items: data.resultObject.transitSteps}));
         }
     });
@@ -36,6 +37,13 @@ function orderDetails() {
             var obj =  data.resultObject;
             order_Id=data.resultObject.sn;
             $(".orderSn").html("运单号  "+order_Id);
+            if(obj.status =="SHIPPED"){
+                $(".transportStatus").html("已发货");
+            } else if(obj.status =="RECEIVED"){
+                $(".transportStatus").html("已收货");
+            }
+
+
             $(".orderInfo").html(template('orderInfo',obj));
             $(".orderImg").attr('src',data.resultObject.orderItems[0].thumbnail);
 
