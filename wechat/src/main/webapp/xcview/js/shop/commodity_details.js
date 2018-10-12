@@ -136,16 +136,12 @@ requestGetService("/xczh/shop/goods/details",{
             $('.specifications_ul .casing[class*="public"]').each(function(index,obj){
             	 
             	 var dataId = $(obj).attr("data-id");
-            	 
             	 $(".specification").each(function(index,objs){
-            	 	
             	 	 var dataIds = $(objs).attr("data-id");
             	 	 var dataName = $(objs).attr("title");
-		        	 
 		        	 if(dataId == dataIds){
 		        	 	$(objs).addClass("showfalg");
 		        	 	lalala.push(dataIds);
-		        	 	
 		        	 	 $(".specification_name").each(function(index,obj){
 		        	 		var title = $(obj).attr("title");
 		        	 		if(dataName == title){
@@ -160,31 +156,36 @@ requestGetService("/xczh/shop/goods/details",{
     	 	if(specificationNames!=null
     	 		    && specificationNames.length == specificationsResutl.length){
     	 			
+    	 		 $(".shopping_trolley_center .determine").css("background","#F97215");   	
     	 		 $(".showfalg").removeClass("hide");
     	 		 $(".choice").html("已选择");
+    	 		 
+    	 		 
+	 		    if(lalala!=null){
+	             	lalala.sort();
+	            }
+	            
+	            for (var i = 0; i < skus.length; i++) {
+	            	if(skus[i].specificationIdsStr == lalala.join(",")){
+	            		currentSku = skus[i];
+	            	}
+	            }
+	            
+	            if(currentSku!=null){
+	            	if(currentSku.isOutOfStock){
+		        		 $(".information .repertory").html("该商品库存不足");
+		        		 $(".shopping_trolley_center .determine").css("background","#aaaaaa");
+		        	}else{
+		        		 $(".information .repertory").html("库存"+currentSku.availableStock+"件");
+		        		  $(".shopping_trolley_center .determine").css("background","#F97215");
+		        	}
+		         	$(".information .price").html("￥"+currentSku.price);
+		       	    
+	        	}
+    	 	}else{
+    	 		$(".shopping_trolley_center .determine").css("background","#aaaaaa");
     	 	}
             
-            if(lalala!=null){
-             	lalala.sort();
-            }
-            
-            for (var i = 0; i < skus.length; i++) {
-            	if(skus[i].specificationIdsStr == lalala.join(",")){
-            		currentSku = skus[i];
-            	}
-            }
-            
-            if(currentSku!=null){
-            	if(currentSku.isOutOfStock){
-	        		 $(".information .repertory").html("该商品库存不足");
-	        		 $(".shopping_trolley_center .determine").css("background","#aaaaaa");
-	        	}else{
-	        		 $(".information .repertory").html("库存"+currentSku.availableStock+"件");
-	        		  $(".shopping_trolley_center .determine").css("background","#F97215");
-	        	}
-	         	$(".information .price").html("￥"+currentSku.price);
-	       	    
-        	}
         });
         
     }

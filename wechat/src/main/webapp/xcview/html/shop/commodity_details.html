@@ -520,6 +520,8 @@
     function emptySpecification(){
        
     	$(".choice").html("选择");
+    	currentSku = null;
+    	$(".shopping_trolley_center .determine").css("background","#aaaaaa");
         $('.specifications_ul .casing').removeClass('public');
         $(".specification").removeClass("showfalg");
         $(".specification").addClass("hide");
@@ -533,9 +535,10 @@
         var quantity = 1;
         var flag = false;
         
+        
 
         //当前库存不足
-        if(currentSku.isOutOfStock){
+        if(currentSku==null || currentSku.isOutOfStock){
         	return;
         }
         //库存id
