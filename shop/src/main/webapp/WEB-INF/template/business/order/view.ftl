@@ -644,7 +644,7 @@
 										</div>
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
-												<label class="col-xs-4 control-label" for="shippingTrackingNo">${message("OrderShipping.trackingNo")}:</label>
+												<label class="col-xs-4 control-label item-required" for="shippingTrackingNo">${message("OrderShipping.trackingNo")}:</label>
 												<div class="col-xs-8">
 													<input id="shippingTrackingNo" name="trackingNo" class="form-control" type="text" maxlength="200">
 												</div>

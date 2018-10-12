@@ -12,23 +12,7 @@ $(function() {
 	})
 
 
-    // 点击取消订单提示
-    $(".cancel_order").click(function(){
-        data_sn = $(this).attr('data-sn');
-        $(".cancelOrder").show();
-    });
-    // 点击取消隐藏奇效订单提示
-    $(".countermandCancel").click(function(){
-        $(".cancelOrder").hide();
-    });
-    $(".delete_order").click(function(){
-        data_id = $(this).attr('data-id');
-        $(".deleteOrder").show();
-    });
-    // 点击取消隐藏奇效订单提示
-    $(".countermandDelete").click(function(){
-        $(".deleteOrder").hide();
-    });
+
 
 });
 
@@ -41,6 +25,23 @@ function orderDetails() {
             var obj =  data.resultObject;
             order_Id=data.resultObject.sn;
             $(".orderDetails").html(template('order_details',obj));
+            // 点击取消订单提示
+            $(".cancel_order").click(function(){
+                data_sn = $(this).attr('data-sn');
+                $(".cancelOrder").show();
+            });
+            // 点击取消隐藏奇效订单提示
+            $(".countermandCancel").click(function(){
+                $(".cancelOrder").hide();
+            });
+            $(".delete_order").click(function(){
+                data_id = $(this).attr('data-id');
+                $(".deleteOrder").show();
+            });
+            // 点击取消隐藏奇效订单提示
+            $(".countermandDelete").click(function(){
+                $(".deleteOrder").hide();
+            });
             getShipping();
         }
     });
