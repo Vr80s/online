@@ -189,7 +189,9 @@
 					<div class="product_details_center">
 						<div class="title"><span>{{orderItem.name}}</span></div>
 						<div class="pack">
+							{{if orderItem.sku != null}}
 							{{orderItem.sku.specifications}}（库存{{orderItem.sku.stock}}件）
+							{{/if}}
 						</div>
 						<div class="total_prices">
 							<div class="price_yuan" >
@@ -226,13 +228,12 @@
 
 					<!-- 交易成功 -->
 					{{else if item.status == 'COMPLETED' || item.status == 'RECEIVED'}}
+					{{if !item.isReviewed}}	
+						<div class="win_evaluate" onclick='review("{{item.sn}}")'>评价</div>   <!-- 交易成功后评价后-评价按钮隐藏 -->
+					{{/if}}	
+				  
 					<div class="win_shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
 					<div class="win_check_logistics" onclick='getTransitSteps("{{item.sn}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
-					
-
-					  {{if !item.isReviewed}}	
-						<div class="win_evaluate" onclick='review("{{item.sn}}")'>评价</div>   <!-- 交易成功后评价后-评价按钮隐藏 -->
-					  {{/if}}	
 
 					<!-- 交易关闭 -->
 					{{else if item.status == 'CANCELED' || item.status == 'FAILED' || item.status == 'DENIED'}}

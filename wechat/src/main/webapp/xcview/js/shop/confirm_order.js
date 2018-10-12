@@ -132,7 +132,7 @@ function creatOrderList(orders,price,freight){
             str += '<div class="product_details">' +
                 '<img src="'+orders[i].orderItems[j].thumbnail+'" alt="" class="surface_plot" />' +
                 '<div class="product_details_center">' +
-                '<div class="title"><h4>' + orders[i].orderItems[j].name + '</h4></div>' +
+                '<div class="title">' + orders[i].orderItems[j].name + '</div>' +
                 '<div class="pack">' +
                 orders[i].orderItems[j].specifications.join(";") +
                 '(库存'+orders[i].orderItems[j].sku.stock+'件)' +
@@ -140,7 +140,7 @@ function creatOrderList(orders,price,freight){
                 '<div class="total_prices">' +
                 '<div class="price_yuan" >' +
                 '<div class="yuan">￥<span>'+orders[i].orderItems[j].price+'</span></div>' +
-                '<div class="number"><strong>x<span>'+orders[i].orderItems[j].quantity+'</span></strong></div>' +
+                '<div class="number">x<span>'+orders[i].orderItems[j].quantity+'</span></div>' +
                 '</div>' +
                 '</div>' +
                 '</div>' +
@@ -149,11 +149,11 @@ function creatOrderList(orders,price,freight){
         str += '</div>' +
             '<div class="zongjia"></div>' +
             '<div class="express">' +
-            '<div class="freight"><strong>运费</strong></div>' +
-            '<div class="express_price"><strong>￥<span>'+orders[i].freight+'</span></strong></div>' +
+            '<div class="freight">运费</div>' +
+            '<div class="express_price">￥<span>'+orders[i].freight+'</span></div>' +
             '</div>' +
             '<div class="BBS">' +
-            '<div class="message"><strong>买家留言：</strong><input class="memo" store-id="'+orders[i].store.id+'" type="text" placeholder="给商家留言" /></div>' +
+            '<div class="message">买家留言：<input class="memo" store-id="'+orders[i].store.id+'" type="text" placeholder="给商家留言" /></div>' +
             '</div>' +
             '</div>';
     }
