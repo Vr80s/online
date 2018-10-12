@@ -66,7 +66,7 @@
                             freeSecret: 'true'
                         },
                         success: function (e) {
-                            location.reload();
+                            location.href = '/business/index';
                         }
                     })
                 }
