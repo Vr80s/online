@@ -392,8 +392,9 @@
 					<script type="text/html" id="category">
 					<span class="choice">选择</span>
 					{{each item as items i}}
+						<span class="specification_name"  title="{{items.name}}">{{items.name}}</span>	
   						{{each items.entries as itemss i}}
-						   <span class=" specification hide"  title="{{items.name}}" data-id="{{itemss.id}}" >{{itemss.value}}</span>
+						   <span class="specification hide"  title="{{items.name}}" data-id="{{itemss.id}}" >{{itemss.value}}</span>
 						{{/each}}
 					{{/each}}
 					</script>
@@ -505,13 +506,27 @@
     // 点击加入购物车
     $('.add_cart').click(function(){
         shoppingFlag = 1;
+        emptySpecification();
         $('.shopping_trolley').show();
     });
     // 点击立即购买
     $('.buy_now').click(function(){
         shoppingFlag = 2;
+        emptySpecification();
         $('.shopping_trolley').show();
     });
+    
+    //清空选中的项
+    function emptySpecification(){
+       
+    	$(".choice").html("选择");
+        $('.specifications_ul .casing').removeClass('public');
+        $(".specification").removeClass("showfalg");
+        $(".specification").addClass("hide");
+        $(".specification_name").removeClass("hide");
+    }
+    
+    
 	//选择商品后，点击确定
     $('.determine').click(function () {
         var skuId = 10001;
