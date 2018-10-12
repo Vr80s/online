@@ -152,15 +152,10 @@ body{
 	font-size: 0.3rem;
 	color: #5487C7;
 }
-.birth-wrap .birth-date select{
-	background: transparent;
+#birth-btn{
+	width: 210rem;
+	height: 0.42ren;
 	border: 0;
-	appearance:none;
-	-moz-appearance:none;
-	-webkit-appearance:none;
-	color: 0.3rem;
-	margin-top: 0.08rem;
-    line-height: 1;
-    color: #999;
-    margin-left: 0.4rem;
+	outline: none;
+	margin-left: 0.4rem;
 }
