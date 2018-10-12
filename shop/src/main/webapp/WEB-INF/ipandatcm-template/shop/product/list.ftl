@@ -25,11 +25,11 @@
 				[#else]
 					${seo.resolveTitle()}
 				[/#if]
-				[#if showPowered] - Powered By SHOP++[/#if]
+
 			</title>
 		[/@seo]
 	[#else]
-		<title>${message("shop.product.list")}[#if showPowered] - Powered By SHOP++[/#if]</title>
+		<title>${message("shop.product.list")}</title>
 	[/#if]
 	<link href="${base}/favicon.ico" rel="icon">
 	<link href="${base}/resources/common/css/bootstrap.css" rel="stylesheet">

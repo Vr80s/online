@@ -15,7 +15,7 @@ public interface OrderOperService {
 
     void checkSku(Long skuId, Integer quantity);
 
-    Map<String, Object> checkout(Long skuId, Integer quantity, String cartItemIds, String ipandatcmUserId);
+    Map<String, Object> checkout(Long skuId, Integer quantity, String cartItemIds, String ipandatcmUserId, Long shippingMethodId);
 
     Map<String, Object> create(String cartItemIds,Long skuId, Integer quantity, String cartTag, Long receiverId, Long shippingMethodId,
                                String code, String invoiceTitle, String invoiceTaxNumber, BigDecimal balance, String memo, String ipandatcmUserId);

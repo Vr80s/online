@@ -7,7 +7,7 @@
 	<meta name="format-detection" content="telephone=no">
 	<meta name="author" content="SHOP++ Team">
 	<meta name="copyright" content="SHOP++">
-	<title>${message("shop.login.signIn")} - Powered By SHOP++</title>
+	<title>${message("shop.login.signIn")}</title>
 	<link href="${base}/favicon.ico" rel="icon">
 </head>
 <body>
