@@ -171,7 +171,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 
 	@Override
 	@Transactional
-	public Map<String, Object> checkout(Long skuId, Integer quantity, String cartItemIds, String ipandatcmUserId) {
+	public Map<String, Object> checkout(Long skuId, Integer quantity, String cartItemIds, String ipandatcmUserId, Long shippingMethodId) {
 		Member currentUser = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
 		Cart currentCart = currentUser.getCart();
 		Map<String,Object> map = new HashMap<>();
@@ -227,9 +227,9 @@ public class OrderOperServiceImpl implements OrderOperService {
 		if (orderType == null) {
 			throw new RuntimeException("信息有误");
 		}
-
+		ShippingMethod shippingMethod = shippingMethodService.find(shippingMethodId);
 		Receiver defaultReceiver = receiverService.findDefault(currentUser);
-		List<Order> orders = orderService.generate(orderType, cart, defaultReceiver, null, null, null, null, null, null);
+		List<Order> orders = orderService.generate(orderType, cart, defaultReceiver, null, shippingMethod, null, null, null, null);
 
 		BigDecimal price = BigDecimal.ZERO;
 		BigDecimal fee = BigDecimal.ZERO;
@@ -317,18 +317,18 @@ public class OrderOperServiceImpl implements OrderOperService {
 		map.put("exchangePoint", exchangePoint);
 		map.put("isDelivery", isDelivery);
 
-		List<PaymentMethod> paymentMethods = new ArrayList<>();
-		if (cart.contains(Store.Type.GENERAL)) {
-			CollectionUtils.select(paymentMethodService.findAll(), new Predicate() {
-				@Override
-				public boolean evaluate(Object object) {
-					PaymentMethod paymentMethod = (PaymentMethod) object;
-					return paymentMethod != null && PaymentMethod.Method.ONLINE.equals(paymentMethod.getMethod());
-				}
-			}, paymentMethods);
-		} else {
-			paymentMethods = paymentMethodService.findAll();
-		}
+//		List<PaymentMethod> paymentMethods = new ArrayList<>();
+//		if (cart.contains(Store.Type.GENERAL)) {
+//			CollectionUtils.select(paymentMethodService.findAll(), new Predicate() {
+//				@Override
+//				public boolean evaluate(Object object) {
+//					PaymentMethod paymentMethod = (PaymentMethod) object;
+//					return paymentMethod != null && PaymentMethod.Method.ONLINE.equals(paymentMethod.getMethod());
+//				}
+//			}, paymentMethods);
+//		} else {
+//			paymentMethods = paymentMethodService.findAll();
+//		}
 //		map.put("paymentMethods", paymentMethods);
 //		map.put("shippingMethods", shippingMethodService.findAll());
 //		String str = JsonUtils.toJson(map);
