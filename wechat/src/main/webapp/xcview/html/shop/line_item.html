@@ -39,7 +39,7 @@
 			<div class="title">订单详情</div>
 			<div class="advices">
 				<img src="/xcview/images/shop/newsbg.png" alt="" class="news news_class">
-				<span class="advices_number">17</span>
+				<!--<span class="advices_number">17</span>-->
 			</div>
 		</div>
 	</header>
@@ -181,15 +181,17 @@
 
 					<!-- 卖家已发货 -->
 					{{else if status == 'SHIPPED'}}
-					<div class="check_logistics" onclick='getTransitSteps("{{sn}}")'>查看物流</div>
-					<div class="shipped_cancel_order" onclick='againBuy("{{sn}}")'>再次购买</div>
+					
 					<div class="confirm_receipt" onclick='confirmReceipt("{{sn}}")'>确认收货</div>
+					<div class="shipped_cancel_order" onclick='againBuy("{{sn}}")'>再次购买</div>
+					<div class="check_logistics" onclick='getTransitSteps("{{sn}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
 
 					<!-- 交易成功 -->
 					{{else if status == 'COMPLETED'  || status == 'RECEIVED'}}
-					<div class="win_check_logistics" onclick='getTransitSteps("{{sn}}")'>查看物流</div>
-					<div class="win_shipped_cancel_order" onclick='againBuy("{{sn}}")'>再次购买</div>
 					<div class="win_evaluate">评价</div>   <!-- 交易成功后评价后-评价按钮隐藏 -->
+					<div class="win_shipped_cancel_order" onclick='againBuy("{{sn}}")'>再次购买</div>
+					<div class="win_check_logistics" onclick='getTransitSteps("{{sn}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
+					
 					
 					<!-- 交易关闭 -->
 					{{else if status == 'CANCELED' || status == 'FAILED' || status == 'DENIED'}}

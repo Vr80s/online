@@ -1,6 +1,7 @@
 package com.xczhihui.anchor.web;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Calendar;
 import java.util.List;
 
@@ -345,6 +346,6 @@ public class CourseAnchorController extends AbstractController {
 
     @RequestMapping(value = "/loginBusiness/{username}", method = RequestMethod.GET)
     public void loginBusiness(@PathVariable String username, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect(shopUrl + "/business/login?username=" + username + "&freeSecretKey=" + usersService.createFreeSecretKey(username));
+        response.sendRedirect(shopUrl + "/business/login?username=" + URLEncoder.encode(username, "UTF-8") + "&freeSecretKey=" + usersService.createFreeSecretKey(username));
     }
 }
