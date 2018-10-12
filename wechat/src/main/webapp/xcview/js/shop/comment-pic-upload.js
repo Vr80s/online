@@ -73,10 +73,10 @@ $.Pgater=(function(){
 })();
 function getFileDom(index){
 	var agent=navigator.userAgent.toLowerCase();
-	var iswx=agent.indexOf('qqbrowser') >= 0;
+	var iswx=(agent.indexOf('iphone') != -1) || (agent.indexOf('ipad') != -1)//判断是否为苹果      //agent.indexOf('qqbrowser') >= 0;
 	var File
 	if(iswx){
-		File=$("<input type='file' class='csl_gater_file"+index+"' accept='image/*' capture='camera'>");// multiple='multiple'
+		File=$("<input type='file' class='csl_gater_file"+index+"' accept='image/*'>");// multiple='multiple'
 	}else{
 		File=$("<input type='file' class='csl_gater_file"+index+"' accept='image/*' capture='camera'>"); // multiple='multiple'
 	};
