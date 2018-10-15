@@ -131,7 +131,7 @@ requestGetService("/xczh/shop/goods/details",{
 				j = i + t.substring(0,2);
 			}
 			//alert(v);
-			$(".information .price").html(v);
+			$(".information .price").html(j);
          	
          	
        	    currentSku = defaultSkus;

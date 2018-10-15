@@ -130,7 +130,20 @@ requestGetService("/xczh/shop/goods/details",{
         		 $(".information .repertory").html("库存"+defaultSkus.availableStock+"件");
         		 $(".shopping_trolley_center .determine").css("background","#F97215");
         	}
-         	$(".information .price").html("￥"+defaultSkus.price);
+         	$(".information .price").html(defaultSkus.price);
+         	var j = $(".information .price").html();
+			if(/^\d+$/.test(j)){
+			j = j + ".00";
+			}else if(/^(\d+\.)(\d+)$/.test(j)){
+				var i = RegExp.$1;
+				var t = RegExp.$2;
+				if(t.length == 1)
+				j = j + "0";
+				else if(t.length > 2)
+				j = i + t.substring(0,2);
+			}
+			//alert(v);
+			$(".information .price").html(j);
        	    currentSku = defaultSkus;
         }
         

@@ -283,6 +283,11 @@ public class ProductController extends BaseController {
 		specificationItemService.filter(productForm.getSpecificationItems());
 		skuService.filter(skuListForm.getSkuList());
 
+		if (productForm.getProductImages()==null || productForm.getProductImages().size()<=0) {
+			return Results.unprocessableEntity("商品图片不能为空");
+		}
+		
+		
 		Long productCount = productService.count(null, currentStore, null, null, null, null, null, null);
 		if (currentStore.getStoreRank() != null && currentStore.getStoreRank().getQuantity() != null && productCount >= currentStore.getStoreRank().getQuantity()) {
 			return Results.unprocessableEntity("business.product.addCountNotAllowed", currentStore.getStoreRank().getQuantity());
@@ -400,6 +405,11 @@ public class ProductController extends BaseController {
 		parameterValueService.filter(productForm.getParameterValues());
 		specificationItemService.filter(productForm.getSpecificationItems());
 		skuService.filter(skuListForm.getSkuList());
+		
+		if (productForm.getProductImages()==null || productForm.getProductImages().size()<=0) {
+			return Results.unprocessableEntity("商品图片不能为空");
+		}
+		
 		if(level != null){
 			productForm.setRecommends(level);
 		} else {

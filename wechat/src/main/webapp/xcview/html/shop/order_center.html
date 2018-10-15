@@ -87,7 +87,7 @@
 <style>
 	/*处理刷新*/
 	.minirefresh-wrap{
-		top: 1.1rem;
+		/*top: 1.1rem;*/
 	}
 	.minirefresh-theme-default .minirefresh-downwrap{
 		height: 1rem;
@@ -148,6 +148,7 @@
 	
 	<!-- 中间内容开始 -->
 	<div id="minirefresh" class="minirefresh-wrap">
+		<div class="" style="width: 100%;height: 1rem;"></div>
 		<div class="minirefresh-scroll">
 	<div class="indent">
 
@@ -237,7 +238,7 @@
 
 					<!-- 交易关闭 -->
 					{{else if item.status == 'CANCELED' || item.status == 'FAILED' || item.status == 'DENIED'}}
-					<div class="delete_order" data-id="{{item.id}}">删除订单</div>
+					<div class="delete_order" data-id="{{item.id}}" style="border: 1px solid #DEDEDE;color: #333333;">删除订单</div>
 					<div class="fack_shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
 					{{/if}}
 				</div>
