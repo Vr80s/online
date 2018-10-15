@@ -33,6 +33,18 @@
 	        
 	    }
 	}
+   	
+// 	判断来自订单页面
+	$(".address_return").click(function(){
+		var isAddress=localStorage.getItem("isAddress");
+		if (isAddress == "details") {
+			location.href="/xcview/html/shop/confirm_order.html"
+		} else{
+			window.history.go(-1);
+		}
+	})
+   	
+   	
 	/**
 	 * 新增地址或修改地址返回
 	 */
