@@ -24,6 +24,15 @@ $(function() {
 	})
 });
 
+
+
+
+
+/*$(".").click(function(){
+	alert(111);
+	location.href = "/xcview/html/shop/method.html?orderSns=" + sn;
+});*/
+
 //订单详情
 function orderDetails() {
     requestGetService("/xczh/shop/order/detail", {
@@ -51,6 +60,10 @@ function orderDetails() {
                 $(".deleteOrder").hide();
             });
             getShipping();
+            
+            $(".waiting_payment").on('click','.immediate_payment',function(){
+				location.href = "/xcview/html/shop/method.html?orderSns=" + sn;
+			})
             
 //          商品价格
             var v = $(".price_yuan .yuan span").html();
