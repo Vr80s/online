@@ -21,10 +21,6 @@ $(function() {
 	$(".orderDetails").on('click','.win_evaluate',function(){
 		location.href="/xcview/html/shop/shop-commentary.html?sn="+order_Id;
 	})
-
-
-
-
 });
 
 //订单详情
@@ -54,6 +50,68 @@ function orderDetails() {
                 $(".deleteOrder").hide();
             });
             getShipping();
+            
+//          商品价格
+            var v = $(".price_yuan .yuan span").html();
+			if(/^\d+$/.test(v)){
+			v = v + ".00";
+			}else if(/^(\d+\.)(\d+)$/.test(v)){
+				var i = RegExp.$1;
+				var t = RegExp.$2;
+				if(t.length == 1)
+				v = v + "0";
+				else if(t.length > 2)
+				v = i + t.substring(0,2);
+			}
+		//	alert(v);
+			$(".price_yuan .yuan span").html(v);
+			
+//			总价
+			var b = $(".total_price .yuan span").html();
+			if(/^\d+$/.test(b)){
+			b = b + ".00";
+			}else if(/^(\d+\.)(\d+)$/.test(b)){
+				var i = RegExp.$1;
+				var t = RegExp.$2;
+				if(t.length == 1)
+				b = b + "0";
+				else if(t.length > 2)
+				b = i + t.substring(0,2);
+			}
+		//	alert(v);
+			$(".total_price .yuan span").html(b);
+			
+//		运费
+			var f = $(".freight .yuan span").html();
+			if(/^\d+$/.test(f)){
+			f = f + ".00";
+			}else if(/^(\d+\.)(\d+)$/.test(f)){
+				var i = RegExp.$1;
+				var t = RegExp.$2;
+				if(t.length == 1)
+				f = f + "0";
+				else if(t.length > 2)
+				f = i + t.substring(0,2);
+			}
+		//	alert(v);
+			$(".freight .yuan span").html(f);
+			
+//		需付款
+			var p = $(".PAYG .yuans span").html();
+			if(/^\d+$/.test(p)){
+			p = p + ".00";
+			}else if(/^(\d+\.)(\d+)$/.test(p)){
+				var i = RegExp.$1;
+				var t = RegExp.$2;
+				if(t.length == 1)
+				p = p + "0";
+				else if(t.length > 2)
+				p = i + t.substring(0,2);
+			}
+		//	alert(v);
+			$(".PAYG .yuans span").html(p);
+			
+			
         }
     });
 
