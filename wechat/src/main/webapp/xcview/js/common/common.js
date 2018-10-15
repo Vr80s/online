@@ -230,7 +230,8 @@ function ajaxRequest(url, param,type, callback, ac) {
             var rd = getCurrentRelativeUrl();
             if (msg.code == USER_UN_LOGIN || msg.code == USER_TOKEN_NULL) {
                 localStorage.setItem("rd", rd);
-                location.href = "/xcview/html/enter.html";
+                location.href = "/xcview/html/cn_login.html";
+//              location.href = "/xcview/html/enter.html";
             } else if (msg.code == USER_TOP) { //被同一用户顶掉了
                 location.href = "/xcview/html/common.html";
             } else if (msg.code == USER_UN_BIND) { //去完善信息页面

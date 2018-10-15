@@ -58,7 +58,7 @@
 	<setting name="distributionCommissionRates" value="50,30,20" />
 	<setting name="isDevelopmentEnabled" value="false" />
 	<setting name="isReviewEnabled" value="true" />
-	<setting name="isReviewCheck" value="true" />
+	<setting name="isReviewCheck" value="false" />
 	<setting name="isConsultationEnabled" value="true" />
 	<setting name="isConsultationCheck" value="true" />
 	<setting name="isInvoiceEnabled" value="true" />
