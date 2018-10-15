@@ -127,6 +127,20 @@
                 $("#ipandatcmUserId").val(data.resultObject.ipandatcmUserId);
                 $("#payment").attr("action",data.resultObject.shopUrl + '/payment');
                 $(".amount").html(data.resultObject.amount);
+                var v = $(".amount").html();
+				if(/^\d+$/.test(v)){
+				v = v + ".00";
+				}else if(/^(\d+\.)(\d+)$/.test(v)){
+					var i = RegExp.$1;
+					var t = RegExp.$2;
+					if(t.length == 1)
+					v = v + "0";
+					else if(t.length > 2)
+					v = i + t.substring(0,2);
+				}
+			//	alert(v);
+				$(".amount").html(v);
+                
                 var str = '';
                 for(var i=0;i<data.resultObject.orderSns.length;i++){
 					str += '<input name="paymentItemList['+i+'].type" type="hidden" value="ORDER_PAYMENT">' +
