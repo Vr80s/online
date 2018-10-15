@@ -125,7 +125,7 @@ function creatOrderList(orders,price,freight){
         str += '<div class="indent_list">' +
             '<div class="tilte">' +
             '<img src="'+ orders[i].store.logo +'" alt="" class="head_portrait" />' +
-            orders[i].store.name +
+            '<span>'+orders[i].store.name +'</span>'+
             '</div>' +
             '<div class="main_product_details">';
         for(var j=0; j < orders[i].orderItems.length; j++){

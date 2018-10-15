@@ -156,9 +156,10 @@
 			</div>
 			<div class="price">
 				<span class="ruling_price">￥<span>{{items.price}}</span></span>
-				{{if items.marketprice > items.price}}
+				<span class="original_price">￥{{items.marketprice}}</span>
+				<!--{{if items.marketprice > items.price}}
 					<span class="original_price">￥{{items.marketprice}}</span>
-				{{/if}}
+				{{/if}}-->
 				<span class="sold_out">已售{{items.sales}}件</span>
 				<div class="both"></div>
 			</div>
