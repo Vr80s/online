@@ -660,7 +660,7 @@ public class Product extends BaseEntity<Long> {
     /**
      * 医师推荐数
      */
-    @Column(nullable = false)
+    @Column
     private Integer doctorRecommends;
     
     /**
