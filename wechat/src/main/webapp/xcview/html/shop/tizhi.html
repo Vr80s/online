@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+	<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="UTF-8">
+<title>熊猫中医</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/xcview/css/shop/method.css" />
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
+<body style="background: #f0f0f0;">
+
+	<!--底部开始-->
+	<!--<div class="footer_perch"></div>-->
+	<div class="footer">
+		<div class="footer_div pay">去支付</div>
+	</div>
+	<!--底部结束-->
+	<form action="" method="post" id="payment">
+		<input id="rePayUrl" name="rePayUrl" type="hidden" value="/order/payment?orderSns=">
+		<input id="paymentPluginId" name="paymentPluginId" type="hidden" value="alipayPagePaymentPlugin">
+		<input id="ipandatcmUserId" name="ipandatcmUserId" type="hidden" value="">
+	</form>
+</body>
+
+
+<script src="/xcview/js/common/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>
+<!--点击更多隐藏显示结束-->
+<script type="text/javascript">
+//    $("#payment").attr("action", '/xczh/constitution/record/1/0');
+		var i = 0;
+//        function addData(questionId, questionNo, answer){
+//            var str = '<input name="recordDetailsList['+ i +'].questionId" type="hidden" value="'+ questionId +'">' +
+//                '<input name="recordDetailsList['+ i +'].questionNo" type="hidden" value="'+ questionNo +'">'+
+//                '<input name="recordDetailsList['+ i +'].answer" type="hidden" value="'+ answer +'">';
+//            $("#payment").append(str);
+//            i++;
+//        }
+
+	var param = [];
+    function addData(questionId, questionNo, answer){
+        var record = {questionId:questionId,questionNo:questionNo,answer:answer};
+        param.push(record);
+    }
+
+        addData(1,1,'B');
+        addData(2,2,'B');
+        addData(3,3,'C');
+        addData(4,4,'B');
+        addData(5,6,'A');
+
+//        $(".pay").click(function () {
+//            $("#payment").submit();
+//        });
+        $(".pay").click(function () {
+            requestPostJsonService("/xczh/constitution/record/1/0",JSON.stringify(param),function (data) {
+				console.info(data);
+            });
+        });
+</script>
+</html>

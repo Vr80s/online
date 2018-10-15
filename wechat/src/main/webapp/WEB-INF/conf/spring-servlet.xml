@@ -246,6 +246,9 @@
                      
     <dubbo:reference interface="net.shopxx.merge.service.ShopReviewService" id="shopReviewServiceImpl" 
     		timeout="${dubbo.provider.timeout}"/>
+
+    <dubbo:reference interface="com.xczhihui.medical.constitution.service.IConstitutionService" id="constitutionServiceImpl"
+    		timeout="${dubbo.provider.timeout}"/>
                      
 
 </beans>

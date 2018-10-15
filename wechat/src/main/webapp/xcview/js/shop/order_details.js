@@ -2,6 +2,7 @@ var data_sn="";
 var data_id="";
 var sn = getQueryString("sn");
 var order_Id;
+
 $(function() {
 	// 点击头部区域客服消息  
 	$(".advices").click(function(){
@@ -22,6 +23,15 @@ $(function() {
 		location.href="/xcview/html/shop/shop-commentary.html?sn="+order_Id;
 	})
 });
+
+
+
+
+
+/*$(".").click(function(){
+	alert(111);
+	location.href = "/xcview/html/shop/method.html?orderSns=" + sn;
+});*/
 
 //订单详情
 function orderDetails() {
@@ -50,6 +60,10 @@ function orderDetails() {
                 $(".deleteOrder").hide();
             });
             getShipping();
+            
+            $(".waiting_payment").on('click','.immediate_payment',function(){
+				location.href = "/xcview/html/shop/method.html?orderSns=" + sn;
+			})
             
 //          商品价格
             var v = $(".price_yuan .yuan span").html();
@@ -162,15 +176,15 @@ function deleteOrder() {
     }, function (data) {
         if(data.success ){
             $(".deleteOrder").hide();
-            orderDetails();
+            location.href = "/xcview/html/shop/order_center.html" ;
         }else{
             jqtoast(data.errorMessage);
         }
     });
 }
 //跳转到物流信息页面
-function getTransitSteps(orderSn) {
-    location.href = "/xcview/html/shop/shop-logistics.html?orderSn=" + orderSn;
+function getTransitSteps(orderSn,orderId) {
+    location.href = "/xcview/html/shop/shop-logistics.html?orderSn=" + orderSn+"&orderId="+orderId;
 }
 
 //确认收货

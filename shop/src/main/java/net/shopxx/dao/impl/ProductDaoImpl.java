@@ -668,18 +668,22 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
 
         
         org.apache.lucene.search.Query snPhraseQuery = queryBuilder.phrase().onField("sn").sentence(goodsPageParams.getKeyWord()).createQuery();
-        BooleanJunction<?> subJunction = queryBuilder.bool().should(snPhraseQuery);
-
+        org.apache.lucene.search.Query introductionPhraseQuery = queryBuilder.phrase().withSlop(3).onField("introduction").sentence(goodsPageParams.getKeyWord()).createQuery();
+       
+		BooleanJunction<?> subJunction = queryBuilder.bool().should(snPhraseQuery).should(introductionPhraseQuery);
+		
         org.apache.lucene.search.Query namePhraseQuery = queryBuilder.phrase().withSlop(3).onField("name").sentence(goodsPageParams.getKeyWord()).createQuery();
         org.apache.lucene.search.Query keywordFuzzyQuery = queryBuilder.keyword().fuzzy().onField("keyword").matching(goodsPageParams.getKeyWord()).createQuery();
-
+        org.apache.lucene.search.Query nameFuzzyQuery = queryBuilder.keyword().fuzzy().onField("name").matching(goodsPageParams.getKeyWord()).createQuery();
+        
+        subJunction.should(namePhraseQuery).should(keywordFuzzyQuery).should(nameFuzzyQuery);
         
         org.apache.lucene.search.Query isMarketablePhraseQuery = queryBuilder.phrase().onField("isMarketable").sentence("true").createQuery();
         org.apache.lucene.search.Query isListPhraseQuery = queryBuilder.phrase().onField("isList").sentence("true").createQuery();
         org.apache.lucene.search.Query isActivePhraseQuery = queryBuilder.phrase().onField("isActive").sentence("true").createQuery();
-        
         BooleanJunction<?> junction = queryBuilder.bool().must(isMarketablePhraseQuery).must(isListPhraseQuery).must(isActivePhraseQuery);
-        subJunction.should(namePhraseQuery).should(keywordFuzzyQuery);
+        
+      
         junction.must(subJunction.createQuery());
         
         FullTextQuery fullTextQuery = fullTextEntityManager.createFullTextQuery(junction.createQuery(), Product.class);

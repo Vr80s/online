@@ -223,10 +223,12 @@
 
 					<!-- 卖家已发货 -->
 					{{else if item.status == 'SHIPPED'}}
-					<div class="confirm_receipt" onclick='confirmReceipt("{{item.sn}}")'>确认收货</div>
+					<!--<div class="confirm_receipt" onclick='confirmReceipt("{{item.sn}}")'>确认收货</div>-->
+					<div class="confirm_receipt confirm_receipt{{item.id}}" data-sn="{{item.sn}}">确认收货</div>
 					<div class="shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
 					<div class="check_logistics" onclick='getTransitSteps("{{item.sn}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
-
+					
+					
 					<!-- 交易成功 -->
 					{{else if item.status == 'COMPLETED' || item.status == 'RECEIVED'}}
 					{{if !item.isReviewed}}	
@@ -234,12 +236,13 @@
 					{{/if}}	
 				  
 					<div class="win_shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
-					<div class="win_check_logistics" onclick='getTransitSteps("{{item.sn}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
+					<div class="win_check_logistics" onclick='getTransitSteps("{{item.sn}}","{{item.id}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
 
 					<!-- 交易关闭 -->
 					{{else if item.status == 'CANCELED' || item.status == 'FAILED' || item.status == 'DENIED'}}
-					<div class="delete_order" data-id="{{item.id}}" style="border: 1px solid #DEDEDE;color: #333333;">删除订单</div>
+					
 					<div class="fack_shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
+					<div class="delete_order" data-id="{{item.id}}" style="border: 1px solid #DEDEDE;color: #333333;">删除订单</div>
 					{{/if}}
 				</div>
 			</div>
@@ -283,6 +286,20 @@
 		</div>
 	</div>
 	<!-- 删除订单提示结束 -->
+	
+	<!-- 确认收货提示开始 -->
+	<div class="confirm_receipt">
+		<div class="confirm_receiptbg"></div>
+		<div class="confirm_receiptbg_main">
+			<div class="reminder"><strong>提示</strong></div>
+			<div class="confirm_receipt_main">是否确认收货？</div>
+			<div class="confirm_receipt_choice">
+				<div class="countermand countermandDelete">否</div>
+				<div class="affirm" onclick='confirmReceipt("{{item.sn}}")'>是</div>
+			</div>
+		</div>
+	</div>
+	<!-- 确认收货提示结束 -->
 
 	
 </body>
@@ -295,6 +312,8 @@
 		$(".advices").click(function(){
 			jqtoast("熊猫客服休息中，稍后报道！");
 		});
+		
+
 	};
 </script>
 
