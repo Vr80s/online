@@ -1,0 +1,63 @@
+.hide{
+	display: none;
+}
+body{
+	background-size: contain;
+	background: url("/xcview/images/answer-bg.png") no-repeat center;
+
+}
+.wrap-header{
+	width: 100%;
+	height: 0.88rem;	
+
+}
+.header{
+	width: 7.5rem;
+	height: 0.88rem;	
+	text-align: center;
+	line-height: 0.88rem;
+	overflow: hidden;
+	position: fixed;
+	border-bottom: 1px solid #D8DDE6;	
+	background: white;
+	z-index: 999999;
+}
+.header p{
+	font-size: 0.36rem;
+	color: #333333;
+	
+}
+.header_news{
+	width: 0.42rem;
+	height:0.43rem;
+	position: absolute;
+	z-index: 10;
+	top: 0.25rem;
+	right:0.26rem;
+
+}
+.header_news img{
+	width: 0.42rem;
+	height:0.43rem;
+	display: block;
+	
+}
+.arror_return{
+	width: 0.24rem;
+	height: 0.42rem;
+	position: absolute;
+	left: 0.26rem;
+	top: 0.23rem;
+}
+.arror_return img{
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+.result-bg{
+	width:5.2rem;
+	height: 3.1rem;
+	background: url("/xcview/images/result.png") no-repeat center;
+	    background-size: contain;
+    margin: 0.7rem auto 0.8rem;
+}
