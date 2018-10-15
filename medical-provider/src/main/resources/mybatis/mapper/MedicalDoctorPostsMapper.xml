@@ -239,21 +239,23 @@
     </select>
     
     <select id="getProductPostsByProductIdAndDoctorId"  resultType="java.util.Map">
-       
-       select 
-    	mdp.id,mdp.content,mdp.doctor_id doctorId,md.name doctorName,mdai.head_portrait doctorHeadImg,
-    	mdp.product_id productId,mdp.level 
-    		from medical_doctor_posts mdp
-    	inner join medical_doctor md on mdp.doctor_id = md.id
-    	left join medical_doctor_authentication_information mdai on md.`authentication_information_id` = mdai.`id`
-    		where  1=1 
-    		<if test="productId != null">
-	          and mdp.product_id = #{productId} 
-	        </if>
-    		<if test="doctorId != null">
-	          and mdp.doctor_id= #{doctorId} 
-	        </if>
-    		order by mdp.create_time desc limit #{pageNumber},#{pageSize}
+       select * from (
+	       select 
+	    	mdp.id,mdp.content,mdp.doctor_id doctorId,md.name doctorName,mdai.head_portrait doctorHeadImg,
+	    	mdp.product_id productId,mdp.level 
+	    		from medical_doctor_posts mdp
+	    	inner join medical_doctor md on mdp.doctor_id = md.id
+	    	left join medical_doctor_authentication_information mdai on md.`authentication_information_id` = mdai.`id`
+	    		where  1=1 
+	    		<if test="productId != null">
+		          and mdp.product_id = #{productId} 
+		        </if>
+	    		<if test="doctorId != null">
+		          and mdp.doctor_id= #{doctorId} 
+		        </if>
+	    		order by mdp.create_time desc limit #{pageNumber},#{pageSize}  )
+	    		
+	    a  GROUP BY a.doctorId
     </select>
 
 </mapper>

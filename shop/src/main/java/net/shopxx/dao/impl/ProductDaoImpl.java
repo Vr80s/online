@@ -674,7 +674,9 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
 		
         org.apache.lucene.search.Query namePhraseQuery = queryBuilder.phrase().withSlop(3).onField("name").sentence(goodsPageParams.getKeyWord()).createQuery();
         org.apache.lucene.search.Query keywordFuzzyQuery = queryBuilder.keyword().fuzzy().onField("keyword").matching(goodsPageParams.getKeyWord()).createQuery();
-        subJunction.should(namePhraseQuery).should(keywordFuzzyQuery);
+        org.apache.lucene.search.Query nameFuzzyQuery = queryBuilder.keyword().fuzzy().onField("name").matching(goodsPageParams.getKeyWord()).createQuery();
+        
+        subJunction.should(namePhraseQuery).should(keywordFuzzyQuery).should(nameFuzzyQuery);
         
         org.apache.lucene.search.Query isMarketablePhraseQuery = queryBuilder.phrase().onField("isMarketable").sentence("true").createQuery();
         org.apache.lucene.search.Query isListPhraseQuery = queryBuilder.phrase().onField("isList").sentence("true").createQuery();
