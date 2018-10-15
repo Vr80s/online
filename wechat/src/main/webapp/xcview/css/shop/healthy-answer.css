@@ -39,6 +39,7 @@ body{
 	z-index: 10;
 	top: 0.25rem;
 	right:0.26rem;
+	display: block;
 }
 .header_news img{
 	width: 0.42rem;
