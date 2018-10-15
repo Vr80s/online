@@ -136,13 +136,13 @@ public interface OrderOperService {
     Map payment(String orderSnsStr);
 
 	/**
-	 * 根据编号查找订单发货
+	 * 根据订单id查找订单发货
 	 *
-	 * @param sn
-	 *            编号(忽略大小写)
+	 * @param orderI
+	 *
 	 * @return 订单发货，若不存在则返回null
 	 */
-	OrderShippingVO findOrderShippingBySn(String sn);
+	OrderShippingVO findOrderShippingByOrderId(Long orderId);
 
 	/**
 	 * 订单删除
