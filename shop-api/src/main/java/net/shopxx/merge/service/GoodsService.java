@@ -69,4 +69,11 @@ public interface GoodsService {
      * @param id id
      */
     void updateClick(String userId, Long id);
+
+	/**  
+	 * <p>Title: modifyAddDoctorRecommends</p>  
+	 * <p>Description: </p>  
+	 * @param id  
+	 */ 
+	void modifyAddDoctorRecommends(Long id);
 }

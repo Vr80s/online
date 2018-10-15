@@ -340,6 +340,21 @@ function initCart() {
             //$(".finish").show();   //完成
             $(".compile").show();  //编辑显示
             $(".payment-bar").show();
+            var obj = data.resultObject.storeCartItems;
+            for(i=0;i<obj.length;i++){
+                var price = obj[i].cartItems[0].sku.price;
+                if(/^\d+$/.test(price)){
+                    price = price + ".00";
+                }else if(/^(\d+\.)(\d+)$/.test(price)){
+                    var j = RegExp.$1;
+                    var t = RegExp.$2;
+                    if(t.length == 1)
+                        price = price + "0";
+                    else if(t.length > 2)
+                        price = j + t.substring(0,2);
+                }
+                obj[i].cartItems[0].sku.price=price;
+            }
             $('#shop_cart_div').html(template('shop_cart_tmpl', data.resultObject));
         }
     });

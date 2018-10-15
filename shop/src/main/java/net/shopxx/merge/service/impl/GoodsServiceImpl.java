@@ -390,11 +390,24 @@ public class GoodsServiceImpl implements GoodsService {
             product.setHits(product.getHits() + 1);
             if (!redisCacheService.sismenber(Product.USER_VIEW_CACHE_NAME + ":" + id, userId)) {
                 redisCacheService.sadd(Product.USER_VIEW_CACHE_NAME + ":" + id, userId);
-                product.setUv(product.getUv() == null ? 1 : product.getUv() + 1);
             }
+            Set<String> smembers = redisCacheService.smembers(Product.USER_VIEW_CACHE_NAME + ":" + id);
+            product.setUv(smembers != null ? smembers.size() : 0L);
             productDao.persist(product);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    
+    @Transactional
+    @Override
+    public void modifyAddDoctorRecommends(Long id){
+    	Product product = productDao.find(id);
+		if(product!=null) {
+			Integer doctorRecommends = product.getDoctorRecommends();
+			product.setDoctorRecommends(doctorRecommends!=null ?  doctorRecommends+1 : 1);
+			productDao.flush();
+		}
+    }
+    
 }

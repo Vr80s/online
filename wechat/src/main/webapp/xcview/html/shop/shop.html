@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
 <title>熊猫中医</title>
-
+<!--熊猫中医-->
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <meta name="viewport"
 	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -29,8 +29,8 @@
 <link rel="stylesheet" href="/xcview/css/shop/shop.css" />
 
 <!--刷新 -->
-<link rel="stylesheet" href="/xcview/css/minirefresh/minirefresh.css">
-<script type="text/javascript" src="/xcview/js/minirefresh/minirefresh.js"></script>
+<!--<link rel="stylesheet" href="/xcview/css/minirefresh/minirefresh.css">
+<script type="text/javascript" src="/xcview/js/minirefresh/minirefresh.js"></script>-->
 
 <style>
 	/*处理刷新*/
@@ -90,7 +90,11 @@
 	    background: #F97215;
 	    right: 0;
 	    border-radius: 100px;
-	    padding: .01rem .04rem;
+	    padding: 0 .1rem;
+	}
+	
+	.main_center{
+		margin-top: 0;
 	}
 </style>
 </head>
@@ -241,7 +245,7 @@
 	<!-- 底部结束 -->
 	
 	<!--购物车-->
-	<div class="shopping_carts">
+	<div class="shopping_carts" onclick="location.href ='/xcview/html/shop/shopping_trolley.html'">
 		<img src="/xcview/images/shop/shopping_carts.png" />
 		<span></span>
 	</div>
@@ -249,13 +253,15 @@
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 
+<!--<script src="/xcview/js/shop/jquery-1.10.1.min.js"></script> 轮播引入 -->
+<script src="/xcview/js/shop/swiper.min.js"></script> <!-- 轮播引入 -->
+
 <script type="text/javascript" src="/xcview/js/shop/token_save.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js"></script>
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>   <!--模板引入-->
 <script src="/xcview/js/shop/shop.js"></script><!-- 数据渲染 -->
 
-<!--<script src="/xcview/js/shop/jquery-1.10.1.min.js"></script> 轮播引入 -->
-<script src="/xcview/js/shop/swiper.min.js"></script> <!-- 轮播引入 -->
+
 <!-- 轮播 -->
 <script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
 

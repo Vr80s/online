@@ -395,12 +395,5 @@ public interface ProductService extends BaseService<Product, Long> {
 	 */
 	void shelf(Long[] ids);
 
-	/**  
-	 * <p>Title: modifyAddRecommends</p>  
-	 * <p>Description: 增加商品的医师推荐值</p>  
-	 * @param id  
-	 */ 
-	void modifyAddRecommends(Long id);
-
 
 }

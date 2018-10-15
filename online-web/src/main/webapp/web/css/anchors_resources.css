@@ -379,6 +379,13 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+.shopping-list-content ul li .ware-menu-one .ware-name a{
+
+	max-width: 245px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 .shopping-list-content ul li .ware-menu-one .ware-price{
 
 	color: #F97B49;	

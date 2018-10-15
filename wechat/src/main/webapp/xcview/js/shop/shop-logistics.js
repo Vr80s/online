@@ -1,10 +1,11 @@
 var sn = getQueryString("orderSn");
+var orderId = getQueryString("orderId");
 
 $(function() {
     orderDetails();
 
     requestGetService("/xczh/shop/order/shipping", {
-        sn: sn
+        orderId: orderId
     }, function (data) {
         if(data.success ){
             var shippingId = data.resultObject.id;
@@ -12,6 +13,8 @@ $(function() {
                 $(".kuaidiName").html("本商品由【"+data.resultObject.deliveryCorp+"快递】承运");
                 $(".orderSn").html("运单号  "+data.resultObject.trackingNo);
                 transitStep(shippingId);
+            } else {
+                jqtoast("运单号有误");
             }
         }
     });
@@ -29,7 +32,7 @@ function transitStep(shippingId) {
 
                 if(size == 1) {
                     $(".transportStatus").html("已揽收");
-                } else if (transitStep.indexOf("已签收") != -1) {
+                } else if (transitStep.context.indexOf("已签收") != -1) {
                     $(".transportStatus").html("已收货");
                 } else {
                     $(".transportStatus").html("运输中");
@@ -37,6 +40,8 @@ function transitStep(shippingId) {
             }
 
             $(".logistics_address_ul").html(template('logistics_address_ul', {items: data.resultObject.transitSteps}));
+        }else {
+            jqtoast(data.errorMessage);
         }
     });
 }
@@ -55,7 +60,7 @@ function orderDetails() {
             }
 
 
-            $(".orderInfo").html(template('orderInfo',obj));
+            //$(".orderInfo").html(template('orderInfo',obj));
             $(".orderImg").attr('src',data.resultObject.orderItems[0].thumbnail);
 
         }

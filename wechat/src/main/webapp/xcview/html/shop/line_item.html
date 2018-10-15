@@ -145,25 +145,25 @@
 			<!-- <div class="zongjia"></div> -->
 			<div class="fund">
 				<div class="fund_main">
-					<div class="payment_details">
+					<div class="payment_details total_price">
 						<div class="total fund_title">商品总价</div>
-						<div class="yuan">￥{{price}}</div>
+						<div class="yuan">￥<span>{{price}}</span></div>
 					</div>
-					<div class="payment_details">
+					<div class="payment_details freight">
 						<div class="fund_title">运费</div>
-						<div class="yuan">+￥{{freight}}</div>
+						<div class="yuan">+￥<span>{{freight}}</span></div>
 					</div>
 					<!--<div class="payment_details">
 						<div class="fund_title">优惠金额</div>
 						<div class="yuan">-￥{{preferentialAmount}}</div>
 					</div>-->
-					<div class="payment_details">
+					<div class="payment_details PAYG">
 						<div class="fund_title">需付款（含运费）</div>
-						<div class="yuans">￥{{amount}}</div>
+						<div class="yuans">￥<span>{{amount}}</span></div>
 					</div>
 				</div>
 			</div>
-			<div class="notescontact">
+			<div class="notescontact" id="notescontact">
 				<img src="/xcview/images/shop/notescontact.png" alt="" />联系客服
 			</div>
 			
@@ -184,13 +184,15 @@
 					
 					<div class="confirm_receipt" onclick='confirmReceipt("{{sn}}")'>确认收货</div>
 					<div class="shipped_cancel_order" onclick='againBuy("{{sn}}")'>再次购买</div>
-					<div class="check_logistics" onclick='getTransitSteps("{{sn}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
+					<div class="check_logistics" onclick='getTransitSteps("{{sn}}","{{id}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
 
 					<!-- 交易成功 -->
 					{{else if status == 'COMPLETED'  || status == 'RECEIVED'}}
+					{{if !isReviewed}}
 					<div class="win_evaluate">评价</div>   <!-- 交易成功后评价后-评价按钮隐藏 -->
+					{{/if}}
 					<div class="win_shipped_cancel_order" onclick='againBuy("{{sn}}")'>再次购买</div>
-					<div class="win_check_logistics" onclick='getTransitSteps("{{sn}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
+					<div class="win_check_logistics" onclick='getTransitSteps("{{sn}}","{{id}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
 					
 					
 					<!-- 交易关闭 -->
@@ -248,14 +250,6 @@
 
 <script>
 
-	// 点击客服
-	$(".notescontact").click(function(){
-		jqtoast("熊猫客服休息中，稍后报道！");
-	});
-	// 点击头部区域客服消息  
-	$(".advices").click(function(){
-		jqtoast("熊猫客服休息中，稍后报道！");
-	});
 </script>
 
 </html>

@@ -6,10 +6,10 @@
  */
 package net.shopxx.service;
 
+import net.shopxx.entity.OrderShipping;
+
 import java.util.List;
 import java.util.Map;
-
-import net.shopxx.entity.OrderShipping;
 
 /**
  * Service - 订单发货
@@ -47,5 +47,13 @@ public interface OrderShippingService extends BaseService<OrderShipping, Long> {
 	 * @return 物流动态
 	 */
 	List<Map<String, String>> getTransitSteps(String deliveryCorpCode, String trackingNo);
+	/**
+	 * 根据订单id查找订单发货
+	 *
+	 * @param orderId
+	 *
+	 * @return 订单发货，若不存在则返回null
+	 */
+	OrderShipping findByOrderId(Long orderId);
 
 }

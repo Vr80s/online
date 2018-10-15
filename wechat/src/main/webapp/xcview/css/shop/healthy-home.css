@@ -148,14 +148,45 @@ body{
 	padding: 0.4rem 0.2rem;
 	overflow: hidden;
 }
+
+#birth-date{
+	float: left;
+	width: 3rem;
+}
 .birth-wrap .left-tip{
 	font-size: 0.3rem;
-	color: #5487C7;
+    color: #5487C7;
+    margin-right: 0.4rem;
 }
-#birth-btn{
-	width: 210rem;
-	height: 0.42ren;
-	border: 0;
+#datMONTH{
+	    height: 0.4rem;
+    font-size: 0.3rem;
+    padding: 0;
+}
+.mui-input-group:before{
+	height: 0;
+}
+.mui-input-group .mui-input-row:after{
+	height: 0;
+}
+.mui-input-group:after{
+	height: 0;
+}
+.mui-dtpicker-title h5{
+	padding: 0.3rem 0;
+}
+/*开始测评*/
+.star-test{
+	margin-top: 1.2rem;
+	text-align: center;
+}
+.star-test button{
+	width: 80%;
+	padding: 0.2rem 0;
+	background: #5487C7;
+	box-shadow: 0 0.06rem 0.08rem 0 rgba(0,0,0,0.50);
+	border-radius: 1rem;
+	color: white;
 	outline: none;
-	margin-left: 0.4rem;
+	-webkit-tap-highlight-color:transparent;
 }

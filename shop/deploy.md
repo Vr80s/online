@@ -3,8 +3,11 @@
 
 1、商品表增加医师推荐数字段
 
+	ALTER TABLE `product` ADD `doctorRecommends` int(11) DEFAULT NULL COMMENT '医师推荐数';
 
-	ALTER TABLE `product` ADD `recommends` int(11) DEFAULT NULL COMMENT '医师推荐数';
+	ALTER TABLE `product` ADD `recommends` int(11) DEFAULT NULL COMMENT '医师推荐星级级别';
+
+	ALTER TABLE `product` ADD `recommentContent` int(11) DEFAULT NULL COMMENT '医师推荐内容';
 	
 2、用户表中增加用户头像字段	
 
