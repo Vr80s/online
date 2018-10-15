@@ -1031,7 +1031,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 	@Transactional
 	public OrderShippingVO findOrderShippingByOrderId(Long orderId) {
 		OrderShippingVO osvo = new OrderShippingVO();
-		OrderShipping os = orderShippingService.find(orderId);
+		OrderShipping os = orderShippingService.findByOrderId(orderId);
 		if(os != null){
 			BeanUtils.copyProperties(os,osvo);
 			osvo.setId(os.getId());

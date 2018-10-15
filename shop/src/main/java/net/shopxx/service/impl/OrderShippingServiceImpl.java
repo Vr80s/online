@@ -6,22 +6,7 @@
  */
 package net.shopxx.service.impl;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.inject.Inject;
-
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
-
 import com.fasterxml.jackson.core.type.TypeReference;
-
 import net.shopxx.Setting;
 import net.shopxx.dao.OrderShippingDao;
 import net.shopxx.dao.SnDao;
@@ -31,6 +16,18 @@ import net.shopxx.service.OrderShippingService;
 import net.shopxx.util.JsonUtils;
 import net.shopxx.util.SystemUtils;
 import net.shopxx.util.WebUtils;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
+
+import javax.inject.Inject;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Service - 订单发货
@@ -91,6 +88,11 @@ public class OrderShippingServiceImpl extends BaseServiceImpl<OrderShipping, Lon
 			return Collections.emptyList();
 		}
 		return (List<Map<String, String>>) data.get("data");
+	}
+
+	@Override
+	public OrderShipping findByOrderId(Long orderId) {
+		return orderShippingDao.find("order", orderId);
 	}
 
 	@Override
