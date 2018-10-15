@@ -77,6 +77,29 @@ function orderList(pageNumber,downOrUp) {
                 location.href="/xcview/html/shop/line_item.html?sn="+sn;
                 $(".deleteOrder").hide();
             });
+            
+            //		点击确认收货  
+			$(".confirm_receipt").click(function(){
+				var id=$(this).attr("data-id");
+				$(".confirm_receipt .affirm").attr("titie",id);
+				$(".confirm_receipt").show;
+			});
+			$(".confirm_receiptbg").click(function(){
+				$(".confirm_receipt").hide;
+			});
+			
+			$(".confirm_receipt .affirm").click(function(){
+				var orderSn=$(this).attr("title");
+				requestPostService("/xczh/shop/order/receive", {
+			        sn: orderSn
+			    }, function (data) {
+			        if(data.success ){
+			            orderList(1,"down");
+			        }/*else{
+			        	jqtoast(data.errorMessage);
+			        }*/
+			    });
+			});
 
 
         }
@@ -113,7 +136,7 @@ function deleteOrder() {
 
 //确认收货
 function confirmReceipt(orderSn) {
-    requestPostService("/xczh/shop/order/receive", {
+    /*requestPostService("/xczh/shop/order/receive", {
         sn: orderSn
     }, function (data) {
         if(data.success ){
@@ -121,7 +144,7 @@ function confirmReceipt(orderSn) {
         }else{
         	jqtoast(data.errorMessage);
         }
-    });
+    });*/
 }
 
 //再次购买

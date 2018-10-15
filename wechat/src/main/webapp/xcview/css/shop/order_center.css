@@ -367,6 +367,73 @@ header{
 /*取消订单提示结束*/
 
 
+/*确认收货提示开始*/
+.confirm_receipt {
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.confirm_receiptbg {
+    width: 7.5rem;
+    height: 100%;
+    background: #000;
+    opacity: 0.3;
+    position: fixed;
+    top: 0;
+    z-index: 3;
+}
+.confirm_receiptbg_main {
+    width: 5.4rem;
+    height: 2.6rem;
+    background: #fff;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 4;
+    margin-top: -1.3rem;
+    margin-left: -2.7rem;
+    border-radius: 16px;
+}
+.reminder {
+    width: 100%;
+    font-size: .32rem;
+    color: #333333;
+    text-align: center;
+    padding-top: .4rem;
+    margin-bottom: .1rem;
+}
+.confirm_receipt_main {
+    width: 100%;
+    font-size: .26rem;
+    color: #333333;
+    text-align: center;
+    margin-bottom: .4rem;
+}
+.confirm_receipt_choice {
+    width: 100%;
+    height: .87rem;
+    line-height: .87rem;
+    border-top: 1px solid #D8DDE6;
+}
+.countermand {
+    width: 48%;
+    height: 100%;
+    font-size: .3rem;
+    color: #333333;
+    text-align: center;
+    border-right: 1px solid #D8DDE6;
+    float: left;
+}
+.affirm {
+    width: 48%;
+    height: 100%;
+    font-size: .3rem;
+    color: #F97215;
+    text-align: center;
+    float: left;
+}
+/*确认收货提示结束*/
+
 
 
 

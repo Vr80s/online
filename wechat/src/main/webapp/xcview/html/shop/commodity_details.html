@@ -65,6 +65,15 @@
 	.appraiser_message{
 		margin-bottom: .1rem;
 	}
+	.buy center{
+		height: .55rem;
+	}
+	.spinner button{
+		line-height: .55rem;
+	}
+	.decreases{
+		margin-top: -.04rem;
+	}
 </style>
 </head>
 <body>
@@ -977,6 +986,22 @@
     if(localStorage.getItem("wv") == null){
         $(".share").show();
     }
+</script>
+
+<script>
+	$(function () {
+	    var u = navigator.userAgent, app = navigator.appVersion;
+	    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+	    var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+	    if (isAndroid) {
+//	        alert("安卓机！")
+			$(".spinner .decrease").removeClass("decreases");
+	    }
+	    if (isIOS) {
+//	        alert("苹果果机！")
+			$(".spinner .decrease").addClass("decreases");
+	    }
+	}); 
 </script>
 </html>
 
