@@ -91,6 +91,8 @@ function cancelOrder() {
         if(data.success ){
             $(".cancelOrder").hide();
             orderList(1,"down");
+        }else{
+            jqtoast(data.errorMessage);
         }
     });
 }
@@ -103,6 +105,8 @@ function deleteOrder() {
         if(data.success ){
             $(".deleteOrder").hide();
             orderList(1,"down");
+        }else{
+            jqtoast(data.errorMessage);
         }
     });
 }
