@@ -195,6 +195,9 @@ function requestGetService(url, param, callback, ac) {
 function requestPostService(url, param, callback, ac) {
     ajaxRequest(url, param, "post", callback, ac);
 }
+function requestPostJsonService(url, param, callback, ac) {
+    ajaxRequest(url, param, "post", callback, ac,"application/json");
+}
 
 //ajax统一请求
 function requestService(url, param, callback, ac) {
@@ -203,7 +206,10 @@ function requestService(url, param, callback, ac) {
 
 
 //ajax统一请求
-function ajaxRequest(url, param,type, callback, ac) {
+function ajaxRequest(url, param,type, callback, ac, contentType) {
+    if(contentType == null){
+        contentType = "application/x-www-form-urlencoded";
+    }
     if (ac == null)
         ac = true;// 默认异步
     if(document.location.host.indexOf('dev.ixincheng.com')!=-1){
@@ -225,6 +231,7 @@ function ajaxRequest(url, param,type, callback, ac) {
         type: type,
         data: param,
         headers: headers,
+        contentType: contentType,
         async: ac,
         success: function (msg) {
             var rd = getCurrentRelativeUrl();
