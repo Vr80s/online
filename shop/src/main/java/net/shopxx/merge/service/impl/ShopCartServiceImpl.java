@@ -94,11 +94,17 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
         CartItem cartItem = null;
         if (cartItemOptional.isPresent()) {
             cartItem = cartItemOptional.get();
+            if ((cartItem.getQuantity() == null ? 0 : cartItem.getQuantity()) + quantity > cartItem.getSku().getAvailableStock()) {
+                throw new RuntimeException("商品库存不足");
+            }
             cartItem.setQuantity(cartItem.getQuantity() + quantity);
         } else {
             cartItem = new CartItem();
             cartItem.setCart(cart);
             cartItem.setSku(sku);
+            if (quantity > cartItem.getSku().getAvailableStock()) {
+                throw new RuntimeException("商品库存不足");
+            }
             cartItem.setQuantity(quantity);
             cartItemDao.persist(cartItem);
         }
