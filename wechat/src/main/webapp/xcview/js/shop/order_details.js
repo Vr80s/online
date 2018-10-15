@@ -150,6 +150,8 @@ function cancelOrder() {
         if(data.success ){
             $(".cancelOrder").hide();
             orderDetails();
+        }else{
+            jqtoast(data.errorMessage);
         }
     });
 }
@@ -161,6 +163,8 @@ function deleteOrder() {
         if(data.success ){
             $(".deleteOrder").hide();
             orderDetails();
+        }else{
+            jqtoast(data.errorMessage);
         }
     });
 }
@@ -176,6 +180,8 @@ function confirmReceipt(orderSn) {
     }, function (data) {
         if(data.success ){
             orderDetails();
+        }else{
+            jqtoast(data.errorMessage);
         }
     });
 }
