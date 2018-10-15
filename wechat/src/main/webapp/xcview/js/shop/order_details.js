@@ -3,7 +3,18 @@ var data_id="";
 var sn = getQueryString("sn");
 var order_Id;
 $(function() {
-
+	// 点击头部区域客服消息  
+	$(".advices").click(function(){
+		jqtoast("熊猫客服休息中，稍后报道！");
+	});
+	// 点击客服
+	/*$("#notescontact").click(function(){
+		jqtoast("熊猫客服休息中，稍后报道！");
+	});*/
+	$(".orderDetails").on('click','#notescontact',function(){
+		jqtoast("熊猫客服休息中，稍后报道！");
+	})
+	
     orderDetails();
 
 //  点击评价
