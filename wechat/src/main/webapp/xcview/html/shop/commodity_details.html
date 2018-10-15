@@ -62,6 +62,9 @@
 		margin-bottom: .2rem;
 		display: none;
 	}
+	.appraiser_message{
+		margin-bottom: .1rem;
+	}
 </style>
 </head>
 <body>
@@ -220,6 +223,10 @@
 				<div class="appraiser_message">
 					<img src="{{item.user.headPhoto}}" alt="" class="head_portrait" />
 					<span class="name">{{item.user.username}}</span>
+				</div>
+				<div class="center" style="font-size: .26rem;color: #999999;margin-bottom: .2rem;">
+					<span >{{item.createdDate}}</span>
+					<span>{{item.specifications}}</span>
 				</div>
 				<div class="center">{{item.content}}</div>
 				<!-- <div class="referrer_img">
@@ -593,6 +600,8 @@
 					}
                     $('.shopping_quantity').html(totalQuantity);
                     jqtoast("已加入购物车");
+				} else {
+				    jqtoast(data.errorMessage);
 				}
 			});
 		}else{

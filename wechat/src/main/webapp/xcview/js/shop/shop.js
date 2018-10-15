@@ -1,12 +1,3 @@
-$(function () {
-
-    recommends(1,'down');  /*定义一个方法*/
-//    newests(1,'down');
-//    hottests(1,'down');
-//    ascendings(1,'down');
-//    descendings(1,'down');
-
-})
 
 // $(function () {
     // banner图
@@ -71,8 +62,8 @@ function recommends(pageNumber, downOrUp){
     // 商品列表--推荐
     var recommend = "RECOMMEND_DESC";
     requestGetService("/xczh/shop/goods/list",{
-        pageNumber:pageNumber,
-        pageSize:6,
+        pageNumber:1,
+        pageSize:100,
         orderType:recommend
     },function (data) {
         if (data.success == true) {
@@ -92,18 +83,7 @@ function recommends(pageNumber, downOrUp){
 				obj[i].price=price;
 			}
 
-            
-            if(downOrUp=='down'){
-                $(".product_list").html(template('product_list', {items: obj}));
-//              listClick();
-                miniRefresh.endDownLoading(true);// 结束下拉刷新
-                
-            } else if(obj.length==0){
-                miniRefresh.endUpLoading(true);// 结束上拉加载
-            } else {
-                $(".product_list").append(template('product_list',{items:obj}));
-                miniRefresh.endUpLoading(false);
-            }
+            $(".product_list").html(template('product_list', {items: obj}));
             
 //          $(".product_list li").off("click");
             $(".product_list li").click(function(){
@@ -118,12 +98,11 @@ function recommends(pageNumber, downOrUp){
 
     $(".default_click").click(function(){
     	
-    	page = 1;
         // 商品列表--推荐
         var recommend = 'RECOMMEND_DESC';
         requestGetService("/xczh/shop/goods/list",{
             pageNumber:1,
-            pageSize:10
+            pageSize:100
         },function (data) {
             if (data.success == true) {
                 var obj = data.resultObject;
@@ -142,35 +121,25 @@ function recommends(pageNumber, downOrUp){
         // 商品列表--最新
         var newest = 'DATE_DESC';
         requestGetService("/xczh/shop/goods/list",{
-            pageNumber:pageNumber,
-            pageSize:6,
+            pageNumber:1,
+            pageSize:100,
             orderType:newest
         },function (data) {
             if (data.success == true) {
                 var obj = data.resultObject;
-                //downOrUp为down时为下拉刷新等于up时为上拉操作
-                if(downOrUp=='down'){
-                    $(".product_list").html(template('product_list', {items: obj}));
-//                  listClick();
-                    miniRefresh.endDownLoading(true);// 结束下拉刷新
-                } else if(obj.length==0){
-                    miniRefresh.endUpLoading(true);// 结束上拉加载
-                } else {
-                    $(".product_list").append(template('product_list',{items:obj}));
-                    miniRefresh.endUpLoading(false);
-                }
+                $(".product_list").html(template('product_list', {items: obj}));
+                
             }
                 
         });
     }
     $(".option_newest").click(function(){
     	
-    	page = 1;
         // 商品列表--最新
         var newest = 'DATE_DESC';
         requestGetService("/xczh/shop/goods/list",{
             pageNumber:1,
-            pageSize:10,
+            pageSize:100,
             orderType:newest
         },function (data) {
             if (data.success == true) {
@@ -191,23 +160,14 @@ function recommends(pageNumber, downOrUp){
         // 商品列表--最热
         var hottest = 'SALES_DESC';
         requestGetService("/xczh/shop/goods/list",{
-            pageNumber:pageNumber,
-            pageSize:6,
+            pageNumber:1,
+            pageSize:100,
             orderType:hottest
         },function (data) {
             if (data.success == true) {
                 var obj = data.resultObject;
-                //downOrUp为down时为下拉刷新等于up时为上拉操作
-                if(downOrUp=='down'){
-                    $(".product_list").html(template('product_list', {items: obj}));
-//                  listClick();
-                    miniRefresh.endDownLoading(true);// 结束下拉刷新
-                } else if(obj.length==0){
-                    miniRefresh.endUpLoading(true);// 结束上拉加载
-                } else {
-                    $(".product_list").append(template('product_list',{items:obj}));
-                    miniRefresh.endUpLoading(false);
-                }
+                
+                $(".product_list").html(template('product_list', {items: obj}));
             }
                 
         });
@@ -219,7 +179,7 @@ function recommends(pageNumber, downOrUp){
         var hottest = 'SALES_DESC';
         requestGetService("/xczh/shop/goods/list",{
             pageNumber:1,
-            pageSize:10,
+            pageSize:100,
             orderType:hottest
         },function (data) {
             if (data.success == true) {
@@ -239,8 +199,8 @@ function recommends(pageNumber, downOrUp){
         // 商品列表--价格升序
         var ascendings = 'PRICE_ASC';
         requestGetService("/xczh/shop/goods/list",{
-            pageNumber:pageNumber,
-            pageSize:6,
+            pageNumber:1,
+            pageSize:100,
             orderType:ascendings
         },function (data) {
             if (data.success == true) {
@@ -262,12 +222,11 @@ function recommends(pageNumber, downOrUp){
     }
     $(".option_price").click(function(){
     	
-    	page = 1;
         // 商品列表--价格升序
         var ascending = 'PRICE_DESC';
         requestGetService("/xczh/shop/goods/list",{
             pageNumber:1,
-            pageSize:10,
+            pageSize:100,
             orderType:ascending
         },function (data) {
             if (data.success == true) {
@@ -283,12 +242,11 @@ function recommends(pageNumber, downOrUp){
     });
     $(".down").click(function(){
     	
-    	page = 1;
         // 商品列表--价格升序
         var ascending = 'PRICE_DESC';
         requestGetService("/xczh/shop/goods/list",{
             pageNumber:1,
-            pageSize:10,
+            pageSize:100,
             orderType:ascending
         },function (data) {
             if (data.success == true) {
@@ -309,36 +267,24 @@ function recommends(pageNumber, downOrUp){
         // 商品列表--价格降序
         var descendings = 'PRICE_DESC';
         requestGetService("/xczh/shop/goods/list",{
-            pageNumber:pageNumber,
-            pageSize:6,
+            pageNumber:1,
+            pageSize:100,
             orderType:descendings
         },function (data) {
             if (data.success == true) {
                 var obj = data.resultObject;
-                //downOrUp为down时为下拉刷新等于up时为上拉操作
-                if(downOrUp=='down'){
-                    $(".product_list").html(template('product_list', {items: obj}));
-//                  listClick();
-                    miniRefresh.endDownLoading(true);// 结束下拉刷新
-                } else if(obj.length==0){
-                    miniRefresh.endUpLoading(true);// 结束上拉加载
-                } else {
-                    $(".product_list").append(template('product_list',{items:obj}));
-                    miniRefresh.endUpLoading(false);
-                }
+                $(".product_list").html(template('product_list', {items: obj}));
             }
                 
         });
     }
     $(".low_to_high").click(function(){
     	
-    	page = 1;
-    	
         // 商品列表--价格降序
         var descending = 'PRICE_ASC';
         requestGetService("/xczh/shop/goods/list",{
             pageNumber:1,
-            pageSize:10,
+            pageSize:100,
             orderType:descending
         },function (data) {
             if (data.success == true) {
@@ -361,7 +307,7 @@ function recommends(pageNumber, downOrUp){
 
     //刷新
     // 初始化页码
-    var page = 1;
+    /*var page = 1;
 
     // miniRefresh 对象
     var miniRefresh = new MiniRefresh({
@@ -382,7 +328,7 @@ function recommends(pageNumber, downOrUp){
                 refurbish(page,'up');
             }
         }
-    });
+    });*/
 
 function refurbish(page,downUp){
 	
@@ -413,7 +359,7 @@ function refurbish(page,downUp){
 		}
     } 	
 }
-
+$(".default_click").click();
 // 点击进入详情
     $(".product_list li").click(function(){
         var id = $(this).attr("data-id");
