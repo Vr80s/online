@@ -75,7 +75,7 @@
 					$("#address_id").val(umv.id);
 				    $("#consignee").val(umv.consignee);
 				    $("#phone").val(umv.phone);
-				    $("#zip-code").val(umv.zipCode);
+//				    $("#zip-code").val(umv.zipCode);
 				    isTrue=umv.isDefault;
 				    //
 				    var quId=data.resultObject.id;
@@ -160,7 +160,7 @@
 				    				$(".input-group .shi option").eq(i).attr("selected","selected");
 				    			}
 				    		}
-				    		getQuId=provice.id;
+				    		getCityId=provice.id;
 				    	})
 				    }
 				 
@@ -211,21 +211,15 @@
 			return false;
 		}
 //		邮编
-		var zipCode =$("#zip-code").val();
-		if(isBlank(zipCode)){
-//			$("#errorMsg").html("<div class='vanish3'><div class='vanish3_bg'></div><div class='vanish3_cen'><div class='vanish3_size'>请选择省市区</div></div></div>");
-//			$("#errorMsg").show();
-//			setTimeout(function(){$(".vanish3").hide();},1500);
-			webToast("请填写邮编","middle",1500);
-			return false;
-		}
-		if (!(/^\d+$/.test(zipCode))) {
-			/*$("#errorMsg").html("<div class='vanish1'><div class='vanish1_bg'></div><div class='vanish1_cen'><div class='vanish1_size'>手机号格式不正确</div></div></div>");
-			$("#errorMsg").show();
-			setTimeout(function(){$(".vanish1").hide();},1500);*/
-			webToast("请输入正确的邮编","middle",1500);
-			return false;
-		}
+//		var zipCode =$("#zip-code").val();
+//		if(isBlank(zipCode)){
+//			webToast("请填写邮编","middle",1500);
+//			return false;
+//		}
+//		if (!(/^\d+$/.test(zipCode))) {
+//			webToast("请输入正确的邮编","middle",1500);
+//			return false;
+//		}
 //		省市区
 //		var cityP =$("#cityP").text();
 //		if(isBlank(cityP) || cityP == "请选择"){
@@ -283,7 +277,7 @@
 //			city : city,
 //			county : county,
 			areaId:areaId,
-			zipCode : zipCode,
+			zipCode : 000000,
 			address:detailed_address,
 			/*postalCode:postalCode,*/
 			consignee:consignee,
@@ -292,15 +286,15 @@
 		}
 	
 	var addressId  = $("#address_id").val();
-		$(".person_prosperity").show();
-		$(".prosperity_cen_top").text("新增成功");
+//		$(".person_prosperity").show();
+//		$(".prosperity_cen_top").text("新增成功");
 		
 		var url_address = "/xczh/shop/receiver/add";
 		if(isNotBlank(addressId)){
 			urlparm.receiverId = addressId;
 			url_address = "/xczh/shop/receiver/update";
-			$(".person_prosperity").show();
-			$(".prosperity_cen_top").text("修改成功");
+//			$(".person_prosperity").show();
+//			$(".prosperity_cen_top").text("修改成功");
 		}
 		/**
 		 * 保存地址
@@ -308,9 +302,18 @@
 		requestService(url_address, 
 				urlparm, function(data) {
 			if (data.success) {
-//				$(".person_prosperity").show();
-//				$(".prosperity_cen_top").text("新增成111功");
-				/*alert(alertStr);*/
+				$(".person_prosperity").show();
+				if (isNotBlank(addressId)) {
+					$(".prosperity_cen_top").text("修改成功");
+					setTimeout(function(){
+						location.href ='address.html';
+					},1500)
+				} else{
+					$(".prosperity_cen_top").text("新增成功");
+					setTimeout(function(){
+						location.href ='address.html';
+					},1500)
+				}
 				
 				/**
 				 * 添加后返回到list页面：
