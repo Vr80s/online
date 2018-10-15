@@ -287,8 +287,12 @@ header{
 }
 .view_all img{
 	width: .12rem;
-	height: .24rem;
-	vertical-align:middle;
+    height: .24rem;
+    /* vertical-align: middle; */
+    margin-top: .06rem;
+    /* padding-top: .1rem; */
+    float: right;
+    margin-left: .1rem;
 }
 .referrer{
 	margin-bottom: .2rem;
@@ -371,8 +375,12 @@ header{
 }
 .evaluate_view_all img{
 	width: .12rem;
-	height: .24rem;
-	vertical-align:middle;
+    height: .24rem;
+    /* vertical-align: middle; */
+    margin-top: .06rem;
+    /* padding-top: .1rem; */
+    float: right;
+    margin-left: .1rem;
 }
 .appraiser{
 	margin-bottom: .2rem;

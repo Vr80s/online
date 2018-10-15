@@ -175,6 +175,13 @@ header{
 	color: #333333;
 	border-bottom: 1px solid #f8f8f8;
 }
+.indent_list .tilte span{
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inherit;
+    width: 6.5rem;
+}
 .head_portrait{
 	width: .4rem;
 	height: .4rem;
@@ -430,8 +437,9 @@ header{
 .summation{
 	height: .98rem;
 	line-height: .98rem;
-	float: left;
-	margin-left: 2.9rem;
+	float: right;
+	/*margin-left: 2.9rem;*/
+	margin-right: .2rem;
 }
 .summation .summations{
 	font-size: .28rem;

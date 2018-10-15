@@ -178,6 +178,7 @@ header {
     text-align: center;
     margin-top: .12rem;
     margin-right: .6rem;
+    margin-left: .2rem;
 }
 .footer .service img{
     width: .42rem;
@@ -466,3 +467,6 @@ header {
     margin-top: -0.5rem;
 }
 /*暂无评价显示结束*/
+.upwrap-tips{
+	display: none !important;
+}
