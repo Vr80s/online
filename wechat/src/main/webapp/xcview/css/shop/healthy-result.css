@@ -2,9 +2,9 @@
 	display: none;
 }
 body{
-	background-size: contain;
-	background: url("/xcview/images/answer-bg.png") no-repeat center;
 
+	background: url("/xcview/images/answer-bg.png") no-repeat center;
+	    background-size: cover;
 }
 .wrap-header{
 	width: 100%;
@@ -59,5 +59,76 @@ body{
 	height: 3.1rem;
 	background: url("/xcview/images/result.png") no-repeat center;
 	    background-size: contain;
-    margin: 0.7rem auto 0.8rem;
+    margin: 0.7rem auto 0.3rem;
+}
+.result-top{
+	margin-bottom: 0.1rem;
+	font-size: 0.32rem;
+	text-align: center;
+	padding: 0 0.25rem;
+}
+.result-bottom{
+	font-size: 0.32rem;
+	text-align: center;
+	padding: 0 0.25rem;
+}
+.result-bottom span{
+	font-size: 0.32rem;
+	color: #ca684a;
+	text-align: center;
+}
+.result-text{
+	margin-bottom: 0.8rem;
+}
+/*建议*/
+.content-method{
+	width: 100%;
+	padding: 0 0.25rem;
+}
+.suggest-title{
+	width: 3.4rem;
+	height: 0.7rem;
+	background: url("/xcview/images/title-bg.png");
+	background-size: contain;
+	font-size: 0.36rem;
+	color: #FFFFFF;
+	position: absolute;
+    left: 50%;
+    margin-left: -1.7rem;
+    top: 0;
+    margin-top: -0.35rem;
+}
+.suggest-title p{
+	text-align: center;
+	padding-top: 0.15rem;
+}
+.suggest-wrap{
+	width: 100%;
+	border: 1px solid #779ED7;
+	position: relative;
+	padding: 0.5rem 0.2rem 0.3rem;
+	border-radius: 0.16rem;
+	box-sizing: border-box;
+	margin-bottom: 1rem;
+}
+.live-tip .live-title{
+	font-size: 0.3rem;
+	color: #5487C7;
+	margin-bottom: 0.2rem;
+}
+.live-tip .live-title img{
+	width: 0.4rem;
+	height: 0.3rem;
+	display: inline-block;
+}
+.live-tip .live-text-one{
+	margin-bottom: 0.2rem;
+	font-size: 0.28rem;
+	color: #383838;
+	word-wrap:break-word; 
+	word-break:break-all; 
+	letter-spacing: 0.03rem;
+}
+.live-text-one .live-left-tip{
+	color: #333;
 }
