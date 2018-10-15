@@ -53,7 +53,7 @@
 	}
 	.minirefresh-wrap::-webkit-scrollbar {display: none;}
 	.spinner input{
-		color: #333 !important;
+		/*color: #333 !important;*/
 	}
 	.it_over{
 		font-size: .24rem;
@@ -73,6 +73,14 @@
 	}
 	.decreases{
 		margin-top: -.04rem;
+	}
+	.spinner .spinnerExample{
+		opacity: 1;
+		color: #000;
+	}
+	.spinner_input{
+		color: #000 !important;
+		opacity: 1 !important;
 	}
 </style>
 </head>
@@ -1000,6 +1008,7 @@
 	    if (isIOS) {
 //	        alert("苹果果机！")
 			$(".spinner .decrease").addClass("decreases");
+			$(".spinner input").addClass("spinner_input");
 	    }
 	}); 
 </script>
