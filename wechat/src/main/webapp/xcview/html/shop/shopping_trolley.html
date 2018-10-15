@@ -44,6 +44,22 @@
         .shop-info .shop-info-text .shop-arithmetic{
         	width: 1.7rem;
         }
+        .header .title{
+        	/*background: red;*/
+        }
+       	.shop-names{
+       		width: 6rem;
+		    overflow: hidden;
+		    white-space: nowrap;
+		    text-overflow: ellipsis;
+		    display: inherit;
+       	}
+       	input.check{
+       		border: none !important;
+       	}
+       	.shop-name .head_portrait{
+       		border-radius: 100px;
+       	}
     </style>
 </head>
 
@@ -177,10 +193,11 @@
                         <div class="shop-info-img"><a href="#"><img src="{{cartItem.sku.image}}"/></a></div>
                         <div class="shop-info-text">
                             <h4 class="">{{cartItem.sku.name}}</h4>
-                            <div class="inventory"  data-pid="{{cartItem.sku.productId}}" data-sid="{{cartItem.sku.id}}"><span
-                                    class="packaging">{{cartItem.sku.specifications}}</span>（库存<span
-                                    class="number_packages">{{cartItem.sku.availableStock}}</span>件）<img
-                                    src="/xcview/images/bot.png" alt="" class="select" style="display: inline"
+                            <div class="inventory"  data-pid="{{cartItem.sku.productId}}" data-sid="{{cartItem.sku.id}}">
+                            	<div class="">
+                            		<span class="packaging">{{cartItem.sku.specifications}}</span>（库存<span class="number_packages">{{cartItem.sku.availableStock}}</span>件）
+                            	</div>
+                            	<img src="/xcview/images/bot.png" alt="" class="select" style="display: inline"
                                    />
                                 <div class="selectbg"></div>
                             </div>
