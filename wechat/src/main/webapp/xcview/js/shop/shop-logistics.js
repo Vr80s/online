@@ -12,6 +12,8 @@ $(function() {
                 $(".kuaidiName").html("本商品由【"+data.resultObject.deliveryCorp+"快递】承运");
                 $(".orderSn").html("运单号  "+data.resultObject.trackingNo);
                 transitStep(shippingId);
+            } else {
+                jqtoast("运单号有误");
             }
         }
     });
@@ -55,7 +57,7 @@ function orderDetails() {
             }
 
 
-            $(".orderInfo").html(template('orderInfo',obj));
+            //$(".orderInfo").html(template('orderInfo',obj));
             $(".orderImg").attr('src',data.resultObject.orderItems[0].thumbnail);
 
         }

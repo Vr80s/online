@@ -633,29 +633,25 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
         if (orderType != null) {
             switch (orderType) {
                 case RECOMMEND_DESC:
-                    criteriaQuery.orderBy(criteriaBuilder.desc(root.get("isTop")),
+                    criteriaQuery.orderBy(criteriaBuilder.desc(root.get("doctorRecommends")),
                             criteriaBuilder.desc(root.get("createdDate")));
                     break;
                 case SALES_DESC:
-                    criteriaQuery.orderBy(criteriaBuilder.desc(root.get("sales")),
-                            criteriaBuilder.desc(root.get("createdDate")));
+                    criteriaQuery.orderBy(criteriaBuilder.desc(root.get("sales")),criteriaBuilder.desc(root.get("createdDate")));
                     break;
                 case DATE_DESC:
                     criteriaQuery.orderBy(criteriaBuilder.desc(root.get("createdDate")));
                     break;
-
                 case PRICE_ASC:
-                    criteriaQuery.orderBy(criteriaBuilder.asc(root.get("price")),
-                            criteriaBuilder.desc(root.get("createdDate")));
+                    criteriaQuery.orderBy(criteriaBuilder.asc(root.get("price")),criteriaBuilder.desc(root.get("createdDate")));
                     break;
                 case PRICE_DESC:
-                    criteriaQuery.orderBy(criteriaBuilder.desc(root.get("price")),
-                            criteriaBuilder.desc(root.get("createdDate")));
+                    criteriaQuery.orderBy(criteriaBuilder.desc(root.get("price")),criteriaBuilder.desc(root.get("createdDate")));
                     break;
             }
         } else {
-            criteriaQuery.orderBy(criteriaBuilder.desc(root.get("isTop")),
-                    criteriaBuilder.desc(root.get("createdDate")));
+        	 criteriaQuery.orderBy(criteriaBuilder.desc(root.get("doctorRecommends")),
+                     criteriaBuilder.desc(root.get("createdDate")));
         }
         return super.findList(criteriaQuery, goodsPageParams.getPageNumber(), goodsPageParams.getPageSize(), null, null);
 
@@ -692,23 +688,23 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
         if (orderType != null) {
             switch (orderType) {
                 case RECOMMEND_DESC:
-                    sortFields = new SortField[]{new SortField("recommends", SortField.Type.INT, true)};
+                    sortFields = new SortField[]{new SortField("doctorRecommends", SortField.Type.INT, true),new SortField("createdDate", SortField.Type.LONG, true)};
                     break;
                 case SALES_DESC:
-                    sortFields = new SortField[]{new SortField("sales", SortField.Type.LONG, true)};
+                    sortFields = new SortField[]{new SortField("sales", SortField.Type.LONG, true),new SortField("createdDate", SortField.Type.LONG, true)};
                     break;
                 case DATE_DESC:
                     sortFields = new SortField[]{new SortField("createdDate", SortField.Type.LONG, true)};
                     break;
                 case PRICE_ASC:
-                    sortFields = new SortField[]{new SortField("price", SortField.Type.DOUBLE, false)};
+                    sortFields = new SortField[]{new SortField("price", SortField.Type.DOUBLE, false),new SortField("createdDate", SortField.Type.LONG, true)};
                     break;
                 case PRICE_DESC:
-                    sortFields = new SortField[]{new SortField("price", SortField.Type.DOUBLE, true)};
+                    sortFields = new SortField[]{new SortField("price", SortField.Type.DOUBLE, true),new SortField("createdDate", SortField.Type.LONG, true)};
                     break;
             }
         } else {
-            sortFields = new SortField[]{new SortField("recommends", SortField.Type.INT, true)};
+        	 sortFields = new SortField[]{new SortField("doctorRecommends", SortField.Type.INT, true),new SortField("createdDate", SortField.Type.LONG, true)};
         }
 
         fullTextQuery.setSort(new Sort(sortFields));

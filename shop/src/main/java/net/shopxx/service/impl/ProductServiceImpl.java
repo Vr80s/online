@@ -472,6 +472,9 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		product.setConsultations(null);
 		product.setProductFavorites(null);
 		product.setSkus(null);
+		//医师推荐数 +1 
+		product.setDoctorRecommends(1);
+		
 		setValue(product);
 		productDao.persist(product);
 
@@ -1010,16 +1013,4 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		stockLog.setSku(sku);
 		stockLogDao.persist(stockLog);
 	}
-
-	
-	@Override
-	public void modifyAddRecommends(Long id) {
-		Product product = productDao.find(id);
-		if(product!=null) {
-			Integer recommends = product.getRecommends();
-			product.setRecommends(recommends!=null ?  recommends+1 :1);
-			productDao.flush();
-		}
-	}
-
 }

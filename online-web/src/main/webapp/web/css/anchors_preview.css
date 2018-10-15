@@ -292,11 +292,11 @@ body{
 	line-height: 36px;
 }
 .right-bottom ul li:nth-child(1){
-	border-radius: 10px 0 0 10px;
+	border-radius: 18px 0 0 18px;
 	background: #F97215;
 }
 .right-bottom ul li:nth-child(2){
-	border-radius: 0 10px 10px 0;
+	border-radius: 0 18px 18px 0;
 	background: #FF4012;
 }
 /*二维码*/

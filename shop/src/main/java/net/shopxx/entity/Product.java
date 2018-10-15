@@ -647,7 +647,7 @@ public class Product extends BaseEntity<Long> {
 
 
     /**
-     * 医师推荐数
+     * 医师推荐星级
      */
     @Column
     private Integer recommends;
@@ -656,7 +656,13 @@ public class Product extends BaseEntity<Long> {
      */
     @Column
     private String recommentContent;
-
+    
+    /**
+     * 医师推荐数
+     */
+    @Column
+    private Integer doctorRecommends;
+    
     /**
      * 获取编号
      *
@@ -1855,7 +1861,16 @@ public class Product extends BaseEntity<Long> {
         this.recommentContent = recommentContent;
     }
 
-    /**
+    
+    public Integer getDoctorRecommends() {
+		return doctorRecommends;
+	}
+
+	public void setDoctorRecommends(Integer doctorRecommends) {
+		this.doctorRecommends = doctorRecommends;
+	}
+
+	/**
      * 获取路径
      *
      * @return 路径
