@@ -60,6 +60,12 @@ $(function() {
     });
     getOrderList();
     getDefaultReceiver();
+    
+//  跳转修改地址
+	$(".select_address_main").click(function(){
+		window.localStorage.isAddress="details";
+		location.href="/xcview/html/address.html";
+	})
 
 });
 
