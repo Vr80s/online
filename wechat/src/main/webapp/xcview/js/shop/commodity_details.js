@@ -10,6 +10,20 @@ requestGetService("/xczh/shop/goods/details",{
         var obj = data.resultObject;
         // 详情
         $(".list_details").html(template('list_details', {items: obj}));
+        var v = $(".ruling_price span").html();
+		if(/^\d+$/.test(v)){
+		v = v + ".00";
+		}else if(/^(\d+\.)(\d+)$/.test(v)){
+			var i = RegExp.$1;
+			var t = RegExp.$2;
+			if(t.length == 1)
+			v = v + "0";
+			else if(t.length > 2)
+			v = i + t.substring(0,2);
+		}
+		//alert(v);
+		$(".ruling_price span").html(v);
+
         // $(".swiper-wrapper").html(template('top_details', {items: obj}));
         // $(".banner").html(template('top_details', {items: obj}));
         // 轮播图
@@ -65,6 +79,7 @@ requestGetService("/xczh/shop/goods/details",{
 
         // 点击加入购物车-封面图
         $(".message").html(template('message', {items: obj}));
+        
         // 选择规格
         
         specificationsResutl =  obj.specificationItemvs;
@@ -102,7 +117,23 @@ requestGetService("/xczh/shop/goods/details",{
         		 $(".information .repertory").html("库存"+defaultSkus.availableStock+"件");
         		 $(".shopping_trolley_center .determine").css("background","#F97215");
         	}
-         	$(".information .price").html("￥"+defaultSkus.price);
+         	$(".information .price").html(defaultSkus.price);
+         	
+         	var j = $(".information .price").html();
+			if(/^\d+$/.test(j)){
+			j = j + ".00";
+			}else if(/^(\d+\.)(\d+)$/.test(j)){
+				var i = RegExp.$1;
+				var t = RegExp.$2;
+				if(t.length == 1)
+				j = j + "0";
+				else if(t.length > 2)
+				j = i + t.substring(0,2);
+			}
+			//alert(v);
+			$(".information .price").html(v);
+         	
+         	
        	    currentSku = defaultSkus;
         }
         
