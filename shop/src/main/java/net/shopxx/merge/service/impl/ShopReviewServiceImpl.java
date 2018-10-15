@@ -205,6 +205,7 @@ public class ShopReviewServiceImpl implements ShopReviewService {
 				pReview.setReplyReviews(null);
 				pReview.setForReview(null);
 				pReview.setSpecifications(pOrderItem.getSpecifications());
+				//是否显示  --默认全部显示啦
 				pReview.setIsShow(setting.getIsReviewCheck() ? false : true);
 				pReview.setLogistics(json.getInt("logistics"));
 				pReview.setSeller(json.getInt("seller"));
