@@ -204,8 +204,8 @@ public class ShopOrderController {
     }
 
     @RequestMapping(value = "/order/shipping", method = RequestMethod.GET)
-    public ResponseObject shipping(@RequestParam String sn) {
-        return ResponseObject.newSuccessResponseObject(orderOperService.findOrderShippingBySn(sn));
+    public ResponseObject shipping(@RequestParam Long orderId) {
+        return ResponseObject.newSuccessResponseObject(orderOperService.findOrderShippingByOrderId(orderId));
     }
 
     @RequestMapping(value = "/order/delete", method = RequestMethod.POST)

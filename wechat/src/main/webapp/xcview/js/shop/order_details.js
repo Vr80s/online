@@ -2,6 +2,7 @@ var data_sn="";
 var data_id="";
 var sn = getQueryString("sn");
 var order_Id;
+
 $(function() {
 	// 点击头部区域客服消息  
 	$(".advices").click(function(){
@@ -162,15 +163,15 @@ function deleteOrder() {
     }, function (data) {
         if(data.success ){
             $(".deleteOrder").hide();
-            orderDetails();
+            location.href = "/xcview/html/shop/order_center.html" ;
         }else{
             jqtoast(data.errorMessage);
         }
     });
 }
 //跳转到物流信息页面
-function getTransitSteps(orderSn) {
-    location.href = "/xcview/html/shop/shop-logistics.html?orderSn=" + orderSn;
+function getTransitSteps(orderSn,orderId) {
+    location.href = "/xcview/html/shop/shop-logistics.html?orderSn=" + orderSn+"&orderId="+orderId;
 }
 
 //确认收货

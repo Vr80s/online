@@ -1,10 +1,11 @@
 var sn = getQueryString("orderSn");
+var orderId = getQueryString("orderId");
 
 $(function() {
     orderDetails();
 
     requestGetService("/xczh/shop/order/shipping", {
-        sn: sn
+        orderId: orderId
     }, function (data) {
         if(data.success ){
             var shippingId = data.resultObject.id;

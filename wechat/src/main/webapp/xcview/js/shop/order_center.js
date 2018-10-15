@@ -16,8 +16,8 @@ $(function() {
 function payment(orderSns) {
     location.href = "/xcview/html/shop/method.html?orderSns=" + orderSns;
 }
-function getTransitSteps(orderSn) {
-    location.href = "/xcview/html/shop/shop-logistics.html?orderSn=" + orderSn;
+function getTransitSteps(orderSn,orderId) {
+    location.href = "/xcview/html/shop/shop-logistics.html?orderSn=" + orderSn+"&orderId="+orderId;
 }
 
 

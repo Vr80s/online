@@ -184,11 +184,13 @@
 					
 					<div class="confirm_receipt" onclick='confirmReceipt("{{sn}}")'>确认收货</div>
 					<div class="shipped_cancel_order" onclick='againBuy("{{sn}}")'>再次购买</div>
-					<div class="check_logistics" onclick='getTransitSteps("{{sn}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
+					<div class="check_logistics" onclick='getTransitSteps("{{sn}}","{{id}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
 
 					<!-- 交易成功 -->
 					{{else if status == 'COMPLETED'  || status == 'RECEIVED'}}
+					{{if !isReviewed}}
 					<div class="win_evaluate">评价</div>   <!-- 交易成功后评价后-评价按钮隐藏 -->
+					{{/if}}
 					<div class="win_shipped_cancel_order" onclick='againBuy("{{sn}}")'>再次购买</div>
 					<div class="win_check_logistics" onclick='getTransitSteps("{{sn}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
 					

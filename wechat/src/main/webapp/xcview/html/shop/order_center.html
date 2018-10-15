@@ -234,7 +234,7 @@
 					{{/if}}	
 				  
 					<div class="win_shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
-					<div class="win_check_logistics" onclick='getTransitSteps("{{item.sn}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
+					<div class="win_check_logistics" onclick='getTransitSteps("{{item.sn}}","{{item.id}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
 
 					<!-- 交易关闭 -->
 					{{else if item.status == 'CANCELED' || item.status == 'FAILED' || item.status == 'DENIED'}}
