@@ -568,6 +568,12 @@ public class ProductController extends BaseController {
 		return findIdByShareInfo;
 	}
 	
+	@GetMapping("/modifyAddDoctorRecommends")
+	public @ResponseBody Object modifyAddDoctorRecommends(Long productId) {
+	    goodsService.modifyAddDoctorRecommends(productId);
+		return "ok";
+	}
+	
 
 	/**
 	 * FormBean - 评论条目

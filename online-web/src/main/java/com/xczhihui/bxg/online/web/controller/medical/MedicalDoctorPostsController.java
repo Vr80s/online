@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.web.controller.medical;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.enums.DoctorPostsType;
 import com.xczhihui.medical.anchor.model.CourseApplyResource;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
@@ -91,9 +92,13 @@ public class MedicalDoctorPostsController {
             } else {
                 medicalDoctorPosts.setContent(medicalDoctorPosts.getTitle());
             }
-
         }
         medicalDoctorPostsService.addMedicalDoctorPosts(medicalDoctorPosts);
+        
+        if(DoctorPostsType.POSTSPOSTS.getCode() == medicalDoctorPosts.getType()) {
+        	 LOGGER.info("推荐的商品id:"+medicalDoctorPosts.getProductId());
+        	 goodsService.modifyAddDoctorRecommends(medicalDoctorPosts.getProductId());
+        }
         return ResponseObject.newSuccessResponseObject("添加成功");
     }
 

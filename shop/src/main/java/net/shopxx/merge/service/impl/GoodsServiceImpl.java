@@ -397,4 +397,16 @@ public class GoodsServiceImpl implements GoodsService {
             e.printStackTrace();
         }
     }
+    
+    @Transactional
+    @Override
+    public void modifyAddDoctorRecommends(Long id){
+    	Product product = productDao.find(id);
+		if(product!=null) {
+			Integer doctorRecommends = product.getDoctorRecommends();
+			product.setDoctorRecommends(doctorRecommends!=null ?  doctorRecommends+1 : 1);
+			productDao.flush();
+		}
+    }
+    
 }
