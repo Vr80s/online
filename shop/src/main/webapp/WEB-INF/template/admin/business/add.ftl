@@ -46,6 +46,7 @@
                 var $businessForm = $("#businessForm");
 
                 // 表单验证
+                debugger
                 $businessForm.validate({
                     rules: {
                         username: {
@@ -87,6 +88,10 @@
                                 url: "${base}/admin/business/check_mobile",
                                 cache: false
                             }
+                        },
+                        doctorId: {
+                            required: true,
+                            doctorId: true
                         }
                         [#list businessAttributes as businessAttribute]
                             [#if businessAttribute.isRequired || businessAttribute.pattern?has_content]
@@ -187,7 +192,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-xs-3 col-sm-2 control-label"
+                                <label class="col-xs-3 col-sm-2 control-label item-required"
                                        for="doctorId">${message("Business.doctor")}:</label>
                                 <div class="col-xs-9 col-sm-4">
                                     <select name="doctorId" class="selectpicker form-control" data-size="10">
