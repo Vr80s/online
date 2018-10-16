@@ -77,7 +77,7 @@
 
 	<!-- 物流信息开始=====等待卖家已发货-显示 -->
 	{{if status =='SHIPPED' || status =='RECEIVED' || status =='COMPLETED'}}
-	<div class="logistics" >
+	<div class="logistics" onclick='getTransitSteps("{{sn}}","{{id}}")'>
 		<div class="logistics_main">
 			<div class="trucks">
 				<img src="/xcview/images/shop/trucks.png" alt="" />
