@@ -46,4 +46,18 @@ public class CartItemDaoImpl extends BaseDaoImpl<CartItem, Long> implements Cart
         query.where(criteriaBuilder.equal(from.get("id"), id));
         return this.entityManager.createQuery(query).getSingleResult();
     }
+    
+    
+    @Override
+    public Integer updateCartItemChecked(List<Long> ids,Boolean isChecked,Long cartId){
+        String jpql = "update CartItem cartItem set cartItem.isChecked = :isChecked  where cartItem.id in (:ids) "
+        		+ " and cartItem.cart.id = :cartId ";
+        int executeUpdate = entityManager.createQuery(jpql)
+        		.setParameter("isChecked", isChecked)
+        		.setParameter("ids", ids)
+        		.setParameter("cartId", cartId).executeUpdate();
+        return executeUpdate;
+    }
+    
+    
 }

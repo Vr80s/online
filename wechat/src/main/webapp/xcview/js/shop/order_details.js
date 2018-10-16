@@ -33,6 +33,22 @@ $(function() {
 	location.href = "/xcview/html/shop/method.html?orderSns=" + sn;
 });*/
 
+
+function priceConvert(price) {
+    if(/^\d+$/.test(price)){
+        return price + ".00";
+    }else if(/^(\d+\.)(\d+)$/.test(price)){
+        var j = RegExp.$1;
+        var t = RegExp.$2;
+        if(t.length == 1)
+            return price + "0";
+        else if(t.length > 2){
+            return j + t.substring(0,2);
+        }
+    }
+        return price
+}
+
 //订单详情
 function orderDetails() {
     requestGetService("/xczh/shop/order/detail", {
@@ -41,6 +57,15 @@ function orderDetails() {
         if(data.success ){
             var obj =  data.resultObject;
             order_Id=data.resultObject.id;
+            //		总价
+            obj.price = priceConvert(obj.price);
+            //		运费
+            obj.freight = priceConvert(obj.freight);
+            //		需付款
+            obj.amount = priceConvert(obj.amount);
+            for(var i=0;i<obj.orderItems.length;i++){
+                obj.orderItems[i].price = priceConvert(obj.orderItems[i].price);
+            }
             $(".orderDetails").html(template('order_details',obj));
             // 点击取消订单提示
             $(".cancel_order").click(function(){
@@ -64,68 +89,6 @@ function orderDetails() {
             $(".waiting_payment").on('click','.immediate_payment',function(){
 				location.href = "/xcview/html/shop/method.html?orderSns=" + sn;
 			})
-            
-//          商品价格
-            var v = $(".price_yuan .yuan span").html();
-			if(/^\d+$/.test(v)){
-			v = v + ".00";
-			}else if(/^(\d+\.)(\d+)$/.test(v)){
-				var i = RegExp.$1;
-				var t = RegExp.$2;
-				if(t.length == 1)
-				v = v + "0";
-				else if(t.length > 2)
-				v = i + t.substring(0,2);
-			}
-		//	alert(v);
-			$(".price_yuan .yuan span").html(v);
-			
-//			总价
-			var b = $(".total_price .yuan span").html();
-			if(/^\d+$/.test(b)){
-			b = b + ".00";
-			}else if(/^(\d+\.)(\d+)$/.test(b)){
-				var i = RegExp.$1;
-				var t = RegExp.$2;
-				if(t.length == 1)
-				b = b + "0";
-				else if(t.length > 2)
-				b = i + t.substring(0,2);
-			}
-		//	alert(v);
-			$(".total_price .yuan span").html(b);
-			
-//		运费
-			var f = $(".freight .yuan span").html();
-			if(/^\d+$/.test(f)){
-			f = f + ".00";
-			}else if(/^(\d+\.)(\d+)$/.test(f)){
-				var i = RegExp.$1;
-				var t = RegExp.$2;
-				if(t.length == 1)
-				f = f + "0";
-				else if(t.length > 2)
-				f = i + t.substring(0,2);
-			}
-		//	alert(v);
-			$(".freight .yuan span").html(f);
-			
-//		需付款
-			var p = $(".PAYG .yuans span").html();
-			if(/^\d+$/.test(p)){
-			p = p + ".00";
-			}else if(/^(\d+\.)(\d+)$/.test(p)){
-				var i = RegExp.$1;
-				var t = RegExp.$2;
-				if(t.length == 1)
-				p = p + "0";
-				else if(t.length > 2)
-				p = i + t.substring(0,2);
-			}
-		//	alert(v);
-			$(".PAYG .yuans span").html(p);
-			
-			
         }
     });
 

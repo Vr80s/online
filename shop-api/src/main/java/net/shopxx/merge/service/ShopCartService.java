@@ -64,6 +64,15 @@ public interface ShopCartService {
      */
     boolean checkInventory(List<Long> cartItemIds);
 
+	/**  
+	 * <p>Title: updateCartItemChecked</p>  
+	 * <p>Description: </p>  
+	 * @param ids
+	 * @param isChecked
+	 * @return  
+	 */ 
+	Integer updateCartItemChecked(List<Long> ids, Boolean isChecked,String accountId);
+
 //    /**
 //     * 合并购物车
 //     *

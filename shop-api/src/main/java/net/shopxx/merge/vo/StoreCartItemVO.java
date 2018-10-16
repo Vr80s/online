@@ -17,6 +17,8 @@ public class StoreCartItemVO implements Serializable {
     private String name;
 
     private Set<CartItemVO> cartItems;
+    
+    private Boolean isChecked;
 
     @Override
     public String toString() {
@@ -60,4 +62,17 @@ public class StoreCartItemVO implements Serializable {
     public void setCartItems(Set<CartItemVO> cartItems) {
         this.cartItems = cartItems;
     }
+
+
+
+	public Boolean getIsChecked() {
+		return isChecked;
+	}
+
+
+
+	public void setIsChecked(Boolean isChecked) {
+		this.isChecked = isChecked;
+	}
+    
 }
