@@ -405,7 +405,14 @@ public class OrderDaoImpl extends BaseDaoImpl<Order, Long> implements OrderDao {
 			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("type"), type));
 		}
 		if (status != null) {
-			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("status"), status));
+			if(status.equals(Status.DENIED)) {
+				List<Status> statues= new ArrayList<Status>();
+				statues.add(Status.CANCELED);
+				statues.add(Status.DENIED);
+				restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.in(root.get("status")).value(statues));
+			}else {
+				restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get("status"), status));
+			}
 		}
 		if (stores != null && stores.size()>0) {
 			
