@@ -489,6 +489,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 				orderItemVO.setId(orderItem.getId());
 				//获取库存
 				SkuVO sku = new SkuVO();
+				ProductVO product = new ProductVO();
 				if(orderItem.getSku() != null){
 					List<String> specification = orderItem.getSku().getSpecifications();
 					if(specification.size()>0){
@@ -496,9 +497,11 @@ public class OrderOperServiceImpl implements OrderOperService {
 						sku.setSpecifications(citiesCommaSeparated);
 					}
 					BeanUtils.copyProperties(orderItem.getSku(),sku);
+					product.setId(orderItem.getSku().getProduct().getId());
 					sku.setId(orderItem.getSku().getId());
 				}
 				orderItemVO.setSku(sku);
+				orderItemVO.getSku().setProduct(product);
 				orderItemVOList.add(orderItemVO);
 			}
 			o.setOrderItems(orderItemVOList);
@@ -925,10 +928,8 @@ public class OrderOperServiceImpl implements OrderOperService {
 		List<Store> stores =null;Member member = null;
 		try {
 			if(UsersType.BUSINESS.equals(usersType)) {  //商家
-				
 				MedicalDoctorAccount medicalDoctorAccount = medicalDoctorAccountService.getByUserId(ipandatcmUserId);
 				if(medicalDoctorAccount.getDoctorId()!=null) {
-					
 					String doctorId = medicalDoctorAccount.getDoctorId();
 					//医师得到商家、商家得到店铺
 					List<Business> businesss = businessDao.findBusinessByDoctorId(doctorId);

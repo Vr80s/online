@@ -189,6 +189,9 @@ requestGetService("/xczh/shop/goods/details",{
         
 //     	 点击规格li
          $('.specifications_ul .casing').click(function(){
+         	
+         	currentSku =null;
+         	
          	// 判断显示已选择
             if ($(".include").hasClass("public")) {
                 $(".kind").show();
@@ -245,10 +248,12 @@ requestGetService("/xczh/shop/goods/details",{
 		        		 $(".shopping_trolley_center .determine").css("background","#aaaaaa");
 		        	}else{
 		        		 $(".information .repertory").html("库存"+currentSku.availableStock+"件");
-		        		  $(".shopping_trolley_center .determine").css("background","#F97215");
+		        		 $(".shopping_trolley_center .determine").css("background","#F97215");
 		        	}
-		         	$(".information .price").html("￥"+currentSku.price);
-		       	    
+		         	$(".information .price").html(currentSku.price);
+	        	}else{
+	        	 	$(".information .repertory").html("该商品库存不足");
+		            $(".shopping_trolley_center .determine").css("background","#aaaaaa");
 	        	}
     	 	}else{
     	 		$(".shopping_trolley_center .determine").css("background","#aaaaaa");

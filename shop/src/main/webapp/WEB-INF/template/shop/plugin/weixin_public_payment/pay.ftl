@@ -37,13 +37,15 @@
 						signType: "${signType}",
 						paySign: "${paySign}"
 					}, function(res) {
+//					    alert(res.err_msg);
 						if (res.err_msg == "get_brand_wcpay_request:ok") {
 							location.href = "${postPayUrl}";
+						}else if(res.err_msg == "get_brand_wcpay_request:cancel"){
+                            var href = "${ipandatcmUrl}/xcview/html/shop/order_center.html";
+                            window.location.href = href;
 						}
 					});
 				}
-//				alert("mxczh111")
-//                window.location.replace("https://cs.m.xczhihui.com/");
 			</script>
 		[/#escape]
 	[/#noautoesc]

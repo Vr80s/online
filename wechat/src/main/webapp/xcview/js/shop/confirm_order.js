@@ -141,7 +141,7 @@ function creatOrderList(orders,price,freight){
                 '<div class="title">' + orders[i].orderItems[j].name + '</div>' +
                 '<div class="pack">' +
                 orders[i].orderItems[j].specifications.join(";") +
-                '(库存'+orders[i].orderItems[j].sku.stock+'件)' +
+                '(库存'+orders[i].orderItems[j].sku.availableStock+'件)' +
                 '</div>' +
                 '<div class="total_prices">' +
                 '<div class="price_yuan" >' +

@@ -59,8 +59,9 @@ public class ConstitutionServiceImpl implements IConstitutionService {
             MedicalConstitutionQuestionRecordDetails medicalQuestionRecordDetails = medicalQuestionRecordDetailsList.get(i);
             medicalQuestionRecordDetails.setRecordId(medicalQuestionRecord.getId());
             medicalQuestionRecordDetails.setCreateTime(new Date());
-            medicalQuestionRecordDetailsMapper.insert(medicalQuestionRecordDetails);
+//            medicalQuestionRecordDetailsMapper.insert(medicalQuestionRecordDetails);
         }
+        medicalQuestionRecordDetailsMapper.insertBatch(medicalQuestionRecordDetailsList);
         return analysis(medicalQuestionRecordDetailsList);
     }
 
@@ -141,21 +142,23 @@ public class ConstitutionServiceImpl implements IConstitutionService {
 
     private Integer getAnalysisScoreBySubject(String subject, List<MedicalConstitutionQuestionRecordDetails> medicalQuestionRecordDetailsList) {
         Integer score = null;
-        if(!subject.equals("10") && !subject.equals("10-a") && !subject.equals("10-b")){
-            String answer = null;
+        if(!subject.equals("10-1") && !subject.equals("10-2")){
             for (MedicalConstitutionQuestionRecordDetails medicalQuestionRecordDetails : medicalQuestionRecordDetailsList) {
                 if(subject.equals(medicalQuestionRecordDetails.getQuestionNo())){
-                    answer = medicalQuestionRecordDetails.getAnswer();
+                    score = medicalQuestionRecordDetails.getScore();
                 }
             }
-            score = scoreMap.get(answer);
-        }else {
-            if(subject.equals("10")){
-               score = 0;
-            }else if(subject.equals("10-a")){
+        } else {
+            MedicalConstitutionQuestionRecordDetails mqrd = null;
+            for (MedicalConstitutionQuestionRecordDetails medicalQuestionRecordDetails : medicalQuestionRecordDetailsList) {
+                if("10".equals(medicalQuestionRecordDetails.getQuestionNo())){
+                    mqrd = medicalQuestionRecordDetails;
+                }
+            }
+            if(mqrd!=null && mqrd.getAnswer().equals(subject)){
                 score = 2;
-            }else if(subject.equals("10-b")){
-                score = 2;
+                System.out.println(mqrd);
+                System.out.println(subject);
             }
         }
         return score == null ? 0 : score;
