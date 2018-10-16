@@ -242,7 +242,7 @@
        select * from (
 	       select 
 	    	mdp.id,mdp.content,mdp.doctor_id doctorId,md.name doctorName,mdai.head_portrait doctorHeadImg,
-	    	mdp.product_id productId,mdp.level 
+	    	mdp.product_id productId,mdp.level,mdp.create_time 
 	    		from medical_doctor_posts mdp
 	    	inner join medical_doctor md on mdp.doctor_id = md.id
 	    	left join medical_doctor_authentication_information mdai on md.`authentication_information_id` = mdai.`id`
@@ -253,9 +253,8 @@
 	    		<if test="doctorId != null">
 		          and mdp.doctor_id= #{doctorId} 
 		        </if>
-	    		order by mdp.create_time desc limit #{pageNumber},#{pageSize}  )
-	    		
-	    a  GROUP BY a.doctorId
+	    		order by mdp.create_time desc limit #{pageNumber},#{pageSize}  ) 
+	    a  GROUP BY a.doctorId  order by a.create_time desc
     </select>
 
 </mapper>

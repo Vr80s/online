@@ -56,15 +56,19 @@ public class MedicalDoctorPostsController {
         Page<MedicalDoctorPosts> list = medicalDoctorPostsService.selectMedicalDoctorPostsPage(page, type, doctorId, userId);
         List<MedicalDoctorPosts> listMDP = list.getRecords();
         for (int i=0;i<listMDP.size();i++){
-            if(listMDP.get(i).getProductId() != null){
-                ProductVO p = (ProductVO)goodsService.findProductById(listMDP.get(i).getProductId());
-                listMDP.get(i).setProductTitle(p.getName());
-                listMDP.get(i).setProductPrice(p.getPrice());
-                listMDP.get(i).setProductIsMarketable(p.getIsmarketable());
-                if(p.getProductImages() != null){
-                    listMDP.get(i).setProductImages(p.getProductImages().get(0).getThumbnail());
-                }
-            }
+        	try {
+        		 if(listMDP.get(i).getProductId() != null){
+                     ProductVO p = (ProductVO)goodsService.findProductById(listMDP.get(i).getProductId());
+                     listMDP.get(i).setProductTitle(p.getName());
+                     listMDP.get(i).setProductPrice(p.getPrice());
+                     listMDP.get(i).setProductIsMarketable(p.getIsmarketable());
+                     if(p.getProductImages() != null){
+                         listMDP.get(i).setProductImages(p.getProductImages().get(0).getThumbnail());
+                     }
+                 }
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
         }
         list.setRecords(listMDP);
         return ResponseObject.newSuccessResponseObject(list);
