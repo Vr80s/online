@@ -150,9 +150,7 @@ public class GoodsServiceImpl implements GoodsService {
         if (product == null) {
             throw new RuntimeException("商品找不到。productId："+productId);
         }
-        if(BooleanUtils.isNotTrue(product.getIsActive()) || BooleanUtils.isNotTrue(product.getIsMarketable())) {
-        	throw new RuntimeException("商品没有上架或没有列出。productId："+productId);
-        }
+
         
         ProductVO pv = new ProductVO();
 
