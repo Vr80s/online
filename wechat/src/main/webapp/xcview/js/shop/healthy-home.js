@@ -17,9 +17,9 @@ $(function(){
 		});
 	})
 	$(".start").click(function(){
-		var birthDay = $("#datMONTH").val();
+		var birthday = $("#datMONTH").val();
 		var sex = $(".active").attr("data-sex");
-		localStorage.setItem("healthy.birthDay",birthDay);
+		localStorage.setItem("healthy.birthday",birthday);
 		localStorage.setItem("healthy.sex",sex);
 		location.href="./healthy-answer.html"
 	});
