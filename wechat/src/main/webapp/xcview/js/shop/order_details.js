@@ -2,7 +2,7 @@ var data_sn="";
 var data_id="";
 var sn = getQueryString("sn");
 var order_Id;
-
+var isTrue =true;
 $(function() {
 	// 点击头部区域客服消息  
 	$(".advices").click(function(){
