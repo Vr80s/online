@@ -1,4 +1,23 @@
 
+$(function(){
+	function quantity(){
+		requestGetService("/xczh/shop/cart/quantity",null,function (data) {
+		    if (data.success == true) {
+		    	var quantity = data.resultObject;
+		        if(quantity == null || quantity == 0){
+		       		$(".shopping_quantity").hide();
+		        }else{
+		       		$(".shopping_quantity").html(quantity);	
+		       		$(".shopping_quantity").show();
+		        };
+		    }
+		});
+	};
+	setTimeout(function(){
+		quantity();
+	},100);
+
+});
 
 var productId = getQueryString("productId");
 var currentSku = null;
@@ -245,27 +264,5 @@ function evaluation(){
     });*/
 
 //底部--购物车数量
-requestGetService("/xczh/shop/cart/quantity",null,function (data) {
-    if (data.success == true) {
-    	var quantity = data.resultObject;
-    	
-//  	$(".shopping_quantity").html(quantity);
-       
-        if(quantity == null || quantity == 0){
-       		$(".shopping_quantity").hide();
-        }else{
-       		$(".shopping_quantity").html(quantity);	
-       		$(".shopping_quantity").show();
-        };
-        /*var shoppimgNumber = $(".shopping_quantity").html();
-        if(shoppimgNumber = "0"){
-       		$(".shopping_quantity").hide();
-        }else{
-       		$(".shopping_quantity").html(quantity);	
-       		$(".shopping_quantity").show();
-        };*/
-        
-    }
-});
 
 
