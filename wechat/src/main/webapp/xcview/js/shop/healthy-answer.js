@@ -1,6 +1,7 @@
 $(function () {
     requestGetService("/xczh/constitution/questionBank",null,function(data){
         handleQuestionList(data.resultObject);
+        $(".select1").show();
         creatQuestion();
     })
 
