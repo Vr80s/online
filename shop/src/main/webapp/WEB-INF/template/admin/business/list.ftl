@@ -151,6 +151,12 @@
 												<i class="iconfont icon-biaotou-kepaixu"></i>
 											</a>
 										</th>
+                                        <th>
+                                            <a href="javascript:;" data-order-property="doctorId">
+											关联医师
+                                                <i class="iconfont icon-biaotou-kepaixu"></i>
+                                            </a>
+                                        </th>
 										<th>
 											<a href="javascript:;" data-order-property="createdDate">
 												${message("common.createdDate")}
@@ -174,6 +180,11 @@
 												<td>${business.username}</td>
 												<td>${business.email}</td>
 												<td>${business.mobile}</td>
+                                                <td>
+													[#list doctors as doctor]
+                                                [#if business.doctorId?? && business.doctorId ==doctor.id]${doctor.name}[/#if]
+													[/#list]
+													</td>
 												<td>
 													<span title="${business.createdDate?string("yyyy-MM-dd HH:mm:ss")}" data-toggle="tooltip">${business.createdDate}</span>
 												</td>

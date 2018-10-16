@@ -86,7 +86,6 @@ requestGetService("/xczh/shop/goods/details",{
 //      if (obj.posts !=null) {
         if (isNotBlank(obj.reviewvs)) {
             $(".evaluate").show();
-            debugger
             $(".evaluate_main").html(template('evaluate_main', {items: obj.reviewvs[0]}));
             $(".no_evaluation").hide();
         }else{

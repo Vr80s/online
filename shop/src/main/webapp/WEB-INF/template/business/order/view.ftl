@@ -252,6 +252,7 @@
 						},
 						areaId: "required",
 						address: "required",
+                        trackingNo: "required",
 						phone: {
 							required: true,
 							phone: true
