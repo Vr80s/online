@@ -254,6 +254,10 @@ header{
 	margin-bottom: 0.1rem;
 	font-size: .3rem;
 	color: #F97215;
+	font-family: "Helvetica";
+}
+.list .price span{
+	font-family: "Helvetica";
 }
 .referrer{
 	width: 3.3rem;
