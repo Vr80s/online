@@ -267,24 +267,24 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
                 	
                    LOGGER.warn("linkParam:"+linkParam);
                 	
-                   ProductVO findProductById = (ProductVO) goodsService.findProductById(Long.valueOf(linkParam));
-                   map.put("linkDesc", findProductById.getName());
-                   
-                   Long productcategoryId = findProductById.getProductcategoryId();
-                   
-                   LOGGER.warn("productcategoryId:"+productcategoryId);
-                   
-                   ProductCategoryVO productCategoryVO = (ProductCategoryVO)shopCategoryService.details(productcategoryId);
-                   
-                   LOGGER.warn("productCategoryVO:"+productCategoryVO.toString());
-                   
-                   String treepath = productCategoryVO.getTreepath();
-                   String[] split = treepath.split(",");
-                   if(split.length>2) {
-                	   productcategoryId = Long.parseLong(split[2]);
-                   }
-                   
-                   map.put("menuId", productcategoryId+"");
+                   try {
+                    	 ProductVO findProductById = (ProductVO) goodsService.findProductById(Long.valueOf(linkParam));
+                         map.put("linkDesc", findProductById.getName());
+                         Long productcategoryId = findProductById.getProductcategoryId();
+                         
+                         LOGGER.warn("productcategoryId:"+productcategoryId);
+                         ProductCategoryVO productCategoryVO = (ProductCategoryVO)shopCategoryService.details(productcategoryId);
+                         LOGGER.warn("productCategoryVO:"+productCategoryVO.toString());
+                         String treepath = productCategoryVO.getTreepath();
+                         String[] split = treepath.split(",");
+                         if(split.length>2) {
+                      	   productcategoryId = Long.parseLong(split[2]);
+                         }
+                         map.put("menuId", productcategoryId+"");
+				   } catch (Exception e) {
+						e.printStackTrace();
+				   }
+
                 }else {
                     map.put("linkDesc", linkParam);
                 }

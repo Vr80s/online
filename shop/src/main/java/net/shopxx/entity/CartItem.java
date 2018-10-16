@@ -9,6 +9,7 @@ package net.shopxx.entity;
 import java.math.BigDecimal;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import net.shopxx.Setting;
 import net.shopxx.merge.vo.CartItemVO;
@@ -50,6 +51,15 @@ public class CartItem extends BaseEntity<Long> {
     @JoinColumn(nullable = false, updatable = false)
     private Cart cart;
 
+    
+    
+    /**
+     * 是否被选中
+     */
+    @Column
+    private Boolean isChecked;
+    
+    
     /**
      * 获取数量
      *
@@ -104,7 +114,16 @@ public class CartItem extends BaseEntity<Long> {
         this.cart = cart;
     }
 
-    /**
+    
+    public Boolean getIsChecked() {
+		return isChecked;
+	}
+
+	public void setIsChecked(Boolean isChecked) {
+		this.isChecked = isChecked;
+	}
+
+	/**
      * 获取店铺
      *
      * @return 店铺
@@ -264,6 +283,7 @@ public class CartItem extends BaseEntity<Long> {
         cartItemVO.setSku(this.sku.getSkuVO());
         cartItemVO.setQuantity(this.quantity);
         cartItemVO.setId(this.getId());
+        cartItemVO.setIsChecked(this.getIsChecked());
         return cartItemVO;
     }
 }

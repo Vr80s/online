@@ -204,7 +204,12 @@
         {{each storeCartItems as item i}}
         <div class="shop-group-item">
             <div class="shop-name">
-                <input type="checkbox" class="check goods-check shopCheck" style="margin-left:.26rem;">
+			{{if item.isChecked}}
+				<input type="checkbox" data-storeId="{{item.id}}" checked class="check goods-check shopCheck" style="margin-left:.26rem;">
+			{{else}}
+				<input type="checkbox" data-storeId="{{item.id}}" class="check goods-check shopCheck" style="margin-left:.26rem;">
+			{{/if}}
+                
                 <h4>
                     <img src="{{item.logo}}" alt="" class="head_portrait"/>
                     <a href="#" class="shop-names">{{item.name}}</a>
@@ -215,8 +220,16 @@
                 {{each item.cartItems as cartItem i}}
                 <li class="product-li product-li-{{i}} product-sku-{{cartItem.sku.id}}">
                     <div class="shop-info">
-                        <input type="checkbox" class="check goods-check goodsCheck" data-sid="{{cartItem.sku.id}}" data-cid="{{cartItem.id}}">
-                        <div class="shop-info-img"><a href="#"><img src="{{cartItem.sku.image}}"/></a></div>
+                       
+
+		    {{if item.isChecked}}
+				 <input type="checkbox" class="check goods-check goodsCheck" checked data-sid="{{cartItem.sku.id}}" data-cid="{{cartItem.id}}">
+			{{else}}
+ <input type="checkbox" class="check goods-check goodsCheck" data-sid="{{cartItem.sku.id}}" data-cid="{{cartItem.id}}">
+			{{/if}}                        
+
+
+						<div class="shop-info-img"><a href="#"><img src="{{cartItem.sku.image}}"/></a></div>
                         <div class="shop-info-text">
                             <h4 class="">{{cartItem.sku.name}}</h4>
                             <div class="inventory"  data-pid="{{cartItem.sku.productId}}" data-sid="{{cartItem.sku.id}}">
