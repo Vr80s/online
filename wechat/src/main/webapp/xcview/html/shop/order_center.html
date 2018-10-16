@@ -224,7 +224,7 @@
 					<!-- 卖家已发货 -->
 					{{else if item.status == 'SHIPPED'}}
 					<!--<div class="confirm_receipt" onclick='confirmReceipt("{{item.sn}}")'>确认收货</div>-->
-					<div class="confirm_receipt confirm_receipt{{item.id}}" data-sn="{{item.sn}}">确认收货</div>
+					<div class=" shipped_cancel_order confirm_receipt{{item.id}}" data-sn="{{item.sn}}" >确认收货</div>
 					<div class="shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
 					<div class="check_logistics" onclick='getTransitSteps("{{item.sn}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
 					
