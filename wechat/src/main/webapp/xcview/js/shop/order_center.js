@@ -1,5 +1,6 @@
 var data_sn="";
 var data_id="";
+var isTrue =true;
 $(function() {
 
     /*$(".affirm").click(function(){
@@ -154,16 +155,55 @@ function againBuy(orderSn) {
     }, function (data) {
         if(data.success ){
             var orderItems=data.resultObject.orderItems;
+            var skuIds =[];
             for(var i=0;i<orderItems.length;i++){
                 var skuId = orderItems[i].sku.id;
+                skuIds.push(skuId);
                 var quantity = orderItems[i].quantity;
-                addCart(skuId,quantity);
+                if(isTrue){
+                    addCart(skuId,quantity)
+                } else {
+                    break;
+                }
             }
-            location.href="/xcview/html/shop/shopping_trolley.html";
+            if(isTrue){
+                requestGetService("/xczh/shop/cart", null, function (data) {
+                    if (data.success) {
+                        var ids = [];
+                        for(var j=0;j<data.resultObject.storeCartItems.length;j++){
+                            var obj = data.resultObject.storeCartItems[j];
+                            for(var i=0;i<obj.cartItems.length;i++){
+                                var sku_id = obj.cartItems[i].sku.id;
+                                if(isInArray(skuIds,sku_id)){
+                                    ids.push(obj.cartItems[i].id);
+                                }
+                            }
+                        }
+                        requestPostService('/xczh/shop/checkSkus', {'cartItemIds': ids.join(',')}, function (resp) {
+                            if (!resp.resultObject) {
+                                window.location.href = '/xcview/html/shop/confirm_order.html?cartItemIds=' + ids.join(',');
+                            } else {
+                                jqtoast(resp.resultObject);
+                            }
+                        });
+                    } else {
+                        jqtoast(data.errorMessage);
+                    }
+                });
+            }
+
         }
     });
 }
 
+function isInArray(arr,value){
+    for(var i = 0; i < arr.length; i++){
+        if(value === arr[i]){
+            return true;
+        }
+    }
+    return false;
+}
 //再次购买
 function addCart(skuId,quantity) {
     requestPostService("/xczh/shop/cart", {
@@ -172,6 +212,9 @@ function addCart(skuId,quantity) {
     }, function (data) {
         if(data.success ){
 
+        } else {
+            jqtoast(data.errorMessage);
+            isTrue = false;
         }
     },false);
 }
