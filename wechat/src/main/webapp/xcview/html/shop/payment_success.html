@@ -58,7 +58,7 @@
 			<div class="actual_payment finished">实付款<span class="amount"></span></div>
 			<div class="button">
 				<div class="index" onclick="location.href ='/xcview/html/shop/shop.html'">商城首页</div>
-				<div class="details" onclick="gotoLineItem()">订单详情</div>
+				<div class="details" onclick="gotoLineItem()">订单列表</div>
 			</div>
 		</div>
 
@@ -100,7 +100,8 @@
     }, 3000);
     
     function gotoLineItem(){
-    	location.href ='/xcview/html/shop/line_item.html?sn='+sn;
+//  	location.href ='/xcview/html/shop/line_item.html?sn='+sn;
+    	location.href ='/xcview/html/shop/order_center.html;
     }
     
 </script>
