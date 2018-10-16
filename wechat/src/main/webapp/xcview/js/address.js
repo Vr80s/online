@@ -40,7 +40,8 @@
 		if (isAddress == "details") {
 			location.href="/xcview/html/shop/confirm_order.html"
 		} else{
-			window.history.go(-1);
+//			window.history.go(-1);
+			location.href="/xcview/html/persons.html"
 		}
 	})
    	
