@@ -20,7 +20,7 @@ $(function() {
 
 //  点击评价
 	$(".orderDetails").on('click','.win_evaluate',function(){
-		location.href="/xcview/html/shop/shop-commentary.html?sn="+order_Id;
+		location.href="/xcview/html/shop/shop-commentary.html?sn="+sn;
 	})
 });
 
@@ -40,7 +40,7 @@ function orderDetails() {
     }, function (data) {
         if(data.success ){
             var obj =  data.resultObject;
-            order_Id=data.resultObject.sn;
+            order_Id=data.resultObject.id;
             $(".orderDetails").html(template('order_details',obj));
             // 点击取消订单提示
             $(".cancel_order").click(function(){
@@ -145,7 +145,7 @@ function transitStep(shipping) {
 //获取shipping信息
 function getShipping() {
     requestGetService("/xczh/shop/order/shipping", {
-        sn: sn
+        orderId: order_Id
     }, function (data) {
         if(data.success ){
             var shippingId = data.resultObject.id;

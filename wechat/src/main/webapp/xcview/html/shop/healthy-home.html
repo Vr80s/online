@@ -10,7 +10,11 @@
 		<link rel="stylesheet" href="/xcview/css/mui.min.css">
 		<link rel="stylesheet" href="/xcview/css/mui.picker.min.css">
 		<link rel="stylesheet" href="/xcview/css/shop/healthy-home.css">
-		
+		<style>
+			.disabled{
+				background: #bbb;
+			}
+		</style>
 		<script>
 		// rem响应式处理
 			var kk=document.documentElement.clientWidth;
@@ -36,8 +40,8 @@
 				</div>
 			</div>
 			<div class="healthy-top">
-				<img class="left-icon z" src="/xcview/images/healthy-icon.png"/ alt="标题icon">
-				<img class="right-icon y" src="/xcview/images/healthy.png"/ alt="标题图片">
+				<img class="left-icon z" src="/xcview/images/healthy-icon.png" alt="标题icon"/>
+				<img class="right-icon y" src="/xcview/images/healthy.png" alt="标题图片"/>
 			</div>
 			<h5 class="healthy-title">了解自己的体质，获得个性化调理方案</h5>
 			<img class="diantu" src="/xcview/images/diantu.png"/>
@@ -54,13 +58,13 @@
 					<ul class="sex-ul z">
 						<li>
 							<p class="comment-p select-man z">
-								<img src="/xcview/images/sex-select.png"/>
+								<img src="/xcview/images/sex-select.png" data-sex="1"/>
 							</p>
 							<span class="z">男</span>
 						</li>
 						<li>
 							<p class="comment-p select-woman z">
-								<img src="/xcview/images/sex-select.png"/>
+								<img src="/xcview/images/sex-select.png" data-sex="0"/>
 							</p>
 							<span class="z">女</span>
 						</li>
@@ -79,7 +83,7 @@
 		</div>
 		<!--开始测评-->	
 		<div class="star-test">
-			<button type="button">开始测评</button>
+			<button type="button" class="start disabled">开始测评</button>
 		</div>
 			
 

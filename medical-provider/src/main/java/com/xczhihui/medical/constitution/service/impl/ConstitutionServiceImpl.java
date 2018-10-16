@@ -64,6 +64,11 @@ public class ConstitutionServiceImpl implements IConstitutionService {
         return analysis(medicalQuestionRecordDetailsList);
     }
 
+    @Override
+    public List<MedicalConstitution> getConstitution() {
+        return medicalConstitutionMapper.getAll();
+    }
+
     private AnalysisResult analysis(List<MedicalConstitutionQuestionRecordDetails> medicalConstitutionQuestionRecordDetailsList) {
         List result = new ArrayList();
         List<MedicalConstitution> all = medicalConstitutionMapper.getAll();
