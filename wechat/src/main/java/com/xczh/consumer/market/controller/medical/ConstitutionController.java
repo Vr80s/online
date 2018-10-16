@@ -26,6 +26,11 @@ public class ConstitutionController {
         return ResponseObject.newSuccessResponseObject(constitutionService.getQuestionBank());
     }
 
+    @RequestMapping(value = "constitution", method = RequestMethod.GET)
+    public ResponseObject constitution() {
+        return ResponseObject.newSuccessResponseObject(constitutionService.getConstitution());
+    }
+
     @RequestMapping(value = "record/{sex}/{birthday}", method = RequestMethod.POST)
     public ResponseObject saveRecord(@Account String userId, @PathVariable String birthday, @PathVariable Integer sex, @RequestBody List<MedicalConstitutionQuestionRecordDetails> recordDetailsList) {
         return ResponseObject.newSuccessResponseObject(constitutionService.saveRecord(userId, birthday, sex, recordDetailsList));
