@@ -26,7 +26,7 @@
 	<setting name="priceScale" value="2" />
 	<setting name="priceRoundType" value="ROUND_HALF_UP" />
 	<setting name="isShowMarketPrice" value="true" />
-	<setting name="defaultMarketPriceScale" value="1.2" />
+	<setting name="defaultMarketPriceScale" value="1.0" />
 	<setting name="allowedRegisterTypes" value="MEMBER,BUSINESS" />
 	<setting name="registerPoint" value="0" />
 	<setting name="captchaTypes" value="MEMBER_LOGIN,MEMBER_REGISTER,BUSINESS_LOGIN,BUSINESS_REGISTER,ADMIN_LOGIN,REVIEW,CONSULTATION,FORGOT_PASSWORD,RESET_PASSWORD,OTHER" />
