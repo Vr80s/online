@@ -207,6 +207,20 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
             $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
             miniRefresh.endDownLoading(true);// 结束下拉刷新
             idotototo();
+            /*for(i=0;i<obj.length;i++){
+				var price = obj[i].price;
+			    if(/^\d+$/.test(price)){
+					price = price + ".00";
+				}else if(/^(\d+\.)(\d+)$/.test(price)){
+					var j = RegExp.$1;
+					var t = RegExp.$2;
+					if(t.length == 1)
+					price = price + "0";
+					else if(t.length > 2)
+					price = j + t.substring(0,2);
+				}
+				obj[i].price=price;
+			}*/
         } else if(obj.length==0){
             // alert(222);
             miniRefresh.endUpLoading(true);// 结束上拉加载
@@ -215,6 +229,20 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
             $(".rests_nav").append(template('wrap_doctor_dynamics',{items:obj}));
             miniRefresh.endUpLoading(false);
             idotototo();
+            /*for(i=0;i<obj.length;i++){
+				var price = obj[i].price;
+			    if(/^\d+$/.test(price)){
+					price = price + ".00";
+				}else if(/^(\d+\.)(\d+)$/.test(price)){
+					var j = RegExp.$1;
+					var t = RegExp.$2;
+					if(t.length == 1)
+					price = price + "0";
+					else if(t.length > 2)
+					price = j + t.substring(0,2);
+				}
+				obj[i].price=price;
+			}*/
         }
         //图片放大
         webpackUniversalModuleDefinition(imgWindow,imgfn);
