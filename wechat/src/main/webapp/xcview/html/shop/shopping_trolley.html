@@ -222,11 +222,11 @@
                     <div class="shop-info">
                        
 
-		    {{if item.isChecked}}
-				 <input type="checkbox" class="check goods-check goodsCheck" checked data-sid="{{cartItem.sku.id}}" data-cid="{{cartItem.id}}">
-			{{else}}
- <input type="checkbox" class="check goods-check goodsCheck" data-sid="{{cartItem.sku.id}}" data-cid="{{cartItem.id}}">
-			{{/if}}                        
+		    		{{if cartItem.isChecked}}
+				 		 <input type="checkbox" class="check goods-check goodsCheck" checked data-sid="{{cartItem.sku.id}}" data-cid="{{cartItem.id}}">
+					{{else}}
+ 						 <input type="checkbox" class="check goods-check goodsCheck" data-sid="{{cartItem.sku.id}}" data-cid="{{cartItem.id}}">
+					{{/if}}                        
 
 
 						<div class="shop-info-img"><a href="#"><img src="{{cartItem.sku.image}}"/></a></div>

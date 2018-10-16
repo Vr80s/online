@@ -232,7 +232,7 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
 				@Override
 				public boolean evaluate(Object object) { 
 					CartItemVO cartItemVO = (CartItemVO) object;
-					return cartItemVO.getIsChecked()!=null ? !cartItemVO.getIsChecked() : false;
+					return cartItemVO.getIsChecked()!=null ? !cartItemVO.getIsChecked() : true;
 				}
             });
             storeCartItemVO.setCartItems(cartItemVOS);
@@ -244,7 +244,7 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
 			@Override
 			public boolean evaluate(Object object) {
 				StoreCartItemVO storeCartItemVO = (StoreCartItemVO) object;
-				return storeCartItemVO.getIsChecked() !=null ? !storeCartItemVO.getIsChecked() : false;
+				return storeCartItemVO.getIsChecked() !=null ? !storeCartItemVO.getIsChecked() : true;
 			}
         });
         cartVO.setIsChecked(!existsNotChecked);
