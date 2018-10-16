@@ -183,10 +183,14 @@ body{
 .star-test button{
 	width: 80%;
 	padding: 0.2rem 0;
-	background: #5487C7;
+	background: #dedede;
 	box-shadow: 0 0.06rem 0.08rem 0 rgba(0,0,0,0.50);
 	border-radius: 1rem;
-	color: white;
+	color: #4c4c4c;
 	outline: none;
 	-webkit-tap-highlight-color:transparent;
+}
+.star-test .active{
+	background: #5487C7;
+	color: white;
 }
