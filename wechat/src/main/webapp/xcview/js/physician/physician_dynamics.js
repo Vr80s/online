@@ -407,7 +407,7 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
         });
         
 //      点击购买 跳转
-        $(".buy_goods").click(function(){
+        $(".buy_good").click(function(){
 	        var id = $(this).attr("data-productId");
 	        window.location.href = "/xcview/html/shop/commodity_details.html?productId=" + id + "";
 	    })
