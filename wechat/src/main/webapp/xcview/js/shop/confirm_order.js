@@ -51,7 +51,7 @@ $(function() {
         requestService("/xczh/shop/order/create",params+"&shippingMethodId="+shippingMethodId+"&receiverId="+receiverId+"&memo="+memo+"&memoJson="+JSON.stringify(memoJson),function(data){
             if(data.success){
                 var orderSns = data.resultObject.orderSns.join(',');
-                window.location="/xcview/html/shop/method.html?orderSns="+orderSns;
+                window.location="/xcview/html/shop/method.html?orderSns="+orderSns+"&type=2";
             }else{
 //              jqtoast(data.errorMessage);
                 jqtoast("请填写收货地址");

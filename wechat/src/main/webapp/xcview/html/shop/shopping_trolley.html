@@ -188,7 +188,7 @@
         <li data-id="{{product.id}}">
             <img src="{{product.picture}}" alt="" class="surface_plots">
             <div class="title">{{product.name}}</div>
-            <div class="price">￥{{product.price}}</div>
+            <div class="price">￥<span>{{product.price}}</span></div>
             {{ if product.doctor }}
             <div class="referrer">
                 <img src="{{product.doctor.avatar}}" alt="">{{product.doctor.name}}
@@ -229,7 +229,7 @@
 					{{/if}}                        
 
 
-						<div class="shop-info-img"><a href="#"><img src="{{cartItem.sku.image}}"/></a></div>
+						<div class="shop-info-img" onclick="location.href ='/xcview/html/shop/commodity_details.html?productId={{cartItem.sku.productId}}'"><a href="#"><img src="{{cartItem.sku.image}}"/></a></div>
                         <div class="shop-info-text">
                             <h4 class="">{{cartItem.sku.name}}</h4>
                             <div class="inventory"  data-pid="{{cartItem.sku.productId}}" data-sid="{{cartItem.sku.id}}">
