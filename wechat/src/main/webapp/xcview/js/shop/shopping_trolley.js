@@ -316,7 +316,7 @@ $(function () {
         }
         requestPostService('/xczh/shop/checkSkus', {'cartItemIds': ids.join(',')}, function (resp) {
             if (!resp.resultObject) {
-                window.location.href = '/xcview/html/shop/confirm_order.html?cartItemIds=' + ids.join(',');
+                window.location.href = '/xcview/html/shop/confirm_order.html?cartItemIds=' + ids.join(',')+"&type=2";
             } else {
                 jqtoast(resp.resultObject);
             }

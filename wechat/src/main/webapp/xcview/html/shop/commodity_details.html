@@ -180,10 +180,10 @@
 			</div>
 			<div class="price">
 				<span class="ruling_price">￥<span>{{items.price}}</span></span>
-				<!--<span class="original_price">￥{{items.marketprice}}</span>-->
-				{{if items.marketprice > items.price}}
+				<span class="original_price">￥<span>{{items.marketprice}}</span></span>
+				<!--{{if items.marketprice > items.price}}
 					<span class="original_price">￥<span>{{items.marketprice}}</span></span>
-				{{/if}}
+				{{/if}}-->
 				<span class="sold_out">已售{{items.sales}}件</span>
 				<div class="both"></div>
 			</div>
@@ -239,17 +239,28 @@
 				<span class="evaluate_view_all">查看全部 <img src="/xcview/images/shop/view_all.png" alt="" /></span>
 				<div class="both"></div>
 			</div>
-			{{each items as item i}}
+
 			<div class="appraiser">
 				<div class="appraiser_message">
-					<img src="{{item.user.headPhoto}}" alt="" class="head_portrait" />
-					<span class="name">{{item.user.username}}</span>
+					<img src="{{items.user.headPhoto}}" alt="" class="head_portrait" />
+					<span class="name">{{items.user.username}}</span>
 				</div>
 				<div class="center" style="font-size: .26rem;color: #999999;margin-bottom: .2rem;">
-					<span >{{item.createdDate}}</span>
-					<span>{{item.specifications}}</span>
+					<span >{{items.createdDate}}</span>
+					<span>{{items.specifications}}</span>
 				</div>
-				<div class="center">{{item.content}}</div>
+				<div class="center">{{items.content}}</div>
+				{{if items.reviewImage != null && items.reviewImage.length > 0}}
+				<div class="save-list-img">
+					<ul>
+						{{each items.reviewImage as item i}}
+						<li>
+							<img src="{{item}}"/>
+						</li>
+						{{/each}}
+					</ul>
+				</div>
+				{{/if}}
 				<!-- <div class="referrer_img">
 					<img src="/xcview/images/frog.jpg" alt="" />
 				</div> -->
@@ -276,7 +287,7 @@
 				    </ul>
 				</div>-->
 			</div>
-			{{/each}}
+
 			</script>
 		</div>
 		<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

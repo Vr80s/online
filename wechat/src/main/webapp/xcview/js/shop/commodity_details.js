@@ -40,8 +40,20 @@ requestGetService("/xczh/shop/goods/details",{
 			else if(t.length > 2)
 			v = i + t.substring(0,2);
 		}
-		//alert(v);
 		$(".ruling_price span").html(v);
+		
+		var v = $(".original_price span").html();
+		if(/^\d+$/.test(v)){
+		j = j + ".00";
+		}else if(/^(\d+\.)(\d+)$/.test(j)){
+			var i = RegExp.$1;
+			var t = RegExp.$2;
+			if(t.length == 1)
+			j = j + "0";
+			else if(t.length > 2)
+			j = i + t.substring(0,2);
+		}
+		$(".original_price span").html(j);
 
         // $(".swiper-wrapper").html(template('top_details', {items: obj}));
         // $(".banner").html(template('top_details', {items: obj}));
@@ -74,11 +86,12 @@ requestGetService("/xczh/shop/goods/details",{
 //      if (obj.posts !=null) {
         if (isNotBlank(obj.reviewvs)) {
             $(".evaluate").show();
-            $(".evaluate_main").html(template('evaluate_main', {items: obj.reviewvs}));
+            debugger
+            $(".evaluate_main").html(template('evaluate_main', {items: obj.reviewvs[0]}));
             $(".no_evaluation").hide();
         }else{
             $(".evaluate").show();
-            $(".evaluate_main").html(template('evaluate_main', {items: obj.reviewvs}));
+//          $(".evaluate_main").html(template('evaluate_main', {items: obj.reviewvs}));
             $(".no_evaluation").show();
         };
         
