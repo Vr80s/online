@@ -114,6 +114,17 @@
 							<span class="details">{{item.specifications}}</span>
 						</div>
 						<div class="center">{{item.content}}</div>
+						{{if item.reviewImage != null && item.reviewImage.length > 0}}
+						<div class="save-list-img">
+							<ul>
+								{{each item.reviewImage as tado i}}
+								<li>
+									<img src="{{tado}}"/>
+								</li>
+								{{/each}}
+							</ul>
+						</div>
+						{{/if}}
 					</div>
 					{{/each}}
 					</script>

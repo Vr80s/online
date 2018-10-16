@@ -86,11 +86,11 @@ requestGetService("/xczh/shop/goods/details",{
 //      if (obj.posts !=null) {
         if (isNotBlank(obj.reviewvs)) {
             $(".evaluate").show();
-            $(".evaluate_main").html(template('evaluate_main', {items: obj.reviewvs}));
+            $(".evaluate_main").html(template('evaluate_main', {items: obj.reviewvs[0]}));
             $(".no_evaluation").hide();
         }else{
             $(".evaluate").show();
-            $(".evaluate_main").html(template('evaluate_main', {items: obj.reviewvs}));
+//          $(".evaluate_main").html(template('evaluate_main', {items: obj.reviewvs}));
             $(".no_evaluation").show();
         };
         
