@@ -283,6 +283,7 @@ public class CartItem extends BaseEntity<Long> {
         cartItemVO.setSku(this.sku.getSkuVO());
         cartItemVO.setQuantity(this.quantity);
         cartItemVO.setId(this.getId());
+        cartItemVO.setIsChecked(this.getIsChecked());
         return cartItemVO;
     }
 }

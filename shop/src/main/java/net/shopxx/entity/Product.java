@@ -1911,6 +1911,17 @@ public class Product extends BaseEntity<Long> {
         });
     }
 
+    public static void main(String[] args) {
+    	String[] langs = {"java1", "python", "c"};
+		boolean exists = CollectionUtils.exists(Arrays.asList(langs), new Predicate() {
+			public boolean evaluate(Object object) {
+				return "java".equals((String)object);
+			}
+		});
+
+		System.out.println(exists);
+	}
+    
     /**
      * 获取是否缺货
      *

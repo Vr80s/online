@@ -121,13 +121,11 @@ $(function () {
     
    function getCartItemsAll(){
 		var arrayCartItems = [];	
-    	if(storeId!=null){
-        	for (var i = 0; i < storeCartItems.length; i++) {
-        			var cartItems = storeCartItems[i].cartItems;
-        			for (var j = 0; j < cartItems.length; j++) {
-        				arrayCartItems.push(cartItems[j].id);
-        			}
-            }
+    	for (var i = 0; i < storeCartItems.length; i++) {
+    			var cartItems = storeCartItems[i].cartItems;
+    			for (var j = 0; j < cartItems.length; j++) {
+    				arrayCartItems.push(cartItems[j].id);
+    			}
         }
         return arrayCartItems;
     }
@@ -150,6 +148,10 @@ $(function () {
             TotalPrice();
         }
         $(".shopCheck").change(); //执行店铺全选的操作
+        
+        
+       var arrayCartItems = getCartItemsAll();
+       updateChecked(arrayCartItems,$(this).prop("checked"));
     });
 
     //计算
@@ -381,6 +383,12 @@ function initCart() {
         } else {
         	
         	storeCartItems = data.resultObject.storeCartItems;
+        	
+        	if(data.resultObject.isChecked){
+        		$("#AllCheck").attr("checked",'checked');
+        	}else{
+        		$("#AllCheck").removeAttr("checked");
+        	}
         	
             //$(".finish").show();   //完成
             $(".compile").show();  //编辑显示
