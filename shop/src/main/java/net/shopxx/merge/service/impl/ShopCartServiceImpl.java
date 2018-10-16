@@ -2,6 +2,8 @@ package net.shopxx.merge.service.impl;
 
 import java.util.*;
 
+import javax.persistence.TypedQuery;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -251,5 +253,16 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
             }
         }
         return true;
+    }
+    
+    @Override
+    public Integer updateCartItemChecked(List<Long> ids,Boolean isChecked,String accountId){
+        Member member = usersRelationService.getMemberByIpandatcmUserId(accountId);
+        Cart cart = member.getCart();
+    	if(cart!=null) {
+    		return cartItemDao.updateCartItemChecked(ids,isChecked,cart.getId());
+    	}else {
+    		return 0;
+    	}
     }
 }

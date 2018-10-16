@@ -80,4 +80,13 @@ public class ShopCartController {
     public ResponseObject getProduct(@RequestParam Long id) {
         return ResponseObject.newSuccessResponseObject(goodsService.getProductById(id));
     }
+    
+
+    @RequestMapping("updateCartItemChecked")
+    public ResponseObject updateCartItemChecked(@RequestParam List<Long> cartItemIds,
+    		@Account String accountId,Boolean isChecked) {
+    	shopCartService.updateCartItemChecked(cartItemIds, isChecked, accountId);
+        return ResponseObject.newSuccessResponseObject("设置默认成功");
+    }
+    
 }

@@ -123,9 +123,7 @@ public class GoodsServiceImpl implements GoodsService {
                 String doctorId = product.getStore().getBusiness().getDoctorId();
 
                 if (doctorId != null) {
-
                     Map<String, Object> map = medicalDoctorBusinessService.getDoctorInfoByDoctorId(doctorId);
-
                     LOGGER.info("map tostring " + (map != null ? map.toString() : null));
                     JSONObject jasonObject = JSONObject.fromObject(map);
                     redisCacheService.set(key, jasonObject.toString());

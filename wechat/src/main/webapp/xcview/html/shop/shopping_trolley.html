@@ -204,7 +204,8 @@
         {{each storeCartItems as item i}}
         <div class="shop-group-item">
             <div class="shop-name">
-                <input type="checkbox" class="check goods-check shopCheck" style="margin-left:.26rem;">
+                <input type="checkbox" data-storeId="{{item.id}}"
+					class="check goods-check shopCheck" style="margin-left:.26rem;">
                 <h4>
                     <img src="{{item.logo}}" alt="" class="head_portrait"/>
                     <a href="#" class="shop-names">{{item.name}}</a>
