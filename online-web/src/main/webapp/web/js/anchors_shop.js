@@ -141,7 +141,9 @@ $(function(){
 		                    $(".order_pages").addClass("hide");
 		                }
 	 			}else{
-		  				showTip(data.errorMessage);
+		  			//showTip(data.errorMessage);
+	 			   $(".order-null").removeClass("hide");
+	 			   $(".goods-bottom-list").addClass("hide");
 		  		}
 	 		})
  		}
