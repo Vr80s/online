@@ -70,14 +70,32 @@
        	}
     </style>
 </head>
-
+<script type="text/javascript">
+	window.onload = function(){
+		$(".header .return").click(function(){
+			history.back();   //可以就是没有刷新数据
+//			alert(111);
+//			location.replace(document.referrer);
+			// window.location.reload("/xcview/html/physician/physicians_page.html?doctor="+doctorId);
+			// window.location.reload(1);
+			// window.history.go(-1)
+			// window.history.go(-1);location.reload()
+			// window.history.go(-2); 
+			//window.location.href="/xcview/html/physician/physicians_page.html?doctor="+doctorId; 
+			// self.location=document.referrer;
+			// window.location.replace(document.referrer)
+		});
+	};
+</script>
 <body>
 <!-- 头部区域开始 -->
 <header>
     <div class="header">
         <!--<div class="return" onclick="location.href ='/xcview/html/shop/commodity_details.html?productId=' + id +'">-->
         <!--<div class="return" onclick="javascript:history.go(-1);">-->
-        <div class="return" onclick="self.location=document.referrer;">
+        <!--<div class="return" onclick="self.location=document.referrer;">-->
+        <!--<div class="return" onclick="window.location.href=document.referrer;">-->
+        <div class="return">
             <img src="/xcview/images/backicon.png" alt="" class="">
         </div>
         <div class="title">购物车</div>
