@@ -39,4 +39,5 @@ public class CartVO implements Serializable{
 
     private List<StoreCartItemVO> storeCartItems = new ArrayList<StoreCartItemVO>();
 
+    private Boolean isChecked;
 }

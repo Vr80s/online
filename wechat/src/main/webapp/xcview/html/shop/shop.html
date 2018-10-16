@@ -96,6 +96,9 @@
 	.main_center{
 		margin-top: 0;
 	}
+	.swiper-pagination-bullet{
+		border-radius: 10px !important;
+	}
 </style>
 </head>
 
@@ -181,7 +184,7 @@
 					<!--<img src="{{item.productImages}}" alt="" class="surface_plot" />-->
 
 					{{if item.productImages != null}}
-					<img src="{{item.productImages[0].source}}" alt="" class="surface_plot" />
+					<img src="{{item.productImages[0].source}}?imageMogr2/thumbnail/!368x368r|imageMogr2/gravity/Center/crop/368x368" alt="" class="surface_plot" />
 					{{else}}
 					<img src="/xcview/images/defaults.png" alt="" class="surface_plot" />
 					{{/if}}

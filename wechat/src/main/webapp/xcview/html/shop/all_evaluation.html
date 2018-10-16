@@ -41,7 +41,7 @@
 	.minirefresh-wrap{
 		top: 0.9rem;
 		/*top: 1.1rem;*/
-		padding-bottom: 1.6rem;
+		padding-bottom: 1rem;
 		z-index: -1;
 	}
 	.minirefresh-theme-default .minirefresh-downwrap{
@@ -63,6 +63,9 @@
 	}
 	.more_people{
 		/*display: none;*/
+	}
+	.minirefresh-theme-default .status-nomore .upwrap-tips{
+		padding: 0;
 	}
 	
 	/*规格hide*/
@@ -111,6 +114,17 @@
 							<span class="details">{{item.specifications}}</span>
 						</div>
 						<div class="center">{{item.content}}</div>
+						{{if item.reviewImage != null && item.reviewImage.length > 0}}
+						<div class="save-list-img">
+							<ul>
+								{{each item.reviewImage as tado i}}
+								<li>
+									<img src="{{tado}}"/>
+								</li>
+								{{/each}}
+							</ul>
+						</div>
+						{{/if}}
 					</div>
 					{{/each}}
 					</script>

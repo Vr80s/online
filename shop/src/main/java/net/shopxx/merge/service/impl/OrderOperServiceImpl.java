@@ -22,7 +22,6 @@ import net.shopxx.service.*;
 import net.shopxx.util.SystemUtils;
 import net.shopxx.util.WebUtils;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -490,6 +489,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 				orderItemVO.setId(orderItem.getId());
 				//获取库存
 				SkuVO sku = new SkuVO();
+				ProductVO product = new ProductVO();
 				if(orderItem.getSku() != null){
 					List<String> specification = orderItem.getSku().getSpecifications();
 					if(specification.size()>0){
@@ -497,9 +497,11 @@ public class OrderOperServiceImpl implements OrderOperService {
 						sku.setSpecifications(citiesCommaSeparated);
 					}
 					BeanUtils.copyProperties(orderItem.getSku(),sku);
+					product.setId(orderItem.getSku().getProduct().getId());
 					sku.setId(orderItem.getSku().getId());
 				}
 				orderItemVO.setSku(sku);
+				orderItemVO.getSku().setProduct(product);
 				orderItemVOList.add(orderItemVO);
 			}
 			o.setOrderItems(orderItemVOList);

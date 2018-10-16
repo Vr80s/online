@@ -38,7 +38,18 @@
 	$(".address_return").click(function(){
 		var isAddress=localStorage.getItem("isAddress");
 		if (isAddress == "details") {
-			location.href="/xcview/html/shop/confirm_order.html"
+			
+			var before_address = document.referrer;
+	        if (before_address.indexOf("page/index") != -1 ||
+	            before_address.indexOf("confirm_order.html") != -1 ||   //确认订单页
+	            before_address.indexOf("edit_address.html") != -1){
+	
+	            window.history.back();
+	        }else{
+	        	location.href="/xcview/html/persons.html"
+	        }
+//			location.href="/xcview/html/shop/confirm_order.html"
+//			window.history.back();
 		} else{
 //			window.history.go(-1);
 			location.href="/xcview/html/persons.html"
@@ -51,7 +62,8 @@
 	 */
 	$("#update_address_return").click(function(){
 		
-		location.href ='address.html';
+//		location.href ='address.html';
+		history.go(-1);
 	})
 	
 	/**
@@ -319,12 +331,16 @@
 				if (isNotBlank(addressId)) {
 					$(".prosperity_cen_top").text("修改成功");
 					setTimeout(function(){
-						location.href ='address.html';
+//						location.href ='address.html';
+//						history.go(-1);
+						window.history.back();
 					},1500)
 				} else{
 					$(".prosperity_cen_top").text("新增成功");
 					setTimeout(function(){
-						location.href ='address.html';
+//						location.href ='address.html';
+//						history.go(-1);
+						window.history.back();
 					},1500)
 				}
 				

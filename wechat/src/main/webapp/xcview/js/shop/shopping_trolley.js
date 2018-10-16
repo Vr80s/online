@@ -4,6 +4,7 @@ var oldSkuId;
 var updatedSkuId;
 var updatedSku;
 var skus = [];
+var storeCartItems =[];
 $(function () {
     // 数量减
     $shopCartDiv.on('click', '.minus', function () {
@@ -53,14 +54,8 @@ $(function () {
             }
 
             $(".exclude-freight").hide();  //不含运费
-            // $(".select").hide();  //选择规格下拉隐藏
-            // $(".selectbg").hide();  //选择规格下拉添加的 背景层
-
         } else { //如果选中的商品不等于所有商品
-
             $(".exclude-freight").show();  //不含运费
-            // $(".select").show();  //选择规格下拉显示
-            // $(".selectbg").show(); //选择规格下拉添加的 背景层
 
             Shops.prop('checked', false); //店铺全选按钮不被选中
             $("#AllCheck").prop('checked', false); //全选按钮也不被选中
@@ -68,13 +63,17 @@ $(function () {
             TotalPrice();
             // 计算
         }
+        
+       var cid =   $(this).attr("data-cid");
+       var arrayCartItems=[];
+       arrayCartItems.push(cid);
+       updateChecked(arrayCartItems,$(this).prop("checked"));
+        
     });
     // 点击店铺按钮
     $shopCartDiv.on('click', '.shopCheck', function () {
         if ($(this).prop("checked") == true) { //如果店铺按钮被选中
             $(".exclude-freight").show();  //不含运费
-            // $(".select").show();  //选择规格下拉显示
-            // $(".selectbg").show();   //选择规格下拉添加的 背景层
             $(this).parents(".shop-group-item").find(".goods-check").prop('checked', true); //店铺内的所有商品按钮也被选中
             if ($(".shopCheck").length == $(".shopCheck:checked").length) { //如果店铺被选中的数量等于所有店铺的数量
                 $("#AllCheck").prop('checked', true); //全选按钮被选中
@@ -85,13 +84,54 @@ $(function () {
             }
         } else { //如果店铺按钮不被选中
             $(".exclude-freight").hide();  //不含运费
-            // $(".select").hide();  //选择规格下拉隐藏
-            // $(".selectbg").hide();   //选择规格下拉添加的 背景层
             $(this).parents(".shop-group-item").find(".goods-check").prop('checked', false); //店铺内的所有商品也不被全选
             $("#AllCheck").prop('checked', false); //全选按钮也不被选中
             TotalPrice();
         }
+        
+       var storeId =   $(this).attr("data-storeId");
+       var arrayCartItems = getCartItemsByStroreId(storeId);
+        
+       updateChecked(arrayCartItems,$(this).prop("checked"));
     });
+    
+    function updateChecked(ids,checked){
+    	 requestGetService("/xczh/shop/cart/updateCartItemChecked", 
+    	 	{'cartItemIds': ids.join(','),"isChecked":checked}, function (data) {
+    	 	console.log("设置默认成功");
+    	 })
+    }
+    
+    function getCartItemsByStroreId(storeId){
+		var arrayCartItems = [];	
+    	if(storeId!=null){
+        	for (var i = 0; i < storeCartItems.length; i++) {
+        		var storeCartItem = storeCartItems[i];
+        		if(storeId == storeCartItem.id){
+        			var cartItems = storeCartItem.cartItems;
+        			for (var j = 0; j < cartItems.length; j++) {
+        				arrayCartItems.push(cartItems[j].id);
+        			}
+        			break;
+        		}
+        	}
+        }
+    	return arrayCartItems;
+    }
+    
+   function getCartItemsAll(){
+		var arrayCartItems = [];	
+    	for (var i = 0; i < storeCartItems.length; i++) {
+    			var cartItems = storeCartItems[i].cartItems;
+    			for (var j = 0; j < cartItems.length; j++) {
+    				arrayCartItems.push(cartItems[j].id);
+    			}
+        }
+        return arrayCartItems;
+    }
+    	
+    
+    
     // 点击全选按钮
     $("#AllCheck").click(function () {
         if ($(this).prop("checked") == true) { //如果全选按钮被选中  
@@ -108,6 +148,10 @@ $(function () {
             TotalPrice();
         }
         $(".shopCheck").change(); //执行店铺全选的操作
+        
+        
+       var arrayCartItems = getCartItemsAll();
+       updateChecked(arrayCartItems,$(this).prop("checked"));
     });
 
     //计算
@@ -274,7 +318,7 @@ $(function () {
         }
         requestPostService('/xczh/shop/checkSkus', {'cartItemIds': ids.join(',')}, function (resp) {
             if (!resp.resultObject) {
-                window.location.href = '/xcview/html/shop/confirm_order.html?cartItemIds=' + ids.join(',');
+                window.location.href = '/xcview/html/shop/confirm_order.html?cartItemIds=' + ids.join(',')+"&type=2";
             } else {
                 jqtoast(resp.resultObject);
             }
@@ -337,6 +381,15 @@ function initCart() {
             $(".payment-bar").hide();
             $('.vacancy-main').show();
         } else {
+        	
+        	storeCartItems = data.resultObject.storeCartItems;
+        	
+        	if(data.resultObject.isChecked){
+        		$("#AllCheck").attr("checked",'checked');
+        	}else{
+        		$("#AllCheck").removeAttr("checked");
+        	}
+        	
             //$(".finish").show();   //完成
             $(".compile").show();  //编辑显示
             $(".payment-bar").show();

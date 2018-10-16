@@ -24,4 +24,9 @@
 	ALTER TABLE `review` ADD `logistics` int(11) DEFAULT NULL COMMENT '物流服务'  AFTER `score`;    
 	
     ALTER TABLE `review` ADD `reviewImage` VARCHAR(4000) DEFAULT NULL COMMENT '评价的图片'  AFTER `content`;    
+    
+4、购物车cartitem字段加入 是否选中
+	
+	    
+    ALTER TABLE `cartitem` ADD `isChecked` bit(1) COMMENT '条目是否被选中'  AFTER `sku_id`;
 

@@ -1,4 +1,23 @@
 
+$(function(){
+	function quantity(){
+		requestGetService("/xczh/shop/cart/quantity",null,function (data) {
+		    if (data.success == true) {
+		    	var quantity = data.resultObject;
+		        if(quantity == null || quantity == 0){
+		       		$(".shopping_quantity").hide();
+		        }else{
+		       		$(".shopping_quantity").html(quantity);	
+		       		$(".shopping_quantity").show();
+		        };
+		    }
+		});
+	};
+	setTimeout(function(){
+		quantity();
+	},100);
+
+});
 
 var productId = getQueryString("productId");
 var currentSku = null;
@@ -21,8 +40,20 @@ requestGetService("/xczh/shop/goods/details",{
 			else if(t.length > 2)
 			v = i + t.substring(0,2);
 		}
-		//alert(v);
 		$(".ruling_price span").html(v);
+		
+		var v = $(".original_price span").html();
+		if(/^\d+$/.test(v)){
+		j = j + ".00";
+		}else if(/^(\d+\.)(\d+)$/.test(j)){
+			var i = RegExp.$1;
+			var t = RegExp.$2;
+			if(t.length == 1)
+			j = j + "0";
+			else if(t.length > 2)
+			j = i + t.substring(0,2);
+		}
+		$(".original_price span").html(j);
 
         // $(".swiper-wrapper").html(template('top_details', {items: obj}));
         // $(".banner").html(template('top_details', {items: obj}));
@@ -55,11 +86,11 @@ requestGetService("/xczh/shop/goods/details",{
 //      if (obj.posts !=null) {
         if (isNotBlank(obj.reviewvs)) {
             $(".evaluate").show();
-            $(".evaluate_main").html(template('evaluate_main', {items: obj.reviewvs}));
+            $(".evaluate_main").html(template('evaluate_main', {items: obj.reviewvs[0]}));
             $(".no_evaluation").hide();
         }else{
             $(".evaluate").show();
-            $(".evaluate_main").html(template('evaluate_main', {items: obj.reviewvs}));
+//          $(".evaluate_main").html(template('evaluate_main', {items: obj.reviewvs}));
             $(".no_evaluation").show();
         };
         
@@ -245,27 +276,5 @@ function evaluation(){
     });*/
 
 //底部--购物车数量
-requestGetService("/xczh/shop/cart/quantity",null,function (data) {
-    if (data.success == true) {
-    	var quantity = data.resultObject;
-    	
-//  	$(".shopping_quantity").html(quantity);
-       
-        if(quantity == null || quantity == 0){
-       		$(".shopping_quantity").hide();
-        }else{
-       		$(".shopping_quantity").html(quantity);	
-       		$(".shopping_quantity").show();
-        };
-        /*var shoppimgNumber = $(".shopping_quantity").html();
-        if(shoppimgNumber = "0"){
-       		$(".shopping_quantity").hide();
-        }else{
-       		$(".shopping_quantity").html(quantity);	
-       		$(".shopping_quantity").show();
-        };*/
-        
-    }
-});
 
 

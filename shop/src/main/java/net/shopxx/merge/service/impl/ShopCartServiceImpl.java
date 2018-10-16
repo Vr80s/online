@@ -1,7 +1,16 @@
 package net.shopxx.merge.service.impl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -11,7 +20,12 @@ import org.springframework.transaction.annotation.Transactional;
 import net.shopxx.dao.CartDao;
 import net.shopxx.dao.CartItemDao;
 import net.shopxx.dao.ProductDao;
-import net.shopxx.entity.*;
+import net.shopxx.entity.Cart;
+import net.shopxx.entity.CartItem;
+import net.shopxx.entity.Member;
+import net.shopxx.entity.Product;
+import net.shopxx.entity.Sku;
+import net.shopxx.entity.Store;
 import net.shopxx.event.CartModifiedEvent;
 import net.shopxx.event.CartRemovedEvent;
 import net.shopxx.merge.service.ShopCartService;
@@ -211,9 +225,29 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
             for (CartItem cartItem : allStoreCartItemMap.get(store.getId())) {
                 cartItemVOS.add(cartItem.getCartItemVO());
             }
+
+            
+            //是否存在没选中的
+            boolean existsNotChecked = CollectionUtils.exists(cartItemVOS, new Predicate() {
+				@Override
+				public boolean evaluate(Object object) { 
+					CartItemVO cartItemVO = (CartItemVO) object;
+					return cartItemVO.getIsChecked()!=null ? !cartItemVO.getIsChecked() : true;
+				}
+            });
             storeCartItemVO.setCartItems(cartItemVOS);
+            storeCartItemVO.setIsChecked(!existsNotChecked);
+            
             storeCartItemVOList.add(storeCartItemVO);
         }
+        boolean existsNotChecked = CollectionUtils.exists(storeCartItemVOList, new Predicate() {
+			@Override
+			public boolean evaluate(Object object) {
+				StoreCartItemVO storeCartItemVO = (StoreCartItemVO) object;
+				return storeCartItemVO.getIsChecked() !=null ? !storeCartItemVO.getIsChecked() : true;
+			}
+        });
+        cartVO.setIsChecked(!existsNotChecked);
         cartVO.setStoreCartItems(storeCartItemVOList);
         return cartVO;
     }
@@ -251,5 +285,16 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
             }
         }
         return true;
+    }
+    
+    @Override
+    public Integer updateCartItemChecked(List<Long> ids,Boolean isChecked,String accountId){
+        Member member = usersRelationService.getMemberByIpandatcmUserId(accountId);
+        Cart cart = member.getCart();
+    	if(cart!=null) {
+    		return cartItemDao.updateCartItemChecked(ids,isChecked,cart.getId());
+    	}else {
+    		return 0;
+    	}
     }
 }

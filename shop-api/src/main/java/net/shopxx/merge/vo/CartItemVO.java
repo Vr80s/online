@@ -26,6 +26,8 @@ public class CartItemVO implements Serializable {
 	private Integer quantity;
 
     private SkuVO sku;
+    
+    private Boolean isChecked;
 
     @Override
     public boolean equals(Object o) {

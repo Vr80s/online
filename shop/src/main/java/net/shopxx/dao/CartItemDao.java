@@ -26,4 +26,12 @@ public interface CartItemDao extends BaseDao<CartItem, Long> {
      * @return CartItem
      */
     CartItem findFetchSku(Long id);
+	/**  
+	 * <p>Title: updateCartItemChecked</p>  
+	 * <p>Description: </p>  
+	 * @param ids
+	 * @param isChecked
+	 * @return  
+	 */ 
+	Integer updateCartItemChecked(List<Long> ids, Boolean isChecked,Long cartId);
 }

@@ -36,10 +36,13 @@
 	<!-- 头部区域开始 -->
 	<header>
 		<div class="header">
-			<div class="return" onclick="location.href ='/xcview/html/shop/shop.html'">
+			<!--<div class="return" onclick="location.href ='/xcview/html/shop/shop.html'">-->
+			<!--<div class="return" onclick="gotoLineItem()">-->
+			<div class="return" onclick="location.href ='/xcview/html/shop/order_center.html'">
 				<img src="/xcview/images/backicon.png" alt="" class="">
 			</div>
-			<div class="title ongoing">等待支付完成</div>
+			<!--<div class="title ongoing">等待支付完成</div>-->
+			<div class="title ongoing">支付成功</div>
 			<div class="title finished">支付成功</div>
 		</div>
 	</header>
@@ -49,8 +52,9 @@
 	<!-- 中间内容开始 -->
 	<div class="center">
 		<div class="main">
-			<div class="win ongoing">
-				<img src="/xcview/images/shop/win.png" alt="" />等待支付完成
+			<div class="win ongoing" style="width: 2.1rem;">
+				<!--<img src="/xcview/images/shop/win.png" alt="" />等待支付完成-->
+				<img src="/xcview/images/shop/win.png" alt="" />支付成功
 			</div>
 			<div class="win finished" style="width: 2.1rem;">
 				<img src="/xcview/images/shop/win.png" alt="" />支付成功
@@ -58,7 +62,7 @@
 			<div class="actual_payment finished">实付款<span class="amount"></span></div>
 			<div class="button">
 				<div class="index" onclick="location.href ='/xcview/html/shop/shop.html'">商城首页</div>
-				<div class="details" onclick="gotoLineItem()">订单详情</div>
+				<div class="details" onclick="location.href ='/xcview/html/shop/order_center.html'">订单列表</div>
 			</div>
 		</div>
 
@@ -100,7 +104,8 @@
     }, 3000);
     
     function gotoLineItem(){
-    	location.href ='/xcview/html/shop/line_item.html?sn='+sn;
+//  	location.href ='/xcview/html/shop/line_item.html?sn='+sn;
+    	location.href ='/xcview/html/shop/order_center.html;
     }
     
 </script>

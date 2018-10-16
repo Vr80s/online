@@ -574,6 +574,22 @@ public class ProductController extends BaseController {
 		return "ok";
 	}
 	
+	
+	
+	@GetMapping("/updateCartItemChecked")
+	public @ResponseBody Object updateCartItemChecked(Long id1,Long id2,
+			Boolean isChecked,String accountId) {
+		List<Long> ids = new ArrayList<>();
+		if(id1!=null) {
+			ids.add(id1);
+		}
+		if(id2!=null) {
+			ids.add(id2);
+		}
+		shopCartService.updateCartItemChecked(ids, isChecked, "96cf3b35965c4fd2941faaf74c7abefc");
+		return "ok";
+	}
+	
 
 	/**
 	 * FormBean - 评论条目

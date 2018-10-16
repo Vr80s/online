@@ -123,9 +123,7 @@ public class GoodsServiceImpl implements GoodsService {
                 String doctorId = product.getStore().getBusiness().getDoctorId();
 
                 if (doctorId != null) {
-
                     Map<String, Object> map = medicalDoctorBusinessService.getDoctorInfoByDoctorId(doctorId);
-
                     LOGGER.info("map tostring " + (map != null ? map.toString() : null));
                     JSONObject jasonObject = JSONObject.fromObject(map);
                     redisCacheService.set(key, jasonObject.toString());
@@ -152,9 +150,7 @@ public class GoodsServiceImpl implements GoodsService {
         if (product == null) {
             throw new RuntimeException("商品找不到。productId："+productId);
         }
-        if(BooleanUtils.isNotTrue(product.getIsActive()) || BooleanUtils.isNotTrue(product.getIsMarketable())) {
-        	throw new RuntimeException("商品没有上架或没有列出。productId："+productId);
-        }
+
         
         ProductVO pv = new ProductVO();
 

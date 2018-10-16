@@ -199,6 +199,7 @@ public class BusinessController extends BaseController {
     @GetMapping("/list")
     public String list(Pageable pageable, ModelMap model) {
         model.addAttribute("page", businessService.findPage(pageable));
+        model.addAttribute("doctors", medicalDoctorBusinessService.listDoctor());
         return "admin/business/list";
     }
 
