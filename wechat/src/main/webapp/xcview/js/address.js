@@ -38,7 +38,8 @@
 	$(".address_return").click(function(){
 		var isAddress=localStorage.getItem("isAddress");
 		if (isAddress == "details") {
-			location.href="/xcview/html/shop/confirm_order.html"
+//			location.href="/xcview/html/shop/confirm_order.html"
+			window.history.back();
 		} else{
 //			window.history.go(-1);
 			location.href="/xcview/html/persons.html"

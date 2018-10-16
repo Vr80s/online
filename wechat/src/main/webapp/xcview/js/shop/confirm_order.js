@@ -179,3 +179,32 @@ function creatOrderList(orders,price,freight){
 }
 
 
+
+
+function returns() {
+
+      var userId = localStorage.userId;
+      if (isNotBlank(userId)) {
+          /*
+           * 判断这上个地址是否来自我们的浏览器啦。如果是的就返回上一页，如果不是的话，那么就返回首页吧。
+           */
+          var before_address = document.referrer;
+          if (before_address.indexOf("page/index") != -1 ||
+              before_address.indexOf("shopping_trolley.html") != -1 ||   //购物车
+              before_address.indexOf("order_center.html") != -1 ||   //好货订单--订单列表
+              before_address.indexOf("line_item.html") != -1) {  //订单详情
+
+              window.history.back();
+          } else {
+              window.history.go(-1);
+          }
+      } else {
+          //登录页面
+          location.href = "home_page.html";
+          
+      }
+}
+/*function returns() {
+	history.back();
+}*/
+
