@@ -143,6 +143,7 @@ public class PaymentController extends BaseController {
 
 		ModelAndView modelAndView = new ModelAndView();
 		paymentPlugin.payHandle(paymentPlugin, paymentTransaction, getPaymentDescription(paymentTransaction), extra, request, response, modelAndView);
+		modelAndView.addObject("ipandatcmUrl",ipandatcmUrl);
 		return modelAndView;
 	}
 
