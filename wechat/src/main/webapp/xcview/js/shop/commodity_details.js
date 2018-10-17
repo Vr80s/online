@@ -142,41 +142,17 @@ function evaluation(){
         window.location.href = "/xcview/html/shop/all_evaluation.html?productId=" + productId + "";
     })
 };
-/*$(".specifications_ul .include").click(function(){
-        alert(11111);
-    });*/
 
 //底部--购物车数量
 
-function getFlagStatus() {
-    var falg = USER_NORMAL;
-    var user_cookie = cookie.get("_ipandatcm_user_");
-    var third_party_cookie = cookie.get("_third_ipandatcm_user_");
-    if (isBlank(user_cookie)) {
-        falg = USER_UN_LOGIN;
-        if (isNotBlank(third_party_cookie)) {
-            falg = USER_UN_BIND;
-        }
-    }
-    return falg;
-}
-
 //点击购物车
-//h5点击用到
 $(".shopping_cart").click(function(){
-	
-	location.href ='/xcview/html/shop/shopping_trolley.html'
-
+	requestPostService("/xczh/myinfo/myFocus",null,function (data) {
+	    if (data.success == true) {
+	       	location.href ='/xcview/html/shop/shopping_trolley.html'
+	    }
+	});
 });
-
-/*var flag = getFlagStatus();
-if (flag === USER_UN_LOGIN) {
-		alert(111);
-        
-}else{
-	alert(222);
-}*/
-
 
     
 

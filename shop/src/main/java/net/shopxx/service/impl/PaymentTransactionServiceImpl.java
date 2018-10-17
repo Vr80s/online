@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -35,6 +36,7 @@ import net.shopxx.entity.BusinessDepositLog;
 import net.shopxx.entity.Member;
 import net.shopxx.entity.MemberDepositLog;
 import net.shopxx.entity.Order;
+import net.shopxx.entity.OrderItem;
 import net.shopxx.entity.OrderPayment;
 import net.shopxx.entity.PaymentItem;
 import net.shopxx.entity.PaymentMethod;
@@ -42,6 +44,7 @@ import net.shopxx.entity.PaymentTransaction;
 import net.shopxx.entity.PaymentTransaction.LineItem;
 import net.shopxx.entity.PlatformSvc;
 import net.shopxx.entity.PromotionPluginSvc;
+import net.shopxx.entity.Sku;
 import net.shopxx.entity.Sn;
 import net.shopxx.entity.Store;
 import net.shopxx.entity.StorePluginStatus;
@@ -229,6 +232,15 @@ public class PaymentTransactionServiceImpl extends BaseServiceImpl<PaymentTransa
 					orderPayment.setFee(transaction.getFee());
 					orderPayment.setOrder(order);
 					orderService.payment(order, orderPayment);
+					
+					//增加销量
+					for (OrderItem orderItem : order.getOrderItems()) {
+						Sku sku = orderItem.getSku();
+						if (sku != null && sku.getProduct() != null) {
+							productService.addSales(sku.getProduct(), orderItem.getQuantity());
+						}
+					}
+					
 				}
 				break;
 			case SVC_PAYMENT:
