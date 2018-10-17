@@ -165,7 +165,12 @@ function getFlagStatus() {
 //h5点击用到
 $(".shopping_cart").click(function(){
 	
-	location.href ='/xcview/html/shop/shopping_trolley.html'
+	requestPostService("/xczh/myinfo/myFocus",null,function (data) {
+	    if (data.success == true) {
+	       	location.href ='/xcview/html/shop/shopping_trolley.html'
+	    }
+	});
+	
 
 });
 
