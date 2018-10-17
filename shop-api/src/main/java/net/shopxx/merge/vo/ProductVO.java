@@ -175,6 +175,9 @@ public class ProductVO implements Serializable {
     
     private Set<SkuVO> skuVOs;
     
+    //评论总数
+    private Long reviewvCount;
+    
 
     public Long getId() {
         return id;
@@ -750,8 +753,13 @@ public class ProductVO implements Serializable {
 		this.skuVOs = skuVOs;
 	}
 
-	
-    
-    
+	public Long getReviewvCount() {
+		return reviewvCount;
+	}
+
+	public void setReviewvCount(Long reviewvCount) {
+		this.reviewvCount = reviewvCount;
+	}
+
     
 }
