@@ -80,19 +80,24 @@ $('.determine').click(function () {
 	    requestPostService("/xczh/shop/cart", {'skuId': skuId, 'quantity' : quantity}, function(data){
 			if (data.success) {
 				$('.shopping_trolley').hide();
-				var cartQuantity = $('.shopping_quantity').val();
-				if (!cartQuantity) {
-				    cartQuantity = quantity;
-				} else {
-				    cartQuantity = parseInt(cartQuantity) + quantity;
-				}
+
+				var cartItemNumber  = data.resultObject;
 				
-				var preNumber = $(".shopping_quantity").html();
-				totalQuantity = Number(cartQuantity) + Number(preNumber);
-				if(totalQuantity>0){
+//				var cartQuantity = $('.shopping_quantity').val();
+//				if (!cartQuantity) {
+//				    cartQuantity = quantity;
+//				} else {
+//				    cartQuantity = parseInt(cartQuantity) + quantity;
+//				}
+//				var preNumber = $(".shopping_quantity").html();
+//				totalQuantity = Number(cartQuantity) + Number(preNumber);
+				
+				
+				if(parseInt(cartItemNumber>0)){
 					$(".shopping_quantity").show();
 				}
-                $('.shopping_quantity').html(totalQuantity);
+                $('.shopping_quantity').html(cartItemNumber);
+                
                 jqtoast("已加入购物车");
 			}
 		});
