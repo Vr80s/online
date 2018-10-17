@@ -84,6 +84,17 @@ function orderDetails() {
             $(".countermandDelete").click(function(){
                 $(".deleteOrder").hide();
             });
+            //		点击确认收货
+            $(".confirmOrder").off("click");
+            $(".confirmOrder").click(function(){
+                data_sn = $(this).attr("data-sn");
+                $(".confirm_receiptt").show();
+            });
+            $(".countermandDelete1").off("click");
+            $(".countermandDelete1").click(function(){
+                $(".confirm_receiptt").hide();
+            });
+
             getShipping();
             
             $(".waiting_payment").on('click','.immediate_payment',function(){
@@ -151,11 +162,12 @@ function getTransitSteps(orderSn,orderId) {
 }
 
 //确认收货
-function confirmReceipt(orderSn) {
+function confirmReceipt() {
     requestPostService("/xczh/shop/order/receive", {
-        sn: orderSn
+        sn: data_sn
     }, function (data) {
         if(data.success ){
+            $(".confirm_receiptt").hide();
             orderDetails();
         }else{
             jqtoast(data.errorMessage);

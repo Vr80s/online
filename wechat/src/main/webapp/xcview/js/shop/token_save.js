@@ -25,11 +25,11 @@ if(wv == null){
     localStorage.setItem("wv",wv);
 }
 if(wv==null){
-	$(".footer").show();
+	$(".shop-footer").show();
 	$(".minirefresh-wrap").css("bottom","7.6rem");
 	$(".minirefresh-wrap").css("bottom",".98rem");
 }else{
-	$(".footer").hide();
+	$(".shop-footer").hide();
 	$(".minirefresh-wrap").css("bottom","0");
 	$(".minirefresh-wrap").css("width","7.5rem");
 }

@@ -11,7 +11,7 @@ $('.add_cart').click(function(){
     
     tokenCheck();
     
-    $('.shopping_trolley').show();
+//  $('.shopping_trolley').show();
 });
 // 点击立即购买
 $('.buy_now').click(function(){
@@ -20,38 +20,15 @@ $('.buy_now').click(function(){
     
     tokenCheck();
     
-    $('.shopping_trolley').show();
+//  $('.shopping_trolley').show();
 });
 
 function tokenCheck(){
-	
-	 if(localStorage.getItem("wv") == null){
-	    var USER_UN_BIND = 1005;//用户用微信登录的但是没有绑定注册信息
-	    var USER_TOKEN_NULL = 1001;//token is null
-		var USER_UN_LOGIN = 1002;//未登录
-		var USER_TOP = 1003;//被顶掉
-		var USER_NORMAL = 1000;
-		var USER_WEIXIN_AUTH = 1006;//需要去微信授权
-		    // alert(2112111);
-		
-		    var flag = getFlagStatus();
-		
-		    if (flag === USER_UN_BIND) {
-		        location.href = "/xcview/html/evpi.html";  /*完善信息页面*/
-		    }else if (flag === USER_UN_LOGIN){
-//			        location.href ='/xcview/html/shop/shopping_trolley.html'
-		        location.href = "/xcview/html/enter.html";  /*登录页面*/ 
-		    }else if (flag === USER_TOP){
-//			        location.href ='/xcview/html/shop/shopping_trolley.html'
-		        location.href = "/xcview/html/enter.html";  /*登录页面*/  
-		    }else{
-//			        location.href ='/xcview/html/shop/shopping_trolley.html'
-		        $('.shopping_trolley').show();  
-		    }
-	}else{
-		location.href ='/xcview/html/cn_login.html';/*注册页面*/
-	}
-
+	requestPostService("/xczh/myinfo/myFocus",null,function (data) {
+	    if (data.success == true) {
+	       	$('.shopping_trolley').show(); 
+	    }
+	});
 }
 
 

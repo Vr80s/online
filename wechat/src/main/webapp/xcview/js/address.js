@@ -92,7 +92,7 @@
 	  * 修改地址
 	  */
 	 var isTrue=true;
-	 
+
 	 function editAddress(addressId){
 		 requestGetService("/xczh/shop/receiver?receiverId="+addressId,null, function(data) {
 				if (data.success) {
@@ -112,14 +112,14 @@
 				    	$(".sheng").removeClass("hide");
 				    	$(".shi").removeClass("hide");
 				    	$(".qu").removeClass("hide");
-				    	arrProvice[1]
-				    	requestService("/xczh/shop/area?parentId="+arrProvice[1],null, function(data) {
+//				    	arrProvice[1]
+//				    	requestService("/xczh/shop/area?parentId="+arrProvice[1],null, function(data) {
 				    		for(var i=1; i<proviceDom.length; i++){
 				    			if(proviceDom[i].getAttribute("data-id")==arrProvice[1]){
 				    				$(".input-group .sheng option").eq(i).attr("selected","selected");
 				    			}
 				    		}
-				    	})
+//				    	})
 //				    	市先获取数据加载后回显
 				    	arrProvice[1]
 				    	requestService("/xczh/shop/area?parentId="+arrProvice[1],null, function(data) {

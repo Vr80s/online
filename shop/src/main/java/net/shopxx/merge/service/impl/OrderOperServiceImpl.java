@@ -822,7 +822,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 		Member currentUser = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
 		if (!orderService.acquireLock(order, currentUser)) {
 			//throw new RuntimeException("member.order.locked");
-			throw new RuntimeException("订单被锁定");
+			throw new RuntimeException("订单已被锁定，请稍后再试！");
 		}
 		orderService.receive(order);
 	}
