@@ -70,11 +70,15 @@ function initRecommendProduct() {
 }
 
 
-// 点击取消隐藏删除提示框 
-/*$('.countermand').click(function () {
-    $('.removeitem').hide();
-});*/
+// 点击分享按钮
+$('.share_class').click(function () {
+    $('.weixin_ceng').show();
+});
 
+//点击分享提示背景色
+$('.weixin_img').click(function () {
+    $('.weixin_ceng').hide();
+});
 
 
 

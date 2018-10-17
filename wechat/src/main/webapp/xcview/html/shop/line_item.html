@@ -13,10 +13,10 @@
 <meta name="description" content="" />
 
 <!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
-	<script type="text/javascript" src="/xcview/js/common/template.js"></script>
-<link type="text/css" rel="stylesheet" href="/xcview/css/shop/line_item.css" />
-<link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
+<script type="text/javascript" src="/xcview/js/common/layout.js?version=e2b9d5cdbd"></script>
+	<script type="text/javascript" src="/xcview/js/common/template.js?version=dd622e58c9"></script>
+<link type="text/css" rel="stylesheet" href="/xcview/css/shop/line_item.css?version=54d6589620" />
+<link rel="stylesheet" type="text/css" href="/xcview/css/popups.css?version=274f363430"/> <!-- 公用弹框 -->
 <script>
 	// 判断横屏展示时的状态
 	window.onorientationchange=function(){
@@ -123,7 +123,8 @@
 			{{/if}}
 			<div class="main_product_details">
 				{{each orderItems as orderItem }}
-				<div class="product_details" data-id="{{orderItem.id}}" onclick="location.href ='/xcview/html/shop/commodity_details.html?productId={{orderItem.product.id}}'">
+				<div class="product_details"  data-id="{{orderItem.sku.product.id}}" onclick="location.href ='/xcview/html/shop/commodity_details.html?productId={{orderItem.sku.product.id}}'">
+				<!--<div class="product_details"  data-id="{{orderItem.sku.product.id}}">-->
 					<img src="{{orderItem.thumbnail}}" alt="" class="surface_plot" />
 					<div class="product_details_center">
 						<div class="title"><span>{{orderItem.name}}</span></div>
@@ -260,14 +261,15 @@
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
-<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?version=911bdab288"></script>
 
-<script type="text/javascript" src="/xcview/js/shop/order_details.js"></script>
+<script type="text/javascript" src="/xcview/js/shop/order_details.js?version=48e557fa4f"></script>
 
-<script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
+<script type="text/javascript" src="/xcview/js/common/popups.js?version=ac575e6012"></script>  <!-- 公用弹框 -->
 
 <script>
 
 </script>
 
 </html>
+

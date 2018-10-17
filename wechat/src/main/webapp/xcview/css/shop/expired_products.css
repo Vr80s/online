@@ -72,6 +72,7 @@ header{
 	display: inherit;
     margin-left: .1rem;
     margin-top: .28rem;
+    float: right;
 }
 .advices_number {
     position: absolute;
@@ -105,6 +106,13 @@ header{
 	width: 7.5rem;
 	height: 0.88rem;
 	margin: 0 auto;
+}
+.share{
+	width: .36rem;
+    height: .36rem;
+    margin-top: .25rem;
+    float:  right;
+    margin-right: .2rem;
 }
 /*头部区域结束*/
 
@@ -230,3 +238,38 @@ header{
 	height: .98rem;
 }
 /*购物车空的状态结束*/
+
+/*点击分享提示开始*/
+.weixin_ceng {
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.weixin_ceng_bg {
+    width: 7.5rem;
+    height: 100%;
+    background: #000;
+    opacity: 0.5;
+    position: fixed;
+    left: 50%;
+    top: 0;
+    z-index: 999999999999999;
+    margin-left: -3.75rem;
+}
+.weixin_img {
+    position: fixed;
+    z-index: 99999999999;
+    top: 0rem;
+    left: 50%;
+    width: 7.5rem;
+    height: 100%;
+    margin-left: -3.75rem;
+}
+.weixin_img img {
+    position: absolute;
+    top: 0rem;
+    right: 0.26rem;
+    width: 3rem;
+    z-index: 99999999999;
+}
+/*点击分享提示结束*/
