@@ -162,7 +162,7 @@ public class ProductVO implements Serializable {
     /**
      * 标准
      */
-    private Set<SpecificationItemVO> specificationItemvs;
+    private List<SpecificationItemVO> specificationItemvs;
 
 
     private List<ProductImageVO> productImages;
@@ -698,11 +698,11 @@ public class ProductVO implements Serializable {
         this.doctor = doctor;
     }
 
-    public Set<SpecificationItemVO> getSpecificationItemvs() {
+    public List<SpecificationItemVO> getSpecificationItemvs() {
         return specificationItemvs;
     }
 
-    public void setSpecificationItemvs(Set<SpecificationItemVO> specificationItemvs) {
+    public void setSpecificationItemvs(List<SpecificationItemVO> specificationItemvs) {
         this.specificationItemvs = specificationItemvs;
     }
 
