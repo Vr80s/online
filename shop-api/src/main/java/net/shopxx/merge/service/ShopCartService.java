@@ -22,7 +22,7 @@ public interface ShopCartService {
      * @param skuId           skuId
      * @param quantity        数量
      */
-    void add(String ipandatcmUserId, Long skuId, int quantity);
+    Integer add(String ipandatcmUserId, Long skuId, int quantity);
 
     /**
      * 修改购物车SKU

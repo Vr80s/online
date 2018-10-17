@@ -370,6 +370,9 @@ public class GoodsServiceImpl implements GoodsService {
             return skuVO;
         }).collect(Collectors.toSet());
         productVO.setSkuVOs(skuVOs);
+        
+        productVO.setProductImages(convertProductimages(product));
+        
         return productVO;
     }
 

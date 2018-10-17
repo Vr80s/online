@@ -6,7 +6,18 @@
  */
 package net.shopxx.dao;
 
+import java.util.List;
+
+import net.shopxx.Page;
+import net.shopxx.Pageable;
+import net.shopxx.entity.Member;
+import net.shopxx.entity.Order.Status;
+import net.shopxx.entity.Order.Type;
 import net.shopxx.entity.OrderDelete;
+import net.shopxx.entity.Product;
+import net.shopxx.entity.Store;
+import net.shopxx.merge.enums.OrderType;
+import net.shopxx.merge.vo.OrderPageParams;
 
 /**
  * Dao - 订单
@@ -15,6 +26,22 @@ import net.shopxx.entity.OrderDelete;
  * @version 6.1
  */
 public interface OrderDeleteDao extends BaseDao<OrderDelete, Long> {
+
+	/**  
+	 * <p>Title: findPageXc</p>  
+	 * <p>Description: </p>  
+	 * @param orderPageParams
+	 * @param general
+	 * @param object
+	 * @param stores
+	 * @param member
+	 * @param object2
+	 * @param pageable
+	 * @param orderType
+	 * @return  
+	 */ 
+	Page<OrderDelete> findPageXc(OrderPageParams orderPageParams, Type general,Status status, List<Store> stores,
+			Member member, Product product, Pageable pageable, OrderType orderType);
 
 
 
