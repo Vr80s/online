@@ -335,10 +335,13 @@ function changeProductProp() {
     	}
     }  
     if(currentSku == null || currentSku.isOutOfStock){
+    	updatedSkuId = null;
     	$choiceProduct.find('.repertory').html('该商品库存不足');
+    	$(".shopping_trolley_center .determine").css("background","#aaaaaa");
     }else{
     	$choiceProduct.find('.price').html('￥' + currentSku.price);
     	$choiceProduct.find('.repertory').html('库存' + currentSku.availableStock + '件');
+    	$(".shopping_trolley_center .determine").css("background","#F97215");
     	updatedSkuId = currentSku.id;
     	updatedSku = currentSku;
     }
