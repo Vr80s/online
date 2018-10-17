@@ -1,5 +1,6 @@
 package com.xczhihui.medical.constitution.service.impl;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.constitution.mapper.*;
 import com.xczhihui.medical.constitution.model.*;
 import com.xczhihui.medical.constitution.service.IConstitutionService;
@@ -49,7 +50,7 @@ public class ConstitutionServiceImpl implements IConstitutionService {
 
     @Override
     public AnalysisResult saveRecord(String userId, String birthday, Integer sex, List<MedicalConstitutionQuestionRecordDetails> medicalQuestionRecordDetailsList){
-        AnalysisResult analysis = analysis(medicalQuestionRecordDetailsList);
+        AnalysisResult analysis = analysis(medicalQuestionRecordDetailsList,false);
         MedicalConstitutionQuestionRecord medicalQuestionRecord = new MedicalConstitutionQuestionRecord();
         medicalQuestionRecord.setUserId(userId);
         medicalQuestionRecord.setBirthday(birthday);
@@ -75,10 +76,18 @@ public class ConstitutionServiceImpl implements IConstitutionService {
     @Override
     public AnalysisResult getRecordById(Integer recordId) {
         List<MedicalConstitutionQuestionRecordDetails> medicalQuestionRecordDetailsList = medicalQuestionRecordDetailsMapper.selectByRecordId(recordId);
-        return analysis(medicalQuestionRecordDetailsList);
+        return analysis(medicalQuestionRecordDetailsList,true);
     }
 
-    private AnalysisResult analysis(List<MedicalConstitutionQuestionRecordDetails> medicalConstitutionQuestionRecordDetailsList) {
+    @Override
+    public Page<MedicalConstitutionQuestionRecord> getRecordListByPage(int current, int size) {
+        Page<MedicalConstitutionQuestionRecord> page = new Page<>(current,size);
+        List<MedicalConstitutionQuestionRecord> medicalQuestionRecordList = medicalQuestionRecordDetailsMapper.selectRecordListByPage(page);
+        page.setRecords(medicalQuestionRecordList);
+        return page;
+    }
+
+    private AnalysisResult analysis(List<MedicalConstitutionQuestionRecordDetails> medicalConstitutionQuestionRecordDetailsList, boolean more) {
         for (int i = 0; i < medicalConstitutionQuestionRecordDetailsList.size(); i++) {
             MedicalConstitutionQuestionRecordDetails medicalConstitutionQuestionRecordDetails = medicalConstitutionQuestionRecordDetailsList.get(i);
             medicalConstitutionQuestionRecordDetails.setScore(scoreMap.get(medicalConstitutionQuestionRecordDetails.getAnswer()));
@@ -91,8 +100,11 @@ public class ConstitutionServiceImpl implements IConstitutionService {
             result.add(new ConstitutionScore(all.get(i),score));
         }
         List<ConstitutionScore> constitutionScoreList = sortAndFilter(result);
-        System.out.println(result);
         AnalysisResult analysisResult = new AnalysisResult();
+        if(more){
+            analysisResult.setAllConstitutionScoreList(result);
+            analysisResult.setMedicalConstitutionQuestionRecordDetailsList(medicalConstitutionQuestionRecordDetailsList);
+        }
         analysisResult.setConstitutionScoreList(constitutionScoreList);
         if(constitutionScoreList.size() > 0){
             StringBuilder constitution = new StringBuilder();

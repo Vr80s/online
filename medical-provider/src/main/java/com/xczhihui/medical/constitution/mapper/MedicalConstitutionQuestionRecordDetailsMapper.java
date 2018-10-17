@@ -1,6 +1,8 @@
 package com.xczhihui.medical.constitution.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.medical.constitution.model.MedicalConstitutionQuestionRecord;
 import com.xczhihui.medical.constitution.model.MedicalConstitutionQuestionRecordDetails;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
@@ -29,4 +31,19 @@ public interface MedicalConstitutionQuestionRecordDetailsMapper extends BaseMapp
 
     @Select("select * from medical_constitution_question_record_details mcqrd where mcqrd.record_id = #{recordId}")
     List<MedicalConstitutionQuestionRecordDetails> selectByRecordId(Integer recordId);
+
+    @Select("SELECT " +
+            "ou.login_name loginName," +
+            "ou.`name`," +
+            "mcqr.id," +
+            "mcqr.birthday," +
+            "mcqr.sex," +
+            "mcqr.create_time," +
+            "mcqr.result " +
+            " FROM " +
+            " medical_constitution_question_record mcqr" +
+            " LEFT JOIN oe_user ou ON mcqr.user_id = ou.id" +
+            " ORDER BY" +
+            " mcqr.create_time DESC")
+    List<MedicalConstitutionQuestionRecord> selectRecordListByPage(Page<MedicalConstitutionQuestionRecord> page);
 }

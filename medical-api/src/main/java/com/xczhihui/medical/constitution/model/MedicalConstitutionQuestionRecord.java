@@ -39,6 +39,11 @@ public class MedicalConstitutionQuestionRecord extends Model<MedicalConstitution
 	@TableField("create_time")
 	private Date createTime;
 
+	@TableField(exist = false)
+	private String name;
+	@TableField(exist = false)
+	private String loginName;
+
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
