@@ -37,11 +37,19 @@
 			</div>
 			<div class="answer-bg"></div>
 			<!--问题开始-->	
-			<p class="question-list">1. 平时晚上容易盗汗或手脚心发热吗？</p>
-			<div class="select-option">
-				<button type="button">没有</button>
-				<button type="button">偶尔</button>
-				<button type="button">经常</button>
+			<p class="question-list" data-id="1" data-no="1"></p>
+			<div class="select-option select1" style="display: none">
+				<button class="select-answer select-answer1" type="button" data-answer="A" data-score="0">没有</button>
+				<button class="select-answer select-answer2" type="button" data-answer="B" data-score="1">偶尔</button>
+				<button class="select-answer select-answer3" type="button" data-answer="C" data-score="2">经常</button>
+			</div>
+			<div class="select-option selectB" style="display: none">
+				<button class="select-answer10" type="button" data-no="B" data-answer="10-1" data-score="2">咳出清痰</button>
+				<button class="select-answer10" type="button" data-no="B" data-answer="10-2" data-score="2">干咳没有痰，或者痰很少但比较粘</button>
+			</div>
+			<div class="select-option selectC" style="display: none">
+				<button class="select-answer10" type="button" data-no="C" data-answer="10-1" data-score="2">咳出清痰</button>
+				<button class="select-answer10" type="button" data-no="C" data-answer="10-2" data-score="2">干咳没有痰，或者痰很少但比较粘</button>
 			</div>
 			
 			<!--完善进度条-->
@@ -49,8 +57,8 @@
 				<div class="progress" id="progress-set">
 				    <div class="progress-bar progress-bar-info progress-bar-set" role="progressbar"
 				         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-				         style="width: 30%;">
-				        <span class="sr-only">30% 完成（信息）</span>
+				         style="width: 0%;">
+				        <span class="sr-only">0% 完成（信息）</span>
 				    </div>
 				</div>
 			</div>

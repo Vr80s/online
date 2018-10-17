@@ -928,10 +928,8 @@ public class OrderOperServiceImpl implements OrderOperService {
 		List<Store> stores =null;Member member = null;
 		try {
 			if(UsersType.BUSINESS.equals(usersType)) {  //商家
-				
 				MedicalDoctorAccount medicalDoctorAccount = medicalDoctorAccountService.getByUserId(ipandatcmUserId);
 				if(medicalDoctorAccount.getDoctorId()!=null) {
-					
 					String doctorId = medicalDoctorAccount.getDoctorId();
 					//医师得到商家、商家得到店铺
 					List<Business> businesss = businessDao.findBusinessByDoctorId(doctorId);

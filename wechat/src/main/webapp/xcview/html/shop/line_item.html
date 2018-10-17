@@ -33,7 +33,7 @@
 	<!-- 头部区域开始 -->
 	<header>
 		<div class="header">
-			<div class="return" onclick="location.href ='/xcview/html/shop/shop.html'">
+			<div class="return" onclick="location.href ='/xcview/html/shop/order_center.html'">
 				<img src="/xcview/images/backicon.png" alt="" class="">
 			</div>
 			<div class="title">订单详情</div>
@@ -128,9 +128,12 @@
 					<div class="product_details_center">
 						<div class="title"><span>{{orderItem.name}}</span></div>
 						<div class="pack">
-							{{if orderItem.sku != null}}
-							{{orderItem.sku.specifications}}（库存{{orderItem.sku.stock}}件）
+							{{if orderItem.sku != null && orderItem.sku.specifications !=null}}
+								{{orderItem.sku.specifications}}
 							{{/if}}
+						    {{if orderItem.sku != null && orderItem.sku.availableStock !=null}}
+								（库存{{orderItem.sku.availableStock}}件）
+							{{/if}}	
 						</div>
 						<div class="total_prices">
 							<div class="price_yuan" >

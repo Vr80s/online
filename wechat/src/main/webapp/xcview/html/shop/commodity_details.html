@@ -401,7 +401,8 @@
 				<img src="/xcview/images/shop/service.png" alt="" />
 				客服
 			</div>
-			<div class="shopping_cart" onclick="location.href ='/xcview/html/shop/shopping_trolley.html '">
+			<!--<div class="shopping_cart" onclick="location.href ='/xcview/html/shop/shopping_trolley.html '">-->
+			<div class="shopping_cart">
 			<!--<div class="shopping_cart" onclick="trolley()">-->
 				<img src="/xcview/images/shop/shopping_cart.png" alt="" />
 				购物车
@@ -526,167 +527,9 @@
     });
 </script>
 <!-- 滑动焦点图end-->
-
 <script type="text/javascript" src="/xcview/js/common/popups.js?version=ac575e6012&version=ac575e6012"></script>  <!-- 公用弹框 -->
-
 <script type="text/javascript" src="/xcview/js/shop/jquery.spinner.js?version=a3e4e4c603&version=a3e4e4c603"></script><!-- 点击数量引入 -->
-<!-- 数量区域 -->
-<script>
-	// 点击数量加减
-	$('.spinnerExample').spinner({});
-
-	// 点击分类
-	var aBtnHue=$('.classify_ul .hue');
-  	for(i=0;i<aBtnHue.length;i++){
-	    $(aBtnHue[i]).click(function(){
-	    	var kind = document.querySelector(".kind");  //分类
-			kind.style.display="none";
-			// 判断显示已选择
-	    	if ($(".include").hasClass("public")) {
-				$(".kind").show();
-				$(".specification").show();
-				$(".choice").html("已选择");
-			};
-	    	
-		    for(i=0;i<aBtnHue.length;i++){
-		        $(aBtnHue[i]).removeClass('public');
-		    }
-		    $(this).addClass('public');
-		    var publicHtml = $(this).html();
-		    $(".kind").html(publicHtml);
-		})
-	}
-	//1.选择商品放入购物车，2.选择商品立即购买.默认立即购买
-	var shoppingFlag = 2;
-    // 点击加入购物车
-    $('.add_cart').click(function(){
-        shoppingFlag = 1;
-        emptySpecification();
-        $('.shopping_trolley').show();
-    });
-    // 点击立即购买
-    $('.buy_now').click(function(){
-        shoppingFlag = 2;
-        emptySpecification();
-        $('.shopping_trolley').show();
-    });
-    
-    //清空选中的项
-    function emptySpecification(){
-       
-    	$(".choice").html("选择");
-    	
-    	if(specificationsResutl!=null && specificationsResutl.length>0){
-    		currentSku = null;
-        	$(".shopping_trolley_center .determine").css("background","#aaaaaa");
-    	}
-        
-    	$('.specifications_ul .casing').removeClass('public');
-        $(".specification").removeClass("showfalg");
-        $(".specification").addClass("hide");
-        $(".specification_name").removeClass("hide");
-    }
-    
-    
-	//选择商品后，点击确定
-    $('.determine').click(function () {
-        var skuId = 10001;
-        var quantity = 1;
-        var flag = false;
-        
-        
-
-        //当前库存不足
-        if(currentSku==null || currentSku.isOutOfStock){
-        	return;
-        }
-        //库存id
-        skuId =  currentSku.id;
-        //数量
-        quantity = $(".spinnerExample").val();
-        
-        requestGetService("/xczh/shop/checkSku?skuId="+skuId+"&quantity="+quantity,null,function(data){
-			if(data.success){
-				flag = true;
-			}else{
-				jqtoast(data.errorMessage);
-			}
-		},false);
-        if(!flag){
-            return;
-		}
-		if(shoppingFlag == 1){
-		    requestPostService("/xczh/shop/cart", {'skuId': skuId, 'quantity' : quantity}, function(data){
-				if (data.success) {
-					$('.shopping_trolley').hide();
-					var cartQuantity = $('.shopping_quantity').val();
-					if (!cartQuantity) {
-					    cartQuantity = quantity;
-					} else {
-					    cartQuantity = parseInt(cartQuantity) + quantity;
-					}
-					
-					var preNumber = $(".shopping_quantity").html();
-					totalQuantity = Number(cartQuantity) + Number(preNumber);
-					if(totalQuantity>0){
-						$(".shopping_quantity").show();
-					}
-                    $('.shopping_quantity').html(totalQuantity);
-                    jqtoast("已加入购物车");
-				} else {
-				    jqtoast(data.errorMessage);
-				}
-			});
-		}else{
-			//确认下单逻辑
-			
-			window.location = "/xcview/html/shop/confirm_order.html?skuId="+skuId+"&quantity="+quantity+"&productId="+productId;
-		}
-    });
-	// 点击详情背景色
-	$('.shopping_trolley_bg').click(function(){
-		$('.shopping_trolley').hide();
-	});
-
-	// 点击关闭按钮
-	$('.close').click(function(){
-		$('.shopping_trolley').hide();
-	});
-
-	// 点击分享按钮
-	$('.share').click(function(){
-		$('.weixin_ceng').show();
-	});
-	$('.weixin_img').click(function(){
-		$('.weixin_ceng').hide();
-	});
-
-	// 点击客服
-	$(".service").click(function(){
-		jqtoast("熊猫客服休息中，稍后报道！");
-	});
-	// 点击头部区域客服消息  
-	$(".advices").click(function(){
-		jqtoast("熊猫客服休息中，稍后报道！");
-	});
-
-    // 点击加号
-    $('.increase').on('click',function (e) {
-        var count = parseInt($('.spinnerExample').val());
-        if (count > currentSku.availableStock) {
-            jqtoast('商品库存不足');
-            if (count > 1) {
-                $('.spinnerExample').val(count - 1);
-            }
-            return false;
-        }
-    });
-    
-    setTimeout(function(){
-    	$(".it_over").show();
-    }, 2000);
-    
-</script>
+<script type="text/javascript" src="/xcview/js/shop/common/commodity_details_bottom.js?version=21a43862ba"></script>
 
 <!-- 简介、评价、详情固定头部区域 -->
 <script>
