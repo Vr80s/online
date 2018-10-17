@@ -981,7 +981,7 @@ function orderListShop(pageNumber,dataStyle,keyWord){
         var starRed='/web/images/star-light.png';     //红色星星图片存储路径  
         var prompt=['1分','2分','3分','4分','5分'];   //评价提示语  
         this.id=index;      //遍历img元素，设置单独的id  
-        $(this).on("mouseover click",function(){    //设置鼠标滑动和点击都会触发事件  
+        $(this).on("click",function(){    //设置鼠标滑动和点击都会触发事件  
             $('.our-ratings img').attr('src',star).removeClass("active");//当“回滚”、“改变主意”时，先复位所有图片为木有打星的图片颜色  ,加active是为了获取长度
             $(this).attr('src',starRed).addClass("active");        //设置鼠标当前所在图片为打星颜色图  
             $(this).prevAll().attr('src',starRed).addClass("active");  //设置鼠标当前的前面星星图片为打星颜色图  
