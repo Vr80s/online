@@ -86,6 +86,7 @@ public class UsersRelationServiceImpl extends BaseServiceImpl<UsersRelation, Lon
 		System.out.println("userId:"+userId);
 		if(usersRelation == null){
 		    usersRelation = usersRelationDao.findByUserId(userId);
+		    
 		    System.out.println("usersRelation:"+usersRelation);
 		    redisCacheService.set(RedisCacheKey.SHOP_USERS_RELATION
 		    		+RedisCacheKey.REDIS_SPLIT_CHAR

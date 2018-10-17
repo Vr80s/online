@@ -430,6 +430,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 				BeanUtils.copyProperties(orderItem,orderItemVO);
 				//获取库存
 				SkuVO sku = new SkuVO();
+				ProductVO productvo = new ProductVO();
 				if(orderItem.getSku()!=null) {
 					List<String> specification = orderItem.getSku().getSpecifications();
 					if(specification!=null && specification.size()>0){
@@ -438,6 +439,10 @@ public class OrderOperServiceImpl implements OrderOperService {
 					}
 					
 					BeanUtils.copyProperties(orderItem.getSku(),sku);
+					/*productvo.setId(orderItem.getSku().getProduct().getId());
+					productvo.setIsmarketable(orderItem.getSku().getProduct().getIsMarketable());
+					productvo.setIsactive(orderItem.getSku().getProduct().getIsActive());
+					orderItemVO.getSku().setProduct(productvo);*/
 					sku.setId(orderItem.getSku().getId());
 					orderItemVO.setSku(sku);
 				}
@@ -498,6 +503,8 @@ public class OrderOperServiceImpl implements OrderOperService {
 					}
 					BeanUtils.copyProperties(orderItem.getSku(),sku);
 					product.setId(orderItem.getSku().getProduct().getId());
+					product.setIsmarketable(orderItem.getSku().getProduct().getIsMarketable());
+					product.setIsactive(orderItem.getSku().getProduct().getIsActive());
 					sku.setId(orderItem.getSku().getId());
 				}
 				orderItemVO.setSku(sku);
