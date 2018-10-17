@@ -11,7 +11,6 @@ $('.add_cart').click(function(){
     
     tokenCheck();
     
-    
     $('.shopping_trolley').show();
 });
 // 点击立即购买
@@ -199,7 +198,6 @@ function specificationChoose(obj){
         
         var lalala = [];
         $('.specifications_ul .casing[class*="public"]').each(function(index,obj){
-        	 
         	 var dataId = $(obj).attr("data-id");
         	 $(".specification").each(function(index,objs){
         	 	 var dataIds = $(objs).attr("data-id");
@@ -224,7 +222,6 @@ function specificationChoose(obj){
 	 		 $(".shopping_trolley_center .determine").css("background","#F97215");   	
 	 		 $(".showfalg").removeClass("hide");
 	 		 $(".choice").html("已选择");
-	 		 
 	 		 
  		    if(lalala!=null){
              	lalala.sort();
