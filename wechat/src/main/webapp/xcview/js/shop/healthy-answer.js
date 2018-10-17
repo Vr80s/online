@@ -20,6 +20,7 @@ var sex = localStorage.getItem("healthy.sex");
 var birthday = localStorage.getItem("healthy.birthday");
 var constitutionList;
 var progressLength = 54;
+var submit = true;
 
 function handleQuestionList(questionList){
     for(var i=0;i<questionList.length;i++){
@@ -153,6 +154,8 @@ function getScore(score) {
 }
 
 function saveAnswerList() {
+    if(!submit)return;
+    submit = false;
     requestPostJsonService("/xczh/constitution/record/" + sex + "/" + birthday,JSON.stringify(answerList),function (data) {
         localStorage.setItem("healthy.result",JSON.stringify(data.resultObject));
         location.href = "./healthy-result.html";

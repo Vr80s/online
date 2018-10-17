@@ -1,6 +1,7 @@
 package com.xczhihui.medical.constitution.vo;
 
 import com.xczhihui.medical.constitution.model.MedicalConstitutionProposal;
+import com.xczhihui.medical.constitution.model.MedicalConstitutionQuestionRecordDetails;
 import com.xczhihui.medical.constitution.model.MedicalConstitutionRecipe;
 import lombok.Data;
 
@@ -14,4 +15,6 @@ public class AnalysisResult implements Serializable{
     private List<MedicalConstitutionProposal> medicalConstitutionProposals;
     private List<MedicalConstitutionRecipe> medicalConstitutionRecipes;
     private List<ConstitutionScore> constitutionScoreList;
+    private List<ConstitutionScore> allConstitutionScoreList;
+    private List<MedicalConstitutionQuestionRecordDetails> medicalConstitutionQuestionRecordDetailsList;
 }
