@@ -188,6 +188,12 @@ $(function () {
             $('.shopping_trolley').show();
             
             skus = data.resultObject.skuVOs;
+            var productImages =  data.resultObject.productImages;
+
+            if(productImages!=null){
+            	var img = productImages[0].source;
+            	$(".surface_plots").attr("src",img);
+            }
             
             for (var i = 0; i < skus.length; i++) {
             	var specIds = skus[i].specificationValueIds;

@@ -153,4 +153,19 @@ public interface OrderOperService {
 	void delete(Long orderId);
 
     Map<String, Object> isPaySuccess(String paymentTransactionSn);
+
+	/**  
+	 * <p>Title: findPageXc1</p>  
+	 * <p>Description: </p>  
+	 * @param orderPageParams
+	 * @param status
+	 * @param store
+	 * @param ipandatcmUserId
+	 * @param product
+	 * @param usersType
+	 * @param orderType
+	 * @return  
+	 */ 
+	Object findPageXc1(OrderPageParams orderPageParams, Status status, ScoreVO store, String ipandatcmUserId,
+			ProductVO product, UsersType usersType, OrderType orderType);
 }

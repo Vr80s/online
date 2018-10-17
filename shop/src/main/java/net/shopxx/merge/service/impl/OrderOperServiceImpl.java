@@ -987,6 +987,53 @@ public class OrderOperServiceImpl implements OrderOperService {
 		return new net.shopxx.merge.page.Page<OrdersVO>(list, orderList.getTotal(), pageableVo);
 	}
 
+	
+	@Override
+	@Transactional
+	public Object findPageXc1(OrderPageParams orderPageParams, Status status, ScoreVO store, 
+			String ipandatcmUserId, ProductVO product,UsersType usersType,OrderType orderType) {
+		
+		List<Store> stores =null;Member member = null;
+		try {
+			if(UsersType.BUSINESS.equals(usersType)) {  //商家
+				MedicalDoctorAccount medicalDoctorAccount = medicalDoctorAccountService.getByUserId(ipandatcmUserId);
+				if(medicalDoctorAccount.getDoctorId()!=null) {
+					String doctorId = medicalDoctorAccount.getDoctorId();
+					//医师得到商家、商家得到店铺
+					List<Business> businesss = businessDao.findBusinessByDoctorId(doctorId);
+					stores = storeDao.findStoreByBusinesss(businesss);
+				}
+			}else{
+				member = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("获取商家信息有误");
+		}
+
+		if(stores==null && member == null) {
+			return null;
+		}
+		
+		Pageable pageable = new Pageable(orderPageParams.getPageNumber(), orderPageParams.getPageSize());
+		Page<OrderDelete> orderList = orderDeleteDao.findPageXc(orderPageParams,
+				Order.Type.GENERAL,
+				(status !=null ? Order.Status.valueOf(status.toString()) : null),
+				stores, member, null, pageable,orderType);
+		
+		//分页参数赋值
+        net.shopxx.merge.page.Pageable pageableVo = new 
+        		net.shopxx.merge.page.Pageable(orderPageParams.getPageNumber(), 
+        				orderPageParams.getPageSize());
+
+        List<OrderDelete>  listDelete =  orderList.getContent();
+        
+        
+		return new net.shopxx.merge.page.Page<OrdersVO>(null, orderList.getTotal(), pageableVo);
+	}
+	
+	
+	
 	@Override
 	@Transactional
 	public Map payment(String orderSnsStr) {
@@ -1098,4 +1145,10 @@ public class OrderOperServiceImpl implements OrderOperService {
 		data.put("isPaySuccess", paymentTransaction != null && BooleanUtils.isTrue(paymentTransaction.getIsSuccess()));
 		return data;
 	}
+	
+	
+	
+	
+	
+	
 }
