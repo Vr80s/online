@@ -439,10 +439,10 @@ public class OrderOperServiceImpl implements OrderOperService {
 					}
 					
 					BeanUtils.copyProperties(orderItem.getSku(),sku);
-					productvo.setId(orderItem.getSku().getProduct().getId());
+					/*productvo.setId(orderItem.getSku().getProduct().getId());
 					productvo.setIsmarketable(orderItem.getSku().getProduct().getIsMarketable());
 					productvo.setIsactive(orderItem.getSku().getProduct().getIsActive());
-					orderItemVO.getSku().setProduct(productvo);
+					orderItemVO.getSku().setProduct(productvo);*/
 					sku.setId(orderItem.getSku().getId());
 					orderItemVO.setSku(sku);
 				}
