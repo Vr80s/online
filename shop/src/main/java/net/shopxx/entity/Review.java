@@ -86,20 +86,12 @@ public class Review extends BaseEntity<Long> {
 	 * 卖家服务
 	 */
 	@JsonView(BaseView.class)
-	@NotNull
-	@Min(1)
-	@Max(5)
-	@Column(nullable = false, updatable = false)
 	private Integer seller;
 
 	/**
 	 * 物流服务
 	 */
 	@JsonView(BaseView.class)
-	@NotNull
-	@Min(1)
-	@Max(5)
-	@Column(nullable = false, updatable = false)
 	private Integer logistics;
 
 	/**

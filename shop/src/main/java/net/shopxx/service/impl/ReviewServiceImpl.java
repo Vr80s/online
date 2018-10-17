@@ -227,6 +227,9 @@ public class ReviewServiceImpl extends BaseServiceImpl<Review, Long> implements 
 			replyReview.setStore(review.getStore());
 			replyReview.setScore(review.getScore());
 			replyReview.setMember(review.getMember());
+			
+			
+			
 			reviewDao.persist(replyReview);
 		}
 	}
