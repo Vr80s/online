@@ -30,8 +30,8 @@ public class ShopCartController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseObject add(@Account String accountId, @RequestParam long skuId, @RequestParam int quantity) {
-        shopCartService.add(accountId, skuId, quantity);
-        return ResponseObject.newSuccessResponseObject();
+        Integer add = shopCartService.add(accountId, skuId, quantity);
+        return ResponseObject.newSuccessResponseObject(add);
     }
 
     @RequestMapping(method = RequestMethod.GET)

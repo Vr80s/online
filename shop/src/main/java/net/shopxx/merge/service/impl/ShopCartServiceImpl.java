@@ -93,7 +93,7 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
 
     @Override
     @Transactional
-    public void add(String ipandatcmUserId, Long skuId, int quantity) {
+    public Integer add(String ipandatcmUserId, Long skuId, int quantity) {
         Member member = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
         Cart cart = member.getCart();
         if (cart == null) {
@@ -101,6 +101,9 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
         }
         Sku sku = skuService.find(skuId);
         Set<CartItem> cartItems = cart.getCartItems();
+        if(cartItems!=null && cartItems.size()>100) {
+        	 throw new RuntimeException("购物车最大容量为100");
+        }
         Optional<CartItem> cartItemOptional = cartItems.stream().filter(cartItem -> {
             cartItem = cartItemDao.findFetchSku(cartItem.getId());
             return cartItem != null && cartItem.getSku().getId().equals(skuId);
@@ -112,6 +115,8 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
                 throw new RuntimeException("商品库存不足");
             }
             cartItem.setQuantity(cartItem.getQuantity() + quantity);
+            
+            return cartItems.size();
         } else {
             cartItem = new CartItem();
             cartItem.setCart(cart);
@@ -121,6 +126,8 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
             }
             cartItem.setQuantity(quantity);
             cartItemDao.persist(cartItem);
+            
+            return cartItems.size()+1;
         }
     }
 
@@ -194,6 +201,7 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
         List<StoreCartItemVO> storeCartItemVOList = new ArrayList<>();
         Map<Long, List<CartItem>> allStoreCartItemMap = new HashMap<>();
         Map<Long, Store> storeMap = new LinkedHashMap<>();
+        
         for (CartItem cartItem : cartItems) {
             cartItem = cartItemDao.findFetchSku(cartItem.getId());
             Sku sku = cartItem.getSku();
@@ -262,17 +270,20 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
             return 0;
         } else {
             Set<CartItem> cartItems2 = cart.getCartItems();
-            int quantity = 0;
-            for (CartItem cartItem : cartItems2) {
-                if (cartItem != null && cartItem.getQuantity() != null) {
-                    quantity += cartItem.getQuantity();
-                }
-            }
-            //
-            cart.getQuantity(false);
-
-            LOGGER.info("quantity:" + quantity);
-            return quantity;
+// 最开始显示的是购物车的数量
+//            int quantity = 0;
+//            for (CartItem cartItem : cartItems2) {
+//                if (cartItem != null && cartItem.getQuantity() != null) {
+//                    quantity += cartItem.getQuantity();
+//                }
+//            	quantity += cartItem.getQuantity();
+//            }
+//           cart.getQuantity(false);
+//            LOGGER.info("quantity:" + quantity);
+//            return quantity;
+          cart.getQuantity(false);
+//          LOGGER.info("quantity:" + quantity);
+          return cartItems2!=null ? cartItems2.size() : 0;
         }
     }
 
