@@ -416,6 +416,7 @@ function initCart() {
                 obj[i].cartItems[0].sku.price=price;
             }
             $('#shop_cart_div').html(template('shop_cart_tmpl', data.resultObject));
+            $(".shop-names").html(data.resultObject.storeCartItems[0].name+"医师推荐");
         }
     });
 }
