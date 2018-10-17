@@ -356,14 +356,15 @@
 					setTimeout(function(){
 						var type = getQueryString("type");
 						location.href ='address.html?type='+ type+"&types=4";
-//						history.go(-1);  ?id='+ id 
+//						history.go(-1);  
 //						window.history.back();
 					},1500)
 				} else{
 					$(".prosperity_cen_top").text("新增成功");
 					setTimeout(function(){
+						var type = getQueryString("type");
 						location.href ='address.html?type='+ type+"&types=4";
-//						history.go(-1);
+//						history.go(-1);  
 //						window.history.back();
 					},1500)
 				}
