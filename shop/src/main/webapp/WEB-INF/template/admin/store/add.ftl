@@ -150,8 +150,8 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-xs-3 col-sm-2 control-label">${message("Store.logo")}:</label>
-							<div class="col-xs-9 col-sm-4">
+							<label class="col-xs-3 col-sm-2 control-label item-required">${message("Store.logo")}:</label>
+							<div class="col-xs-9 col-sm-4 ">
 								<input name="logo" type="hidden" data-provide="fileinput" data-file-type="IMAGE">
 							</div>
 						</div>

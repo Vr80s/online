@@ -1038,12 +1038,14 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		if (settlementAmount.compareTo(BigDecimal.ZERO) > 0) {
 			businessService.addBalance(order.getStore().getBusiness(), settlementAmount, BusinessDepositLog.Type.ORDER_SETTLEMENT, null);
 		}
-		for (OrderItem orderItem : order.getOrderItems()) {
-			Sku sku = orderItem.getSku();
-			if (sku != null && sku.getProduct() != null) {
-				productService.addSales(sku.getProduct(), orderItem.getQuantity());
-			}
-		}
+		
+		//原本是点击完成后，增加销量的 现在改成，支付成功后，增加销量
+//		for (OrderItem orderItem : order.getOrderItems()) {
+//			Sku sku = orderItem.getSku();
+//			if (sku != null && sku.getProduct() != null) {
+//				productService.addSales(sku.getProduct(), orderItem.getQuantity());
+//			}
+//		}
 
 		order.setStatus(Order.Status.COMPLETED);
 		order.setCompleteDate(new Date());
