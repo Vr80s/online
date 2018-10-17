@@ -123,13 +123,13 @@ public class OrderOperServiceImpl implements OrderOperService {
 		if (skuId != null) {
 			Sku sku = skuService.find(skuId);
 			if (sku == null) {
-				throw new RuntimeException("信息有误");
+				throw new RuntimeException("商品不存在");
 			}
 			if (Product.Type.GIFT.equals(sku.getType())) {
-				throw new RuntimeException("信息有误");
+				throw new RuntimeException("商品为赠品");
 			}
 			if (quantity == null || quantity < 1) {
-				throw new RuntimeException("信息有误");
+				throw new RuntimeException("商品可用库存不足");
 			}
 
 			cart = generateCart(currentUser, sku, quantity, null);
@@ -153,22 +153,22 @@ public class OrderOperServiceImpl implements OrderOperService {
 			orderType = Order.Type.GENERAL;
 		}
 		if (cart == null || cart.isEmpty()) {
-			throw new RuntimeException("信息有误");
+			throw new RuntimeException("商品信息有误");
 		}
 		if (cart.hasNotActive()) {
-			throw new RuntimeException("信息有误");
+			throw new RuntimeException("存在已失效商品");
 		}
 		if (cart.hasNotMarketable()) {
-			throw new RuntimeException("信息有误");
+			throw new RuntimeException("存在已下架商品");
 		}
 		if (cart.hasLowStock()) {
-			throw new RuntimeException("信息有误");
+			throw new RuntimeException("存在库存不足商品");
 		}
 		if (cart.hasExpiredProduct()) {
-			throw new RuntimeException("信息有误");
+			throw new RuntimeException("存在已过期店铺商品");
 		}
 		if (orderType == null) {
-			throw new RuntimeException("信息有误");
+			throw new RuntimeException("订单类型有误");
 		}
 		ShippingMethod shippingMethod = shippingMethodService.find(shippingMethodId);
 		Receiver defaultReceiver = receiverService.findDefault(currentUser);
@@ -439,12 +439,13 @@ public class OrderOperServiceImpl implements OrderOperService {
 					}
 					
 					BeanUtils.copyProperties(orderItem.getSku(),sku);
-					/*productvo.setId(orderItem.getSku().getProduct().getId());
+					productvo.setId(orderItem.getSku().getProduct().getId());
 					productvo.setIsmarketable(orderItem.getSku().getProduct().getIsMarketable());
+					productvo.setIsOutOfStock(orderItem.getSku().getProduct().getIsOutOfStock());
 					productvo.setIsactive(orderItem.getSku().getProduct().getIsActive());
-					orderItemVO.getSku().setProduct(productvo);*/
 					sku.setId(orderItem.getSku().getId());
 					orderItemVO.setSku(sku);
+					orderItemVO.getSku().setProduct(productvo);
 				}
 
 				orderItemVOList.add(orderItemVO);
@@ -505,6 +506,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 					product.setId(orderItem.getSku().getProduct().getId());
 					product.setIsmarketable(orderItem.getSku().getProduct().getIsMarketable());
 					product.setIsactive(orderItem.getSku().getProduct().getIsActive());
+					product.setIsOutOfStock(orderItem.getSku().getProduct().getIsOutOfStock());
 					sku.setId(orderItem.getSku().getId());
 				}
 				orderItemVO.setSku(sku);

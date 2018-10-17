@@ -40,7 +40,7 @@ public class MedicalDoctorPostsController {
     private GoodsService goodsService;
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
-    private static String order_Details_Url = "/xcview/html/shop/line_item.html?sn=";
+    private static String order_Details_Url = "/xcview/html/shop/commodity_details.html?productId=";
 
     /**
      * 医师动态列表

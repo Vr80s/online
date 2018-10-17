@@ -185,6 +185,16 @@ function againBuy(orderSn) {
             var skuIds =[];
             for(var i=0;i<orderItems.length;i++){
                 var skuId = orderItems[i].sku.id;
+                var product = orderItems[i].sku.product;
+                if(!product.ismarketable){
+                    isTrue =false;
+                    jqtoast("商品已下架");
+                    break;
+                } else if(!product.isactive){
+                    isTrue =false;
+                    jqtoast("商品已失效");
+                    break;
+                }
                 skuIds.push(skuId);
                 var quantity = orderItems[i].quantity;
                 if(isTrue){
