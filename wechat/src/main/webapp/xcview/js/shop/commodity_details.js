@@ -282,7 +282,7 @@ function evaluation(){
 
 //底部--购物车数量
 
-function getFlagStatus() {
+/*function getFlagStatus() {
     var falg = USER_NORMAL;
     var user_cookie = cookie.get("_ipandatcm_user_");
     var third_party_cookie = cookie.get("_third_ipandatcm_user_");
@@ -293,13 +293,14 @@ function getFlagStatus() {
         }
     }
     return falg;
-}
+}*/
 
 //点击购物车
 //h5点击用到
+$(".shopping_cart").click(function(){
 if(localStorage.getItem("wv") == null){
     var USER_UN_BIND = 1005;//用户用微信登录的但是没有绑定注册信息
-	$(".shopping_cart").click(function(){
+	
 	    // alert(2112111);
 	
 	    var flag = getFlagStatus();
@@ -309,11 +310,11 @@ if(localStorage.getItem("wv") == null){
 	    }else{
 	        location.href ='/xcview/html/shop/shopping_trolley.html'
 	    }
-	});
+	
 }else{
 	location.href ='/xcview/html/cn_login.html'
 }
-
+});
 
 
     
