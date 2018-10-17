@@ -34,7 +34,7 @@ requestGetService("/xczh/shop/goods/details",{
         
         	var v = $(".ruling_price span").html();
 			if(/^\d+$/.test(v)){
-			v = v + ".00";
+				v = v + ".00";
 			}else if(/^(\d+\.)(\d+)$/.test(v)){
 				var i = RegExp.$1;
 				var t = RegExp.$2;
@@ -46,9 +46,9 @@ requestGetService("/xczh/shop/goods/details",{
 			$(".ruling_price span").html(v);
 			
 			
-			var v = $(".original_price span").html();
+			var j = $(".original_price span").html();
 			if(/^\d+$/.test(v)){
-			j = j + ".00";
+				j = j + ".00";
 			}else if(/^(\d+\.)(\d+)$/.test(j)){
 				var i = RegExp.$1;
 				var t = RegExp.$2;
@@ -58,7 +58,6 @@ requestGetService("/xczh/shop/goods/details",{
 				j = i + t.substring(0,2);
 			}
 			$(".original_price span").html(j);
-        	
         }catch(e){
            console.error(e);
         }
