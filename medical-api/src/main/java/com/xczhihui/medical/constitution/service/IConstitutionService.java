@@ -22,4 +22,6 @@ public interface IConstitutionService {
     AnalysisResult saveRecord(String userId, String birthday, Integer sex, List<MedicalConstitutionQuestionRecordDetails> medicalQuestionRecordDetailsList);
 
     List<MedicalConstitution> getConstitution();
+
+    AnalysisResult getRecordById(Integer id);
 }

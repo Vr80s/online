@@ -49,11 +49,13 @@ public class ConstitutionServiceImpl implements IConstitutionService {
 
     @Override
     public AnalysisResult saveRecord(String userId, String birthday, Integer sex, List<MedicalConstitutionQuestionRecordDetails> medicalQuestionRecordDetailsList){
+        AnalysisResult analysis = analysis(medicalQuestionRecordDetailsList);
         MedicalConstitutionQuestionRecord medicalQuestionRecord = new MedicalConstitutionQuestionRecord();
         medicalQuestionRecord.setUserId(userId);
         medicalQuestionRecord.setBirthday(birthday);
         medicalQuestionRecord.setSex(sex);
         medicalQuestionRecord.setCreateTime(new Date());
+        medicalQuestionRecord.setResult(analysis.getConstitution());
         medicalQuestionRecordMapper.insert(medicalQuestionRecord);
         for (int i = 0; i < medicalQuestionRecordDetailsList.size(); i++) {
             MedicalConstitutionQuestionRecordDetails medicalQuestionRecordDetails = medicalQuestionRecordDetailsList.get(i);
@@ -62,7 +64,7 @@ public class ConstitutionServiceImpl implements IConstitutionService {
 //            medicalQuestionRecordDetailsMapper.insert(medicalQuestionRecordDetails);
         }
         medicalQuestionRecordDetailsMapper.insertBatch(medicalQuestionRecordDetailsList);
-        return analysis(medicalQuestionRecordDetailsList);
+        return analysis;
     }
 
     @Override
@@ -70,7 +72,18 @@ public class ConstitutionServiceImpl implements IConstitutionService {
         return medicalConstitutionMapper.getAll();
     }
 
+    @Override
+    public AnalysisResult getRecordById(Integer recordId) {
+        List<MedicalConstitutionQuestionRecordDetails> medicalQuestionRecordDetailsList = medicalQuestionRecordDetailsMapper.selectByRecordId(recordId);
+        return analysis(medicalQuestionRecordDetailsList);
+    }
+
     private AnalysisResult analysis(List<MedicalConstitutionQuestionRecordDetails> medicalConstitutionQuestionRecordDetailsList) {
+        for (int i = 0; i < medicalConstitutionQuestionRecordDetailsList.size(); i++) {
+            MedicalConstitutionQuestionRecordDetails medicalConstitutionQuestionRecordDetails = medicalConstitutionQuestionRecordDetailsList.get(i);
+            medicalConstitutionQuestionRecordDetails.setScore(scoreMap.get(medicalConstitutionQuestionRecordDetails.getAnswer()));
+        }
+
         List result = new ArrayList();
         List<MedicalConstitution> all = medicalConstitutionMapper.getAll();
         for (int i = 0; i < all.size(); i++) {
@@ -157,8 +170,6 @@ public class ConstitutionServiceImpl implements IConstitutionService {
             }
             if(mqrd!=null && mqrd.getAnswer().equals(subject)){
                 score = 2;
-                System.out.println(mqrd);
-                System.out.println(subject);
             }
         }
         return score == null ? 0 : score;
