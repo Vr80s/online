@@ -178,13 +178,32 @@ $(function () {
 
     // 点击遮盖在select上的div
     $shopCartDiv.on('click', '.inventory', function () {
+    	
+    	$(".shopping_trolley_center li").removeClass("public");
+    	
         var pid = $(this).data('pid');
         var sid = $(this).data('sid');
         requestGetService("/xczh/shop/cart/product", {"id": pid}, function (data) {
             $('.shopping_trolley_main').html(template('shop_product_choice', data.resultObject));
-            skus = data.resultObject.skuVOs;
-            choiceSku(sid);
             $('.shopping_trolley').show();
+            
+            skus = data.resultObject.skuVOs;
+            
+            for (var i = 0; i < skus.length; i++) {
+            	var specIds = skus[i].specificationValueIds;
+	            if (sid === skus[i].id) {
+                    $(".shopping_trolley_center li").each(function(){
+                    	var eid = $(this).attr("data-eid");
+             			if(specIds!=null && specIds.indexOf(parseInt(eid)) != -1){
+							$(this).addClass('public');
+						}
+                    })
+                    break;
+	            }
+	            
+            }
+
+            changeProductProp();
             // 点击数量加减
             $choiceProduct.find('.spinnerExample').spinner({});
             oldSkuId = sid;
@@ -304,25 +323,28 @@ function changeProductProp() {
     $choiceProduct.find('.public').each(function () {
         specIds.push($(this).data("eid"));
     });
-    var matchIndex;
-    var match;
-    for (var i = 0; i < skus.length; i++) {
-        match = true;
-        for (var j = 0; j < specIds.length; j++) {
-            if (skus[i].specificationValueIds.indexOf(specIds[j]) === -1) {
-                match = false;
-                break;
-            }
-        }
-        if (match) {
-            matchIndex = i;
-            break;
-        }
+    
+    if(specIds!=null){
+         specIds.sort();
     }
-    $choiceProduct.find('.price').html('￥' + skus[matchIndex].price);
-    $choiceProduct.find('.repertory').html('库存' + skus[matchIndex].availableStock + '件');
-    updatedSkuId = skus[matchIndex].id;
-    updatedSku = skus[matchIndex];
+    var currentSku = null;
+    for (var i = 0; i < skus.length; i++) {
+    	if(skus[i].specificationValueIds!=null &&  specIds!=null 
+    	  && skus[i].specificationValueIds.toString() == specIds.toString()){
+    		currentSku = skus[i];
+    	}
+    }  
+    if(currentSku == null || currentSku.isOutOfStock){
+    	updatedSkuId = null;
+    	$choiceProduct.find('.repertory').html('该商品库存不足');
+    	$(".shopping_trolley_center .determine").css("background","#aaaaaa");
+    }else{
+    	$choiceProduct.find('.price').html('￥' + currentSku.price);
+    	$choiceProduct.find('.repertory').html('库存' + currentSku.availableStock + '件');
+    	$(".shopping_trolley_center .determine").css("background","#F97215");
+    	updatedSkuId = currentSku.id;
+    	updatedSku = currentSku;
+    }
 }
 
 function choiceSku(skuId) {
