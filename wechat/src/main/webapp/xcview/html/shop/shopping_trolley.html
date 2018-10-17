@@ -69,22 +69,32 @@
        	.inventory{
        		overflow: hidden;
        	}
+       	.shopping_trolley_main .close {
+		    position: absolute;
+		    top: .1rem;
+		    right: 0;
+		    font-size: .5rem;
+		    color: #999;
+		    width: 2rem;
+		    text-align: right;
+		    padding-right: .26rem;
+		}
+		.shop-info .shop-info-text .shop-price{
+			position: absolute !important;
+		    right: 0;
+		    width: 4.32rem;
+		    margin-right: .26rem;
+		    bottom: 0.17rem;
+		}
+		.shop-info .shop-info-text .shop-arithmetic{
+			right: 0 !important;
+		}
     </style>
 </head>
 <script type="text/javascript">
 	window.onload = function(){
 		$(".header .return").click(function(){
 			history.back();   //可以就是没有刷新数据
-//			alert(111);
-//			location.replace(document.referrer);
-			// window.location.reload("/xcview/html/physician/physicians_page.html?doctor="+doctorId);
-			// window.location.reload(1);
-			// window.history.go(-1)
-			// window.history.go(-1);location.reload()
-			// window.history.go(-2); 
-			//window.location.href="/xcview/html/physician/physicians_page.html?doctor="+doctorId; 
-			// self.location=document.referrer;
-			// window.location.replace(document.referrer)
 		});
 	};
 </script>
@@ -213,7 +223,8 @@
                 
                 <h4>
                     <img src="{{item.logo}}" alt="" class="head_portrait"/>
-                    <a href="#" class="shop-names">{{item.name}}</a>
+                    <!--<a href="#" class="shop-names">{{item.name}}</a>-->
+                    <a href="#" class="shop-names"></a>
                 </h4>
                 <!-- <div class="coupons"><span>领券</span><em>|</em><span>编辑</span></div> -->
             </div>
@@ -274,7 +285,7 @@
                 <div class="price"></div>
                 <div class="repertory"></div><!--  -->
                 <div class="category">
-                    <span class="choice">选择11</span>
+                    <span class="choice">选择</span>
                     {{ each specificationItemvs as specificationItem i}}
                     <span class="specification spec-index-{{i}}">{{specificationItem.name}}</span>
                     {{/each}}
@@ -295,18 +306,19 @@
             </ul>
         </div>
         {{/each}}
+        <div class="buy">
+            <div class="purchase_quantity">购买数量</div>
+            <center>
+                <div class="spinner">
+                    <input type="text" class="spinnerExample value passive"/>
+                </div>
+            </center>
+        </div>
         <div class="bottom_fiexd">
-        	<div class="buy">
-	            <div class="purchase_quantity">购买数量</div>
-	            <center>
-	                <div class="spinner">
-	                    <input type="text" class="spinnerExample value passive"/>
-	                </div>
-	            </center>
-	        </div>
 	        <div class="determine">确定</div>
         </div>
     </div>
+    <div class="close">×</div>
 </script>
 
 </html>

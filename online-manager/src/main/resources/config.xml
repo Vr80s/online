@@ -190,4 +190,7 @@
     <!-- 商城用户服务 -->
     <dubbo:reference interface="net.shopxx.merge.service.UsersService"
                    id="usersServiceImpl" timeout="${dubbo.consumer.timeout}" check="false"/>
+    <!-- 商城用户服务 -->
+    <dubbo:reference interface="com.xczhihui.medical.constitution.service.IConstitutionService"
+                   id="constitutionServiceImpl" timeout="${dubbo.consumer.timeout}" check="false"/>
 </beans>

@@ -47,7 +47,7 @@ requestGetService("/xczh/shop/goods/details",{
 			
 			
 			var j = $(".original_price span").html();
-			if(/^\d+$/.test(v)){
+			if(/^\d+$/.test(j)){
 				j = j + ".00";
 			}else if(/^(\d+\.)(\d+)$/.test(j)){
 				var i = RegExp.$1;

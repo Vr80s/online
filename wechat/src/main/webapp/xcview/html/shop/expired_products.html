@@ -1,0 +1,161 @@
+<!doctype html>
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+    <meta charset="utf-8">
+    <title>熊猫中医</title>
+
+    <!--这段meta代码需要加上，移动端自适应缩放用-->
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+
+    <!--手机嵌入模板-->
+    <script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="/xcview/css/shop/base.css"/>
+    <link rel="stylesheet" href="/xcview/css/shop/jquery.spinner.css"/><!-- 提示框=点击数量加减 -->
+    <link type="text/css" rel="stylesheet" href="/xcview/css/shop/module.css"/><!-- 点击数量加减 -->
+    <link rel="stylesheet" href="/xcview/css/shop/expired_products.css"/><!-- 点击数量加减 -->
+
+    <script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
+    <link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
+    <script>
+        // 判断横屏展示时的状态
+        window.onorientationchange = function () {
+            if (window.orientation == 90 || window.orientation == -90) {
+                window.location.reload();
+                /*横屏状态刷新*/
+            } else {
+                window.location.reload();
+                /*竖屏状态刷新*/
+            }
+        }
+    </script>
+    <style>
+        .shopping {
+            width: 7.5rem;
+            height: 100%;
+            margin: 0 auto;
+            display: none;
+            padding-bottom: 1rem;
+        }
+        .shop-info .shop-info-text .shop-arithmetic{
+        	width: 1.7rem;
+        }
+        .header .title{
+        	/*background: red;*/
+        }
+       	.shop-names{
+       		width: 6rem;
+		    overflow: hidden;
+		    white-space: nowrap;
+		    text-overflow: ellipsis;
+		    display: inherit;
+       	}
+       	input.check{
+       		border: none !important;
+       	}
+       	.shop-name .head_portrait{
+       		border-radius: 100px;
+       	}
+       	.inventory .select{
+       		margin-top: 0.09rem;
+		    display: block !important;
+		    float: left;
+       	}
+       	.inventory{
+       		overflow: hidden;
+       	}
+       	.shopping_trolley_main .close {
+		    position: absolute;
+		    top: .1rem;
+		    right: 0;
+		    font-size: .5rem;
+		    color: #999;
+		    width: 2rem;
+		    text-align: right;
+		    padding-right: .26rem;
+		}
+		.shop-info .shop-info-text .shop-price{
+			position: absolute !important;
+		    right: 0;
+		    width: 4.32rem;
+		    margin-right: .26rem;
+		    bottom: 0.17rem;
+		}
+		.shop-info .shop-info-text .shop-arithmetic{
+			right: 0 !important;
+		}
+    </style>
+</head>
+<script type="text/javascript">
+	window.onload = function(){
+		$(".header .return").click(function(){
+			history.back();   //可以就是没有刷新数据
+		});
+	};
+</script>
+<body>
+<!-- 头部区域开始 -->
+<header>
+    <div class="header">
+        <!--<div class="return" onclick="location.href ='/xcview/html/shop/commodity_details.html?productId=' + id +'">-->
+        <!--<div class="return" onclick="javascript:history.go(-1);">-->
+        <!--<div class="return" onclick="self.location=document.referrer;">-->
+        <!--<div class="return" onclick="window.location.href=document.referrer;">-->
+        <div class="return">
+            <img src="/xcview/images/backicon.png" alt="" class="">
+        </div>
+        <div class="title">商品过期不存在</div>
+        <div class="message">
+            <img src="/xcview/images/shop/newsbg.png" alt=""/>
+            <span class="advices_number"></span>
+        </div>
+    </div>
+</header>
+<div class="header_hidden_field"></div>
+<!-- 头部区域结束 -->
+
+
+<!-- 购物车空的状态开始 -->
+<div class="vacancy-main" style="display: none;">
+    <div class="vacancy">
+        <img src="/xcview/images/soldout.png" alt=""/>
+        <div class="vacancy-cen">商品过期不存在</div>
+    </div>
+    <div class="main_center" id="shop_recommend_product_ul">
+    </div>
+</div>
+
+<!-- 购物车空的状态结束 -->
+
+</body>
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+<script type="text/javascript" src="/xcview/js/shop/expired_products.js"></script>  
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>   <!--模板引入-->
+
+
+<script type="text/html" id="shop_recommend_product_tmpl">
+    <div class="hot_sale">猜你喜欢</div>
+    <ul class="list">
+        {{ each resultObject as product i }}
+        <li data-id="{{product.id}}">
+            <img src="{{product.picture}}" alt="" class="surface_plots">
+            <div class="title">{{product.name}}</div>
+            <div class="price">￥<span>{{product.price}}</span></div>
+            {{ if product.doctor }}
+            <div class="referrer">
+                <img src="{{product.doctor.avatar}}" alt="">{{product.doctor.name}}医师 推荐
+            </div>
+            {{/if }}
+        </li>
+        {{/each}}
+    </ul>
+</script>
+
+</html>

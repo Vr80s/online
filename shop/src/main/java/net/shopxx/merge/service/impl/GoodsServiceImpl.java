@@ -30,6 +30,7 @@ import com.xczhihui.user.center.vo.OeUserVO;
 import net.sf.json.JSONObject;
 import net.shopxx.dao.ProductCategoryDao;
 import net.shopxx.dao.ProductDao;
+import net.shopxx.dao.ReviewDao;
 import net.shopxx.dao.StoreDao;
 import net.shopxx.entity.Product;
 import net.shopxx.entity.ProductCategory;
@@ -86,6 +87,9 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Autowired
     private UserCenterService userCenterService;
+    
+    @Autowired
+    private ReviewDao  reviewDao;
 
 
     @Value("${defaultHead}")
@@ -188,7 +192,12 @@ public class GoodsServiceImpl implements GoodsService {
 
         //库存转换
         pv.setSkuVOs(convertProductSku(product));
-
+        
+        //此商品评论总数
+        long reviewvCount = reviewDao.calculateScoreCount(product);
+        pv.setReviewvCount(reviewvCount);
+        
+        
         return pv;
     }
 
@@ -370,6 +379,9 @@ public class GoodsServiceImpl implements GoodsService {
             return skuVO;
         }).collect(Collectors.toSet());
         productVO.setSkuVOs(skuVOs);
+        
+        productVO.setProductImages(convertProductimages(product));
+        
         return productVO;
     }
 
