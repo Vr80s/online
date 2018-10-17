@@ -36,7 +36,7 @@
    	
 // 	判断来自订单页面
 	$(".address_return").click(function(){
-		var isAddress=localStorage.getItem("isAddress");
+		/*var isAddress=localStorage.getItem("isAddress");
 		if (isAddress == "details") {
 			
 			var before_address = document.referrer;
@@ -53,7 +53,30 @@
 		} else{
 //			window.history.go(-1);
 			location.href="/xcview/html/persons.html"
-		}
+		}*/
+//		alert(11);
+//		window.history.go(-1);
+		//html获取链接上面的参数
+        function getQueryString(name){
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r!=null) return r[2];else return'';
+        }
+        var type = getQueryString('type');
+        var types = getQueryString('types');
+        if(type=='2'){
+        	
+        	if(types=='4'){
+	            window.history.go(-3);
+	        }else{
+	        	window.history.back();
+	        }
+        }else if(type=='3'){
+            location.replace("/xcview/html/persons.html");
+        }
+        getQueryString('name');
+	
+
 	})
    	
    	
@@ -331,15 +354,17 @@
 				if (isNotBlank(addressId)) {
 					$(".prosperity_cen_top").text("修改成功");
 					setTimeout(function(){
-						location.href ='address.html';
-//						history.go(-1);
+						var type = getQueryString("type");
+						location.href ='address.html?type='+ type+"&types=4";
+//						history.go(-1);  
 //						window.history.back();
 					},1500)
 				} else{
 					$(".prosperity_cen_top").text("新增成功");
 					setTimeout(function(){
-						location.href ='address.html';
-//						history.go(-1);
+						var type = getQueryString("type");
+						location.href ='address.html?type='+ type+"&types=4";
+//						history.go(-1);  
 //						window.history.back();
 					},1500)
 				}
@@ -487,8 +512,10 @@
 		   * 点击修改跳转到编辑页面
 			 */
 			$(".edit_go").click(function(){
+				var type = getQueryString("type");
 				var id = $(this)[0].title;
-				location.href="edit_address.html?id="+id;
+				location.href="edit_address.html?id="+ id + "&type=" + type;
+//				"/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo
 			});
 			/**
 			 * 删除这个地址啦
@@ -499,6 +526,12 @@
 				$(".history_bg").show();
 				//deleteAddress(this);
 			});
+			$(".site_newly").click(function(){
+				var type = getQueryString("type");
+				var id = $(this)[0].title;
+				location.href="edit_address.html?&type=" + type;
+			});
+			
 	}
 /**
  * 隐藏确定删除的弹框

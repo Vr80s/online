@@ -957,9 +957,9 @@ pre:after {
 	function gotoAddress(){
 		
 		sessionStorage.setItem("address_back", "persons.html");
-//		把商品详情到地址管理页面的标记清除
+//		把商品详情到地址管理页面的标记清除  ?type="+ type
 		window.localStorage.setItem("isAddress", "");
-		location.href="address.html";
+		location.href="address.html?type=3";
 	}
 </script>
 
