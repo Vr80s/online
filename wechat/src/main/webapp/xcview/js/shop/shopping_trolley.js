@@ -191,9 +191,9 @@ $(function () {
         $('.shopping_trolley').show();
     });
     // 点击详情背景色
-    $('.shopping_trolley_bg').click(function () {
+    /*$('.shopping_trolley_bg').click(function () {
         // $('.shopping_trolley').hide();
-    });
+    });*/
 
     // 点击加号
     $choiceProduct.on('click', '.increase', function (e) {
@@ -228,12 +228,25 @@ $(function () {
             // 点击数量加减
             $choiceProduct.find('.spinnerExample').spinner({});
             oldSkuId = sid;
+            
+            //选择空--无规格
+			if (data.resultObject.specificationItemvs == null) {
+				$(".specifications").hide();
+				$(".category").hide();
+			}
+		
         });
     });
 //	点击遮盖的div显示后的选择框的背景图
     $(".shopping_trolley_bg").click(function () {
         $(".shopping_trolley").hide();
     });
+    
+//  点击规格关闭按钮
+    $('.shopping_trolley_main').on('click', '.close', function (e) {
+        $(".shopping_trolley").hide();
+    });
+    
 
     $choiceProduct.on('click', '.include', function () {
         var index = $(this).data('index');
@@ -258,6 +271,8 @@ $(function () {
         $('.shop-total').show();
         $('.itemdelete').hide();
     });
+    
+    
 
     /**
      * 确认修改规格
@@ -335,6 +350,7 @@ $(function () {
     $('.message').on('click', function () {
         jqtoast('客服休息中,稍后报道~');
     })
+	
 });
 initCart();
 initRecommendProduct();
