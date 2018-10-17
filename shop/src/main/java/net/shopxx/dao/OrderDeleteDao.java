@@ -40,7 +40,7 @@ public interface OrderDeleteDao extends BaseDao<OrderDelete, Long> {
 	 * @param orderType
 	 * @return  
 	 */ 
-	Page<OrderDelete> findPageXc(OrderPageParams orderPageParams, Type general,Status status, List<Store> stores,
+	Page<OrderDelete> findPageXc(OrderPageParams orderPageParams, OrderDelete.Type general,OrderDelete.Status status, List<Store> stores,
 			Member member, Product product, Pageable pageable, OrderType orderType);
 
 
