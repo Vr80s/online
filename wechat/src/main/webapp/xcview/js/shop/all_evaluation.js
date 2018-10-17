@@ -102,5 +102,6 @@ requestGetService("/xczh/shop/goods/details",{
         
 
         specificationChoose(obj);
+
     }
 });
