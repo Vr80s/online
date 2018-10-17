@@ -216,6 +216,13 @@ $(function () {
         requestGetService("/xczh/shop/cart/product", {"id": pid}, function (data) {
             $('.shopping_trolley_main').html(template('shop_product_choice', data.resultObject));
             skus = data.resultObject.skuVOs;
+            
+            var productImages =  data.resultObject.productImages;
+            if(productImages!=null){
+            	var img = productImages[0].source;
+            	$(".surface_plots").attr("src",img);
+            }
+            
             choiceSku(sid);
             $('.shopping_trolley').show();
             // 点击数量加减
