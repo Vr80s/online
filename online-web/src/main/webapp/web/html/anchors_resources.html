@@ -676,32 +676,36 @@
 								{{/if}}
 								<!--商品-->
 								{{if item.type==6}}
-								<div class="save-class-wrap">
-										<a href="/web/html/anchors_preview.html?productId={{item.productId}}" style="width: 100%;" target="_blank">
-										<div class="class-img-shopping z">
-											<img src="{{item.productImages}}" alt="课程封面" />
+									{{if item.productIsMarketable == false}}
+										<p class="delect-text">抱歉，该商品已下架</p>
+									{{else}}
+										<div class="save-class-wrap">
+												<a href="/web/html/anchors_preview.html?productId={{item.productId}}" style="width: 100%;" target="_blank">
+												<div class="class-img-shopping z">
+													<img src="{{item.productImages}}" alt="课程封面" />
+												</div>
+												<div class="class-right-text-shopping y">
+													
+													<h5>{{item.productTitle}}</h5>	
+													<p class="shopping-price"><span>&yen;{{item.productPrice}}</span></p>
+													<p class="shopping-recommend">
+														<span>推荐指数：</span>
+														{{if item.level == 1}}
+														<img src="/web/images/icon-start1_0.png"/>
+														{{else if item.level == 2}}
+														<img src="/web/images/icon-start2_0.png"/>
+														{{else if item.level == 3}}
+														<img src="/web/images/icon-start3_0.png"/>
+														{{else if item.level == 4}}
+														<img src="/web/images/icon-start4_0.png"/>
+														{{else if item.level == 5}}
+														<img src="/web/images/icon-start5_0.png"/>
+														{{/if}}
+													</p>
+												</div>
+											</a>
 										</div>
-										<div class="class-right-text-shopping y">
-											
-											<h5>{{item.productTitle}}</h5>	
-											<p class="shopping-price"><span>&yen;{{item.productPrice}}</span></p>
-											<p class="shopping-recommend">
-												<span>推荐指数：</span>
-												{{if item.level == 1}}
-												<img src="/web/images/icon-start1_0.png"/>
-												{{else if item.level == 2}}
-												<img src="/web/images/icon-start2_0.png"/>
-												{{else if item.level == 3}}
-												<img src="/web/images/icon-start3_0.png"/>
-												{{else if item.level == 4}}
-												<img src="/web/images/icon-start4_0.png"/>
-												{{else if item.level == 5}}
-												<img src="/web/images/icon-start5_0.png"/>
-												{{/if}}
-											</p>
-										</div>
-									</a>
-								</div>
+									{{/if}}
 								{{/if}}
 
 								<!--时间/状态/删除/编辑内容/置顶-->

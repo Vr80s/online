@@ -73,7 +73,7 @@ $.Pgater=(function(){
 })();
 function getFileDom(index){
 	var agent=navigator.userAgent.toLowerCase();
-	var iswx=agent.indexOf('qqbrowser') >= 0;;//判断是否为苹果      //agent.indexOf('qqbrowser') >= 0;
+	var iswx=agent.indexOf('qqbrowser') >= 0;//判断是否为苹果      //agent.indexOf('qqbrowser') >= 0;
 	var File;
 	if(iswx==true){
 		File=$("<input type='file' class='csl_gater_file"+index+"' accept='image/*'>");// multiple='multiple'
