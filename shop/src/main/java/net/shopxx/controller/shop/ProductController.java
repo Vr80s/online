@@ -494,6 +494,19 @@ public class ProductController extends BaseController {
         		"aa79673b899249d9a07b0f19732a1b0e",null, UsersType.BUSINESS,orderType);
     }
 	
+	
+	@GetMapping(value = "/order/list1")
+    public @ResponseBody Object order1(OrderPageParams orderPageParams,
+   		 @RequestParam(required = false) Status status,OrderType orderType){
+    	
+    	System.out.println("orderPageParams : "+ orderPageParams.toString());
+    	//System.out.println("status : "+ status);
+    	
+    	return orderOperService.findPageXc1(orderPageParams, status, null, 
+        		"500c1171747f45c5ab0e79c7f1a42c97",null, UsersType.BUSINESS,orderType);
+    }
+	
+	
 	@InitBinder
     public void initBind(WebDataBinder binder){
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  

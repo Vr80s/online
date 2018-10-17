@@ -248,9 +248,9 @@ public class GoodsServiceImpl implements GoodsService {
      * @param setReview
      * @return
      */
-    public Set<SpecificationItemVO> convertSpecificationItem(Product product) {
+    public List<SpecificationItemVO> convertSpecificationItem(Product product) {
         if (product.hasSpecification()) {
-            Set<SpecificationItemVO> specificationItemVOs = new HashSet<SpecificationItemVO>();
+        	List<SpecificationItemVO> specificationItemVOs = new ArrayList<SpecificationItemVO>();
             List<SpecificationItem> specificationItems = product.getSpecificationItems();
             for (SpecificationItem specificationItem : specificationItems) {
                 SpecificationItemVO specificationItemVO = new SpecificationItemVO();
@@ -370,6 +370,9 @@ public class GoodsServiceImpl implements GoodsService {
             return skuVO;
         }).collect(Collectors.toSet());
         productVO.setSkuVOs(skuVOs);
+        
+        productVO.setProductImages(convertProductimages(product));
+        
         return productVO;
     }
 

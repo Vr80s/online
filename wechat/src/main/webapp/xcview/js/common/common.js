@@ -226,6 +226,7 @@ function ajaxRequest(url, param,type, callback, ac, contentType) {
         }
         headers = {token:appToken,appUniqueId:appUniqueId,clientType:wv};
     }
+//  alert(JSON.stringify(headers))
     $.ajax({
         url: url,
         type: type,

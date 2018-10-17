@@ -40,6 +40,7 @@
             height: 100%;
             margin: 0 auto;
             display: none;
+            padding-bottom: 1rem;
         }
         .shop-info .shop-info-text .shop-arithmetic{
         	width: 1.7rem;
@@ -68,6 +69,26 @@
        	.inventory{
        		overflow: hidden;
        	}
+       	.shopping_trolley_main .close {
+		    position: absolute;
+		    top: .1rem;
+		    right: 0;
+		    font-size: .5rem;
+		    color: #999;
+		    width: 2rem;
+		    text-align: right;
+		    padding-right: .26rem;
+		}
+		.shop-info .shop-info-text .shop-price{
+			position: absolute !important;
+		    right: 0;
+		    width: 4.32rem;
+		    margin-right: .26rem;
+		    bottom: 0.17rem;
+		}
+		.shop-info .shop-info-text .shop-arithmetic{
+			right: 0 !important;
+		}
     </style>
 </head>
 <script type="text/javascript">
@@ -84,6 +105,10 @@
 			//window.location.href="/xcview/html/physician/physicians_page.html?doctor="+doctorId; 
 			// self.location=document.referrer;
 			// window.location.replace(document.referrer)
+		});
+		// 点击关闭按钮
+		$('.close').click(function(){
+			$('.shopping_trolley').hide();
 		});
 	};
 </script>
@@ -188,7 +213,7 @@
         <li data-id="{{product.id}}">
             <img src="{{product.picture}}" alt="" class="surface_plots">
             <div class="title">{{product.name}}</div>
-            <div class="price">￥{{product.price}}</div>
+            <div class="price">￥<span>{{product.price}}</span></div>
             {{ if product.doctor }}
             <div class="referrer">
                 <img src="{{product.doctor.avatar}}" alt="">{{product.doctor.name}}
@@ -212,7 +237,8 @@
                 
                 <h4>
                     <img src="{{item.logo}}" alt="" class="head_portrait"/>
-                    <a href="#" class="shop-names">{{item.name}}</a>
+                    <!--<a href="#" class="shop-names">{{item.name}}</a>-->
+                    <a href="#" class="shop-names"></a>
                 </h4>
                 <!-- <div class="coupons"><span>领券</span><em>|</em><span>编辑</span></div> -->
             </div>
@@ -229,7 +255,7 @@
 					{{/if}}                        
 
 
-						<div class="shop-info-img"><a href="#"><img src="{{cartItem.sku.image}}"/></a></div>
+						<div class="shop-info-img" onclick="location.href ='/xcview/html/shop/commodity_details.html?productId={{cartItem.sku.productId}}'"><a href="#"><img src="{{cartItem.sku.image}}"/></a></div>
                         <div class="shop-info-text">
                             <h4 class="">{{cartItem.sku.name}}</h4>
                             <div class="inventory"  data-pid="{{cartItem.sku.productId}}" data-sid="{{cartItem.sku.id}}">
@@ -273,7 +299,7 @@
                 <div class="price"></div>
                 <div class="repertory"></div><!--  -->
                 <div class="category">
-                    <span class="choice">选择</span>
+                    <span class="choice">选择11</span>
                     {{ each specificationItemvs as specificationItem i}}
                     <span class="specification spec-index-{{i}}">{{specificationItem.name}}</span>
                     {{/each}}
@@ -306,6 +332,7 @@
 	        <div class="determine">确定</div>
         </div>
     </div>
+    <div class="close">×</div>
 </script>
 
 </html>

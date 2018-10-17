@@ -123,13 +123,13 @@ public class OrderOperServiceImpl implements OrderOperService {
 		if (skuId != null) {
 			Sku sku = skuService.find(skuId);
 			if (sku == null) {
-				throw new RuntimeException("信息有误");
+				throw new RuntimeException("商品不存在");
 			}
 			if (Product.Type.GIFT.equals(sku.getType())) {
-				throw new RuntimeException("信息有误");
+				throw new RuntimeException("商品为赠品");
 			}
 			if (quantity == null || quantity < 1) {
-				throw new RuntimeException("信息有误");
+				throw new RuntimeException("商品可用库存不足");
 			}
 
 			cart = generateCart(currentUser, sku, quantity, null);
@@ -153,22 +153,22 @@ public class OrderOperServiceImpl implements OrderOperService {
 			orderType = Order.Type.GENERAL;
 		}
 		if (cart == null || cart.isEmpty()) {
-			throw new RuntimeException("信息有误");
+			throw new RuntimeException("商品信息有误");
 		}
 		if (cart.hasNotActive()) {
-			throw new RuntimeException("信息有误");
+			throw new RuntimeException("存在已失效商品");
 		}
 		if (cart.hasNotMarketable()) {
-			throw new RuntimeException("信息有误");
+			throw new RuntimeException("存在已下架商品");
 		}
 		if (cart.hasLowStock()) {
-			throw new RuntimeException("信息有误");
+			throw new RuntimeException("存在库存不足商品");
 		}
 		if (cart.hasExpiredProduct()) {
-			throw new RuntimeException("信息有误");
+			throw new RuntimeException("存在已过期店铺商品");
 		}
 		if (orderType == null) {
-			throw new RuntimeException("信息有误");
+			throw new RuntimeException("订单类型有误");
 		}
 		ShippingMethod shippingMethod = shippingMethodService.find(shippingMethodId);
 		Receiver defaultReceiver = receiverService.findDefault(currentUser);
@@ -430,6 +430,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 				BeanUtils.copyProperties(orderItem,orderItemVO);
 				//获取库存
 				SkuVO sku = new SkuVO();
+				ProductVO productvo = new ProductVO();
 				if(orderItem.getSku()!=null) {
 					List<String> specification = orderItem.getSku().getSpecifications();
 					if(specification!=null && specification.size()>0){
@@ -438,8 +439,13 @@ public class OrderOperServiceImpl implements OrderOperService {
 					}
 					
 					BeanUtils.copyProperties(orderItem.getSku(),sku);
+					productvo.setId(orderItem.getSku().getProduct().getId());
+					productvo.setIsmarketable(orderItem.getSku().getProduct().getIsMarketable());
+					productvo.setIsOutOfStock(orderItem.getSku().getProduct().getIsOutOfStock());
+					productvo.setIsactive(orderItem.getSku().getProduct().getIsActive());
 					sku.setId(orderItem.getSku().getId());
 					orderItemVO.setSku(sku);
+					orderItemVO.getSku().setProduct(productvo);
 				}
 
 				orderItemVOList.add(orderItemVO);
@@ -498,6 +504,9 @@ public class OrderOperServiceImpl implements OrderOperService {
 					}
 					BeanUtils.copyProperties(orderItem.getSku(),sku);
 					product.setId(orderItem.getSku().getProduct().getId());
+					product.setIsmarketable(orderItem.getSku().getProduct().getIsMarketable());
+					product.setIsactive(orderItem.getSku().getProduct().getIsActive());
+					product.setIsOutOfStock(orderItem.getSku().getProduct().getIsOutOfStock());
 					sku.setId(orderItem.getSku().getId());
 				}
 				orderItemVO.setSku(sku);
@@ -822,7 +831,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 		Member currentUser = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
 		if (!orderService.acquireLock(order, currentUser)) {
 			//throw new RuntimeException("member.order.locked");
-			throw new RuntimeException("订单被锁定");
+			throw new RuntimeException("订单已被锁定，请稍后再试！");
 		}
 		orderService.receive(order);
 	}
@@ -928,10 +937,8 @@ public class OrderOperServiceImpl implements OrderOperService {
 		List<Store> stores =null;Member member = null;
 		try {
 			if(UsersType.BUSINESS.equals(usersType)) {  //商家
-				
 				MedicalDoctorAccount medicalDoctorAccount = medicalDoctorAccountService.getByUserId(ipandatcmUserId);
 				if(medicalDoctorAccount.getDoctorId()!=null) {
-					
 					String doctorId = medicalDoctorAccount.getDoctorId();
 					//医师得到商家、商家得到店铺
 					List<Business> businesss = businessDao.findBusinessByDoctorId(doctorId);
@@ -982,6 +989,53 @@ public class OrderOperServiceImpl implements OrderOperService {
 		return new net.shopxx.merge.page.Page<OrdersVO>(list, orderList.getTotal(), pageableVo);
 	}
 
+	
+	@Override
+	@Transactional
+	public Object findPageXc1(OrderPageParams orderPageParams, Status status, ScoreVO store, 
+			String ipandatcmUserId, ProductVO product,UsersType usersType,OrderType orderType) {
+		
+		List<Store> stores =null;Member member = null;
+		try {
+			if(UsersType.BUSINESS.equals(usersType)) {  //商家
+				MedicalDoctorAccount medicalDoctorAccount = medicalDoctorAccountService.getByUserId(ipandatcmUserId);
+				if(medicalDoctorAccount.getDoctorId()!=null) {
+					String doctorId = medicalDoctorAccount.getDoctorId();
+					//医师得到商家、商家得到店铺
+					List<Business> businesss = businessDao.findBusinessByDoctorId(doctorId);
+					stores = storeDao.findStoreByBusinesss(businesss);
+				}
+			}else{
+				member = usersRelationService.getMemberByIpandatcmUserId(ipandatcmUserId);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("获取商家信息有误");
+		}
+
+		if(stores==null && member == null) {
+			return null;
+		}
+		
+		Pageable pageable = new Pageable(orderPageParams.getPageNumber(), orderPageParams.getPageSize());
+		Page<OrderDelete> orderList = orderDeleteDao.findPageXc(orderPageParams,
+				Order.Type.GENERAL,
+				(status !=null ? Order.Status.valueOf(status.toString()) : null),
+				stores, member, null, pageable,orderType);
+		
+		//分页参数赋值
+        net.shopxx.merge.page.Pageable pageableVo = new 
+        		net.shopxx.merge.page.Pageable(orderPageParams.getPageNumber(), 
+        				orderPageParams.getPageSize());
+
+        List<OrderDelete>  listDelete =  orderList.getContent();
+        
+        
+		return new net.shopxx.merge.page.Page<OrdersVO>(null, orderList.getTotal(), pageableVo);
+	}
+	
+	
+	
 	@Override
 	@Transactional
 	public Map payment(String orderSnsStr) {
@@ -1093,4 +1147,10 @@ public class OrderOperServiceImpl implements OrderOperService {
 		data.put("isPaySuccess", paymentTransaction != null && BooleanUtils.isTrue(paymentTransaction.getIsSuccess()));
 		return data;
 	}
+	
+	
+	
+	
+	
+	
 }

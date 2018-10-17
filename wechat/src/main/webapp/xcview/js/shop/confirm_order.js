@@ -51,7 +51,7 @@ $(function() {
         requestService("/xczh/shop/order/create",params+"&shippingMethodId="+shippingMethodId+"&receiverId="+receiverId+"&memo="+memo+"&memoJson="+JSON.stringify(memoJson),function(data){
             if(data.success){
                 var orderSns = data.resultObject.orderSns.join(',');
-                window.location="/xcview/html/shop/method.html?orderSns="+orderSns;
+                window.location="/xcview/html/shop/method.html?orderSns="+orderSns+"&type=2";
             }else{
 //              jqtoast(data.errorMessage);
                 jqtoast("请填写收货地址");
@@ -64,7 +64,7 @@ $(function() {
 //  跳转修改地址
 	$(".select_address_main").click(function(){
 		window.localStorage.isAddress="details";
-		location.href="/xcview/html/address.html";
+		location.href="/xcview/html/address.html?&type=2";
 	})
 
 });
@@ -141,7 +141,7 @@ function creatOrderList(orders,price,freight){
                 '<div class="title">' + orders[i].orderItems[j].name + '</div>' +
                 '<div class="pack">' +
                 orders[i].orderItems[j].specifications.join(";") +
-                '(库存'+orders[i].orderItems[j].sku.stock+'件)' +
+                '(库存'+orders[i].orderItems[j].sku.availableStock+'件)' +
                 '</div>' +
                 '<div class="total_prices">' +
                 '<div class="price_yuan" >' +

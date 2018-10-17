@@ -216,6 +216,13 @@ $(function () {
         requestGetService("/xczh/shop/cart/product", {"id": pid}, function (data) {
             $('.shopping_trolley_main').html(template('shop_product_choice', data.resultObject));
             skus = data.resultObject.skuVOs;
+            
+            var productImages =  data.resultObject.productImages;
+            if(productImages!=null){
+            	var img = productImages[0].source;
+            	$(".surface_plots").attr("src",img);
+            }
+            
             choiceSku(sid);
             $('.shopping_trolley').show();
             // 点击数量加减
@@ -409,6 +416,7 @@ function initCart() {
                 obj[i].cartItems[0].sku.price=price;
             }
             $('#shop_cart_div').html(template('shop_cart_tmpl', data.resultObject));
+            $(".shop-names").html(data.resultObject.storeCartItems[0].name+"医师推荐");
         }
     });
 }
@@ -436,6 +444,28 @@ function initRecommendProduct() {
                 var id = $(this).attr("data-id");
                 window.location.href = "/xcview/html/shop/commodity_details.html?productId=" + id + "";
             })
+            $(".list li ").each(function(){
+            	
+            	
+			    var d = $("this").html();
+				if(/^\d+$/.test(d)){
+				d = d + ".00";
+				}else if(/^(\d+\.)(\d+)$/.test(d)){
+					var i = RegExp.$1;
+					var t = RegExp.$2;
+					if(t.length == 1)
+					d = d + "0";
+					else if(t.length > 2)
+					d = i + t.substring(0,2);
+				}
+				//	alert(v);
+				$("this").html(d);
+			    
+			    
+			    
+			});
+            
+            
         }
     });
 }
@@ -528,6 +558,7 @@ $('.itemdelete').click(function () {
 $('.countermand').click(function () {
     $('.removeitem').hide();
 });
+
 
 
 

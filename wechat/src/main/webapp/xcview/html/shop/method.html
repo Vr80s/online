@@ -29,7 +29,8 @@
 	<!--头部搜索开始-->
 	<header>
 		<div class="header">
-			<div class="header_return" onclick="javascript:history.go(-1);">
+			<!--<div class="header_return" onclick="javascript:history.go(-1);">-->
+			<div class="header_return" onclick="location.href ='/xcview/html/shop/order_center.html'">
 				<img src="/xcview/images/back icon.png">
 			</div>
 			<div class="header_title">选择支付方式</div>
@@ -147,6 +148,24 @@
 						'<input name="paymentItemList['+i+'].orderSn" type="hidden" value="'+data.resultObject.orderSns[i]+'">';
 				}
                 $("#payment").append(str);
+//              	点击返回
+                /*$(".header_return").click(function(){
+                	function getQueryString(name){
+			            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+			            var r = window.location.search.substr(1).match(reg);
+			            if (r!=null) return r[2];else return'';
+			        }
+			        var type = getQueryString('type');
+			        if(type=='2'){
+			            alert(123);
+			        
+			        }else if(type=='2'){
+			            alert(456);
+			            
+			        }
+			        getQueryString('name');
+                });*/
+                
             }else{
                 alert(data.errorMessage);
             }

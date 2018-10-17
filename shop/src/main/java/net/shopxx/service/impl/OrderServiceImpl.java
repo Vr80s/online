@@ -705,11 +705,21 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 			orderLogDao.persist(orderLog);
 
 			exchangePoint(order);
-			if (Setting.StockAllocationTime.ORDER.equals(setting.getStockAllocationTime())
-					|| (Setting.StockAllocationTime.PAYMENT.equals(setting.getStockAllocationTime()) && (order.getAmountPaid().compareTo(BigDecimal.ZERO) > 0 || order.getExchangePoint() > 0 || order.getAmountPayable().compareTo(BigDecimal.ZERO) <= 0))) {
+//  --下订单的时候不分配库存，支付和发送的时候分配	
+
+//old			
+//			if (Setting.StockAllocationTime.ORDER.equals(setting.getStockAllocationTime())
+//					|| (Setting.StockAllocationTime.PAYMENT.equals(setting.getStockAllocationTime()) && (order.getAmountPaid().compareTo(BigDecimal.ZERO) > 0 || order.getExchangePoint() > 0 || order.getAmountPayable().compareTo(BigDecimal.ZERO) <= 0))) {
+//				allocateStock(order);
+//			}
+//old			
+
+//new		
+			if ((Setting.StockAllocationTime.PAYMENT.equals(setting.getStockAllocationTime()) && (order.getAmountPaid().compareTo(BigDecimal.ZERO) > 0 || order.getExchangePoint() > 0 || order.getAmountPayable().compareTo(BigDecimal.ZERO) <= 0))) {
 				allocateStock(order);
 			}
-
+//new			
+			
 			if (balance != null && balance.compareTo(BigDecimal.ZERO) > 0) {
 				OrderPayment orderPayment = new OrderPayment();
 				orderPayment.setMethod(OrderPayment.Method.DEPOSIT);
@@ -832,15 +842,32 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		}
 
 		Setting setting = SystemUtils.getSetting();
-		if (Setting.StockAllocationTime.PAYMENT.equals(setting.getStockAllocationTime())) {
-			allocateStock(order);
-		}
-
+	
+// 支付成功后		
+//old    	setting.getStockAllocationTime 获取的订单状态还是下单，不是支付所以进行下修改	
+//		if (Setting.StockAllocationTime.PAYMENT.equals(setting.getStockAllocationTime())) {
+//			allocateStock(order);
+//		}
+//
+//		order.setAmountPaid(order.getAmountPaid().add(orderPayment.getEffectiveAmount()));
+//		order.setFee(order.getFee().add(orderPayment.getFee()));
+//		if (!order.hasExpired() && Order.Status.PENDING_PAYMENT.equals(order.getStatus()) && order.getAmountPayable().compareTo(BigDecimal.ZERO) <= 0) {
+//			order.setStatus(Order.Status.PENDING_REVIEW);
+//			order.setExpire(null);
+//		}
+//old	
+		
+		
 		order.setAmountPaid(order.getAmountPaid().add(orderPayment.getEffectiveAmount()));
 		order.setFee(order.getFee().add(orderPayment.getFee()));
 		if (!order.hasExpired() && Order.Status.PENDING_PAYMENT.equals(order.getStatus()) && order.getAmountPayable().compareTo(BigDecimal.ZERO) <= 0) {
 			order.setStatus(Order.Status.PENDING_REVIEW);
 			order.setExpire(null);
+			
+			//new
+			//分配库存
+			allocateStock(order);
+			//new
 		}
 
 		OrderLog orderLog = new OrderLog();
@@ -1038,12 +1065,14 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, Long> implements Or
 		if (settlementAmount.compareTo(BigDecimal.ZERO) > 0) {
 			businessService.addBalance(order.getStore().getBusiness(), settlementAmount, BusinessDepositLog.Type.ORDER_SETTLEMENT, null);
 		}
-		for (OrderItem orderItem : order.getOrderItems()) {
-			Sku sku = orderItem.getSku();
-			if (sku != null && sku.getProduct() != null) {
-				productService.addSales(sku.getProduct(), orderItem.getQuantity());
-			}
-		}
+		
+		//原本是点击完成后，增加销量的 现在改成，支付成功后，增加销量
+//		for (OrderItem orderItem : order.getOrderItems()) {
+//			Sku sku = orderItem.getSku();
+//			if (sku != null && sku.getProduct() != null) {
+//				productService.addSales(sku.getProduct(), orderItem.getQuantity());
+//			}
+//		}
 
 		order.setStatus(Order.Status.COMPLETED);
 		order.setCompleteDate(new Date());

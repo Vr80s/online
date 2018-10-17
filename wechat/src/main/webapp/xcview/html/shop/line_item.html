@@ -33,7 +33,7 @@
 	<!-- 头部区域开始 -->
 	<header>
 		<div class="header">
-			<div class="return" onclick="location.href ='/xcview/html/shop/shop.html'">
+			<div class="return" onclick="location.href ='/xcview/html/shop/order_center.html'">
 				<img src="/xcview/images/backicon.png" alt="" class="">
 			</div>
 			<div class="title">订单详情</div>
@@ -123,14 +123,17 @@
 			{{/if}}
 			<div class="main_product_details">
 				{{each orderItems as orderItem }}
-				<div class="product_details">
+				<div class="product_details" data-id="{{orderItem.id}}" onclick="location.href ='/xcview/html/shop/commodity_details.html?productId={{orderItem.product.id}}'">
 					<img src="{{orderItem.thumbnail}}" alt="" class="surface_plot" />
 					<div class="product_details_center">
 						<div class="title"><span>{{orderItem.name}}</span></div>
 						<div class="pack">
-							{{if orderItem.sku != null}}
-							{{orderItem.sku.specifications}}（库存{{orderItem.sku.stock}}件）
+							{{if orderItem.sku != null && orderItem.sku.specifications !=null}}
+								{{orderItem.sku.specifications}}
 							{{/if}}
+						    {{if orderItem.sku != null && orderItem.sku.availableStock !=null}}
+								（库存{{orderItem.sku.availableStock}}件）
+							{{/if}}	
 						</div>
 						<div class="total_prices">
 							<div class="price_yuan" >
@@ -182,7 +185,7 @@
 					<!-- 卖家已发货 -->
 					{{else if status == 'SHIPPED'}}
 					
-					<div class="confirm_receipt" onclick='confirmReceipt("{{sn}}")'>确认收货</div>
+					<div class="confirm_receipt confirmOrder"  data-sn="{{sn}}" >确认收货</div>
 					<div class="shipped_cancel_order" onclick='againBuy("{{sn}}")'>再次购买</div>
 					<div class="check_logistics" onclick='getTransitSteps("{{sn}}","{{id}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
 
@@ -238,6 +241,20 @@
 		</div>
 	</div>
 	<!-- 取消订单提示结束 -->
+
+	<!-- 确认收货提示开始 -->
+	<div class="removeitem confirm_receiptt">
+		<div class="removeitembg"></div>
+		<div class="removeitem-main">
+			<div class="reminder"><strong>提示</strong></div>
+			<div class="reminder-main">是否确认收货？</div>
+			<div class="removeitem-choice">
+				<div class="countermand countermandDelete1">否</div>
+				<div class="affirm" onclick="confirmReceipt()">是</div>
+			</div>
+		</div>
+	</div>
+	<!-- 确认收货提示结束 -->
 
 	
 </body>
