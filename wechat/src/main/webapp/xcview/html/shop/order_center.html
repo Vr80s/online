@@ -227,9 +227,9 @@
 					<!-- 卖家已发货 -->
 					{{else if item.status == 'SHIPPED'}}
 					<!--<div class="confirm_receipt" onclick='confirmReceipt("{{item.sn}}")'>确认收货</div>-->
-					<div class=" shipped_cancel_order confirm_receipt{{item.id}}" data-sn="{{item.sn}}" >确认收货</div>
+					<div class=" confirmOrder shipped_cancel_order confirm_receipt{{item.id}}" id="confirmOrder" data-sn="{{item.sn}}" >确认收货</div>
 					<div class="shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
-					<div class="check_logistics" onclick='getTransitSteps("{{item.sn}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
+					<div class="check_logistics" onclick='getTransitSteps("{{item.sn}}","{{item.id}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
 					
 					
 					<!-- 交易成功 -->
@@ -291,14 +291,14 @@
 	<!-- 删除订单提示结束 -->
 	
 	<!-- 确认收货提示开始 -->
-	<div class="confirm_receipt">
-		<div class="confirm_receiptbg"></div>
-		<div class="confirm_receiptbg_main">
+	<div class="removeitem confirm_receiptt">
+		<div class="removeitembg"></div>
+		<div class="removeitem-main">
 			<div class="reminder"><strong>提示</strong></div>
-			<div class="confirm_receipt_main">是否确认收货？</div>
-			<div class="confirm_receipt_choice">
-				<div class="countermand countermandDelete">否</div>
-				<div class="affirm" onclick='confirmReceipt("{{item.sn}}")'>是</div>
+			<div class="reminder-main">是否确认收货？</div>
+			<div class="removeitem-choice">
+				<div class="countermand countermandDelete1">否</div>
+				<div class="affirm" onclick="confirmReceipt()">是</div>
 			</div>
 		</div>
 	</div>

@@ -37,6 +37,9 @@ function transitStep(shippingId) {
                 } else {
                     $(".transportStatus").html("运输中");
                 }
+            } else {
+
+                $(".logistics_address").html("该单号暂无物流进展，请稍后再试。");
             }
 
             $(".logistics_address_ul").html(template('logistics_address_ul', {items: data.resultObject.transitSteps}));
