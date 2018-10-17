@@ -185,7 +185,7 @@
 					<!-- 卖家已发货 -->
 					{{else if status == 'SHIPPED'}}
 					
-					<div class="confirm_receipt" onclick='confirmReceipt("{{sn}}")'>确认收货</div>
+					<div class="confirm_receipt confirmOrder"  data-sn="{{sn}}" >确认收货</div>
 					<div class="shipped_cancel_order" onclick='againBuy("{{sn}}")'>再次购买</div>
 					<div class="check_logistics" onclick='getTransitSteps("{{sn}}","{{id}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
 
@@ -241,6 +241,20 @@
 		</div>
 	</div>
 	<!-- 取消订单提示结束 -->
+
+	<!-- 确认收货提示开始 -->
+	<div class="removeitem confirm_receiptt">
+		<div class="removeitembg"></div>
+		<div class="removeitem-main">
+			<div class="reminder"><strong>提示</strong></div>
+			<div class="reminder-main">是否确认收货？</div>
+			<div class="removeitem-choice">
+				<div class="countermand countermandDelete1">否</div>
+				<div class="affirm" onclick="confirmReceipt()">是</div>
+			</div>
+		</div>
+	</div>
+	<!-- 确认收货提示结束 -->
 
 	
 </body>
