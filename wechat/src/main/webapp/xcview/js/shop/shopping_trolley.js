@@ -220,7 +220,7 @@ $(function () {
             var productImages =  data.resultObject.productImages;
             if(productImages!=null){
             	var img = productImages[0].source;
-            	$(".surface_plots").attr("src",img);
+            	$(".surface_plot").attr("src",img);
             }
             
             choiceSku(sid);
