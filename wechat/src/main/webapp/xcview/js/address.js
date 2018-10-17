@@ -526,6 +526,12 @@
 				$(".history_bg").show();
 				//deleteAddress(this);
 			});
+			$(".site_newly").click(function(){
+				var type = getQueryString("type");
+				var id = $(this)[0].title;
+				location.href="edit_address.html?&type=" + type;
+			});
+			
 	}
 /**
  * 隐藏确定删除的弹框
