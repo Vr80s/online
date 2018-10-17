@@ -50,7 +50,9 @@ function tokenCheck(){
 		        $('.shopping_trolley').show();  
 		    }
 	}else{
-		location.href ='/xcview/html/cn_login.html';/*注册页面*/
+		if (flag === USER_UN_LOGIN) {
+	        location.href ='/xcview/html/cn_login.html';/*注册页面*/
+	   }
 	}
 
 }
