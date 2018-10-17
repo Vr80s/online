@@ -119,6 +119,11 @@ public class StoreController extends BaseController {
 	 */
 	@PostMapping("/save")
 	public ResponseEntity<?> save(Store store, Long businessId, Long storeRankId, Long storeCategoryId, Long[] productCategoryIds) {
+		
+		if (store.getLogo()==null) {
+			return Results.unprocessableEntity("店铺log不能为空");
+		}
+		
 		store.setBusiness(businessService.find(businessId));
 		store.setStoreRank(storeRankService.find(storeRankId));
 		store.setStoreCategory(storeCategoryService.find(storeCategoryId));
@@ -175,6 +180,11 @@ public class StoreController extends BaseController {
 	 */
 	@PostMapping("/update")
 	public ResponseEntity<?> update(Store store, Long id, Long storeRankId, Long storeCategoryId, Long[] productCategoryIds) {
+		
+		if (store.getLogo()==null) {
+			return Results.unprocessableEntity("店铺log不能为空");
+		}
+		
 		if (!storeService.nameUnique(id, store.getName())) {
 			return Results.UNPROCESSABLE_ENTITY;
 		}

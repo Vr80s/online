@@ -567,12 +567,16 @@ public class ProductController extends BaseController {
 				if (!storeService.productCategoryExists(product.getStore(), product.getProductCategory())) {
 					return Results.unprocessableEntity("business.product.marketableNotExistCategoryNotAllowed", product.getName());
 				}
-				UsersRelation usersRelation = usersRelationService.findByUserId(currentUser.getId());
-
-				medicalDoctorPostsService.addDoctorPosts(usersRelation.getIpandatcmUserId(),
-						product.getRecommentContent(), product.getId(), product.getRecommends());
-
-
+				try {
+					Long businessId = currentUser.getId();
+					Business business = businessService.find(businessId);
+					MedicalDoctorAccount medicalDoctorAccount = medicalDoctorBusinessService.getByDoctorId(business.getDoctorId());
+					medicalDoctorPostsService.addDoctorPosts(medicalDoctorAccount.getAccountId(),
+							product.getRecommentContent(), product.getId(), product.getRecommends());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
 			}
 			productService.shelves(ids);
 		}

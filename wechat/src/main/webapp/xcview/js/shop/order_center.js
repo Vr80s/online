@@ -79,28 +79,17 @@ function orderList(pageNumber,downOrUp) {
                 $(".deleteOrder").hide();
             });
             
-            //		点击确认收货  
-			$(".confirm_receipt").click(function(){
-				var id=$(this).attr("data-id");
-				$(".confirm_receipt .affirm").attr("titie",id);
-				$(".confirm_receipt").show;
+            //		点击确认收货
+            $(".confirmOrder").off("click");
+			$(".confirmOrder").click(function(){
+				data_sn = $(this).attr("data-sn");
+				$(".confirm_receiptt").show();
 			});
-			$(".confirm_receiptbg").click(function(){
-				$(".confirm_receipt").hide;
+            $(".countermandDelete1").off("click");
+			$(".countermandDelete1").click(function(){
+				$(".confirm_receiptt").hide();
 			});
-			
-			$(".confirm_receipt .affirm").click(function(){
-				var orderSn=$(this).attr("title");
-				requestPostService("/xczh/shop/order/receive", {
-			        sn: orderSn
-			    }, function (data) {
-			        if(data.success ){
-			            orderList(1,"down");
-			        }/*else{
-			        	jqtoast(data.errorMessage);
-			        }*/
-			    });
-			});
+
 
 
         }
@@ -136,16 +125,17 @@ function deleteOrder() {
 }
 
 //确认收货
-function confirmReceipt(orderSn) {
-    /*requestPostService("/xczh/shop/order/receive", {
-        sn: orderSn
+function confirmReceipt() {
+    requestPostService("/xczh/shop/order/receive", {
+        sn: data_sn
     }, function (data) {
         if(data.success ){
+            $(".confirm_receiptt").hide();
             orderList(1,"down");
         }else{
         	jqtoast(data.errorMessage);
         }
-    });*/
+    });
 }
 
 //再次购买
