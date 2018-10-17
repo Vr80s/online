@@ -16,6 +16,19 @@ $(function() {
 		jqtoast("熊猫客服休息中，稍后报道！");
 	})
 	
+	//点击进入详情
+	/*$(".product_details").click(function(){
+		var dataId = $(this).attr('data-id');
+		location.href ='/xcview/html/shop/commodity_details.html?productId' + doctorId;
+	});*/
+	
+	
+	$(".main_product_details").on('click','.product_details',function(){
+		alert(111);
+		var dataId = $(this).attr('data-id');
+		location.href ='/xcview/html/shop/commodity_details.html?productId' + doctorId;
+	})	
+	
     orderDetails();
 
 //  点击评价
@@ -244,3 +257,5 @@ function addCart(skuId,quantity) {
         }
     },false);
 }
+
+

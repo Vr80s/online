@@ -69,6 +69,16 @@
        	.inventory{
        		overflow: hidden;
        	}
+       	.shopping_trolley_main .close {
+		    position: absolute;
+		    top: .1rem;
+		    right: 0;
+		    font-size: .5rem;
+		    color: #999;
+		    width: 2rem;
+		    text-align: right;
+		    padding-right: .26rem;
+		}
     </style>
 </head>
 <script type="text/javascript">
@@ -85,6 +95,10 @@
 			//window.location.href="/xcview/html/physician/physicians_page.html?doctor="+doctorId; 
 			// self.location=document.referrer;
 			// window.location.replace(document.referrer)
+		});
+		// 点击关闭按钮
+		$('.close').click(function(){
+			$('.shopping_trolley').hide();
 		});
 	};
 </script>
@@ -307,6 +321,7 @@
 	        <div class="determine">确定</div>
         </div>
     </div>
+    <div class="close">×</div>
 </script>
 
 </html>
