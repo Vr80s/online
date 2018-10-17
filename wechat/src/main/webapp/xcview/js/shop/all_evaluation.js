@@ -105,3 +105,12 @@ requestGetService("/xczh/shop/goods/details",{
 
     }
 });
+
+//点击购物车
+$(".shopping_cart").click(function(){
+	requestPostService("/xczh/myinfo/myFocus",null,function (data) {
+	    if (data.success == true) {
+	       	location.href ='/xcview/html/shop/shopping_trolley.html'
+	    }
+	});
+});
