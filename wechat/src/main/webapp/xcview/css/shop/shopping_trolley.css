@@ -485,3 +485,14 @@ center .spinner .increase{
  	position:fixed;
  	bottom:.2rem;
 }
+
+.shopping_trolley_center .buy {
+    width: 6.98rem;
+    height: .55rem;
+    /* height: 1.52rem; */
+    line-height: .55rem;
+    margin: 0 auto;
+    overflow: hidden;
+    /* background: #ddc2c2; */
+    margin-bottom: .33rem;
+}

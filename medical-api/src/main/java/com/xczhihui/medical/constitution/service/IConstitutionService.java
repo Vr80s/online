@@ -1,7 +1,9 @@
 package com.xczhihui.medical.constitution.service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.constitution.model.MedicalConstitution;
 import com.xczhihui.medical.constitution.model.MedicalConstitutionQuestionBank;
+import com.xczhihui.medical.constitution.model.MedicalConstitutionQuestionRecord;
 import com.xczhihui.medical.constitution.model.MedicalConstitutionQuestionRecordDetails;
 import com.xczhihui.medical.constitution.vo.AnalysisResult;
 
@@ -22,4 +24,8 @@ public interface IConstitutionService {
     AnalysisResult saveRecord(String userId, String birthday, Integer sex, List<MedicalConstitutionQuestionRecordDetails> medicalQuestionRecordDetailsList);
 
     List<MedicalConstitution> getConstitution();
+
+    AnalysisResult getRecordById(Integer id);
+
+    Page<MedicalConstitutionQuestionRecord> getRecordListByPage(int current, int size);
 }
