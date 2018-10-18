@@ -149,7 +149,7 @@ function againBuy(orderSn) {
             for(var i=0;i<orderItems.length;i++){
                 var skuId = orderItems[i].sku.id;
                 var product = orderItems[i].sku.product;
-                if(!product.ismarketable){
+                if(!product.isMarketable){
                     isTrue =false;
                     jqtoast("商品已下架");
                     break;
