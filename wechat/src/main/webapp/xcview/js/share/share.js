@@ -104,6 +104,7 @@ function getShareIdAndType(){
 			viewHtml == "healthy-answer.html" || viewHtml == "healthy-result.html"){
 
 		obj.shareId = getQueryString("id");
+		if(obj.shareId==null||obj.shareId=="null")obj.shareId=-1;
 		obj.shareType = 8;
 	}
 	
