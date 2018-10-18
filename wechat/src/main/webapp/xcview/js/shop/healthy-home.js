@@ -1,4 +1,9 @@
 $(function(){
+	if(localStorage.getItem("healthy.result") != null){
+		location.href = "healthy-result.html"
+	}else{
+		$("body").show();
+	}
 	$(".sex-ul li").click(function(){
 		$(".sex-ul li img").removeClass("active");
 		$(this).find("img").addClass("active");
