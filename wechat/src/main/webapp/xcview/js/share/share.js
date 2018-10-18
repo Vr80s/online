@@ -100,6 +100,11 @@ function getShareIdAndType(){
 		
 		obj.shareId = getQueryString("productId");
 		obj.shareType = 7;
+	}else if(viewHtml == "healthy-home.html" ||
+			viewHtml == "healthy-answer.html" || viewHtml == "healthy-result.html"){
+
+		obj.shareId = getQueryString("id");
+		obj.shareType = 8;
 	}
 	
 }

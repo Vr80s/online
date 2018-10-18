@@ -91,7 +91,9 @@ public class MobileShareController {
 
         try {
         	ShareInfoVo sv = null;
-        	if(ShareType.PRODUCT_SHARE.getCode().equals(shareType)) {
+        	if(ShareType.HEALTHY_SHARE.getCode().equals(shareType)) {
+        		sv = new ShareInfoVo();
+        	}else if(ShareType.PRODUCT_SHARE.getCode().equals(shareType)) {
         		sv = goodsService.findIdByShareInfo(shareId);
         	}else {
         		sv = courseServiceImpl.selectShareInfoByType(shareType, shareId);
@@ -300,6 +302,9 @@ public class MobileShareController {
             } else if (ShareType.PRODUCT_SHARE.getCode().equals(shareType)) {
             	
                 res.sendRedirect(returnOpenidUri + WechatShareLinkType.PRODUCT_DETAIL.getLink()+ shareId);
+            } else if (ShareType.HEALTHY_SHARE.getCode().equals(shareType)) {
+
+                res.sendRedirect(returnOpenidUri + WechatShareLinkType.HEALTHY.getLink()+ shareId);
             }
         } catch (Exception e) {
             e.printStackTrace();
