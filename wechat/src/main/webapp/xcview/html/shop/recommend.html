@@ -82,6 +82,10 @@
 	.minirefresh-theme-default .status-nomore .upwrap-tips{
 		padding: 0 !important;
 	}
+	
+	.share_class{
+		display: none !important;
+	}
 </style>
 </head>
 
@@ -257,4 +261,11 @@
 <script type="text/javascript" src="/xcview/js/shop/jquery.spinner.js"></script><!-- 点击数量引入 -->
 
 <script type="text/javascript" src="/xcview/js/shop/common/commodity_details_bottom.js?version=21a43862ba"></script>
+
+<script>
+	//安卓使用
+	if(localStorage.getItem("wv") == null){
+        $(".share_class").show();
+    }
+</script>
 </html>

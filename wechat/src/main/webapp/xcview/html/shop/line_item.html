@@ -67,7 +67,7 @@
 		{{else if status == 'CANCELED'}}
 		<div class="payment_status">关闭交易</div>
 		{{else if status == 'DENIED'}}
-		<div class="payment_status">关闭交易</div>
+		<div class="payment_status">卖家已拒绝</div>
 		{{/if}}
 
 		<div class="orderid">订单编号：{{sn}}</div>
@@ -200,7 +200,7 @@
 					
 					
 					<!-- 交易关闭 -->
-					{{else if status == 'CANCELED' || status == 'FAILED' || status == 'DENIED'}}
+					{{else if status == 'CANCELED' || status == 'FAILED'}}
 					
 					<div class="fack_shipped_cancel_order" onclick='againBuy("{{sn}}")'>再次购买</div>
 					<div class="delete_order" data-id="{{id}}" style="border: 1px solid #DEDEDE;color: #333333;">删除订单</div>

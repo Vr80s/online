@@ -1,8 +1,13 @@
 $(function(){
-    debugger
+//  debugger
     requestGetService("/xczh/enrol/medicalEntryInformation/"+merId,data,function(data){
         data.resultObject.education = getEducation(data.resultObject.education);
-		$("body").html(template('entry_information_temp',data.resultObject))
+		$("body").html(template('entry_information_temp',data.resultObject));
+		$(".return").click(function(){
+			var merId = getQueryString("merId");
+			location.href ='inherited_introduction.html?merId='+merId;
+		});
+
 	});
 
 })
@@ -21,3 +26,4 @@ function getEducation(education){
         return "无";
     }
 }
+
