@@ -153,7 +153,7 @@ function againBuy(orderSn) {
                     isTrue =false;
                     jqtoast("商品已下架");
                     break;
-                } else if(!product.isactive){
+                } else if(!product.isActive){
                     isTrue =false;
                     jqtoast("商品已失效");
                     break;
