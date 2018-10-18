@@ -1090,6 +1090,9 @@ public class OrderOperServiceImpl implements OrderOperService {
 			 ov.setPrice(orderDelete.getPrice());
 			 ov.setConsignee(orderDelete.getConsignee());
 			 ov.setPhone(orderDelete.getPhone());
+			 ov.setCreatedDate(orderDelete.getCreateOrderDate());
+			 ov.setSn(orderDelete.getSn());
+			 ov.setStatus(9);
 			
 			 List<OrderItemVO> findByOrders = orderItemDeleteDao.findByOrders(orderDelete.getOrderId());
 			 ov.setOrderVoItems(findByOrders);
