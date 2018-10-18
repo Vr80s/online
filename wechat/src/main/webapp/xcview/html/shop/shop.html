@@ -99,6 +99,9 @@
 	.swiper-pagination-bullet{
 		border-radius: 10px !important;
 	}
+	.hidden_field{
+		display: none;
+	}
 </style>
 </head>
 
@@ -301,6 +304,10 @@
 <!-- 选项卡点击事件 -->
 <script>
 	window.onload = function(){
+		//安卓使用
+		if(localStorage.getItem("wv") == null){
+	        $(".hidden_field").show();
+	    }
 		// option_newest--最新    option_recommend--推荐   option_hottest--最热  option_price--价格
 		// 最新
 		//$(".option_newest").click();
