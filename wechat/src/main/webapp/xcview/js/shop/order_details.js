@@ -79,6 +79,19 @@ function orderDetails() {
             for(var i=0;i<obj.orderItems.length;i++){
                 obj.orderItems[i].price = priceConvert(obj.orderItems[i].price);
             }
+            
+            //点击详情
+            /*$(".product_details").click(function(){
+            	alert(111);
+                var dataId = $(this).attr('data-id');
+                if(obj.orderItem.sku.product.ismarketable == ture){
+                	location.href ='/xcview/html/shop/commodity_details.html?productId=' + dataId;
+                }else{
+                	location.href ='/xcview/html/shop/expired_products.html'
+                }
+            });*/
+            
+            
             $(".orderDetails").html(template('order_details',obj));
             // 点击取消订单提示
             $(".cancel_order").click(function(){
@@ -117,6 +130,25 @@ function orderDetails() {
     });
 
 }
+
+/*requestGetService("/xczh/shop/order/detail", {
+        sn: sn
+    }, function (data) {
+        if(data.success ){
+            var obj =  data.resultObject;
+            //点击详情
+            $(".product_details").click(function(){
+            	alert(111);
+                var dataId = $(this).attr('data-id');
+                if(obj.orderItems.sku.product.ismarketable == ture){
+                	location.href ='/xcview/html/shop/commodity_details.html?productId=' + dataId;
+                }else{
+                	location.href ='/xcview/html/shop/expired_products.html'
+                }
+            });
+        }
+    });*/
+   
 //获取物流信息
 function transitStep(shipping) {
     requestGetService("/xczh/shop/order/transitStep", {

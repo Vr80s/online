@@ -30,6 +30,7 @@ import com.xczhihui.user.center.vo.OeUserVO;
 import net.sf.json.JSONObject;
 import net.shopxx.dao.ProductCategoryDao;
 import net.shopxx.dao.ProductDao;
+import net.shopxx.dao.ReviewDao;
 import net.shopxx.dao.StoreDao;
 import net.shopxx.entity.Product;
 import net.shopxx.entity.ProductCategory;
@@ -37,6 +38,7 @@ import net.shopxx.entity.ProductImage;
 import net.shopxx.entity.Review;
 import net.shopxx.entity.Sku;
 import net.shopxx.entity.SpecificationItem;
+import net.shopxx.entity.Store;
 import net.shopxx.entity.SpecificationItem.Entry;
 import net.shopxx.exception.ResourceNotFoundException;
 import net.shopxx.merge.entity.UsersRelation;
@@ -86,6 +88,12 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Autowired
     private UserCenterService userCenterService;
+    
+    @Autowired
+    private ReviewDao  reviewDao;
+    
+    @Autowired
+    private  CommonService commonService;
 
 
     @Value("${defaultHead}")
@@ -107,30 +115,11 @@ public class GoodsServiceImpl implements GoodsService {
 
             pro.setId(product.getId());
 
-            //医师推荐信息
-            LOGGER.info("product.getStore().getBusiness().getDoctorId() " + product.getStore().getBusiness().getDoctorId());
-
-            String key = RedisCacheKey.STORE_DOCTOR_RELEVANCE +
-                    RedisCacheKey.REDIS_SPLIT_CHAR + product.getStore().getId();
-
-            String value = redisCacheService.get(key);
-            if (value != null) {
-                LOGGER.info("value :" + value);
-                JSONObject jasonObject = JSONObject.fromObject(value);
-                pro.setDoctor((Map) jasonObject);
-            } else {
-
-                String doctorId = product.getStore().getBusiness().getDoctorId();
-
-                if (doctorId != null) {
-                    Map<String, Object> map = medicalDoctorBusinessService.getDoctorInfoByDoctorId(doctorId);
-                    LOGGER.info("map tostring " + (map != null ? map.toString() : null));
-                    JSONObject jasonObject = JSONObject.fromObject(map);
-                    redisCacheService.set(key, jasonObject.toString());
-                    pro.setDoctor(jasonObject);
-                }
-            }
-
+            Map<String, Object> doctorInfoByStore = commonService.getDoctorInfoByStore(product.getStore());
+            
+            
+            pro.setDoctor(doctorInfoByStore);
+            
             //商品图片
             pro.setProductImages(convertProductimages(product));
 
@@ -188,7 +177,12 @@ public class GoodsServiceImpl implements GoodsService {
 
         //库存转换
         pv.setSkuVOs(convertProductSku(product));
-
+        
+        //此商品评论总数
+        long reviewvCount = reviewDao.calculateScoreCount(product);
+        pv.setReviewvCount(reviewvCount);
+        
+        
         return pv;
     }
 

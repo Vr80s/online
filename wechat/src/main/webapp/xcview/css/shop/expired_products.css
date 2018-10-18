@@ -1,0 +1,275 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+a{
+	text-decoration: none;
+}
+li{
+	list-style: none;
+}
+img{
+	border: 0px;
+	border: none;
+}
+.both{
+	clear: both;
+}
+body{
+	background: #f0f0f0 !important;
+}
+/*头部区域开始*/
+header{
+	width: 7.5rem;
+    height: .88rem;
+    position: fixed;
+    top: 0;
+    z-index: 2;
+    background: rgba(250,250,250,0.98);
+    border-bottom: 1px solid #f0f0f0;
+}
+.header{
+	width: 6.98rem;
+	height: 0.88rem;
+	margin: 0 auto;
+	/*background: #ccc;*/
+	position: relative;
+}
+.return{
+	width: 1rem;
+	height: .88rem;
+	float: left;
+	/*margin-top: .15rem;*/
+	/*background: red;*/
+}
+.return img{
+	width: .24rem;
+    height: .42rem;
+    margin-top: .24rem;
+    float: left;
+}
+.header .title{
+	position: absolute;
+	top: 0;
+	z-index: -1;
+	width: 100%;
+	height: .88rem;
+	line-height: .88rem;
+	font-size: .36rem;
+	color: #333333;
+	text-align: center;
+}
+.header .message{
+	position: relative;
+	float: right;
+	width: 0.6rem;
+	height: .88rem;
+	/*background: blue;*/
+}
+.header .message img{
+	width: .36rem;
+	height: .36rem;
+	display: inherit;
+    margin-left: .1rem;
+    margin-top: .28rem;
+    float: right;
+}
+.advices_number {
+    position: absolute;
+    top: 0.2rem;
+    right: -.1rem;
+    background: #F97215;
+    border-radius: 100px;
+    font-size: .22rem;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 0 .08rem;
+}
+.header .compile{
+	float: right;
+	width: .8rem;
+	height: .88rem;
+	line-height: .88rem;
+	font-size: .28rem;
+	color: #2F2F2F;
+}
+.header .finish{
+	display: none;
+	float: right;
+	width: .8rem;
+	height: .88rem;
+	line-height: .88rem;
+	font-size: .28rem;
+	color: #2F2F2F;
+}
+.header_hidden_field{
+	width: 7.5rem;
+	height: 0.88rem;
+	margin: 0 auto;
+}
+.share{
+	width: .36rem;
+    height: .36rem;
+    margin-top: .25rem;
+    float:  right;
+    margin-right: .2rem;
+}
+/*头部区域结束*/
+
+/*购物车空的状态开始*/
+.vacancy-main{
+	width: 100%;
+	height: 100%;
+}
+.vacancy{
+	width: 7.5rem;
+	height: 2.72rem;
+	margin: 0 auto;
+	margin-bottom: .2rem;
+	padding: .3rem 0;
+	/*background: #Fff;*/
+}
+.vacancy img{
+	width: 2rem;
+	height: 2rem;
+	display: block;
+	margin: 0 auto;
+	margin-bottom: .3rem;
+}
+.vacancy-cen{
+	width: 100%;
+	font-size: .28rem;
+	color: #999;
+	text-align: center;
+	margin-bottom: .3rem;
+}
+.vacancy-btn{
+	width: 1.8rem;
+	height: .72rem;
+	line-height: .72rem;
+	font-size: .3rem;
+	color: #FFFFFF;
+	text-align: center;
+	background: #F97215;
+	border-radius: 100px;
+	margin: 0 auto;
+}
+.vacancy-list{
+	width: 100%;
+	height: 100%;
+}
+
+/*空列表*/
+.hot_sale{
+	width: 7.5rem;
+	height: 1.02rem;
+	line-height: 1.02rem;
+	margin: 0 auto;
+	background: #fff;
+	font-size: .3rem;
+	color: #333333;
+    text-indent: .26rem;
+}
+.main_center{
+	width: 7.5rem;
+	height: 100%;
+	margin: 0 auto;
+	margin-top: .14rem;
+	overflow: hidden;
+}
+.main_center ul li{
+	width: 3.68rem;
+	height: 5.94rem;
+	float: left;
+	background: #fff;
+	margin-bottom: .14rem;
+}
+.main_center ul li:nth-child(even) {
+    float: right;
+}
+.surface_plot{
+	width: 3.68rem;
+	height: 3.68rem;
+	margin-bottom: .2rem;
+	display: block;
+}
+.surface_plots{
+	width: 3.68rem;
+	height: 3.68rem;
+	margin-bottom: .2rem;
+	display: block;
+}
+.list .title{
+	width: 3.3rem;
+	height: 0.74rem;
+	margin: 0 auto;
+	margin-bottom: .2rem;
+	display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    font-size: .26rem;
+	color: #333333;
+}
+.list .price{
+	width: 3.3rem;
+	margin: 0 auto;
+	margin-bottom: 0.1rem;
+	font-size: .3rem;
+	color: #F97215;
+}
+.referrer{
+	width: 3.3rem;
+	height: .4rem;
+	line-height: .4rem;
+	margin: 0 auto;
+	font-size: .24rem;
+	color: #999999;
+}
+.referrer img{
+	width: .4rem;
+	height: .4rem;
+	border-radius: 100px;
+	margin-right: 0.1rem;
+	vertical-align:middle;
+}
+.hidden_field{
+	width: 100%;
+	height: .98rem;
+}
+/*购物车空的状态结束*/
+
+/*点击分享提示开始*/
+.weixin_ceng {
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.weixin_ceng_bg {
+    width: 7.5rem;
+    height: 100%;
+    background: #000;
+    opacity: 0.5;
+    position: fixed;
+    left: 50%;
+    top: 0;
+    z-index: 999999999999999;
+    margin-left: -3.75rem;
+}
+.weixin_img {
+    position: fixed;
+    z-index: 99999999999;
+    top: 0rem;
+    left: 50%;
+    width: 7.5rem;
+    height: 100%;
+    margin-left: -3.75rem;
+}
+.weixin_img img {
+    position: absolute;
+    top: 0rem;
+    right: 0.26rem;
+    width: 3rem;
+    z-index: 99999999999;
+}
+/*点击分享提示结束*/

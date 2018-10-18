@@ -6,9 +6,11 @@
 		<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 		<link rel="stylesheet" href="/xcview/css/shop/shop-comment.css">
 		<!--提示-->
-		<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+		<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">		
 		<link rel="stylesheet" href="/xcview/css/mui.min.css">
 		<link rel="stylesheet" href="/xcview/css/mui.picker.min.css">
+		<!--分享-->
+		<link rel="stylesheet" href="/xcview/css/share/share.css">
 		<link rel="stylesheet" href="/xcview/css/shop/healthy-home.css">
 		<style>
 			.disabled{
@@ -32,16 +34,12 @@
 						<p>健康测评</p>
 					</div>
 					<div class="arror_return z">
-						<img src="/xcview/images/back icon.png" onclick="javascript:location.href='/xcview/html/home_page.html'" alt="返回">
+						<img src="/xcview/images/back icon.png" onclick="javascript:location.href='/xcview/html/home_page.html" alt="返回">
 					</div>
 					<div class="header_news">
-						<img src="/xcview/images/share_img.png" class="share share_class" alt="分享">
+						<img src="/xcview/images/share_img.png" alt="分享">
 					</div>
 				</div>
-			</div>
-			<div class="weixin_ceng" style="display: none;">
-				<div class="weixin_ceng_bg"></div>
-				<div class="weixin_img"><img src="/xcview/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
 			</div>
 			<div class="healthy-top">
 				<img class="left-icon z" src="/xcview/images/healthy-icon.png" alt="标题icon"/>
@@ -85,12 +83,62 @@
 				</div>
 			</div>
 		</div>
-		<!--开始测评-->
+		<!--开始测评-->	
 		<div class="star-test">
 			<button type="button" class="start">开始测评</button>
 		</div>
-		</div>
+			
 
+			
+			
+			
+			
+			
+			
+		</div>
+		
+		
+		<!--分享开始-->
+		<div class="share">
+			<div class="share_bg"></div>
+			<div class="share_main">
+				<div class="share_main_bg">
+					<ul>
+						<div class="share_to">分享到</div>
+						<li class="share_to_one" style="display: none;">
+							<div class="">
+								<img src="../images/ShareSDK.png">
+								<p>微信</p>
+							</div>
+						</li>
+						<li class="share_to_one" style="display: none;">
+							<div class="">
+								<img src="../images/Friends.png">
+								<p>朋友圈</p>
+							</div>
+						</li>
+						<li id="qqShare0">
+							<div class="" id="qqShare">
+								<img src="../images/Qzone_share.png">
+								<p>qq空间</p>
+							</div>
+						</li>
+						<li id="weiboShare">
+							<div class="" id="qqShare0">
+								<img src="../images/RSS_links.png">
+								<p>新浪微博</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="share_cancel">取消</div>
+			</div>
+		</div>
+		<div class="weixin_ceng" style="display: none;">
+			<div class="weixin_ceng_bg"></div>
+			<div class="weixin_img"><img src="/xcview/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
+		</div>
+		<!--分享结束-->
 		<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 		<script type="text/javascript" src="/xcview/js/common/mui.picker.min.js"></script>
@@ -99,18 +147,6 @@
 		<!--提示-->
 		<script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script> 
 		<script type="text/javascript" src="/xcview/js/shop/healthy-home.js"></script>
-		<script>
-
-            // 点击分享提示显示
-            $(".share_class").click(function(){
-                $(".weixin_ceng").show();
-            });
-            // 点击分享提示隐藏
-            $(".weixin_ceng").click(function(){
-                $(".weixin_ceng").hide();
-            });
-
-		</script>
 	</body>
 
 </html>

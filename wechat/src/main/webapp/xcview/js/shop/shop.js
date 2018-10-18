@@ -481,4 +481,12 @@ requestGetService("/xczh/shop/cart/quantity",null,function (data) {
     }
 });
 
+//点击购物车
+$(".shopping_carts").click(function(){
+	requestPostService("/xczh/myinfo/myFocus",null,function (data) {
+	    if (data.success == true) {
+	       	location.href ='/xcview/html/shop/shopping_trolley.html'
+	    }
+	});
+});
 

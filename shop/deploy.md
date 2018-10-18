@@ -29,4 +29,10 @@
 	
 	    
     ALTER TABLE `cartitem` ADD `isChecked` bit(1) COMMENT '条目是否被选中'  AFTER `sku_id`;
+    
+5、删除订单的记录表里面增加一个 下单时间字段
+
+    ALTER TABLE `orders_delete` ADD `createOrderDate` datetime  COMMENT '订单创建时间'  AFTER `expire`;	
+	
+    
 

@@ -48,5 +48,10 @@ public enum Status {
 	/**
 	 * 已拒绝
 	 */
-	DENIED
+	DENIED,
+	
+	/**
+	 * 已删除
+	 */
+	DELETE
 }

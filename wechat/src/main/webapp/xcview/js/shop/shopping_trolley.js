@@ -154,46 +154,14 @@ $(function () {
        updateChecked(arrayCartItems,$(this).prop("checked"));
     });
 
-    //计算
-    function TotalPrice() {
-        var allprice = 0; //总价
-        $(".shop-group-item").each(function () { //循环每个店铺
-            $(".check").click(function () {
-                if ($('.check').is(':checked')) {
-                    $(".exclude-freight").show();  //不含运费
-                    // $(".select").show();       //选择规格下拉隐藏
-                    // $(".selectbg").show();     //选择规格下拉添加的 背景层
-                } else {
-                    $(".exclude-freight").hide();  //不含运费
-                    // $(".select").hide();       //选择规格下拉隐藏
-                    // $(".selectbg").hide();     //选择规格下拉添加的 背景层
-                }
-            });
-
-            var oprice = 0; //店铺总价
-            $(this).find(".goodsCheck").each(function () { //循环店铺里面的商品
-                if ($(this).is(":checked")) { //如果该商品被选中
-                    var num = parseInt($(this).parents(".shop-info").find(".num").text()); //得到商品的数量
-                    var price = parseFloat($(this).parents(".shop-info").find(".price").text()); //得到商品的单价
-                    var total = price * num; //计算单个商品的总价
-                    oprice += total; //计算该店铺的总价
-                }
-                $(this).closest(".shop-group-item").find(".ShopTotal").text(oprice.toFixed(2)); //显示被选中商品的店铺总价
-            });
-            var oneprice = parseFloat($(this).find(".ShopTotal").text()); //得到每个店铺的总价
-            allprice += oneprice; //计算所有店铺的总价
-        });
-        $("#AllTotal").text(allprice.toFixed(2)); //输出全部总价
-    }
-
     // 点击加入购物车
     $('.add_cart').click(function () {
         $('.shopping_trolley').show();
     });
     // 点击详情背景色
-    $('.shopping_trolley_bg').click(function () {
+    /*$('.shopping_trolley_bg').click(function () {
         // $('.shopping_trolley').hide();
-    });
+    });*/
 
     // 点击加号
     $choiceProduct.on('click', '.increase', function (e) {
@@ -228,12 +196,25 @@ $(function () {
             // 点击数量加减
             $choiceProduct.find('.spinnerExample').spinner({});
             oldSkuId = sid;
+            
+            //选择空--无规格
+			if (data.resultObject.specificationItemvs == null) {
+				$(".specifications").hide();
+				$(".category").hide();
+			}
+		
         });
     });
 //	点击遮盖的div显示后的选择框的背景图
     $(".shopping_trolley_bg").click(function () {
         $(".shopping_trolley").hide();
     });
+    
+//  点击规格关闭按钮
+    $('.shopping_trolley_main').on('click', '.close', function (e) {
+        $(".shopping_trolley").hide();
+    });
+    
 
     $choiceProduct.on('click', '.include', function () {
         var index = $(this).data('index');
@@ -258,6 +239,8 @@ $(function () {
         $('.shop-total').show();
         $('.itemdelete').hide();
     });
+    
+    
 
     /**
      * 确认修改规格
@@ -335,6 +318,7 @@ $(function () {
     $('.message').on('click', function () {
         jqtoast('客服休息中,稍后报道~');
     })
+	
 });
 initCart();
 initRecommendProduct();
@@ -381,7 +365,7 @@ function choiceSku(skuId) {
 }
 
 function initCart() {
-    requestGetService("/xczh/shop/cart", null, function (data) {
+    requestGetService("/xczh/shop/cart",  {"t":new Date().getMilliseconds()}, function (data) {
         if (data.resultObject.storeCartItems.length < 1) {
             $(".compile").hide();  //编辑隐藏
             $(".finish").hide();   //完成
@@ -416,7 +400,9 @@ function initCart() {
                 obj[i].cartItems[0].sku.price=price;
             }
             $('#shop_cart_div').html(template('shop_cart_tmpl', data.resultObject));
-            $(".shop-names").html(data.resultObject.storeCartItems[0].name+"医师推荐");
+            //$(".shop-names").html(data.resultObject.storeCartItems[0].name+"医师推荐");
+            
+             TotalPrice();
         }
     });
 }
@@ -559,6 +545,37 @@ $('.countermand').click(function () {
     $('.removeitem').hide();
 });
 
+//计算
+    function TotalPrice() {
+        var allprice = 0; //总价
+        $(".shop-group-item").each(function () { //循环每个店铺
+            $(".check").click(function () {
+                if ($('.check').is(':checked')) {
+                    $(".exclude-freight").show();  //不含运费
+                    // $(".select").show();       //选择规格下拉隐藏
+                    // $(".selectbg").show();     //选择规格下拉添加的 背景层
+                } else {
+                    $(".exclude-freight").hide();  //不含运费
+                    // $(".select").hide();       //选择规格下拉隐藏
+                    // $(".selectbg").hide();     //选择规格下拉添加的 背景层
+                }
+            });
+
+            var oprice = 0; //店铺总价
+            $(this).find(".goodsCheck").each(function () { //循环店铺里面的商品
+                if ($(this).is(":checked")) { //如果该商品被选中
+                    var num = parseInt($(this).parents(".shop-info").find(".num").text()); //得到商品的数量
+                    var price = parseFloat($(this).parents(".shop-info").find(".price").text()); //得到商品的单价
+                    var total = price * num; //计算单个商品的总价
+                    oprice += total; //计算该店铺的总价
+                }
+                $(this).closest(".shop-group-item").find(".ShopTotal").text(oprice.toFixed(2)); //显示被选中商品的店铺总价
+            });
+            var oneprice = parseFloat($(this).find(".ShopTotal").text()); //得到每个店铺的总价
+            allprice += oneprice; //计算所有店铺的总价
+        });
+        $("#AllTotal").text(allprice.toFixed(2)); //输出全部总价
+    }
 
 
 

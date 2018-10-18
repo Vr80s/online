@@ -64,6 +64,9 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
     private CartItemService cartItemService;
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
+    
+    @Autowired
+    private CommonService commonService;
 
     @Override
     public CartVO getCart(String ipandatcmUserId) {
@@ -225,10 +228,15 @@ public class ShopCartServiceImpl extends BaseServiceImpl<Cart, Long> implements 
             }
         }
         for (Store store : storeMap.values()) {
+        	
             StoreCartItemVO storeCartItemVO = new StoreCartItemVO();
+            
+            Map<String, Object> doctorInfoByStore = commonService.getDoctorInfoByStore(store);
+            
+            //保存商铺参数
             storeCartItemVO.setId(store.getId());
-            storeCartItemVO.setName(store.getName());
-            storeCartItemVO.setLogo(store.getLogo());
+            storeCartItemVO.build(doctorInfoByStore);
+            
             Set<CartItemVO> cartItemVOS = new LinkedHashSet<>();
             for (CartItem cartItem : allStoreCartItemMap.get(store.getId())) {
                 cartItemVOS.add(cartItem.getCartItemVO());

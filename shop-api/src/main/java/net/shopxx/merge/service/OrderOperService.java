@@ -166,6 +166,6 @@ public interface OrderOperService {
 	 * @param orderType
 	 * @return  
 	 */ 
-	Object findPageXc1(OrderPageParams orderPageParams, Status status, ScoreVO store, String ipandatcmUserId,
+	Object findOrderDeleterPageXc(OrderPageParams orderPageParams, Status status, ScoreVO store, String ipandatcmUserId,
 			ProductVO product, UsersType usersType, OrderType orderType);
 }

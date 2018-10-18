@@ -2294,6 +2294,7 @@
 									<li data-status="SHIPPED">已发货</li>
 									<li data-status="COMPLETED">已完成</li>
 									<li data-status="DENIED">已关闭</li>
+									<li data-status="DELETE">已删除</li>
 									<!--<li>退款中</li>-->
 								</ul>
 							</div>
@@ -2382,6 +2383,10 @@
 															{{else if item.status==8}}
 															<div class="order-status-time z">										
 																<span>拒绝订单</span>
+															</div>
+															{{else if item.status==9}}
+															<div class="order-status-time z">										
+																<span>订单已删除</span>
 															</div>
 														{{/if}}
 														<!--实付金额-->

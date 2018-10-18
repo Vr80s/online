@@ -90,10 +90,11 @@ requestGetService("/xczh/shop/goods/details",{
         };
 
         // 评价
-//      if (obj.posts !=null) {
+//      if (obj.posts !=null) {  
         if (isNotBlank(obj.reviewvs)) {
             $(".evaluate").show();
             $(".evaluate_main").html(template('evaluate_main', {items: obj.reviewvs[0]}));
+            $(".evaluate_top .reviewvCount").html(data.resultObject.reviewvCount);
             $(".no_evaluation").hide();
         }else{
             $(".evaluate").show();

@@ -467,6 +467,11 @@ public class OrderDelete extends BaseEntity<Long> {
 	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@OrderBy("createdDate asc")
 	private Set<OrderLog> orderLogs = new HashSet<>();
+	
+	/**
+	 * 创建订单时间
+	 */
+	private Date createOrderDate;
 
 	/**
 	 * 获取编号
@@ -1451,6 +1456,15 @@ public class OrderDelete extends BaseEntity<Long> {
 
 	public void setDeleteDate(Date deleteDate) {
 		this.deleteDate = deleteDate;
+	}
+	
+
+	public Date getCreateOrderDate() {
+		return createOrderDate;
+	}
+
+	public void setCreateOrderDate(Date createOrderDate) {
+		this.createOrderDate = createOrderDate;
 	}
 
 	/**
