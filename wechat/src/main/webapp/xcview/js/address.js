@@ -69,7 +69,8 @@
         	if(types=='4'){
 	            window.history.go(-3);
 	        }else{
-	        	window.history.back();
+				//window.history.back();
+				location.replace(document.referrer); 
 	        }
         }else if(type=='3'){
             location.replace("/xcview/html/persons.html");

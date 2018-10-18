@@ -96,7 +96,7 @@ function getShareIdAndType(){
 		
 	// 商品详情分享	
 	}else if(viewHtml == "commodity_details.html" ||
-			viewHtml == "recommend.html" || viewHtml == "all_evaluation.html"){
+			viewHtml == "recommend.html" || viewHtml == "all_evaluation.html" || viewHtml == "expired_products.html"){
 		
 		obj.shareId = getQueryString("productId");
 		obj.shareType = 7;

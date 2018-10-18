@@ -39,6 +39,7 @@ import com.xczhihui.user.center.utils.UCCookieUtil;
 import com.xczhihui.user.center.vo.Token;
 
 import net.shopxx.merge.service.GoodsService;
+import net.shopxx.merge.vo.ProductVO;
 
 /**
  * 热门搜索控制器 ClassName: MobileRecommendController.java <br>
@@ -199,8 +200,18 @@ public class MobileShareController {
                     res.sendRedirect(returnOpenidUri + WechatShareLinkType.UNSHELVE.getLink());
                     return;
                 }
+            } else if (ShareType.PRODUCT_SHARE.getCode().equals(shareType)) {
+            	try {
+            		ProductVO productVO = (ProductVO) goodsService.findProductById(Long.valueOf(shareId));
+            		if(productVO!=null && (!productVO.getIsMarketable() || !productVO.getIsList())) {
+            			res.sendRedirect(returnOpenidUri + WechatShareLinkType.SHOP_UNSHELVE.getLink()+shareId);
+                        return;
+            		}
+				} catch (Exception e) {
+					e.printStackTrace();
+					res.sendRedirect(returnOpenidUri + WechatShareLinkType.SHOP_UNSHELVE.getLink()+shareId);
+				}
             }
-
             if (StringUtils.isNotBlank(wxOrbrower) && "wx".equals(wxOrbrower)) {
                 String strLinkHome = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WxPayConst.gzh_appid + "&redirect_uri=" + returnOpenidUri + "/xczh/share/viewUser?shareIdAndType=" + shareIdAndType + "&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid=" + WxPayConst.gzh_appid);
                 res.sendRedirect(strLinkHome);

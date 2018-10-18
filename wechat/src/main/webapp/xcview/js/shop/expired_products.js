@@ -1,10 +1,4 @@
-$shopCartDiv = $("#shop_cart_div");
-$choiceProduct = $("#choice_product");
-var oldSkuId;
-var updatedSkuId;
-var updatedSku;
-var skus = [];
-var storeCartItems =[];
+
 $(function () {
 
     $('.message').on('click', function () {
@@ -12,28 +6,7 @@ $(function () {
     })
 	
 });
-initCart();
 initRecommendProduct();
-
-function initCart() {
-    requestGetService("/xczh/shop/cart", null, function (data) {
-        if (data.resultObject.storeCartItems.length < 1) {
-            $(".payment-bar").hide();
-            $('.vacancy-main').show();
-        } else {
-        	
-        	storeCartItems = data.resultObject.storeCartItems;
-        	
-        	if(data.resultObject.isChecked){
-        		$("#AllCheck").attr("checked",'checked');
-        	}else{
-        		$("#AllCheck").removeAttr("checked");
-        	}
-            $('#shop_cart_div').html(template('shop_cart_tmpl', data.resultObject));
-            $(".shop-names").html(data.resultObject.storeCartItems[0].name+"医师推荐");
-        }
-    });
-}
 
 function initRecommendProduct() {
     requestGetService("/xczh/shop/goods/list", {
@@ -42,7 +15,7 @@ function initRecommendProduct() {
         'orderType': 'RECOMMEND_DESC'
     }, function (data) {
         if (data.success) {
-            $('#shop_recommend_product_ul').html(template('shop_recommend_product_tmpl', data));
+            $('#shop_recommend_product_ul').html(template('shop_recommend_product_tmpl',{resultObject: data.resultObject} ));
             $(".list li").click(function () {
                 var id = $(this).attr("data-id");
                 window.location.href = "/xcview/html/shop/commodity_details.html?productId=" + id + "";

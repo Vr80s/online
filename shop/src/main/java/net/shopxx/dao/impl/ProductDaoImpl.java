@@ -868,9 +868,9 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
     public ShareInfoVo findIdByShareInfo(Long productId) {
 
         String jpq = " SELECT p.id,p.name,p.productImages,p.introduction  FROM product AS p "
-        		+ " WHERE p.id =:categoryIds";
+        		+ " WHERE p.id =:productId";
         
-        Object singleResult = entityManager.createNativeQuery(jpq).setParameter("categoryIds", productId).getSingleResult();
+        Object singleResult = entityManager.createNativeQuery(jpq).setParameter("productId", productId).getSingleResult();
         if(singleResult!=null) {
         	Object[] cells = (Object[]) singleResult;
         	LOGGER.info(cells.toString());
