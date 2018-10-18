@@ -99,6 +99,8 @@ $('.determine').click(function () {
                 $('.shopping_quantity').html(cartItemNumber);
                 
                 jqtoast("已加入购物车");
+			}else{
+				jqtoast(data.errorMessage);
 			}
 		});
 	}else{
