@@ -172,6 +172,14 @@ $(".my_anchor").click(function () {
     location.href = "down_load.html"
 })
 
+//点击好货订单
+$(".information_click").click(function(){
+	requestPostService("/xczh/myinfo/myFocus",null,function (data) {
+	    if (data.success == true) {
+	       	location.href ='/xcview/html/shop/order_center.html'
+	    }
+	});
+});
 
 
 
