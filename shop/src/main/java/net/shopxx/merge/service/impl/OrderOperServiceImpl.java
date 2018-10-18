@@ -140,6 +140,8 @@ public class OrderOperServiceImpl implements OrderOperService {
 	@Inject
 	private PaymentTransactionService paymentTransactionService;
 
+	@Inject
+	private CommonService commonService;
 
 	@Override
 	@Transactional
@@ -294,6 +296,10 @@ public class OrderOperServiceImpl implements OrderOperService {
 			BeanUtils.copyProperties(order.getStore(),storeVO);
 			storeVO.setId(order.getStore().getId());
 			orderVO.setStore(storeVO);
+			
+			Map<String, Object> doctorInfo = commonService.getDoctorInfoByStore(order.getStore());
+			orderVO.setDoctor(doctorInfo);
+			
 			orderVOs.add(orderVO);
 		}
 		/*====数据处理结束====*/
