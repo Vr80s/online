@@ -134,3 +134,18 @@ body{
 .live-text-one .live-left-tip{
 	color: #333;
 }
+/*重新测试*/
+.reset-test {
+    margin: 1.2rem 0 1.2rem;
+    text-align: center;
+}
+.reset-test button{
+	    width: 80%;
+    padding: 0.2rem 0;
+    box-shadow: 0 0.06rem 0.08rem 0 rgba(0,0,0,0.50);
+    border-radius: 1rem;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    background: #5487C7;
+    color: white;
+}
