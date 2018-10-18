@@ -39,6 +39,7 @@ import com.xczhihui.user.center.utils.UCCookieUtil;
 import com.xczhihui.user.center.vo.Token;
 
 import net.shopxx.merge.service.GoodsService;
+import net.shopxx.merge.vo.ProductVO;
 
 /**
  * 热门搜索控制器 ClassName: MobileRecommendController.java <br>
@@ -91,7 +92,10 @@ public class MobileShareController {
 
         try {
         	ShareInfoVo sv = null;
-        	if(ShareType.PRODUCT_SHARE.getCode().equals(shareType)) {
+        	if(ShareType.HEALTHY_SHARE.getCode().equals(shareType)) {
+        		sv = new ShareInfoVo();
+                sv.setDescription("熊猫中医-健康测评  来看看你是什么体质吧~");
+        	}else if(ShareType.PRODUCT_SHARE.getCode().equals(shareType)) {
         		sv = goodsService.findIdByShareInfo(shareId);
         	}else {
         		sv = courseServiceImpl.selectShareInfoByType(shareType, shareId);
@@ -196,8 +200,18 @@ public class MobileShareController {
                     res.sendRedirect(returnOpenidUri + WechatShareLinkType.UNSHELVE.getLink());
                     return;
                 }
+            } else if (ShareType.PRODUCT_SHARE.getCode().equals(shareType)) {
+            	try {
+            		ProductVO productVO = (ProductVO) goodsService.findProductById(Long.valueOf(shareId));
+            		if(productVO!=null && (!productVO.getIsMarketable() || !productVO.getIsList())) {
+            			res.sendRedirect(returnOpenidUri + WechatShareLinkType.SHOP_UNSHELVE.getLink()+shareId);
+                        return;
+            		}
+				} catch (Exception e) {
+					e.printStackTrace();
+					res.sendRedirect(returnOpenidUri + WechatShareLinkType.SHOP_UNSHELVE.getLink()+shareId);
+				}
             }
-
             if (StringUtils.isNotBlank(wxOrbrower) && "wx".equals(wxOrbrower)) {
                 String strLinkHome = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WxPayConst.gzh_appid + "&redirect_uri=" + returnOpenidUri + "/xczh/share/viewUser?shareIdAndType=" + shareIdAndType + "&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid=" + WxPayConst.gzh_appid);
                 res.sendRedirect(strLinkHome);
@@ -300,6 +314,9 @@ public class MobileShareController {
             } else if (ShareType.PRODUCT_SHARE.getCode().equals(shareType)) {
             	
                 res.sendRedirect(returnOpenidUri + WechatShareLinkType.PRODUCT_DETAIL.getLink()+ shareId);
+            } else if (ShareType.HEALTHY_SHARE.getCode().equals(shareType)) {
+
+                res.sendRedirect(returnOpenidUri + WechatShareLinkType.HEALTHY.getLink()+ shareId);
             }
         } catch (Exception e) {
             e.printStackTrace();

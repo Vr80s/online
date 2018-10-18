@@ -96,10 +96,16 @@ function getShareIdAndType(){
 		
 	// 商品详情分享	
 	}else if(viewHtml == "commodity_details.html" ||
-			viewHtml == "recommend.html" || viewHtml == "all_evaluation.html"){
+			viewHtml == "recommend.html" || viewHtml == "all_evaluation.html" || viewHtml == "expired_products.html"){
 		
 		obj.shareId = getQueryString("productId");
 		obj.shareType = 7;
+	}else if(viewHtml == "healthy-home.html" ||
+			viewHtml == "healthy-answer.html" || viewHtml == "healthy-result.html"){
+
+		obj.shareId = getQueryString("id");
+		if(obj.shareId==null||obj.shareId=="null")obj.shareId=-1;
+		obj.shareType = 8;
 	}
 	
 }
