@@ -362,11 +362,12 @@ header{
 	margin-bottom: .2rem;
 }
 .evaluate_top span{
-	float: left;
+	
 }
 .evaluate_top .title{
 	font-size: .28rem;
 	color: #333333;
+	float: left;
 }
 .evaluate_view_all{
 	font-size: .26rem;
