@@ -83,7 +83,8 @@ function orderDetails() {
             //点击详情
             $(".product_details").click(function(){
                 var dataId = $(this).attr('data-id');
-                if(obj.orderItem.sku.product.isMarketable == ture){
+                var marketable = $(this).attr('data-marketable');
+                if(marketable == 1){
                 	location.href ='/xcview/html/shop/commodity_details.html?productId=' + dataId;
                 }else{
                 	location.href ='/xcview/html/shop/expired_products.html'
@@ -234,7 +235,7 @@ function againBuy(orderSn) {
                     isTrue =false;
                     jqtoast("商品已下架");
                     break;
-                } else if(!product.isactive){
+                } else if(!product.isActive){
                     isTrue =false;
                     jqtoast("商品已失效");
                     break;
