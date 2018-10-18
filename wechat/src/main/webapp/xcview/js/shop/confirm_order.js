@@ -1,4 +1,13 @@
+/*setInterval(function(){
+	alert(111);
+	createReceiverInfo(receiver);
+},1000);*/
+
+
+	    
 $(function() {
+	
+
     //计算
     var oprice = 0; //总价
     var opricePostage = 0 //合计
@@ -101,6 +110,28 @@ function createReceiverInfo(receiver){
     $(".areaName").html(receiver.areaName);
     $(".address").html(receiver.address);
 }
+
+
+function setReload(){
+//  window.location.reload();
+location.replace(document.referrer);
+}
+
+var u = navigator.userAgent, app = navigator.appVersion;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if (isAndroid) {
+
+}
+if (isIOS) {
+    setTimeout(function(){
+			
+			createReceiverInfo(receiver);	
+	},100);
+}
+
+
+
 
 function getOrderList(){
     var skuId = getParam("skuId");
@@ -208,3 +239,10 @@ function returns() {
 	history.back();
 }*/
 
+var goHistorys = function(url){
+    if(url != null){
+        location.href = url;
+    }else{
+        history.go(-2);
+    }
+}
