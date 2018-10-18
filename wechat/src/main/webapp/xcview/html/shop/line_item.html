@@ -123,7 +123,7 @@
 			{{/if}}
 			<div class="main_product_details">
 				{{each orderItems as orderItem }}
-				<div class="product_details"  data-id="{{orderItem.sku.product.id}}" onclick="location.href ='/xcview/html/shop/commodity_details.html?productId={{orderItem.sku.product.id}}'">
+				<div class="product_details"  data-id="{{orderItem.sku.product.id}}" data-marketable="{{orderItem.sku.product.marketableInt}}" >
 				<!--<div class="product_details"  data-id="{{orderItem.sku.product.id}}">-->
 					<img src="{{orderItem.thumbnail}}" alt="" class="surface_plot" />
 					<div class="product_details_center">

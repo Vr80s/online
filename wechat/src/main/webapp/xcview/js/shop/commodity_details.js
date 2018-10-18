@@ -19,6 +19,17 @@ $(function(){
 
 });
 
+// 点击分享提示显示
+$(".share").click(function(){
+	$(".weixin_ceng").show();
+});
+// 点击分享提示隐藏
+$(".weixin_ceng").click(function(){
+	$(".weixin_ceng").hide();
+});
+
+
+
 var productId = getQueryString("productId");
 var currentSku = null;
 var specificationsResutl  = [];

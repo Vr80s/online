@@ -326,9 +326,39 @@ function common_share_backs(url) {
 		
 		location.href = url;
 	}else{
-	
+		if(localStorage.getItem("wv") == null){
+	        var back = document.referrer;
+		   	var shareBack = getQueryString("shareBack");
+		   	/*alert(back);
+		   	alert(shareBack);
+		   	alert(111);*/
+		    if(isNotBlank(shareBack)){
+		        if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
+		            window.history.back();
+		        } else {
+		            window.location.href = "/xcview/html/physician/index.html";
+		        }
+		    }else{
+		        window.history.back();
+		    }
+	    }else{
+//	    	alert(location.href);
+	    	var back = document.referrer;
+		   	var shareBack = getQueryString("shareBack");
+		   	/*alert(back);
+		   	alert(shareBack);*/
+		    if(isNotBlank(shareBack)){
+		        if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
+		            window.history.back();
+		        } else {
+		            window.location.href = "/xcview/html/physician/index.html";
+		        }
+		    }else{
+		        window.history.back();
+		    }
+	    }
 		
-		var back = document.referrer;
+		/*var back = document.referrer;
 	   	var shareBack = getQueryString("shareBack");
 	   	
 	    if(isNotBlank(shareBack)){
@@ -339,7 +369,7 @@ function common_share_backs(url) {
 	        }
 	    }else{
 	        window.history.back();
-	    }
+	    }*/
 	}
 }
 

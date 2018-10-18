@@ -177,6 +177,8 @@ public class ProductVO implements Serializable {
     
     //评论总数
     private Long reviewvCount;
+
+    private Integer marketableInt;
     
 
     public Long getId() {
@@ -213,6 +215,14 @@ public class ProductVO implements Serializable {
 
     public String getAttributevalue0() {
         return attributevalue0;
+    }
+
+    public Integer getMarketableInt() {
+        return marketableInt;
+    }
+
+    public void setMarketableInt(Integer marketableInt) {
+        this.marketableInt = marketableInt;
     }
 
     public void setAttributevalue0(String attributevalue0) {

@@ -2,6 +2,9 @@
 	width: 7.5rem;
 	height: 0.88rem;
     border-bottom: 1px solid rgb(240, 240, 240);
+    position: fixed;
+    top: 0;
+    z-index: 1;
 }
 .header{
 	width: 7.5rem;
@@ -55,6 +58,7 @@
 	padding: 0.2rem 0.25rem;
 	overflow: hidden;
 	background: white;
+	margin-top: .88rem;
 }
 .ware-main .ware-img{
 	width: 1.2rem;

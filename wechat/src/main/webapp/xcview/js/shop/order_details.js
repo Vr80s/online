@@ -81,15 +81,15 @@ function orderDetails() {
             }
             
             //点击详情
-            /*$(".product_details").click(function(){
-            	alert(111);
+            $(".product_details").click(function(){
                 var dataId = $(this).attr('data-id');
-                if(obj.orderItem.sku.product.ismarketable == ture){
+                var marketable = $(this).attr('data-marketable');
+                if(marketable == 1){
                 	location.href ='/xcview/html/shop/commodity_details.html?productId=' + dataId;
                 }else{
                 	location.href ='/xcview/html/shop/expired_products.html'
                 }
-            });*/
+            });
             
             
             $(".orderDetails").html(template('order_details',obj));
@@ -231,11 +231,11 @@ function againBuy(orderSn) {
             for(var i=0;i<orderItems.length;i++){
                 var skuId = orderItems[i].sku.id;
                 var product = orderItems[i].sku.product;
-                if(!product.ismarketable){
+                if(!product.isMarketable){
                     isTrue =false;
                     jqtoast("商品已下架");
                     break;
-                } else if(!product.isactive){
+                } else if(!product.isActive){
                     isTrue =false;
                     jqtoast("商品已失效");
                     break;
