@@ -21,6 +21,13 @@ $(function () {
             }
         }
     }
+ //	分享显示和隐藏
+	$(".header_news img").click(function(){
+		$(".weixin_ceng").show();
+	});
+	$(".weixin_ceng").click(function(){
+		$(".weixin_ceng").hide();
+	});
 });
 
 function createProposals(result) {
