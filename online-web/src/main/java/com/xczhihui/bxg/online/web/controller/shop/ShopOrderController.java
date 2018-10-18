@@ -53,8 +53,15 @@ public class ShopOrderController {
     	LOGGER.info("orderPageParams : "+ orderPageParams.toString());
     	LOGGER.info("status : "+ status);
     	
-        return ResponseObject.newSuccessResponseObject(orderOperService.findPageXc(orderPageParams, status, null,
-        		loginUser.getId(),null, UsersType.BUSINESS,orderType));
+    	//查询已删除订单
+    	if(Status.DELETE.equals(status)) {
+    	 return ResponseObject.newSuccessResponseObject(orderOperService.findOrderDeleterPageXc(orderPageParams, null, null,
+              		loginUser.getId(),null, UsersType.BUSINESS,orderType));
+    	}else {
+            return ResponseObject.newSuccessResponseObject(orderOperService.findPageXc(orderPageParams, status, null,
+            		loginUser.getId(),null, UsersType.BUSINESS,orderType));
+    	}
+
     }
 
     @RequestMapping(value = "/detail/url/{id}")
