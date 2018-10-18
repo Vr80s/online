@@ -42,6 +42,10 @@ function completeCourseList(pageNumber,pageSize,downOrUp) {
         }else{
             alert(data.errorMessage);
         }
+        
+        mui("#refreshContainer").on('tap','.onclick_healthy',function(){
+                location.href ='/xcview/html/shop/healthy-home.html'
+        });
 
         mui("#refreshContainer").on('tap','.onclick_li',function(){
                 location.href ='/xcview/html/down_load.html'
