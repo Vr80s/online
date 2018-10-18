@@ -28,6 +28,10 @@ $(function () {
 	$(".weixin_ceng").click(function(){
 		$(".weixin_ceng").hide();
 	});
+	$(".restart").click(function () {
+        localStorage.removeItem("healthy.result");
+        location.href="./healthy-home.html";
+    });
 });
 // function handelMedicalConstitutionProposals(result){
 //     for(var j=0;j<result.medicalConstitutionProposals.length;j++){
