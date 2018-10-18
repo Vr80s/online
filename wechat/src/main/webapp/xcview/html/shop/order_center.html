@@ -180,7 +180,7 @@
 				{{else if item.status == 'CANCELED'}}
 				<div class="payment_operation">关闭交易</div>
 				{{else if item.status == 'DENIED'}}
-				<div class="payment_operation">关闭交易</div>
+				<div class="payment_operation">卖家已拒绝</div>
 				{{/if}}
 			</div>
 			<div class="main_product_details" data-sn="{{item.sn}}">
@@ -242,7 +242,7 @@
 					<div class="win_check_logistics" onclick='getTransitSteps("{{item.sn}}","{{item.id}}")' style="border: 1px solid #DEDEDE;color: #333333;">查看物流</div>
 
 					<!-- 交易关闭 -->
-					{{else if item.status == 'CANCELED' || item.status == 'FAILED' || item.status == 'DENIED'}}
+					{{else if item.status == 'CANCELED' || item.status == 'FAILED'}}
 					
 					<div class="fack_shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
 					<div class="delete_order" data-id="{{item.id}}" style="border: 1px solid #DEDEDE;color: #333333;">删除订单</div>
