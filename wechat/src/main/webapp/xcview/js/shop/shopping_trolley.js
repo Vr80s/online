@@ -397,7 +397,7 @@ function choiceSku(skuId) {
 }
 
 function initCart() {
-    requestGetService("/xczh/shop/cart", null, function (data) {
+    requestGetService("/xczh/shop/cart",  {"t":new Date().getMilliseconds()}, function (data) {
         if (data.resultObject.storeCartItems.length < 1) {
             $(".compile").hide();  //编辑隐藏
             $(".finish").hide();   //完成
@@ -433,6 +433,8 @@ function initCart() {
             }
             $('#shop_cart_div').html(template('shop_cart_tmpl', data.resultObject));
             $(".shop-names").html(data.resultObject.storeCartItems[0].name+"医师推荐");
+            
+             TotalPrice();
         }
     });
 }
