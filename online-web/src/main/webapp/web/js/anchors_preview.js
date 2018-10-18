@@ -67,6 +67,10 @@ $(function(){
 			}else{
 				$(".ware-detail-img").html(obj.introduction);				
 			}
+//		是否上下架
+			if(obj.isMarketable==false){	
+				$(".lower-frame").removeClass("hide");
+			}
      	} else{
      		showTip("errorMessage")
      	}
