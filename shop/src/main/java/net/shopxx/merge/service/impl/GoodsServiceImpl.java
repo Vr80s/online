@@ -139,15 +139,12 @@ public class GoodsServiceImpl implements GoodsService {
         if (product == null) {
             throw new RuntimeException("商品找不到。productId："+productId);
         }
-
         
         ProductVO pv = new ProductVO();
 
         org.springframework.beans.BeanUtils.copyProperties(product, pv);
 
         pv.setId(product.getId());
-
-        pv.setIsmarketable(product.getIsMarketable());
 
         String doctorId = product.getStore().getBusiness().getDoctorId();
         

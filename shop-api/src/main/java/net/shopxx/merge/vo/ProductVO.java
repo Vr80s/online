@@ -70,15 +70,15 @@ public class ProductVO implements Serializable {
 
     private Long hits;
 
-    private Boolean isactive;
+    private Boolean isActive;
 
-    private Boolean isdelivery;
+    private Boolean isDelivery;
 
-    private Boolean islist;
+    private Boolean isList;
 
-    private Boolean ismarketable;
+    private Boolean isMarketable;
 
-    private Boolean istop;
+    private Boolean isTop;
 
     private String keyword;
 
@@ -395,47 +395,47 @@ public class ProductVO implements Serializable {
         this.hits = hits;
     }
 
-    public Boolean getIsactive() {
-        return isactive;
-    }
+    public Boolean getIsActive() {
+		return isActive;
+	}
 
-    public void setIsactive(Boolean isactive) {
-        this.isactive = isactive;
-    }
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
 
-    public Boolean getIsdelivery() {
-        return isdelivery;
-    }
+	public Boolean getIsDelivery() {
+		return isDelivery;
+	}
 
-    public void setIsdelivery(Boolean isdelivery) {
-        this.isdelivery = isdelivery;
-    }
+	public void setIsDelivery(Boolean isDelivery) {
+		this.isDelivery = isDelivery;
+	}
 
-    public Boolean getIslist() {
-        return islist;
-    }
+	public Boolean getIsList() {
+		return isList;
+	}
 
-    public void setIslist(Boolean islist) {
-        this.islist = islist;
-    }
+	public void setIsList(Boolean isList) {
+		this.isList = isList;
+	}
 
-    public Boolean getIsmarketable() {
-        return ismarketable;
-    }
+	public Boolean getIsMarketable() {
+		return isMarketable;
+	}
 
-    public void setIsmarketable(Boolean ismarketable) {
-        this.ismarketable = ismarketable;
-    }
+	public void setIsMarketable(Boolean isMarketable) {
+		this.isMarketable = isMarketable;
+	}
 
-    public Boolean getIstop() {
-        return istop;
-    }
+	public Boolean getIsTop() {
+		return isTop;
+	}
 
-    public void setIstop(Boolean istop) {
-        this.istop = istop;
-    }
+	public void setIsTop(Boolean isTop) {
+		this.isTop = isTop;
+	}
 
-    public String getKeyword() {
+	public String getKeyword() {
         return keyword;
     }
 
