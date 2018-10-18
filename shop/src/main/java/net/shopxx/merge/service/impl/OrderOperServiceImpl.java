@@ -140,6 +140,8 @@ public class OrderOperServiceImpl implements OrderOperService {
 	@Inject
 	private PaymentTransactionService paymentTransactionService;
 
+	@Inject
+	private CommonService commonService;
 
 	@Override
 	@Transactional
@@ -294,6 +296,10 @@ public class OrderOperServiceImpl implements OrderOperService {
 			BeanUtils.copyProperties(order.getStore(),storeVO);
 			storeVO.setId(order.getStore().getId());
 			orderVO.setStore(storeVO);
+			
+			Map<String, Object> doctorInfo = commonService.getDoctorInfoByStore(order.getStore());
+			orderVO.setDoctor(doctorInfo);
+			
 			orderVOs.add(orderVO);
 		}
 		/*====数据处理结束====*/
@@ -496,9 +502,9 @@ public class OrderOperServiceImpl implements OrderOperService {
 					
 					BeanUtils.copyProperties(orderItem.getSku(),sku);
 					productvo.setId(orderItem.getSku().getProduct().getId());
-					productvo.setIsmarketable(orderItem.getSku().getProduct().getIsMarketable());
+					productvo.setIsMarketable(orderItem.getSku().getProduct().getIsMarketable());
 					productvo.setIsOutOfStock(orderItem.getSku().getProduct().getIsOutOfStock());
-					productvo.setIsactive(orderItem.getSku().getProduct().getIsActive());
+					productvo.setIsActive(orderItem.getSku().getProduct().getIsActive());
 					sku.setId(orderItem.getSku().getId());
 					orderItemVO.setSku(sku);
 					orderItemVO.getSku().setProduct(productvo);
@@ -560,8 +566,13 @@ public class OrderOperServiceImpl implements OrderOperService {
 					}
 					BeanUtils.copyProperties(orderItem.getSku(),sku);
 					product.setId(orderItem.getSku().getProduct().getId());
-					product.setIsmarketable(orderItem.getSku().getProduct().getIsMarketable());
-					product.setIsactive(orderItem.getSku().getProduct().getIsActive());
+					product.setIsMarketable(orderItem.getSku().getProduct().getIsMarketable());
+					if(orderItem.getSku().getProduct().getIsMarketable()){
+						product.setMarketableInt(1);
+					} else {
+						product.setMarketableInt(0);
+					}
+					product.setIsActive(orderItem.getSku().getProduct().getIsActive());
 					product.setIsOutOfStock(orderItem.getSku().getProduct().getIsOutOfStock());
 					sku.setId(orderItem.getSku().getId());
 				}

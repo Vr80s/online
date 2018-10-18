@@ -94,7 +94,18 @@
 <script type="text/javascript">
 	window.onload = function(){
 		$(".header .return").click(function(){
-			history.back();   //可以就是没有刷新数据
+			var back = document.referrer;
+		    var shareBack = getQueryString("shareBack");
+		    if(isNotBlank(shareBack)){
+		        if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
+		            window.history.back();
+		        } else {
+		            window.location.href = "/xcview/html/shop/shop.html";
+		        }
+		    }else{
+		        window.history.back();
+		    }
+			
 		});
 	};
 </script>
