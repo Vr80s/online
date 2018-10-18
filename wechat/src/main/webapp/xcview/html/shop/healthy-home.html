@@ -32,12 +32,16 @@
 						<p>健康测评</p>
 					</div>
 					<div class="arror_return z">
-						<img src="/xcview/images/back icon.png" onclick="javascript:location.href='/xcview/html/home_page.html" alt="返回">
+						<img src="/xcview/images/back icon.png" onclick="javascript:location.href='/xcview/html/home_page.html'" alt="返回">
 					</div>
 					<div class="header_news">
-						<img src="/xcview/images/share_img.png" alt="分享">
+						<img src="/xcview/images/share_img.png" class="share share_class" alt="分享">
 					</div>
 				</div>
+			</div>
+			<div class="weixin_ceng" style="display: none;">
+				<div class="weixin_ceng_bg"></div>
+				<div class="weixin_img"><img src="/xcview/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
 			</div>
 			<div class="healthy-top">
 				<img class="left-icon z" src="/xcview/images/healthy-icon.png" alt="标题icon"/>
@@ -81,20 +85,12 @@
 				</div>
 			</div>
 		</div>
-		<!--开始测评-->	
+		<!--开始测评-->
 		<div class="star-test">
 			<button type="button" class="start">开始测评</button>
 		</div>
-			
-
-			
-			
-			
-			
-			
-			
 		</div>
-		
+
 		<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 		<script type="text/javascript" src="/xcview/js/common/mui.picker.min.js"></script>
@@ -103,6 +99,18 @@
 		<!--提示-->
 		<script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script> 
 		<script type="text/javascript" src="/xcview/js/shop/healthy-home.js"></script>
+		<script>
+
+            // 点击分享提示显示
+            $(".share_class").click(function(){
+                $(".weixin_ceng").show();
+            });
+            // 点击分享提示隐藏
+            $(".weixin_ceng").click(function(){
+                $(".weixin_ceng").hide();
+            });
+
+		</script>
 	</body>
 
 </html>

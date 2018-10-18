@@ -47,8 +47,9 @@ public enum WechatShareLinkType {
     //ACTICLE_SHARE("/xcview/html/physician/article.html?shareBack=1&articleId=", "文章"),
     MEDICAL_CASES("/xcview/html/physician/consilia.html?shareBack=1&consiliaId=", "医案"),
 
-	PRODUCT_DETAIL("/xcview/html/shop/commodity_details.html?shareBack=1&productId=", "商品详情");
-	
+	PRODUCT_DETAIL("/xcview/html/shop/commodity_details.html?shareBack=1&productId=", "商品详情"),
+    HEALTHY("/xcview/html/shop/healthy-home.html?id=", "健康评测");
+
     /**
      * 描述
      **/
