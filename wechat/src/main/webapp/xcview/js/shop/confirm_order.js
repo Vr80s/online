@@ -161,8 +161,8 @@ function creatOrderList(orders,price,freight){
     for(var i=0;i<orders.length;i++){
         str += '<div class="indent_list">' +
             '<div class="tilte">' +
-            '<img src="'+ orders[i].store.logo +'" alt="" class="head_portrait" />' +
-            '<span>'+orders[i].store.name +'</span>'+
+            '<img src="'+ orders[i].doctor.avatar +'" alt="" class="head_portrait" />' +
+            '<span>'+orders[i].doctor.name +'</span>'+
             '</div>' +
             '<div class="main_product_details">';
         for(var j=0; j < orders[i].orderItems.length; j++){
