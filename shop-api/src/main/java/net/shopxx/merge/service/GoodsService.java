@@ -76,4 +76,5 @@ public interface GoodsService {
 	 * @param id  
 	 */ 
 	void modifyAddDoctorRecommends(Long id);
+
 }

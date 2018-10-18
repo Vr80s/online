@@ -55,7 +55,7 @@ public class ShopOrderController {
     	
     	//查询已删除订单
     	if(Status.DELETE.equals(status)) {
-    	 return ResponseObject.newSuccessResponseObject(orderOperService.findOrderDeleterPageXc(orderPageParams, null, null,
+    	    return ResponseObject.newSuccessResponseObject(orderOperService.findOrderDeleterPageXc(orderPageParams, null, null,
               		loginUser.getId(),null, UsersType.BUSINESS,orderType));
     	}else {
             return ResponseObject.newSuccessResponseObject(orderOperService.findPageXc(orderPageParams, status, null,

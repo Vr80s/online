@@ -1,6 +1,7 @@
 package net.shopxx.merge.vo;
 
 import java.io.Serializable;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -19,6 +20,8 @@ public class StoreCartItemVO implements Serializable {
     private Set<CartItemVO> cartItems;
     
     private Boolean isChecked;
+    
+    private String  doctorId;
 
     @Override
     public String toString() {
@@ -73,6 +76,32 @@ public class StoreCartItemVO implements Serializable {
 
 	public void setIsChecked(Boolean isChecked) {
 		this.isChecked = isChecked;
+	}
+
+
+
+	public String getDoctorId() {
+		return doctorId;
+	}
+
+	public void setDoctorId(String doctorId) {
+		this.doctorId = doctorId;
+	}
+
+
+
+	/**  
+	 * <p>Title: build</p>  
+	 * <p>Description: </p>  
+	 * @param doctorInfoByStore  
+	 */ 
+	public void build(Map<String, Object> doctorInfoByStore) {
+
+		if(doctorInfoByStore!=null) {
+		    this.setLogo(doctorInfoByStore.get("avatar")!=null ? doctorInfoByStore.get("avatar").toString() : null);
+		    this.setName(doctorInfoByStore.get("name")!=null ? doctorInfoByStore.get("name").toString() : null);
+		    this.setDoctorId(doctorInfoByStore.get("id")!=null ? doctorInfoByStore.get("id").toString() : null);
+		}
 	}
     
 }
