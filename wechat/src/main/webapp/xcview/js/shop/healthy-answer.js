@@ -1,4 +1,7 @@
 $(function () {
+    if(sex==null||birthday==null){
+        location.href = "./healthy-home.html";
+    }
     requestGetService("/xczh/constitution/questionBank",null,function(data){
         handleQuestionList(data.resultObject);
         $(".select1").show();

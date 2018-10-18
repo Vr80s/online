@@ -248,6 +248,17 @@ body{
 	width: 100% !important;
 	display: block;
 }
+/*是否下架*/
+.lower-frame{
+	position: fixed;
+	width: 375px;
+	height: 46px;
+	bottom: 46px;
+	background: #6f6f6f;
+	color: white;
+	text-align: center;
+	line-height: 46px;
+}
 .bottom{
 	width: 100%;
 	height: 46px;
