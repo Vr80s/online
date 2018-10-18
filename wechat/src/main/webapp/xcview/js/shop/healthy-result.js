@@ -97,7 +97,7 @@ function createProposals(result) {
 
     for(var i=0;i<result.medicalConstitutionRecipes.length;i++){
         if(result.medicalConstitutionRecipes[i]==null)continue;
-        var p3 = '<b>'+result.medicalConstitutionRecipes[i].name+'</b>'+
+        var p3 = '<p style="color:#000;">'+result.medicalConstitutionRecipes[i].name+'</p>'+
             '<p class="live-text-one">' +
             '<span class="live-left-tip">原料：</span>'+result.medicalConstitutionRecipes[i].material +
             '</p>' +
