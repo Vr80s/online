@@ -15,7 +15,7 @@ import net.shopxx.entity.FriendLink;
 /**
  * Service - 友情链接
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface FriendLinkService extends BaseService<FriendLink, Long> {

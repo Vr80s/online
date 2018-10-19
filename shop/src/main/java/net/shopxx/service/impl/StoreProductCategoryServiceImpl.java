@@ -29,7 +29,7 @@ import net.shopxx.service.StoreService;
 /**
  * Service - 店铺商品分类
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

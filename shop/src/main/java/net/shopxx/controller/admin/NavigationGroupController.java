@@ -23,7 +23,7 @@ import net.shopxx.service.NavigationGroupService;
 /**
  * Controller - 导航组
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminNavigationGroupController")

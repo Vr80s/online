@@ -20,7 +20,7 @@ import net.shopxx.service.MessageConfigService;
 /**
  * Service - 消息配置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

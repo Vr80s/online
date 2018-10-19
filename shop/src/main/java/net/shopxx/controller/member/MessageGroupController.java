@@ -32,7 +32,7 @@ import net.shopxx.service.MessageGroupService;
 /**
  * Controller - 会员中心 - 消息组
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("memberMessageGroupController")

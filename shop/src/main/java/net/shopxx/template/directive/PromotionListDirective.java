@@ -29,7 +29,7 @@ import net.shopxx.util.FreeMarkerUtils;
 /**
  * 模板指令 - 促销列表
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component

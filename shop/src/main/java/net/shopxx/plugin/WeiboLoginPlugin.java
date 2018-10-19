@@ -28,7 +28,7 @@ import net.shopxx.util.WebUtils;
 /**
  * Plugin - 新浪微博登录
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component("weiboLoginPlugin")

@@ -16,7 +16,7 @@ import net.shopxx.entity.MessageConfig;
 /**
  * Dao - 消息配置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

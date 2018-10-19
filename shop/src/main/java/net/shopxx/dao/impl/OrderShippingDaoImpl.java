@@ -17,7 +17,7 @@ import net.shopxx.entity.OrderShipping;
 /**
  * Dao - 订单发货
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

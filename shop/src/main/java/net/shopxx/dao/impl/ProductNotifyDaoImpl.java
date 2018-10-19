@@ -26,7 +26,7 @@ import net.shopxx.entity.Store;
 /**
  * Dao - 到货通知
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

@@ -9,7 +9,7 @@ package net.shopxx;
 /**
  * 公共参数
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public final class CommonAttributes {

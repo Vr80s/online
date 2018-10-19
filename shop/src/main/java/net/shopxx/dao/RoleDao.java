@@ -11,7 +11,7 @@ import net.shopxx.entity.Role;
 /**
  * Dao - 角色
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface RoleDao extends BaseDao<Role, Long> {

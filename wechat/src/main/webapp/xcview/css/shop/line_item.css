@@ -312,6 +312,9 @@ header{
 	font-size: .28rem;
 	color: #F97215;
 }
+.price_yuan .yuan span{
+	font-family: "Helvetica";
+}
 .price_yuan .number{
 	font-size: .28rem;
 	color: #333333;
@@ -346,6 +349,9 @@ header{
 .payment_details .fund_title{
 	float: left;
 }
+.payment_details .fund_title .yuan span{
+	font-family: "Helvetica";
+}
 .payment_details .yuan{
 	font-size: .26rem;
 	color: #333333;
@@ -357,6 +363,7 @@ header{
 	color: #F97215;
 	text-align: right;
 	float: right;
+	font-family: "Helvetica";
 }
 .notescontact{
 	width: 7.5rem;

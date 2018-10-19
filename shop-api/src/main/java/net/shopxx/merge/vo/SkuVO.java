@@ -15,7 +15,7 @@ import lombok.Data;
 /**
  * Entity - SKU
  *
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Data

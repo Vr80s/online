@@ -27,7 +27,7 @@ import net.shopxx.service.ProductCategoryService;
 /**
  * Service - 商品分类
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

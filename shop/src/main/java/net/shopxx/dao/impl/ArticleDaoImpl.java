@@ -31,7 +31,7 @@ import net.shopxx.entity.ArticleTag;
 /**
  * Dao - 文章
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

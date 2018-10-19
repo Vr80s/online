@@ -15,7 +15,7 @@ import net.shopxx.entity.User;
 /**
  * Service - 消息
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface MessageService extends BaseService<Message, Long> {

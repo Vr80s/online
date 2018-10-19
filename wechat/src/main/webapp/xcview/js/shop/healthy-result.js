@@ -29,7 +29,7 @@ $(function () {
 		$(".weixin_ceng").hide();
 	});
 	$(".restart").click(function () {
-        localStorage.removeItem("healthy.result");
+        // localStorage.removeItem("healthy.result");
         location.href="./healthy-home.html";
     });
 });

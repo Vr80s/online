@@ -98,7 +98,7 @@
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <title>检查安装环境</title>
-<meta name="author" content="SHOP++ Team" />
+<meta name="author" content="ixincheng" />
 <meta name="copyright" content="SHOP++" />
 <link href="css/install.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/jquery.js"></script>

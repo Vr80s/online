@@ -28,7 +28,7 @@ import net.shopxx.service.PluginService;
 /**
  * Service - 插件
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

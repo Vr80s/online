@@ -17,7 +17,7 @@ import net.shopxx.service.OrderService;
 /**
  * Job - 订单
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Lazy(false)

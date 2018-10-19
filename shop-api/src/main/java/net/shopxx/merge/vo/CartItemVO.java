@@ -13,7 +13,7 @@ import lombok.Data;
 /**
  * Entity - 购物车项
  *
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Data

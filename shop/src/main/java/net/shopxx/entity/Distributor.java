@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Entity - 分销员
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

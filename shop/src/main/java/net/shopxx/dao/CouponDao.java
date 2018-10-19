@@ -17,7 +17,7 @@ import net.shopxx.entity.Store;
 /**
  * Dao - 优惠券
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface CouponDao extends BaseDao<Coupon, Long> {

@@ -18,7 +18,7 @@ import net.shopxx.service.ProductCategoryService;
 /**
  * Controller - 商品分类
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("shopProductCategoryController")

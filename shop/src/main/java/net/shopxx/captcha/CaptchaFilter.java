@@ -27,7 +27,7 @@ import net.shopxx.util.WebUtils;
 /**
  * Captcha - 验证码过滤器
  *
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class CaptchaFilter extends OncePerRequestFilter {

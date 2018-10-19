@@ -36,7 +36,7 @@ import java.util.List;
 /**
  * Service - 购物车
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

@@ -16,7 +16,7 @@ import net.shopxx.entity.Receiver;
 /**
  * Service - 收货地址
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface ReceiverService extends BaseService<Receiver, Long> {

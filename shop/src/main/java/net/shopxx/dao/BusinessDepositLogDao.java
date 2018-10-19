@@ -17,7 +17,7 @@ import net.shopxx.entity.BusinessDepositLog;
 /**
  * Dao - 商家预存款记录
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface BusinessDepositLogDao extends BaseDao<BusinessDepositLog, Long> {

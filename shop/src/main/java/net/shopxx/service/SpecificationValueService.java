@@ -14,7 +14,7 @@ import net.shopxx.entity.SpecificationValue;
 /**
  * Service - 规格值
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface SpecificationValueService {

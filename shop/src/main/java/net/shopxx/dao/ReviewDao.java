@@ -20,7 +20,7 @@ import net.shopxx.entity.Store;
 /**
  * Dao - 评论
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface ReviewDao extends BaseDao<Review, Long> {

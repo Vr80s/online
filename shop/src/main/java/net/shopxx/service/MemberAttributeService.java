@@ -15,7 +15,7 @@ import net.shopxx.entity.MemberAttribute;
 /**
  * Service - 会员注册项
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface MemberAttributeService extends BaseService<MemberAttribute, Long> {

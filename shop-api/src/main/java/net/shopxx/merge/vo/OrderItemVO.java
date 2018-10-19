@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Entity - 订单项
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Data

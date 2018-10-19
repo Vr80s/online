@@ -27,7 +27,7 @@ import net.shopxx.BaseAttributeConverter;
 /**
  * Entity - 角色
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity
@@ -173,7 +173,7 @@ public class Role extends BaseEntity<Long> {
 	/**
 	 * 类型转换 - 权限
 	 * 
-	 * @author SHOP++ Team
+	 * @author ixincheng
 	 * @version 6.1
 	 */
 	@Converter

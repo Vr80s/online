@@ -11,7 +11,7 @@ import net.shopxx.entity.OrderLog;
 /**
  * Service - 订单记录
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface OrderLogService extends BaseService<OrderLog, Long> {

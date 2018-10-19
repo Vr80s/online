@@ -30,7 +30,7 @@ import net.shopxx.service.SpecificationService;
 /**
  * Controller - 规格
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminSpecificationController")

@@ -24,7 +24,7 @@ import net.shopxx.service.RoleService;
 /**
  * Controller - 角色
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminRoleController")

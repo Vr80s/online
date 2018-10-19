@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Entity - 售后设置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

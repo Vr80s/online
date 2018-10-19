@@ -16,7 +16,7 @@ import net.shopxx.service.AdService;
 /**
  * Service - 广告
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

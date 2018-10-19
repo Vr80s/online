@@ -18,7 +18,7 @@ import net.shopxx.service.PluginService;
 /**
  * Controller - 支付插件
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminPaymentPluginController")

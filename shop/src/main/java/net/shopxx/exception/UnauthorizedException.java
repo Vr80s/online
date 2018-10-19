@@ -9,7 +9,7 @@ package net.shopxx.exception;
 /**
  * Exception - 无此访问权限
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class UnauthorizedException extends RuntimeException {

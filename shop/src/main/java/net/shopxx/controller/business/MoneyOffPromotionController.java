@@ -31,7 +31,7 @@ import net.shopxx.service.PromotionService;
 /**
  * Controller - 满减折扣促销
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("businessMoneyOffPromotionController")

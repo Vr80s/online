@@ -20,7 +20,7 @@ import net.shopxx.entity.BaseEntity;
 /**
  * Dao - 基类
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface BaseDao<T extends BaseEntity<ID>, ID extends Serializable> {

@@ -31,7 +31,7 @@ import net.shopxx.service.CouponService;
 /**
  * Controller - 优惠码
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("memberCouponCodeController")

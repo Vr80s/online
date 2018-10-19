@@ -30,7 +30,7 @@ import net.shopxx.service.ProductFavoriteService;
 /**
  * Service - 商品收藏
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

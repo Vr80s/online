@@ -26,7 +26,7 @@ import net.shopxx.entity.Member;
 /**
  * Dao - 优惠码
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

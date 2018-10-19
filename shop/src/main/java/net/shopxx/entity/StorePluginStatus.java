@@ -20,7 +20,7 @@ import javax.persistence.UniqueConstraint;
 /**
  * Entity - 店铺插件状态
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

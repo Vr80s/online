@@ -25,7 +25,7 @@ import net.shopxx.service.ReceiverService;
 /**
  * Service - 收货地址
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

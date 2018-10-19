@@ -27,7 +27,7 @@ import net.shopxx.entity.Store;
 /**
  * Plugin - 优惠券
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component("couponPromotionPlugin")
@@ -72,7 +72,7 @@ public class CouponPromotionPlugin extends PromotionPlugin {
 	/**
 	 * 优惠券属性
 	 * 
-	 * @author SHOP++ Team
+	 * @author ixincheng
 	 * @version 6.1
 	 */
 	@Entity(name = "CouponAttribute")

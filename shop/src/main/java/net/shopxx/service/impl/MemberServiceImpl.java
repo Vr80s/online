@@ -39,7 +39,7 @@ import net.shopxx.service.SmsService;
 /**
  * Service - 会员
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

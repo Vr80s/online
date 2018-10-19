@@ -31,7 +31,7 @@ import net.shopxx.service.OrderService;
 /**
  * Controller - 维修
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("memberAftersalesRepairController")

@@ -26,7 +26,7 @@ import org.hibernate.validator.constraints.URL;
 /**
  * Entity - 支付方式
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

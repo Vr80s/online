@@ -30,7 +30,7 @@ import net.shopxx.util.SystemUtils;
 /**
  * Service - 配置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

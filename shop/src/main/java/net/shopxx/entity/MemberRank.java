@@ -26,7 +26,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 /**
  * Entity - 会员等级
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

@@ -24,7 +24,7 @@ import net.shopxx.util.WebUtils;
 /**
  * Plugin - Paypal
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component("paypalPaymentPlugin")

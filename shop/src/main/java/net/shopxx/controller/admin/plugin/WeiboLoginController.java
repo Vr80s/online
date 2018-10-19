@@ -29,7 +29,7 @@ import net.shopxx.service.PluginConfigService;
 /**
  * Controller - 新浪微博登录
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminPluginWeiboLoginController")

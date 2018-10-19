@@ -38,7 +38,7 @@ import net.shopxx.BaseAttributeConverter;
 /**
  * Entity - 评论
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity
@@ -400,7 +400,7 @@ public class Review extends BaseEntity<Long> {
 	/**
 	 * 类型转换 - 规格
 	 * 
-	 * @author SHOP++ Team
+	 * @author ixincheng
 	 * @version 6.1
 	 */
 	@Converter
@@ -409,7 +409,7 @@ public class Review extends BaseEntity<Long> {
 
 	/**
 	 * 图片转换
-	 * @author SHOP++ Team
+	 * @author ixincheng
 	 * @version 6.1
 	 */
 	@Converter
@@ -420,7 +420,7 @@ public class Review extends BaseEntity<Long> {
 	/**
 	 * Entity - 条目
 	 * 
-	 * @author SHOP++ Team
+	 * @author ixincheng
 	 * @version 6.1
 	 */
 	public static class Entry implements Serializable {

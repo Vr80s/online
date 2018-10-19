@@ -19,7 +19,7 @@ import net.shopxx.entity.StoreFavorite;
 /**
  * Service - 店铺收藏
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface StoreFavoriteService extends BaseService<StoreFavorite, Long> {

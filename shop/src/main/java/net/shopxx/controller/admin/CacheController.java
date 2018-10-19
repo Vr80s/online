@@ -21,7 +21,7 @@ import net.shopxx.service.CacheService;
 /**
  * Controller - 缓存
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminCacheController")

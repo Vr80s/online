@@ -14,7 +14,7 @@ import net.shopxx.entity.ShippingMethod;
 /**
  * Dao - 配送方式
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

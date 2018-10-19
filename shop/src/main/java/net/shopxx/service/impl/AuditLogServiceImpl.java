@@ -18,7 +18,7 @@ import net.shopxx.service.AuditLogService;
 /**
  * Service - 审计日志
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

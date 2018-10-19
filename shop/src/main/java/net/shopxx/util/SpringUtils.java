@@ -20,7 +20,7 @@ import org.springframework.web.servlet.LocaleResolver;
 /**
  * Utils - Spring
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Lazy(false)

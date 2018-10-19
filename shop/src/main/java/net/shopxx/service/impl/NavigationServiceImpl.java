@@ -27,7 +27,7 @@ import net.shopxx.service.NavigationService;
 /**
  * Service - 导航
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

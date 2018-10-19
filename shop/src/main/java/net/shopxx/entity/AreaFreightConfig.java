@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Entity - 地区运费配置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

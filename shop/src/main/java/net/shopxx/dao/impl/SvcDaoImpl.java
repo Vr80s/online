@@ -24,7 +24,7 @@ import net.shopxx.entity.Svc;
 /**
  * Dao - 服务
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

@@ -29,7 +29,7 @@ import net.shopxx.service.DeliveryTemplateService;
 /**
  * Service - 快递单模板
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

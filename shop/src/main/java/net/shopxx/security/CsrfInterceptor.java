@@ -23,7 +23,7 @@ import net.shopxx.util.WebUtils;
 /**
  * Security - CSRF拦截器
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class CsrfInterceptor extends HandlerInterceptorAdapter {

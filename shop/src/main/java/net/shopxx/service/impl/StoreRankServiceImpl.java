@@ -22,7 +22,7 @@ import net.shopxx.service.StoreRankService;
 /**
  * Service - 店铺等级
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

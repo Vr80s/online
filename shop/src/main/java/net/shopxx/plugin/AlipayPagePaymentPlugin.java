@@ -34,7 +34,7 @@ import net.shopxx.util.SpringUtils;
 /**
  * Plugin - 支付宝(电脑网站)
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component("alipayPagePaymentPlugin")

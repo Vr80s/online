@@ -25,7 +25,7 @@ import net.shopxx.service.SocialUserService;
 /**
  * Controller - 会员登录
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("memberLoginController")

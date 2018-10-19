@@ -16,7 +16,7 @@ import net.shopxx.entity.NavigationGroup;
 /**
  * Dao - 导航
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface NavigationDao extends BaseDao<Navigation, Long> {

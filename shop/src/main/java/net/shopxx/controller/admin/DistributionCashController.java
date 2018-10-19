@@ -23,7 +23,7 @@ import net.shopxx.service.DistributionCashService;
 /**
  * Controller - 分销提现
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminDistributionCashController")

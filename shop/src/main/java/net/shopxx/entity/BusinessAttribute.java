@@ -24,7 +24,7 @@ import net.shopxx.BaseAttributeConverter;
 /**
  * Entity - 商家注册项
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity
@@ -318,7 +318,7 @@ public class BusinessAttribute extends OrderedEntity<Long> {
 	/**
 	 * 类型转换 - 可选项
 	 * 
-	 * @author SHOP++ Team
+	 * @author ixincheng
 	 * @version 6.1
 	 */
 	@Converter

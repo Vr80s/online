@@ -19,7 +19,7 @@ import net.shopxx.service.StatisticService;
 /**
  * Job - 统计
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Lazy(false)

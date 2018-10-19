@@ -21,7 +21,7 @@ import net.shopxx.service.SpecificationItemService;
 /**
  * Service - 规格项
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

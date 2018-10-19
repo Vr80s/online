@@ -20,7 +20,7 @@ import net.shopxx.service.AdPositionService;
 /**
  * Service - 广告位
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

@@ -14,7 +14,7 @@ import net.shopxx.plugin.PromotionPlugin;
 /**
  * PromotionPlugin - 促销插件Provider
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface PromotionPluginProvider {

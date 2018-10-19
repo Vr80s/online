@@ -27,7 +27,7 @@ import org.hibernate.validator.constraints.URL;
 /**
  * Entity - 品牌
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

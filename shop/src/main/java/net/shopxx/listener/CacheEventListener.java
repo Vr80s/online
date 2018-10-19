@@ -22,7 +22,7 @@ import net.shopxx.service.ProductService;
 /**
  * Listener - 缓存
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component

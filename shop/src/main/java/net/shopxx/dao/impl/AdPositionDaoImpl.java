@@ -14,7 +14,7 @@ import net.shopxx.entity.AdPosition;
 /**
  * Dao - 广告位
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

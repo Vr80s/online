@@ -13,7 +13,7 @@ import net.shopxx.entity.User;
 /**
  * Security - 认证Provider
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface AuthenticationProvider {

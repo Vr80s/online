@@ -14,7 +14,7 @@ import net.shopxx.entity.AftersalesReturns;
 /**
  * Dao - 退货
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

@@ -22,7 +22,7 @@ import net.shopxx.service.AuditLogService;
 /**
  * Controller - 审计日志
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminAuditLogController")

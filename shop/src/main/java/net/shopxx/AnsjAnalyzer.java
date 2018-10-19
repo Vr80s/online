@@ -9,7 +9,7 @@ package net.shopxx;
 /**
  * Analyzer - Ansj
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class AnsjAnalyzer extends org.ansj.lucene5.AnsjAnalyzer {

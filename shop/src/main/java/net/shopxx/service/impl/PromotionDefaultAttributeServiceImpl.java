@@ -14,7 +14,7 @@ import net.shopxx.service.PromotionDefaultAttributeService;
 /**
  * Service - 促销默认属性
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

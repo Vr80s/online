@@ -25,7 +25,7 @@ import net.shopxx.entity.PluginConfig;
 /**
  * Plugin - FTP存储
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component("ftpStoragePlugin")

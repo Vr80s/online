@@ -23,7 +23,7 @@ import net.shopxx.service.AdPositionService;
 /**
  * Controller - 广告位
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminAdPositionController")

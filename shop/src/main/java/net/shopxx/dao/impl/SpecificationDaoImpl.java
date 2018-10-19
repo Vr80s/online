@@ -14,7 +14,7 @@ import net.shopxx.entity.Specification;
 /**
  * Dao - 规格
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

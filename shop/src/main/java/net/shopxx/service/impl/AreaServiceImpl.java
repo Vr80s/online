@@ -22,7 +22,7 @@ import net.shopxx.service.AreaService;
 /**
  * Service - 地区
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

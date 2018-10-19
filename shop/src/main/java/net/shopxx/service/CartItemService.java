@@ -11,7 +11,7 @@ import net.shopxx.entity.CartItem;
 /**
  * Service - 购物车项
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface CartItemService extends BaseService<CartItem, Long> {
