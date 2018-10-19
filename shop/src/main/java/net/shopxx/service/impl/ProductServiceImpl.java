@@ -400,7 +400,9 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		product.setMonthSalesDate(new Date());
 		
 		//为了增加一个默认销售值，需要这样搞下啦
-		product.setTotalSales(product.getTotalSales() +amount);
+		Long totalSales = product.getTotalSales();
+		if(totalSales==null)totalSales = 0L;
+		product.setTotalSales(totalSales +amount);
 		
 		productDao.flush();
 	}
