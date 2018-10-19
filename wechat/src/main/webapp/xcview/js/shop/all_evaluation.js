@@ -4,8 +4,7 @@ $(function () {
 
 })
 
-var productId = getQueryString("productId");
-var currentSku = null;
+
 function appointmentList(pageNumber, downOrUp) {
 	requestService("/xczh/shop/goods/review",{
 		productId:productId,
@@ -86,6 +85,8 @@ requestGetService("/xczh/shop/goods/details",{
 },function (data) {
     if (data.success == true) {
         var obj = data.resultObject;
+        
+        
         if (data.resultObject.specificationItemvs == null) {
 			$(".specifications").hide();
 			$(".category").hide();
@@ -100,9 +101,7 @@ requestGetService("/xczh/shop/goods/details",{
         
         $(".category").html(template('category', {item: obj.specificationItemvs}));
         
-
-        specificationChoose(obj);
-
+ 		specificationChoose(obj);
     }
 });
 
