@@ -398,6 +398,10 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		product.setSales(product.getSales() + amount);
 		product.setWeekSalesDate(new Date());
 		product.setMonthSalesDate(new Date());
+		
+		//为了增加一个默认销售值，需要这样搞下啦
+		product.setTotalSales(product.getTotalSales() +amount);
+		
 		productDao.flush();
 	}
 
@@ -462,13 +466,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		product.setMonthHits(0L);
 
 		if(product.getDefaultSales()!=null) {
-			product.setSales(product.getDefaultSales());
-			product.setWeekSales(product.getDefaultSales());
-			product.setMonthSales(product.getDefaultSales());
-		}else {
-			product.setSales(0L);
-			product.setWeekSales(0L);
-			product.setMonthSales(0L);
+			product.setTotalSales(product.getDefaultSales());
 		}
 		
 		product.setWeekHitsDate(new Date());
@@ -579,14 +577,12 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		
 		
 		if(product.getDefaultSales()!=null) {
-			product.setSales(product.getDefaultSales());
-			product.setWeekSales(product.getDefaultSales());
-			product.setMonthSales(product.getDefaultSales());
-		}else {
-			product.setSales(0L);
-			product.setWeekSales(0L);
-			product.setMonthSales(0L);
+			product.setTotalSales(product.getDefaultSales());
 		}
+		
+		product.setSales(0L);
+		product.setWeekSales(0L);
+		product.setMonthSales(0L);
 		
 		product.setWeekHitsDate(new Date());
 		product.setMonthHitsDate(new Date());
@@ -621,10 +617,11 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		Product pProduct = productDao.find(product.getId());
 		
 		if(product.getDefaultSales()!=null) {
-			product.setSales(pProduct.getSales()+product.getDefaultSales());
-			product.setWeekSales(pProduct.getWeekSales()+product.getDefaultSales());
-			product.setMonthSales(pProduct.getWeekSales()+product.getDefaultSales());
+			product.setTotalSales(pProduct.getSales()+product.getDefaultSales());
 		}
+		
+		
+		
 		
 		switch (pProduct.getType()) {
 		case GENERAL:
@@ -691,7 +688,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		
 		
 		setValue(product);
-		copyProperties(product, pProduct, "sn", "type", "score", "totalScore", "scoreCount", "hits", "weekHits", "monthHits", "weekHitsDate", "monthHitsDate", "weekSalesDate", "monthSalesDate", "reviews", "consultations", "productFavorites", "skus", "store");
+		copyProperties(product, pProduct, "sn", "type", "score", "totalScore", "scoreCount", "hits", "weekHits", "monthHits", "sales", "weekSales", "monthSales", "weekHitsDate", "monthHitsDate", "weekSalesDate", "monthSalesDate", "reviews", "consultations", "productFavorites", "skus", "store");
 
 		return pProduct;
 	}
@@ -730,9 +727,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		Product pProduct = productDao.find(product.getId());
 		
 		if(product.getDefaultSales()!=null) {
-			product.setSales(pProduct.getSales()+product.getDefaultSales());
-			product.setWeekSales(pProduct.getWeekSales()+product.getDefaultSales());
-			product.setMonthSales(pProduct.getWeekSales()+product.getDefaultSales());
+			product.setTotalSales(pProduct.getSales()+product.getDefaultSales());
 		}
 		
 		for (Sku sku : skus) {
@@ -820,7 +815,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		product.setMaxCommission(defaultSku.getMaxCommission().compareTo(defaultSku.getPrice()) > 0 ? BigDecimal.ZERO : defaultSku.getMaxCommission());
 		setValue(product);
 		copyProperties(product, pProduct, 
-				"sn", "type", "score", "totalScore", "scoreCount", "hits", "weekHits", "monthHits", "weekHitsDate", "monthHitsDate", "weekSalesDate", "monthSalesDate", "reviews", "consultations", "productFavorites", "skus", "store");
+				"sn", "type", "score", "totalScore", "scoreCount", "hits", "weekHits", "monthHits", "sales", "weekSales", "monthSales", "weekHitsDate", "monthHitsDate", "weekSalesDate", "monthSalesDate", "reviews", "consultations", "productFavorites", "skus", "store");
 
 		return pProduct;
 	}

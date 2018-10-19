@@ -637,7 +637,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
                             criteriaBuilder.desc(root.get("createdDate")));
                     break;
                 case SALES_DESC:
-                    criteriaQuery.orderBy(criteriaBuilder.desc(root.get("sales")),criteriaBuilder.desc(root.get("createdDate")));
+                    criteriaQuery.orderBy(criteriaBuilder.desc(root.get("totalSales")),criteriaBuilder.desc(root.get("createdDate")));
                     break;
                 case DATE_DESC:
                     criteriaQuery.orderBy(criteriaBuilder.desc(root.get("createdDate")));
@@ -695,7 +695,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product, Long> implements Produc
                     sortFields = new SortField[]{new SortField("doctorRecommends", SortField.Type.INT, true),new SortField("createdDate", SortField.Type.LONG, true)};
                     break;
                 case SALES_DESC:
-                    sortFields = new SortField[]{new SortField("sales", SortField.Type.LONG, true),new SortField("createdDate", SortField.Type.LONG, true)};
+                    sortFields = new SortField[]{new SortField("totalSales", SortField.Type.LONG, true),new SortField("createdDate", SortField.Type.LONG, true)};
                     break;
                 case DATE_DESC:
                     sortFields = new SortField[]{new SortField("createdDate", SortField.Type.LONG, true)};
