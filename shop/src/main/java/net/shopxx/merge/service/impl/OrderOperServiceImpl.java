@@ -1045,9 +1045,29 @@ public class OrderOperServiceImpl implements OrderOperService {
 				for (OrderItem orderItem : orderItems) {
 					OrderItemVO orderItemVO = new OrderItemVO();
 					org.springframework.beans.BeanUtils.copyProperties(orderItem,orderItemVO);
+				
+					//获取库存
+					SkuVO sku = new SkuVO();
+					ProductVO productvo = new ProductVO();
+					if(orderItem.getSku()!=null) {
+						List<String> specification = orderItem.getSku().getSpecifications();
+						if(specification!=null && specification.size()>0){
+							String citiesCommaSeparated = String.join(";", specification);
+							sku.setSpecifications(citiesCommaSeparated);
+						}
+						BeanUtils.copyProperties(orderItem.getSku(),sku);
+						productvo.setId(orderItem.getSku().getProduct().getId());
+						productvo.setIsMarketable(orderItem.getSku().getProduct().getIsMarketable());
+						productvo.setIsOutOfStock(orderItem.getSku().getProduct().getIsOutOfStock());
+						productvo.setIsActive(orderItem.getSku().getProduct().getIsActive());
+						sku.setId(orderItem.getSku().getId());
+						orderItemVO.setSku(sku);
+						orderItemVO.getSku().setProduct(productvo);
+					}
 					orderVoItems.add(orderItemVO);
 				}
 				o.setOrderVoItems(orderVoItems);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -1106,6 +1126,7 @@ public class OrderOperServiceImpl implements OrderOperService {
 			 ov.setStatus(9);
 			
 			 List<OrderItemVO> findByOrders = orderItemDeleteDao.findByOrders(orderDelete.getOrderId());
+			 
 			 ov.setOrderVoItems(findByOrders);
 			 orderVoList.add(ov);
 		}
