@@ -150,6 +150,17 @@ function getOrderList(){
         if(data.success){
             creatOrderList(data.resultObject.orders,data.resultObject.price,data.resultObject.freight);
             $(".amountPayable").html(data.resultObject.amountPayable);
+            
+            /*$(".product_details").click(function(){
+                var dataId = $(this).attr('data-id');
+                var marketable = $(this).attr('data-marketable');
+                if(marketable == true){
+                    location.href ='/xcview/html/shop/commodity_details.html?productId=' + dataId;
+                }else{
+                    location.href ='/xcview/html/shop/expired_products.html'
+                }
+            });*/
+            
         }else{
             jqtoast(data.errorMessage);
         }
@@ -166,7 +177,9 @@ function creatOrderList(orders,price,freight){
             '</div>' +
             '<div class="main_product_details">';
         for(var j=0; j < orders[i].orderItems.length; j++){
-            str += '<div class="product_details">' +
+        	var obj = orders[i].orderItems[j].sku.product.id;
+        	console.log(obj);
+            str += '<div class="product_details" data-id="'+orders[i].orderItems[j].sku.product.id+'" data-marketable="'+ orders[i].orderItems[j].sku.product.isMarketable +'">' +
                 '<img src="'+orders[i].orderItems[j].thumbnail+'" alt="" class="surface_plot" />' +
                 '<div class="product_details_center">' +
                 '<div class="title">' + orders[i].orderItems[j].name + '</div>' +
