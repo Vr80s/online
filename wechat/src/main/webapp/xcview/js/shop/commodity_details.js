@@ -33,11 +33,14 @@ $(".weixin_ceng").click(function(){
 var productId = getQueryString("productId");
 var currentSku = null;
 var specificationsResutl  = [];
+var productDetailsObj = {};
 requestGetService("/xczh/shop/goods/details",{
     productId:productId
 },function (data) {
     if (data.success == true) {
         var obj = data.resultObject;
+        productDetailsObj =  data.resultObject;
+        
         // 详情
         $(".list_details").html(template('list_details', {items: obj}));
         
@@ -137,9 +140,9 @@ requestGetService("/xczh/shop/goods/details",{
         
         $(".category").html(template('category', {item: obj.specificationItemvs}));
         
-        specificationChoose(obj);
+         specificationChoose(obj);
     }
-});
+},false);
 
 function listClick(){
     // 点击进入详情
