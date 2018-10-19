@@ -3,11 +3,6 @@
  */
  
  
-var productId = getQueryString("productId");
-var currentSku = null;
-var specificationsResutl  = [];
-var productDetailsObj = {}; 
- 
 //1.选择商品放入购物车，2.选择商品立即购买.默认立即购买
 var shoppingFlag = 2;
 // 点击加入购物车
@@ -36,7 +31,6 @@ function tokenCheck(){
 	    }
 	});
 }
-
 
 
 // 点击数量加减
@@ -88,7 +82,6 @@ $('.determine').click(function () {
 				$('.shopping_trolley').hide();
 
 				var cartItemNumber  = data.resultObject;
-				
 //				var cartQuantity = $('.shopping_quantity').val();
 //				if (!cartQuantity) {
 //				    cartQuantity = quantity;
@@ -97,13 +90,10 @@ $('.determine').click(function () {
 //				}
 //				var preNumber = $(".shopping_quantity").html();
 //				totalQuantity = Number(cartQuantity) + Number(preNumber);
-				
-				
-				if(parseInt(cartItemNumber>0)){
+				if(parseInt(cartItemNumber)>0){
 					$(".shopping_quantity").show();
 				}
                 $('.shopping_quantity').html(cartItemNumber);
-                
                 jqtoast("已加入购物车");
 			}else{
 				jqtoast(data.errorMessage);

@@ -30,10 +30,6 @@ $(".weixin_ceng").click(function(){
 
 
 
-var productId = getQueryString("productId");
-var currentSku = null;
-var specificationsResutl  = [];
-var productDetailsObj = {};
 requestGetService("/xczh/shop/goods/details",{
     productId:productId
 },function (data) {
