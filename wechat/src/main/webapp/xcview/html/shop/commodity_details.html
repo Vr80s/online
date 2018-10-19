@@ -114,24 +114,29 @@
 	</header>
 	<!-- 头部区域结束 -->
 
+	<!--<a href="{{item.source}}" data-size="1024x1024">
+			<img src="{{item.source}}" alt="" class="surface_plot" />
+	</a> 备份点击放大  -->
+		
 	<!-- 轮播区域开始 -->
 	<div class="banner">
 		<script type="text/html" id="top_details">
 		<!--滑动焦点图--> 
+		
 		<div class="swiper-container" alt="Image description">
 			<div class="my-gallery swiper-wrapper">
 				
 			    {{each items as item i}}
 			    <div class="swiper-slide">			
-					<a href="{{item.source}}" data-size="1024x1024">
-						<img src="{{item.source}}" alt="" class="surface_plot" />
-					</a>   	
+					<img src="{{item.source}}" alt="" class="surface_plot" />
 			    </div>
 			    {{/each}}
 			
 			</div>
 			<div class="swiper-pagination"></div>
-		</div>              			
+		</div>             
+		
+		
 
 		<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 		    <div class="pswp__bg"></div>
