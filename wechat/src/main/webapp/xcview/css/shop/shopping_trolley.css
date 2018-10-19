@@ -436,6 +436,7 @@ center .spinner .increase{
 .list .title{
 	width: 3.3rem;
 	height: 0.74rem;
+	line-height: .4rem;
 	margin: 0 auto;
 	margin-bottom: .2rem;
 	display: -webkit-box;
