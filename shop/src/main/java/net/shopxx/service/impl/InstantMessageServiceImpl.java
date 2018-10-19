@@ -29,7 +29,7 @@ import net.shopxx.service.InstantMessageService;
 /**
  * Service - 即时通讯
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

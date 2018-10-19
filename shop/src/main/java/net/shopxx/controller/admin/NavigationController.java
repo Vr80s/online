@@ -26,7 +26,7 @@ import net.shopxx.service.ProductCategoryService;
 /**
  * Controller - 导航
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminNavigationController")

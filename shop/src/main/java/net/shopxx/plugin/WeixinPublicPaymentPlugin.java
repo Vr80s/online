@@ -44,7 +44,7 @@ import net.shopxx.util.XmlUtils;
 /**
  * Plugin - 微信支付(公众号支付)
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component("weixinPublicPaymentPlugin")

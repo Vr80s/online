@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 /**
  * Audit - 最后修改日期注解
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Retention(RetentionPolicy.RUNTIME)

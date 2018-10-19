@@ -13,7 +13,7 @@ import net.shopxx.entity.Cart;
 /**
  * Event - 购物车
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public abstract class CartEvent extends ApplicationEvent {

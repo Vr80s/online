@@ -32,7 +32,7 @@ import net.shopxx.service.MemberService;
 /**
  * Service - 优惠码
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

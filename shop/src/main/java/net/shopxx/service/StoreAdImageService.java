@@ -18,7 +18,7 @@ import net.shopxx.entity.StoreAdImage;
 /**
  * Service - 店铺广告图片
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface StoreAdImageService extends BaseService<StoreAdImage, Long> {

@@ -27,7 +27,7 @@ import net.shopxx.entity.PaymentTransaction;
 /**
  * Plugin - 快钱支付
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component("pay99billPaymentPlugin")

@@ -24,7 +24,7 @@ import net.shopxx.service.ReviewService;
 /**
  * Controller - 评论
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminReviewController")

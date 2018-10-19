@@ -17,7 +17,7 @@ import net.shopxx.service.StoreService;
 /**
  * Job - 店铺
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Lazy(false)

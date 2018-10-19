@@ -37,7 +37,7 @@ import net.shopxx.Setting;
 /**
  * Utils - 图片处理(支持JDK、GraphicsMagick、ImageMagick)
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public final class ImageUtils {

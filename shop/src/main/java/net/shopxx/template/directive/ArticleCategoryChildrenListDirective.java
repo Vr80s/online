@@ -25,7 +25,7 @@ import net.shopxx.util.FreeMarkerUtils;
 /**
  * 模板指令 - 下级文章分类列表
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component

@@ -29,7 +29,7 @@ import net.shopxx.service.PluginConfigService;
 /**
  * Controller - 微信登录(扫码登录)
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminPluginWeixinNativeLoginController")

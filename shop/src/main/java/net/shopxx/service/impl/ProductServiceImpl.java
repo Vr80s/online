@@ -84,7 +84,7 @@ import net.shopxx.util.SystemUtils;
 /**
  * Service - 商品
  *
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

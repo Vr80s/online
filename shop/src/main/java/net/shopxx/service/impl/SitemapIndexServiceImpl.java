@@ -23,7 +23,7 @@ import net.shopxx.service.SitemapUrlService;
 /**
  * Service - Sitemap索引
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

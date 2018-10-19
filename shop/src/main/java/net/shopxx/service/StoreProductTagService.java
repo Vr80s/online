@@ -18,7 +18,7 @@ import net.shopxx.entity.StoreProductTag;
 /**
  * Service - 店铺商品标签
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface StoreProductTagService extends BaseService<StoreProductTag, Long> {

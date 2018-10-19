@@ -43,7 +43,7 @@ import net.shopxx.util.SystemUtils;
 /**
  * Controller - 评论
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("memberReviewController")
@@ -170,7 +170,7 @@ public class ReviewController extends BaseController {
 	/**
 	 * FormBean - 评论条目
 	 * 
-	 * @author SHOP++ Team
+	 * @author ixincheng
 	 * @version 6.1
 	 */
 	public static class ReviewEntryListForm {

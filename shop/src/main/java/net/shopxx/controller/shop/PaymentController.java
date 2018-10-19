@@ -41,7 +41,7 @@ import net.shopxx.util.SpringUtils;
 /**
  * Controller - 支付
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("shopPaymentController")
@@ -207,7 +207,7 @@ public class PaymentController extends BaseController {
 	/**
 	 * FormBean - 支付项
 	 * 
-	 * @author SHOP++ Team
+	 * @author ixincheng
 	 * @version 6.1
 	 */
 	public static class PaymentItemListForm {

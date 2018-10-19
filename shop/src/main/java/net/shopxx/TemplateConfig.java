@@ -14,7 +14,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 /**
  * 模板配置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class TemplateConfig implements Serializable {

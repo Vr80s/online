@@ -21,7 +21,7 @@ import net.shopxx.util.WebUtils;
 /**
  * Security - XSS拦截器
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class XssInterceptor extends HandlerInterceptorAdapter {

@@ -14,7 +14,7 @@ import net.shopxx.entity.PluginConfig;
 /**
  * Dao - 插件配置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

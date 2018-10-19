@@ -28,7 +28,7 @@ import net.shopxx.service.StatisticService;
 /**
  * Controller - 订单统计
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("businessOrderStatisticController")

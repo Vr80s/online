@@ -24,7 +24,7 @@ import net.shopxx.service.AreaService;
 /**
  * Controller - 地区
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminAreaController")

@@ -16,7 +16,7 @@ import net.shopxx.entity.ProductCategory;
 /**
  * Service - 品牌
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface BrandService extends BaseService<Brand, Long> {

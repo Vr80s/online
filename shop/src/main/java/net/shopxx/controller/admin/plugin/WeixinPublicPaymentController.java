@@ -30,7 +30,7 @@ import net.shopxx.service.PluginConfigService;
 /**
  * Controller - 微信支付(公众号支付)
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminPluginWeixinPublicPaymentController")

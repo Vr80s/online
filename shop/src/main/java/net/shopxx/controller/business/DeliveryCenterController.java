@@ -31,7 +31,7 @@ import net.shopxx.service.DeliveryCenterService;
 /**
  * Controller - 发货点
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("businessDeliveryCenterController")

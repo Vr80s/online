@@ -16,7 +16,7 @@ import net.shopxx.entity.ProductCategory;
 /**
  * Dao - 品牌
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface BrandDao extends BaseDao<Brand, Long> {

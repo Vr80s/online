@@ -11,7 +11,7 @@ import net.shopxx.entity.ProductTag;
 /**
  * Dao - 商品标签
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface ProductTagDao extends BaseDao<ProductTag, Long> {

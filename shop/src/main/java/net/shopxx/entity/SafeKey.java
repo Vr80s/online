@@ -19,7 +19,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 /**
  * Entity - 安全密钥
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Embeddable

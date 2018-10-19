@@ -14,7 +14,7 @@ import net.shopxx.entity.Admin;
 /**
  * Dao - 管理员
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

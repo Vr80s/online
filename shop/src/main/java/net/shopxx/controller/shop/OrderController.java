@@ -63,7 +63,7 @@ import net.shopxx.util.WebUtils;
 /**
  * Controller - 订单
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("shopOrderController")

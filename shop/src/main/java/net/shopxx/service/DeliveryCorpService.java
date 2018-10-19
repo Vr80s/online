@@ -11,7 +11,7 @@ import net.shopxx.entity.DeliveryCorp;
 /**
  * Service - 物流公司
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface DeliveryCorpService extends BaseService<DeliveryCorp, Long> {

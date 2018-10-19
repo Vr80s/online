@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 /**
  * Entity - 促销插件服务
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

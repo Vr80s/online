@@ -16,7 +16,7 @@ import net.shopxx.entity.Seo;
 /**
  * Dao - SEO设置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

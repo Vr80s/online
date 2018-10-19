@@ -18,7 +18,7 @@ import net.shopxx.service.PluginService;
 /**
  * Controller - 登录插件
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminLoginPluginController")

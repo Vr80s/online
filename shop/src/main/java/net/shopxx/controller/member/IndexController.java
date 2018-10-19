@@ -28,7 +28,7 @@ import net.shopxx.service.ReviewService;
 /**
  * Controller - 首页
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("memberIndexController")

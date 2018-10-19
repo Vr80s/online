@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 /**
  * Entity - 支付项
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class PaymentItem implements Serializable {

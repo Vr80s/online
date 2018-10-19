@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * Controller - 首页
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("shopIndexController")

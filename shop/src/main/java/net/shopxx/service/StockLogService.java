@@ -14,7 +14,7 @@ import net.shopxx.entity.Store;
 /**
  * Service - 库存记录
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface StockLogService extends BaseService<StockLog, Long> {

@@ -27,7 +27,7 @@ import net.shopxx.util.SystemUtils;
 /**
  * Service - Sitemap URL
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

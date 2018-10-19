@@ -16,7 +16,7 @@ import net.shopxx.entity.Store;
 /**
  * Dao - 快递单模板
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface DeliveryTemplateDao extends BaseDao<DeliveryTemplate, Long> {

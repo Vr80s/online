@@ -17,7 +17,7 @@ import net.shopxx.entity.PromotionDefaultAttribute;
 /**
  * Plugin - 免运费
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component("freeShippingPromotionPlugin")
@@ -62,7 +62,7 @@ public class FreeShippingPromotionPlugin extends PromotionPlugin {
 	/**
 	 * 免运费属性
 	 * 
-	 * @author SHOP++ Team
+	 * @author ixincheng
 	 * @version 6.1
 	 */
 	@Entity(name = "FreeShippingAttribute")

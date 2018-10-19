@@ -14,7 +14,7 @@ import net.shopxx.entity.NavigationGroup;
 /**
  * Dao - 导航组
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

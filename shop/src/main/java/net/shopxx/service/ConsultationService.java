@@ -20,7 +20,7 @@ import net.shopxx.entity.Store;
 /**
  * Service - 咨询
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface ConsultationService extends BaseService<Consultation, Long> {

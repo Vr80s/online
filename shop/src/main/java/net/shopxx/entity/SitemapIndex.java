@@ -14,7 +14,7 @@ import net.shopxx.util.SystemUtils;
 /**
  * Entity - Sitemap索引
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class SitemapIndex implements Serializable {

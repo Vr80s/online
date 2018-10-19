@@ -11,7 +11,7 @@ import net.shopxx.entity.PaymentMethod;
 /**
  * Dao - 支付方式
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface PaymentMethodDao extends BaseDao<PaymentMethod, Long> {

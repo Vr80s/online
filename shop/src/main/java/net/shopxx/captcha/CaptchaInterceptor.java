@@ -23,7 +23,7 @@ import net.shopxx.util.WebUtils;
 /**
  * Captcha - 验证码拦截器
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class CaptchaInterceptor extends HandlerInterceptorAdapter {

@@ -34,7 +34,7 @@ import net.shopxx.service.MemberService;
 /**
  * Controller - 会员预存款
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminMemberDepositController")

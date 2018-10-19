@@ -32,7 +32,7 @@ import com.alipay.api.response.AlipaySystemOauthTokenResponse;
 /**
  * Plugin - 支付宝快捷登录
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component("alipayLoginPlugin")

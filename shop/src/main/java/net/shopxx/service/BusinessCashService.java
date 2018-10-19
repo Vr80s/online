@@ -14,7 +14,7 @@ import net.shopxx.entity.BusinessCash;
 /**
  * Service - 商家提现
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface BusinessCashService extends BaseService<BusinessCash, Long> {

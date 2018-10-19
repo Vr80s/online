@@ -47,7 +47,7 @@ import net.shopxx.service.PromotionService;
 /**
  * Service - 促销
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

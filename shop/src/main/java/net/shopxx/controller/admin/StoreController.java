@@ -42,7 +42,7 @@ import net.shopxx.service.StoreService;
 /**
  * Controller - 店铺
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminStoreController")

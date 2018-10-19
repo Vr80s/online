@@ -39,7 +39,7 @@ import net.shopxx.util.WebUtils;
 /**
  * Listener - 用户事件
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component

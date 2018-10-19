@@ -74,7 +74,7 @@ import net.shopxx.service.StoreService;
 /**
  * Controller - 商品
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("shopProductController")
@@ -607,7 +607,7 @@ public class ProductController extends BaseController {
 	/**
 	 * FormBean - 评论条目
 	 * 
-	 * @author SHOP++ Team
+	 * @author ixincheng
 	 * @version 6.1
 	 */
 	public static class ReviewEntryListForm {

@@ -19,7 +19,7 @@ import net.shopxx.util.FreeMarkerUtils;
 /**
  * 模板方法 - 字符串缩略
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component

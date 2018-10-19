@@ -18,7 +18,7 @@ import net.shopxx.entity.Store;
 /**
  * Service - 快递单模板
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface DeliveryTemplateService extends BaseService<DeliveryTemplate, Long> {

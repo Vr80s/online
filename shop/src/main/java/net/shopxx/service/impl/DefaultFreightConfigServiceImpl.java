@@ -24,7 +24,7 @@ import net.shopxx.service.DefaultFreightConfigService;
 /**
  * Service - 默认运费配置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

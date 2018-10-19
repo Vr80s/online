@@ -30,7 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * Plugin - 微信登录(扫码登录)
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component("weixinNativeLoginPlugin")

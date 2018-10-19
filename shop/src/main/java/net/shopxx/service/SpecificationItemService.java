@@ -13,7 +13,7 @@ import net.shopxx.entity.SpecificationItem;
 /**
  * Service - 规格项
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface SpecificationItemService {

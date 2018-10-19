@@ -83,7 +83,7 @@ import net.shopxx.service.StoreService;
 /**
  * Controller - 商品
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("businessProductController")
@@ -643,7 +643,7 @@ public class ProductController extends BaseController {
 	/**
 	 * FormBean - SKU
 	 * 
-	 * @author SHOP++ Team
+	 * @author ixincheng
 	 * @version 6.1
 	 */
 	public static class SkuForm {
@@ -677,7 +677,7 @@ public class ProductController extends BaseController {
 	/**
 	 * FormBean - SKU
 	 * 
-	 * @author SHOP++ Team
+	 * @author ixincheng
 	 * @version 6.1
 	 */
 	public static class SkuListForm {

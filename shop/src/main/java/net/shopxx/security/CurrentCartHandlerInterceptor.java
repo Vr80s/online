@@ -18,7 +18,7 @@ import net.shopxx.service.CartService;
 /**
  * Security - 当前购物车拦截器
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class CurrentCartHandlerInterceptor extends HandlerInterceptorAdapter {

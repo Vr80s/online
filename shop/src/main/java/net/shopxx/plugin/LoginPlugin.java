@@ -30,7 +30,7 @@ import net.shopxx.util.SystemUtils;
 /**
  * Plugin - 登录
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public abstract class LoginPlugin implements Comparable<LoginPlugin> {

@@ -41,7 +41,7 @@ import net.shopxx.util.SystemUtils;
 /**
  * Controller - 会员注册
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("memberRegisterController")

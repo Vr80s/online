@@ -26,7 +26,7 @@ import net.shopxx.service.StatisticService;
 /**
  * Controller - 注册统计
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminRegisterStatisticController")

@@ -25,7 +25,7 @@ import net.shopxx.service.StoreCategoryService;
 /**
  * Controller - 店铺分类
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminStoreCategoryController")

@@ -19,7 +19,7 @@ import net.shopxx.entity.MemberRank;
 /**
  * Dao - 会员等级
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

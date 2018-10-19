@@ -58,7 +58,7 @@ import net.shopxx.service.UserService;
 /**
  * Service - 店铺
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

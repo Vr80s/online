@@ -27,7 +27,7 @@ import net.shopxx.entity.Business;
 /**
  * Dao - 商家
  *
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

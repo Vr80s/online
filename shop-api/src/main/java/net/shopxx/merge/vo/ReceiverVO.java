@@ -13,7 +13,7 @@ import java.io.Serializable;
 /**
  * Entity - 收货地址
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Data

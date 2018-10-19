@@ -18,7 +18,7 @@ import net.shopxx.entity.Store;
 /**
  * Service - 即时通讯
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface InstantMessageService extends BaseService<InstantMessage, Long> {

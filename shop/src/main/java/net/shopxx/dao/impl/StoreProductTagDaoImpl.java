@@ -26,7 +26,7 @@ import net.shopxx.entity.StoreProductTag;
 /**
  * Dao - 店铺商品标签
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

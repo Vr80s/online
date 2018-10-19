@@ -11,7 +11,7 @@ import net.shopxx.entity.User;
 /**
  * Event - 用户注销
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class UserLoggedOutEvent extends UserEvent {

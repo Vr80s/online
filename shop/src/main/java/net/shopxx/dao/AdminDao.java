@@ -11,7 +11,7 @@ import net.shopxx.entity.Admin;
 /**
  * Dao - 管理员
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface AdminDao extends BaseDao<Admin, Long> {

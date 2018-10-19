@@ -25,7 +25,7 @@ import net.shopxx.service.SearchService;
 /**
  * Listener - 初始化
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component

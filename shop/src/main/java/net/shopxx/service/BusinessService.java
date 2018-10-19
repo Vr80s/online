@@ -17,7 +17,7 @@ import net.shopxx.security.AuthenticationProvider;
 /**
  * Service - 商家
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface BusinessService extends BaseService<Business, Long>, AuthenticationProvider {

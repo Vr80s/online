@@ -12,7 +12,7 @@ import net.shopxx.entity.Sku;
 /**
  * Event - 移除购物车SKU
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class CartRemovedEvent extends CartEvent {

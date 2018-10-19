@@ -24,7 +24,7 @@ import net.shopxx.service.ArticleCategoryService;
 /**
  * 模板指令 - 顶级文章分类列表
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component

@@ -34,7 +34,7 @@ import net.shopxx.plugin.PromotionPlugin;
 /**
  * Dao - 促销
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

@@ -11,7 +11,7 @@ import net.shopxx.entity.Parameter;
 /**
  * Service - 参数
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface ParameterService extends BaseService<Parameter, Long> {

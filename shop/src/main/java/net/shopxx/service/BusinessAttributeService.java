@@ -15,7 +15,7 @@ import net.shopxx.entity.BusinessAttribute;
 /**
  * Service - 商家注册项
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface BusinessAttributeService extends BaseService<BusinessAttribute, Long> {

@@ -15,7 +15,7 @@ import net.shopxx.entity.StoreRank;
 /**
  * Service - 店铺等级
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface StoreRankService extends BaseService<StoreRank, Long> {

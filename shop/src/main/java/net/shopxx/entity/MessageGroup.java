@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 /**
  * Entity - 消息组
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

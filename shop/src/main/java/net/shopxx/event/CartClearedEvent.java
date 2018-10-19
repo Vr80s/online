@@ -11,7 +11,7 @@ import net.shopxx.entity.Cart;
 /**
  * Event - 清空购物车SKU
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class CartClearedEvent extends CartEvent {

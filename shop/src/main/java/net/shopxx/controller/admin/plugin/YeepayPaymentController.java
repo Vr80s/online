@@ -30,7 +30,7 @@ import net.shopxx.service.PluginConfigService;
 /**
  * Controller - 易宝支付
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminPluginYeepayPaymentController")

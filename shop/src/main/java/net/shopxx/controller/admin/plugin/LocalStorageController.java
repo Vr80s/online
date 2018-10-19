@@ -24,7 +24,7 @@ import net.shopxx.service.PluginConfigService;
 /**
  * Controller - 本地文件存储
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminPluginLocalStorageController")

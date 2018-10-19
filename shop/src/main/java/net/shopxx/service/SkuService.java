@@ -17,7 +17,7 @@ import net.shopxx.entity.Store;
 /**
  * Service - SKU
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface SkuService extends BaseService<Sku, Long> {

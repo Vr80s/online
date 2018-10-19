@@ -13,7 +13,7 @@ import net.shopxx.entity.SitemapUrl;
 /**
  * Service - Sitemap URL
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface SitemapUrlService {

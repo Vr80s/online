@@ -35,7 +35,7 @@ import net.shopxx.util.SystemUtils;
 /**
  * Controller - 售后
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("businessAftersalesController")

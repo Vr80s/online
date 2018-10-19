@@ -19,7 +19,7 @@ import net.shopxx.service.DistributionCommissionService;
 /**
  * Controller - 分销佣金
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminDistributionCommissionController")

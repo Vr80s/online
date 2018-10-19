@@ -36,7 +36,7 @@ import net.shopxx.service.MessageService;
 /**
  * Controller - 商家中心 - 消息
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("businessMessageController")

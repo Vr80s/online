@@ -44,7 +44,7 @@ import net.shopxx.util.WebUtils;
 /**
  * Controller - 促销插件管理
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("businessPromotionPluginController")

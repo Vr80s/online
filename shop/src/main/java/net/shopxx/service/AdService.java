@@ -11,7 +11,7 @@ import net.shopxx.entity.Ad;
 /**
  * Service - 广告
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface AdService extends BaseService<Ad, Long> {

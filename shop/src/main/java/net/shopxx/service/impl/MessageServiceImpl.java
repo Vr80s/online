@@ -25,7 +25,7 @@ import net.shopxx.service.MessageService;
 /**
  * Service - 消息
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

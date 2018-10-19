@@ -23,7 +23,7 @@ import net.shopxx.service.SocialUserService;
 /**
  * Service - 社会化用户
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

@@ -29,7 +29,7 @@ import net.shopxx.util.WebUtils;
 /**
  * Security - 认证过滤器
  *
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class AuthenticationFilter extends FormAuthenticationFilter {
