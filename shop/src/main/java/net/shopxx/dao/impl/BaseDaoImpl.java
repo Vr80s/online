@@ -44,7 +44,7 @@ import net.shopxx.entity.OrderedEntity;
 /**
  * Dao - 基类
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public abstract class BaseDaoImpl<T extends BaseEntity<ID>, ID extends Serializable> implements BaseDao<T, ID> {

@@ -21,7 +21,7 @@ import net.shopxx.service.BusinessDepositLogService;
 /**
  * Service - 商家预存款记录
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

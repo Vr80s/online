@@ -12,7 +12,7 @@ import org.springframework.util.Assert;
 /**
  * 枚举类型转换
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class EnumConverter extends AbstractConverter {

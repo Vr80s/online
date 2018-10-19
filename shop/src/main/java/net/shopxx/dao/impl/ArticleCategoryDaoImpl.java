@@ -27,7 +27,7 @@ import net.shopxx.entity.ArticleCategory;
 /**
  * Dao - 文章分类
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

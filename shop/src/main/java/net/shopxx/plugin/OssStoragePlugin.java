@@ -24,7 +24,7 @@ import net.shopxx.entity.PluginConfig;
 /**
  * Plugin - 阿里云存储
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component("ossStoragePlugin")

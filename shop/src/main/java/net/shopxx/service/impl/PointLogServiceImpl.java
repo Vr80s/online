@@ -21,7 +21,7 @@ import net.shopxx.service.PointLogService;
 /**
  * Service - 积分记录
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

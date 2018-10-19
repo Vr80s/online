@@ -20,7 +20,7 @@ import net.shopxx.entity.FriendLink;
 /**
  * Dao - 友情链接
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

@@ -31,7 +31,7 @@ import net.shopxx.service.SkuService;
 /**
  * Service - SKU
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

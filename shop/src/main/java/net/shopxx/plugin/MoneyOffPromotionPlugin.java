@@ -24,7 +24,7 @@ import net.shopxx.entity.PromotionDefaultAttribute;
 /**
  * Plugin - 满减折扣
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component("moneyOffPromotionPlugin")
@@ -110,7 +110,7 @@ public class MoneyOffPromotionPlugin extends PromotionPlugin {
 	/**
 	 * 满减折扣属性
 	 * 
-	 * @author SHOP++ Team
+	 * @author ixincheng
 	 * @version 6.1
 	 */
 	@Entity(name = "MoneyOffAttribute")

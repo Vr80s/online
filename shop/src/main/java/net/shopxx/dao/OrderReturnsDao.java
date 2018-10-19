@@ -11,7 +11,7 @@ import net.shopxx.entity.OrderReturns;
 /**
  * Dao - 订单退货
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface OrderReturnsDao extends BaseDao<OrderReturns, Long> {

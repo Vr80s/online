@@ -23,7 +23,7 @@ import net.shopxx.plugin.PromotionPlugin;
 /**
  * Service - 促销
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface PromotionService extends BaseService<Promotion, Long> {

@@ -19,7 +19,7 @@ import net.shopxx.service.UserService;
 /**
  * Security - 当前用户拦截器
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class CurrentUserHandlerInterceptor extends HandlerInterceptorAdapter {

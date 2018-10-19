@@ -14,7 +14,7 @@ import net.shopxx.merge.vo.OrderItemVO;
 /**
  * Dao - 订单项
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface OrderItemDeleteDao extends BaseDao<OrderItemDelete, Long> {

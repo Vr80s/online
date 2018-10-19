@@ -14,7 +14,7 @@ import net.shopxx.entity.OrderItem;
 /**
  * Dao - 订单项
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

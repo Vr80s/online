@@ -22,7 +22,7 @@ import net.shopxx.service.CouponService;
 /**
  * Controller - 优惠券
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminCouponController")

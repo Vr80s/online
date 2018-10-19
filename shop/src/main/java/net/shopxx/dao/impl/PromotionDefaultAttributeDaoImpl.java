@@ -14,7 +14,7 @@ import net.shopxx.entity.PromotionDefaultAttribute;
 /**
  * Dao - 促销默认属性
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

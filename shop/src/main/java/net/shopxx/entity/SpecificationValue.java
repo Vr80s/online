@@ -18,7 +18,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 /**
  * Entity - 规格值
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class SpecificationValue implements Serializable {

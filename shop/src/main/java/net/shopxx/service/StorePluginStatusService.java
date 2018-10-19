@@ -12,7 +12,7 @@ import net.shopxx.entity.StorePluginStatus;
 /**
  * Service - 店铺插件状态
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface StorePluginStatusService extends BaseService<StorePluginStatus, Long> {

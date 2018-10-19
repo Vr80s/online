@@ -14,7 +14,7 @@ import net.shopxx.entity.SitemapUrl;
 /**
  * Service - Sitemap索引
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface SitemapIndexService {

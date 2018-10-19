@@ -11,7 +11,7 @@ import net.shopxx.entity.Cart;
 /**
  * Event - 合并购物车
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class CartMergedEvent extends CartEvent {

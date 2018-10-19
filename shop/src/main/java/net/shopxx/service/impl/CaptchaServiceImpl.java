@@ -24,7 +24,7 @@ import net.shopxx.service.CaptchaService;
 /**
  * Service - 验证码
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

@@ -23,7 +23,7 @@ import javax.persistence.OneToMany;
 /**
  * Entity - 服务
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

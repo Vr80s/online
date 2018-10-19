@@ -32,7 +32,7 @@ import net.shopxx.service.PromotionService;
 /**
  * Controller - 优惠券
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminPluginCouponPromotionController")

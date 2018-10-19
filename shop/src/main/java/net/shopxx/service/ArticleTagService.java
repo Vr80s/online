@@ -15,7 +15,7 @@ import net.shopxx.entity.ArticleTag;
 /**
  * Service - 文章标签
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface ArticleTagService extends BaseService<ArticleTag, Long> {

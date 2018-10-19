@@ -21,7 +21,7 @@ import net.shopxx.service.StockLogService;
 /**
  * Service - 库存记录
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

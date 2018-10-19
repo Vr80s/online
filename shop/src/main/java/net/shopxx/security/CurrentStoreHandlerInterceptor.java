@@ -18,7 +18,7 @@ import net.shopxx.service.StoreService;
 /**
  * Security - 当前店铺拦截器
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class CurrentStoreHandlerInterceptor extends HandlerInterceptorAdapter {

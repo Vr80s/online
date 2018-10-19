@@ -27,7 +27,7 @@ import net.shopxx.entity.Area;
 /**
  * Dao - 地区
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

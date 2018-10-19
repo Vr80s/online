@@ -12,7 +12,7 @@ import javax.persistence.Entity;
 /**
  * Entity - 序列号
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

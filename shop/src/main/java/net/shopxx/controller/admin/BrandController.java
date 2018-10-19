@@ -24,7 +24,7 @@ import net.shopxx.service.BrandService;
 /**
  * Controller - 品牌
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminBrandController")

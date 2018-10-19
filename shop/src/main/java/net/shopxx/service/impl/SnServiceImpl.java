@@ -18,7 +18,7 @@ import net.shopxx.service.SnService;
 /**
  * Service - 序列号
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

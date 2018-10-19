@@ -14,7 +14,7 @@ import net.shopxx.plugin.PaymentPlugin;
 /**
  * Dao - 支付事务
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface PaymentTransactionDao extends BaseDao<PaymentTransaction, Long> {

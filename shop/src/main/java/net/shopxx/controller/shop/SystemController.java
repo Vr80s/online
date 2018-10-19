@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * Controller - 系统
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("shopSystemController")

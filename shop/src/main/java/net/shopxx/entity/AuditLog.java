@@ -21,7 +21,7 @@ import net.shopxx.BaseAttributeConverter;
 /**
  * Entity - 审计日志
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity
@@ -188,7 +188,7 @@ public class AuditLog extends BaseEntity<Long> {
 	/**
 	 * 类型转换 - 请求参数
 	 * 
-	 * @author SHOP++ Team
+	 * @author ixincheng
 	 * @version 6.1
 	 */
 	@Converter

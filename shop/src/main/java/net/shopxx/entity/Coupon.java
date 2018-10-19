@@ -41,7 +41,7 @@ import net.shopxx.plugin.CouponPromotionPlugin.CouponAttribute;
 /**
  * Entity - 优惠券
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

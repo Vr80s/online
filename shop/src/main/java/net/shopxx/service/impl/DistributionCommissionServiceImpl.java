@@ -21,7 +21,7 @@ import net.shopxx.service.DistributionCommissionService;
 /**
  * Service - 分销佣金
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

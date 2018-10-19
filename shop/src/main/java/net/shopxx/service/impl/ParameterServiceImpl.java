@@ -14,7 +14,7 @@ import net.shopxx.service.ParameterService;
 /**
  * Service - 参数
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

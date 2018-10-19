@@ -11,7 +11,7 @@ import net.shopxx.entity.OrderItem;
 /**
  * Service - 订单项
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface OrderItemService extends BaseService<OrderItem, Long> {

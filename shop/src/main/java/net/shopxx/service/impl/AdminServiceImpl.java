@@ -26,7 +26,7 @@ import net.shopxx.service.AdminService;
 /**
  * Service - 管理员
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

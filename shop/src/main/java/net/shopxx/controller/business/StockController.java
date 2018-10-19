@@ -38,7 +38,7 @@ import net.shopxx.service.StockLogService;
 /**
  * Controller - 库存
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("businessStockController")

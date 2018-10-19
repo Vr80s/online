@@ -24,7 +24,7 @@ import net.shopxx.service.AdService;
 /**
  * Controller - 广告
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminAdController")

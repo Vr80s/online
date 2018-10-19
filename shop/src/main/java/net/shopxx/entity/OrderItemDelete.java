@@ -19,7 +19,7 @@ import java.util.Set;
 /**
  * Entity - 订单项
  *
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity
@@ -518,7 +518,7 @@ public class OrderItemDelete extends BaseEntity<Long> {
 	/**
 	 * 类型转换 - 规格
 	 *
-	 * @author SHOP++ Team
+	 * @author ixincheng
 	 * @version 6.1
 	 */
 	@Converter

@@ -15,7 +15,7 @@ import net.shopxx.entity.Store;
 /**
  * Service - 统计
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface StatisticService extends BaseService<Statistic, Long> {

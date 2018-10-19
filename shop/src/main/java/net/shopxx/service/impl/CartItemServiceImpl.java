@@ -14,7 +14,7 @@ import net.shopxx.service.CartItemService;
 /**
  * Service - 购物车项
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

@@ -24,7 +24,7 @@ import net.shopxx.entity.BusinessAttribute;
 /**
  * Dao - 商家注册项
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

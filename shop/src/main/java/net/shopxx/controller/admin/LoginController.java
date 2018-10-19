@@ -18,7 +18,7 @@ import net.shopxx.security.CurrentUser;
 /**
  * Controller - 管理员登录
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminLoginController")

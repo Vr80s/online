@@ -24,7 +24,7 @@ import net.shopxx.BaseAttributeConverter;
 /**
  * Entity - 退货项
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity
@@ -164,7 +164,7 @@ public class OrderReturnsItem extends BaseEntity<Long> {
 	/**
 	 * 类型转换 - 规格
 	 * 
-	 * @author SHOP++ Team
+	 * @author ixincheng
 	 * @version 6.1
 	 */
 	@Converter

@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 /**
  * Service - 验证码
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface CaptchaService {

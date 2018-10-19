@@ -15,7 +15,7 @@ import net.shopxx.plugin.PaymentPlugin;
 /**
  * Service - 支付事务
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface PaymentTransactionService extends BaseService<PaymentTransaction, Long> {

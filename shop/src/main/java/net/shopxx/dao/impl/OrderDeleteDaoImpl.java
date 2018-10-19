@@ -35,7 +35,7 @@ import net.shopxx.merge.vo.OrderPageParams;
 /**
  * Dao - 订单
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

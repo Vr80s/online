@@ -33,7 +33,7 @@ import net.shopxx.service.PointLogService;
 /**
  * Controller - 积分
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminPointController")

@@ -24,7 +24,7 @@ import net.shopxx.util.FreeMarkerUtils;
 /**
  * 模板指令 - 经营分类申请数量
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component

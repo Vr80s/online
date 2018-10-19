@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="author" content="SHOP++ Team">
+	<meta name="author" content="ixincheng">
 	<meta name="copyright" content="SHOP++">
 	<title>SHOP ++</title>
 </head>

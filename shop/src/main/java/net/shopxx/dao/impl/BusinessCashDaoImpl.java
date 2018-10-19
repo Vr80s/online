@@ -23,7 +23,7 @@ import net.shopxx.entity.BusinessCash.Status;
 /**
  * Dao - 商家提现
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

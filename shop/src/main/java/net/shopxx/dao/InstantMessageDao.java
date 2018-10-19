@@ -19,7 +19,7 @@ import net.shopxx.entity.Store;
 /**
  * Dao - 即时通讯
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface InstantMessageDao extends BaseDao<InstantMessage, Long> {

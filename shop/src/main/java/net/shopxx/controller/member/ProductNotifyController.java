@@ -32,7 +32,7 @@ import net.shopxx.service.ProductNotifyService;
 /**
  * Controller - 到货通知
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("memberProductNotifyController")

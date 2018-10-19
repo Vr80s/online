@@ -9,7 +9,7 @@ package net.shopxx.service;
 /**
  * Service - 搜索
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface SearchService {

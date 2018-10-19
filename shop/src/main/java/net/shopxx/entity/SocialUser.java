@@ -16,7 +16,7 @@ import javax.persistence.UniqueConstraint;
 /**
  * Entity - 社会化用户
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

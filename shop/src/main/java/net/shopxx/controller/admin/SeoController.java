@@ -23,7 +23,7 @@ import net.shopxx.service.SeoService;
 /**
  * Controller - SEO设置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminSeoController")

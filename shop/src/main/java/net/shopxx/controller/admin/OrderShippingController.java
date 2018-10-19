@@ -22,7 +22,7 @@ import net.shopxx.service.OrderShippingService;
 /**
  * Controller - 订单发货
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminOrderShippingController")

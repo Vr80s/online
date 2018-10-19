@@ -17,7 +17,7 @@ import javax.persistence.NoResultException;
 /**
  * Dao - SEO设置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

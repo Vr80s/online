@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="author" content="SHOP++ Team" />
+	<meta name="author" content="ixincheng" />
 	<meta name="copyright" content="SHOP++" />
 	<title>${message("common.error.unsupportedBrowser")}</title>
 	<link href="${base}/resources/common/css/base.css" rel="stylesheet" type="text/css" />

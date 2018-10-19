@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 /**
  * Entity - 默认运费配置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

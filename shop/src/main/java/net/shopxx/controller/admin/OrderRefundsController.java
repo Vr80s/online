@@ -22,7 +22,7 @@ import net.shopxx.service.OrderRefundsService;
 /**
  * Controller - 订单退款
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminOrderRefundsController")

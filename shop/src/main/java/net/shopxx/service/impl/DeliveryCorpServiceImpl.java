@@ -14,7 +14,7 @@ import net.shopxx.service.DeliveryCorpService;
 /**
  * Service - 物流公司
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

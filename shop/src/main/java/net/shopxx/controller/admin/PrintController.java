@@ -18,7 +18,7 @@ import net.shopxx.service.OrderService;
 /**
  * Controller - 打印
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminPrintController")

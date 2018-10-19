@@ -23,7 +23,7 @@ import net.shopxx.service.BusinessCashService;
 /**
  * Controller - 商家提现
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminBusinessCashController")

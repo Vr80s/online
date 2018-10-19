@@ -25,7 +25,7 @@ import net.shopxx.service.StoreRankService;
 /**
  * Controller - 店铺等级
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminStoreRankController")

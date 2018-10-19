@@ -15,7 +15,7 @@ import java.util.Set;
 /**
  * Entity - 地区
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Data

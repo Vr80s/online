@@ -31,7 +31,7 @@ import com.google.code.kaptcha.util.Configurable;
 /**
  * Captcha - 验证码背景
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class CaptchaBackground extends Configurable implements BackgroundProducer {

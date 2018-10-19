@@ -28,7 +28,7 @@ import net.sf.ehcache.constructs.web.filter.SimplePageCachingFilter;
 /**
  * Filter - 页面缓存
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class PageCachingFilter extends SimplePageCachingFilter {

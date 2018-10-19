@@ -11,7 +11,7 @@ import net.shopxx.entity.PromotionDefaultAttribute;
 /**
  * Service - 促销默认属性
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface PromotionDefaultAttributeService extends BaseService<PromotionDefaultAttribute, Long> {

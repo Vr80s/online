@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Entity - 运费配置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @MappedSuperclass

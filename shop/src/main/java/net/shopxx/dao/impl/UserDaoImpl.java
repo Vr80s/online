@@ -14,7 +14,7 @@ import net.shopxx.entity.User;
 /**
  * Dao - 用户
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

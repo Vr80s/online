@@ -24,7 +24,7 @@ import net.shopxx.service.BusinessService;
 /**
  * Controller - 密码
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("businessPasswordController")

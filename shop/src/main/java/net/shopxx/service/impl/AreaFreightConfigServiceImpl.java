@@ -23,7 +23,7 @@ import net.shopxx.service.AreaFreightConfigService;
 /**
  * Service - 地区运费配置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

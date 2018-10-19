@@ -29,7 +29,7 @@ import net.shopxx.service.PluginConfigService;
 /**
  * Controller - QQ登录
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminPluginQqLoginController")

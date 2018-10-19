@@ -28,7 +28,7 @@ import net.shopxx.service.InstantMessageService;
 /**
  * Controller - 即时通讯
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("businessInstantMessageController")

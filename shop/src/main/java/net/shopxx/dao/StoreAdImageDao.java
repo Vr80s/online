@@ -18,7 +18,7 @@ import net.shopxx.entity.StoreAdImage;
 /**
  * Dao - 店铺广告图片
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface StoreAdImageDao extends BaseDao<StoreAdImage, Long> {

@@ -21,7 +21,7 @@ import net.shopxx.security.AuthenticationProvider;
 /**
  * Service - 会员
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface MemberService extends BaseService<Member, Long>, AuthenticationProvider {

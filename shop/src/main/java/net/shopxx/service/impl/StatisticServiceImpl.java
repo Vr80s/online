@@ -34,7 +34,7 @@ import net.shopxx.service.StatisticService;
 /**
  * Service - 统计
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

@@ -23,7 +23,7 @@ import net.shopxx.entity.User;
 /**
  * Dao - 消息
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

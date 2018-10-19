@@ -32,7 +32,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 /**
  * Entity - 商品分类
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

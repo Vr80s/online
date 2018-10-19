@@ -22,7 +22,7 @@ import org.hibernate.search.annotations.Store;
 /**
  * Entity - 排序基类
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @MappedSuperclass

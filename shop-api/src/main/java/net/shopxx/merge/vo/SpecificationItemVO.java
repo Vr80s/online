@@ -74,7 +74,7 @@ public class SpecificationItemVO implements Serializable {
 	/**
 	 * Entity - 条目
 	 * 
-	 * @author SHOP++ Team
+	 * @author ixincheng
 	 * @version 6.1
 	 */
 	public static class Entry implements Serializable {

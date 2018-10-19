@@ -26,7 +26,7 @@ import net.shopxx.service.ArticleCategoryService;
 /**
  * Controller - 文章分类
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminArticleCategoryController")

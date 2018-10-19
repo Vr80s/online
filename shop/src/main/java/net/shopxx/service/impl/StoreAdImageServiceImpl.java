@@ -29,7 +29,7 @@ import net.shopxx.service.StoreAdImageService;
 /**
  * Service - 店铺广告图片
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

@@ -27,7 +27,7 @@ import net.shopxx.service.SitemapUrlService;
 /**
  * Controller - Sitemap
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("shopSitemapController")

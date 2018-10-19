@@ -40,7 +40,7 @@ import net.shopxx.util.SecurityUtils;
 /**
  * Controller - 银联在线支付
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminPluginUnionpayPaymentController")

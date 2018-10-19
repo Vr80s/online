@@ -30,7 +30,7 @@ import net.shopxx.service.StoreService;
 /**
  * Controller - 商品
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminProductController")

@@ -18,7 +18,7 @@ import net.shopxx.entity.BaseEntity;
 /**
  * Service - 基类
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface BaseService<T extends BaseEntity<ID>, ID extends Serializable> {

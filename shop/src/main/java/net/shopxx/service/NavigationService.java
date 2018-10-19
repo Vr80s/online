@@ -15,7 +15,7 @@ import net.shopxx.entity.Navigation;
 /**
  * Service - 导航
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface NavigationService extends BaseService<Navigation, Long> {

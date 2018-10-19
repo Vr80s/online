@@ -20,7 +20,7 @@ import net.shopxx.service.StoreService;
 /**
  * Security - 当前店铺MethodArgumentResolver
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class CurrentStoreMethodArgumentResolver implements HandlerMethodArgumentResolver {

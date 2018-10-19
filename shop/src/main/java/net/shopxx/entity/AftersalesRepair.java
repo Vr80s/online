@@ -17,7 +17,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 /**
  * Entity - 维修
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

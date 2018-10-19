@@ -27,7 +27,7 @@ import net.shopxx.entity.ProductFavorite;
 /**
  * Dao - 商品收藏
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

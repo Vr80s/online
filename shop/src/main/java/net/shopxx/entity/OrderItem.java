@@ -30,7 +30,7 @@ import net.shopxx.BaseAttributeConverter;
 /**
  * Entity - 订单项
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity
@@ -518,7 +518,7 @@ public class OrderItem extends BaseEntity<Long> {
 	/**
 	 * 类型转换 - 规格
 	 * 
-	 * @author SHOP++ Team
+	 * @author ixincheng
 	 * @version 6.1
 	 */
 	@Converter

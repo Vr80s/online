@@ -14,7 +14,7 @@ import net.shopxx.entity.User;
 /**
  * Service - 社会化用户
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface SocialUserService extends BaseService<SocialUser, Long> {

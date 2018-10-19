@@ -185,6 +185,9 @@ header{
 	font-size: .28rem;
 	color: #F97215;
 }
+.price_yuan .yuan span{
+	font-family: "Helvetica";
+}
 .price_yuan .number{
 	font-size: .28rem;
 	color: #333333;
@@ -206,6 +209,9 @@ header{
 }
 .express .express_price span{
 	font-weight: bold;
+}
+.express .express_price .amount{
+	font-family: "Helvetica";
 }
 
 .indent_list .payment_method{

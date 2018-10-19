@@ -11,7 +11,7 @@ import net.shopxx.entity.OrderLog;
 /**
  * Dao - 订单记录
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface OrderLogDao extends BaseDao<OrderLog, Long> {

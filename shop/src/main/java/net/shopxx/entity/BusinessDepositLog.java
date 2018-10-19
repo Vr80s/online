@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 /**
  * Entity - 商家预存款记录
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

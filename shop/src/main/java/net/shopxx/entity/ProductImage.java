@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.URL;
 /**
  * Entity - 商品图片
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class ProductImage implements Serializable, Comparable<ProductImage> {

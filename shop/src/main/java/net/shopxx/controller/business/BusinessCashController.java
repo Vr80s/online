@@ -30,7 +30,7 @@ import net.shopxx.util.SystemUtils;
 /**
  * Controller - 商家提现
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("businessBusinessCashController")

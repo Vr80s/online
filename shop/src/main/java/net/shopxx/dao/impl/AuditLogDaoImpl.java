@@ -14,7 +14,7 @@ import net.shopxx.entity.AuditLog;
 /**
  * Dao - 审计日志
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

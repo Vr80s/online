@@ -35,7 +35,7 @@ import net.shopxx.service.MemberAttributeService;
 /**
  * Controller - 会员注册项
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminMemberAttributeController")

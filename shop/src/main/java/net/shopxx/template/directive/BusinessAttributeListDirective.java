@@ -26,7 +26,7 @@ import net.shopxx.service.BusinessAttributeService;
 /**
  * 模板指令 - 商家注册项列表
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component

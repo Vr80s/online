@@ -34,7 +34,7 @@ import net.shopxx.service.PromotionService;
 /**
  * Controller - 商品分类
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminProductCategoryController")

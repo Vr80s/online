@@ -18,7 +18,7 @@ import org.hibernate.validator.constraints.Length;
 /**
  * Entity - 发票
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Embeddable

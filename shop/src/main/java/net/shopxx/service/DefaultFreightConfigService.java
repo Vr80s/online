@@ -16,7 +16,7 @@ import net.shopxx.entity.Store;
 /**
  * Service - 默认运费配置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface DefaultFreightConfigService extends BaseService<DefaultFreightConfig, Long> {

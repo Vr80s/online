@@ -13,7 +13,7 @@ import net.shopxx.entity.Area;
 /**
  * Service - 地区
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface AreaService extends BaseService<Area, Long> {

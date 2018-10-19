@@ -29,7 +29,7 @@ import net.shopxx.service.ReceiverService;
 /**
  * Controller - 收货地址
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("memberReceiverController")

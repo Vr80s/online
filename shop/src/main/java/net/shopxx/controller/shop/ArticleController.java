@@ -34,7 +34,7 @@ import net.shopxx.service.ArticleService;
 /**
  * Controller - 文章
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("shopArticleController")

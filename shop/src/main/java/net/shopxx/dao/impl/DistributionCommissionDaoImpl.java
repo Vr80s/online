@@ -22,7 +22,7 @@ import net.shopxx.entity.Distributor;
 /**
  * Dao - 分销佣金
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository
