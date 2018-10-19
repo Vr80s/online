@@ -94,6 +94,32 @@
 	 /**
 	  * 修改地址
 	  */
+	 $(".update_address_return").click(function(){
+//		alert(location.href);
+//		location.href ='address.html';
+//		history.go(-1);
+		
+		function getQueryString(name){
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r!=null) return r[2];else return'';
+        }
+		
+        var type = getQueryString('type');
+        var types = getQueryString('types');
+        if(type=='2'){
+        	
+        	location.href ='address.html?type='+ type+"&types=4";
+        }else if(type=='3'){
+            location.replace("/xcview/html/persons.html");
+        }
+        getQueryString('name');
+		
+		
+		
+		
+	})
+	 
 	 var isTrue=true;
 
 	 function editAddress(addressId){
