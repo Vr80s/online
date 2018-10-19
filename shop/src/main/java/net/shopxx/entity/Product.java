@@ -663,6 +663,10 @@ public class Product extends BaseEntity<Long> {
     @Column
     private Integer doctorRecommends;
     
+    @Column
+    private Long defaultSales;
+    
+    
     /**
      * 获取编号
      *
@@ -1868,6 +1872,15 @@ public class Product extends BaseEntity<Long> {
 
 	public void setDoctorRecommends(Integer doctorRecommends) {
 		this.doctorRecommends = doctorRecommends;
+	}
+	
+	
+	public Long getDefaultSales() {
+		return defaultSales;
+	}
+
+	public void setDefaultSales(Long defaultSales) {
+		this.defaultSales = defaultSales;
 	}
 
 	/**

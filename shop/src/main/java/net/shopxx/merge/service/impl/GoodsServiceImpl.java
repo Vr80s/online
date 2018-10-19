@@ -175,6 +175,9 @@ public class GoodsServiceImpl implements GoodsService {
         //库存转换
         pv.setSkuVOs(convertProductSku(product));
         
+        //销售量  + 默认设置的
+        //pv.setSales(product.getSales()+(product.getDefaultSales()!=null ? product.getDefaultSales():0));
+        
         //此商品评论总数
         long reviewvCount = reviewDao.calculateScoreCount(product);
         pv.setReviewvCount(reviewvCount);
