@@ -75,18 +75,26 @@
 		$(".btn").hide()
 	} */
 	
+		
+		
+		
 	var close_falg =  getFlagStatus();
 	if(close_falg != USER_NORMAL){   //不是登录状态 --》隐藏账号设置
 		$(".set_main_close").hide();
+		
 		$(".btn").hide();
 		if(close_falg == USER_UN_LOGIN){ //游客状态隐藏  退出登录
 			$(".btn").hide();
 		}
-	}	
+	}else{
+		$(".btn").show();
+	}
+	
 	// 微信浏览器隐藏退出登录按钮
-	if(!is_weixin()){
-    	$(".btn").show()
-    }
+	if(is_weixin()){
+		$(".btn").hide();
+	}
+	
 </script>
 
 <script>
