@@ -16,39 +16,32 @@
         {
           "type": "view",
           "name": "学习中心",
-          "url": "http://m.ipandatcm.com/xcview/html/my_study.html"
-        },
+          "url": "http://m.ipandatcm.com/xcview/html/my_study.html?shareBack=1"
+        }
+      ]
+    },
+    
+    {
+      "type": "view",
+      "name": "好货",
+      "url": "http://m.ipandatcm.com/xcview/html/shop/shop.html"
+    },
+    
+    
+    {
+      "name": "我的",
+      "sub_button": [
         {
           "type": "view",
           "name": "个人中心",
           "url": "http://m.ipandatcm.com/xcview/html/my_homepage.html"
-        }
-      ]
-    },
-    {
-      "name": "特色课程",
-      "sub_button": [
-        {
-          "type": "view",
-          "name": "脉诊大全",
-          "url": "http://m.ipandatcm.com/xcview/html/curriculum_table.html?menuType=200"
         },
         {
           "type": "view",
-          "name": "古籍经典",
-          "url": "http://m.ipandatcm.com/xcview/html/curriculum_table.html?menuType=205"
-        },
-        {
-          "type": "view",
-          "name": "针灸课程",
-          "url": "http://m.ipandatcm.com/xcview/html/curriculum_table.html?menuType=201"
+          "name": "我的订单",
+          "url": "http://m.ipandatcm.com/xcview/html/shop/order_center.html"
         }
       ]
-    },
-    {
-      "type": "media_id",
-      "name": "健康好文",
-      "media_id": "J_yKCqyYzwWaAJjGf3mxH1aa1upoqOzZEzBF8z4BLes"
     }
   ]
 }
