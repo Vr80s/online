@@ -249,3 +249,8 @@ var miniRefresh = new MiniRefresh({
         }
     }
 });
+
+/*$(".indent_list").each(function(){
+	var list = $(this).find(".express_price").find("span");
+});
+*/

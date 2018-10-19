@@ -240,6 +240,12 @@ header{
 	float: left;
 	margin-left: .26rem;
 }
+.ruling_price span{
+	font-family: "Helvetica";
+}
+.information .price{
+	font-family: "Helvetica";
+}
 .original_price{
 	font-size: .26rem;
 	color: #999999;
@@ -544,12 +550,13 @@ header{
 	width: .42rem;
 	height: .42rem;
 	display: block;
-	margin: 0 auto;
+	/*margin: 0 auto;*/
 	margin-bottom: .08rem;
+	margin-left: .08rem;
 }
 .footer .shopping_quantity{
 	position: absolute;
-    right: -.15rem;
+    right: -.06rem;
     top: 0;
     background: #F97215;
     border-radius: 100px;

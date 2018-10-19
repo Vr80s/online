@@ -233,12 +233,13 @@ header {
     width: .42rem;
     height: .42rem;
     display: block;
-    margin: 0 auto;
+    /*margin: 0 auto;*/
     margin-bottom: .08rem;
+    margin-left: .08rem;
 }
 .footer .shopping_quantity{
     position: absolute;
-    right: -.15rem;
+    right: -.06rem;
     top: 0;
     background: #F97215;
     border-radius: 100px;
@@ -338,6 +339,7 @@ header {
 	margin-top: 0;
 	margin-bottom: 0.1rem;
 	padding-top: 0.75rem;
+	font-family: "Helvetica";
 }
 .shopping_trolley_center .message .repertory{
 	font-size: .26rem;

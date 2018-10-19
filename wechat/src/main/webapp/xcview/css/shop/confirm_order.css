@@ -239,6 +239,9 @@ header{
 	font-size: .28rem;
 	color: #F97215;
 }
+.price_yuan .yuan span{
+	font-family: "Helvetica";
+}
 .price_yuan .number{
 	font-size: .28rem;
 	color: #333333;
@@ -263,6 +266,9 @@ header{
 	color: #333333;
 	float: right;
 	margin-right: .26rem;
+}
+.express .express_price span{
+	font-family: "Helvetica";
 }
 .indent_list .BBS{
 	width: 7.5rem;
@@ -379,6 +385,9 @@ header{
 .total_price_main .total .totals_yuan{
 	float: right;
 }
+.total_price_main .total .totals_yuan .totals_yuan_rmb{
+	font-family: "Helvetica";
+}
 /*运费*/
 .total_price_main .carriage{
 	overflow: hidden;
@@ -393,6 +402,9 @@ header{
 }
 .total_price_main .carriage .carriage_yuan{
 	float: right;
+}
+.total_price_main .carriage .carriage_yuan .carriage_yuan_rmb{
+	font-family: "Helvetica";
 }
 /*优惠金额*/
 .total_price_main .discount_amount{
@@ -451,6 +463,9 @@ header{
 	font-size: .3rem;
 	color: #F97215;
 	float: left;
+}
+.summation .yuan .amountPayable{
+	font-family: "Helvetica";
 }
 .submit_order{
 	float: right;
