@@ -430,10 +430,8 @@ function initRecommendProduct() {
                 var id = $(this).attr("data-id");
                 window.location.href = "/xcview/html/shop/commodity_details.html?productId=" + id + "";
             })
-            $(".list li ").each(function(){
-            	
-            	
-			    var d = $("this").html();
+            $(".list li").each(function(){
+			    var d = $(this).find("span").html();
 				if(/^\d+$/.test(d)){
 				d = d + ".00";
 				}else if(/^(\d+\.)(\d+)$/.test(d)){
@@ -445,10 +443,7 @@ function initRecommendProduct() {
 					d = i + t.substring(0,2);
 				}
 				//	alert(v);
-				$("this").html(d);
-			    
-			    
-			    
+				$(this).find("span").html(d);
 			});
             
             
