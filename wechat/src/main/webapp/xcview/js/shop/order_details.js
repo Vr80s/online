@@ -80,19 +80,17 @@ function orderDetails() {
                 obj.orderItems[i].price = priceConvert(obj.orderItems[i].price);
             }
             
+            $(".orderDetails").html(template('order_details',obj));
             //点击详情
             $(".product_details").click(function(){
                 var dataId = $(this).attr('data-id');
                 var marketable = $(this).attr('data-marketable');
                 if(marketable == 1){
-                	location.href ='/xcview/html/shop/commodity_details.html?productId=' + dataId;
+                    location.href ='/xcview/html/shop/commodity_details.html?productId=' + dataId;
                 }else{
-                	location.href ='/xcview/html/shop/expired_products.html'
+                    location.href ='/xcview/html/shop/expired_products.html'
                 }
             });
-            
-            
-            $(".orderDetails").html(template('order_details',obj));
             // 点击取消订单提示
             $(".cancel_order").click(function(){
                 data_sn = $(this).attr('data-sn');
