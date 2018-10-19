@@ -94,7 +94,8 @@ public class MobileShareController {
         	ShareInfoVo sv = null;
         	if(ShareType.HEALTHY_SHARE.getCode().equals(shareType)) {
         		sv = new ShareInfoVo();
-                sv.setDescription("熊猫中医-健康测评  来看看你是什么体质吧~");
+                sv.setDescription("熊猫中医-健康测评  来看看你的健康状况吧~");
+                sv.setName("健康测评");
         	}else if(ShareType.PRODUCT_SHARE.getCode().equals(shareType)) {
         		sv = goodsService.findIdByShareInfo(shareId);
         	}else {
