@@ -20,20 +20,23 @@ $(function() {
 
 				};
 				
+				var defaultSearch =  data.resultObject.defaultSearch;
 				$(".header_seeks").html(template('header_seeks', {
-					items: data.resultObject.defaultSearch
+					item: (defaultSearch !=null && defaultSearch.length>0) ? defaultSearch[0] :null
 				}))
 				// 	    	<!--给inpiu默认值-->
 				$(".div_span_input").html(template('shipin', {
-					items: data.resultObject.defaultSearch
+					item: (defaultSearch !=null && defaultSearch.length>0) ? defaultSearch[0] :null
 				}))
+				
+				
 				if (data.resultObject.defaultSearch != null && data.resultObject.defaultSearch.length > 0) {
 					localStorage.setItem("defaultKey", data.resultObject.defaultSearch[0].name);
 				}
 
 				// 点击搜索按钮
 				$(".header_cancel").click(function() {
-					if ($(".div_span_input").html() == "" && $("#header_input").val() == "") {
+					if ($("#header_input").val() == "") {
 						jqtoast("请输入搜索关键字");
 					} else {
 						var search_val = $("#header_input").val();
@@ -82,7 +85,7 @@ $(function() {
 
 				//      点击yinput  失去焦点隐藏默认值
 				$("#header_input").keyup(function() {
-					if ($(".div_span_input").html() == "" && $("#header_input").val() == "") {
+					if ($("#header_input").val() == "") {
 						jqtoast("请输入搜索关键字");
 					} else {
 						var search_val = $(this).val()

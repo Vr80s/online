@@ -45,18 +45,13 @@
 			<div class="header_seek"> 
 				<div class="header_seeks">
 					<script type="text/html" id="header_seeks">
-						{{each items as item i}}
-						{{if item.name !=null}}
-							
+						{{if item !=null}}
 							<input type="text" name="" value="" autocomplete="off" class="aaa"  id="header_input" placeholder="大家都在搜：{{item.name}}" />
 						{{else}}
 							<input type="text" name="" value="" autocomplete="off"  id="header_input" placeholder="" autofocus="autofocus" />
 						{{/if}}
-						{{/each}}
 	           	 	</script>
 				</div>
-				
-				
 				<span class="span">
 					<img src="/xcview/images/sousuo0.png" alt="" class="sousuo" /><!--针灸疗法-->
 				</span>
@@ -64,14 +59,11 @@
 					<span class="div_span_input">
 						<!--给inpiu默认值-->
 						<script type="text/html" id="shipin">
-						{{each items as item i}}
-						{{if item.name !=null}}
-							
+						{{if item !=null}}
 							<span>大家都在搜：<span class="keyword">{{item.name}}</span></span>
 						{{else}}
 							<span></span>
 						{{/if}}
-						{{/each}}
 	           	 		</script>
 					</span>
 				</div>

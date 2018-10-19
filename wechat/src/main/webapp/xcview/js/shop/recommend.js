@@ -4,8 +4,6 @@ $(function () {
 
 })
 
-var productId = getQueryString("productId");
-var currentSku = null;
 function appointmentList(pageNumber, downOrUp) {
 
 	requestService("/xczh/shop/goods/recommends",{
