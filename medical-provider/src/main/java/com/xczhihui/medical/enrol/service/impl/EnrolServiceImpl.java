@@ -215,8 +215,7 @@ public class EnrolServiceImpl implements EnrolService {
         if (!oldMedicalEnrollmentRegulations.getDoctorId().equals(medicalEnrollmentRegulations.getDoctorId())) {
             throw new MedicalException("非法请求");
         }
-        oldMedicalEnrollmentRegulations.setTitle(oldMedicalEnrollmentRegulations.getTitle());
-        oldMedicalEnrollmentRegulations.setEntryFormAttachment(oldMedicalEnrollmentRegulations.getEntryFormAttachment());
+        oldMedicalEnrollmentRegulations.setTitle(medicalEnrollmentRegulations.getTitle());
         oldMedicalEnrollmentRegulations.setCeremonyAddress(medicalEnrollmentRegulations.getCeremonyAddress());
         oldMedicalEnrollmentRegulations.setCountLimit(medicalEnrollmentRegulations.getCountLimit());
         oldMedicalEnrollmentRegulations.setDeadline(medicalEnrollmentRegulations.getDeadline());

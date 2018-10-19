@@ -288,9 +288,17 @@ public class OrderOperServiceImpl implements OrderOperService {
 				BeanUtils.copyProperties(orderItem,orderItemVO);
 				SkuVO skuVO = new SkuVO();
 				BeanUtils.copyProperties(orderItem.getSku(),skuVO);
+				
+				ProductVO productvo = new ProductVO();
+				productvo.setId(orderItem.getSku().getProduct().getId());
+				productvo.setIsMarketable(orderItem.getSku().getProduct().getIsMarketable());
+				productvo.setIsOutOfStock(orderItem.getSku().getProduct().getIsOutOfStock());
+				productvo.setIsActive(orderItem.getSku().getProduct().getIsActive());
 				orderItemVO.setSku(skuVO);
+				orderItemVO.getSku().setProduct(productvo);
 				orderItemVOList.add(orderItemVO);
 			}
+			
 			orderVO.setOrderItems(orderItemVOList);
 			StoreVO storeVO = new StoreVO();
 			BeanUtils.copyProperties(order.getStore(),storeVO);
