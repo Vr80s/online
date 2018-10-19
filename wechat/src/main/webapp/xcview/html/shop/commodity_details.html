@@ -193,7 +193,12 @@
 				{{if items.marketprice > items.price}}
 					<span class="original_price">￥<span>{{items.marketprice}}</span></span>
 				{{/if}}
-				<span class="sold_out">已售{{items.sales}}件</span>
+				{{if items.sales!=null}}
+					<span class="sold_out">已售{{items.sales}}件</span>
+				{{else}}
+					<span class="sold_out">已售0件</span>
+				{{/if}}
+
 				<div class="both"></div>
 			</div>
 		</div>
