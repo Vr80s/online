@@ -30,7 +30,7 @@ import net.shopxx.service.StoreService;
 /**
  * Controller - 经营分类申请
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("businessCategoryApplicationController")

@@ -32,7 +32,7 @@ import net.shopxx.service.StoreProductCategoryService;
 /**
  * Controller - 店铺商品分类
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("businessStoreProductCategoryController")

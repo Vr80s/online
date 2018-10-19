@@ -30,7 +30,7 @@ import net.shopxx.service.BusinessAttributeService;
 /**
  * Service - 商家注册项
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

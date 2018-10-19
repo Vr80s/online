@@ -31,7 +31,7 @@ import freemarker.template.utility.DeepUnwrap;
 /**
  * Utils - FreeMarker
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public final class FreeMarkerUtils {

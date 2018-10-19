@@ -28,7 +28,7 @@ import net.shopxx.service.UserService;
 /**
  * Controller - 社会化用户登录
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("shopSocialUserLoginController")

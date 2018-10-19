@@ -11,7 +11,7 @@ import net.shopxx.entity.OrderPayment;
 /**
  * Dao - 订单支付
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface OrderPaymentDao extends BaseDao<OrderPayment, Long> {

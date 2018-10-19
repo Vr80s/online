@@ -22,7 +22,7 @@ import net.shopxx.util.FreeMarkerUtils;
 /**
  * Entity - SEO设置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

@@ -31,7 +31,7 @@ import net.shopxx.util.WebUtils;
 /**
  * Plugin - 银联在线支付
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component("unionpayPaymentPlugin")

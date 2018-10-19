@@ -24,7 +24,7 @@ import net.shopxx.entity.User;
  * Dao - 社会化用户
  * 
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

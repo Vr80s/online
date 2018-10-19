@@ -20,7 +20,7 @@ import net.shopxx.service.PluginConfigService;
 /**
  * Service - 插件配置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

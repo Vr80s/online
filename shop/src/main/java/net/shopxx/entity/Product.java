@@ -29,7 +29,7 @@ import java.util.*;
 /**
  * Entity - 商品
  *
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Indexed
@@ -2135,7 +2135,7 @@ public class Product extends BaseEntity<Long> {
     /**
      * 类型转换 - 商品图片
      *
-     * @author SHOP++ Team
+     * @author ixincheng
      * @version 6.1
      */
     @Converter
@@ -2145,7 +2145,7 @@ public class Product extends BaseEntity<Long> {
     /**
      * 类型转换 - 参数值
      *
-     * @author SHOP++ Team
+     * @author ixincheng
      * @version 6.1
      */
     @Converter
@@ -2155,7 +2155,7 @@ public class Product extends BaseEntity<Long> {
     /**
      * 类型转换 - 规格项
      *
-     * @author SHOP++ Team
+     * @author ixincheng
      * @version 6.1
      */
     @Converter

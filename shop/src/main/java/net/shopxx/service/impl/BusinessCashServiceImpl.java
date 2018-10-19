@@ -28,7 +28,7 @@ import net.shopxx.service.BusinessService;
 /**
  * Service - 商家提现
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

@@ -17,7 +17,7 @@ import net.shopxx.service.CartService;
 /**
  * Job - 购物车
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Lazy(false)

@@ -18,7 +18,7 @@ import net.shopxx.plugin.StoragePlugin;
 /**
  * Service - 插件
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface PluginService {

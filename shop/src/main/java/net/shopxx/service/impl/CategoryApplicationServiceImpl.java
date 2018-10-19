@@ -31,7 +31,7 @@ import net.shopxx.service.CategoryApplicationService;
 /**
  * Service - 经营分类申请
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

@@ -37,7 +37,7 @@ import net.shopxx.util.SystemUtils;
 /**
  * Controller - 咨询
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("shopConsultationController")

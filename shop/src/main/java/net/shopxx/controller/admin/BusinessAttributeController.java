@@ -33,7 +33,7 @@ import net.shopxx.service.BusinessAttributeService;
 /**
  * Controller - 商家注册项
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("businessAttributeController")

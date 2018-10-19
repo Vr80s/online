@@ -36,7 +36,7 @@ import net.shopxx.util.SystemUtils;
 /**
  * Entity - SKU
  *
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity
@@ -799,7 +799,7 @@ public class Sku extends BaseEntity<Long> {
     /**
      * 类型转换 - 规格值
      *
-     * @author SHOP++ Team
+     * @author ixincheng
      * @version 6.1
      */
     @Converter

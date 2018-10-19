@@ -29,7 +29,7 @@ import net.shopxx.service.ShippingMethodService;
 /**
  * Controller - 配送方式
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("businessShippingMethodController")

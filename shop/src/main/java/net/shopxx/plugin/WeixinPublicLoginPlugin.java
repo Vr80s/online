@@ -28,7 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * Plugin - 微信登录(公众号登录)
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component("weixinPublicLoginPlugin")

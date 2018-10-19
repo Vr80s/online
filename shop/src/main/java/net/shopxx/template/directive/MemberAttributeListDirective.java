@@ -26,7 +26,7 @@ import net.shopxx.service.MemberAttributeService;
 /**
  * 模板指令 - 会员注册项列表
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component

@@ -22,7 +22,7 @@ import net.shopxx.service.CaptchaService;
 /**
  * Controller - 验证码
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("commonCaptchaController")

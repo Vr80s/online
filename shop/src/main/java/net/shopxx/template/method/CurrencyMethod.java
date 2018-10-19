@@ -21,7 +21,7 @@ import net.shopxx.util.SystemUtils;
 /**
  * 模板方法 - 货币格式化
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component

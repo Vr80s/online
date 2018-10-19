@@ -29,7 +29,7 @@ import net.shopxx.service.PluginConfigService;
 /**
  * Controller - 阿里云存储
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminPluginOssStorageController")

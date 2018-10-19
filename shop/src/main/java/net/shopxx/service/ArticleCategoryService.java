@@ -13,7 +13,7 @@ import net.shopxx.entity.ArticleCategory;
 /**
  * Service - 文章分类
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface ArticleCategoryService extends BaseService<ArticleCategory, Long> {

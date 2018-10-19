@@ -26,7 +26,7 @@ import net.shopxx.service.ProductTagService;
 /**
  * 模板指令 - 商品标签列表
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component

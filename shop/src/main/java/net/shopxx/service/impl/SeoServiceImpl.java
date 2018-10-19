@@ -20,7 +20,7 @@ import net.shopxx.service.SeoService;
 /**
  * Service - SEO设置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

@@ -19,7 +19,7 @@ import net.shopxx.service.UserService;
 /**
  * Security - 注销过滤器
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class LogoutFilter extends org.apache.shiro.web.filter.authc.LogoutFilter {

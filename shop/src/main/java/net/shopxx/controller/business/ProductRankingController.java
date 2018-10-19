@@ -27,7 +27,7 @@ import net.shopxx.service.ProductService;
 /**
  * Controller - 商品排名
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("businessProductRankingController")

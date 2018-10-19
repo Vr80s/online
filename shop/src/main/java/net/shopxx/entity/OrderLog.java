@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 /**
  * Entity - 订单记录
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

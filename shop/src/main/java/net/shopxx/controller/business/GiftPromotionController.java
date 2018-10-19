@@ -43,7 +43,7 @@ import net.shopxx.service.SkuService;
 /**
  * Controller - 优惠券促销
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("businessGiftPromotionController")

@@ -24,7 +24,7 @@ import net.shopxx.entity.MemberAttribute;
 /**
  * Dao - 会员注册项
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

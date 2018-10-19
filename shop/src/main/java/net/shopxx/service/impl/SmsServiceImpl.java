@@ -50,7 +50,7 @@ import net.shopxx.util.WebUtils;
 /**
  * Service - 短信
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

@@ -33,7 +33,7 @@ import net.shopxx.util.WebUtils;
 /**
  * Controller - 预存款
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("businessDepositController")

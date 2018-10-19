@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * Entity - 规格项
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class SpecificationItem implements Serializable {
@@ -151,7 +151,7 @@ public class SpecificationItem implements Serializable {
 	/**
 	 * Entity - 条目
 	 * 
-	 * @author SHOP++ Team
+	 * @author ixincheng
 	 * @version 6.1
 	 */
 	public static class Entry implements Serializable {

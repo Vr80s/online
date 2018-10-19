@@ -14,7 +14,7 @@ import net.shopxx.service.AftersalesRepairService;
 /**
  * Service - 维修
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

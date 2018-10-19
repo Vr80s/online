@@ -68,7 +68,7 @@ import net.shopxx.util.SystemUtils;
 /**
  * Dao - 商品
  *
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

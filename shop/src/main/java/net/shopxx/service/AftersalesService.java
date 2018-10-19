@@ -20,7 +20,7 @@ import net.shopxx.entity.Store;
 /**
  * Service - 售后
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface AftersalesService extends BaseService<Aftersales, Long> {

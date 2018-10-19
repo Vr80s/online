@@ -27,7 +27,7 @@ import net.shopxx.util.WebUtils;
 /**
  * Plugin - QQ登录
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component("qqLoginPlugin")

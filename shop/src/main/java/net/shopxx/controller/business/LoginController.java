@@ -21,7 +21,7 @@ import net.shopxx.security.CurrentUser;
 /**
  * Controller - 商家登录
  *
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("businessLoginController")

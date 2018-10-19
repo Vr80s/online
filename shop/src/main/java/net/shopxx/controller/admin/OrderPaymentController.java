@@ -22,7 +22,7 @@ import net.shopxx.service.OrderPaymentService;
 /**
  * Controller - 订单支付
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminOrderPaymentController")

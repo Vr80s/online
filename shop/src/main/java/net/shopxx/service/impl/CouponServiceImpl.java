@@ -31,7 +31,7 @@ import net.shopxx.service.CouponService;
 /**
  * Service - 优惠券
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

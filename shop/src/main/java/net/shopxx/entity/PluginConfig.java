@@ -22,7 +22,7 @@ import net.shopxx.BaseAttributeConverter;
 /**
  * Entity - 插件配置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity
@@ -124,7 +124,7 @@ public class PluginConfig extends OrderedEntity<Long> {
 	/**
 	 * 类型转换 - 属性
 	 * 
-	 * @author SHOP++ Team
+	 * @author ixincheng
 	 * @version 6.1
 	 */
 	@Converter

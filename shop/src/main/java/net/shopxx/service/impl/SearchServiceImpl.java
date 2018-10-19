@@ -21,7 +21,7 @@ import net.shopxx.service.SearchService;
 /**
  * Service - 搜索
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

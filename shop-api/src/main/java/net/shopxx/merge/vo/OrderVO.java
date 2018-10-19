@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * Entity - 订单
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Data

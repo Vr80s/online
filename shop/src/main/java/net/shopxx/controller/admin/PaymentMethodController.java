@@ -23,7 +23,7 @@ import net.shopxx.service.PaymentMethodService;
 /**
  * Controller - 支付方式
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminPaymentMethodController")

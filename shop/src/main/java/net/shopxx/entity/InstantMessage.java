@@ -18,7 +18,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 /**
  * Entity - 即时通讯
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

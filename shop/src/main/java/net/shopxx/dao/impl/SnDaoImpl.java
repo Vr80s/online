@@ -26,7 +26,7 @@ import net.shopxx.util.FreeMarkerUtils;
 /**
  * Dao - 序列号
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

@@ -35,7 +35,7 @@ import net.shopxx.service.UserService;
 /**
  * Controller - 会员
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminMemberController")

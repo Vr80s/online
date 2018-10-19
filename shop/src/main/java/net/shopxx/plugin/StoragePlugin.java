@@ -21,7 +21,7 @@ import net.shopxx.service.PluginConfigService;
 /**
  * Plugin - 存储
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public abstract class StoragePlugin implements Comparable<StoragePlugin> {

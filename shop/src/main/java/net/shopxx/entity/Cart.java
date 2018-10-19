@@ -48,7 +48,7 @@ import net.shopxx.util.SystemUtils;
 /**
  * Entity - 购物车
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

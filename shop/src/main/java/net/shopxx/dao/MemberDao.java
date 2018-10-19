@@ -19,7 +19,7 @@ import net.shopxx.entity.MemberAttribute;
 /**
  * Dao - 会员
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface MemberDao extends BaseDao<Member, Long> {

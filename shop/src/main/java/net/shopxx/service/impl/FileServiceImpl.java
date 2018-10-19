@@ -34,7 +34,7 @@ import net.shopxx.util.SystemUtils;
 /**
  * Service - 文件
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

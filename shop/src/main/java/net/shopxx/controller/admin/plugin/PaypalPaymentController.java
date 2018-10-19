@@ -30,7 +30,7 @@ import net.shopxx.service.PluginConfigService;
 /**
  * Controller - Paypal
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminPluginPaypalPaymentController")

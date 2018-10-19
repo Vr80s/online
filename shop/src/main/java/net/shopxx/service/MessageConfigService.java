@@ -11,7 +11,7 @@ import net.shopxx.entity.MessageConfig;
 /**
  * Service - 消息配置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface MessageConfigService extends BaseService<MessageConfig, Long> {

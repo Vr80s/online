@@ -26,7 +26,7 @@ import net.shopxx.BaseAttributeConverter;
 /**
  * Entity - 参数
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity
@@ -123,7 +123,7 @@ public class Parameter extends OrderedEntity<Long> {
 	/**
 	 * 类型转换 - 参数名称
 	 * 
-	 * @author SHOP++ Team
+	 * @author ixincheng
 	 * @version 6.1
 	 */
 	@Converter

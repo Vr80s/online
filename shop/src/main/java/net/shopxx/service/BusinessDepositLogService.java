@@ -14,7 +14,7 @@ import net.shopxx.entity.BusinessDepositLog;
 /**
  * Service - 商家预存款记录
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface BusinessDepositLogService extends BaseService<BusinessDepositLog, Long> {

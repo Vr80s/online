@@ -25,7 +25,7 @@ import net.shopxx.service.AdminService;
 /**
  * Controller - 个人资料
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminProfileController")

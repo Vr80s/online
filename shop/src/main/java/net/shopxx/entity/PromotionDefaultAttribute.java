@@ -20,7 +20,7 @@ import javax.validation.constraints.Min;
 /**
  * Entity - 促销默认属性
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

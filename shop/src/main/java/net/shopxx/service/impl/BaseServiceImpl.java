@@ -31,7 +31,7 @@ import net.shopxx.service.BaseService;
 /**
  * Service - 基类
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Transactional

@@ -31,7 +31,7 @@ import net.shopxx.service.ProductCategoryService;
 /**
  * Controller - 属性
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminAttributeController")

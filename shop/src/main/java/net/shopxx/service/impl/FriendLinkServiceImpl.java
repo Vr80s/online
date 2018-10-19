@@ -24,7 +24,7 @@ import net.shopxx.service.FriendLinkService;
 /**
  * Service - 友情链接
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Service

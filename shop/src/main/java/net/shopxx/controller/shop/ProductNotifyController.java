@@ -28,7 +28,7 @@ import net.shopxx.service.SkuService;
 /**
  * Controller - 到货通知
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("shopProductNotifyController")

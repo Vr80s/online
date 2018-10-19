@@ -18,7 +18,7 @@ import net.shopxx.entity.Store;
 /**
  * Dao - 售后
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface AftersalesDao extends BaseDao<Aftersales, Long> {

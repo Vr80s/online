@@ -17,7 +17,7 @@ import net.shopxx.entity.Store;
 /**
  * Dao - 经营分类申请
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface CategoryApplicationDao extends BaseDao<CategoryApplication, Long> {

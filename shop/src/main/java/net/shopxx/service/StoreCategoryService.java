@@ -11,7 +11,7 @@ import net.shopxx.entity.StoreCategory;
 /**
  * Service - 店铺分类
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface StoreCategoryService extends BaseService<StoreCategory, Long> {

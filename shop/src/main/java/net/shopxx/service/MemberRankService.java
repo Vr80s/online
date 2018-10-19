@@ -13,7 +13,7 @@ import net.shopxx.entity.MemberRank;
 /**
  * Service - 会员等级
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface MemberRankService extends BaseService<MemberRank, Long> {

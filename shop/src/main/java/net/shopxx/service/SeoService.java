@@ -11,7 +11,7 @@ import net.shopxx.entity.Seo;
 /**
  * Service - SEO设置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface SeoService extends BaseService<Seo, Long> {

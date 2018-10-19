@@ -9,7 +9,7 @@ package net.shopxx.audit;
 /**
  * Audit - 审计者Provider
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface AuditorProvider<T> {

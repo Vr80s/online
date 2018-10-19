@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Entity - 消息配置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Entity

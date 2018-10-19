@@ -26,7 +26,7 @@ import net.shopxx.service.StatisticService;
 /**
  * Controller - 资金统计
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminFundStatisticController")

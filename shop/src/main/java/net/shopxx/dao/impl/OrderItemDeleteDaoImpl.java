@@ -25,7 +25,7 @@ import com.xczhihui.common.util.bean.ShareInfoVo;
 /**
  * Dao - 订单
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Repository

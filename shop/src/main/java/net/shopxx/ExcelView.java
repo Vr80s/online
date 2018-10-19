@@ -31,7 +31,7 @@ import org.springframework.web.servlet.view.AbstractView;
 /**
  * Excel视图
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class ExcelView extends AbstractView {

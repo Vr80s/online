@@ -14,7 +14,7 @@ import net.shopxx.entity.Distributor;
 /**
  * Service - 分销佣金
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface DistributionCommissionService extends BaseService<DistributionCommission, Long> {

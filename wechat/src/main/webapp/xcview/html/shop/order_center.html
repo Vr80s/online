@@ -246,6 +246,8 @@
 					
 					<div class="fack_shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
 					<div class="delete_order" data-id="{{item.id}}" style="border: 1px solid #DEDEDE;color: #333333;">删除订单</div>
+					{{else if item.status == 'DENIED'}}
+					<div class="fack_shipped_cancel_order" onclick='againBuy("{{item.sn}}")'>再次购买</div>
 					{{/if}}
 				</div>
 			</div>

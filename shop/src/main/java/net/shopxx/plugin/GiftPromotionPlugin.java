@@ -26,7 +26,7 @@ import net.shopxx.entity.Store;
 /**
  * Plugin - 赠品
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Component("giftPromotionPlugin")
@@ -71,7 +71,7 @@ public class GiftPromotionPlugin extends PromotionPlugin {
 	/**
 	 * 赠品属性
 	 * 
-	 * @author SHOP++ Team
+	 * @author ixincheng
 	 * @version 6.1
 	 */
 	@Entity(name = "GiftAttribute")

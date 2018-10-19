@@ -12,7 +12,7 @@ import net.shopxx.entity.Member;
 /**
  * Service - 分销员
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface DistributorService extends BaseService<Distributor, Long> {

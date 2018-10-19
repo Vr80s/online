@@ -30,7 +30,7 @@ import net.shopxx.service.PluginConfigService;
 /**
  * Controller - 财付通(网银直连)
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminPluginTenpayBankPaymentController")

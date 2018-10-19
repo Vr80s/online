@@ -30,7 +30,7 @@ import net.shopxx.service.ProductCategoryService;
 /**
  * Controller - 参数
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminParameterController")

@@ -25,7 +25,7 @@ import net.shopxx.exception.UnauthorizedException;
 /**
  * ControllerAdvice - 基类
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @ControllerAdvice("net.shopxx.controller")

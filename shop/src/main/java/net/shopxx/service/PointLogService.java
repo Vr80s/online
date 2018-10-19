@@ -14,7 +14,7 @@ import net.shopxx.entity.PointLog;
 /**
  * Service - 积分记录
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface PointLogService extends BaseService<PointLog, Long> {

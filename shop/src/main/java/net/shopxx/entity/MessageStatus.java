@@ -20,7 +20,7 @@ import net.shopxx.entity.BaseEntity.BaseView;
 /**
  * Entity - 消息状态
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Embeddable

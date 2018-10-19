@@ -17,7 +17,7 @@ import org.apache.commons.lang.time.DateUtils;
 /**
  * Editor - 日期
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public class DateEditor extends PropertyEditorSupport {

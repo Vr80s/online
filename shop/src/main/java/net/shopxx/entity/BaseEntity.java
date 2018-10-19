@@ -37,7 +37,7 @@ import net.shopxx.audit.LastModifiedDate;
 /**
  * Entity - 基类
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @EntityListeners(AuditingEntityListener.class)

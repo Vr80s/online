@@ -16,7 +16,7 @@ import net.shopxx.entity.Store;
 /**
  * Service - 商品分类
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface ProductCategoryService extends BaseService<ProductCategory, Long> {

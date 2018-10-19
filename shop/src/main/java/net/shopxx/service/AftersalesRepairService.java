@@ -11,7 +11,7 @@ import net.shopxx.entity.AftersalesRepair;
 /**
  * Service - 维修
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 public interface AftersalesRepairService extends BaseService<AftersalesRepair, Long> {

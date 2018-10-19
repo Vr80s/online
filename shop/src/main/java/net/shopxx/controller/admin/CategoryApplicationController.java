@@ -23,7 +23,7 @@ import net.shopxx.service.CategoryApplicationService;
 /**
  * Controller - 经营分类申请
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminCategoryApplicationController")

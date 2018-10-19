@@ -24,7 +24,7 @@ import net.shopxx.service.ArticleTagService;
 /**
  * Controller - 文章标签
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("adminArticleTagController")

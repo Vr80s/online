@@ -34,7 +34,7 @@ import net.shopxx.service.ShippingMethodService;
 /**
  * Controller - 地区运费配置
  * 
- * @author SHOP++ Team
+ * @author ixincheng
  * @version 6.1
  */
 @Controller("businessAreaFreightConfigController")
