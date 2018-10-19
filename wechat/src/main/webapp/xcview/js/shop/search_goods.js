@@ -36,7 +36,7 @@ $(function() {
 
 				// 点击搜索按钮
 				$(".header_cancel").click(function() {
-					if ($(".div_span_input").html() == "" && $("#header_input").val() == "") {
+					if ($("#header_input").val() == "") {
 						jqtoast("请输入搜索关键字");
 					} else {
 						var search_val = $("#header_input").val();
@@ -85,7 +85,7 @@ $(function() {
 
 				//      点击yinput  失去焦点隐藏默认值
 				$("#header_input").keyup(function() {
-					if ($(".div_span_input").html() == "" && $("#header_input").val() == "") {
+					if ($("#header_input").val() == "") {
 						jqtoast("请输入搜索关键字");
 					} else {
 						var search_val = $(this).val()
