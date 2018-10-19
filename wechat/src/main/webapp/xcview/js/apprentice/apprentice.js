@@ -44,7 +44,11 @@ function completeCourseList(pageNumber,pageSize,downOrUp) {
         }
         
         mui("#refreshContainer").on('tap','.onclick_healthy',function(){
+            if(localStorage.getItem("healthy.result") != null){
+                location.href = "/xcview/html/shop/healthy-result.html"
+            }else{
                 location.href ='/xcview/html/shop/healthy-home.html'
+            }
         });
 
         mui("#refreshContainer").on('tap','.onclick_li',function(){
