@@ -238,7 +238,8 @@ header{
 }
 .list .title{
 	width: 3.3rem;
-	height: 0.74rem;
+	height: 0.4rem;
+	line-height: .74rem;
 	margin: 0 auto;
 	margin-bottom: .2rem;
 	display: -webkit-box;
