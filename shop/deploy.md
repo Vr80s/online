@@ -9,6 +9,8 @@
 
 	ALTER TABLE `product` ADD `recommentContent` int(11) DEFAULT NULL COMMENT '医师推荐内容';
 	
+	ALTER TABLE `product` ADD `defaultSales` int(11) DEFAULT 0 COMMENT '默认销量'  AFTER `sales`;
+	
 2、用户表中增加用户头像字段	
 
     ALTER TABLE `users` ADD `headPhoto` varchar(255) DEFAULT NULL COMMENT '用户头像' AFTER `username`;

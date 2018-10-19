@@ -851,6 +851,9 @@
 						"sku.stock": {
 							required: true,
 							digits: true
+						},
+						"defaultSales": {
+							digits: true
 						}
 					},
 					messages: {
@@ -1142,6 +1145,12 @@
 									<label class="col-xs-3 col-sm-2 control-label" for="keyword">${message("Product.keyword")}:</label>
 									<div class="col-xs-9 col-sm-4" title="${message("business.product.keywordTitle")}" data-toggle="tooltip">
 										<input id="keyword" name="keyword" class="form-control" type="text" maxlength="200">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-xs-3 col-sm-2 control-label" for="defaultSales">默认销量值:</label>
+									<div class="col-xs-9 col-sm-4" title="默认销量值" data-toggle="tooltip">
+										<input id="defaultSales" name="defaultSales" class="form-control" type="text" maxlength="9">
 									</div>
 								</div>
 							</div>

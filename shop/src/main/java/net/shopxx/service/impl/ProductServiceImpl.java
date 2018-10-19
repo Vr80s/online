@@ -460,9 +460,17 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		product.setHits(0L);
 		product.setWeekHits(0L);
 		product.setMonthHits(0L);
-		product.setSales(0L);
-		product.setWeekSales(0L);
-		product.setMonthSales(0L);
+
+		if(product.getDefaultSales()!=null) {
+			product.setSales(product.getDefaultSales());
+			product.setWeekSales(product.getDefaultSales());
+			product.setMonthSales(product.getDefaultSales());
+		}else {
+			product.setSales(0L);
+			product.setWeekSales(0L);
+			product.setMonthSales(0L);
+		}
+		
 		product.setWeekHitsDate(new Date());
 		product.setMonthHitsDate(new Date());
 		product.setWeekSalesDate(new Date());
@@ -568,9 +576,18 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		product.setHits(0L);
 		product.setWeekHits(0L);
 		product.setMonthHits(0L);
-		product.setSales(0L);
-		product.setWeekSales(0L);
-		product.setMonthSales(0L);
+		
+		
+		if(product.getDefaultSales()!=null) {
+			product.setSales(product.getDefaultSales());
+			product.setWeekSales(product.getDefaultSales());
+			product.setMonthSales(product.getDefaultSales());
+		}else {
+			product.setSales(0L);
+			product.setWeekSales(0L);
+			product.setMonthSales(0L);
+		}
+		
 		product.setWeekHitsDate(new Date());
 		product.setMonthHitsDate(new Date());
 		product.setWeekSalesDate(new Date());
@@ -602,6 +619,13 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		Assert.state(!sku.hasSpecification(), "[Assertion failed] - sku must not have specification");
 
 		Product pProduct = productDao.find(product.getId());
+		
+		if(product.getDefaultSales()!=null) {
+			product.setSales(pProduct.getSales()+product.getDefaultSales());
+			product.setWeekSales(pProduct.getWeekSales()+product.getDefaultSales());
+			product.setMonthSales(pProduct.getWeekSales()+product.getDefaultSales());
+		}
+		
 		switch (pProduct.getType()) {
 		case GENERAL:
 			sku.setExchangePoint(0L);
@@ -663,8 +687,11 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		product.setCost(sku.getCost());
 		product.setMarketPrice(sku.getMarketPrice());
 		product.setMaxCommission(sku.getMaxCommission().compareTo(sku.getPrice()) > 0 ? BigDecimal.ZERO : sku.getMaxCommission());
+		
+		
+		
 		setValue(product);
-		copyProperties(product, pProduct, "sn", "type", "score", "totalScore", "scoreCount", "hits", "weekHits", "monthHits", "sales", "weekSales", "monthSales", "weekHitsDate", "monthHitsDate", "weekSalesDate", "monthSalesDate", "reviews", "consultations", "productFavorites", "skus", "store");
+		copyProperties(product, pProduct, "sn", "type", "score", "totalScore", "scoreCount", "hits", "weekHits", "monthHits", "weekHitsDate", "monthHitsDate", "weekSalesDate", "monthSalesDate", "reviews", "consultations", "productFavorites", "skus", "store");
 
 		return pProduct;
 	}
@@ -701,6 +728,13 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		}
 
 		Product pProduct = productDao.find(product.getId());
+		
+		if(product.getDefaultSales()!=null) {
+			product.setSales(pProduct.getSales()+product.getDefaultSales());
+			product.setWeekSales(pProduct.getWeekSales()+product.getDefaultSales());
+			product.setMonthSales(pProduct.getWeekSales()+product.getDefaultSales());
+		}
+		
 		for (Sku sku : skus) {
 			switch (pProduct.getType()) {
 			case GENERAL:
@@ -785,7 +819,8 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
 		product.setMarketPrice(defaultSku.getMarketPrice());
 		product.setMaxCommission(defaultSku.getMaxCommission().compareTo(defaultSku.getPrice()) > 0 ? BigDecimal.ZERO : defaultSku.getMaxCommission());
 		setValue(product);
-		copyProperties(product, pProduct, "sn", "type", "score", "totalScore", "scoreCount", "hits", "weekHits", "monthHits", "sales", "weekSales", "monthSales", "weekHitsDate", "monthHitsDate", "weekSalesDate", "monthSalesDate", "reviews", "consultations", "productFavorites", "skus", "store");
+		copyProperties(product, pProduct, 
+				"sn", "type", "score", "totalScore", "scoreCount", "hits", "weekHits", "monthHits", "weekHitsDate", "monthHitsDate", "weekSalesDate", "monthSalesDate", "reviews", "consultations", "productFavorites", "skus", "store");
 
 		return pProduct;
 	}
