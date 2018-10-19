@@ -666,6 +666,9 @@ public class Product extends BaseEntity<Long> {
     @Column
     private Long defaultSales;
     
+    @Column
+    private Long totalSales;
+    
     
     /**
      * 获取编号
@@ -1881,6 +1884,15 @@ public class Product extends BaseEntity<Long> {
 
 	public void setDefaultSales(Long defaultSales) {
 		this.defaultSales = defaultSales;
+	}
+
+	
+	public Long getTotalSales() {
+		return totalSales;
+	}
+
+	public void setTotalSales(Long totalSales) {
+		this.totalSales = totalSales;
 	}
 
 	/**
