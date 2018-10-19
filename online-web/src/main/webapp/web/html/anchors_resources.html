@@ -2273,9 +2273,9 @@
 							</p>
 							<p class="order-search-num">
 								<span class="left-tip">下单时间</span>
-								<input class="order-write-num time-start" type="text" readonly="value" onchange="myFunction()" />
+								<input class="order-write-num time-start" type="text" readonly="value" onchange="myFunction()" placeholder="开始时间" />
 								<span>至</span>
-								<input class="order-write-num time-end" type="text" readonly="value" onchange="changeStyle()" />
+								<input class="order-write-num time-end" type="text" readonly="value" onchange="changeStyle()" placeholder="结束时间" />
 								<span class="select-before-time date-seven" data-time="7">近7天</span>
 								<span class="select-before-time data-before" data-time="30" style="margin-left: 10px;">近30天</span>
 							</p>
@@ -2327,7 +2327,7 @@
 																<img src="{{order.thumbnail}}"/>
 															</div>
 															<div class="goods-inf-name y">
-																<p>{{order.name}}</p>
+																<p><a href="/web/html/anchors_preview.html?productId={{order.sku.id}}" target="_blank">{{order.name}}</a></p>
 																<span>&yen; {{order.price}}</span>
 															</div>
 															<div class="select-order-num y">
@@ -2405,7 +2405,7 @@
 																	<img src="{{mode.thumbnail}}"/>
 																</div>
 																<div class="goods-inf-name y">
-																	<p>{{mode.name}}</p>
+																	<p><a href="/web/html/anchors_preview.html?productId={{mode.sku.id}}" target="_blank">{{mode.name}}</a></p>
 																	<span>&yen; 22</span>
 																</div>
 																<div class="select-order-num y">

@@ -625,7 +625,12 @@ $(".find_nav_list").on('touchmove', function (e) {
   			 	
   			 	//点击线下课
 				if(title==4){
-					$(".all_mold3").show();
+					var citys =  $(".all_mold3 .all_right_type_one");
+					if(citys!=null && citys.length>0){
+						$(".all_mold3").show();
+					}else{
+						$(".all_mold3").hide();
+					}
 				}else{
 					$(".all_mold3").hide();	
 					//清空城市

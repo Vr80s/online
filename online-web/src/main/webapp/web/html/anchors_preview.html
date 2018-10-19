@@ -46,7 +46,11 @@
 					<h3 class="ware-title">{{item.name}}</h3>
 					<p class="ware-price">
 						<span class="ware-price-num z">&yen; {{item.price}}</span>
-						<span class="ware-original z"><del>&yen; {{item.marketprice}}</del\></span>
+						<span class="ware-original z">
+							{{if item.marketprice>item.price}}
+							<del>&yen; {{item.marketprice}}</del\>
+							{{/if}}
+						</span>
 						<span class="sold-goods y">已售{{item.sales}}件</span>
 					</p>
 				</script>

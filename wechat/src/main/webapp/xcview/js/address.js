@@ -67,6 +67,7 @@
         if(type=='2'){
         	
         	if(types=='4'){
+//      		window.history.go(-1);
 	            window.history.go(-3);
 	        }else{
 				//window.history.back();

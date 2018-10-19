@@ -36,14 +36,19 @@
 			getQuId="";	
 //	如果省的value不为请选择时
 		if(getProviceId != 0){
-			$(".input-group .shi").removeClass("hide");
 			requestService("/xczh/shop/area?parentId="+getProviceId,null, function(data) {
 				var str;
 				var city=data.resultObject;
-				for(var i=0; i<city.length;i++){
-					str+="<option value="+city[i].value+">"+city[i].name+"</option>";
+				if(city != null && city.length != 0){
+					$(".input-group .shi").removeClass("hide");
+					for(var i=0; i<city.length;i++){
+						str+="<option value="+city[i].value+">"+city[i].name+"</option>";
+					}
+					$(".input-group .shi").html('<option value="0">请选择</option>'+str);
+				}else{
+					$(".input-group .shi").addClass("hide");
 				}
-				$(".input-group .shi").html('<option value="0">请选择</option>'+str);
+				
 			})
 		}else{
 			$(".input-group .shi").addClass("hide");
@@ -89,6 +94,32 @@
 	 /**
 	  * 修改地址
 	  */
+	 $(".update_address_return").click(function(){
+//		alert(location.href);
+//		location.href ='address.html';
+//		history.go(-1);
+		
+		function getQueryString(name){
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r!=null) return r[2];else return'';
+        }
+		
+        var type = getQueryString('type');
+        var types = getQueryString('types');
+        if(type=='2'){
+        	
+        	location.href ='address.html?type='+ type+"&types=4";
+        }else if(type=='3'){
+            location.replace("/xcview/html/persons.html");
+        }
+        getQueryString('name');
+		
+		
+		
+		
+	})
+	 
 	 var isTrue=true;
 
 	 function editAddress(addressId){
@@ -110,8 +141,6 @@
 				    	$(".sheng").removeClass("hide");
 				    	$(".shi").removeClass("hide");
 				    	$(".qu").removeClass("hide");
-
-
 						$(".input-group .sheng").val(arrProvice[1]);
 
 
@@ -166,6 +195,12 @@
 	
 				    		getCityId=provice.id;
 				    	})
+				    }else if(arrProvice.length==2){
+				    	$(".sheng").removeClass("hide");
+				    	$(".shi").addClass("hide");
+				    	$(".qu").addClass("hide");
+						$(".input-group .sheng").val(provice.id);
+						getProviceId=provice.id;
 				    }
 				 
 				    //var cityp = umv.provinces+" "+ umv.city
@@ -235,14 +270,16 @@
 		if($(".sheng").val()=="请选择"){
 			webToast("请完善所在地区","middle",1500);
 			return false;
-		}else if($(".shi").val()=="请选择"){
+		}else if($(".shi").val()=="请选择" && $(".shi").hasClass("hide")==false){
 			webToast("请完善所在地区","middle",1500);
 			return false;
-		}else if($(".qu").hasClass("hide")){
-			areaId=getCityId;
 		}else if($(".qu").hasClass("hide")==false && $(".qu").val()=="请选择"){
 			webToast("请完善所在地区","middle",1500);
 			return false;
+		}else if($(".qu").hasClass("hide")==true && $(".shi").hasClass("hide")==false){
+			areaId=getCityId;
+		}else if($(".qu").hasClass("hide")==true && $(".shi").hasClass("hide")==true){
+			areaId=getProviceId;
 		}
 		
 		
