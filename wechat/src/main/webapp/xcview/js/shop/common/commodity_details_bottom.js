@@ -8,17 +8,18 @@ var shoppingFlag = 2;
 // 点击加入购物车
 $('.add_cart').click(function(){
     shoppingFlag = 1;
-    emptySpecification();
-    
+    // emptySpecification();
+    defaultSpecification();
     tokenCheck();
     
 //  $('.shopping_trolley').show();
 });
 // 点击立即购买
 $('.buy_now').click(function(){
+	debugger
     shoppingFlag = 2;
-    emptySpecification();
-    
+    // emptySpecification();
+    defaultSpecification();
     tokenCheck();
     
 //  $('.shopping_trolley').show();
@@ -49,6 +50,19 @@ function emptySpecification(){
     $(".specification").removeClass("showfalg");
     $(".specification").addClass("hide");
     $(".specification_name").removeClass("hide");
+}
+
+function defaultSpecification(){
+	if($(".casing").hasClass("public"))return;
+	var skuList = productDetailsObj.skuVOs;
+    for(var i=0;i < skuList.length;i++){
+    	if(skuList[i].stock > 0){
+    		for(var j=0;j<skuList[i].specificationValueIds.length;j++){
+                $(".casing-"+skuList[i].specificationValueIds[j]).click();
+            }
+            break;
+		}
+	}
 }
 
 //选择商品后，点击确定

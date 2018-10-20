@@ -479,7 +479,7 @@
 					<ul class="specifications_ul" >
 						{{each items.entries as itemss i}}
 						    {{if itemss.isSelected}}					
-								<li class="casing include" title="{{items.name}}" data-id="{{itemss.id}}" data-ids="{{items.id}}">{{itemss.value}}</li>
+								<li class="casing include casing-{{itemss.id}}" title="{{items.name}}" data-id="{{itemss.id}}" data-ids="{{items.id}}">{{itemss.value}}</li>
 						    {{/if}}	
 						{{/each}}
 					</ul>
