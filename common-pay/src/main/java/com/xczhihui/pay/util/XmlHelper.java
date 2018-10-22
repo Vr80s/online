@@ -36,6 +36,22 @@ public class XmlHelper {
 
     private XmlHelper(InputSource inputSource) throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory dbf = getDocumentBuilderFactory();
+
+        /*XXE防御代码---start*/
+        String FEATURE = null;
+        FEATURE = "http://apache.org/xml/features/disallow-doctype-decl";
+        dbf.setFeature(FEATURE, true);
+        FEATURE = "http://xml.org/sax/features/external-general-entities";
+        dbf.setFeature(FEATURE, false);
+        FEATURE = "http://xml.org/sax/features/external-parameter-entities";
+        dbf.setFeature(FEATURE, false);
+        FEATURE = "http://apache.org/xml/features/nonvalidating/load-external-dtd";
+        dbf.setFeature(FEATURE, false);
+        dbf.setXIncludeAware(false);
+        dbf.setExpandEntityReferences(false);
+        System.out.println("XXE防御代码");
+        /*XXE防御代码---end*/
+
         DocumentBuilder db = dbf.newDocumentBuilder();
         doc = db.parse(inputSource);
         path = getXPathFactory().newXPath();
